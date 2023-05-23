@@ -622,6 +622,55 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
+        #region HydraulicBoundaryData
+
+        [Test]
+        public void GivenAssessmentSection_WhenSourceAssessmentSectionHydraulicBoundaryDatabaseNotInTargetAssessmentSection_ThenHydraulicBoundaryDatabasesMerged()
+        {
+            // Given
+            HydraulicBoundaryLocation[] targetSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            HydraulicBoundaryLocation[] sourceSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetSectionLocations);
+            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
+
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
+            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
+
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+                                              .WhenCalled(invocation =>
+                                              {
+                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
+                                              })
+                                              .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        # endregion
+
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -661,7 +710,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             return new AssessmentSectionMergeData.ConstructionProperties();
         }
 
-        #region HydraulicBoundaryData
+        #region HydraulicBoundaryLocationCalculations
 
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
@@ -1136,51 +1185,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHydraulicBoundaryDatabaseNotInTargetAssessmentSection_ThenHydraulicBoundaryDatabasesMerged()
-        {
-            // Given
-            HydraulicBoundaryLocation[] targetSectionLocations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            HydraulicBoundaryLocation[] sourceSectionLocations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetSectionLocations);
-            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
-
-            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
-            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
-            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
-
-            var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
-                                              .WhenCalled(invocation =>
-                                              {
-                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
-                                              })
-                                              .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            // When
-            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                     sourceAssessmentSection, CreateDefaultConstructionProperties()),
-                                 hydraulicBoundaryDataUpdateHandler);
-
-            // Then
-            mocks.VerifyAll();
-        }
-
         private static void SetOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, bool illustrationPoints = false)
         {
             foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
@@ -1207,7 +1211,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
         #endregion
 
-        #region DuneLocations
+        #region DuneLocationCalculations
 
         [Test]
         public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged()
@@ -1498,51 +1502,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreEqual(0.01, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).TargetProbability);
             Assert.IsTrue(duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).DuneLocationCalculations.All(c => c.Output != null));
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHydraulicBoundaryDatabaseNotInTargetAssessmentSection_ThenHydraulicBoundaryDatabasesMerged()
-        {
-            // Given
-            HydraulicBoundaryLocation[] targetSectionLocations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            HydraulicBoundaryLocation[] sourceSectionLocations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetSectionLocations);
-            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
-
-            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
-            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
-            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
-
-            var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
-                                              .WhenCalled(invocation =>
-                                              {
-                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
-                                              })
-                                              .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            // When
-            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                     sourceAssessmentSection, CreateDefaultConstructionProperties()),
-                                 hydraulicBoundaryDataUpdateHandler);
-
-            // Then
             mocks.VerifyAll();
         }
 
