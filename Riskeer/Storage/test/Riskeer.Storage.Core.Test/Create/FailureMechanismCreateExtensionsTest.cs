@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Create
     [TestFixture]
     public class FailureMechanismCreateExtensionsTest
     {
-        # region FailureMechanism
+        #region FailureMechanism
 
         [Test]
         public void CreateForFailureMechanism_RegistryNull_ThrowsArgumentNullException()
@@ -192,7 +192,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
         #endregion
 
-        # region CalculatableFailureMechanism
+        #region CalculatableFailureMechanism
 
         [Test]
         public void CreateForCalculatableFailureMechanism_RegistryNull_ThrowsArgumentNullException()

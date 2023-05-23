@@ -641,7 +641,7 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        # region Assembly
+        #region Assembly
 
         [Test]
         public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc()

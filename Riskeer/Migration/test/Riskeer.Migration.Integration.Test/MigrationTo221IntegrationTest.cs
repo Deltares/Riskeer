@@ -925,7 +925,7 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        # region GrassCoverErosionInwards
+        #region GrassCoverErosionInwards
 
         private static void AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
@@ -1096,7 +1096,7 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        # region GrassCoverErosionOutwards
+        #region GrassCoverErosionOutwards
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {

@@ -669,8 +669,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
-        # endregion
-
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -1518,6 +1516,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 calculation.Output = new TestDuneLocationCalculationOutput();
             }
         }
+
+        #endregion
 
         #endregion
     }

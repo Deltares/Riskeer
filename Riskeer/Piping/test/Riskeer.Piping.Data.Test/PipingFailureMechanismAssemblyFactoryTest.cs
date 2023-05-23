@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test
     [TestFixture]
     public class PipingFailureMechanismAssemblyFactoryTest
     {
-        # region AssembleSection
+        #region AssembleSection
 
         [Test]
         public void AssembleSection_SectionResultNull_ThrowsArgumentNullException()
