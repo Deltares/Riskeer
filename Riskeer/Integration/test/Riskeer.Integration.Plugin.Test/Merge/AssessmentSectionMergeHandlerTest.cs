@@ -35,6 +35,8 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
@@ -1016,7 +1018,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenEqualCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenObserversNotNotified()
+        public void GivenEqualHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenObserversNotNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -1065,7 +1067,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenDifferentCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenCalculationsMergedAndObserversNotified()
+        public void GivenDifferentHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenCalculationsMergedAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -1190,6 +1192,536 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                                                 .SelectMany(c => c.HydraulicBoundaryLocationCalculations)));
+        }
+
+        #endregion
+
+        #region DuneLocations
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutput_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(sourceCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(sourceCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations, true);
+            SetOutput(sourceCalculations);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsMerged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations, true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutputAndIllustrationPoints_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations, true);
+            SetOutput(sourceCalculations, true);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void PerformMerge_DuneLocationCalculationsMerged_ObserversNotifiedAndMessageLogged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations, true);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Call
+            void Call() => handler.PerformMerge(targetAssessmentSection,
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                                hydraulicBoundaryDataUpdateHandler);
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void PerformMerge_DuneLocationCalculationsNotMerged_ObserversNotNotifiedAndMessageLogged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var observer = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations);
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Call
+            void Call() => handler.PerformMerge(targetAssessmentSection,
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                                hydraulicBoundaryDataUpdateHandler);
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEqualDuneLocationCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenObserversNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var observer = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            var targetLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            var sourceLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
+
+            targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+            targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
+                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(1, waterLevelTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
+
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
+                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenDifferentDuneLocationCalculationsForUserDefinedTargetProbabilities_WhenMerging_ThenCalculationsMergedAndObserversNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            var targetLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            var sourceLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations, 0.01);
+
+            SetOutput(sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
+            SetOutput(sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
+
+            targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+            targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
+                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(2, waterLevelTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
+            Assert.AreEqual(0.01, waterLevelTargetProbabilities.ElementAt(1).TargetProbability);
+            Assert.IsTrue(waterLevelTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(waterLevelTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
+
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
+                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(2, waveHeightTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+            Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
+            Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHydraulicBoundaryDatabaseNotInTargetAssessmentSection_ThenHydraulicBoundaryDatabasesMerged()
+        {
+            // Given
+            HydraulicBoundaryLocation[] targetSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            HydraulicBoundaryLocation[] sourceSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetSectionLocations);
+            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
+
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
+            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
+
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+                                              .WhenCalled(invocation =>
+                                              {
+                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
+                                              })
+                                              .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        private static void SetOutput(IEnumerable<DuneLocationCalculation> calculations)
+        {
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                calculation.Output = new TestDuneLocationCalculationOutput();
+            }
         }
 
         #endregion
