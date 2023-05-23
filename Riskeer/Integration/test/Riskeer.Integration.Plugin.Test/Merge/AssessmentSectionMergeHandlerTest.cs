@@ -1229,8 +1229,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
@@ -1274,8 +1274,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations);
@@ -1324,8 +1324,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(sourceCalculations);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
@@ -1369,8 +1369,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations, true);
             SetOutput(sourceCalculations);
@@ -1416,8 +1416,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations, true);
@@ -1461,8 +1461,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations, true);
             SetOutput(sourceCalculations, true);
@@ -1513,8 +1513,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
 
@@ -1554,8 +1554,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
-            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
+            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
 
@@ -1725,6 +1725,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<DuneLocationCalculation> GetDuneLocationCalculations(AssessmentSection assessmentSection)
+        {
+            return assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                    .SelectMany(c => c.DuneLocationCalculations);
         }
 
         private static void SetOutput(IEnumerable<DuneLocationCalculation> calculations)
