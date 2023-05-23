@@ -1231,14 +1231,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(targetCalculations);
-            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output != null));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output == null));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -1246,9 +1244,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output != null));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output == null));
             mocks.VerifyAll();
         }
 
@@ -1275,16 +1272,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations);
-            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output != null));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output != null));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -1292,11 +1285,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output != null));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output != null));
             mocks.VerifyAll();
         }
 
@@ -1322,15 +1312,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
 
             SetOutput(sourceCalculations);
-            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => !c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-            Assert.IsTrue(sourceCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output == null));
+            Assert.IsTrue(sourceCalculations.All(c => c.Output != null));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -1338,144 +1325,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsNotChanged()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            HydraulicBoundaryLocation[] locations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
-            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
-
-            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
-            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
-
-            SetOutput(targetCalculations, true);
-            SetOutput(sourceCalculations);
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
-
-            // When
-            handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
-                                 hydraulicBoundaryDataUpdateHandler);
-
-            // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsMerged()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            HydraulicBoundaryLocation[] locations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
-            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
-
-            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
-            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
-
-            SetOutput(targetCalculations);
-            SetOutput(sourceCalculations, true);
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
-
-            // When
-            handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
-                                 hydraulicBoundaryDataUpdateHandler);
-
-            // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutputAndIllustrationPoints_ThenCalculationsNotChanged()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            HydraulicBoundaryLocation[] locations =
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
-            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
-
-            IEnumerable<DuneLocationCalculation> targetCalculations = GetDuneLocationCalculations(targetAssessmentSection);
-            IEnumerable<DuneLocationCalculation> sourceCalculations = GetDuneLocationCalculations(sourceAssessmentSection);
-
-            SetOutput(targetCalculations, true);
-            SetOutput(sourceCalculations, true);
-            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-
-            // When
-            handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
-                                 hydraulicBoundaryDataUpdateHandler);
-
-            // Then
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => c.Output != null));
             mocks.VerifyAll();
         }
 
@@ -1505,7 +1355,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
 
             SetOutput(targetCalculations);
-            SetOutput(sourceCalculations, true);
+            SetOutput(sourceCalculations);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
