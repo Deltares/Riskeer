@@ -1210,9 +1210,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         #region DuneLocations
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1255,9 +1253,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutput_ThenCalculationsNotChanged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutput_ThenCalculationsNotChanged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1305,9 +1301,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1350,9 +1344,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsNotChanged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenTargetAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsNotChanged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1397,9 +1389,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsMerged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenSourceAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsMerged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1442,9 +1432,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutputAndIllustrationPoints_ThenCalculationsNotChanged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void GivenAssessmentSectionWithDuneLocationCalculations_WhenBothAssessmentSectionsHaveOutputAndIllustrationPoints_ThenCalculationsNotChanged()
         {
             // Given
             var mocks = new MockRepository();
@@ -1492,9 +1480,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void PerformMerge_DuneLocationCalculationsMerged_ObserversNotifiedAndMessageLogged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void PerformMerge_DuneLocationCalculationsMerged_ObserversNotifiedAndMessageLogged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1534,9 +1520,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void PerformMerge_DuneLocationCalculationsNotMerged_ObserversNotNotifiedAndMessageLogged(
-            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        public void PerformMerge_DuneLocationCalculationsNotMerged_ObserversNotNotifiedAndMessageLogged()
         {
             // Setup
             var mocks = new MockRepository();
