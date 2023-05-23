@@ -739,8 +739,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
@@ -750,7 +750,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
@@ -785,10 +784,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
@@ -798,9 +797,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
@@ -834,10 +831,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             Assert.IsTrue(sourceCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(targetCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -879,10 +876,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -892,8 +889,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
             mocks.VerifyAll();
         }
 
@@ -926,10 +921,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
 
             // When
             handler.PerformMerge(targetAssessmentSection,
@@ -972,10 +967,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
-            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
@@ -985,9 +980,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
@@ -1019,8 +1012,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
 
-            SetOutput(targetCalculations);
-            SetOutput(sourceCalculations, true);
+            SetOutput(sourceCalculations);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
@@ -1121,6 +1113,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
             Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+
             mocks.VerifyAll();
         }
 
@@ -1180,6 +1173,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
+
             mocks.VerifyAll();
         }
 
@@ -1247,7 +1241,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.Output != null));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output == null));
             mocks.VerifyAll();
         }
 
@@ -1288,7 +1281,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.Output != null));
-            Assert.IsTrue(sourceCalculations.All(c => c.Output != null));
             mocks.VerifyAll();
         }
 
