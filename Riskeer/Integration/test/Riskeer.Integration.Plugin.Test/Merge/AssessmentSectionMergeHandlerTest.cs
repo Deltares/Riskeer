@@ -633,6 +633,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 WaveHeightCalculationsForUserDefinedTargetProbabilities =
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+                },
+                DuneErosion =
+                {
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        new DuneLocationCalculationsForTargetProbability(targetProbability)
+                    }
                 }
             };
 
@@ -640,7 +647,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             hydraulicBoundaryDatabase.Locations.AddRange(locations);
 
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+
+            assessmentSection.DuneErosion.SetDuneLocations(
+                locations.Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties())));
 
             return assessmentSection;
         }
