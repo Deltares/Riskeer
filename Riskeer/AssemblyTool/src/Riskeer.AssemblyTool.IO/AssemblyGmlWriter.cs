@@ -102,7 +102,6 @@ namespace Riskeer.AssemblyTool.IO
                 WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assessmentProcess.Id));
 
                 WriteFailureMechanisms(assessmentSection.FailureMechanisms, assessmentSectionAssembly.Id);
-                WriteCombinedSectionAssemblies(assessmentSection.CombinedSectionAssemblies, assessmentSectionAssembly.Id);
                 WriteFailureMechanismSectionCollections(assessmentSection.FailureMechanismSectionCollections);
 
                 writer.WriteEndElement();
@@ -254,52 +253,6 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteCombinedSectionAssemblies(IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblies, string assessmentSectionAssemblyId)
-        {
-            foreach (ExportableCombinedSectionAssembly combinedSectionAssembly in combinedSectionAssemblies)
-            {
-                WriteFeatureMember(() => WriteCombinedSectionAssembly(combinedSectionAssembly, assessmentSectionAssemblyId));
-
-                foreach (ExportableFailureMechanismCombinedSectionAssemblyResult failureMechanismResult in combinedSectionAssembly.FailureMechanismResults)
-                {
-                    WriteFeatureMember(() => WriteCombinedSectionAssemblyFailureMechanismResult(failureMechanismResult, combinedSectionAssembly.Id));
-                }
-            }
-        }
-
-        private void WriteCombinedSectionAssembly(ExportableCombinedSectionAssembly combinedSectionAssembly, string assessmentSectionAssemblyId)
-        {
-            WriteStartElementWithId(AssemblyXmlIdentifiers.CombinedFailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace,
-                                    combinedSectionAssembly.Id);
-
-            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssembly.AssemblyGroup));
-            writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssembly.AssemblyGroupAssemblyMethod));
-            writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
-
-            WriteLink(AssemblyXmlIdentifiers.Specifies, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssemblyId);
-            WriteLink(AssemblyXmlIdentifiers.AppliesTo, AssemblyXmlIdentifiers.UboiNamespace, combinedSectionAssembly.Section.Id);
-
-            writer.WriteEndElement();
-        }
-
-        private void WriteCombinedSectionAssemblyFailureMechanismResult(ExportableFailureMechanismCombinedSectionAssemblyResult failureMechanismResult, string combinedSectionAssemblyResultId)
-        {
-            writer.WriteStartElement(AssemblyXmlIdentifiers.CombinedFailureMechanismSectionResult, AssemblyXmlIdentifiers.UboiNamespace);
-
-            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.AssemblyGroup));
-            writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.AssemblyMethod));
-            writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
-
-            WriteLink(AssemblyXmlIdentifiers.DerivedFrom, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismResult.FailureMechanismSectionResult.Id);
-            WriteLink(AssemblyXmlIdentifiers.Indicates, AssemblyXmlIdentifiers.UboiNamespace, combinedSectionAssemblyResultId);
-
-            writer.WriteEndElement();
-        }
-
         private void WriteFailureMechanismSectionCollections(IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
         {
             foreach (ExportableFailureMechanismSectionCollection failureMechanismSectionCollection in failureMechanismSectionCollections)
@@ -308,11 +261,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 foreach (ExportableFailureMechanismSection section in failureMechanismSectionCollection.Sections)
                 {
-                    Action writeFailureMechanismSectionAction = section is ExportableCombinedFailureMechanismSection combinedFailureMechanismSection
-                                                                    ? () => WriteCombinedFailureMechanismSection(combinedFailureMechanismSection, failureMechanismSectionCollection.Id)
-                                                                    : (Action) (() => WriteFailureMechanismSection(section, failureMechanismSectionCollection.Id));
-
-                    WriteFeatureMember(writeFailureMechanismSectionAction);
+                    WriteFeatureMember(() => WriteFailureMechanismSection(section, failureMechanismSectionCollection.Id));
                 }
             }
         }
@@ -320,16 +269,6 @@ namespace Riskeer.AssemblyTool.IO
         private void WriteFailureMechanismSectionCollection(ExportableFailureMechanismSectionCollection failureMechanismSectionCollection)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSectionCollection, AssemblyXmlIdentifiers.ImwapNamespace, failureMechanismSectionCollection.Id);
-            writer.WriteEndElement();
-        }
-
-        private void WriteCombinedFailureMechanismSection(ExportableCombinedFailureMechanismSection section, string failureMechanismSectionCollectionId)
-        {
-            WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_Combined, failureMechanismSectionCollectionId);
-
-            writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(section.AssemblyMethod));
-
             writer.WriteEndElement();
         }
 

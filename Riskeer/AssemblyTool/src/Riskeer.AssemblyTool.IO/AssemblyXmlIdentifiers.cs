@@ -87,16 +87,6 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string SpecificFailureMechanismName = "specifiekFaalmechanisme";
 
-        /// <summary>
-        /// Identifier for a combined failure mechanism section element.
-        /// </summary>
-        public const string CombinedFailureMechanismSection = "AnalyseDeelvakGecombineerd";
-
-        /// <summary>
-        /// Identifier for a combined failure mechanism section result element.
-        /// </summary>
-        public const string CombinedFailureMechanismSectionResult = "AnalyseDeelvak";
-
         #region Link identifiers
 
         /// <summary>
