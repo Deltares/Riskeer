@@ -276,9 +276,6 @@
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
-    <data name="AssemblyResultPerSectionMapView_DisplayName" xml:space="preserve">
-    <value>Assemblagekaart</value>
-  </data>
     <data name="HydraulicLocationConfigurationDatabase_Comment_Description" xml:space="preserve">
     <value>Overige informatie.</value>
   </data>
@@ -395,9 +392,6 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   </data>
     <data name="AssemblyResultTotalView_Results_per_failureMechanism" xml:space="preserve">
     <value>Samenvatting resultaten per faalmechanisme:</value>
-  </data>
-    <data name="Worst_AssemblyResult_per_section_DisplayName" xml:space="preserve">
-    <value>Slechtste duidingsklasse per deelvak</value>
   </data>
     <data name="HydraulicBoundaryData_Connect_To_Different_Hlcd" xml:space="preserve">
       <value>&amp;Selecteer ander HLCD bestand...</value>

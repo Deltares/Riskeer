@@ -127,15 +127,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblagekaart.
-        /// </summary>
-        public static string AssemblyResultPerSectionMapView_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSectionMapView_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Samenvatting resultaten per faalmechanisme:.
         /// </summary>
         public static string AssemblyResultTotalView_Results_per_failureMechanism {
@@ -930,15 +921,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string SignalFloodingProbability_DisplayName {
             get {
                 return ResourceManager.GetString("SignalFloodingProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slechtste duidingsklasse per deelvak.
-        /// </summary>
-        public static string Worst_AssemblyResult_per_section_DisplayName {
-            get {
-                return ResourceManager.GetString("Worst_AssemblyResult_per_section_DisplayName", resourceCulture);
             }
         }
     }
