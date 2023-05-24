@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -123,15 +123,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string AssemblyResult_TotalAssemblyProbability_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResult_TotalAssemblyProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overzicht duiding.
-        /// </summary>
-        public static string AssemblyResultPerSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
             }
         }
         

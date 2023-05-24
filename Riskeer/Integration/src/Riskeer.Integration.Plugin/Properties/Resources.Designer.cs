@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,16 +78,6 @@ namespace Riskeer.Integration.Plugin.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultPerSection {
-            get {
-                object obj = ResourceManager.GetObject("AssemblyResultPerSection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -276,9 +276,6 @@
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
-    <data name="AssemblyResultPerSection_DisplayName" xml:space="preserve">
-    <value>Overzicht duiding</value>
-  </data>
     <data name="AssemblyResultPerSectionMapView_DisplayName" xml:space="preserve">
     <value>Assemblagekaart</value>
   </data>
