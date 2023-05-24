@@ -2806,7 +2806,6 @@ namespace Riskeer.Integration.Plugin
             {
                 new AssessmentSectionAssemblyGroupsContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
-                new AssemblyResultPerSectionContext(assessmentSection),
                 new AssemblyResultPerSectionMapContext(assessmentSection)
             };
         }
