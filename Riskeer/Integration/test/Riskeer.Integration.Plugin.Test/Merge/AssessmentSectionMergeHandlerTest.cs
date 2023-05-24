@@ -1494,6 +1494,171 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenAssessmentSectionsWithDifferentDuneLocationsAndCalculations_WhenMerging_ThenDataMergedAsExpected(bool mergeDuneErosion)
+        {
+            // Given
+            const double targetProbability1 = 0.01;
+            const double targetProbability2 = 0.02;
+            const double targetProbability3 = 0.03;
+
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+            {
+                FilePath = "1.sqlite",
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "location 1", 1, 1)
+                }
+            };
+
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
+            {
+                FilePath = "2.sqlite",
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                }
+            };
+
+            var hydraulicBoundaryDatabase3 = new HydraulicBoundaryDatabase
+            {
+                FilePath = "3.sqlite",
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(3, "location 3", 3, 3)
+                }
+            };
+
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        hydraulicBoundaryDatabase1,
+                        hydraulicBoundaryDatabase2
+                    }
+                },
+                DuneErosion =
+                {
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        new DuneLocationCalculationsForTargetProbability(targetProbability1),
+                        new DuneLocationCalculationsForTargetProbability(targetProbability3)
+                    }
+                }
+            };
+
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        hydraulicBoundaryDatabase3,
+                        hydraulicBoundaryDatabase2
+                    }
+                },
+                DuneErosion =
+                {
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        new DuneLocationCalculationsForTargetProbability(targetProbability2),
+                        new DuneLocationCalculationsForTargetProbability(targetProbability3)
+                    }
+                }
+            };
+
+            targetAssessmentSection.DuneErosion.SetDuneLocations(
+                targetAssessmentSection.HydraulicBoundaryData.GetLocations()
+                                       .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties()))
+                                       .ToArray());
+
+            sourceAssessmentSection.DuneErosion.SetDuneLocations(
+                sourceAssessmentSection.HydraulicBoundaryData.GetLocations()
+                                       .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties()))
+                                       .ToArray());
+
+            SetOutput(GetDuneLocationCalculations(targetAssessmentSection));
+            SetOutput(GetDuneLocationCalculations(sourceAssessmentSection));
+
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+
+            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase3))
+                                              .WhenCalled(invocation =>
+                                              {
+                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase3);
+
+                                                  targetAssessmentSection.DuneErosion.SetDuneLocations(
+                                                      hydraulicBoundaryDatabase3.Locations
+                                                                                .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties()))
+                                                                                .ToArray());
+                                              })
+                                              .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // When
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(sourceAssessmentSection,
+                                                                new AssessmentSectionMergeData.ConstructionProperties
+                                                                {
+                                                                    MergeDuneErosion = mergeDuneErosion
+                                                                }),
+                                 hydraulicBoundaryDataUpdateHandler);
+
+            // Then
+            DuneLocation[] mergedDuneLocations = targetAssessmentSection.DuneErosion.DuneLocations.ToArray();
+            Assert.AreEqual(3, mergedDuneLocations.Length);
+
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryData.GetLocations().ToArray();
+            Assert.AreSame(hydraulicBoundaryLocations[0], mergedDuneLocations[0].HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocations[1], mergedDuneLocations[1].HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocations[2], mergedDuneLocations[2].HydraulicBoundaryLocation);
+
+            ObservableList<DuneLocationCalculationsForTargetProbability> mergedDuneLocationCalculationsForUserDefinedTargetProbabilities =
+                targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(3, mergedDuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+
+            DuneLocationCalculationsForTargetProbability duneLocationCalculationsForUserDefinedTargetProbability1 =
+                mergedDuneLocationCalculationsForUserDefinedTargetProbabilities[0];
+            Assert.AreEqual(targetProbability1, duneLocationCalculationsForUserDefinedTargetProbability1.TargetProbability);
+            Assert.AreEqual(3, duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations.Count);
+            Assert.AreSame(mergedDuneLocations[0], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[0].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[1], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[1].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[2], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[2].DuneLocation);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[0].Output != null);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[1].Output != null);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[2].Output == null);
+
+            DuneLocationCalculationsForTargetProbability duneLocationCalculationsForUserDefinedTargetProbability3 =
+                mergedDuneLocationCalculationsForUserDefinedTargetProbabilities[1];
+            Assert.AreEqual(targetProbability3, duneLocationCalculationsForUserDefinedTargetProbability3.TargetProbability);
+            Assert.AreEqual(3, duneLocationCalculationsForUserDefinedTargetProbability3.DuneLocationCalculations.Count);
+            Assert.AreSame(mergedDuneLocations[0], duneLocationCalculationsForUserDefinedTargetProbability3.DuneLocationCalculations[0].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[1], duneLocationCalculationsForUserDefinedTargetProbability3.DuneLocationCalculations[1].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[2], duneLocationCalculationsForUserDefinedTargetProbability3.DuneLocationCalculations[2].DuneLocation);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability3.DuneLocationCalculations.All(c => c.Output != null));
+
+            DuneLocationCalculationsForTargetProbability duneLocationCalculationsForUserDefinedTargetProbability2 =
+                mergedDuneLocationCalculationsForUserDefinedTargetProbabilities[2];
+            Assert.AreEqual(targetProbability2, duneLocationCalculationsForUserDefinedTargetProbability2.TargetProbability);
+            Assert.AreEqual(3, duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations.Count);
+            Assert.AreSame(mergedDuneLocations[0], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[0].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[1], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[1].DuneLocation);
+            Assert.AreSame(mergedDuneLocations[2], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[2].DuneLocation);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[0].Output == null);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[1].Output != null);
+            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[2].Output != null);
+
+            mocks.VerifyAll();
+        }
+
         private static IEnumerable<DuneLocationCalculation> GetDuneLocationCalculations(AssessmentSection assessmentSection)
         {
             return assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
