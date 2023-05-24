@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,10 +24,10 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Deltares")]
+[assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Deltares 2022")]
+[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("nl-NL")]
