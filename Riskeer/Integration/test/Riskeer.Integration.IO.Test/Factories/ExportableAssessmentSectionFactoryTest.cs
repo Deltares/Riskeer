@@ -109,13 +109,6 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                    .Cast<IFailureMechanism<FailureMechanismSectionResult>>(),
                                                   failureMechanismCalculator.AssemblyResultOutput,
                                                   exportableAssessmentSection.FailureMechanisms);
-
-                CombinedFailureMechanismSectionAssemblyResultWrapper combinedFailureMechanismAssemblyResult = assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput;
-                AssertExportableFailureMechanismSectionCollections(assessmentSection, combinedFailureMechanismAssemblyResult.AssemblyResults.Count(),
-                                                                   exportableAssessmentSection.FailureMechanismSectionCollections);
-                AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
-                    combinedFailureMechanismAssemblyResult, exportableAssessmentSection.FailureMechanisms,
-                    exportableAssessmentSection.CombinedSectionAssemblies);
             }
         }
 

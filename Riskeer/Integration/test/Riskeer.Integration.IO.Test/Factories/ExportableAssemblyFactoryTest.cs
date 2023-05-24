@@ -86,11 +86,6 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                              .Count();
                 Assert.AreEqual(nrOfFailureMechanisms, result.AssessmentSection.FailureMechanisms.Count());
 
-                var factory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = factory.LastCreatedAssessmentSectionAssemblyCalculator;
-                Assert.AreEqual(calculator.CombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.Count(),
-                                result.AssessmentSection.CombinedSectionAssemblies.Count());
-
                 Assert.AreEqual("Bp.0", result.AssessmentProcess.Id);
                 Assert.AreEqual(2023, result.AssessmentProcess.StartYear);
                 Assert.AreEqual(2035, result.AssessmentProcess.EndYear);
