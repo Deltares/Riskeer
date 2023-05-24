@@ -1075,15 +1075,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddExpandAllItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<AssemblyResultPerSectionMapContext>
-            {
-                Text = context => Resources.AssemblyResultPerSection_Map_DisplayName,
-                Image = context => Resources.AssemblyResultPerSectionMap,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
         }
 
         private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(
@@ -2798,8 +2789,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new AssessmentSectionAssemblyGroupsContext(assessmentSection),
-                new AssemblyResultTotalContext(assessmentSection),
-                new AssemblyResultPerSectionMapContext(assessmentSection)
+                new AssemblyResultTotalContext(assessmentSection)
             };
         }
 
