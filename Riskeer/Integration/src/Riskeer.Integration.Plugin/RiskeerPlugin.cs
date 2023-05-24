@@ -1069,15 +1069,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
-            {
-                Text = context => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
-                Image = context => Resources.AssemblyResultPerSection,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
                 Text = context => Resources.AssemblyResults_DisplayName,
