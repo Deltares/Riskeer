@@ -64,7 +64,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 //            Validate.AreEqual(actualFailureProbTraject, expectedFailureProbTraject, "Validating failure probability traject: actual = " + actualFailureProbTraject + ", expected = " + expectedFailureProbTraject, false);
 //            Validate.AreEqual(actualAssessmentTrajectLabel, expectedAssessmentLabelTraject, "Validating label traject: actual = " + actualAssessmentTrajectLabel + ", expected = " + expectedAssessmentLabelTraject, false);
 //            ValidateCellBackgroundColorLabelAssessmentTraject(expectedAssessmentLabelTraject);
-            ValidateCellBackgroundColorLabelAssessmentTraject("A");
+            ValidateCellBackgroundColorLabelAssessmentTraject("B");
         }
         
         private string CalculateFailureProbTraject(TrajectResultInformation trajectResultInformation)
