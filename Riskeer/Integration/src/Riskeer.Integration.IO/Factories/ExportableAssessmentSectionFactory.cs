@@ -91,8 +91,7 @@ namespace Riskeer.Integration.IO.Factories
                 assessmentSection.ReferenceLine.Points,
                 failureMechanismSectionCollections,
                 CreateExportableAssessmentSectionAssemblyResult(idGenerator, assessmentSection),
-                CreateExportableFailureMechanisms(idGenerator, registry, assessmentSection),
-                Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                CreateExportableFailureMechanisms(idGenerator, registry, assessmentSection));
         }
 
         /// <summary>

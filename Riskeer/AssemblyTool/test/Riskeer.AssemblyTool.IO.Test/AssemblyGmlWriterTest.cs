@@ -195,11 +195,6 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new Point2D(0.23, 0.24),
                 new Point2D(10.23, 10.24)
             }, 0.12, 10.23);
-            var combinedSection = new ExportableCombinedFailureMechanismSection("vak_gecombineerd_1", new[]
-            {
-                new Point2D(0.23, 0.24),
-                new Point2D(10.23, 10.24)
-            }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
 
             var failureMechanismSectionAssemblyResult1 = new ExportableFailureMechanismSectionAssemblyResult(
                 "resultaat_GABI_1", failureMechanismSection, 0.00073, ExportableFailureMechanismSectionAssemblyGroup.III,
@@ -236,16 +231,6 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                           }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>(), "Specifiek faalmechanisme")
-                }, new[]
-                {
-                    new ExportableCombinedSectionAssembly("resultaat_gecombineerd_1", combinedSection,
-                                                          ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1,
-                                                          new[]
-                                                          {
-                                                              new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                                  ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
-                                                                  failureMechanismSectionAssemblyResult1)
-                                                          })
                 });
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035);

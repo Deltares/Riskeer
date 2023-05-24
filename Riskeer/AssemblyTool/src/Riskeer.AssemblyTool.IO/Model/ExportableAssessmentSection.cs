@@ -42,8 +42,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
         /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
         /// to this assessment section.</param>
-        /// <param name="combinedSectionAssemblyResults">The combined section assembly results
-        /// of this assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public ExportableAssessmentSection(string id,
@@ -51,8 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Model
                                            IEnumerable<Point2D> geometry,
                                            IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections,
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-                                           IEnumerable<ExportableFailureMechanism> failureMechanisms,
-                                           IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
+                                           IEnumerable<ExportableFailureMechanism> failureMechanisms)
         {
             IdValidationHelper.ThrowIfInvalid(id);
 
@@ -81,18 +78,12 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
-            if (combinedSectionAssemblyResults == null)
-            {
-                throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
-            }
-
             Id = id;
             Name = name;
             Geometry = geometry;
             FailureMechanismSectionCollections = failureMechanismSectionCollections;
             AssessmentSectionAssembly = assessmentSectionAssembly;
             FailureMechanisms = failureMechanisms;
-            CombinedSectionAssemblies = combinedSectionAssemblyResults;
         }
 
         /// <summary>
@@ -124,10 +115,5 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets the collection of assembly results of failure mechanisms belonging to this assessment section.
         /// </summary>
         public IEnumerable<ExportableFailureMechanism> FailureMechanisms { get; }
-
-        /// <summary>
-        /// Gets the collection of combined section assembly results of this assessment section.
-        /// </summary>
-        public IEnumerable<ExportableCombinedSectionAssembly> CombinedSectionAssemblies { get; }
     }
 }

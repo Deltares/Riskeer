@@ -41,8 +41,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new ExportableAssessmentSection(invalidId, string.Empty, Enumerable.Empty<Point2D>(),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           Enumerable.Empty<ExportableFailureMechanism>());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -56,8 +55,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new ExportableAssessmentSection("id", null, Enumerable.Empty<Point2D>(),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           Enumerable.Empty<ExportableFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -71,8 +69,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new ExportableAssessmentSection("id", string.Empty,
                                                            null, Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           Enumerable.Empty<ExportableFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -86,8 +83,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new ExportableAssessmentSection("id", string.Empty,
                                                            Enumerable.Empty<Point2D>(), null,
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           Enumerable.Empty<ExportableFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -100,8 +96,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Call
             void Call() => new ExportableAssessmentSection("id", string.Empty, Enumerable.Empty<Point2D>(),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
-                                                           null, Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           null, Enumerable.Empty<ExportableFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -115,25 +110,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new ExportableAssessmentSection("id", string.Empty, Enumerable.Empty<Point2D>(),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           null, Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanisms", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ExportableAssessmentSection("id", string.Empty, Enumerable.Empty<Point2D>(),
-                                                           Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
         }
 
         [Test]
@@ -148,12 +129,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 Enumerable.Empty<ExportableFailureMechanismSectionCollection>();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
             IEnumerable<ExportableFailureMechanism> failureMechanisms = Enumerable.Empty<ExportableFailureMechanism>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             var assessmentSection = new ExportableAssessmentSection(
-                id, name, geometry, failureMechanismSectionCollections, assessmentSectionAssembly,
-                failureMechanisms, combinedSectionAssemblyResults);
+                id, name, geometry, failureMechanismSectionCollections, assessmentSectionAssembly, failureMechanisms);
 
             // Assert
             Assert.AreEqual(name, assessmentSection.Name);
@@ -162,7 +141,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreSame(failureMechanismSectionCollections, assessmentSection.FailureMechanismSectionCollections);
             Assert.AreSame(assessmentSectionAssembly, assessmentSection.AssessmentSectionAssembly);
             Assert.AreSame(failureMechanisms, assessmentSection.FailureMechanisms);
-            Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblies);
         }
     }
 }

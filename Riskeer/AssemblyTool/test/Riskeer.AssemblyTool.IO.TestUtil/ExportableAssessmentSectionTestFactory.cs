@@ -39,8 +39,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         {
             return new ExportableAssessmentSection(
                 "id", string.Empty, Enumerable.Empty<Point2D>(), Enumerable.Empty<ExportableFailureMechanismSectionCollection>(),
-                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>(),
-                Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>());
         }
     }
 }
