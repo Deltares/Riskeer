@@ -101,7 +101,9 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private void ValidateCellBackgroundColorLabelAssessmentTraject(string label)
         {
             Report.Info("Validating background color of security assessment label field...");
-            Validate.AttributeEqual(AutomatedSystemTests.AutomatedSystemTestsRepository.Instance.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.Summary.GroupLabelInfo, "BackColor", GetColorCodeForLabel(label));
+            var groupLabelElement = AutomatedSystemTests.AutomatedSystemTestsRepository.Instance.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.Summary.GroupLabel.Element;
+            var backColorGroupLabelInfo = groupLabelElement.GetAttributeValueText("BackColor");
+            Validate.AreEqual(backColorGroupLabelInfo, GetColorCodeForLabel(label));
             return;
         }
         
@@ -113,7 +115,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
                 case "A":
                     return "118, 147, 60";
                 case "B":
-                    return "Yellow";
+                    return "255, 255, 0";
                 case "C":
                     return "255, 153, 0";
                 case "D":
