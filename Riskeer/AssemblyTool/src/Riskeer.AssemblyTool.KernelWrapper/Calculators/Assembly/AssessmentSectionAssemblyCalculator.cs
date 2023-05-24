@@ -26,7 +26,6 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -82,43 +81,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     new AssessmentSectionAssemblyResult(assemblyProbability,
                                                         AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory)),
                     AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1);
-            }
-            catch (AssemblyException e)
-            {
-                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
-            }
-        }
-
-        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            try
-            {
-                ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-
-                IEnumerable<FailureMechanismSectionList> failureMechanismSections = FailureMechanismSectionListCreator.Create(input);
-                FailureMechanismSectionList commonSections = kernel.FindGreatestCommonDenominatorSectionsBoi3A1(
-                    failureMechanismSections, assessmentSectionLength);
-
-                FailureMechanismSectionList[] failureMechanismResults = failureMechanismSections.Select(fmsl => kernel.TranslateFailureMechanismResultsToCommonSectionsBoi3B1(
-                                                                                                            fmsl, commonSections))
-                                                                                                .ToArray();
-
-                IEnumerable<FailureMechanismSectionWithCategory> combinedSectionResults =
-                    kernel.DetermineCombinedResultPerCommonSectionBoi3C1(failureMechanismResults, false);
-
-                return new CombinedFailureMechanismSectionAssemblyResultWrapper(
-                    CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedSectionResults),
-                    AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
             }
             catch (AssemblyException e)
             {
