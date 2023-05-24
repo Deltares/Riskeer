@@ -1632,9 +1632,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(mergedDuneLocations[0], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[0].DuneLocation);
             Assert.AreSame(mergedDuneLocations[1], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[1].DuneLocation);
             Assert.AreSame(mergedDuneLocations[2], duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[2].DuneLocation);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[0].Output != null);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[1].Output != null);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[2].Output == null);
+            Assert.IsNotNull(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[0].Output);
+            Assert.IsNotNull(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[1].Output);
+            Assert.IsNull(duneLocationCalculationsForUserDefinedTargetProbability1.DuneLocationCalculations[2].Output);
 
             DuneLocationCalculationsForTargetProbability duneLocationCalculationsForUserDefinedTargetProbability3 =
                 mergedDuneLocationCalculationsForUserDefinedTargetProbabilities[1];
@@ -1652,9 +1652,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(mergedDuneLocations[0], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[0].DuneLocation);
             Assert.AreSame(mergedDuneLocations[1], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[1].DuneLocation);
             Assert.AreSame(mergedDuneLocations[2], duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[2].DuneLocation);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[0].Output == null);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[1].Output != null);
-            Assert.IsTrue(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[2].Output != null);
+            Assert.IsNull(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[0].Output);
+            Assert.IsNotNull(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[1].Output);
+            Assert.IsNotNull(duneLocationCalculationsForUserDefinedTargetProbability2.DuneLocationCalculations[2].Output);
 
             mocks.VerifyAll();
         }
