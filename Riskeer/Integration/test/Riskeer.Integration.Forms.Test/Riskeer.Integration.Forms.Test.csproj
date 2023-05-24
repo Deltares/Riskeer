@@ -56,7 +56,6 @@
     <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Util\Riskeer.Integration.Util.csproj" />
-    <ProjectReference Include="..\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
