@@ -259,7 +259,7 @@
     <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Resultaten verversen</value>
   </data>
-    <data name="AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate"
+    <data name="AssemblyResultTotalView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate"
           xml:space="preserve">
     <value>De resultaten zijn verouderd. Druk op de "Resultaten verversen" knop om opnieuw te berekenen.</value>
   </data>

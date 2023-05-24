@@ -127,21 +127,21 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De resultaten zijn verouderd. Druk op de &quot;Resultaten verversen&quot; knop om opnieuw te berekenen..
+        /// </summary>
+        public static string AssemblyResultTotalView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_P" +
+                        "ress_Refresh_button_to_recalculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Samenvatting resultaten per faalmechanisme:.
         /// </summary>
         public static string AssemblyResultTotalView_Results_per_failureMechanism {
             get {
                 return ResourceManager.GetString("AssemblyResultTotalView_Results_per_failureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De resultaten zijn verouderd. Druk op de &quot;Resultaten verversen&quot; knop om opnieuw te berekenen..
-        /// </summary>
-        public static string AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate {
-            get {
-                return ResourceManager.GetString("AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_" +
-                        "Refresh_button_to_recalculate", resourceCulture);
             }
         }
         

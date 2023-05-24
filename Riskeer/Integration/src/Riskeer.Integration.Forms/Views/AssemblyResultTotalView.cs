@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 refreshAssemblyResultsButton.Enabled = true;
                 warningProvider.SetError(refreshAssemblyResultsButton,
-                                         Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
+                                         Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
             }
         }
 
