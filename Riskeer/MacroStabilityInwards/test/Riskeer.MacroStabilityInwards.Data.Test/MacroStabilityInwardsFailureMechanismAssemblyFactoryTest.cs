@@ -245,7 +245,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                }
             };
             failureMechanism.SetSections(new[]
             {
@@ -280,7 +281,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                }
             };
 
             var assessmentSection = new AssessmentSectionStub();
@@ -306,7 +308,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                }
             };
 
             var assessmentSection = new AssessmentSectionStub();

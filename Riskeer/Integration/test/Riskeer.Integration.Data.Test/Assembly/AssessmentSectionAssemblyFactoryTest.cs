@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             assessmentSection.GetFailureMechanisms()
                              .Concat(assessmentSection.SpecificFailureMechanisms)
                              .ForEachElementDo(
-                                 fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+                                 fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
 
             return assessmentSection;
         }
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                       .Concat(assessmentSection.SpecificFailureMechanisms);
             getAllFailureMechanisms.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
             getAllFailureMechanisms.ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
 
             return assessmentSection;
         }

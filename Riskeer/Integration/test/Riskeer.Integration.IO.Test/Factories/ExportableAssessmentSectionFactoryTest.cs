@@ -85,8 +85,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
 
-            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(sfm => sfm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(sfm => sfm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
 
             AddFailureMechanismSections(assessmentSection);
 

@@ -252,7 +252,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
             failureMechanism.SetSections(new[]
@@ -288,7 +288,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -315,7 +315,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 

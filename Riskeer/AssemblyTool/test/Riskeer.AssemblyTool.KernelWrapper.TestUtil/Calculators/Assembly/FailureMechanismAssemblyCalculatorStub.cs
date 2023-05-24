@@ -56,6 +56,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
 
+        public FailureMechanismAssemblyResultWrapper Assemble(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
+            }
+
+            SectionAssemblyResultsInput = sectionAssemblyResults;
+            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
+        }
+
         public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults,
                                                               bool applySectionLengthEffect)
         {
@@ -68,18 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SectionAssemblyResultsInput = sectionAssemblyResults;
             ApplyLengthEffect = applySectionLengthEffect;
 
-            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
-        }
-
-        public FailureMechanismAssemblyResultWrapper Assemble(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
-            }
-
-            SectionAssemblyResultsInput = sectionAssemblyResults;
-            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
+            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A2));
         }
     }
 }

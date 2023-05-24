@@ -365,7 +365,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 : base("Test", "T")
             {
                 CalculationsGroup = new CalculationGroup();
-                AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections;
+                AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
             }
 
             public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();

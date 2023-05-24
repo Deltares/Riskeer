@@ -68,9 +68,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
             };
-            const bool applyLengthEffect = true;
+            bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
             };
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
@@ -117,7 +117,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeDefault_ThrowsAssemblyException()
+        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeNone_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(21);
@@ -129,15 +129,12 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
+            // Call
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
 
-                // Assert
-                var exception = Assert.Throws<AssemblyException>(Call);
-                Assert.AreEqual("Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(Call);
+            Assert.AreEqual("Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.", exception.Message);
         }
 
         [Test]
@@ -182,7 +179,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
                 };
 
                 // Call
@@ -206,7 +203,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
                 };
 
                 // Call
@@ -219,6 +216,32 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_CalculatorThrowsNotSupportedException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
+                {
+                    ProbabilityResultType = 0
+                };
+
+                // Call
+                void Call() =>
+                    FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                        0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
+
+                // Assert
+                var exception = Assert.Throws<NotSupportedException>(Call);
+                Assert.AreEqual("Specified method is not supported.", exception.Message);
             }
         }
     }

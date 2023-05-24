@@ -215,8 +215,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 var configurationTypes = (EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>[]) comboBox.DataSource;
                 Assert.AreEqual(4, configurationTypes.Length);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.None, configurationTypes[0].Value);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, configurationTypes[1].Value);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, configurationTypes[2].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, configurationTypes[1].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, configurationTypes[2].Value);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[3].Value);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.None,
                                 ((EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
@@ -236,7 +236,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
                 }
             };
             int nrOfCalls = 0;
@@ -275,7 +275,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
                 }
             };
 
@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
                 }
             };
 
@@ -652,7 +652,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
             TestFailureMechanism failureMechanismInput = null;
             IAssessmentSection assessmentSectionInput = null;
             Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
@@ -691,7 +691,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -701,7 +701,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, comboBox.SelectedValue);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
 
                 // Then
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -725,7 +725,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -735,7 +735,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, comboBox.SelectedValue);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
 
                 // Then
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -764,7 +764,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -784,7 +784,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, comboBox.SelectedValue);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -816,7 +816,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile,
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2,
                     ManualFailureMechanismAssemblyProbability = 0.1
                 }
             };
@@ -830,7 +830,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, comboBox.SelectedValue);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -861,7 +861,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -897,8 +897,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, FailureMechanismAssemblyProbabilityResultType.Manual)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, FailureMechanismAssemblyProbabilityResultType.Manual)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
         public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailureMechanismAssemblyProbabilityUpdated(
             FailureMechanismAssemblyProbabilityResultType initialResultType,
             FailureMechanismAssemblyProbabilityResultType newResultType)
@@ -928,7 +928,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
-                string expectedProbabilityText = initialResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                string expectedProbabilityText = initialResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                                                      ? assemblyResultText
                                                      : manualProbabilityText;
                 Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
@@ -938,7 +938,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 comboBox.SelectedValue = newResultType;
 
                 // Then
-                expectedProbabilityText = newResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                expectedProbabilityText = newResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                                               ? assemblyResultText
                                               : manualProbabilityText;
                 Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
@@ -1134,7 +1134,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile;
+                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.AutomaticP2;
 
                 // Then
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
@@ -1193,7 +1193,7 @@ namespace Riskeer.Common.Forms.Test.Views
         #region FailureMechanismAssemblyResultControls
 
         [Test]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
         public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState(
             FailureMechanismAssemblyProbabilityResultType resultType)
@@ -1224,7 +1224,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
         public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
             FailureMechanismAssemblyProbabilityResultType resultType)
@@ -1382,7 +1382,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
 
@@ -1419,7 +1419,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
                 }
             };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");

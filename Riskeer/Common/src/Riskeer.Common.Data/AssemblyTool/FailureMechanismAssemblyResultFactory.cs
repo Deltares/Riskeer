@@ -47,6 +47,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// or <paramref name="failureMechanismAssemblyResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
+        /// <exception cref="NotSupportedException">Thrown when ProbabilityResultType of the failure mechanism does not support being assembled.</exception>
         public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(
             double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
             bool applyLengthEffect, FailureMechanismAssemblyResult failureMechanismAssemblyResult)
@@ -61,22 +62,29 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(failureMechanismAssemblyResult));
             }
 
+            if (failureMechanismAssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.None)
+            {
+                throw new AssemblyException(Resources.FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly);
+            }
+
+            if (failureMechanismAssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual)
+            {
+                return new FailureMechanismAssemblyResultWrapper(
+                    failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
+                    AssemblyMethod.Manual);
+            }
+
             try
             {
                 IFailureMechanismAssemblyCalculator calculator =
                     AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
                 switch (failureMechanismAssemblyResult.ProbabilityResultType)
                 {
-                    case FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections:
+                    case FailureMechanismAssemblyProbabilityResultType.AutomaticP1:
                         return calculator.Assemble(failureMechanismSectionAssemblyResults);
-                    case FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile:
+                    case FailureMechanismAssemblyProbabilityResultType.AutomaticP2:
                         return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults, applyLengthEffect);
-                    case FailureMechanismAssemblyProbabilityResultType.Manual:
-                        return new FailureMechanismAssemblyResultWrapper(
-                            failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
-                            AssemblyMethod.Manual);
-                    case FailureMechanismAssemblyProbabilityResultType.None:
-                        throw new AssemblyException(Resources.FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly);
                     default:
                         throw new NotSupportedException();
                 }

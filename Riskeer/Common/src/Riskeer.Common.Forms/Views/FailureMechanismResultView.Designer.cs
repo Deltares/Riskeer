@@ -141,7 +141,7 @@ namespace Riskeer.Common.Forms.Views
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanel;
-        protected System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
+        private System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
         private System.Windows.Forms.Label failureMechanismAssemblyLabel;
         private System.Windows.Forms.TextBox failureMechanismAssemblyProbabilityTextBox;
         private ErrorProvider errorProvider;
