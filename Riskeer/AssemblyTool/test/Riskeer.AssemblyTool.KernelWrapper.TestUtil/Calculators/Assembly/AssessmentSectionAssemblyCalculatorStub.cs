@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
@@ -57,21 +56,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public AssessmentSectionAssemblyResultWrapper AssessmentSectionAssemblyResult { get; set; }
 
-        /// <summary>
-        /// Gets the combined failure mechanism sections input.
-        /// </summary>
-        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CombinedFailureMechanismSectionsInput { get; private set; }
-
-        /// <summary>
-        /// Gets the assessment section length input.
-        /// </summary>
-        public double AssessmentSectionLength { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the output of the combined failure mechanism section assembly.
-        /// </summary>
-        public CombinedFailureMechanismSectionAssemblyResultWrapper CombinedFailureMechanismSectionAssemblyOutput { get; set; }
-
         public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
             if (ThrowExceptionOnCalculate)
@@ -87,27 +71,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                                                            new AssessmentSectionAssemblyResultWrapper(
                                                                new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus),
                                                                AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1));
-        }
-
-        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
-            }
-
-            CombinedFailureMechanismSectionsInput = input;
-            AssessmentSectionLength = assessmentSectionLength;
-
-            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
-                                                                         new[]
-                                                                         {
-                                                                             new CombinedFailureMechanismSectionAssembly(
-                                                                                 new CombinedAssemblyFailureMechanismSection(
-                                                                                     0, 1, FailureMechanismSectionAssemblyGroup.Zero),
-                                                                                 input.Select(failureMechanism => FailureMechanismSectionAssemblyGroup.Dominant).ToArray())
-                                                                         }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1));
         }
     }
 }

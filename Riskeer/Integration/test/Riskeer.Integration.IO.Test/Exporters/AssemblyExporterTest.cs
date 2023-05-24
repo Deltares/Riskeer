@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -117,7 +116,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var exporter = new AssemblyExporter(assessmentSection, filePath);
-                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
 
                 // Call & Assert
                 if (isExportExpectedToBeSuccessful)
@@ -207,8 +205,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
-
                 try
                 {
                     // Call
@@ -245,11 +241,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
-                    Array.Empty<CombinedFailureMechanismSectionAssembly>(), AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
-
                 fileDisposeHelper.LockFiles();
 
                 // Call
@@ -311,23 +302,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), 2);
 
             return assessmentSection;
-        }
-
-        private static void SetCombinedFailureMechanismSectionAssemblyOutput(IAssessmentSection assessmentSection)
-        {
-            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                .Concat(assessmentSection.SpecificFailureMechanisms);
-
-            var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-            AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-            assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
-                new[]
-                {
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
-                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
-                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
-                }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
         }
     }
 }
