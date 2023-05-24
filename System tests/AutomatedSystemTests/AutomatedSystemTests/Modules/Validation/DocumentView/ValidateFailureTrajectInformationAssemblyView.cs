@@ -113,7 +113,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
                 case "A":
                     return "118, 147, 60";
                 case "B":
-                    return "255, 255, 0";
+                    return "Yellow";
                 case "C":
                     return "255, 153, 0";
                 case "D":
