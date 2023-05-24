@@ -141,8 +141,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             {
                 var factory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionCalculator = factory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
-                    Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(), AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 // Call
                 ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
@@ -152,10 +150,6 @@ namespace Riskeer.Integration.IO.Test.Factories
 
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanisms);
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismSectionCollections);
-
-                AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
-                    assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput,
-                    exportableAssessmentSection.FailureMechanisms, exportableAssessmentSection.CombinedSectionAssemblies);
             }
         }
 
@@ -223,30 +217,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(assessmentSectionAssemblyResult.AssemblyResult.Probability, exportableAssessmentSectionAssemblyResult.Probability);
         }
 
-        private static void AssertExportableFailureMechanismSectionCollections(
-            IAssessmentSection assessmentSection, int nrOfCombinedSectionAssemblyResults,
-            IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
-        {
-            IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
-                                                                                          .Concat(assessmentSection.SpecificFailureMechanisms)
-                                                                                          .Where(fm => fm.InAssembly);
-
-            int nrOfFailureMechanismsInAssembly = failureMechanismsInAssembly.Count();
-            int nrOfExpectedCollections = nrOfFailureMechanismsInAssembly + 1;
-            Assert.AreEqual(nrOfExpectedCollections, failureMechanismSectionCollections.Count());
-
-            for (var i = 0; i < nrOfFailureMechanismsInAssembly; i++)
-            {
-                int nrOfExpectedSections = failureMechanismsInAssembly.ElementAt(i).Sections.Count();
-                Assert.AreEqual(nrOfExpectedSections, failureMechanismSectionCollections.ElementAt(i).Sections.Count());
-            }
-
-            ExportableFailureMechanismSectionCollection combinedFailureMechanismSectionCollection = failureMechanismSectionCollections.Last();
-            IEnumerable<ExportableFailureMechanismSection> exportableCombinedFailureMechanismSections = combinedFailureMechanismSectionCollection.Sections;
-            CollectionAssert.AllItemsAreInstancesOfType(exportableCombinedFailureMechanismSections, typeof(ExportableCombinedFailureMechanismSection));
-            Assert.AreEqual(nrOfCombinedSectionAssemblyResults, exportableCombinedFailureMechanismSections.Count());
-        }
-
         private static void AssertExportableFailureMechanisms(IEnumerable<IFailureMechanism<FailureMechanismSectionResult>> failureMechanisms,
                                                               FailureMechanismAssemblyResultWrapper failureMechanismAssemblyResult,
                                                               IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms)
@@ -298,82 +268,6 @@ namespace Riskeer.Integration.IO.Test.Factories
                             exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
             Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
-        }
-
-        private static void AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
-            CombinedFailureMechanismSectionAssemblyResultWrapper calculatorCombinedFailureMechanismSectionAssemblyOutput,
-            IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms,
-            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies)
-        {
-            Assert.AreEqual(calculatorCombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.Count(),
-                            exportableCombinedSectionAssemblies.Count());
-
-            for (var i = 0; i < exportableCombinedSectionAssemblies.Count(); i++)
-            {
-                CombinedFailureMechanismSectionAssembly calculatorAssemblyResult = calculatorCombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.ElementAt(i);
-                ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableCombinedSectionAssemblies.ElementAt(i);
-
-                Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(calculatorCombinedFailureMechanismSectionAssemblyOutput.CombinedSectionResultAssemblyMethod),
-                                exportableCombinedSectionAssembly.AssemblyGroupAssemblyMethod);
-                Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(calculatorCombinedFailureMechanismSectionAssemblyOutput.CommonSectionAssemblyMethod),
-                                exportableCombinedSectionAssembly.Section.AssemblyMethod);
-                Assert.IsTrue(exportableCombinedSectionAssembly.FailureMechanismResults.All(
-                                  fmr => fmr.AssemblyMethod == ExportableAssemblyMethodConverter.ConvertTo(
-                                             calculatorCombinedFailureMechanismSectionAssemblyOutput.FailureMechanismResultsAssemblyMethod)));
-
-                Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(calculatorAssemblyResult.Section.FailureMechanismSectionAssemblyGroup),
-                                exportableCombinedSectionAssembly.AssemblyGroup);
-
-                AssertExportableFailureMechanismCombinedSectionAssemblyResults(exportableCombinedSectionAssembly.Section,
-                                                                               exportableFailureMechanisms,
-                                                                               exportableCombinedSectionAssembly.FailureMechanismResults,
-                                                                               calculatorAssemblyResult.FailureMechanismSectionAssemblyGroupResults);
-
-                Assert.AreEqual(calculatorAssemblyResult.Section.SectionStart, exportableCombinedSectionAssembly.Section.StartDistance);
-                Assert.AreEqual(calculatorAssemblyResult.Section.SectionEnd, exportableCombinedSectionAssembly.Section.EndDistance);
-            }
-        }
-
-        private static void AssertExportableFailureMechanismCombinedSectionAssemblyResults(
-            ExportableFailureMechanismSection combinedFailureMechanismSection, IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms,
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableFailureMechanismCombinedSectionAssemblyResults,
-            IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionAssemblyGroupResults)
-        {
-            const int expectedNrOfFailureMechanisms = 17;
-            Assert.AreEqual(expectedNrOfFailureMechanisms, exportableFailureMechanismCombinedSectionAssemblyResults.Count());
-
-            for (var i = 0; i < expectedNrOfFailureMechanisms; i++)
-            {
-                AssertExportableFailureMechanismCombinedSectionAssemblyResult(
-                    combinedFailureMechanismSection, exportableFailureMechanisms.ElementAt(i).SectionAssemblyResults,
-                    failureMechanismSectionAssemblyGroupResults.ElementAt(i), exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(i));
-            }
-        }
-
-        private static void AssertExportableFailureMechanismCombinedSectionAssemblyResult(
-            ExportableFailureMechanismSection combinedFailureMechanismSectionAssembly,
-            IEnumerable<ExportableFailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-            FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup,
-            ExportableFailureMechanismCombinedSectionAssemblyResult actualExportableFailureMechanismCombinedSectionAssemblyResult)
-        {
-            ExportableFailureMechanismSectionAssemblyResult associatedAssemblyResult = GetCorrespondingSectionAssemblyResultResult(
-                combinedFailureMechanismSectionAssembly, failureMechanismSectionAssemblyResults);
-            Assert.AreSame(associatedAssemblyResult, actualExportableFailureMechanismCombinedSectionAssemblyResult.FailureMechanismSectionResult);
-            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(failureMechanismSectionAssemblyGroup),
-                            actualExportableFailureMechanismCombinedSectionAssemblyResult.AssemblyGroup);
-        }
-
-        private static ExportableFailureMechanismSectionAssemblyResult GetCorrespondingSectionAssemblyResultResult(
-            ExportableFailureMechanismSection combinedFailureMechanismSection,
-            IEnumerable<ExportableFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
-        {
-            return sectionAssemblyResults.FirstOrDefault(assemblyResult =>
-            {
-                ExportableFailureMechanismSection exportableFailureMechanismSection = assemblyResult.FailureMechanismSection;
-
-                return combinedFailureMechanismSection.StartDistance >= exportableFailureMechanismSection.StartDistance
-                       && combinedFailureMechanismSection.EndDistance <= exportableFailureMechanismSection.EndDistance;
-            });
         }
     }
 }
