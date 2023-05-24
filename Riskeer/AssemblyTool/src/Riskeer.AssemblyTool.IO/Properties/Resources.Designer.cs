@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -356,15 +356,6 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         internal static string ExportableFailureMechanismSectionAssemblyGroup_Zero_DisplayName {
             get {
                 return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_Zero_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DEELVK.
-        /// </summary>
-        internal static string FailureMechanismSectionType_Combined {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionType_Combined", resourceCulture);
             }
         }
         

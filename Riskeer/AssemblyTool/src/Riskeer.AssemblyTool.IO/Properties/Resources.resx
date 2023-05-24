@@ -183,9 +183,6 @@
   <data name="FailureMechanismSectionType_FailureMechanism" xml:space="preserve">
     <value>FAALMVK</value>
   </data>
-  <data name="FailureMechanismSectionType_Combined" xml:space="preserve">
-    <value>DEELVK</value>
-  </data>
   <data name="ExportableFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
     <value>NDo</value>
   </data>

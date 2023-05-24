@@ -200,9 +200,6 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="ExportableFailureMechanismSectionAssemblyResult_IdPrefix" xml:space="preserve">
     <value>Fa</value>
   </data>
-  <data name="ExportableCombinedSectionAssembly_IdPrefix" xml:space="preserve">
-    <value>Gf</value>
-  </data>
   <data name="HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file" xml:space="preserve">
     <value>Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand.</value>
   </data>
