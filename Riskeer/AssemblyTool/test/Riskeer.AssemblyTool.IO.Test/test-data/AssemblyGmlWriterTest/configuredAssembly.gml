@@ -69,24 +69,6 @@
     </uboi:SpecifiekFaalmechanisme>
   </uboi:featureMember>
   <uboi:featureMember>
-    <uboi:AnalyseDeelvakGecombineerd gml:id="resultaat_gecombineerd_1">
-      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
-      <uboi:status>VOLLDG</uboi:status>
-      <uboi:specificeert xlink:href="veiligheidsoordeel1" />
-      <uboi:geldtVoor xlink:href="vak_gecombineerd_1" />
-    </uboi:AnalyseDeelvakGecombineerd>
-  </uboi:featureMember>
-  <uboi:featureMember>
-    <uboi:AnalyseDeelvak>
-      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
-      <uboi:status>VOLLDG</uboi:status>
-      <uboi:afgeleidVan xlink:href="resultaat_GABI_1" />
-      <uboi:duidt xlink:href="resultaat_gecombineerd_1" />
-    </uboi:AnalyseDeelvak>
-  </uboi:featureMember>
-  <uboi:featureMember>
     <imwap:Vakindeling gml:id="vakindelingGABI" />
   </uboi:featureMember>
   <uboi:featureMember>
@@ -101,24 +83,6 @@
       <imwap:afstandEinde>10.23</imwap:afstandEinde>
       <imwap:lengte>14.142135623730951</imwap:lengte>
       <imwap:onderdeelVan xlink:href="vakindelingGABI" />
-    </uboi:Deelvak>
-  </uboi:featureMember>
-  <uboi:featureMember>
-    <imwap:Vakindeling gml:id="vakindeling_gecombineerd" />
-  </uboi:featureMember>
-  <uboi:featureMember>
-    <uboi:Deelvak gml:id="vak_gecombineerd_1">
-      <imwap:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>0.23 0.24 10.23 10.24</gml:posList>
-        </gml:LineString>
-      </imwap:geometrieLijn2D>
-      <imwap:typeWaterkeringsectie>DEELVK</imwap:typeWaterkeringsectie>
-      <imwap:afstandBegin>0.12</imwap:afstandBegin>
-      <imwap:afstandEinde>10.23</imwap:afstandEinde>
-      <imwap:lengte>14.142135623730951</imwap:lengte>
-      <imwap:onderdeelVan xlink:href="vakindeling_gecombineerd" />
-      <uboi:assemblagemethode>BOI-3A-1</uboi:assemblagemethode>
     </uboi:Deelvak>
   </uboi:featureMember>
 </uboi:Assembleren-collectie>

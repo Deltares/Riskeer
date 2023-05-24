@@ -221,10 +221,6 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new ExportableFailureMechanismSectionCollection("vakindelingGABI", new[]
                     {
                         failureMechanismSection
-                    }),
-                    new ExportableFailureMechanismSectionCollection("vakindeling_gecombineerd", new[]
-                    {
-                        combinedSection
                     })
                 },
                 new ExportableAssessmentSectionAssemblyResult(
