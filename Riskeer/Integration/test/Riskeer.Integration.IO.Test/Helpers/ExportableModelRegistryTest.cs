@@ -25,8 +25,6 @@ using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Helpers
@@ -244,26 +242,6 @@ namespace Riskeer.Integration.IO.Test.Helpers
             /// </summary>
             /// <returns>The created <see cref="TExportableModel"/>.</returns>
             protected abstract TExportableModel CreateExportableModel();
-        }
-
-        [TestFixture]
-        private class CombinedFailureMechanismSectionAssemblyResultTest : RegistryTest<CombinedFailureMechanismSectionAssemblyResult,
-            ExportableCombinedFailureMechanismSection>
-        {
-            public CombinedFailureMechanismSectionAssemblyResultTest() : base(
-                (r, e, m) => r.Register(m, e),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override CombinedFailureMechanismSectionAssemblyResult CreateDataModel()
-            {
-                return CombinedFailureMechanismSectionAssemblyResultTestFactory.Create();
-            }
-
-            protected override ExportableCombinedFailureMechanismSection CreateExportableModel()
-            {
-                return ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
-            }
         }
 
         [TestFixture]

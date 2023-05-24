@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Util;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Integration.Data.Assembly;
 
 namespace Riskeer.Integration.IO.Helpers
 {
@@ -33,9 +32,6 @@ namespace Riskeer.Integration.IO.Helpers
     /// </summary>
     public class ExportableModelRegistry
     {
-        private readonly Dictionary<CombinedFailureMechanismSectionAssemblyResult, ExportableCombinedFailureMechanismSection> combinedFailureMechanismSectionAssemblyResults =
-            CreateDictionary<CombinedFailureMechanismSectionAssemblyResult, ExportableCombinedFailureMechanismSection>();
-
         private readonly Dictionary<FailureMechanismSection, ExportableFailureMechanismSection> failureMechanismSections =
             CreateDictionary<FailureMechanismSection, ExportableFailureMechanismSection>();
 
@@ -121,17 +117,6 @@ namespace Riskeer.Integration.IO.Helpers
         #region Register methods
 
         /// <summary>
-        /// Registers the  <paramref name="model"/> with the value <paramref name="exportableModel"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to be registered.</param>
-        /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSectionCollection"/> to be registered with.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public void Register(CombinedFailureMechanismSectionAssemblyResult model, ExportableCombinedFailureMechanismSection exportableModel)
-        {
-            Register(combinedFailureMechanismSectionAssemblyResults, model, exportableModel);
-        }
-
-        /// <summary>
         /// Registers the <paramref name="model"/> with the value <paramref name="exportableModel"/>.
         /// </summary>
         /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
@@ -160,17 +145,6 @@ namespace Riskeer.Integration.IO.Helpers
         /// <summary>
         /// Checks whether a value has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(CombinedFailureMechanismSectionAssemblyResult model)
-        {
-            return ContainsValue(combinedFailureMechanismSectionAssemblyResults, model);
-        }
-
-        /// <summary>
-        /// Checks whether a value has been registered for the given <paramref name="model"/>.
-        /// </summary>
         /// <param name="model">The <see cref="FailureMechanismSection"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
@@ -193,22 +167,6 @@ namespace Riskeer.Integration.IO.Helpers
         #endregion
 
         #region Get methods
-
-        /// <summary>
-        /// Obtains the <see cref="ExportableCombinedFailureMechanismSection"/> which was registered for the
-        /// given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> that has been registered.</param>
-        /// <returns>The associated <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no exportable model 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(CombinedFailureMechanismSectionAssemblyResult)"/> to find out whether a create
-        /// operation has been registered for <paramref name="model"/>.</remarks>
-        public ExportableCombinedFailureMechanismSection Get(CombinedFailureMechanismSectionAssemblyResult model)
-        {
-            return Get(combinedFailureMechanismSectionAssemblyResults, model);
-        }
 
         /// <summary>
         /// Obtains the <see cref="ExportableFailureMechanismSection"/> which was registered for the

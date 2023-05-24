@@ -21,11 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 

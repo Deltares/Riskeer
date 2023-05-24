@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {
@@ -46,23 +45,6 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                 new Point2D(1, 1),
                 new Point2D(2, 2)
             }, startDistance, endDistance);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="ExportableCombinedFailureMechanismSection"/> with a given start and end distance.
-        /// </summary>
-        /// <param name="startDistance">The start distance of the failure mechanism section between the section
-        /// and the start of the reference line in meters.</param>
-        /// <param name="endDistance">The end distance of the failure mechanism section between the section
-        /// and the start of the reference line in meters.</param>
-        /// <returns>A <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
-        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection(double startDistance = 1, double endDistance = 3)
-        {
-            return new ExportableCombinedFailureMechanismSection("id", new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(3, 3)
-            }, startDistance, endDistance, ExportableAssemblyMethod.BOI3A1);
         }
     }
 }
