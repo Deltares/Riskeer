@@ -437,15 +437,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        public static string CombinedFailureMechanismSectionAssemblyResultRow_Not_in_assembly_dash {
-            get {
-                return ResourceManager.GetString("CombinedFailureMechanismSectionAssemblyResultRow_Not_in_assembly_dash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Faalmechanisme.
         /// </summary>
         public static string FailureMechanism_Name_DisplayName {
