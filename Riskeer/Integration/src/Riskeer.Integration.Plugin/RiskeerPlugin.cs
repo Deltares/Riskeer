@@ -493,13 +493,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
-                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
-            };
-
             yield return new RiskeerViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
