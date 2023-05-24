@@ -60,15 +60,6 @@ namespace Riskeer.AssemblyTool.Data.Test
                 },
                 {
                     AssemblyMethod.BOI2B1, 10
-                },
-                {
-                    AssemblyMethod.BOI3A1, 11
-                },
-                {
-                    AssemblyMethod.BOI3B1, 12
-                },
-                {
-                    AssemblyMethod.BOI3C1, 13
                 }
             };
     }

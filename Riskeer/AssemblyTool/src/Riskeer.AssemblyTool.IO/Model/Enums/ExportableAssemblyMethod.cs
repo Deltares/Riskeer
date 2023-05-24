@@ -87,24 +87,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2B1_DisplayName))]
-        BOI2B1 = 10,
-
-        /// <summary>
-        /// Represents the assembly method BOI-3A-1.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3A1_DisplayName))]
-        BOI3A1 = 11,
-
-        /// <summary>
-        /// Represents the assembly method BOI-3B-1.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3B1_DisplayName))]
-        BOI3B1 = 12,
-
-        /// <summary>
-        /// Represents the assembly method BOI-3C-1.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3C1_DisplayName))]
-        BOI3C1 = 13
+        BOI2B1 = 10
     }
 }

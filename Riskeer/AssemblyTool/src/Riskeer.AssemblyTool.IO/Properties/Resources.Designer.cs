@@ -180,33 +180,6 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BOI-3A-1.
-        /// </summary>
-        internal static string ExportableAssemblyMethod_BOI3A1_DisplayName {
-            get {
-                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3A1_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BOI-3B-1.
-        /// </summary>
-        internal static string ExportableAssemblyMethod_BOI3B1_DisplayName {
-            get {
-                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3B1_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BOI-3C-1.
-        /// </summary>
-        internal static string ExportableAssemblyMethod_BOI3C1_DisplayName {
-            get {
-                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3C1_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to HANDMATIG.
         /// </summary>
         internal static string ExportableAssemblyMethod_Manual_DisplayName {

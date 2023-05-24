@@ -55,9 +55,6 @@ namespace Riskeer.Integration.IO.Test.Converters
         [TestCase(AssemblyMethod.Manual, ExportableAssemblyMethod.Manual)]
         [TestCase(AssemblyMethod.BOI2A1, ExportableAssemblyMethod.BOI2A1)]
         [TestCase(AssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2B1)]
-        [TestCase(AssemblyMethod.BOI3A1, ExportableAssemblyMethod.BOI3A1)]
-        [TestCase(AssemblyMethod.BOI3B1, ExportableAssemblyMethod.BOI3B1)]
-        [TestCase(AssemblyMethod.BOI3C1, ExportableAssemblyMethod.BOI3C1)]
         public void ConvertTo_WithAssemblyMethod_ReturnsExpectedValues(AssemblyMethod assemblyMethod,
                                                                        ExportableAssemblyMethod expectedAssemblyMethod)
         {
