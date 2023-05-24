@@ -82,25 +82,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblagekaart.
-        /// </summary>
-        public static string AssemblyResultPerSection_Map_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSection_Map_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultPerSectionMap {
-            get {
-                object obj = ResourceManager.GetObject("AssemblyResultPerSectionMap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         public static string AssemblyResults_DisplayName {
