@@ -84,56 +84,6 @@ namespace Riskeer.Integration.Data.Assembly
         }
 
         /// <summary>
-        /// Assembles the combined failure mechanism sections.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section that contains all
-        /// the failure mechanism sections to assemble.</param>
-        /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>
-        /// cannot be created.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> AssembleCombinedPerFailureMechanismSection(
-            AssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            try
-            {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-                IAssessmentSectionAssemblyCalculator calculator = calculatorFactory.CreateAssessmentSectionAssemblyCalculator(
-                    AssemblyToolKernelFactory.Instance);
-
-                Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
-                                                                                                  .Concat(assessmentSection.SpecificFailureMechanisms)
-                                                                                                  .Where(fm => fm.InAssembly)
-                                                                                                  .Select((fm, i) => new
-                                                                                                  {
-                                                                                                      FailureMechanism = fm,
-                                                                                                      Index = i
-                                                                                                  })
-                                                                                                  .ToDictionary(x => x.FailureMechanism, x => x.Index);
-
-                CombinedFailureMechanismSectionAssemblyResultWrapper output = calculator.AssembleCombinedFailureMechanismSections(
-                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys),
-                    assessmentSection.ReferenceLine.Length);
-
-                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, failureMechanismsToAssemble, assessmentSection);
-            }
-            catch (AssessmentSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
-            }
-            catch (AssemblyException e)
-            {
-                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms, e);
-            }
-        }
-
-        /// <summary>
         /// Gets the failure mechanism assembly results based on the input arguments.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the failure mechanism assembly results

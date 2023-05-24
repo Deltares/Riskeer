@@ -43,17 +43,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
                                                                          double maximumAllowableFloodingProbability,
                                                                          double signalFloodingProbability);
-
-        /// <summary>
-        /// Assembles the combined assessment section for the given input.
-        /// </summary>
-        /// <param name="input">The collection of failure mechanism section collections to assemble for.</param>
-        /// <param name="assessmentSectionLength">The length of the assessment section.</param>
-        /// <returns>A <see cref="CombinedFailureMechanismSectionAssemblyResultWrapper"/> containing the assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs while assembling.</exception>
-        CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength);
     }
 }
