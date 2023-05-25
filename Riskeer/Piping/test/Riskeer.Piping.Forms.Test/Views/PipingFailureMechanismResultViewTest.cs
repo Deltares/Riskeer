@@ -247,12 +247,18 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                }
+            };
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            
             var calculationScenario = new TestPipingCalculationScenario();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 

@@ -52,7 +52,6 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableAssembly_WithValidAssessmentSection_ReturnsExpectedAssembly()
         {
             // Setup
-
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
@@ -62,6 +61,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                     new SpecificFailureMechanism()
                 }
             };
+
             AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection).ForEachElementDo(
                 fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);

@@ -252,7 +252,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenGrassCoverErosionInwardsFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                }
+            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -261,7 +267,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -297,7 +303,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenGrassCoverErosionInwardsFailureMechanismResultView_WhenRootCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                }
+            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -306,7 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -342,7 +354,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenGrassCoverErosionInwardsFailureMechanismResultView_WhenNestedCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                }
+            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -353,7 +371,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculationScenario);
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
