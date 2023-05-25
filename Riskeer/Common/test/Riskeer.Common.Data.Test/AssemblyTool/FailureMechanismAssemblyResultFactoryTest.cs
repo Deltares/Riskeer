@@ -169,7 +169,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput()
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
+        public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -179,7 +181,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 };
 
                 // Call
@@ -220,29 +222,21 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_CalculatorThrowsNotSupportedException_ThrowsAssemblyException()
+        public void AssembleFailureMechanism_NotSupportedProbabilityResultType_ThrowsNotSupportedException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
+                ProbabilityResultType = 0
+            };
 
-                var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
-                {
-                    ProbabilityResultType = 0
-                };
+            // Call
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
 
-                // Call
-                void Call() =>
-                    FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                        0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
-
-                // Assert
-                var exception = Assert.Throws<NotSupportedException>(Call);
-                Assert.AreEqual("Specified method is not supported.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(Call);
+            Assert.AreEqual("Specified method is not supported.", exception.Message);
         }
     }
 }
