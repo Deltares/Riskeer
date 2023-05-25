@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -95,6 +96,18 @@ namespace Riskeer.Common.Data.TestUtil
         public static RoundedDouble GetTestAssessmentLevel()
         {
             return testAssessmentLevel;
+        }
+
+        /// <summary>
+        /// Gets all the generic and specific failure mechanisms of the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to get the failure mechanisms for.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/>.</returns>
+        public static IEnumerable<IFailureMechanism> GetAllFailureMechanisms(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.GetFailureMechanisms()
+                                    .Concat(assessmentSection.SpecificFailureMechanisms)
+                                    .ToArray();
         }
 
         private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)

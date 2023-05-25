@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.Assembly;
 
 namespace Riskeer.Integration.Data.Test.Assembly
@@ -158,10 +159,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
             IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
                                                                                 .ToArray();
             assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
-            assessmentSection.GetFailureMechanisms()
-                             .Concat(assessmentSection.SpecificFailureMechanisms)
-                             .ForEachElementDo(
-                                 fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
+            AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection).ForEachElementDo(
+                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
 
             return assessmentSection;
         }
@@ -172,10 +171,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
 
-            IEnumerable<IFailureMechanism> getAllFailureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                      .Concat(assessmentSection.SpecificFailureMechanisms);
-            getAllFailureMechanisms.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
-            getAllFailureMechanisms.ForEachElementDo(
+            IEnumerable<IFailureMechanism> allFailureMechanisms = AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection);
+            allFailureMechanisms.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
+            allFailureMechanisms.ForEachElementDo(
                 fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
 
             return assessmentSection;
