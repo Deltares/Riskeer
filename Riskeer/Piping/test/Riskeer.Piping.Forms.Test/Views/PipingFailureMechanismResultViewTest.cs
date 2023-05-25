@@ -222,7 +222,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
@@ -251,7 +251,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -305,7 +305,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculationScenario = new TestPipingCalculationScenario();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -352,7 +352,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculationScenario);
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -394,7 +394,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))

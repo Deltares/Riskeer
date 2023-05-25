@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
             };
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             };
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
@@ -169,8 +169,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2)]
         public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
@@ -205,7 +205,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 var failureMechanismAssemblyResult = new FailureMechanismAssemblyResult
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 };
 
                 // Call

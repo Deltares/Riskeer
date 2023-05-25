@@ -366,24 +366,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. onafhankelijke vakken.
-        /// </summary>
-        public static string FailureMechanismAssemblyProbabilityResultTypeAutomaticP1_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomaticP1_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. slechtste doorsnede of vak.
-        /// </summary>
-        public static string FailureMechanismAssemblyProbabilityResultTypeAutomaticP2_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomaticP2_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Handmatig invullen.
         /// </summary>
         public static string FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName {
@@ -398,6 +380,24 @@ namespace Riskeer.Common.Data.Properties {
         public static string FailureMechanismAssemblyProbabilityResultTypeNone_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeNone_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. onafhankelijke vakken.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. slechtste doorsnede of vak.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName", resourceCulture);
             }
         }
         

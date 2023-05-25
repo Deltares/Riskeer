@@ -41,8 +41,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
         [Test]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, false)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, false)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, false)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, false)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, false)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, true)]
         public void IsManualProbability_WithFailureMechanismAssemblyProbabilityResultType_ReturnsExpectedResult(
             FailureMechanismAssemblyProbabilityResultType resultType, bool expectedResult)

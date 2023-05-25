@@ -36,10 +36,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                     FailureMechanismAssemblyProbabilityResultType.None, 1
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 2
+                    FailureMechanismAssemblyProbabilityResultType.P1, 2
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 3
+                    FailureMechanismAssemblyProbabilityResultType.P2, 3
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.Manual, 4
@@ -53,10 +53,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                     FailureMechanismAssemblyProbabilityResultType.None, "<selecteer>"
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticP1, "Automatisch berekenen o.b.v. onafhankelijke vakken"
+                    FailureMechanismAssemblyProbabilityResultType.P1, "Automatisch berekenen o.b.v. onafhankelijke vakken"
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticP2, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
+                    FailureMechanismAssemblyProbabilityResultType.P2, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.Manual, "Handmatig invullen"

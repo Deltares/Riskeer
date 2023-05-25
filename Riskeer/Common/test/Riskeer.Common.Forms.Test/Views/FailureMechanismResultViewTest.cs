@@ -216,8 +216,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 var configurationTypes = (EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>[]) comboBox.DataSource;
                 Assert.AreEqual(4, configurationTypes.Length);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.None, configurationTypes[0].Value);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, configurationTypes[1].Value);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, configurationTypes[2].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.P1, configurationTypes[1].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.P2, configurationTypes[2].Value);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[3].Value);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.None,
                                 ((EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
@@ -679,16 +679,16 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.PositiveInfinity, "Oneindig")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, 0.0001, "1/10.000")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, 0.000000123456789, "1/8.100.000")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.NaN, "-")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.NegativeInfinity, "-Oneindig")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.PositiveInfinity, "Oneindig")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.0001, "1/10.000")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.000000123456789, "1/8.100.000")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.NaN, "-")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.NegativeInfinity, "-Oneindig")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.PositiveInfinity, "Oneindig")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.0001, "1/10.000")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.000000123456789, "1/8.100.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, double.NaN, "-")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, double.NegativeInfinity, "-Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, double.PositiveInfinity, "Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, 0.0001, "1/10.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1, 0.000000123456789, "1/8.100.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, double.NaN, "-")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, double.NegativeInfinity, "-Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, double.PositiveInfinity, "Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, 0.0001, "1/10.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2, 0.000000123456789, "1/8.100.000")]
         public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenResultSetOnFailureMechanismAssemblyProbability(
             FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType, double assemblyResult, string expectedString)
         {
@@ -874,7 +874,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
 
@@ -1261,8 +1261,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P1)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.P2)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
         public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
             FailureMechanismAssemblyProbabilityResultType resultType)
@@ -1496,17 +1496,17 @@ namespace Riskeer.Common.Forms.Test.Views
             return new[]
             {
                 new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None),
-                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.AutomaticP1),
-                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)
+                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.P1),
+                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.P2)
             };
         }
 
         private static IEnumerable<TestCaseData> GetToAutomaticResultTypeCases()
         {
-            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.1, 0.1);
-            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.2, 0.2);
-            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.3, 0.1);
-            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.3, 0.2);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.P1, 0.1, 0.1);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.P2, 0.2, 0.2);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.P1, 0.3, 0.1);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.P2, 0.3, 0.2);
         }
 
         #endregion

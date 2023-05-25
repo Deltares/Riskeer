@@ -38,14 +38,14 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// The automatically calculated probability type based on independent sections.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticP1_DisplayName))]
-        AutomaticP1 = 2,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName))]
+        P1 = 2,
 
         /// <summary>
         /// The automatically calculated probability type based on the worst section or profile.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticP2_DisplayName))]
-        AutomaticP2 = 3,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName))]
+        P2 = 3,
 
         /// <summary>
         /// The manual probability type.

@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var result = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             };
 
             // Call

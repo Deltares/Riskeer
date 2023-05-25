@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
@@ -256,7 +256,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
@@ -307,7 +307,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
@@ -358,7 +358,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");

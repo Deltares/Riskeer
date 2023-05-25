@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             });
             mocks.ReplayAll();
 
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             });
             mocks.ReplayAll();
 

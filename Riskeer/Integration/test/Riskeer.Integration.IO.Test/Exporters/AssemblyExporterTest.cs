@@ -295,7 +295,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), 2);
 
             AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection).ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1);
+                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1);
 
             return assessmentSection;
         }

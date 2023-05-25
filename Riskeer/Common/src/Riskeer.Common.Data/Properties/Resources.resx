@@ -393,10 +393,10 @@
     <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
     <value>Beide</value>
   </data>
-    <data name="FailureMechanismAssemblyProbabilityResultTypeAutomaticP1_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen o.b.v. onafhankelijke vakken</value>
   </data>
-    <data name="FailureMechanismAssemblyProbabilityResultTypeAutomaticP2_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen o.b.v. slechtste doorsnede of vak</value>
   </data>
     <data name="FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">

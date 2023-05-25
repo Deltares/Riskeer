@@ -208,7 +208,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
@@ -242,7 +242,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -288,7 +288,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -336,7 +336,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculationScenario);
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))

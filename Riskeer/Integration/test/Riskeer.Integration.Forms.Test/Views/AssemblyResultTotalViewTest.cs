@@ -446,7 +446,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.Piping.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            assessmentSection.Piping.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -503,7 +503,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 {
                     AssemblyResult =
                     {
-                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                     }
                 };
                 specificFailureMechanisms.Add(specificFailureMechanism);
@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.GetFailureMechanisms().ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
+                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2);
             return assessmentSection;
         }
 
@@ -570,14 +570,14 @@ namespace Riskeer.Integration.Forms.Test.Views
                 {
                     AssemblyResult =
                     {
-                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                     }
                 },
                 new SpecificFailureMechanism
                 {
                     AssemblyResult =
                     {
-                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                     }
                 }
             });

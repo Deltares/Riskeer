@@ -78,7 +78,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
             failureMechanism.SetSections(new[]
@@ -113,7 +113,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
 
@@ -140,7 +140,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
                 }
             };
 

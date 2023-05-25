@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
             failureMechanism.SetSections(new[]
@@ -286,7 +286,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
 
@@ -313,7 +313,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
 
