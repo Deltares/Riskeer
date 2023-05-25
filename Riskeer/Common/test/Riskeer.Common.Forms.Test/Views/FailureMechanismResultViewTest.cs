@@ -38,6 +38,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -224,7 +225,9 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithProbabilityResultTypeNotManual_WhenFailureMechanismObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation(
+            FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -236,7 +239,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
             int nrOfCalls = 0;
@@ -266,7 +269,9 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithProbabilityResultTypeNotManual_WhenFailureMechanismSectionResultCollectionUpdatedAndObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation(
+            FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Given
             var sectionResults = new ObservableList<FailureMechanismSectionResult>();
@@ -275,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
 
@@ -314,13 +319,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            var testFailureMechanism = new TestFailureMechanism
-            {
-                AssemblyResult =
-                {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
-                }
-            };
+            var testFailureMechanism = new TestFailureMechanism();
 
             int nrOfCalls = 0;
             Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
@@ -560,12 +559,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
-                                                                              Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
-        {
-            return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism(), new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
-        }
-
-        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
                                                                               TestFailureMechanism testFailureMechanism,
                                                                               Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
@@ -644,15 +637,22 @@ namespace Riskeer.Common.Forms.Test.Views
         #region Assembly
 
         [Test]
-        public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1;
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
+                }
+            };
+
             TestFailureMechanism failureMechanismInput = null;
             IAssessmentSection assessmentSectionInput = null;
             Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
@@ -674,13 +674,23 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(double.NaN, "-")]
-        [TestCase(double.NegativeInfinity, "-Oneindig")]
-        [TestCase(double.PositiveInfinity, "Oneindig")]
-        [TestCase(0.0001, "1/10.000")]
-        [TestCase(0.000000123456789, "1/8.100.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.NaN, "-")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.NegativeInfinity, "-Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.PositiveInfinity, "Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None, 0.0001, "1/10.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None, 0.000000123456789, "1/8.100.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.NaN, "-")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.NegativeInfinity, "-Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, double.PositiveInfinity, "Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.0001, "1/10.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.000000123456789, "1/8.100.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.NaN, "-")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.NegativeInfinity, "-Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, double.PositiveInfinity, "Oneindig")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.0001, "1/10.000")]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.000000123456789, "1/8.100.000")]
         public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenResultSetOnFailureMechanismAssemblyProbability(
-            double assemblyResult, string expectedString)
+            FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType, double assemblyResult, string expectedString)
         {
             // Given
             var mocks = new MockRepository();
@@ -691,7 +701,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
 
@@ -701,7 +711,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
+                Assert.AreEqual(failureMechanismAssemblyProbabilityResultType, comboBox.SelectedValue);
 
                 // Then
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -712,7 +722,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblyThrowsAssemblyException_ThenDefaultFailureMechanismAssemblyProbabilitySetWithError()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblyThrowsAssemblyException_ThenDefaultFailureMechanismAssemblyProbabilitySetWithError(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Given
             const string exceptionMessage = "Message";
@@ -725,7 +736,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
 
@@ -735,7 +746,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
+                Assert.AreEqual(failureMechanismAssemblyProbabilityResultType, comboBox.SelectedValue);
 
                 // Then
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -751,7 +762,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithAssemblyError_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenErrorCleared()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithAssemblyError_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
             const string exceptionMessage = "Message";
@@ -764,7 +776,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
 
@@ -784,7 +796,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
+                Assert.AreEqual(failureMechanismAssemblyProbabilityResultType, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -803,7 +815,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeAutomatic_WhenProbabilityTypeSetToManual_ThenErrorCleared()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeNotManual_WhenProbabilityTypeSetToManual_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
             const string exceptionMessage = "Message";
@@ -816,7 +829,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2,
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType,
                     ManualFailureMechanismAssemblyProbability = 0.1
                 }
             };
@@ -830,7 +843,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, comboBox.SelectedValue);
+                Assert.AreEqual(failureMechanismAssemblyProbabilityResultType, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
@@ -849,7 +862,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
+        public void GivenFailureMechanismResultViewAndProbabilityResultTypeNotManual_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -897,11 +910,48 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2, FailureMechanismAssemblyProbabilityResultType.Manual)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
-        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailureMechanismAssemblyProbabilityUpdated(
-            FailureMechanismAssemblyProbabilityResultType initialResultType,
-            FailureMechanismAssemblyProbabilityResultType newResultType)
+        [TestCaseSource(nameof(GetToAutomaticResultTypeCases))]
+        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultTypeToAutomatic_ThenFailureMechanismAssemblyProbabilityUpdated(
+            FailureMechanismAssemblyProbabilityResultType initialResultType, FailureMechanismAssemblyProbabilityResultType targetResultType,
+            double initialProbability, double expectedProbability)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = initialResultType,
+                    ManualFailureMechanismAssemblyProbability = 0.3
+                }
+            };
+
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(
+                                                      expectedProbability, AssemblyMethod.BOI1A1)))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(ProbabilityFormattingHelper.FormatWithDiscreteNumbers(initialProbability), failureMechanismAssemblyProbabilityTextBox.Text);
+
+                // When
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                comboBox.SelectedValue = targetResultType;
+
+                // Then
+                Assert.AreEqual(ProbabilityFormattingHelper.FormatWithDiscreteNumbers(expectedProbability), failureMechanismAssemblyProbabilityTextBox.Text);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultTypeToManual_ThenFailureMechanismAssemblyProbabilityUpdated(
+            FailureMechanismAssemblyProbabilityResultType initialResultType)
         {
             // Given
             const double assemblyResult = 0.1;
@@ -928,20 +978,14 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Precondition
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
-                string expectedProbabilityText = initialResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticP2
-                                                     ? assemblyResultText
-                                                     : manualProbabilityText;
-                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(assemblyResultText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 // When
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                comboBox.SelectedValue = newResultType;
+                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.Manual;
 
                 // Then
-                expectedProbabilityText = newResultType == FailureMechanismAssemblyProbabilityResultType.AutomaticP2
-                                              ? assemblyResultText
-                                              : manualProbabilityText;
-                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
             }
 
             mocks.VerifyAll();
@@ -1111,7 +1155,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeManual_WhenProbabilityTypeSetToAutomatic_ThenErrorCleared()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeManual_WhenProbabilityTypeSetToNotManual_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             var failureMechanism = new TestFailureMechanism
             {
@@ -1134,7 +1179,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.AutomaticP2;
+                comboBox.SelectedValue = failureMechanismAssemblyProbabilityResultType;
 
                 // Then
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
@@ -1193,19 +1238,10 @@ namespace Riskeer.Common.Forms.Test.Views
         #region FailureMechanismAssemblyResultControls
 
         [Test]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
-        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
-        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState(
-            FailureMechanismAssemblyProbabilityResultType resultType)
+        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState()
         {
             // Setup 
-            var failureMechanism = new TestFailureMechanism
-            {
-                AssemblyResult =
-                {
-                    ProbabilityResultType = resultType
-                }
-            };
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
@@ -1224,6 +1260,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.None)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP1)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
         public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
@@ -1375,14 +1413,16 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeAutomatic_WhenSectionsAddedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeNotManual_WhenSectionsAddedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet(
+            FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Given
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
 
@@ -1412,14 +1452,16 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeAutomatic_WhenSectionsClearedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
+        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeNotManual_WhenSectionsClearedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet(
+            FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Given
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2
+                    ProbabilityResultType = failureMechanismAssemblyProbabilityResultType
                 }
             };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
@@ -1447,6 +1489,24 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
                 Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetPerformFailureMechanismAssemblyTestCases()
+        {
+            return new[]
+            {
+                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None),
+                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.AutomaticP1),
+                new TestCaseData(FailureMechanismAssemblyProbabilityResultType.AutomaticP2)
+            };
+        }
+
+        private static IEnumerable<TestCaseData> GetToAutomaticResultTypeCases()
+        {
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.1, 0.1);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.None, FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.2, 0.2);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP1, 0.3, 0.1);
+            yield return new TestCaseData(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.AutomaticP2, 0.3, 0.2);
         }
 
         #endregion
