@@ -169,7 +169,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -192,7 +191,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView(assessmentSection))
@@ -207,7 +205,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView(assessmentSection))
@@ -237,7 +234,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView(assessmentSection))
@@ -265,7 +261,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -488,7 +483,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -531,8 +525,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
             AddSpecificFailureMechanisms(assessmentSection);
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
-            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -565,15 +557,29 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(
+                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP2);
             return assessmentSection;
         }
 
-        private static void AddSpecificFailureMechanisms(AssessmentSection assessmentSection)
+        private static void AddSpecificFailureMechanisms(IAssessmentSection assessmentSection)
         {
             assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
-                new SpecificFailureMechanism(),
-                new SpecificFailureMechanism()
+                new SpecificFailureMechanism
+                {
+                    AssemblyResult =
+                    {
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    }
+                },
+                new SpecificFailureMechanism
+                {
+                    AssemblyResult =
+                    {
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticP1
+                    }
+                }
             });
         }
 
