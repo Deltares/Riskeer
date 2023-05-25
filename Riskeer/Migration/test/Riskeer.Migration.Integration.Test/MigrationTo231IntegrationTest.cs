@@ -63,8 +63,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
-                    AssertMethodMigrated(reader, sourceFilePath);
-                    AssertMethodNotMigrated(reader, sourceFilePath);
+                    AssertFailureMechanismWithResultProbabilityTypeManual(reader, sourceFilePath);
+                    AssertFailureMechanismWithResultProbabilityTypeAutomatic(reader, sourceFilePath);
 
                     AssertDuneLocation(reader, sourceFilePath);
 
@@ -92,18 +92,6 @@ namespace Riskeer.Migration.Integration.Test
 
                 AssertLogDatabase(logFilePath, expectedMessages);
             }
-        }
-
-        static string[] FailureMechanismMessageBuilder(string[] failureMechanisms)
-        {
-            List<string> messages = new List<string>();
-            foreach (var failureMechanism in failureMechanisms)
-            {
-                messages.Add($"Faalmechanisme: '{failureMechanism}'");
-                messages.Add("+ Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.");
-            }
-
-            return messages.ToArray();
         }
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
@@ -140,7 +128,7 @@ namespace Riskeer.Migration.Integration.Test
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
 
-            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", FailureMechanismMessageBuilder(new[]
+            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", GetMessagesForFailureMechanisms(new[]
             {
                 "Piping",
                 "Grasbekleding erosie kruin en binnentalud",
@@ -166,9 +154,24 @@ namespace Riskeer.Migration.Integration.Test
             });
         }
 
-        private static void AssertMethodMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        private static IEnumerable<string> GetMessagesForFailureMechanisms(IEnumerable<string> failureMechanisms)
         {
-            string validateDuneLocation =
+            var messages = new List<string>();
+            foreach (string failureMechanism in failureMechanisms)
+            {
+                messages.AddRange(new[]
+                {
+                    $"Faalmechanisme: '{failureMechanism}'",
+                    "+ Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+                });
+            }
+
+            return messages;
+        }
+
+        private static void AssertFailureMechanismWithResultProbabilityTypeManual(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanism =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -178,8 +181,7 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM FailureMechanismEntity NEW " +
                 "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                "WHERE NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 4 " +
-                "AND NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
                 "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
                 "AND NEW.[InAssembly] = OLD.[InAssembly] " +
@@ -188,14 +190,15 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InAssemblyOutputComments] IS OLD.[InAssemblyOutputComments] " +
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotInAssemblyComments] " +
                 "AND NEW.[CalculationsInputComments] IS OLD.[CalculationsInputComments] " +
+                "AND NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 4 " +
                 "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS OLD.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]; " +
                 "DETACH SOURCEPROJECT";
-            reader.AssertReturnedDataIsValid(validateDuneLocation);
+            reader.AssertReturnedDataIsValid(validateFailureMechanism);
         }
 
-        private static void AssertMethodNotMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertFailureMechanismWithResultProbabilityTypeAutomatic(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateDuneLocation =
+            string validateFailureMechanism =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -205,8 +208,7 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM FailureMechanismEntity NEW " +
                 "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                "WHERE NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
-                "AND NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
                 "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
                 "AND NEW.[InAssembly] = OLD.[InAssembly] " +
@@ -215,9 +217,10 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InAssemblyOutputComments] IS OLD.[InAssemblyOutputComments] " +
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotInAssemblyComments] " +
                 "AND NEW.[CalculationsInputComments] IS OLD.[CalculationsInputComments] " +
+                "AND NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
                 "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS OLD.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]; " +
                 "DETACH SOURCEPROJECT";
-            reader.AssertReturnedDataIsValid(validateDuneLocation);
+            reader.AssertReturnedDataIsValid(validateFailureMechanism);
         }
 
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
