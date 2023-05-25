@@ -525,7 +525,7 @@ SELECT "22.1",
     "23.1",
     CASE
         WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
-        ELSE "* + " || [msg]
+        ELSE "  + " || [msg]
     END
 END
 FROM FailureMechanismMessages;
@@ -572,7 +572,7 @@ SELECT "22.1",
     "23.1",
     CASE
         WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
-        ELSE "* + " || [msg]
+        ELSE "  + " || [msg]
     END
 END
 FROM FailureMechanismMessages;

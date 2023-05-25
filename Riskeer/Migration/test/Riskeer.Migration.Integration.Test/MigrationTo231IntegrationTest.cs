@@ -98,34 +98,34 @@ namespace Riskeer.Migration.Integration.Test
         {
             yield return new TestCaseData("MigrationTestProject221NoOutput.risk", new[]
             {
-                "Geen aanpassingen."
+                "* Geen aanpassingen."
             });
 
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
-                "Alle berekende resultaten zijn verwijderd."
+                "* Alle berekende resultaten zijn verwijderd."
             });
 
             yield return new TestCaseData("MigrationTestProject221PipingNoManualAssessmentLevels.risk", new[]
             {
-                "Alle berekende resultaten zijn verwijderd."
+                "* Alle berekende resultaten zijn verwijderd."
             });
 
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject221WithOutput.risk", new[]
             {
-                "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
 
             yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
             {
-                "Alle berekende resultaten zijn verwijderd."
+                "* Alle berekende resultaten zijn verwijderd."
             });
 
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsWithOutput.risk", new[]
             {
-                "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
 
             yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", GetMessagesForFailureMechanisms(new[]
@@ -150,7 +150,7 @@ namespace Riskeer.Migration.Integration.Test
 
             yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsManual.risk", new[]
             {
-                "Geen aanpassingen."
+                "* Geen aanpassingen."
             });
         }
 
@@ -161,8 +161,8 @@ namespace Riskeer.Migration.Integration.Test
             {
                 messages.AddRange(new[]
                 {
-                    $"Faalmechanisme: '{failureMechanism}'",
-                    "+ Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+                    $"* Faalmechanisme: '{failureMechanism}'",
+                    "  + Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
                 });
             }
 
@@ -657,7 +657,7 @@ namespace Riskeer.Migration.Integration.Test
                 foreach (string expectedMessage in expectedMessages)
                 {
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("22.1", newVersion, $"* {expectedMessage}"),
+                        new MigrationLogMessage("22.1", newVersion, $"{expectedMessage}"),
                         messages[i++]);
                 }
             }
