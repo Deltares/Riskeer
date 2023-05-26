@@ -317,7 +317,7 @@ SELECT
     [NotInAssemblyComments],
     [N],
     CASE
-        WHEN [FailureMechanismAssemblyResultProbabilityResultType] = 2 
+        WHEN [FailureMechanismAssemblyResultProbabilityResultType] = 2
             THEN 4
         ELSE
             [FailureMechanismAssemblyResultProbabilityResultType]
@@ -387,7 +387,7 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
     'FromVersion' VARCHAR(20) NOT NULL,
     'ToVersion' VARCHAR(20) NOT NULL,
     'LogMessage' TEXT NOT NULL
-    );
+);
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
@@ -395,9 +395,9 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [LogMessage])
 VALUES ("22.1", "23.1", "Gevolgen van de migratie van versie 22.1 naar versie 23.1:");
 
-CREATE TEMP TABLE TempLogOutputDeleted 
+CREATE TEMP TABLE TempLogOutputDeleted
 (
-	'NrDeleted' INTEGER NOT NULL
+    'NrDeleted' INTEGER NOT NULL
 );
 
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
@@ -425,7 +425,7 @@ WHERE UseAssessmentLevelManualInput = 0;
 
 CREATE TEMP TABLE TempLogOutputRemaining
 (
-	'NrRemaining' INTEGER NOT NULL
+    'NrRemaining' INTEGER NOT NULL
 );
 
 INSERT INTO TempLogOutputRemaining
@@ -453,14 +453,14 @@ SELECT
         ELSE "* Alle berekende resultaten zijn verwijderd."
         END
 FROM TempLogOutputDeleted
-         LEFT JOIN TempLogOutputRemaining
+LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
-    LIMIT 1;
+LIMIT 1;
 
 CREATE TEMP TABLE TempFailureMechanisms
 (
-	'FailureMechanismType' INTEGER NOT NULL,
-	'FailureMechanismName' VARCHAR(255) NOT NULL
+    'FailureMechanismType' INTEGER NOT NULL,
+    'FailureMechanismName' VARCHAR(255) NOT NULL
 );
 
 INSERT INTO TempFailureMechanisms VALUES (1, 'Piping');
@@ -475,107 +475,176 @@ INSERT INTO TempFailureMechanisms VALUES (9, 'Hoogte kunstwerk');
 INSERT INTO TempFailureMechanisms VALUES (10, 'Betrouwbaarheid sluiting kunstwerk');
 INSERT INTO TempFailureMechanisms VALUES (11, 'Piping bij kunstwerk');
 INSERT INTO TempFailureMechanisms VALUES (12, 'Sterkte en stabiliteit puntconstructies');
-INSERT INTO TempFailureMechanisms VALUES (13, 'Macrostabiliteit buitenwaarts');
-INSERT INTO TempFailureMechanisms VALUES (14, 'Microstabiliteit');
-INSERT INTO TempFailureMechanisms VALUES (15, 'Wateroverdruk bij asfaltbekleding');
-INSERT INTO TempFailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnentalud');
-INSERT INTO TempFailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
-INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
+INSERT INTO TempFailureMechanisms VALUES (13, 'Microstabiliteit');
+INSERT INTO TempFailureMechanisms VALUES (14, 'Wateroverdruk bij asfaltbekleding');
+INSERT INTO TempFailureMechanisms VALUES (15, 'Grasbekleding afschuiven binnentalud');
+
+CREATE TEMP TABLE TempAssessmentSectionFailureMechanism (
+    [AssessmentSectionId],
+    [AssessmentSectionName],
+    [FailureMechanismId],
+    [FailureMechanismName]
+);
+
+INSERT INTO TempAssessmentSectionFailureMechanism
+SELECT
+    [AssessmentSectionEntityId],
+    [Name],
+    [FailureMechanismEntityId],
+    [FailureMechanismName]
+FROM AssessmentSectionEntity
+JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
+JOIN TempFailureMechanisms USING (FailureMechanismType);
 
 CREATE TEMP TABLE TempChanges (
+    [AssessmentSectionId],
+    [AssessmentSectionName],
+    [FailureMechanismId],
+    [FailureMechanismName],
+    [msg]
+);
+
+CREATE TEMP TABLE SpecificTempChanges (
+    [AssessmentSectionId],
+    [AssessmentSectionName],
     [FailureMechanismId],
     [FailureMechanismName],
     [msg]
 );
 
 INSERT INTO TempChanges
-SELECT fme.[FailureMechanismEntityId],
-    tfm.[FailureMechanismName],
+SELECT
+    asfm.[AssessmentSectionId],
+    asfm.[AssessmentSectionName],
+    asfm.[FailureMechanismId],
+    asfm.[FailureMechanismName],
     "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
 FROM FailureMechanismEntity AS fme
-    JOIN TempFailureMechanisms AS tfm USING(FailureMechanismType)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 WHERE fme.[FailureMechanismAssemblyResultProbabilityResultType] = 1;
 
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
-        [FromVersion],
-        [ToVersion],
-        [LogMessage]
-    ) WITH RECURSIVE FailureMechanismMessages (
-        [FailureMechanismId],
-        [FailureMechanismName],
-        [msg],
-        [level]
-    ) AS (
-        SELECT DISTINCT [FailureMechanismId],
-            [FailureMechanismName],
-            NULL,
-            1
-        FROM TempChanges
-        UNION
-        SELECT [FailureMechanismId],
-            NULL,
-            [msg],
-            2
-        FROM TempChanges
-        WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
-        ORDER BY 1,
-            3
-    )
-SELECT "22.1",
-    "23.1",
-    CASE
-        WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
-        ELSE "  + " || [msg]
-    END
-END
-FROM FailureMechanismMessages;
-
-CREATE TEMP TABLE SpecificTempChanges (
-    [FailureMechanismId],
-    [FailureMechanismName],
-    [msg]
-);
-
-INSERT INTO SpecificTempChanges
-SELECT sfme.[SpecificFailureMechanismEntityId],
+INSERT INTO TempChanges
+SELECT
+    asfm.[AssessmentSectionEntityId],
+    asfm.[Name],
+    sfme.[SpecificFailureMechanismEntityId] + NrOfFailureMechanisms,
     sfme.[Name],
     "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
 FROM SpecificFailureMechanismEntity AS sfme
+JOIN AssessmentSectionEntity AS asfm USING(AssessmentSectionEntityId)
+JOIN (
+    SELECT MAX(FailureMechanismEntityId) AS NrOfFailureMechanisms
+    FROM FailureMechanismEntity
+)
 WHERE sfme.[FailureMechanismAssemblyResultProbabilityResultType] = 1;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
-        [FromVersion],
-        [ToVersion],
-        [LogMessage]
-    ) WITH RECURSIVE FailureMechanismMessages (
+    [FromVersion],
+    [ToVersion],
+    [LogMessage]
+) WITH RECURSIVE FailureMechanismMessages (
+    [FailureMechanismId],
+    [FailureMechanismName],
+    [AssessmentSectionId],
+    [AssessmentSectionName],
+    [msg],
+    [level]
+) AS (
+    SELECT DISTINCT
         [FailureMechanismId],
         [FailureMechanismName],
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        NULL,
+        1
+    FROM TempChanges
+    UNION
+    SELECT 
+        [FailureMechanismId],
+        NULL,
+        [AssessmentSectionId],
+        [AssessmentSectionName],
         [msg],
-        [level]
-    ) AS (
-        SELECT DISTINCT [FailureMechanismId],
-            [FailureMechanismName],
-            NULL,
-            1
-        FROM SpecificTempChanges
-        UNION
-        SELECT [FailureMechanismId],
-            NULL,
-            [msg],
-            2
-        FROM SpecificTempChanges
-        WHERE SpecificTempChanges.[FailureMechanismId] IS [FailureMechanismId]
-        ORDER BY 1,
-            3
+        2
+    FROM TempChanges
+    WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
+    ORDER BY [AssessmentSectionId], [FailureMechanismId]
+),
+AssessmentSectionFailureMechanismMessages (
+    [AssessmentSectionId],
+    [AssessmentSectionName],
+    [IsAssessmentSectionHeader],
+    [FailureMechanismId],
+    [FailureMechanismName],
+    [msg],
+    [level],
+    [Order]
+) AS (
+    SELECT DISTINCT 
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        1,
+        NULL,
+        NULL,
+        NULL,
+        1,
+        0
+    FROM (
+        SELECT 
+            [AssessmentSectionId],
+            [AssessmentSectionName]
+        FROM FailureMechanismMessages
+        WHERE [AssessmentSectionId] IS NOT NULL
     )
-SELECT "22.1",
+    UNION
+    SELECT *
+    FROM (
+        SELECT 
+            [AssessmentSectionId],
+            NULL,
+            0 AS [IsAssessmentSectionHeader],
+            fmm.[FailureMechanismId] AS [FailureMechanismId],
+            fmm.[FailureMechanismName],
+            [msg],
+            fmm.[level] AS [level],
+            1 AS [Order]
+        FROM FailureMechanismMessages AS fmm
+        WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
+    )
+    ORDER BY
+        [AssessmentSectionId],
+        [FailureMechanismId],
+        [level],
+        [IsAssessmentSectionHeader] DESC,
+        [Order]
+)
+SELECT
+    "22.1",
     "23.1",
     CASE
-        WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
-        ELSE "  + " || [msg]
+        WHEN [AssessmentSectionName] IS NOT NULL 
+            THEN 
+                CASE
+                    WHEN [IsAssessmentSectionHeader] IS 1
+                        THEN 
+                            "* Traject: '" || [AssessmentSectionName] || "'"
+                        ELSE 
+                            "  + " || [msg]
+                END
+            ELSE
+                CASE
+                    WHEN [FailureMechanismName] IS NOT NULL
+                        THEN
+                            "  + Faalmechanisme: '" || [FailureMechanismName] || "'"
+                        ELSE
+                            "    - " || [msg]
+                END
     END
-END
-FROM FailureMechanismMessages;
+FROM AssessmentSectionFailureMechanismMessages;
+
+DROP TABLE TempFailureMechanisms;
+DROP TABLE TempAssessmentSectionFailureMechanism;
+DROP TABLE TempChanges;
 
 DROP TABLE TempLogOutputDeleted;
 DROP TABLE TempLogOutputRemaining;
@@ -584,13 +653,14 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
-SELECT "22.1",
-       "23.1",
-       "* Geen aanpassingen."
-    WHERE (
-		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
-		WHERE [FromVersion] = "22.1"
-	) IS 1;
+SELECT 
+    "22.1",
+    "23.1",
+    "* Geen aanpassingen."
+WHERE (
+    SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
+    WHERE [FromVersion] = "22.1"
+) IS 1;
 
 DETACH LOGDATABASE;
 

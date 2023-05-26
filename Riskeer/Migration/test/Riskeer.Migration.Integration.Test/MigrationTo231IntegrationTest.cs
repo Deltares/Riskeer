@@ -128,45 +128,47 @@ namespace Riskeer.Migration.Integration.Test
                 "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
 
-            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", GetMessagesForFailureMechanisms(new[]
+            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", new[]
             {
-                "Piping",
-                "Grasbekleding erosie kruin en binnentalud",
-                "Hoogte kunstwerk",
-                "Microstabiliteit",
-                "Betrouwbaarheid sluiting kunstwerk",
-                "Macrostabiliteit binnenwaarts",
-                "Golfklappen op asfaltbekleding",
-                "Grasbekleding erosie buitentalud",
-                "Wateroverdruk bij asfaltbekleding",
-                "Grasbekleding afschuiven buitentalud",
-                "Macrostabiliteit buitenwaarts",
-                "Piping bij kunstwerk",
-                "Stabiliteit steenzetting",
-                "Duinafslag",
-                "Sterkte en stabiliteit puntconstructies",
-                "Faalmechanisme Automatisch"
-            }));
+                "* Traject: 'Traject 12-2'",
+                "  + Faalmechanisme: 'Piping'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Hoogte kunstwerk'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Wateroverdruk bij asfaltbekleding'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Macrostabiliteit binnenwaarts'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Golfklappen op asfaltbekleding'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Grasbekleding erosie buitentalud'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Grasbekleding afschuiven binnentalud'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Grasbekleding afschuiven buitentalud'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Microstabiliteit'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                 "  + Faalmechanisme: 'Piping bij kunstwerk'",
+                 "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                 "  + Faalmechanisme: 'Stabiliteit steenzetting'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Duinafslag'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.",
+                "  + Faalmechanisme: 'Faalmechanisme Automatisch'",
+                "    - Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+            });
 
             yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsManual.risk", new[]
             {
                 "* Geen aanpassingen."
             });
-        }
-
-        private static IEnumerable<string> GetMessagesForFailureMechanisms(IEnumerable<string> failureMechanisms)
-        {
-            var messages = new List<string>();
-            foreach (string failureMechanism in failureMechanisms)
-            {
-                messages.AddRange(new[]
-                {
-                    $"* Faalmechanisme: '{failureMechanism}'",
-                    "  + Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
-                });
-            }
-
-            return messages;
         }
 
         private static void AssertFailureMechanismWithResultProbabilityTypeManual(MigratedDatabaseReader reader, string sourceFilePath)
@@ -654,6 +656,7 @@ namespace Riskeer.Migration.Integration.Test
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                     messages[i++]);
+
                 foreach (string expectedMessage in expectedMessages)
                 {
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
