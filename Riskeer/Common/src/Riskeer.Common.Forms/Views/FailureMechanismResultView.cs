@@ -216,7 +216,7 @@ namespace Riskeer.Common.Forms.Views
             probabilityResultTypeComboBox.Enabled = HasSections();
 
             bool isManualAssembly = FailureMechanism.AssemblyResult.IsManualProbability();
-            failureMechanismAssemblyProbabilityTextBox.Enabled = (isManualAssembly && HasSections());
+            failureMechanismAssemblyProbabilityTextBox.Enabled = isManualAssembly && HasSections();
             failureMechanismAssemblyProbabilityTextBox.ReadOnly = !isManualAssembly || !HasSections();
             failureMechanismAssemblyProbabilityTextBox.Refresh();
         }
@@ -375,12 +375,12 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetTextBoxValue(double probability)
         {
+            failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
+            
             if (FailureMechanism.AssemblyResult.IsManualProbability())
             {
                 ValidateManualInput(FailureMechanism.AssemblyResult);
             }
-
-            failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
         }
 
         private void ValidateManualInput(FailureMechanismAssemblyResult assemblyResult)

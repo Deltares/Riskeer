@@ -47,7 +47,8 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// or <paramref name="failureMechanismAssemblyResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
-        /// <exception cref="NotSupportedException">Thrown when ProbabilityResultType of the failure mechanism does not support being assembled.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismAssemblyProbabilityResultType"/>
+        /// of the failure mechanism is not supported.</exception>
         public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(
             double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
             bool applyLengthEffect, FailureMechanismAssemblyResult failureMechanismAssemblyResult)

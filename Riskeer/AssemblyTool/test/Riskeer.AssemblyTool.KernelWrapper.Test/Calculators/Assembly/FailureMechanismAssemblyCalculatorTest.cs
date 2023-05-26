@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
@@ -75,14 +76,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 
-        # region without sectionLengthEffect
+        # region Assemble
 
         [Test]
         public void Assemble_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-
             var mocks = new MockRepository();
             var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
             mocks.ReplayAll();
@@ -90,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculator(kernelFactory);
 
             // Call
-            void Call() => calculator.Assemble(random.NextDouble(), null, random.NextBoolean());
+            void Call() => calculator.Assemble(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -124,7 +123,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(0, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
 
-                CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
+                CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)),
+                                          kernel.FailureMechanismSectionProbabilities);
             }
         }
 
@@ -157,8 +157,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            var random = new Random(21);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -171,11 +169,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 void Call() => calculator.Assemble(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
-
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
-                Assert.IsFalse(kernel.Calculated);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+                Assert.IsFalse(kernel.Calculated);
             }
         }
 
@@ -183,8 +180,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            var random = new Random(21);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -197,23 +192,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 void Call() => calculator.Assemble(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
-
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 var innerException = exception.InnerException as AssemblyException;
-                Assert.IsFalse(kernel.Calculated);
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);
+                Assert.IsFalse(kernel.Calculated);
             }
         }
 
         # endregion
 
-        #region with sectionLengthEffect
+        #region Assemble with FailureMechanismN and ApplyLengthEffect
 
         [Test]
         public void AssembleWithFailureMechanismNAndApplyLengthEffect_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var random = new Random(21);
+
             var mocks = new MockRepository();
             var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
             mocks.ReplayAll();
@@ -221,7 +217,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculator(kernelFactory);
 
             // Call
-            void Call() => calculator.Assemble(null);
+            void Call() => calculator.Assemble(random.NextDouble(), null, random.NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -230,9 +226,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_WithValidInput_ReturnsExpectedOutput(bool applySectionLengthEffect)
+        [TestCaseSource(nameof(GetApplyLengthEffectCases))]
+        public void AssembleWithFailureMechanismNAndApplyLengthEffect_WithValidInput_SendsCorrectInputToKernel(
+            bool applySectionLengthEffect, Func<RiskeerFailureMechanismSectionAssemblyResult, double> getExpectedProbabilityFunc)
         {
             // Setup
             var random = new Random(21);
@@ -259,20 +255,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsFalse(kernel.PartialAssembly);
                 Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionAssemblyResults.Count());
 
-                // CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
-                for (var i = 0; i < sectionAssemblyResults.Length; i++)
-                {
-                    RiskeerFailureMechanismSectionAssemblyResult expected = sectionAssemblyResults.ElementAt(i);
-                    Probability actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
-                    if (applySectionLengthEffect)
-                    {
-                        ProbabilityAssert.AreEqual(expected.ProfileProbability, actual);
-                    }
-                    else
-                    {
-                        ProbabilityAssert.AreEqual(expected.SectionProbability, actual);
-                    }
-                }
+                CollectionAssert.AreEqual(sectionAssemblyResults.Select(sr => new Probability(getExpectedProbabilityFunc(sr))),
+                                          kernel.FailureMechanismSectionAssemblyResults);
             }
         }
 
@@ -292,7 +276,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(), true);
+                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.Assemble(
+                    random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(), true);
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
@@ -302,7 +287,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithLenghtEffectKernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithFailureMechanismNAndApplyLengthEffect_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -328,7 +313,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithLengthEffectKernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithFailureMechanismNAndApplyLengthEffect_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -352,6 +337,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);
                 Assert.IsFalse(kernel.Calculated);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetApplyLengthEffectCases()
+        {
+            return new[]
+            {
+                new TestCaseData(true, new Func<RiskeerFailureMechanismSectionAssemblyResult, double>(sr => sr.ProfileProbability)),
+                new TestCaseData(false, new Func<RiskeerFailureMechanismSectionAssemblyResult, double>(sr => sr.SectionProbability))
+            };
         }
 
         #endregion

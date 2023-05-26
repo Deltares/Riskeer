@@ -235,8 +235,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
 
             // Assert
-            var exception = Assert.Throws<NotSupportedException>(Call);
-            Assert.AreEqual("Specified method is not supported.", exception.Message);
+            Assert.Throws<NotSupportedException>(Call);
         }
     }
 }
