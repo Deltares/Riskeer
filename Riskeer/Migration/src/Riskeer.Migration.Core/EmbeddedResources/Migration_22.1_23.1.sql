@@ -518,7 +518,7 @@ SELECT
     asfm.[AssessmentSectionName],
     asfm.[FailureMechanismId],
     asfm.[FailureMechanismName],
-    "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+    "De automatisch berekenende faalkans van het faalmechanisme is verwijderd."
 FROM FailureMechanismEntity AS fme
 JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 WHERE fme.[FailureMechanismAssemblyResultProbabilityResultType] = 1;
@@ -529,7 +529,7 @@ SELECT
     asfm.[Name],
     sfme.[SpecificFailureMechanismEntityId] + NrOfFailureMechanisms,
     sfme.[Name],
-    "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+    "De automatisch berekenende faalkans van het faalmechanisme is verwijderd."
 FROM SpecificFailureMechanismEntity AS sfme
 JOIN AssessmentSectionEntity AS asfm USING(AssessmentSectionEntityId)
 JOIN (
