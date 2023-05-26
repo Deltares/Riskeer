@@ -69,8 +69,8 @@ namespace Core.Common.Util.Test.Reflection
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
 
             // Assert
-            Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2022", assemblyInfo.Copyright);
+            Assert.AreEqual("Stichting Deltares and State of the Netherlands", assemblyInfo.Company);
+            Assert.AreEqual("Copyright © Stichting Deltares and State of the Netherlands 2023", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
             StringAssert.StartsWith("23.1.1.1", assemblyInfo.Version);
