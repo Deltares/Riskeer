@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -82,7 +82,8 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!--
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!--
         ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
@@ -94,7 +95,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         ///
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///MERCHANTABILITY or FITNESS FOR A PARTICU [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenBetrouwbaarheidSluitenConfiguratieSchema0To1 {
             get {
@@ -104,7 +105,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -114,8 +115,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenBetrouwbaarheidSluitenSchema {
             get {
