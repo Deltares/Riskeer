@@ -20,7 +20,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-extensions:  .xml .config .xsd .xaml
+extensions:  .xml .config .xsd .xaml .xslt
 <!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
 
