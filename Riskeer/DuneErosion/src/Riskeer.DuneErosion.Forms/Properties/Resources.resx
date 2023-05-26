@@ -171,7 +171,7 @@
   <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName" xml:space="preserve">
     <value>Rekenwaarde golfrichtingspreiding [-]</value>
   </data>
-  <data name=" DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName" xml:space="preserve">
     <value>Rekenwaarde faseverschuiving tussen getij en opzet [uur]</value>
   </data>
   <data name="MetaData_MeanTidalAmplitude_TargetProbability_0" xml:space="preserve">

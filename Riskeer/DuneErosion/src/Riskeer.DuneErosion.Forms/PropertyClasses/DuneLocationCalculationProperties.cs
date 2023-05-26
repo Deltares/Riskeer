@@ -175,7 +175,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         }
         
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources._DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble TideSurgePhaseDifference

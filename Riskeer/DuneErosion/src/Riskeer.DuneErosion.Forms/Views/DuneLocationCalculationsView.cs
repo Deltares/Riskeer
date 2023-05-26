@@ -161,7 +161,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveDirectionalSpread),
                                                  Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.TideSurgePhaseDifference),
-                                                 Resources._DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
+                                                 Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
