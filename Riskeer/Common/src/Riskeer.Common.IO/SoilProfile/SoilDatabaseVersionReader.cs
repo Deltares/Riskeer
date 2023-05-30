@@ -64,7 +64,7 @@ namespace Riskeer.Common.IO.SoilProfile
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = $"@{MetaTableDefinitions.Value}",
+                ParameterName = MetaTableDefinitions.Value,
                 Value = databaseRequiredVersion
             };
 
