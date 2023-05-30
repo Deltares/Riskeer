@@ -26,7 +26,6 @@
     <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
-    <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

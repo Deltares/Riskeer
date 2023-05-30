@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="NUnitForms">
-      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
+	<Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -22,8 +19,6 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />

@@ -29,7 +29,6 @@
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj" />
     <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj" />
     <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Forms\Riskeer.MacroStabilityInwards.Forms.csproj" />

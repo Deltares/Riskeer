@@ -32,7 +32,6 @@
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj" />
     <ProjectReference Include="..\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
-    <ProjectReference Include="..\Riskeer.Integration.Util\Riskeer.Integration.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

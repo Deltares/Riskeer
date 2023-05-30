@@ -9,7 +9,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />

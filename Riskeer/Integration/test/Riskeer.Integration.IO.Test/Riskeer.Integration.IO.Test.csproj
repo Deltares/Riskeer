@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
     <Compile Remove="test-data\**" />
@@ -27,7 +27,6 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj" />
@@ -44,8 +43,6 @@
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Util\Riskeer.Integration.Util.csproj" />
-    <ProjectReference Include="..\Riskeer.Integration.IO.TestUtil\Riskeer.Integration.IO.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>

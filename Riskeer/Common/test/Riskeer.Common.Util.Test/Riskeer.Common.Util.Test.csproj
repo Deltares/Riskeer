@@ -18,7 +18,6 @@
     <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj" />
-    <ProjectReference Include="..\Riskeer.Common.Util.TestUtil\Riskeer.Common.Util.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
