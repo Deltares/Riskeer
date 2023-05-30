@@ -376,7 +376,7 @@ namespace Riskeer.Common.Forms.Views
         private void SetTextBoxValue(double probability)
         {
             failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
-            
+
             if (FailureMechanism.AssemblyResult.IsManualProbability())
             {
                 ValidateManualInput(FailureMechanism.AssemblyResult);

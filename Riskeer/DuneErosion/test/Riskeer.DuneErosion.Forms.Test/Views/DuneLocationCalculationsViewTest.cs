@@ -463,7 +463,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("-", firstRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
-                
+
                 Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual(2.34.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
@@ -485,7 +485,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("-", firstRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
-                
+
                 Assert.AreEqual("-", secondRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual("-", secondRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual("-", secondRow.Cells[wavePeriodColumnIndex].FormattedValue);

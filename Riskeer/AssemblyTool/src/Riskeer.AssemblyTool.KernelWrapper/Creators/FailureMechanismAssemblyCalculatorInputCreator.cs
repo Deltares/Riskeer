@@ -21,7 +21,7 @@
 
 using System;
 using Assembly.Kernel.Model.FailureMechanismSections;
-using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {

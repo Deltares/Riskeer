@@ -292,11 +292,11 @@ namespace Riskeer.DuneErosion.Forms.Views
             public string WaveHeightMetaDataItem { get; set; }
 
             public string WavePeriodMetaDataItem { get; set; }
-            
+
             public string MeanTidalAmplitudeMetaDataItem { get; set; }
-            
+
             public string WaveDirectionalSpreadMetaDataItem { get; set; }
-            
+
             public string TideSurgePhaseDifferenceMetaDataItem { get; set; }
         }
     }

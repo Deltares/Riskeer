@@ -258,7 +258,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });
-            
+
             var calculationScenario = new TestPipingCalculationScenario();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 

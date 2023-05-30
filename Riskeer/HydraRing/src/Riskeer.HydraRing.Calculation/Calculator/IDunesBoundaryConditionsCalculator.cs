@@ -43,7 +43,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// Gets the wave period at a location.
         /// </summary>
         double WavePeriod { get; }
-        
+
         /// <summary>
         /// Gets the mean tidal amplitude at a location.
         /// </summary>

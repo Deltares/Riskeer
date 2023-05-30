@@ -161,7 +161,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 return data.Output?.MeanTidalAmplitude ?? RoundedDouble.NaN;
             }
         }
-        
+
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_Description))]
@@ -173,7 +173,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 return data.Output?.WaveDirectionalSpread ?? RoundedDouble.NaN;
             }
         }
-        
+
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_Description))]
@@ -185,7 +185,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 return data.Output?.TideSurgePhaseDifference ?? RoundedDouble.NaN;
             }
         }
-        
+
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_Description))]

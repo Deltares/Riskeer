@@ -539,10 +539,10 @@ namespace Riskeer.Integration.Plugin.Merge
                 IObservableEnumerable<DuneLocation> mergedDuneLocations = targetAssessmentSection.DuneErosion.DuneLocations;
                 ObservableList<DuneLocationCalculationsForTargetProbability> mergedDuneLocationCalculations =
                     targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
-                
+
                 sourceAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Clear();
                 sourceAssessmentSection.DuneErosion.RemoveDuneLocations(sourceAssessmentSection.DuneErosion.DuneLocations);
-                
+
                 targetAssessmentSection.DuneErosion = sourceAssessmentSection.DuneErosion;
                 targetAssessmentSection.DuneErosion.SetDuneLocations(mergedDuneLocations);
                 targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(mergedDuneLocationCalculations);

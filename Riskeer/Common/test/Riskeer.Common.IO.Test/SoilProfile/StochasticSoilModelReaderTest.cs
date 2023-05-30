@@ -547,7 +547,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
-        
+
         [Test]
         public void ReadStochasticSoilModel_CompleteDatabase_SixModelsWithProfiles()
         {

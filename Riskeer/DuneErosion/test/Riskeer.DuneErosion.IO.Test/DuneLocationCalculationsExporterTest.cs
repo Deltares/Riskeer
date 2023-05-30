@@ -117,7 +117,7 @@ namespace Riskeer.DuneErosion.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = 
+                string expectedText =
                     $"Kv\tNr\tRp\tHs\tTp\tGetij\tdt\t_BOI2023_Waarde{Environment.NewLine}" +
                     $"* KustvakID\tRaaiID\tRekenpeil\tRekenwaarde significante golfhoogte\tRekenwaarde piekperiode\tGem. getij amplitude\tFaseverschuiving getij\tP_afslag (doelkans){Environment.NewLine}" +
                     $"* [-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[m]\t[hr]\t[1/jaar]{Environment.NewLine}" +

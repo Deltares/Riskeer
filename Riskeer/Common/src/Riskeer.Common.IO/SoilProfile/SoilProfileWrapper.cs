@@ -28,7 +28,7 @@ namespace Riskeer.Common.IO.SoilProfile
     /// Wrapper class to link an <see cref="ISoilProfile"/> with a <see cref="Schema.FailureMechanismType"/>.
     /// </summary>
     /// <typeparam name="TSoilProfile">The type of soil profile to wrap.</typeparam>
-    public class SoilProfileWrapper<TSoilProfile> 
+    public class SoilProfileWrapper<TSoilProfile>
         where TSoilProfile : ISoilProfile
     {
         /// <summary>

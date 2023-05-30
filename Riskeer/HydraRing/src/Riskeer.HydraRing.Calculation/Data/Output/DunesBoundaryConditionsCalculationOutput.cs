@@ -36,7 +36,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output
         /// <param name="waveDirectionalSpread">The calculated wave directional spread.</param>
         /// <param name="tideSurgePhaseDifference">The calculated tide surge phase difference.</param>
         public DunesBoundaryConditionsCalculationOutput(
-            double waterLevel, double waveHeight, double wavePeriod, 
+            double waterLevel, double waveHeight, double wavePeriod,
             double meanTidalAmplitude, double waveDirectionalSpread, double tideSurgePhaseDifference)
         {
             WaterLevel = waterLevel;
@@ -61,17 +61,17 @@ namespace Riskeer.HydraRing.Calculation.Data.Output
         /// Gets the calculated wave period.
         /// </summary>
         public double WavePeriod { get; }
-        
+
         /// <summary>
         /// Gets the calculated mean tidal amplitude.
         /// </summary>
         public double MeanTidalAmplitude { get; }
-        
+
         /// <summary>
         /// Gets the calculated wave directional spread.
         /// </summary>
         public double WaveDirectionalSpread { get; }
-        
+
         /// <summary>
         /// Gets the calculated tide surge phase difference.
         /// </summary>

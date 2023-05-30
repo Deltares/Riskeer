@@ -208,7 +208,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
-        
+
         [Test]
         public void ReadSoilProfile_DatabaseWith1DAnd1DSoilProfileWithoutSoilLayers_ReturnOneProfile()
         {
@@ -744,7 +744,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
-        
+
         [Test]
         public void ReadSoilProfile_SoilProfilePartOfMultipleFailureMechanismTypes_ReturnsProfilesWithExpectedFailureMechanismTypes()
         {
@@ -765,13 +765,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 // Assert
                 Assert.IsFalse(reader.HasNext);
                 Assert.AreEqual(2, readProfiles.Count);
-                
+
                 CollectionAssert.AreEqual(new[]
                 {
                     FailureMechanismType.Stability,
                     FailureMechanismType.Piping
                 }, readProfiles.Select(p => p.FailureMechanismType));
-                
+
                 Assert.True(readProfiles.All(p => p.SoilProfile.Name == "Segment_41009_1D1"));
                 Assert.True(readProfiles.All(p => p.SoilProfile.Layers.Count() == 3));
                 Assert.True(readProfiles.All(p => Math.Abs(p.SoilProfile.Bottom + 21) < 1e-6));

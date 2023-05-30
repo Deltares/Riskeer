@@ -76,12 +76,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                     {
                         new DuneLocationCalculation(duneLocations[0])
                         {
-                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(), 
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(),
                                                                            random.NextDouble(), random.NextDouble(), random.NextDouble())
                         },
                         new DuneLocationCalculation(duneLocations[1])
                         {
-                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(), 
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(),
                                                                            random.NextDouble(), random.NextDouble(), random.NextDouble())
                         }
                     }

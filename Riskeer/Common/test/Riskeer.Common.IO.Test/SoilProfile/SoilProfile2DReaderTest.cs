@@ -199,7 +199,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
-        
+
         [Test]
         public void ReadSoilProfile_DatabaseWith2DSoilProfile3Layers_ReturnOneProfile()
         {
@@ -968,13 +968,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 // Assert
                 Assert.IsFalse(reader.HasNext);
                 Assert.AreEqual(2, readProfiles.Count);
-                
+
                 CollectionAssert.AreEqual(new[]
                 {
                     FailureMechanismType.Stability,
                     FailureMechanismType.Piping
                 }, readProfiles.Select(p => p.FailureMechanismType));
-                
+
                 Assert.True(readProfiles.All(p => p.SoilProfile.Name == "Vak_41-123_Segment_41009_1D1"));
                 Assert.True(readProfiles.All(p => p.SoilProfile.Layers.Count() == 3));
                 Assert.True(readProfiles.All(p => !p.SoilProfile.PreconsolidationStresses.Any()));

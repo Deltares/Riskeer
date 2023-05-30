@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.SoilProfile
     {
         private readonly Dictionary<FailureMechanismType, Dictionary<long, SoilProfile1D>> soilProfile1Ds =
             new Dictionary<FailureMechanismType, Dictionary<long, SoilProfile1D>>();
-        
+
         private readonly Dictionary<FailureMechanismType, Dictionary<long, SoilProfile2D>> soilProfile2Ds =
             new Dictionary<FailureMechanismType, Dictionary<long, SoilProfile2D>>();
 
@@ -292,7 +292,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 FailureMechanismType failureMechanismType = ReadFailureMechanismType();
                 long? soilProfile1D = ReadSoilProfile1DId();
                 long? soilProfile2D = ReadSoilProfile2DId();
-                if (soilProfile1D.HasValue && 
+                if (soilProfile1D.HasValue &&
                     soilProfile1Ds.ContainsKey(failureMechanismType) &&
                     soilProfile1Ds[failureMechanismType].ContainsKey(soilProfile1D.Value))
                 {
