@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.GrassCoverErosionOutwards.IO")]
 [assembly: AssemblyProduct("Riskeer.GrassCoverErosionOutwards.IO")]
-[assembly: InternalsVisibleTo("Riskeer.GrassCoverErosionOutwards.IO.Test")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.Revetment.IO")]
 [assembly: AssemblyProduct("Riskeer.Revetment.IO")]
-[assembly: InternalsVisibleTo("Riskeer.Revetment.IO.Test")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Core.Components.BruTile")]
 [assembly: AssemblyProduct("Core.Components.BruTile")]
-[assembly: InternalsVisibleTo("Core.Components.BruTile.Test")]

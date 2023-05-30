@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Core.Components.Gis.IO")]
 [assembly: AssemblyProduct("Core.Components.Gis.IO")]
-[assembly: InternalsVisibleTo("Core.Components.Gis.IO.Test")]
