@@ -124,21 +124,6 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string AppliesTo = "geldtVoor";
 
-        /// <summary>
-        /// Identifier for a specifies element.
-        /// </summary>
-        public const string Specifies = "specificeert";
-
-        /// <summary>
-        /// Identifier for a derived from element.
-        /// </summary>
-        public const string DerivedFrom = "afgeleidVan";
-
-        /// <summary>
-        /// Identifier for a indicates element.
-        /// </summary>
-        public const string Indicates = "duidt";
-
         #endregion
 
         #region Namespaces

@@ -49,9 +49,6 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("onderdeelVan", AssemblyXmlIdentifiers.PartOf);
             Assert.AreEqual("analyseert", AssemblyXmlIdentifiers.Analyzes);
             Assert.AreEqual("geldtVoor", AssemblyXmlIdentifiers.AppliesTo);
-            Assert.AreEqual("specificeert", AssemblyXmlIdentifiers.Specifies);
-            Assert.AreEqual("afgeleidVan", AssemblyXmlIdentifiers.DerivedFrom);
-            Assert.AreEqual("duidt", AssemblyXmlIdentifiers.Indicates);
 
             Assert.AreEqual("xmlns", AssemblyXmlIdentifiers.XmlnsIdentifier);
             Assert.AreEqual("xlink", AssemblyXmlIdentifiers.XLinkNamespaceIdentifier);
