@@ -13,9 +13,4 @@
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>3.8.1</Version>
-    </PackageReference>
-  </ItemGroup>
 </Project>
