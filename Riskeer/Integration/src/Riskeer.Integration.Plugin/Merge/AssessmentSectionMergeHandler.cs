@@ -412,23 +412,13 @@ namespace Riskeer.Integration.Plugin.Merge
                 DuneLocationCalculation targetCalculation = targetCalculations.ElementAt(i);
                 DuneLocationCalculation sourceCalculation = sourceCalculations.ElementAt(i);
 
-                if (ShouldMerge(targetCalculation, sourceCalculation))
+                if (targetCalculation.Output == null && sourceCalculation.Output != null)
                 {
-                    MergeCalculationData(targetCalculation, sourceCalculation);
+                    targetCalculation.Output = sourceCalculation.Output;
 
                     yield return targetCalculation;
                 }
             }
-        }
-
-        private static bool ShouldMerge(DuneLocationCalculation targetCalculation, DuneLocationCalculation sourceCalculation)
-        {
-            return targetCalculation.Output == null && sourceCalculation.Output != null;
-        }
-
-        private static void MergeCalculationData(DuneLocationCalculation targetCalculation, DuneLocationCalculation sourceCalculation)
-        {
-            targetCalculation.Output = sourceCalculation.Output;
         }
 
         #endregion
