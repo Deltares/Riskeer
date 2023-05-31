@@ -41,8 +41,7 @@
               RiskeerExecutableConfigPayload.wxs defines the executable config going into this folder.
               MigrationExecutablePayload.wxs defines the 'Migratiehulpprogramma' executable going into this folder.
               MigrationExecutableConfigPayload.wxs defines the 'Migratiehulpprogramma' executable config going into this folder.
-              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder. 
-              ThirdPartyLicensesPayload.wxs defines all license files for all used 3rd party libraries.
+              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder.
               
               All the stated .wxs files will be generated on pre-build. Ensure you have build the solution before building the installer!
               -->
@@ -65,6 +64,10 @@
 
             <Component Id="UserManual" Guid="6AD109DF-87BD-4748-BCF6-D1391F12D8A1">
               <File Id="RiskeerUserManual" Name="!(loc.UserManualName).pdf" Source="!(loc.UserManualName).pdf" KeyPath="yes"/>
+            </Component>
+
+            <Component Id="License" Guid="67026D06-0AC2-4DC2-B0F0-18C0048A3290">
+              <File Id="RiskeerLicense" Name="!(loc.LicenseName)" Source="!(loc.LicenseName)" KeyPath="yes"/>
             </Component>
 
           </Directory>
@@ -159,13 +162,13 @@
       <ComponentGroupRef Id="MigrationExecutable"/>
       <ComponentGroupRef Id="MigrationExecutableConfig"/>
       <ComponentGroupRef Id="RiskeerApplicationComponents"/>
-      <ComponentGroupRef Id="ThirdPartyLicenseComponents"/>
       <ComponentGroupRef Id="Examples"/>
       <ComponentGroupRef Id="InstallationVerificationFiles"/>
       <ComponentGroupRef Id="CalculationConfigurationFiles"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
       <ComponentRef Id="UserManual"/>
+      <ComponentRef Id="License"/>
       <ComponentRef Id="ProgramMenuManualShortcut"/>
       <ComponentRef Id="IHWFile"/>
       <ComponentRef Id="FileAssociation"/>

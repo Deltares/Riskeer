@@ -23,7 +23,6 @@ Application/Riskeer/src/Application.Riskeer.Setup/RiskeerExecutablePayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/RiskeerExecutableConfigPayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/MigrationExecutablePayload.wxs
 Application/Riskeer/src/Application.Riskeer.Setup/MigrationExecutableConfigPayload.wxs
-Application/Riskeer/src/Application.Riskeer.Setup/ThirdPartyLicensesPayload.wxs
 *.ldb
 
 # ReSharper is a .NET coding add-in

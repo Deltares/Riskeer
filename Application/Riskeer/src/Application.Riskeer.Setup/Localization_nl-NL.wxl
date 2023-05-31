@@ -11,6 +11,8 @@
   <String Id="UserManualName">Gebruikershandleiding Riskeer 23.1.1</String>
   <String Id="UserManualDescription">Open de gebruikershandleiding van Riskeer.</String>
 
+  <String Id="LicenseName">Licentie.rtf</String>
+
   <String Id="Examples">Voorbeelden</String>
   <String Id="InstallationVerification">Installatie verificatie</String>
   <String Id="CalculationConfigurationXSD">Berekeningen importeren of exporteren - xsd</String>
