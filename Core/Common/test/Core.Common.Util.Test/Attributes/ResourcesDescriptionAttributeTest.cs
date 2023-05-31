@@ -44,7 +44,7 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_ResourcePropertyIsNotString_ThrowInvalidOperationException()
         {
             // Call
-            TestDelegate call = () => new ResourcesDescriptionAttribute(typeof(Resources), "abacus");
+            TestDelegate call = () => new ResourcesDescriptionAttribute(typeof(Resources), nameof(Resources.abacus));
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -55,10 +55,10 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_StringResource_ExpectedValues()
         {
             // Call
-            var attribute = new ResourcesDescriptionAttribute(typeof(Resources), "SomeStringResource");
+            var attribute = new ResourcesDescriptionAttribute(typeof(Resources), nameof(Resources.SomeStringResource));
 
             // Assert
-            Assert.AreEqual(Resources.SomeStringResource, attribute.Description);
+            Assert.AreEqual("Awesome!", attribute.Description);
         }
     }
 }

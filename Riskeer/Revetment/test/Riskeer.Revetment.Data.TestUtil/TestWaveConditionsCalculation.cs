@@ -44,7 +44,7 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// <remarks><paramref name="hasOutput"/> is default set to <c>false</c>.</remarks>
         public TestWaveConditionsCalculation(T input, bool hasOutput = false)
         {
-            Name = RiskeerCommonDataResources.Calculation_DefaultName;
+            Name = "Nieuwe berekening";
             InputParameters = input;
             HasOutput = hasOutput;
         }

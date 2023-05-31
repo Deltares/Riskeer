@@ -28,7 +28,6 @@ using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
 {
@@ -42,32 +41,32 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
                 var name = "Missing SurfaceLevelOutside";
                 CharacteristicPoints set = CreateCompleteCharacteristicPointSet(name);
                 set.SurfaceLevelOutside = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
+                yield return new TestCaseData(set, "Maaiveld buitenwaarts").SetName(name);
 
                 name = "Missing DikeToeAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeToeAtRiver = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
+                yield return new TestCaseData(set, "Teen dijk buitenwaarts").SetName(name);
 
                 name = "Missing DikeTopAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeTopAtPolder = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
+                yield return new TestCaseData(set, "Kruin binnentalud").SetName(name);
 
                 name = "Missing DikeTopAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeTopAtRiver = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
+                yield return new TestCaseData(set, "Kruin buitentalud").SetName(name);
 
                 name = "Missing DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeToeAtPolder = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
+                yield return new TestCaseData(set, "Teen dijk binnenwaarts").SetName(name);
 
                 name = "Missing SurfaceLevelInside";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.SurfaceLevelInside = null;
-                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
+                yield return new TestCaseData(set, "Maaiveld binnenwaarts").SetName(name);
             }
         }
 
@@ -80,42 +79,42 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.SurfaceLevelOutside = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
+                    "Maaiveld buitenwaarts").SetName(name);
 
                 name = "Moved DikeToeAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeToeAtRiver = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
+                    "Teen dijk buitenwaarts").SetName(name);
 
                 name = "Moved DikeTopAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtPolder = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
+                    "Kruin binnentalud").SetName(name);
 
                 name = "Moved DikeTopAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtRiver = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
+                    "Kruin buitentalud").SetName(name);
 
                 name = "Moved DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeToeAtPolder = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
+                    "Teen dijk binnenwaarts").SetName(name);
 
                 name = "Moved SurfaceLevelInside";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.SurfaceLevelInside = p),
-                    RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
+                    "Maaiveld binnenwaarts").SetName(name);
             }
         }
 

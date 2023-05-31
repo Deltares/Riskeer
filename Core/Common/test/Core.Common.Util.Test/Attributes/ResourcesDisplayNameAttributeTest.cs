@@ -46,7 +46,7 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_ResourcePropertyIsNotString_ThrowInvalidOperationException()
         {
             // Call
-            TestDelegate call = () => new ResourcesDisplayNameAttribute(typeof(Resources), "abacus");
+            TestDelegate call = () => new ResourcesDisplayNameAttribute(typeof(Resources), nameof(Resources.abacus));
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -57,10 +57,10 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_StringResource_ExpectedValues()
         {
             // Call
-            var attribute = new ResourcesDisplayNameAttribute(typeof(Resources), "SomeStringResource");
+            var attribute = new ResourcesDisplayNameAttribute(typeof(Resources), nameof(Resources.SomeStringResource));
 
             // Assert
-            Assert.AreEqual(Resources.SomeStringResource, attribute.DisplayName);
+            Assert.AreEqual("Awesome!", attribute.DisplayName);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Core.Common.Util.Test.Attributes
 
             // Assert
             Assert.IsNotNull(resourcesDisplayNameAttribute);
-            Assert.AreEqual(Resources.EnumStringResource, resourcesDisplayNameAttribute.DisplayName);
+            Assert.AreEqual("Awesome enum value", resourcesDisplayNameAttribute.DisplayName);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Core.Common.Util.Test.Attributes
 
             // Assert
             Assert.IsNotNull(resourcesDisplayNameAttribute);
-            Assert.AreEqual(Resources.MethodStringResource, resourcesDisplayNameAttribute.DisplayName);
+            Assert.AreEqual("Awesome method value", resourcesDisplayNameAttribute.DisplayName);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Core.Common.Util.Test.Attributes
 
             // Assert
             Assert.IsNotNull(resourcesDisplayNameAttribute);
-            Assert.AreEqual(Resources.ClassStringResource, resourcesDisplayNameAttribute.DisplayName);
+            Assert.AreEqual("Awesome class value", resourcesDisplayNameAttribute.DisplayName);
         }
 
         private enum SimpleEnum

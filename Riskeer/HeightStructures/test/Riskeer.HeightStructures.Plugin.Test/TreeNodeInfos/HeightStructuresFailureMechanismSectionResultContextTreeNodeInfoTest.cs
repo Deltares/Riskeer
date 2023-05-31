@@ -82,7 +82,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName, text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]

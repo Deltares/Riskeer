@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Riskeer.Common.IO.Structures;
-using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Test.Structures
 {
@@ -46,7 +45,7 @@ namespace Riskeer.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(path);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilResources.Error_Path_must_be_specified);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -77,7 +76,7 @@ namespace Riskeer.Common.IO.Test.Structures
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilResources.Error_Path_must_not_point_to_empty_file_name);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build("Bestandspad mag niet verwijzen naar een lege bestandsnaam.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

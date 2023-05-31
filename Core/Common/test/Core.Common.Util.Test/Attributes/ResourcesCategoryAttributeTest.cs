@@ -44,7 +44,7 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_ResourcePropertyIsNotString_ThrowInvalidOperationException()
         {
             // Call
-            TestDelegate call = () => new ResourcesCategoryAttribute(typeof(Resources), "abacus");
+            TestDelegate call = () => new ResourcesCategoryAttribute(typeof(Resources), nameof(Resources.abacus));
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -55,30 +55,30 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_StringResource_ExpectedValues()
         {
             // Call
-            var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource");
+            var attribute = new ResourcesCategoryAttribute(typeof(Resources), nameof(Resources.SomeStringResource));
 
             // Assert
-            Assert.AreEqual(Resources.SomeStringResource, attribute.Category);
+            Assert.AreEqual("Awesome!", attribute.Category);
         }
 
         [Test]
         public void ParameteredConstructor_StringResourceAtPosition_AddTabsForPosition()
         {
             // Call
-            var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource", 1, 2);
+            var attribute = new ResourcesCategoryAttribute(typeof(Resources), nameof(Resources.SomeStringResource), 1, 2);
 
             // Assert
-            Assert.AreEqual($"\t{Resources.SomeStringResource}", attribute.Category);
+            Assert.AreEqual("\tAwesome!", attribute.Category);
         }
 
         [Test]
         public void ParameteredConstructor_StringResourceAtPositionMoreThanCategoryAmount_NoTabsAdded()
         {
             // Call
-            var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource", 4, 2);
+            var attribute = new ResourcesCategoryAttribute(typeof(Resources), nameof(Resources.SomeStringResource), 4, 2);
 
             // Assert
-            Assert.AreEqual(Resources.SomeStringResource, attribute.Category);
+            Assert.AreEqual("Awesome!", attribute.Category);
         }
     }
 }

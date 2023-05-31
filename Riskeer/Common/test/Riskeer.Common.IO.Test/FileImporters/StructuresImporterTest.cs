@@ -38,7 +38,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
-using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Test.FileImporters
 {
@@ -205,7 +204,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             {
                 string[] messageArray = messages.ToArray();
                 string expectedMessage = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilResources.Error_Path_must_be_specified);
+                    .Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
                 StringAssert.StartsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -266,7 +265,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
-                .Build(CoreCommonUtilResources.Error_Path_must_not_point_to_empty_file_name);
+                .Build("Bestandspad mag niet verwijzen naar een lege bestandsnaam.");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
         }

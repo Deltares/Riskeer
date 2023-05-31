@@ -27,7 +27,6 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
-using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Common.IO.Test.Readers
 {
@@ -101,7 +100,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => new TestReader(testFile).Dispose();
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
