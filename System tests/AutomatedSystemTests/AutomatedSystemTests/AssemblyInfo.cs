@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AutomatedSystemTests Riskeer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Deltares")]
+[assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyProduct("AutomatedSystemTests Riskeer")]
-[assembly: AssemblyCopyright("Copyright 2022")]
+[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
