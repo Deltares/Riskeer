@@ -7,23 +7,23 @@ For each library the version and used license is shown. For the full license tex
 |-----------------------------------|-------------|--------------|---------------------------------------------------------------------------------|
 | AssemblyTool                      | 23.1.1      | LGPL-3.0     | https://github.com/Deltares/wbi-assemblage-rekenkern                            |
 | AvalonDock                        | 2.0.2000    | BSD-3-Clause | https://www.google.com/search?q=AvalonDock                                      |
-| BruTile                           | 3.1.3       | Apache-2.0   | https://github.com/BruTile/BruTile                                              |
 | BruTile.Desktop                   | 3.1.3       | Apache-2.0   | https://github.com/BruTile/BruTile                                              |
+| BruTile                           | 3.1.3       | Apache-2.0   | https://github.com/BruTile/BruTile                                              |
 | ControlzEx                        | 4.4.0       | MIT          | https://github.com/ControlzEx/ControlzEx                                        |
 | DotSpatial.Controls               | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
-| DotSpatial.Data                   | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Data.Forms             | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
+| DotSpatial.Data                   | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Extensions             | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.GeoAPI                 | 1.7.4.3     | MIT          | https://github.com/DotSpatial/GeoAPI                                            |
 | DotSpatial.Modelings.Forms        | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Mono                   | 1.9.0       | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.NetTopologySuite       | 1.14.4      | BSD-3-Clause | https://github.com/DotSpatial/NetTopologySuiteV1                                |
 | DotSpatial.NTSExtension           | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
-| DotSpatial.Projections            | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Projections.Forms      | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
+| DotSpatial.Projections            | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Serialization          | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
-| DotSpatial.Symbology              | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Symbology.Forms        | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
+| DotSpatial.Symbology              | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Topology               | 1.9.0       | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | D-Stability                       | 20.2.1      | LGPL-3.0     | https://github.com/Deltares/D-GEO-Suite-Stability                               |
 | EntityFramework                   | 6.4.4       | Apache-2.0   | https://github.com/dotnet/ef6                                                   |
