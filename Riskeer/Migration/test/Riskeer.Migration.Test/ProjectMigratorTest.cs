@@ -605,6 +605,9 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("    - De automatisch berekende faalkans van het faalmechanisme is verwijderd.");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Technische innovaties'");
                 migrationLog.AppendLine("    - De automatisch berekende faalkans van het faalmechanisme is verwijderd.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
+
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {
