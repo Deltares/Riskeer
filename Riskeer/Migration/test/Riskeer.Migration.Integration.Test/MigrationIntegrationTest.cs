@@ -102,7 +102,7 @@ namespace Riskeer.Migration.Integration.Test
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(16, messages.Count);
+                    Assert.AreEqual(18, messages.Count);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                         messages[0]);
@@ -146,11 +146,17 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("21.1", "22.1", "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                         messages[13]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("22.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 22.1 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("22.1", "23.1", $"Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                         messages[14]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("22.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        new MigrationLogMessage("22.1", "23.1", "* Geen aanpassingen."),
                         messages[15]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("23.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 23.1 naar versie {latestVersion}:"),
+                        messages[16]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("23.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        messages[17]);
                 }
             }
         }
@@ -174,6 +180,7 @@ namespace Riskeer.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 19.1.risk", "21.1");
             yield return new FileToMigrate("Empty valid Release 21.1.risk", "22.1");
             yield return new FileToMigrate("Empty valid Release 22.1.risk", "23.1");
+            yield return new FileToMigrate("Empty valid Release 23.1.risk", "23.2");
         }
 
         private class FileToMigrate
