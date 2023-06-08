@@ -280,13 +280,6 @@
 			errorbehavior="ContinueParent"
 			id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1"
 			name="OpenProject">
-				<parameters>
-					<param
-					mask="False"
-					name="fielNameToOpen"
-					value="Project_15a_15b_15c_zonder_resultaten.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="0edec204-6dc5-4312-b988-107a1c47a5e5"
@@ -4567,13 +4560,6 @@
 			errorbehavior="ContinueParent"
 			id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0"
 			name="OpenProject">
-				<parameters>
-					<param
-					mask="False"
-					name="fielNameToOpen"
-					value="Project_15a_15b_15c_zonder_resultaten.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="deb11140-64b4-49c9-93da-79665192bfca"
