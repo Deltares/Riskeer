@@ -2970,7 +2970,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_LocationsToCalculateWaterLevels"
 			errorbehavior="ContinueNextIteration"
 			id="a37b0061-3a37-479a-99c4-d58f6d25dbf0"
 			name="SelectLocationsForCalculation">
@@ -3332,6 +3331,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_LocationsToCalculateWaterLevels_DA"
 			id="aecf18cb-584c-4769-bba1-7b14b027a5f6"
 			name="DA">
 				<conditiongroup
@@ -3569,6 +3569,7 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script15a_LocationsToCalculateWaterLevels_GEBU"
 			id="b94d20bf-4d0b-4056-ae2c-7dea46c7c177"
 			name="GEBU">
 				<conditiongroup
@@ -3672,10 +3673,24 @@
 				<databinding>
 					<var
 					dataname="rowIndex"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
 					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
 					variablename="listRowIndecesToSelect">
 					</var>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
+					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="checkedReadIllustrationPoints"
+					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
+					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
+					variablename="illPointMustBeChecked">
+					</var>
+				</databinding>
+				<missingdatabinding>
 					<var
 					dataname="checkedCalculate"
 					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
@@ -3688,23 +3703,9 @@
 					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
 					variablename="illPointMustBeChecked">
 					</var>
-				</databinding>
-				<missingdatabinding>
 					<var
-					dataname="calculationsMustBeChecked"
-					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
-					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
-					variablename="calculationMustBeChecked">
-					</var>
-					<var
-					dataname="illPointsMustBeChecked"
-					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
-					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
-					variablename="illPointMustBeChecked">
-					</var>
-					<var
-					dataname="listIndecesHBCLocationsToCalculate"
-					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
 					variablename="listRowIndecesToSelect">
 					</var>
@@ -5014,6 +5015,20 @@
 				<databinding>
 					<var
 					dataname="rowIndex"
+					datasourceid="852a5de3-09b3-42a1-97b1-7107bb12e199"
+					variableid="89417124-6336-44ff-b495-637d4756e739"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="852a5de3-09b3-42a1-97b1-7107bb12e199"
+					variableid="03dde861-f997-4af1-899a-975f347c7dc0"
+					variablename="calculationMustBeChecked">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
 					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 					variableid="89417124-6336-44ff-b495-637d4756e739"
 					variablename="rowIndex">
@@ -5024,7 +5039,7 @@
 					variableid="03dde861-f997-4af1-899a-975f347c7dc0"
 					variablename="calculationMustBeChecked">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ea628ace-df3b-48a5-bb84-8fee188c729f"
@@ -6864,6 +6879,121 @@
 		id="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 		lastknownrowcount="3"
 		name="script15a_LocationsToCalculateWaterLevels"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					checkedCalculate
+				</column>
+				<column>
+					checkedReadIllustrationPoints
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						checkedCalculate
+					</th>
+					<th>
+						checkedReadIllustrationPoints
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="852a5de3-09b3-42a1-97b1-7107bb12e199"
+		lastknownrowcount="3"
+		name="script15a_LocationsToCalculateWaterLevels_DA"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					checkedCalculate
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						checkedCalculate
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="fac66095-09cd-4088-bafc-f2838ae7e546"
+		lastknownrowcount="3"
+		name="script15a_LocationsToCalculateWaterLevels_GEBU"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
