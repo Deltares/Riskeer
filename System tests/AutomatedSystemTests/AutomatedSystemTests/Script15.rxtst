@@ -93,6 +93,40 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="07f071bd-331c-4e60-8535-d7e1e95fa29d"
+			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
+			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameParameterInPropertiesPanel"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="nameParameterToValidate"
+					datasourceid="8df05726-7bd6-44eb-86e8-fefc1d9cc88b"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="0828bfaf-af05-441b-88c4-64202b1f5fc7"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1803,6 +1837,10 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="63464475-0517-45c4-a5a9-5fd0914d8d74"
+			name="ValidateResultInPropertiesPanel">
+			</smartfoldernode>
+			<smartfoldernode
 			id="64095390-c618-4a6a-b149-4fefb5347827"
 			name="ChangeHBCScenarioInformation">
 				<parameters>
@@ -2142,6 +2180,40 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="74c5a0b8-5b19-4422-98a4-f4ecfd4f3c19"
+			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
+			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameParameterInPropertiesPanel"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
+					variablename="expectedValue">
+					</var>
+					<var
+					dataname="nameParameterToValidate"
+					datasourceid="8df05726-7bd6-44eb-86e8-fefc1d9cc88b"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="756e4451-4389-4c7f-944a-d8c60a1eed9b"
@@ -2403,6 +2475,49 @@
 					value=">Resultaat">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
+			id="869ed147-92e5-45ac-b61c-37b1e8fe9ac7"
+			name="ValidateWaterLevelWaveHeightInPropertiesPanelGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="87840a6c-8416-42f3-8b79-f969a3e9bc07"
@@ -4632,34 +4747,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="dfd1c565-f9c6-4d9f-a186-5078266cd2ec"
-			name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel"
-			ref="96402262-15e0-4220-98f9-083d0b2a69c0"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameParameterInPropertiesPanel"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="nameParameterToValidate"
-					datasourceid="8df05726-7bd6-44eb-86e8-fefc1d9cc88b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="e0169527-116a-4ce6-af38-51bef607cb57"
 			name="GetStepFromPath"
 			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
@@ -4929,6 +5016,32 @@
 					value="@HyB">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_DA"
+			id="e42145c1-b559-460d-b246-9a3de3d2b3e8"
+			name="ValidateCalculationWaterLevelInPropertiesPanelDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="e67bd927-35e5-4e2d-9227-ed2812bc01a9"
@@ -5674,10 +5787,26 @@
 											id="77744dd2-34cf-4528-aeae-ad566aaa7e91"
 											name="CreateScreenShotPropertiesPanel">
 											</testmodule>
-											<testmodule
-											id="dfd1c565-f9c6-4d9f-a186-5078266cd2ec"
-											name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
-											</testmodule>
+											<smartfoldernode
+											id="63464475-0517-45c4-a5a9-5fd0914d8d74"
+											name="ValidateResultInPropertiesPanel">
+												<smartfoldernode
+												id="869ed147-92e5-45ac-b61c-37b1e8fe9ac7"
+												name="ValidateWaterLevelWaveHeightInPropertiesPanelGEBU">
+													<testmodule
+													id="74c5a0b8-5b19-4422-98a4-f4ecfd4f3c19"
+													name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="e42145c1-b559-460d-b246-9a3de3d2b3e8"
+												name="ValidateCalculationWaterLevelInPropertiesPanelDA">
+													<testmodule
+													id="07f071bd-331c-4e60-8535-d7e1e95fa29d"
+													name="ValidateNormalDoubleCurrentlyShownInPropertiesPanel">
+													</testmodule>
+												</smartfoldernode>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
@@ -8312,6 +8441,9 @@
 			id="62cc4aba-157c-484c-9867-2b73599e391c">
 			</testcontainer>
 			<testcontainer
+			id="63464475-0517-45c4-a5a9-5fd0914d8d74">
+			</testcontainer>
+			<testcontainer
 			id="64095390-c618-4a6a-b149-4fefb5347827">
 			</testcontainer>
 			<testcontainer
@@ -8361,6 +8493,9 @@
 			</testcontainer>
 			<testcontainer
 			id="850dbcd4-4339-42fa-8eae-18973ae2fb83">
+			</testcontainer>
+			<testcontainer
+			id="869ed147-92e5-45ac-b61c-37b1e8fe9ac7">
 			</testcontainer>
 			<testcontainer
 			id="8935242f-e11a-474f-a005-b5e99813a720">
@@ -8505,6 +8640,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec">
+			</testcontainer>
+			<testcontainer
+			id="e42145c1-b559-460d-b246-9a3de3d2b3e8">
 			</testcontainer>
 			<testcontainer
 			id="f439c70d-b78e-4927-af51-08e1f2ab0e05">
