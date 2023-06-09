@@ -2283,6 +2283,52 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="7b930c4b-96d4-40ac-9318-d1095db8b490"
+			name="ValidateValueInTableOfHBCDocumentView"
+			ref="556ee382-bfb6-405a-929c-a48c9b1d339b"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringForValueIsNotExpectedToBePresent"
+					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
+					variablename="isComparisonValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueIfNotRun"
+					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+					variableid="cd5ceefa-263c-4bfc-9666-bb8867efc808"
+					variablename="comparisonValue">
+					</var>
+					<var
+					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testsuite
 			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -3094,6 +3140,49 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_LocationsToCalculateWaterLevels_GEBU"
+			id="a1187cb6-5fd7-4cc1-ad8d-492680786166"
+			name="ValidateResultsArePresentPresentInDocumentViewGEBU">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Golfhoogte [m]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="a37b0061-3a37-479a-99c4-d58f6d25dbf0"
 			name="SelectLocationsForCalculation">
@@ -3249,6 +3338,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script15a_LocationsToCalculateWaterLevels_DA"
+			id="a90ec69e-a4a0-44fe-9de7-198b8ad857ce"
+			name="ValidateResultsArePresentPresentInDocumentViewDA">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="nameParameterInPropertiesPanel"
+								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="Rekenwaarde waterstand [m+NAP]">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="a99c81ce-0e04-41ef-9157-a5058f7cc875"
 			name="SelectOptionFromContextMenu"
@@ -3379,6 +3494,52 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
+			id="ac3360a4-62d3-46f5-9f54-588785eed6ff"
+			name="ValidateValueInTableOfHBCDocumentView"
+			ref="556ee382-bfb6-405a-929c-a48c9b1d339b"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="stringForValueIsNotExpectedToBePresent"
+					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
+					variablename="isComparisonValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueIfNotRun"
+					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+					variableid="cd5ceefa-263c-4bfc-9666-bb8867efc808"
+					variablename="comparisonValue">
+					</var>
+					<var
+					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="852a5de3-09b3-42a1-97b1-7107bb12e199"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="ac8cf845-6297-429a-8407-9d9682833ba4"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -3483,7 +3644,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="af08c04f-f40c-44f2-b830-918b3ed7479c"
-			name="StartCalculations_DA">
+			name="StartCalculationsDA">
 				<conditiongroup
 				comparison="AND"
 				enabled="True">
@@ -3785,7 +3946,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_AllRows"
 			errorbehavior="ContinueNextIteration"
 			id="bda37355-29ee-4c32-b5be-0e9c44137624"
 			name="ValidateResultsArePresentPresentInDocumentView">
@@ -4530,44 +4690,6 @@
 			id="d946d7ec-7467-4842-a487-1a67cfeb1fd0"
 			name="CalculateHBC">
 			</smartfoldernode>
-			<testmodule
-			id="d959a8d2-791f-4345-b3bc-1f9434c07c4c"
-			name="ValidateValueInTableOfHBCDocumentView"
-			ref="556ee382-bfb6-405a-929c-a48c9b1d339b"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringForValueIsNotExpectedToBePresent"
-					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
-					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
-					variablename="isComparisonValueExpectedToBeMet">
-					</var>
-					<var
-					dataname="expectedValueIfNotRun"
-					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
-					variableid="cd5ceefa-263c-4bfc-9666-bb8867efc808"
-					variablename="comparisonValue">
-					</var>
-					<var
-					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
-					variablename="columnIndex">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="labelFM"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
-					variablename="labelFM">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="da19d7f8-576c-42d0-aa0f-43737bbf3482"
 			name="ConvertProbabilityToCurrentCulture"
@@ -5822,7 +5944,7 @@
 										</smartfoldernode>
 										<smartfoldernode
 										id="af08c04f-f40c-44f2-b830-918b3ed7479c"
-										name="StartCalculations_DA">
+										name="StartCalculationsDA">
 											<testmodule
 											id="6076df76-7cfb-464c-9600-b5425e452a63"
 											name="ClickOnRunSelectedHBCCalculationsDunes">
@@ -5868,10 +5990,22 @@
 									<smartfoldernode
 									id="bda37355-29ee-4c32-b5be-0e9c44137624"
 									name="ValidateResultsArePresentPresentInDocumentView">
-										<testmodule
-										id="d959a8d2-791f-4345-b3bc-1f9434c07c4c"
-										name="ValidateValueInTableOfHBCDocumentView">
-										</testmodule>
+										<smartfoldernode
+										id="a1187cb6-5fd7-4cc1-ad8d-492680786166"
+										name="ValidateResultsArePresentPresentInDocumentViewGEBU">
+											<testmodule
+											id="7b930c4b-96d4-40ac-9318-d1095db8b490"
+											name="ValidateValueInTableOfHBCDocumentView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="a90ec69e-a4a0-44fe-9de7-198b8ad857ce"
+										name="ValidateResultsArePresentPresentInDocumentViewDA">
+											<testmodule
+											id="ac3360a4-62d3-46f5-9f54-588785eed6ff"
+											name="ValidateValueInTableOfHBCDocumentView">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="fe69f44f-870d-45af-aaed-6672764eb387"
@@ -6942,41 +7076,6 @@
 					</td>
 					<td>
 						3
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-		lastknownrowcount="3"
-		name="script15a_AllRows"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
 					</td>
 				</tr>
 			</table>
@@ -8534,6 +8633,9 @@
 			id="9fcca8dc-ff4e-4ed6-ab57-3dc86164f379">
 			</testcontainer>
 			<testcontainer
+			id="a1187cb6-5fd7-4cc1-ad8d-492680786166">
+			</testcontainer>
+			<testcontainer
 			id="a37b0061-3a37-479a-99c4-d58f6d25dbf0">
 			</testcontainer>
 			<testcontainer
@@ -8541,6 +8643,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a663e2cc-feee-43a8-b58e-1d87f4596239">
+			</testcontainer>
+			<testcontainer
+			id="a90ec69e-a4a0-44fe-9de7-198b8ad857ce">
 			</testcontainer>
 			<testcontainer
 			id="ab3b3ff4-f40b-4a05-83f5-d4d6437bbbed">
