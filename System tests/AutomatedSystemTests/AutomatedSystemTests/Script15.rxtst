@@ -1531,11 +1531,19 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
 					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
 					variablename="indexRow">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5955a746-aa55-4d7e-8b67-f89a8bbb2270"
@@ -2135,6 +2143,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="756e4451-4389-4c7f-944a-d8c60a1eed9b"
 			name="SelectRowDA">
 				<conditiongroup
@@ -2516,7 +2525,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations"
 			id="89e46680-aac8-4eb0-b81f-c7e364ddd4d0"
 			name="ValidateUnfinishedCalculations">
 			</smartfoldernode>
@@ -2741,6 +2749,7 @@
 			name="RunHydraulicBCCalculationUntilFinished">
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
 			id="98dc9686-98c4-484a-836c-1ab771730111"
 			name="SelectRowGEBU">
 				<conditiongroup
@@ -3146,28 +3155,28 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
-					variablename="expectedValue">
-					</var>
-					<var
 					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
+					variablename="expectedValue">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
 					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
 					variablename="expectedValue">
 					</var>
 					<var
 					dataname="indexRow"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
@@ -3212,6 +3221,7 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
 			id="ab99dfa5-90d0-437e-98e9-89e9a88af1c5"
 			name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
 				<conditiongroup
@@ -3411,7 +3421,7 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
@@ -3419,7 +3429,7 @@
 				<missingdatabinding>
 					<var
 					dataname="indexRow"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
@@ -4155,6 +4165,20 @@
 				<databinding>
 					<var
 					dataname="indexRow"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedWaterLevel"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
+					variablename="expectedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="indexRow"
 					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
@@ -4165,7 +4189,7 @@
 					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
 					variablename="expectedValue">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="cd9c4052-5d2c-4911-9d1c-e40eadbed219"
@@ -4271,6 +4295,7 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="d48ecd42-a06f-4750-bcd6-23b636ceda4b"
 			name="ValidateCalculationWaterLevelInDocumentViewDA">
 				<conditiongroup
@@ -4613,12 +4638,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
-					variablename="expectedValue">
-					</var>
-					<var
 					dataname="nameParameterInPropertiesPanel"
 					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
@@ -4628,7 +4647,7 @@
 				<missingdatabinding>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="fe2da6a9-b47d-4662-bd8c-f737d9fa7166"
+					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
@@ -6834,9 +6853,9 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="2c832a98-5496-447e-a782-293c7d8a977a"
-		lastknownrowcount="2"
-		name="script15a_ExpectedUnfinished_Calculations"
+		id="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+		lastknownrowcount="5"
+		name="script15a_ExpectedUnfinished_Calculations_DA"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -6868,6 +6887,96 @@
 				<tr>
 					<td>
 						2
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						21
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						22
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						23
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="29ace2d4-70fe-4147-842a-4e064937c596"
+		lastknownrowcount="5"
+		name="script15a_ExpectedUnfinished_Calculations_GEBU"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					indexRow
+				</column>
+				<column>
+					expectedWaterLevel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						indexRow
+					</th>
+					<th>
+						expectedWaterLevel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						176
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						177
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						178
 					</td>
 					<td>
 						-
