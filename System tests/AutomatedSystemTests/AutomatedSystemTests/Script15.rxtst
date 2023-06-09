@@ -6942,7 +6942,7 @@
 		</DataSource>
 		<DataSource
 		id="852a5de3-09b3-42a1-97b1-7107bb12e199"
-		lastknownrowcount="3"
+		lastknownrowcount="6"
 		name="script15a_LocationsToCalculateWaterLevels_DA"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -6988,11 +6988,35 @@
 						true
 					</td>
 				</tr>
+				<tr>
+					<td>
+						21
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						22
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						23
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="fac66095-09cd-4088-bafc-f2838ae7e546"
-		lastknownrowcount="3"
+		lastknownrowcount="6"
 		name="script15a_LocationsToCalculateWaterLevels_GEBU"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7045,6 +7069,39 @@
 				<tr>
 					<td>
 						2
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						176
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						177
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						178
 					</td>
 					<td>
 						true
