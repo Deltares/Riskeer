@@ -106,7 +106,7 @@
 					</var>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
@@ -114,7 +114,7 @@
 				<missingdatabinding>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
@@ -673,7 +673,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="1ab69b9b-9235-4393-a2f3-99d31ef4d01e"
-			name="SetRangeLocationsForCalculation">
+			name="SetRangeSelectLocationsForCalculation">
 				<parameters>
 					<param
 					mask="False"
@@ -1292,6 +1292,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="49054f13-ee68-468a-89da-83568946d248"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="d80a25c3-075e-4b90-98e9-7ffc0bc66fed"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeInterruptedCalculations"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="498349ac-14e3-41d8-a144-c6663916073a"
 			name="CalculateFullPathToSeparateCalculation"
 			ref="cddceedc-f299-4851-bffc-8b505702e432"
@@ -1596,19 +1616,11 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
 					variablename="indexRow">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
-					variablename="indexRow">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5955a746-aa55-4d7e-8b67-f89a8bbb2270"
@@ -1992,6 +2004,26 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="6b42e995-5d0b-4bdc-87ed-2016ec1f9881"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="f226e88a-0af5-494e-a8cf-c3b78855cfba"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLocationsForCalculation"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="6b55a628-d2b9-4e96-8e94-1564de861199"
 			name="CollapseRowItemsInPropertiesPanel"
 			ref="9faaab93-1756-4755-9753-200e0bf3e602"
@@ -2225,7 +2257,7 @@
 					</var>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
@@ -2233,7 +2265,7 @@
 				<missingdatabinding>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
 					variableid="39f6e055-2f85-4569-9ff7-ef024b0170b1"
 					variablename="expectedValue">
 					</var>
@@ -2246,7 +2278,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="756e4451-4389-4c7f-944a-d8c60a1eed9b"
 			name="SelectRowDA">
 				<conditiongroup
@@ -2346,7 +2377,7 @@
 					</var>
 					<var
 					dataname="rowIndex"
-					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
 					variablename="rowIndex">
 					</var>
@@ -2354,7 +2385,7 @@
 				<missingdatabinding>
 					<var
 					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					datasourceid="fac66095-09cd-4088-bafc-f2838ae7e546"
 					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
 					variablename="rowIndex">
 					</var>
@@ -2554,7 +2585,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
 			id="869ed147-92e5-45ac-b61c-37b1e8fe9ac7"
 			name="ValidateWaterLevelWaveHeightInPropertiesPanelGEBU">
 				<conditiongroup
@@ -2717,6 +2747,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_ExpectedUnfinished_Calculations"
 			id="89e46680-aac8-4eb0-b81f-c7e364ddd4d0"
 			name="ValidateUnfinishedCalculations">
 			</smartfoldernode>
@@ -2941,7 +2972,6 @@
 			name="RunHydraulicBCCalculationUntilFinished">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
 			id="98dc9686-98c4-484a-836c-1ab771730111"
 			name="SelectRowGEBU">
 				<conditiongroup
@@ -3171,7 +3201,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_LocationsToCalculateWaterLevels_GEBU"
 			id="a1187cb6-5fd7-4cc1-ad8d-492680786166"
 			name="ValidateResultsArePresentPresentInDocumentViewGEBU">
 				<conditiongroup
@@ -3371,7 +3400,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_LocationsToCalculateWaterLevels_DA"
 			id="a90ec69e-a4a0-44fe-9de7-198b8ad857ce"
 			name="ValidateResultsArePresentPresentInDocumentViewDA">
 				<conditiongroup
@@ -3418,13 +3446,13 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
 					variablename="expectedValue">
 					</var>
@@ -3432,13 +3460,13 @@
 				<missingdatabinding>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
 					variableid="ac93a9b5-24d0-453b-8057-a697e7574717"
 					variablename="expectedValue">
 					</var>
 					<var
 					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
@@ -3483,7 +3511,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_GEBU"
 			id="ab99dfa5-90d0-437e-98e9-89e9a88af1c5"
 			name="ValidateWaterLevelWaveHeightInDocumentViewGEBU">
 				<conditiongroup
@@ -3557,7 +3584,7 @@
 					</var>
 					<var
 					dataname="rowIndex"
-					datasourceid="852a5de3-09b3-42a1-97b1-7107bb12e199"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
 					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
 					variablename="rowIndex">
 					</var>
@@ -3565,7 +3592,7 @@
 				<missingdatabinding>
 					<var
 					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					datasourceid="852a5de3-09b3-42a1-97b1-7107bb12e199"
 					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
 					variablename="rowIndex">
 					</var>
@@ -3728,19 +3755,11 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="29ace2d4-70fe-4147-842a-4e064937c596"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b10ca8b2-92f3-41b8-b190-3372e552ff92"
@@ -3976,6 +3995,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script15a_LocationsToCalculateWaterLevels"
 			errorbehavior="ContinueNextIteration"
 			id="bda37355-29ee-4c32-b5be-0e9c44137624"
 			name="ValidateResultsArePresentPresentInDocumentView">
@@ -4470,13 +4490,13 @@
 				<databinding>
 					<var
 					dataname="indexRow"
-					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
+					datasourceid="b6a32700-4672-485d-8613-a2c08025a301"
 					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
 					variablename="expectedValue">
 					</var>
@@ -4484,13 +4504,13 @@
 				<missingdatabinding>
 					<var
 					dataname="indexRow"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
 					<var
 					dataname="expectedWaterLevel"
-					datasourceid="2c832a98-5496-447e-a782-293c7d8a977a"
+					datasourceid="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
 					variableid="5d0e98e6-6465-4799-907c-9571b8b49d98"
 					variablename="expectedValue">
 					</var>
@@ -4600,7 +4620,6 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="d48ecd42-a06f-4750-bcd6-23b636ceda4b"
 			name="ValidateCalculationWaterLevelInDocumentViewDA">
 				<conditiongroup
@@ -4708,6 +4727,17 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="d80a25c3-075e-4b90-98e9-7ffc0bc66fed"
+			name="SetRangeValidateUnfinishedCalculations">
+				<parameters>
+					<param
+					mask="False"
+					name="nameOfFolderToSetRange"
+					value="ValidateUnfinishedCalculations">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="d853804b-0b45-4a3a-a474-443dd27d734c"
 			name="CalculateFullPathToCalculationItem">
@@ -5170,7 +5200,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15a_ExpectedUnfinished_Calculations_DA"
 			id="e42145c1-b559-460d-b246-9a3de3d2b3e8"
 			name="ValidateCalculationWaterLevelInPropertiesPanelDA">
 				<conditiongroup
@@ -5437,6 +5466,17 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f226e88a-0af5-494e-a8cf-c3b78855cfba"
+			name="SetRangeValidateResultsArePresentPresentInDocumentView">
+				<parameters>
+					<param
+					mask="False"
+					name="nameOfFolderToSetRange"
+					value="ValidateResultsArePresentPresentInDocumentView">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="f25675f4-ba60-49dd-90e4-be1d4f23b361"
 			name="ConcatenateStrings"
@@ -5772,7 +5812,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="1ab69b9b-9235-4393-a2f3-99d31ef4d01e"
-								name="SetRangeLocationsForCalculation">
+								name="SetRangeSelectLocationsForCalculation">
 									<testmodule
 									id="17253f0b-4fbc-404d-8ed7-ec403d67f7bf"
 									name="SetRangeInSmartFolder">
@@ -5901,6 +5941,14 @@
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
+										id="d80a25c3-075e-4b90-98e9-7ffc0bc66fed"
+										name="SetRangeValidateUnfinishedCalculations">
+											<testmodule
+											id="49054f13-ee68-468a-89da-83568946d248"
+											name="SetRangeInSmartFolder">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
 										id="89e46680-aac8-4eb0-b81f-c7e364ddd4d0"
 										name="ValidateUnfinishedCalculations">
 											<smartfoldernode
@@ -6023,6 +6071,14 @@
 										<testmodule
 										id="8e0564d0-025b-4bfe-aa3e-5cb274a95138"
 										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f226e88a-0af5-494e-a8cf-c3b78855cfba"
+									name="SetRangeValidateResultsArePresentPresentInDocumentView">
+										<testmodule
+										id="6b42e995-5d0b-4bdc-87ed-2016ec1f9881"
+										name="SetRangeInSmartFolder">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -6888,6 +6944,9 @@
 					rangeLocationsForCalculation
 				</column>
 				<column>
+					rangeInterruptedCalculations
+				</column>
+				<column>
 					rowIndex
 				</column>
 				<column>
@@ -6926,6 +6985,9 @@
 						rangeLocationsForCalculation
 					</th>
 					<th>
+						rangeInterruptedCalculations
+					</th>
+					<th>
 						rowIndex
 					</th>
 					<th>
@@ -6961,6 +7023,9 @@
 						1-3
 					</td>
 					<td>
+						1-2
+					</td>
+					<td>
 						0
 					</td>
 					<td>
@@ -6996,7 +7061,10 @@
 						4-6
 					</td>
 					<td>
-						0
+						3-4
+					</td>
+					<td>
+						176
 					</td>
 					<td>
 						6
@@ -7029,6 +7097,9 @@
 					</td>
 					<td>
 						1-3
+					</td>
+					<td>
+						1-2
 					</td>
 					<td>
 						0
@@ -7066,7 +7137,10 @@
 						4-6
 					</td>
 					<td>
-						0
+						3-4
+					</td>
+					<td>
+						176
 					</td>
 					<td>
 						6
@@ -7099,6 +7173,9 @@
 					</td>
 					<td>
 						1-3
+					</td>
+					<td>
+						1-2
 					</td>
 					<td>
 						0
@@ -7134,7 +7211,10 @@
 						7-9
 					</td>
 					<td>
-						0
+						5-6
+					</td>
+					<td>
+						21
 					</td>
 					<td>
 						7
@@ -7237,9 +7317,9 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
-		lastknownrowcount="2"
-		name="script15a_ExpectedUnfinished_Calculations_DA"
+		id="b6a32700-4672-485d-8613-a2c08025a301"
+		lastknownrowcount="6"
+		name="script15a_ExpectedUnfinished_Calculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -7276,35 +7356,9 @@
 						-
 					</td>
 				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="29ace2d4-70fe-4147-842a-4e064937c596"
-		lastknownrowcount="2"
-		name="script15a_ExpectedUnfinished_Calculations_GEBU"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					indexRow
-				</column>
-				<column>
-					expectedWaterLevel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						indexRow
-					</th>
-					<th>
-						expectedWaterLevel
-					</th>
-				</tr>
 				<tr>
 					<td>
-						1
+						177
 					</td>
 					<td>
 						-
@@ -7312,7 +7366,23 @@
 				</tr>
 				<tr>
 					<td>
-						2
+						178
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						22
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						23
 					</td>
 					<td>
 						-
@@ -7441,178 +7511,6 @@
 				<tr>
 					<td>
 						23
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="852a5de3-09b3-42a1-97b1-7107bb12e199"
-		lastknownrowcount="6"
-		name="script15a_LocationsToCalculateWaterLevels_DA"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					checkedCalculate
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						checkedCalculate
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						21
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						22
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						23
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="fac66095-09cd-4088-bafc-f2838ae7e546"
-		lastknownrowcount="6"
-		name="script15a_LocationsToCalculateWaterLevels_GEBU"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					checkedCalculate
-				</column>
-				<column>
-					checkedReadIllustrationPoints
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						checkedCalculate
-					</th>
-					<th>
-						checkedReadIllustrationPoints
-					</th>
-				</tr>
-				<tr>
-					<td>
-						0
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						2
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						176
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						177
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						178
 					</td>
 					<td>
 						true
@@ -8869,6 +8767,9 @@
 			id="d48ecd42-a06f-4750-bcd6-23b636ceda4b">
 			</testcontainer>
 			<testcontainer
+			id="d80a25c3-075e-4b90-98e9-7ffc0bc66fed">
+			</testcontainer>
+			<testcontainer
 			id="d853804b-0b45-4a3a-a474-443dd27d734c">
 			</testcontainer>
 			<testcontainer
@@ -8903,6 +8804,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e42145c1-b559-460d-b246-9a3de3d2b3e8">
+			</testcontainer>
+			<testcontainer
+			id="f226e88a-0af5-494e-a8cf-c3b78855cfba">
 			</testcontainer>
 			<testcontainer
 			id="f439c70d-b78e-4927-af51-08e1f2ab0e05">
