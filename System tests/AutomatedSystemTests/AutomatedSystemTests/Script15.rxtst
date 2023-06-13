@@ -7552,7 +7552,7 @@
 		</DataSource>
 		<DataSource
 		id="fc233194-0355-4420-a7b7-92a3a77c0eb0"
-		lastknownrowcount="3"
+		lastknownrowcount="5"
 		name="script15ac_LoopAddFailureProbabilityItems"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7594,6 +7594,28 @@
 				<tr>
 					<td>
 						GEBU
+					</td>
+					<td>
+						Traject&gt;Golfhoogten bij vrije doelkans
+					</td>
+					<td>
+						1/1000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						Traject&gt;Waterstanden bij vrije doelkans
+					</td>
+					<td>
+						1/10000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
 					</td>
 					<td>
 						Traject&gt;Golfhoogten bij vrije doelkans
