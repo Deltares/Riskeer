@@ -7082,7 +7082,7 @@
 		</DataSource>
 		<DataSource
 		id="ae8bf765-f31c-499d-8a9e-da76bfcd990f"
-		lastknownrowcount="5"
+		lastknownrowcount="2"
 		name="script15a_ExpectedUnfinished_Calculations_DA"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7120,35 +7120,11 @@
 						-
 					</td>
 				</tr>
-				<tr>
-					<td>
-						21
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						22
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						23
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="29ace2d4-70fe-4147-842a-4e064937c596"
-		lastknownrowcount="5"
+		lastknownrowcount="2"
 		name="script15a_ExpectedUnfinished_Calculations_GEBU"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7181,30 +7157,6 @@
 				<tr>
 					<td>
 						2
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						176
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						177
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						178
 					</td>
 					<td>
 						-
@@ -7279,7 +7231,7 @@
 		</DataSource>
 		<DataSource
 		id="852a5de3-09b3-42a1-97b1-7107bb12e199"
-		lastknownrowcount="6"
+		lastknownrowcount="3"
 		name="script15a_LocationsToCalculateWaterLevels_DA"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7325,35 +7277,11 @@
 						true
 					</td>
 				</tr>
-				<tr>
-					<td>
-						21
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						22
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						23
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="fac66095-09cd-4088-bafc-f2838ae7e546"
-		lastknownrowcount="6"
+		lastknownrowcount="3"
 		name="script15a_LocationsToCalculateWaterLevels_GEBU"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -7406,39 +7334,6 @@
 				<tr>
 					<td>
 						2
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						176
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						177
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						true
-					</td>
-				</tr>
-				<tr>
-					<td>
-						178
 					</td>
 					<td>
 						true
@@ -7597,7 +7492,7 @@
 				</tr>
 				<tr>
 					<td>
-						36
+						15
 					</td>
 					<td>
 						is gestart.
@@ -7605,7 +7500,7 @@
 				</tr>
 				<tr>
 					<td>
-						35
+						14
 					</td>
 					<td>
 						is reeds voltooid.
