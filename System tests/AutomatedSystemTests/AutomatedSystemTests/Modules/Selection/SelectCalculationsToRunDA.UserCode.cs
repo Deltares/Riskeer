@@ -47,6 +47,8 @@ namespace AutomatedSystemTests.Modules.Selection
         	string currentState = cell.Element.GetAttributeValueText("AccessibleState");
         	var currentlyChecked = currentState.Contains("Checked").ToString().ToLower();
             if (currentlyChecked!=expectedCheckedState) {
+        		cell.Focus();
+        		cell.Select();
         		cell.Click();
             }
         
