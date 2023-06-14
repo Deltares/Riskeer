@@ -2620,8 +2620,8 @@
 			datasource="script15b_LoopAllCalculationsFms"
 			errorbehavior="ContinueNextIteration"
 			id="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-			maxrange="2"
-			minrange="2"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -8244,19 +8244,19 @@
 						currentResultsAGK_WBI2017_Markermeer_8-2_8-3b_v02.csv
 					</td>
 					<td>
-						2.42
+						1.70
 					</td>
 					<td>
-						1.43
+						0.56
 					</td>
 					<td>
-						6.42
+						5.78
 					</td>
 					<td>
-						350.29
+						296.69
 					</td>
 					<td>
-						-6.71
+						-60.31
 					</td>
 				</tr>
 				<tr>
