@@ -8142,10 +8142,10 @@
 						Traject&gt;@ZST&gt;@HB&gt;WBI2017_Oosterschelde_28-1_v02
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsZST.csv
+						X:\script15\reference\referenceResultsZST_WBI2017_Oosterschelde_28-1_v02.csv
 					</td>
 					<td>
-						currentResultsZST.csv
+						currentResultsZST_WBI2017_Oosterschelde_28-1_v02.csv
 					</td>
 					<td>
 						3.34
@@ -8174,25 +8174,25 @@
 						Traject&gt;@ZST&gt;@HB&gt;WBI2017_Oosterschelde_30-1_v02
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsZST.csv
+						X:\script15\reference\referenceResultsZST_WBI2017_Oosterschelde_30-1_v02.csv
 					</td>
 					<td>
-						currentResultsZST.csv
+						currentResultsZST_WBI2017_Oosterschelde_30-1_v02.csv
 					</td>
 					<td>
-						3.34
+						3.47
 					</td>
 					<td>
-						0.42
+						0.36
 					</td>
 					<td>
-						3.18
+						1.62
 					</td>
 					<td>
-						317.03
+						323.89
 					</td>
 					<td>
-						-59.97
+						-53.12
 					</td>
 				</tr>
 				<tr>
@@ -8206,10 +8206,10 @@
 						Traject&gt;@AGK&gt;@HB&gt;WBI2017_IJsselmeer_8-3a_v02
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsAGK.csv
+						X:\script15\reference\referenceResultsAGK_WBI2017_IJsselmeer_8-3a_v02.csv
 					</td>
 					<td>
-						currentResultsAGK.csv
+						currentResultsAGK_WBI2017_IJsselmeer_8-3a_v02.csv
 					</td>
 					<td>
 						2.42
@@ -8238,10 +8238,10 @@
 						Traject&gt;@AGK&gt;@HB&gt;WBI2017_Markermeer_8-2_8-3b_v02
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsAGK.csv
+						X:\script15\reference\referenceResultsAGK_WBI2017_Markermeer_8-2_8-3b_v02.csv
 					</td>
 					<td>
-						currentResultsAGK.csv
+						currentResultsAGK_WBI2017_Markermeer_8-2_8-3b_v02.csv
 					</td>
 					<td>
 						2.42
@@ -8270,10 +8270,10 @@
 						Traject&gt;@GEBU&gt;@HB&gt;WBI2017_Waddenzee_Oost_6-6_v03
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsGEBU.csv
+						X:\script15\reference\referenceResultsGEBU_WBI2017_Waddenzee_Oost_6-6_v03.csv
 					</td>
 					<td>
-						currentResultsGEBU.csv
+						currentResultsGEBU_WBI2017_Waddenzee_Oost_6-6_v03.csv
 					</td>
 					<td>
 						5.30
@@ -8302,10 +8302,10 @@
 						Traject&gt;@GEBU&gt;@HB&gt;WBI2017_Waddenzee_Oost_6-3_v03
 					</td>
 					<td>
-						X:\script15\reference\referenceResultsGEBU.csv
+						X:\script15\reference\referenceResultsGEBU_WBI2017_Waddenzee_Oost_6-3_v03.csv
 					</td>
 					<td>
-						currentResultsGEBU.csv
+						currentResultsGEBU_WBI2017_Waddenzee_Oost_6-3_v03.csv
 					</td>
 					<td>
 						5.30
