@@ -3620,7 +3620,7 @@
 	<datasources>
 		<DataSource
 		id="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
-		lastknownrowcount="7"
+		lastknownrowcount="8"
 		name="script19a_LoopDuplicateCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3644,7 +3644,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 					<td>
 						1-8
@@ -3652,7 +3652,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 					<td>
 						9-16
@@ -3660,7 +3660,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 					<td>
 						17-24
@@ -3668,7 +3668,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 					<td>
 						25-32
@@ -3676,7 +3676,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 					<td>
 						33-38
@@ -3684,7 +3684,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 					<td>
 						39-44
@@ -3692,10 +3692,18 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 					<td>
 						45-48
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_WZ_F1_D1_HBN0_OD0_(1_3000)
+					</td>
+					<td>
+						49-53
 					</td>
 				</tr>
 			</table>
