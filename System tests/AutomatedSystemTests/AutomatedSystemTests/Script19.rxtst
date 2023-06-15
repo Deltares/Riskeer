@@ -694,7 +694,7 @@
 					<param
 					mask="False"
 					name="nameDuplicatedCalculation"
-					value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
+					value="profiel005_YM_F1_D1_HBN1_OD1_(1_3000)">
 					</param>
 					<param
 					mask="False"
@@ -718,7 +718,7 @@
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
+							value="profiel005_YM_F1_D1_HBN1_OD1_(1_3000)">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
