@@ -4889,7 +4889,7 @@
 						&gt;Resultaat&gt;HBN
 					</td>
 					<td>
-						false
+						true
 					</td>
 					<td>
 						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
@@ -4903,7 +4903,7 @@
 						&gt;Resultaat&gt;Overslagdebiet
 					</td>
 					<td>
-						false
+						true
 					</td>
 					<td>
 						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
@@ -4913,7 +4913,7 @@
 		</DataSource>
 		<DataSource
 		id="282bd820-e2d5-4c85-b132-5d8e734fcbc5"
-		lastknownrowcount="28"
+		lastknownrowcount="32"
 		name="script19a_LoopResultTypesClimateScenario"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4940,6 +4940,50 @@
 					<th>
 						hasView
 					</th>
+				</tr>
+				<tr>
+					<td>
+						Results summary
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dike height (HBN)
+					</td>
+					<td>
+						&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
 				</tr>
 				<tr>
 					<td>
