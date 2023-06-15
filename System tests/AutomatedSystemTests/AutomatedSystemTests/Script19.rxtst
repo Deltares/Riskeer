@@ -4335,6 +4335,17 @@
 				</tr>
 				<tr>
 					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						WZ_1_12-1_dk_00060
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
 					</td>
 					<td>
@@ -4375,17 +4386,6 @@
 					</td>
 					<td>
 						Text
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
-					</td>
-					<td>
-						WZ_1_12-1_dk_00060
-					</td>
-					<td>
-						DropDown
 					</td>
 				</tr>
 			</table>
