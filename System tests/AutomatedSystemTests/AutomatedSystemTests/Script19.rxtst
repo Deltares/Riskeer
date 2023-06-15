@@ -140,7 +140,7 @@
 					<param
 					mask="False"
 					name="pathToClimateScenarioHLCDFile12_2"
-					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite">
+					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_12-1_v02\hlcd_W_2100.sqlite">
 					</param>
 					<param
 					mask="False"
