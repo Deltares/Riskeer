@@ -3883,14 +3883,14 @@
 						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
 					</td>
 					<td>
-						49-53
+						49-54
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
-		lastknownrowcount="53"
+		lastknownrowcount="54"
 		name="script19a_LoopParametersInputCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4471,6 +4471,17 @@
 				<tr>
 					<td>
 						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Sterkte berekening&gt;Illustratiepunten inlezen
 					</td>
 					<td>
 						False
