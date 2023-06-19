@@ -301,6 +301,22 @@
 			ref="c09a9669-9b00-4ab5-9134-5658e1a585ac"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="1631d544-6d3f-4474-a2cb-38d6f2a72033"
+			name="AddHRD">
+				<parameters>
+					<param
+					mask="False"
+					name="pathToHRDInPE"
+					value="12-2>@HD>HRD">
+					</param>
+					<param
+					mask="False"
+					name="pathToHBCFile"
+					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_12-1_v02\WBI2017_Waddenzee_West_12-1_v03.sqlite">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="1a9bbcf0-8bcd-4f92-9529-55b7685712c6"
 			name="ExpandRowItemsInPropertiesPanel"
@@ -342,7 +358,7 @@
 					<param
 					mask="False"
 					name="projectToOpen"
-					value="X:\script19\currentRelease\script17b_GEKB_with_second_HRD_added.risk">
+					value="X:\script19\currentRelease\script17b_GEKB.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -623,6 +639,28 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="365ce03c-99a6-4cf7-8d9a-c6260ac6fb53"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHRDInPE"
+					datasourceid="1631d544-6d3f-4474-a2cb-38d6f2a72033"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToHRDInPE"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="395654f7-a310-49fb-8081-1bdda13ff4a1"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -805,6 +843,28 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="45e7df68-0573-4fda-978a-8b6a8a8331c6"
+			name="AddHRDFile"
+			ref="e9443dc8-83ae-41cf-a26f-36e5dbd3e114"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHBCFile"
+					datasourceid="1631d544-6d3f-4474-a2cb-38d6f2a72033"
+					variableid="fb8a2c11-63e9-414f-85f9-04a5eb026a9f"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToHBCFile"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="fb8a2c11-63e9-414f-85f9-04a5eb026a9f"
+					variablename="fileNameToOpen">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="473b21ed-cf81-45f4-bbaa-5b636ed9c5a6"
@@ -1073,6 +1133,10 @@
 					value=".csv">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="56a7e728-3052-49fe-9c8b-3bf665000a82"
+			name="AddSecondHRD">
 			</smartfoldernode>
 			<testmodule
 			id="58283883-15eb-49bf-9c15-d8e1b48b5e99"
@@ -2389,6 +2453,17 @@
 			name="CloseView">
 			</smartfoldernode>
 			<smartfoldernode
+			id="c4fc71d4-a8a9-4ccd-ae0a-c6bf34ee4d14"
+			name="SetStateHBC">
+				<parameters>
+					<param
+					mask="False"
+					name="StateHBC"
+					value="@HyB">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="c5a3af78-c1bc-453a-af65-578916ef29f3"
 			name="OpenProject">
 			</smartfoldernode>
@@ -2544,6 +2619,20 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="d8b3dab4-0b2a-4546-9d49-d79ada0bfd56"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateHBC"
+					datasourceid="c4fc71d4-a8a9-4ccd-ae0a-c6bf34ee4d14"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="d95f7327-8c7d-4b8d-a276-5a363721d777"
@@ -3073,6 +3162,30 @@
 								id="b1e1b01e-2d11-447a-ba6e-892c9678cbcc"
 								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="56a7e728-3052-49fe-9c8b-3bf665000a82"
+							name="AddSecondHRD">
+								<smartfoldernode
+								id="c4fc71d4-a8a9-4ccd-ae0a-c6bf34ee4d14"
+								name="SetStateHBC">
+									<testmodule
+									id="d8b3dab4-0b2a-4546-9d49-d79ada0bfd56"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="1631d544-6d3f-4474-a2cb-38d6f2a72033"
+								name="AddHRD">
+									<testmodule
+									id="365ce03c-99a6-4cf7-8d9a-c6260ac6fb53"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="45e7df68-0573-4fda-978a-8b6a8a8331c6"
+									name="AddHRDFile">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
 							id="82d272ca-2451-4b3b-9301-57f1f78753a7"
@@ -5412,6 +5525,9 @@
 			id="11963e5a-b9fe-4c52-9cd0-4094351efbbd">
 			</testcontainer>
 			<testcontainer
+			id="1631d544-6d3f-4474-a2cb-38d6f2a72033">
+			</testcontainer>
+			<testcontainer
 			id="1fdb9ee9-e7d0-4d6b-8986-bd162e0196fd">
 			</testcontainer>
 			<testcontainer
@@ -5458,6 +5574,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5399f1b8-8a5e-40cd-9395-bf5b9883b579">
+			</testcontainer>
+			<testcontainer
+			id="56a7e728-3052-49fe-9c8b-3bf665000a82">
 			</testcontainer>
 			<testcontainer
 			id="5955020e-4151-44f3-8b39-10b545c4d570">
@@ -5563,6 +5682,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c3cf3c88-5a54-4c49-8e27-f0b709c783dd">
+			</testcontainer>
+			<testcontainer
+			id="c4fc71d4-a8a9-4ccd-ae0a-c6bf34ee4d14">
 			</testcontainer>
 			<testcontainer
 			id="c5a3af78-c1bc-453a-af65-578916ef29f3">
