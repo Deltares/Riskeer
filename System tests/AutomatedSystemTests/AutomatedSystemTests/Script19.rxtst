@@ -312,7 +312,7 @@
 					</param>
 					<param
 					mask="False"
-					name="pathToHBCFile"
+					name="pathToSecondHRDFile"
 					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_12-1_v02\WBI2017_Waddenzee_West_12-1_v03.sqlite">
 					</param>
 				</parameters>
@@ -851,7 +851,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToHBCFile"
+					dataname="pathToSecondHRDFile"
 					datasourceid="1631d544-6d3f-4474-a2cb-38d6f2a72033"
 					variableid="fb8a2c11-63e9-414f-85f9-04a5eb026a9f"
 					variablename="fileNameToOpen">
