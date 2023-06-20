@@ -3223,7 +3223,7 @@
 						Traject&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
-						script19a_STPH.risk
+						X:\script20\currentRelease\script17a_STPH.risk
 					</td>
 					<td>
 						script20a_STPH.risk
@@ -3243,7 +3243,7 @@
 						Traject&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
-						script19a_GEKB.risk
+						X:\script20\currentRelease\script17a_GEKB.risk
 					</td>
 					<td>
 						script20a_GEKB.risk
@@ -3263,7 +3263,7 @@
 						Traject&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
-						script19a_STBI.risk
+						X:\script20\currentRelease\script17a_STBI.risk
 					</td>
 					<td>
 						script20a_STBI.risk
@@ -3283,7 +3283,7 @@
 						Traject&gt;@HTKW&gt;Berekeningen
 					</td>
 					<td>
-						script19a_HTKW.risk
+						X:\script20\currentRelease\script17a_HTKW.risk
 					</td>
 					<td>
 						script20a_HTKW.risk
@@ -3303,7 +3303,7 @@
 						Traject&gt;@BSKW&gt;Berekeningen
 					</td>
 					<td>
-						script19a_BSKW.risk
+						X:\script20\currentRelease\script17a_BSKW.risk
 					</td>
 					<td>
 						script20a_BSKW.risk
@@ -3323,7 +3323,7 @@
 						Traject&gt;@STKWp&gt;Berekeningen
 					</td>
 					<td>
-						script19a_STKWp.risk
+						X:\script20\currentRelease\script17a_STKWp.risk
 					</td>
 					<td>
 						script20a_STKWp.risk
@@ -3876,7 +3876,7 @@
 		</DataSource>
 		<DataSource
 		id="e86550be-6887-4be4-82c8-9c592c3d0951"
-		lastknownrowcount="62"
+		lastknownrowcount="30"
 		name="script20cd_LoopCalculationsResults"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4084,454 +4084,6 @@
 					</td>
 					<td>
 						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Norm&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D1_Requirement&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Norm&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F1_D0_Requirement&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Norm&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D1_Requirement&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Norm&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;script19&gt;profiel005_F0_D0_Requirement&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet.csv
 					</td>
 					<td>
 						GEKB
@@ -4825,7 +4377,7 @@
 						STPH
 					</td>
 					<td>
-						script19a_STPH.risk
+						X:\script20\currentRelease\script17a_STPH.risk
 					</td>
 					<td>
 						script20cd_STPH.risk
@@ -4851,7 +4403,7 @@
 						GEKB
 					</td>
 					<td>
-						script19a_GEKB.risk
+						X:\script20\currentRelease\script17a_GEKB.risk
 					</td>
 					<td>
 						script20cd_GEKB.risk
@@ -4862,13 +4414,13 @@
 						Traject&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
-						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite
+						X:\commonData\databases\WBI2017_IJsselmeer_12-2_12-1_v02\hlcd_W_2100.sqlite
 					</td>
 					<td>
 						0,2,4,7,8
 					</td>
 					<td>
-						4-45
+						4-13
 					</td>
 				</tr>
 				<tr>
@@ -4876,7 +4428,7 @@
 						STBI
 					</td>
 					<td>
-						script19a_STBI.risk
+						X:\script20\currentRelease\script17a_STBI.risk
 					</td>
 					<td>
 						script20cd_STBI.risk
@@ -4894,7 +4446,7 @@
 						99
 					</td>
 					<td>
-						46-53
+						14-21
 					</td>
 				</tr>
 				<tr>
@@ -4902,7 +4454,7 @@
 						HTKW
 					</td>
 					<td>
-						script19a_HTKW.risk
+						X:\script20\currentRelease\script17a_HTKW.risk
 					</td>
 					<td>
 						script20cd_HTKW.risk
@@ -4919,7 +4471,7 @@
 						16,112
 					</td>
 					<td>
-						54-55
+						22-23
 					</td>
 				</tr>
 				<tr>
@@ -4927,7 +4479,7 @@
 						BSKW
 					</td>
 					<td>
-						script19a_BSKW.risk
+						X:\script20\currentRelease\script17a_BSKW.risk
 					</td>
 					<td>
 						script20cd_BSKW.risk
@@ -4944,7 +4496,7 @@
 						169,216,229
 					</td>
 					<td>
-						56-58
+						24-26
 					</td>
 				</tr>
 				<tr>
@@ -4952,7 +4504,7 @@
 						STKWp
 					</td>
 					<td>
-						script19a_STKWp.risk
+						X:\script20\currentRelease\script17a_STKWp.risk
 					</td>
 					<td>
 						script20cd_STKWp.risk
@@ -4969,7 +4521,7 @@
 						18,21,32
 					</td>
 					<td>
-						59-62
+						27-30
 					</td>
 				</tr>
 			</table>
