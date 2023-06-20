@@ -3680,7 +3680,7 @@
 						[Berekeningen-&gt;[12_2_02500-&gt;[12_2_02500 Segment_12004_1D1-&gt;[Opmerkingen][Invoer][Resultaat]][12_2_02500 Segment_12004_1D2-&gt;[Opmerkingen][Invoer][Resultaat]][12_2_02500 Segment_12004_1D3-&gt;[Opmerkingen][Invoer][Resultaat]]][Nieuwe berekening-&gt;[Opmerkingen][Invoer][Resultaat]]]
 					</td>
 					<td>
-						1
+						1, 9
 					</td>
 					<td>
 						1
@@ -3855,7 +3855,7 @@
 						[Berekeningen-&gt;[Vak_41-123-&gt;[Vak_41-123 Vak_41-123_Segment_41009_1D2-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D3-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D4-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D6-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D7-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D1-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D8-&gt;[Opmerkingen][Invoer][Resultaat]][Vak_41-123 Vak_41-123_Segment_41009_1D5-&gt;[Opmerkingen][Invoer][Resultaat]]][Nieuwe berekening-&gt;[Opmerkingen][Invoer][Resultaat]]]
 					</td>
 					<td>
-						99
+						99, 123
 					</td>
 					<td>
 						7
@@ -4642,7 +4642,7 @@
 						6-19
 					</td>
 					<td>
-						9
+						10
 					</td>
 					<td>
 						STBI
@@ -4671,7 +4671,7 @@
 						20-21
 					</td>
 					<td>
-						10
+						11
 					</td>
 					<td>
 						HTKW
@@ -4700,7 +4700,7 @@
 						22-23
 					</td>
 					<td>
-						11
+						12
 					</td>
 					<td>
 						HTKW
@@ -4729,7 +4729,7 @@
 						24-25
 					</td>
 					<td>
-						12
+						13
 					</td>
 					<td>
 						BSKW
@@ -4758,7 +4758,7 @@
 						26-27
 					</td>
 					<td>
-						13
+						14
 					</td>
 					<td>
 						BSKW
@@ -4787,7 +4787,7 @@
 						28
 					</td>
 					<td>
-						14-15
+						15-16
 					</td>
 					<td>
 						BSKW
@@ -4816,7 +4816,7 @@
 						29-30
 					</td>
 					<td>
-						16
+						17
 					</td>
 					<td>
 						STKWp
@@ -4845,7 +4845,7 @@
 						31-32
 					</td>
 					<td>
-						17
+						18
 					</td>
 					<td>
 						STKWp
@@ -4874,7 +4874,7 @@
 						33-35
 					</td>
 					<td>
-						18
+						19
 					</td>
 					<td>
 						STKWp
@@ -4903,7 +4903,7 @@
 						36-38
 					</td>
 					<td>
-						19
+						20
 					</td>
 					<td>
 						STKWp
@@ -5495,7 +5495,7 @@
 		</DataSource>
 		<DataSource
 		id="5a4d3ec6-6daa-41ae-a347-751c30862313"
-		lastknownrowcount="19"
+		lastknownrowcount="20"
 		name="script17_a_ParametersToSetInCalculationsView"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5550,7 +5550,7 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
-						YM_1_12-2_dk_00022 (674 m)
+						WZ_1_12-1_dk_00001 (10,3 km)
 					</td>
 					<td>
 						STPH
@@ -5605,7 +5605,7 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
-						YM_2_12-2_dk_00076 (5,7 km)
+						WZ_1_12-1_dk_00060 (16,5 km)
 					</td>
 					<td>
 						GEKB
@@ -5627,6 +5627,17 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
+						041-02_0001_1_WA_km0893 (1,3 km)
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische belastingenlocatie
+					</td>
+					<td>
 						MA_1_36-2_dk_00212 (59 m)
 					</td>
 					<td>
@@ -5638,7 +5649,7 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
-						MA_1_36-2_dk_00308 (74 m)
+						MA_1_36-1_dk_00196 (9,8 km)
 					</td>
 					<td>
 						HTKW
@@ -5671,7 +5682,7 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
-						034-01_0230_9_HD_km0981 (61 m)
+						034-02_0001_9_HD_km0983 (1,2 km)
 					</td>
 					<td>
 						BSKW
@@ -5726,7 +5737,7 @@
 						Hydraulische belastingenlocatie
 					</td>
 					<td>
-						MM_3_44-2_hd05_00001 (1,7 km)
+						MM_3_13a-1_vl07_00001 (4,1 km)
 					</td>
 					<td>
 						STKWp
