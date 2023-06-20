@@ -1926,7 +1926,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="8a37614b-4da8-4ae1-b7f6-43231c373972"
-			name="ValidateErrorMessagesMergeOldProject">
+			name="ValidateErrorMessagesMergeDifferingTraject">
 				<parameters>
 					<param
 					mask="False"
@@ -3545,7 +3545,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="8a37614b-4da8-4ae1-b7f6-43231c373972"
-								name="ValidateErrorMessagesMergeOldProject">
+								name="ValidateErrorMessagesMergeDifferingTraject">
 									<testmodule
 									id="82520293-03bb-413f-a3a6-f355de9a3c40"
 									name="WaitForXMiliseconds">
