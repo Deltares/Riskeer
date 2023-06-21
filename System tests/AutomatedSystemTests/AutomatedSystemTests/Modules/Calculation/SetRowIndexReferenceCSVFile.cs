@@ -82,10 +82,10 @@ namespace AutomatedSystemTests.Modules.Calculation
         {
             int idxCurrentIteration = Int32.Parse(indexCurrentIterationInValidation);
             
-            bool hbIteration = idxCurrentIteration>=1 && idxCurrentIteration<=10;
-            bool stphIteration = idxCurrentIteration>=11 && idxCurrentIteration<=42;
-            bool gekbIteration = idxCurrentIteration>=43 && idxCurrentIteration<=50;
-            bool zstBskwIteration = idxCurrentIteration>=51 && idxCurrentIteration<=54;
+            bool hbIteration = idxCurrentIteration>=1 && idxCurrentIteration<=13;
+            bool stphIteration = idxCurrentIteration>=14 && idxCurrentIteration<=45;
+            bool gekbIteration = idxCurrentIteration>=46 && idxCurrentIteration<=53;
+            bool zstBskwIteration = idxCurrentIteration>=54 && idxCurrentIteration<=57;
                 
             
             if (hbIteration) {
