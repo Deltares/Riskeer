@@ -1625,7 +1625,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datarangeset="1,3"
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
