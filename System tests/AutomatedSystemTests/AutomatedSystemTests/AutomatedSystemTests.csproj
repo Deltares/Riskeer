@@ -1527,6 +1527,18 @@
     <Compile Include="Modules\Validation\DocumentView\ValidateFailureTrajectInformationAssemblyView.cs">
       <id>59e66fad-2051-478d-b369-3d8e34f464fb</id>
     </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFMAssemblyProbability.cs">
+      <BoundTo>6e0fb325-0c1b-43dd-b8fe-279df0bb06bc</BoundTo>
+      <DependentUpon>ValidateFMAssemblyProbability.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>339fedb2-33b6-429e-9deb-b2d6bf2497e4</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFMAssemblyProbability.UserCode.cs">
+      <BoundTo>6e0fb325-0c1b-43dd-b8fe-279df0bb06bc</BoundTo>
+      <DependentUpon>ValidateFMAssemblyProbability.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>74403695-3102-4a2a-a8fc-b2dbfd402078</id>
+    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundary.cs">
       <id>452096ad-9aec-4f1f-b5b9-5a9f507ce492</id>
     </Compile>
@@ -2363,6 +2375,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>aec09b15-20aa-4f46-96b6-b6bd66a8d9b9</id>
       <recordtableid>7bc728af-f14c-4f8b-8354-b59262002f99</recordtableid>
+    </None>
+    <None Include="Modules\Validation\DocumentView\ValidateFMAssemblyProbability.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>6e0fb325-0c1b-43dd-b8fe-279df0bb06bc</id>
+      <recordtableid>20872583-1d50-4408-9f39-87126baf3c34</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateSectionNameIsPresentInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

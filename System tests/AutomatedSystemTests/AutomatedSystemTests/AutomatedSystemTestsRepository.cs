@@ -1805,6 +1805,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder _tablefmresultview;
             RepoItemInfo _failureprobabilityfmInfo;
             RepoItemInfo _expanddropdownmenuInfo;
+            RepoItemInfo _failuremechanismassemblyprobabilityInfo;
 
             /// <summary>
             /// Creates a new FM_ResultView  folder.
@@ -1815,6 +1816,7 @@ namespace AutomatedSystemTests
                 _tablefmresultview = new AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder(this);
                 _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", "", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
                 _expanddropdownmenuInfo = new RepoItemInfo(this, "ExpandDropDownMenu", "container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button", "", 30000, null, "8a65568d-140f-4c4f-b21d-a105a8285816");
+                _failuremechanismassemblyprobabilityInfo = new RepoItemInfo(this, "FailureMechanismAssemblyProbability", "container[@automationid='TableLayoutPanel']/text[@automationid='failureMechanismAssemblyProbabilityTextBox']", "", 30000, null, "0a798c6e-09c7-4c5e-a5d5-688f39cf54c1");
             }
 
             /// <summary>
@@ -1886,6 +1888,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _expanddropdownmenuInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FailureMechanismAssemblyProbability item.
+            /// </summary>
+            [RepositoryItem("0a798c6e-09c7-4c5e-a5d5-688f39cf54c1")]
+            public virtual Ranorex.Text FailureMechanismAssemblyProbability
+            {
+                get
+                {
+                    return _failuremechanismassemblyprobabilityInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The FailureMechanismAssemblyProbability item info.
+            /// </summary>
+            [RepositoryItemInfo("0a798c6e-09c7-4c5e-a5d5-688f39cf54c1")]
+            public virtual RepoItemInfo FailureMechanismAssemblyProbabilityInfo
+            {
+                get
+                {
+                    return _failuremechanismassemblyprobabilityInfo;
                 }
             }
 
