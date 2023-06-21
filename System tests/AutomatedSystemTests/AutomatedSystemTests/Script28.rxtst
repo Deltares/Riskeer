@@ -735,17 +735,17 @@
 					<param
 					mask="False"
 					name="minimumRangeLoopValidations"
-					value="1-44">
+					value="1-50">
 					</param>
 					<param
 					mask="False"
 					name="substringZSTPropertiesPanelMustBeValidated"
-					value=",45-46">
+					value=",51-52">
 					</param>
 					<param
 					mask="False"
 					name="substringBSKWPropertiesPanelMustBeValidated"
-					value=",47-48">
+					value=",53-54">
 					</param>
 					<param
 					mask="False"
@@ -2631,7 +2631,7 @@
 					<param
 					mask="False"
 					name="pathNewHLCD"
-					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_v04\hlcd_klimaat.sqlite">
+					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_50-2_v04\hlcd_klimaat.sqlite">
 					</param>
 					<param
 					mask="False"
