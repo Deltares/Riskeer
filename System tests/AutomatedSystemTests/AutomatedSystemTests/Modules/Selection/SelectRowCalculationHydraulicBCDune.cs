@@ -92,7 +92,10 @@ namespace AutomatedSystemTests.Modules.Selection
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Focus();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Select();
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(2));
             repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Click();
             
         }

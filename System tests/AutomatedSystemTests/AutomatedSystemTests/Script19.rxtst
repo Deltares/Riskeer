@@ -45,6 +45,31 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="08e32d3c-7e8b-4a80-8550-5f27cccc6e8f"
+			name="SelectListItemFromDropDownMenuInPropertiesPanel">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="typeParameter"
+								id="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="DropDown">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="0a0498ed-9d9d-4ee4-8577-bfa5abfe2d05"
 			name="SelectState"
@@ -115,7 +140,7 @@
 					<param
 					mask="False"
 					name="pathToClimateScenarioHLCDFile12_2"
-					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite">
+					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_12-1_v02\hlcd_W_2100.sqlite">
 					</param>
 					<param
 					mask="False"
@@ -317,7 +342,7 @@
 					<param
 					mask="False"
 					name="projectToOpen"
-					value="script17b_GEKB.risk">
+					value="X:\script19\currentRelease\script17b_GEKB.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -389,11 +414,6 @@
 					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
-					</param>
-					<param
-					mask="False"
-					name="pathToPreviousVersionFile"
-					value="X:\script19\previousVersion">
 					</param>
 					<param
 					mask="False"
@@ -674,7 +694,7 @@
 					<param
 					mask="False"
 					name="nameDuplicatedCalculation"
-					value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
+					value="profiel005_YM_F1_D1_HBN1_OD1_(1_3000)">
 					</param>
 					<param
 					mask="False"
@@ -698,7 +718,7 @@
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
+							value="profiel005_YM_F1_D1_HBN1_OD1_(1_3000)">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -846,6 +866,40 @@
 			id="4a2a295f-2052-435d-abfb-dd67700e7f1b"
 			name="CompareWithReference">
 			</smartfoldernode>
+			<testmodule
+			id="4eb67e91-3ec5-47fc-b483-42d0bc509ce3"
+			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
+			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newValueForParameter"
+					datasourceid="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToElementInPropertiesPanel"
+					datasourceid="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="newValueOfParameter"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
+					variablename="newValueForParameter">
+					</var>
+					<var
+					dataname="pathToParameterName"
+					datasourceid="19801d59-c7e1-4127-8b92-0b6f8606dba2"
+					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
+					variablename="pathToItemInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="51301234-f356-40be-b022-98de50a1788c"
 			name="ConcatenateStrings"
@@ -2770,43 +2824,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="e80cf25f-eaf8-469c-8476-76d4a85f3628"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<description>
-					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-					<var
-					dataname="pathToPreviousVersionFile"
-					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="migrationSourceFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="ee377bcd-a10a-4816-b746-442acd469253"
 			name="CollapseRowItemsInPropertiesPanel"
 			ref="9faaab93-1756-4755-9753-200e0bf3e602"
@@ -3041,10 +3058,6 @@
 							id="5b47b350-c27f-40a5-8bf9-d8322380f041"
 							name="DeleteAllSearchFilteredFiles">
 							</testmodule>
-							<testmodule
-							id="e80cf25f-eaf8-469c-8476-76d4a85f3628"
-							name="MigrateAllFilesInFolderUsingCommandLineTool">
-							</testmodule>
 						</setup>
 						<smartfoldernode
 						id="34998c77-babd-4726-88f5-60730c70f3e1"
@@ -3179,6 +3192,14 @@
 									id="33964c9a-f877-4b37-a302-3e04365f8118"
 									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
 									</testmodule>
+									<smartfoldernode
+									id="08e32d3c-7e8b-4a80-8550-5f27cccc6e8f"
+									name="SelectListItemFromDropDownMenuInPropertiesPanel">
+										<testmodule
+										id="4eb67e91-3ec5-47fc-b483-42d0bc509ce3"
+										name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
@@ -3666,7 +3687,7 @@
 	<datasources>
 		<DataSource
 		id="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
-		lastknownrowcount="7"
+		lastknownrowcount="8"
 		name="script19a_LoopDuplicateCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3690,65 +3711,73 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 					<td>
-						1-8
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
-					</td>
-					<td>
-						9-16
+						1-9
 					</td>
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 					<td>
-						17-24
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
-					</td>
-					<td>
-						25-32
+						10-18
 					</td>
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 					<td>
-						33-38
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
-					</td>
-					<td>
-						39-44
+						19-27
 					</td>
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 					<td>
-						45-48
+						28-36
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
+					</td>
+					<td>
+						37-43
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
+					</td>
+					<td>
+						44-50
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
+					</td>
+					<td>
+						51-55
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
+					</td>
+					<td>
+						56-61
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="00ee52b7-dbc8-4bf2-80f9-600a2e9d62d9"
-		lastknownrowcount="48"
+		lastknownrowcount="61"
 		name="script19a_LoopParametersInputCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -3778,6 +3807,17 @@
 				</tr>
 				<tr>
 					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
 					</td>
 					<td>
@@ -3862,6 +3902,17 @@
 					</td>
 					<td>
 						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
 					</td>
 				</tr>
 				<tr>
@@ -3954,6 +4005,17 @@
 				</tr>
 				<tr>
 					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
 					</td>
 					<td>
@@ -4038,6 +4100,17 @@
 					</td>
 					<td>
 						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
 					</td>
 				</tr>
 				<tr>
@@ -4130,6 +4203,17 @@
 				</tr>
 				<tr>
 					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
 					</td>
 					<td>
@@ -4192,6 +4276,17 @@
 					</td>
 					<td>
 						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
 					</td>
 				</tr>
 				<tr>
@@ -4262,6 +4357,17 @@
 				</tr>
 				<tr>
 					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						YM_2_12-2_dk_00076
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
 						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
 					</td>
 					<td>
@@ -4277,6 +4383,72 @@
 					</td>
 					<td>
 						True
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;HBN berekenen
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Overslagdebiet berekenen
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Hydraulische gegevens&gt;Hydraulische belastingenlocatie
+					</td>
+					<td>
+						WZ_1_12-1_dk_00060
+					</td>
+					<td>
+						DropDown
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Voorlandgeometrie&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Schematisatie&gt;Dam&gt;Gebruik
+					</td>
+					<td>
+						False
+					</td>
+					<td>
+						Text
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Sterkte berekening&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						False
 					</td>
 					<td>
 						Text
@@ -4343,7 +4515,7 @@
 		</DataSource>
 		<DataSource
 		id="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
-		lastknownrowcount="28"
+		lastknownrowcount="32"
 		name="script19a_LoopResultTypes"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4388,7 +4560,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4402,7 +4574,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4416,7 +4588,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4430,7 +4602,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4444,7 +4616,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4458,7 +4630,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4472,7 +4644,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4486,7 +4658,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4500,7 +4672,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4514,7 +4686,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4528,7 +4700,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4542,7 +4714,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4556,7 +4728,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4570,7 +4742,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4584,7 +4756,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4598,7 +4770,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4612,7 +4784,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4626,7 +4798,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4640,7 +4812,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4654,7 +4826,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4668,7 +4840,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4682,7 +4854,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4696,7 +4868,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4710,7 +4882,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4724,7 +4896,7 @@
 						false
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4738,7 +4910,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4752,7 +4924,7 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4766,14 +4938,70 @@
 						true
 					</td>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Results summary
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dike height (HBN)
+					</td>
+					<td>
+						&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="282bd820-e2d5-4c85-b132-5d8e734fcbc5"
-		lastknownrowcount="28"
+		lastknownrowcount="32"
 		name="script19a_LoopResultTypesClimateScenario"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5109,11 +5337,55 @@
 						true
 					</td>
 				</tr>
+				<tr>
+					<td>
+						Results summary
+					</td>
+					<td>
+						&gt;Resultaat
+					</td>
+					<td>
+						false
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping output (Sterkte berekening)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Sterkte berekening
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dike height (HBN)
+					</td>
+					<td>
+						&gt;Resultaat&gt;HBN
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overtopping rate (Overslagdebiet)
+					</td>
+					<td>
+						&gt;Resultaat&gt;Overslagdebiet
+					</td>
+					<td>
+						true
+					</td>
+				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="2c3cb771-74ee-4d63-8fd5-d589740a5040"
-		lastknownrowcount="7"
+		lastknownrowcount="8"
 		name="script19a_ValidateResults_LoopCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5137,7 +5409,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 					<td>
 						1-4
@@ -5145,7 +5417,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D0_HBN1_OD1_(1_1000)
+						profiel005_YM_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 					<td>
 						5-8
@@ -5153,7 +5425,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D1_HBN1_OD1_(1_10000)
+						profiel005_YM_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 					<td>
 						9-12
@@ -5161,7 +5433,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D0_HBN1_OD1_(1_30000)
+						profiel005_YM_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 					<td>
 						13-16
@@ -5169,7 +5441,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN1_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 					<td>
 						17-20
@@ -5177,7 +5449,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN0_OD1_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 					<td>
 						21-24
@@ -5185,10 +5457,18 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_HBN0_OD0_(1_3000)
+						profiel005_YM_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 					<td>
 						25-28
+					</td>
+				</tr>
+				<tr>
+					<td>
+						profiel005_WZ_F0_D0_HBN0_OD0_(1_3000)
+					</td>
+					<td>
+						29-32
 					</td>
 				</tr>
 			</table>
@@ -5203,6 +5483,9 @@
 			</testcontainer>
 			<testcontainer
 			id="020d4299-60a8-4034-99a7-5e5b08ce6183">
+			</testcontainer>
+			<testcontainer
+			id="08e32d3c-7e8b-4a80-8550-5f27cccc6e8f">
 			</testcontainer>
 			<testcontainer
 			id="0b933e4b-f584-48cf-b983-9f874431308d">

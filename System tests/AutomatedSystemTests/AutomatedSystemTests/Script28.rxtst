@@ -735,17 +735,17 @@
 					<param
 					mask="False"
 					name="minimumRangeLoopValidations"
-					value="1-44">
+					value="1-53">
 					</param>
 					<param
 					mask="False"
 					name="substringZSTPropertiesPanelMustBeValidated"
-					value=",45-46">
+					value=",54-55">
 					</param>
 					<param
 					mask="False"
 					name="substringBSKWPropertiesPanelMustBeValidated"
-					value=",47-48">
+					value=",56-57">
 					</param>
 					<param
 					mask="False"
@@ -1926,7 +1926,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="8a37614b-4da8-4ae1-b7f6-43231c373972"
-			name="ValidateErrorMessagesMergeOldProject">
+			name="ValidateErrorMessagesMergeDifferingTraject">
 				<parameters>
 					<param
 					mask="False"
@@ -2631,7 +2631,7 @@
 					<param
 					mask="False"
 					name="pathNewHLCD"
-					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_v04\hlcd_klimaat.sqlite">
+					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_50-2_v04\hlcd_klimaat.sqlite">
 					</param>
 					<param
 					mask="False"
@@ -3545,7 +3545,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="8a37614b-4da8-4ae1-b7f6-43231c373972"
-								name="ValidateErrorMessagesMergeOldProject">
+								name="ValidateErrorMessagesMergeDifferingTraject">
 									<testmodule
 									id="82520293-03bb-413f-a3a6-f355de9a3c40"
 									name="WaitForXMiliseconds">
@@ -4057,7 +4057,7 @@
 	<datasources>
 		<DataSource
 		id="f2bf6531-f64b-456a-8531-987c51060fcb"
-		lastknownrowcount="94"
+		lastknownrowcount="97"
 		name="script28_2_2_ValidateCSVEqualToReference"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4090,6 +4090,11 @@
 				</tr>
 				<tr>
 					<td>
+						X:\script28\reference\@TR_Waterstanden_bij_vaste_doelkans_1_30000118B.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
 						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_150001A.csv
 					</td>
 				</tr>
@@ -4110,6 +4115,11 @@
 				</tr>
 				<tr>
 					<td>
+						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_18000118B.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
 						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_200000A.csv
 					</td>
 				</tr>
@@ -4121,6 +4131,11 @@
 				<tr>
 					<td>
 						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_200002A.csv
+					</td>
+				</tr>
+				<tr>
+					<td>
+						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_20000118B.csv
 					</td>
 				</tr>
 				<tr>
@@ -4659,7 +4674,7 @@
 		</DataSource>
 		<DataSource
 		id="93d26bb6-56db-400b-b0b9-712ab1c4172f"
-		lastknownrowcount="54"
+		lastknownrowcount="57"
 		name="script28_b_2_LoopValidationProperties"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4782,7 +4797,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;Waterstanden bij vrije doelkans&gt;1/15000
+						@TR&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB
@@ -4794,7 +4809,7 @@
 						4
 					</td>
 					<td>
-						1
+						118
 					</td>
 					<td>
 						3
@@ -4817,6 +4832,29 @@
 						5
 					</td>
 					<td>
+						1
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/15000
+					</td>
+					<td>
+						@HyB
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						6
+					</td>
+					<td>
 						3
 					</td>
 					<td>
@@ -4834,10 +4872,10 @@
 						@HyB
 					</td>
 					<td>
-						6
+						7
 					</td>
 					<td>
-						6
+						7
 					</td>
 					<td>
 						0
@@ -4857,10 +4895,10 @@
 						@HyB
 					</td>
 					<td>
-						7
+						8
 					</td>
 					<td>
-						7
+						8
 					</td>
 					<td>
 						2
@@ -4874,16 +4912,39 @@
 				</tr>
 				<tr>
 					<td>
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/18000
+					</td>
+					<td>
+						@HyB
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						118
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						800
+					</td>
+				</tr>
+				<tr>
+					<td>
 						@TR&gt;Golfhoogten bij vrije doelkans&gt;1/20000
 					</td>
 					<td>
 						@HyB
 					</td>
 					<td>
-						8
+						10
 					</td>
 					<td>
-						8
+						10
 					</td>
 					<td>
 						0
@@ -4903,10 +4964,10 @@
 						@HyB
 					</td>
 					<td>
-						9
+						11
 					</td>
 					<td>
-						9
+						11
 					</td>
 					<td>
 						1
@@ -4926,13 +4987,36 @@
 						@HyB
 					</td>
 					<td>
-						10
+						12
 					</td>
 					<td>
-						10
+						12
 					</td>
 					<td>
 						2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						800
+					</td>
+				</tr>
+				<tr>
+					<td>
+						@TR&gt;Golfhoogten bij vrije doelkans&gt;1/20000
+					</td>
+					<td>
+						@HyB
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						118
 					</td>
 					<td>
 						3
@@ -4949,10 +5033,10 @@
 						@SB
 					</td>
 					<td>
-						11
+						14
 					</td>
 					<td>
-						11
+						14
 					</td>
 					<td>
 					</td>
@@ -4971,10 +5055,10 @@
 						@SB
 					</td>
 					<td>
-						12
+						15
 					</td>
 					<td>
-						12
+						15
 					</td>
 					<td>
 					</td>
@@ -4993,10 +5077,10 @@
 						@SB
 					</td>
 					<td>
-						13
+						16
 					</td>
 					<td>
-						13
+						16
 					</td>
 					<td>
 					</td>
@@ -5015,10 +5099,10 @@
 						@SB
 					</td>
 					<td>
-						14
+						17
 					</td>
 					<td>
-						14
+						17
 					</td>
 					<td>
 					</td>
@@ -5037,10 +5121,10 @@
 						@SB
 					</td>
 					<td>
-						15
+						18
 					</td>
 					<td>
-						15
+						18
 					</td>
 					<td>
 					</td>
@@ -5059,10 +5143,10 @@
 						@SB
 					</td>
 					<td>
-						16
+						19
 					</td>
 					<td>
-						16
+						19
 					</td>
 					<td>
 					</td>
@@ -5081,10 +5165,10 @@
 						@SB
 					</td>
 					<td>
-						17
+						20
 					</td>
 					<td>
-						17
+						20
 					</td>
 					<td>
 					</td>
@@ -5103,10 +5187,10 @@
 						@SB
 					</td>
 					<td>
-						18
+						21
 					</td>
 					<td>
-						18
+						21
 					</td>
 					<td>
 					</td>
@@ -5125,10 +5209,10 @@
 						@SB
 					</td>
 					<td>
-						19
+						22
 					</td>
 					<td>
-						19
+						22
 					</td>
 					<td>
 					</td>
@@ -5147,10 +5231,10 @@
 						@SB
 					</td>
 					<td>
-						20
+						23
 					</td>
 					<td>
-						20
+						23
 					</td>
 					<td>
 					</td>
@@ -5169,10 +5253,10 @@
 						@SB
 					</td>
 					<td>
-						21
+						24
 					</td>
 					<td>
-						21
+						24
 					</td>
 					<td>
 					</td>
@@ -5191,10 +5275,10 @@
 						@SB
 					</td>
 					<td>
-						22
+						25
 					</td>
 					<td>
-						22
+						25
 					</td>
 					<td>
 					</td>
@@ -5213,10 +5297,10 @@
 						@SB
 					</td>
 					<td>
-						23
+						26
 					</td>
 					<td>
-						23
+						26
 					</td>
 					<td>
 					</td>
@@ -5235,10 +5319,10 @@
 						@SB
 					</td>
 					<td>
-						24
+						27
 					</td>
 					<td>
-						24
+						27
 					</td>
 					<td>
 					</td>
@@ -5257,10 +5341,10 @@
 						@SB
 					</td>
 					<td>
-						25
+						28
 					</td>
 					<td>
-						25
+						28
 					</td>
 					<td>
 					</td>
@@ -5279,10 +5363,10 @@
 						@SB
 					</td>
 					<td>
-						26
+						29
 					</td>
 					<td>
-						26
+						29
 					</td>
 					<td>
 					</td>
@@ -5301,10 +5385,10 @@
 						@SB
 					</td>
 					<td>
-						27
+						30
 					</td>
 					<td>
-						27
+						30
 					</td>
 					<td>
 					</td>
@@ -5323,10 +5407,10 @@
 						@SB
 					</td>
 					<td>
-						28
+						31
 					</td>
 					<td>
-						28
+						31
 					</td>
 					<td>
 					</td>
@@ -5345,10 +5429,10 @@
 						@SB
 					</td>
 					<td>
-						29
+						32
 					</td>
 					<td>
-						29
+						32
 					</td>
 					<td>
 					</td>
@@ -5367,10 +5451,10 @@
 						@SB
 					</td>
 					<td>
-						30
+						33
 					</td>
 					<td>
-						30
+						33
 					</td>
 					<td>
 					</td>
@@ -5389,10 +5473,10 @@
 						@SB
 					</td>
 					<td>
-						31
+						34
 					</td>
 					<td>
-						31
+						34
 					</td>
 					<td>
 					</td>
@@ -5411,10 +5495,10 @@
 						@SB
 					</td>
 					<td>
-						32
+						35
 					</td>
 					<td>
-						32
+						35
 					</td>
 					<td>
 					</td>
@@ -5433,10 +5517,10 @@
 						@SB
 					</td>
 					<td>
-						33
+						36
 					</td>
 					<td>
-						33
+						36
 					</td>
 					<td>
 					</td>
@@ -5455,10 +5539,10 @@
 						@SB
 					</td>
 					<td>
-						34
+						37
 					</td>
 					<td>
-						34
+						37
 					</td>
 					<td>
 					</td>
@@ -5477,10 +5561,10 @@
 						@SB
 					</td>
 					<td>
-						35
+						38
 					</td>
 					<td>
-						35
+						38
 					</td>
 					<td>
 					</td>
@@ -5499,10 +5583,10 @@
 						@SB
 					</td>
 					<td>
-						36
+						39
 					</td>
 					<td>
-						36
+						39
 					</td>
 					<td>
 					</td>
@@ -5521,10 +5605,10 @@
 						@SB
 					</td>
 					<td>
-						37
+						40
 					</td>
 					<td>
-						37
+						40
 					</td>
 					<td>
 					</td>
@@ -5543,10 +5627,10 @@
 						@SB
 					</td>
 					<td>
-						38
+						41
 					</td>
 					<td>
-						38
+						41
 					</td>
 					<td>
 					</td>
@@ -5565,10 +5649,10 @@
 						@SB
 					</td>
 					<td>
-						39
+						42
 					</td>
 					<td>
-						39
+						42
 					</td>
 					<td>
 					</td>
@@ -5587,10 +5671,10 @@
 						@SB
 					</td>
 					<td>
-						40
+						43
 					</td>
 					<td>
-						40
+						43
 					</td>
 					<td>
 					</td>
@@ -5609,10 +5693,10 @@
 						@SB
 					</td>
 					<td>
-						41
+						44
 					</td>
 					<td>
-						41
+						44
 					</td>
 					<td>
 					</td>
@@ -5631,10 +5715,10 @@
 						@SB
 					</td>
 					<td>
-						42
+						45
 					</td>
 					<td>
-						42
+						45
 					</td>
 					<td>
 					</td>
@@ -5653,10 +5737,10 @@
 						@SB
 					</td>
 					<td>
-						43
+						46
 					</td>
 					<td>
-						75
+						78
 					</td>
 					<td>
 					</td>
@@ -5675,10 +5759,10 @@
 						@SB
 					</td>
 					<td>
-						44
+						47
 					</td>
 					<td>
-						76
+						79
 					</td>
 					<td>
 					</td>
@@ -5697,10 +5781,10 @@
 						@SB
 					</td>
 					<td>
-						45
+						48
 					</td>
 					<td>
-						77
+						80
 					</td>
 					<td>
 					</td>
@@ -5719,10 +5803,10 @@
 						@SB
 					</td>
 					<td>
-						46
+						49
 					</td>
 					<td>
-						78
+						81
 					</td>
 					<td>
 					</td>
@@ -5741,10 +5825,10 @@
 						@SB
 					</td>
 					<td>
-						47
+						50
 					</td>
 					<td>
-						79
+						82
 					</td>
 					<td>
 					</td>
@@ -5763,10 +5847,10 @@
 						@SB
 					</td>
 					<td>
-						48
+						51
 					</td>
 					<td>
-						80
+						83
 					</td>
 					<td>
 					</td>
@@ -5785,10 +5869,10 @@
 						@SB
 					</td>
 					<td>
-						49
+						52
 					</td>
 					<td>
-						81
+						84
 					</td>
 					<td>
 					</td>
@@ -5807,10 +5891,10 @@
 						@SB
 					</td>
 					<td>
-						50
+						53
 					</td>
 					<td>
-						82
+						85
 					</td>
 					<td>
 					</td>
@@ -5829,10 +5913,10 @@
 						@HyB
 					</td>
 					<td>
-						51
+						54
 					</td>
 					<td>
-						91
+						94
 					</td>
 					<td>
 					</td>
@@ -5851,10 +5935,10 @@
 						@HyB
 					</td>
 					<td>
-						52
+						55
 					</td>
 					<td>
-						92
+						95
 					</td>
 					<td>
 					</td>
@@ -5873,10 +5957,10 @@
 						@SB
 					</td>
 					<td>
-						53
+						56
 					</td>
 					<td>
-						93
+						96
 					</td>
 					<td>
 					</td>
@@ -5895,10 +5979,10 @@
 						@SB
 					</td>
 					<td>
-						54
+						57
 					</td>
 					<td>
-						94
+						97
 					</td>
 					<td>
 					</td>
