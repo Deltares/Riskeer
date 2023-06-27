@@ -40,57 +40,7 @@
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <scenario>
       <gebruik>true</gebruik>
-      <bijdrage>20</bijdrage>
-    </scenario>
-  </berekening>
-  <berekening naam="Sassluis met dam">
-    <hblocatie>YM_2_13-6_dk_00284</hblocatie>
-    <kunstwerk>17k6</kunstwerk>
-    <orientatie>180</orientatie>
-    <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
-    <voorlandprofiel>01200</voorlandprofiel>
-    <golfreductie>
-      <damgebruiken>true</damgebruiken>
-      <damtype>havendam</damtype>
-      <damhoogte>0.5</damhoogte>
-      <voorlandgebruiken>false</voorlandgebruiken>
-    </golfreductie>
-    <stochasten>
-      <stochast naam="breedtebodembescherming">
-        <verwachtingswaarde>10</verwachtingswaarde>
-        <standaardafwijking>0.05</standaardafwijking>
-      </stochast>
-      <stochast naam="breedtedoorstroomopening">
-        <verwachtingswaarde>10</verwachtingswaarde>
-        <standaardafwijking>0.5</standaardafwijking>
-      </stochast>
-      <stochast naam="kombergendoppervlak">
-        <verwachtingswaarde>20000</verwachtingswaarde>
-        <variatiecoefficient>0.1</variatiecoefficient>
-      </stochast>
-      <stochast naam="kritiekinstromenddebiet">
-        <verwachtingswaarde>0.1</verwachtingswaarde>
-        <variatiecoefficient>0.15</variatiecoefficient>
-      </stochast>
-      <stochast naam="peilverhogingkomberging">
-        <verwachtingswaarde>1</verwachtingswaarde>
-        <standaardafwijking>0.1</standaardafwijking>
-      </stochast>
-      <stochast naam="stormduur">
-        <verwachtingswaarde>6</verwachtingswaarde>
-      </stochast>
-      <stochast naam="modelfactoroverloopdebiet">
-        <verwachtingswaarde>1.1</verwachtingswaarde>
-      </stochast>
-      <stochast naam="kerendehoogte">
-        <verwachtingswaarde>3.25</verwachtingswaarde>
-        <standaardafwijking>0.05</standaardafwijking>
-      </stochast>
-    </stochasten>
-    <illustratiepunteninlezen>true</illustratiepunteninlezen>
-    <scenario>
-      <gebruik>true</gebruik>
-      <bijdrage>80</bijdrage>
+      <bijdrage>100</bijdrage>
     </scenario>
   </berekening>
   <map naam="Gevoeligheid">
@@ -133,8 +83,8 @@
       </stochasten>
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <scenario>
-        <gebruik>false</gebruik>
-        <bijdrage>0</bijdrage>
+        <gebruik>true</gebruik>
+        <bijdrage>100</bijdrage>
       </scenario>
     </berekening>
   </map>
