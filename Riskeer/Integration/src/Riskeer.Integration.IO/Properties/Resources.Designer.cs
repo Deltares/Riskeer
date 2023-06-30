@@ -230,6 +230,16 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locaties uit het HRD bestand corresponderen niet met de locaties uit het HLCD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_locations_do_not_correspond_with_hlcd_file_locations {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_locations_do_not_correspond_with_hlcd_" +
+                        "file_locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file {

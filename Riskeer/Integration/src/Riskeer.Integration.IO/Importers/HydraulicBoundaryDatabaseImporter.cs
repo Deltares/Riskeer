@@ -96,7 +96,15 @@ namespace Riskeer.Integration.IO.Importers
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd = GetHydraulicBoundaryLocationsToAdd(
                 readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray());
 
-            if (!HydraulicBoundaryLocationsToAddHaveNonExistingId(hydraulicBoundaryLocationsToAdd))
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAddArray = hydraulicBoundaryLocationsToAdd.ToArray();
+            
+            if (!HydraulicBoundaryLocationsCorrespondWithHlcdLocations(hydraulicBoundaryLocationsToAddArray))
+            {
+                return false;
+            }
+            
+            
+            if (!HydraulicBoundaryLocationsToAddHaveNonExistingId(hydraulicBoundaryLocationsToAddArray))
             {
                 return false;
             }
@@ -287,6 +295,17 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id));
+            return false;
+        }
+
+        private bool HydraulicBoundaryLocationsCorrespondWithHlcdLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
+        {
+            if (hydraulicBoundaryLocationsToAdd.Any())
+            {
+                return true;
+            }
+
+            Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_locations_do_not_correspond_with_hlcd_file_locations));
             return false;
         }
 

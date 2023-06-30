@@ -381,6 +381,31 @@ namespace Riskeer.Integration.IO.Test.Importers
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
+        
+        [Test]
+        public void Import_IncompatibleLocationsForHlcd_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            string incompatibleLocationsHrdFilePath = Path.Combine(testDataPath, "incompatibleLocations.sqlite");
+            
+            mocks.ReplayAll();
+
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase());
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, incompatibleLocationsHrdFilePath);
+
+            // Call
+            var importSuccessful = true;
+            void Call() => importSuccessful = importer.Import();
+
+            // Assert
+            var expectedMessage = $"Fout bij het lezen van bestand '{incompatibleLocationsHrdFilePath}': de locaties uit het HRD bestand corresponderen niet met de locaties uit het HLCD bestand.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCaseSource(nameof(GetValidFiles))]
