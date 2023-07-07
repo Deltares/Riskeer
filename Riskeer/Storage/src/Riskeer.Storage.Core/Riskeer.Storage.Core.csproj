@@ -68,6 +68,9 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="log4net">
+          <Version>2.0.12</Version>
+        </PackageReference>
         <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework">
             <Version>1.0.117</Version>
             <GeneratePathProperty>true</GeneratePathProperty>

@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Exceptions;
@@ -148,7 +149,7 @@ namespace Riskeer.Storage.Core.Test
 
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
             Assert.AreEqual($"SQL logic error{Environment.NewLine}"
-                            + "no such table: AssessmentSectionEntity", exception.InnerException.InnerException.Message);
+                            + "no such table: HydraulicBoundaryDataEntity", exception.InnerException.InnerException.Message);
         }
 
         [Test]
@@ -196,6 +197,31 @@ namespace Riskeer.Storage.Core.Test
             Assert.AreEqual($@"Fout bij het lezen van bestand '{projectFilePath}': database moet één rij in de VersionEntity tabel hebben.",
                             exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+        }
+
+        [Test]
+        public void LoadProject_DatabaseWithInvalidHydraulicBoundaryDataEntity_LogError()
+        {
+            // Setup
+            string projectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithInvalidHydraulicBoundaryDataEntity_LogError));
+            const string invalidFolderPath = "invalid folder path";
+            
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+
+            void Precondition()
+            {
+                fullProject.AssessmentSection.HydraulicBoundaryData.SetNewFolderPath(invalidFolderPath);
+                SqLiteDatabaseHelper.CreateValidProjectDatabase(projectFilePath, fullProject);
+            }
+
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating corrupt database file failed");
+
+            // Call
+            void Call() => new StorageSqLite().LoadProject(projectFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(Call, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Herstellen van de verbinding met de hydraulische belastingendatabases is mislukt. De bestandsmap '{invalidFolderPath}' bestaat niet.");
         }
 
         [Test]

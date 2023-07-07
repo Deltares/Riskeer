@@ -212,6 +212,16 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische belastingendatabases is mislukt. De bestandsmap &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string StorageSqLite_LoadProject_Invalid_Hydraulic_Boundary_Data_Folder {
+            get {
+                return ResourceManager.GetString("StorageSqLite_LoadProject_Invalid_Hydraulic_Location_Configuration_Database_Folde" +
+                        "r", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand is geen geldig Riskeer bestand..
         /// </summary>
         public static string StorageSqLite_LoadProject_Invalid_Riskeer_database_file {

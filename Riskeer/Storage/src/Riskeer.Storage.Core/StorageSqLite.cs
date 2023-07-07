@@ -29,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
+using log4net;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
@@ -46,6 +47,7 @@ namespace Riskeer.Storage.Core
     public class StorageSqLite : IStoreProject
     {
         private const string temporaryFileExtension = "bkup";
+        private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private StagedProject stagedProject;
 
@@ -103,6 +105,7 @@ namespace Riskeer.Storage.Core
                 using (var dbContext = new RiskeerEntities(connectionString))
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
+                    ValidateHydraulicBoundaryDataFolderPath(dbContext);
 
                     dbContext.LoadTablesIntoContext();
 
@@ -204,6 +207,26 @@ namespace Riskeer.Storage.Core
                 }
 
                 stagedProject.Model.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+            }
+        }
+
+        /// <summary>
+        /// Validates if the <see cref="HydraulicBoundaryDataEntity"/> has a valid path to the folder with the Hydraulic Boundary files.
+        /// It only logs if the validation fails and does not throw an exception. This allows the user to correct the invalid path.
+        /// </summary>
+        /// <param name="riskeerEntities">The database with the <see cref="HydraulicBoundaryDataEntity"/> database object.</param>
+        private static void ValidateHydraulicBoundaryDataFolderPath(RiskeerEntities riskeerEntities)
+        {
+            var hydraulicBoundaryData = riskeerEntities.HydraulicBoundaryDataEntities?.FirstOrDefault();
+            if (hydraulicBoundaryData == null)
+            {
+                return;
+            }
+
+            string hydraulicBoundaryDataFolderPath = Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationDatabaseFilePath);
+            if (!Directory.Exists(hydraulicBoundaryDataFolderPath))
+            {
+                log.Error(string.Format(Resources.StorageSqLite_LoadProject_Invalid_Hydraulic_Boundary_Data_Folder, hydraulicBoundaryDataFolderPath));
             }
         }
 
