@@ -332,4 +332,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="HydraulicBoundaryData_DisplayName" xml:space="preserve">
         <value>Hydraulische databases</value>
     </data>
+    <data name="RiskeerPlugin_VerifyHydraulicLocationConfigurationDatabaseFilePath_File_0_not_found" xml:space="preserve">
+        <value>Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Het bestand '{0}' bestaat niet.</value>
+    </data>
 </root>

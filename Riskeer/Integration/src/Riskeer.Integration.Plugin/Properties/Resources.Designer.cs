@@ -603,6 +603,16 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Het bestand &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string RiskeerPlugin_VerifyHydraulicLocationConfigurationDatabaseFilePath_File_0_not_found {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_VerifyHydraulicLocationConfigurationDatabaseFilePath_File_0_not_fou" +
+                        "nd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specifieke faalmechanismen.
         /// </summary>
         public static string SpecificFailureMechanisms_DisplayName {

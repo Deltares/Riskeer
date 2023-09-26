@@ -28,6 +28,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
@@ -40,6 +41,7 @@ using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using log4net;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssemblyTool;
@@ -133,6 +135,8 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly IDictionary<IView, IEnumerable<IObserver>> observersForViewTitles = new Dictionary<IView, IEnumerable<IObserver>>();
 
+        private readonly ILog log = LogManager.GetLogger(typeof(RiskeerPlugin));
+
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
 
@@ -145,6 +149,7 @@ namespace Riskeer.Integration.Plugin
                 {
                     base.Gui.ViewHost.ViewOpened -= OnViewOpened;
                     base.Gui.ViewHost.ViewClosed -= OnViewClosed;
+                    base.Gui.ProjectOpened -= VerifyHydraulicLocationConfigurationDatabaseFilePath;
                 }
 
                 base.Gui = value;
@@ -153,6 +158,7 @@ namespace Riskeer.Integration.Plugin
                 {
                     base.Gui.ViewHost.ViewOpened += OnViewOpened;
                     base.Gui.ViewHost.ViewClosed += OnViewClosed;
+                    base.Gui.ProjectOpened += VerifyHydraulicLocationConfigurationDatabaseFilePath;
                 }
             }
         }
@@ -1401,6 +1407,25 @@ namespace Riskeer.Integration.Plugin
                 position, waveHeightCalculationsForTargetProbabilityContext.WrappedData);
 
             waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.NotifyObservers();
+        }
+
+        private void VerifyHydraulicLocationConfigurationDatabaseFilePath(IProject project)
+        {
+            if (project is RiskeerProject riskeerProject)
+            {
+                HydraulicBoundaryData hydraulicBoundaryData = riskeerProject.AssessmentSection.HydraulicBoundaryData;
+
+                if (hydraulicBoundaryData.IsLinked())
+                {
+                    string hlcdFilePath = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath;
+
+                    if (!File.Exists(hlcdFilePath))
+                    {
+                        log.WarnFormat(Resources.RiskeerPlugin_VerifyHydraulicLocationConfigurationDatabaseFilePath_File_0_not_found,
+                                       hlcdFilePath);
+                    }
+                }
+            }
         }
 
         #region ViewInfos
