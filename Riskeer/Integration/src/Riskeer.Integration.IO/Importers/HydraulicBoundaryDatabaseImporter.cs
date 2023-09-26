@@ -97,7 +97,7 @@ namespace Riskeer.Integration.IO.Importers
                 GetHydraulicBoundaryLocationsToAdd(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray())
                     .ToArray();
 
-            if (!HydraulicBoundaryLocationsCorrespondWithHlcdLocations(hydraulicBoundaryLocationsToAdd))
+            if (!HydraulicBoundaryDatabaseHasLocationsToAdd(hydraulicBoundaryLocationsToAdd))
             {
                 return false;
             }
@@ -282,6 +282,17 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
+        private bool HydraulicBoundaryDatabaseHasLocationsToAdd(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
+        {
+            if (hydraulicBoundaryLocationsToAdd.Any())
+            {
+                return true;
+            }
+
+            Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_locations_do_not_correspond_with_hlcd_file_locations));
+            return false;
+        }
+
         private bool HydraulicBoundaryLocationsToAddHaveNonExistingId(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
         {
             long[] existingHydraulicBoundaryLocationIds = ImportTarget.GetLocations().Select(hbl => hbl.Id).ToArray();
@@ -293,17 +304,6 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id));
-            return false;
-        }
-
-        private bool HydraulicBoundaryLocationsCorrespondWithHlcdLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
-        {
-            if (hydraulicBoundaryLocationsToAdd.Any())
-            {
-                return true;
-            }
-
-            Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_locations_do_not_correspond_with_hlcd_file_locations));
             return false;
         }
 
