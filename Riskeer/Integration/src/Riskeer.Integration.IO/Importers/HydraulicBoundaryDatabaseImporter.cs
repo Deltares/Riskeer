@@ -93,18 +93,16 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd = GetHydraulicBoundaryLocationsToAdd(
-                readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray());
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd =
+                GetHydraulicBoundaryLocationsToAdd(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray())
+                    .ToArray();
 
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAddArray = hydraulicBoundaryLocationsToAdd.ToArray();
-            
-            if (!HydraulicBoundaryLocationsCorrespondWithHlcdLocations(hydraulicBoundaryLocationsToAddArray))
+            if (!HydraulicBoundaryLocationsCorrespondWithHlcdLocations(hydraulicBoundaryLocationsToAdd))
             {
                 return false;
             }
-            
-            
-            if (!HydraulicBoundaryLocationsToAddHaveNonExistingId(hydraulicBoundaryLocationsToAddArray))
+
+            if (!HydraulicBoundaryLocationsToAddHaveNonExistingId(hydraulicBoundaryLocationsToAdd))
             {
                 return false;
             }
