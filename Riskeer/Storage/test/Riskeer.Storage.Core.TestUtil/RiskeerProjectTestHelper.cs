@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -238,7 +237,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigureHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
         {
-            hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(TestHelper.GetScratchPadPath());
+            hydraulicLocationConfigurationDatabase.FilePath = "some\\Path\\ToHlcd";
             hydraulicLocationConfigurationDatabase.ScenarioName = "ScenarioName";
             hydraulicLocationConfigurationDatabase.Year = 1337;
             hydraulicLocationConfigurationDatabase.Scope = "Scope";
