@@ -354,6 +354,31 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_FileContainsNoMatchingLocations_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase());
+
+            string hrdFilePath = Path.Combine(testDataPath, "nonmatchingLocations.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, hrdFilePath);
+
+            // Call
+            var importSuccessful = true;
+            void Call() => importSuccessful = importer.Import();
+
+            // Assert
+            var expectedMessage = $"Fout bij het lezen van bestand '{hrdFilePath}': de locaties uit het HRD bestand corresponderen niet met de locaties uit het HLCD bestand.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_FileContainsExistingLocationIds_CancelImportWithErrorMessage()
         {
             // Setup
@@ -378,31 +403,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{validHrdFilePath}': het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-        
-        [Test]
-        public void Import_IncompatibleLocationsForHlcd_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            string incompatibleLocationsHrdFilePath = Path.Combine(testDataPath, "incompatibleLocations.sqlite");
-            
-            mocks.ReplayAll();
-
-            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
-            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase());
-
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, incompatibleLocationsHrdFilePath);
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{incompatibleLocationsHrdFilePath}': de locaties uit het HRD bestand corresponderen niet met de locaties uit het HLCD bestand.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
