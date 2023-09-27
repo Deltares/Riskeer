@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
-        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "completeHrd.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
