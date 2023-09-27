@@ -33,6 +33,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             Assert.AreEqual("Tracks", TracksTableDefinitions.TableName);
             Assert.AreEqual("TrackId", TracksTableDefinitions.TrackId);
             Assert.AreEqual("RegionId", TracksTableDefinitions.RegionId);
+            Assert.AreEqual("HRDFileName", TracksTableDefinitions.HrdFileName);
         }
     }
 }

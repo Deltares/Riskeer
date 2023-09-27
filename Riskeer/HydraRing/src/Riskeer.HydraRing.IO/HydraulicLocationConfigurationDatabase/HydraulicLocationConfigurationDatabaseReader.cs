@@ -156,6 +156,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 while (MoveNext(dataReader))
                 {
                     readTracks.Add(new ReadTrack(dataReader.Read<long>(TracksTableDefinitions.TrackId),
+                                                 dataReader.Read<string>(TracksTableDefinitions.HrdFileName),
                                                  isUsePreprocessorClosureColumnPresent && dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure)));
                 }
             }

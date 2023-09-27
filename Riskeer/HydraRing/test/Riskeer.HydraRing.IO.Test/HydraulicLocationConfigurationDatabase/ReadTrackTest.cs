@@ -35,13 +35,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             var random = new Random(21);
             long trackId = random.Next();
+            var hrdFileName = random.Next().ToString();
             bool usePreprocessorClosure = random.NextBoolean();
 
             // Call
-            var readTrack = new ReadTrack(trackId, usePreprocessorClosure);
+            var readTrack = new ReadTrack(trackId, hrdFileName, usePreprocessorClosure);
 
             // Assert
             Assert.AreEqual(trackId, readTrack.TrackId);
+            Assert.AreEqual(hrdFileName, readTrack.HrdFileName);
             Assert.AreEqual(usePreprocessorClosure, readTrack.UsePreprocessorClosure);
         }
     }

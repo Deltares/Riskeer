@@ -286,8 +286,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             ReadTrack[] readTracks = readHydraulicLocationConfigurationDatabase.ReadTracks.ToArray();
             Assert.AreEqual(290, readTracks.Length);
             Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 18169
+                                                              && rt.HrdFileName == "WBI2017_Bovenmaas_hoge_keringen_36-5_v02.sqlite"
                                                               && !rt.UsePreprocessorClosure));
             Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 1000
+                                                              && rt.HrdFileName == "WBI2017_Bovenrijn_aslocaties_v02.sqlite"
                                                               && !rt.UsePreprocessorClosure));
         }
     }

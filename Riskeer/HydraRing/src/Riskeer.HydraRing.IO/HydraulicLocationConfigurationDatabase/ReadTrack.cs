@@ -30,10 +30,12 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Creates a new instance of <see cref="ReadTrack"/>.
         /// </summary>
         /// <param name="trackId">The track id.</param>
+        /// <param name="hrdFileName">The hydraulic boundary database file name.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use preprocessor closure.</param>
-        internal ReadTrack(long trackId, bool usePreprocessorClosure)
+        internal ReadTrack(long trackId, string hrdFileName, bool usePreprocessorClosure)
         {
             TrackId = trackId;
+            HrdFileName = hrdFileName;
             UsePreprocessorClosure = usePreprocessorClosure;
         }
 
@@ -41,6 +43,11 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the track id.
         /// </summary>
         public long TrackId { get; }
+
+        /// <summary>
+        /// Gets the hydraulic boundary database file name.
+        /// </summary>
+        public string HrdFileName { get; }
 
         /// <summary>
         /// Gets the indicator whether to use preprocessor closure.

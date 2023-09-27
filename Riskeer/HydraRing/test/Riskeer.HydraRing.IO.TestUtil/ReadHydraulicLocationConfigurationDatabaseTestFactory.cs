@@ -116,7 +116,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         {
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId + 100, locationId, tracks.First().Key)),
                                                                   settings,
-                                                                  tracks.Select(t => new ReadTrack(t.Key, t.Value)));
+                                                                  tracks.Select(t => new ReadTrack(t.Key, "hrdFile.sqlite", t.Value)));
         }
     }
 }
