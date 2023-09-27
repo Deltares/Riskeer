@@ -42,12 +42,14 @@ namespace Riskeer.Integration.IO.Test.Importers
     public class HydraulicBoundaryDatabaseImporterTest
     {
         private const int totalNumberOfSteps = 4;
+        private const string validHlcdFileName = "HLCD.sqlite";
+        private const string validHrdFileName = "HRD dutch coast south.sqlite";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                  nameof(HydraulicBoundaryDatabaseImporter));
 
-        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
-        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, validHlcdFileName);
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, validHrdFileName);
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
@@ -206,13 +208,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             string directory = Path.Combine(testDataPath, "withoutHLCD");
-            string path = Path.Combine(directory, "complete.sqlite");
+            string path = Path.Combine(directory, validHrdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(directory, "hlcd.sqlite")
+                    FilePath = Path.Combine(directory, validHlcdFileName)
                 }
             };
 
@@ -236,8 +238,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = Path.Combine(testDataPath, "EmptyHLCDSchema", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
+            string path = Path.Combine(testDataPath, "EmptyHLCDSchema", validHrdFileName);
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), validHlcdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -267,8 +269,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = Path.Combine(testDataPath, "InvalidHLCDSchema", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
+            string path = Path.Combine(testDataPath, "InvalidHLCDSchema", validHrdFileName);
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), validHlcdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -299,13 +301,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             string directory = Path.Combine(testDataPath, "withoutSettings");
-            string path = Path.Combine(directory, "complete.sqlite");
+            string path = Path.Combine(directory, validHrdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(directory, "hlcd.sqlite")
+                    FilePath = Path.Combine(directory, validHlcdFileName)
                 }
             };
 
@@ -331,13 +333,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             string directory = Path.Combine(testDataPath, "invalidSettings");
-            string path = Path.Combine(directory, "complete.sqlite");
+            string path = Path.Combine(directory, validHrdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(directory, "hlcd.sqlite")
+                    FilePath = Path.Combine(directory, validHlcdFileName)
                 }
             };
 
@@ -413,7 +415,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string filePath, bool usePreprocessorClosure)
         {
             // Setup
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), validHlcdFileName);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -645,7 +647,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             {
                 new TestCaseData(validHrdFilePath, true)
                     .SetName("validFilePath"),
-                new TestCaseData(Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite"), false)
+                new TestCaseData(Path.Combine(testDataPath, "withoutPreprocessorClosure", validHrdFileName), false)
                     .SetName("withoutPreprocessorClosure")
             };
         }
