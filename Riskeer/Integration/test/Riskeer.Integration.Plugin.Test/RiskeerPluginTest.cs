@@ -660,7 +660,7 @@ namespace Riskeer.Integration.Plugin.Test
             mocks.ReplayAll();
 
             string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-            string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
+            string testFilePath = Path.Combine(testDataDir, "HRD dutch coast south.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
