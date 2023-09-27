@@ -145,8 +145,8 @@ namespace Riskeer.Common.Service.Test
             var valid = true;
             string folderWithoutPreprocessorClosureDatabase = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryData"),
                                                                            "withoutPreprocessorClosure");
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd.sqlite"),
-                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "complete.sqlite"),
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "HLCD.sqlite"),
+                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "HRD dutch coast south.sqlite"),
                                                                                validHrdFileVersion,
                                                                                true);
 
@@ -160,7 +160,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
 
-                string preprocessorClosureFilePath = Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd_preprocClosure.sqlite");
+                string preprocessorClosureFilePath = Path.Combine(folderWithoutPreprocessorClosureDatabase, "HLCD_preprocClosure.sqlite");
                 var expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
                 Assert.AreEqual(expectedMessage, msgs[1]);
 

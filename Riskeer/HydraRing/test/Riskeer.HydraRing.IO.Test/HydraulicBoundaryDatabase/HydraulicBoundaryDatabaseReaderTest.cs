@@ -35,19 +35,18 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
     [TestFixture]
     public class HydraulicBoundaryDatabaseReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO, "HydraulicBoundaryDatabaseReader");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO, "HydraulicBoundaryDatabaseReader");
+        
+        private readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Constructor_ValidFile_ExpectedValues()
         {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-
             // Call
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            using (var reader = new HydraulicBoundaryDatabaseReader(validHrdFilePath))
             {
                 // Assert
-                Assert.AreEqual(hydraulicBoundaryDatabaseFile, reader.Path);
+                Assert.AreEqual(validHrdFilePath, reader.Path);
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
             }
         }
@@ -166,9 +165,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Read_ValidFile_ReturnsReadHydraulicBoundaryDatabase()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            using (var reader = new HydraulicBoundaryDatabaseReader(validHrdFilePath))
             {
                 // Call
                 ReadHydraulicBoundaryDatabase readDatabase = reader.Read();
@@ -226,9 +223,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void ReadVersion_ValidFile_ReturnsReadVersion()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            using (var reader = new HydraulicBoundaryDatabaseReader(validHrdFilePath))
             {
                 // Call
                 string version = reader.ReadVersion();
