@@ -70,6 +70,11 @@ namespace Riskeer.Common.Service
                 return string.Format(Resources.Hydraulic_boundary_database_mismatching_version_in_file_0_, hydraulicBoundaryDatabase.FilePath);
             }
 
+            if (!HydraulicBoundaryDataHelper.IsCorrectHrdFile(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath, hydraulicBoundaryDatabase.FilePath))
+            {
+                return string.Format(Resources.Hydraulic_location_configuration_database_refers_to_hydraulic_boundary_database_that_does_not_correspond_with_0, hydraulicBoundaryDatabase.FilePath);
+            }
+
             return null;
         }
     }

@@ -215,6 +215,16 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het HLCD bestand verwijst naar een HRD bestand dat niet correspondeert met &apos;{0}&apos;..
+        /// </summary>
+        public static string Hydraulic_location_configuration_database_refers_to_hydraulic_boundary_database_that_does_not_correspond_with_0 {
+            get {
+                return ResourceManager.GetString("Hydraulic_location_configuration_database_refers_to_hydraulic_boundary_database_t" +
+                        "hat_does_not_correspond_with_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string NumericInputRule_Value_of_0_must_be_a_valid_number {

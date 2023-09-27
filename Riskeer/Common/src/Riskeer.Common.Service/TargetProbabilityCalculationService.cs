@@ -76,6 +76,17 @@ namespace Riskeer.Common.Service
                 isValid = false;
             }
 
+            if (isValid && !HydraulicBoundaryDataHelper.IsCorrectHrdFile(calculationSettings.HlcdFilePath, calculationSettings.HrdFilePath))
+            {
+                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_location_configuration_database_refers_to_hydraulic_boundary_database_that_does_not_correspond_with_0,
+                                                            new[]
+                                                            {
+                                                                calculationSettings.HrdFilePath
+                                                            });
+
+                isValid = false;
+            }
+
             CalculationServiceHelper.LogValidationEnd();
 
             return isValid;

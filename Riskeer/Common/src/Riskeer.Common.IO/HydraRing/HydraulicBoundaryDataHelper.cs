@@ -22,6 +22,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
@@ -109,18 +110,44 @@ namespace Riskeer.Common.IO.HydraRing
 
         /// <summary>
         /// Checks whether the provided version string matches the version string in the provided hydraulic boundary database file.
+        /// </summary>
         /// <param name="version">The version to check for.</param>
         /// <param name="hrdFilePath">The path of the hydraulic boundary database to check.</param>
         /// <returns><c>true</c> if the provided version string matches the version string in the provided hydraulic boundary
         /// database file, <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when no connection could be created with the hydraulic boundary
         /// database.</exception>
-        /// </summary>
         public static bool IsCorrectVersion(string version, string hrdFilePath)
         {
-            using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hrdFilePath))
             {
-                return version == db.ReadVersion();
+                return version == hydraulicBoundaryDatabaseReader.ReadVersion();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the provided hydraulic boundary database matches the file name that is referred to from the provided
+        /// hydraulic location configuration database.
+        /// </summary>
+        /// <param name="hlcdFilePath">The path of the hydraulic location configuration database to check.</param>
+        /// <param name="hrdFilePath">The path of the hydraulic boundary database to check.</param>
+        /// <returns><c>true</c> if the hydraulic boundary database matches the file name that is referred to from the hydraulic
+        /// location configuration database, <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection could be created with the hydraulic location
+        /// configuration database or the hydraulic boundary database.</exception>
+        public static bool IsCorrectHrdFile(string hlcdFilePath, string hrdFilePath)
+        {
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            {
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicLocationConfigurationDatabaseReader.Read();
+
+                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hrdFilePath))
+                {
+                    ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = hydraulicBoundaryDatabaseReader.Read();
+
+                    return readHydraulicLocationConfigurationDatabase.ReadTracks.Any(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId
+                                                                                           && rt.HrdFileName == Path.GetFileName(hrdFilePath));
+                }
             }
         }
 
