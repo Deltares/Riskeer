@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
     {
         private const string validHlcdFileName = "HLCD.sqlite";
         private const string validHrdFileName = "HRD dutch coast south.sqlite";
-        
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         private readonly string validHlcdFilePath = Path.Combine(testDataPath, validHlcdFileName);

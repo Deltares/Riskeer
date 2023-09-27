@@ -31,7 +31,13 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class HydraulicBoundaryDataConnectionValidatorTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private const string validHlcdFileName = "HLCD.sqlite";
+        private const string validHrdFileName = "HRD dutch coast south.sqlite";
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+
+        private readonly string validHlcdFilePath = Path.Combine(testDataPath, validHlcdFileName);
+        private readonly string validHrdFilePath = Path.Combine(testDataPath, validHrdFileName);
 
         [Test]
         public void Validate_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
@@ -63,7 +69,7 @@ namespace Riskeer.Common.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    FilePath = validHlcdFilePath
                 }
             };
 
@@ -85,7 +91,7 @@ namespace Riskeer.Common.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    FilePath = validHlcdFilePath
                 },
                 HydraulicBoundaryDatabases =
                 {
@@ -119,13 +125,13 @@ namespace Riskeer.Common.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(invalidSettingsSchemaPath, "hlcd.sqlite")
+                    FilePath = Path.Combine(invalidSettingsSchemaPath, validHlcdFileName)
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = Path.Combine(invalidSettingsSchemaPath, "complete.sqlite"),
+                        FilePath = Path.Combine(invalidSettingsSchemaPath, validHrdFileName),
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -153,13 +159,13 @@ namespace Riskeer.Common.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(withoutPreprocessorClosurePath, "hlcd.sqlite")
+                    FilePath = Path.Combine(withoutPreprocessorClosurePath, validHlcdFileName)
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = Path.Combine(withoutPreprocessorClosurePath, "complete.sqlite"),
+                        FilePath = Path.Combine(withoutPreprocessorClosurePath, validHrdFileName),
                         UsePreprocessorClosure = true,
                         Locations =
                         {
@@ -173,7 +179,7 @@ namespace Riskeer.Common.Service.Test
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
-            string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
+            string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD_preprocClosure.sqlite");
             var expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -182,21 +188,19 @@ namespace Riskeer.Common.Service.Test
         public void Validate_HydraulicBoundaryDatabaseWithMismatchingVersion_ReturnsErrorMessage()
         {
             // Setup
-            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    FilePath = validHlcdFilePath
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = hrdFilePath,
+                        FilePath = validHrdFilePath,
                         Version = "Dutch coast South19-11-2015 12:0113",
                         Locations =
                         {
@@ -210,7 +214,7 @@ namespace Riskeer.Common.Service.Test
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
-            var expectedMessage = $"De versie van de corresponderende hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{hrdFilePath}'.";
+            var expectedMessage = $"De versie van de corresponderende hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{validHrdFilePath}'.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -226,7 +230,7 @@ namespace Riskeer.Common.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    FilePath = validHlcdFilePath
                 },
                 HydraulicBoundaryDatabases =
                 {
