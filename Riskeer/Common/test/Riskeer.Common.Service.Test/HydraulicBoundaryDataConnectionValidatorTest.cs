@@ -232,7 +232,7 @@ namespace Riskeer.Common.Service.Test
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                        FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
                         Version = "Dutch coast South19-11-2015 12:0013",
                         UsePreprocessorClosure = usePreprocessorClosure,
                         Locations =

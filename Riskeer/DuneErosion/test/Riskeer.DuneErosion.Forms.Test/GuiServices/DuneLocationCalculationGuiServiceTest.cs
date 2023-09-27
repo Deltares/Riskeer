@@ -44,7 +44,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
-        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
         [Test]
