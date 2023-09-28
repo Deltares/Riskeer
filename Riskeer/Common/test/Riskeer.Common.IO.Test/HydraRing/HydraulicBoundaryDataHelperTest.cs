@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidateFilesForCalculation_HrdFileWithInvalidPathChars_ReturnsMessageWithError()
         {
             // Setup
-            string hrdFilePath = validHrdFilePath.Replace('c', Path.GetInvalidPathChars()[0]);
+            string hrdFilePath = testDataPath + Path.DirectorySeparatorChar + Path.GetInvalidPathChars()[0] + ".sqlite";
 
             // Call
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
@@ -164,7 +164,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void IsCorrectVersion_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hrdFilePath = validHrdFilePath.Replace('c', Path.GetInvalidPathChars()[0]);
+            string hrdFilePath = testDataPath + Path.DirectorySeparatorChar + Path.GetInvalidPathChars()[0] + ".sqlite";
 
             // Call
             void Test() => HydraulicBoundaryDataHelper.IsCorrectVersion(string.Empty, hrdFilePath);
@@ -197,7 +197,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void IsCorrectHrdFile_HlcdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hlcdFilePath = validHlcdFilePath.Replace('h', Path.GetInvalidPathChars()[0]);
+            string hlcdFilePath = testDataPath + Path.DirectorySeparatorChar + Path.GetInvalidPathChars()[0] + ".sqlite";
 
             // Call
             void Test() => HydraulicBoundaryDataHelper.IsCorrectHrdFile(hlcdFilePath, validHrdFilePath);
@@ -210,7 +210,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void IsCorrectHrdFile_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hrdFilePath = validHrdFilePath.Replace('c', Path.GetInvalidPathChars()[0]);
+            string hrdFilePath = testDataPath + Path.DirectorySeparatorChar + Path.GetInvalidPathChars()[0] + ".sqlite";
 
             // Call
             void Test() => HydraulicBoundaryDataHelper.IsCorrectHrdFile(validHlcdFilePath, hrdFilePath);
