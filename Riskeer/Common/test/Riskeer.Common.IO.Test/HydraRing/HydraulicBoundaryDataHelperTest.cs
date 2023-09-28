@@ -193,6 +193,32 @@ namespace Riskeer.Common.IO.Test.HydraRing
             Assert.IsFalse(isEqual);
         }
 
+        [Test]
+        public void IsCorrectHrdFile_HlcdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hlcdFilePath = validHlcdFilePath.Replace('h', Path.GetInvalidPathChars()[0]);
+
+            // Call
+            void Test() => HydraulicBoundaryDataHelper.IsCorrectHrdFile(hlcdFilePath, validHrdFilePath);
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(Test);
+        }
+
+        [Test]
+        public void IsCorrectHrdFile_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hrdFilePath = validHrdFilePath.Replace('c', Path.GetInvalidPathChars()[0]);
+
+            // Call
+            void Test() => HydraulicBoundaryDataHelper.IsCorrectHrdFile(validHlcdFilePath, hrdFilePath);
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(Test);
+        }
+
         private static string GetFolderPathThatIsTooLong()
         {
             var stringBuilder = new StringBuilder();
