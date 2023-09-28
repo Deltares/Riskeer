@@ -116,6 +116,29 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
+        public void Validate_MismatchingHydraulicBoundaryDatabaseFileName_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string invalidHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast north.sqlite");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, validHrdFileVersion, false);
+            var valid = true;
+
+            // Call
+            void Call() => valid = calculationService.Validate(calculationSettings);
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual($"Het HLCD bestand verwijst naar een HRD bestand dat niet correspondeert met '{invalidHrdFilePath}'.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
