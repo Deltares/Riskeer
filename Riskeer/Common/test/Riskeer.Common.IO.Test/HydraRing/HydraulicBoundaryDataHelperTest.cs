@@ -177,20 +177,20 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void IsCorrectVersion_EqualVersions_ReturnsTrue()
         {
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0013", validHrdFilePath);
+            bool result = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0013", validHrdFilePath);
 
             // Assert
-            Assert.IsTrue(isEqual);
+            Assert.IsTrue(result);
         }
 
         [Test]
         public void IsCorrectVersion_DifferentVersions_ReturnsFalse()
         {
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0113", validHrdFilePath);
+            bool result = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0113", validHrdFilePath);
 
             // Assert
-            Assert.IsFalse(isEqual);
+            Assert.IsFalse(result);
         }
 
         [Test]
@@ -217,6 +217,29 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
             // Assert
             Assert.Throws<CriticalFileReadException>(Test);
+        }
+
+        [Test]
+        public void IsCorrectHrdFile_CorrectHrdFileName_ReturnsTrue()
+        {
+            // Call
+            bool result = HydraulicBoundaryDataHelper.IsCorrectHrdFile(validHlcdFilePath, validHrdFilePath);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void IsCorrectHrdFile_IncorrectHrdFileName_ReturnsFalse()
+        {
+            // Setup
+            string hrdFilePath = Path.Combine(testDataPath, "HRD dutch coast north.sqlite");
+
+            // Call
+            bool result = HydraulicBoundaryDataHelper.IsCorrectHrdFile(validHlcdFilePath, hrdFilePath);
+
+            // Assert
+            Assert.IsFalse(result);
         }
 
         private static string GetFolderPathThatIsTooLong()
