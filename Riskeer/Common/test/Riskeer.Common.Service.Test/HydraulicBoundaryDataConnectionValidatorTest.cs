@@ -33,9 +33,9 @@ namespace Riskeer.Common.Service.Test
     {
         private const string validHlcdFileName = "HLCD.sqlite";
         private const string validHrdFileName = "HRD dutch coast south.sqlite";
+        private const string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-
         private readonly string validHlcdFilePath = Path.Combine(testDataPath, validHlcdFileName);
         private readonly string validHrdFilePath = Path.Combine(testDataPath, validHrdFileName);
 
@@ -219,6 +219,42 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
+        public void Validate_HydraulicBoundaryDatabaseWithIncorrectFileName_ReturnsErrorMessage()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            string hrdFilePath = Path.Combine(testDataPath, "HRD dutch coast north.sqlite");
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath,
+                        Version = validHrdFileVersion,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
+            // Call
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
+
+            // Assert
+            var expectedMessage = $"Het HLCD bestand verwijst naar een HRD bestand dat niet correspondeert met '{hrdFilePath}'.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Validate_ValidHydraulicBoundaryData_ReturnsNull(bool usePreprocessorClosure)
@@ -236,8 +272,8 @@ namespace Riskeer.Common.Service.Test
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
-                        Version = "Dutch coast South19-11-2015 12:0013",
+                        FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         UsePreprocessorClosure = usePreprocessorClosure,
                         Locations =
                         {
