@@ -127,8 +127,8 @@
       </stochasten>
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <scenario>
-        <gebruik>true</gebruik>
-        <bijdrage>100</bijdrage>
+        <gebruik>false</gebruik>
+        <bijdrage>0</bijdrage>
       </scenario>
     </berekening>
   </map>
