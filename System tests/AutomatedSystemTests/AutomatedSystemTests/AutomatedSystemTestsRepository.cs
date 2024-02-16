@@ -743,7 +743,7 @@ namespace AutomatedSystemTests
             /// Creates a new RiskeerMainWindow  folder.
             /// </summary>
             public RiskeerMainWindowAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("RiskeerMainWindow", "/form[@automationid='RiskeerMainWindow']", parentFolder, 30000, null, true, "d918d6a6-a4c6-4c01-a295-0360a81bad96", "")
+                    base("RiskeerMainWindow", "/form[@name='RiskeerMainWindow']", parentFolder, 30000, null, true, "d918d6a6-a4c6-4c01-a295-0360a81bad96", "")
             {
                 _projectexplorerpanel = new AutomatedSystemTestsRepositoryFolders.ProjectExplorerPanelFolder(this);
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
