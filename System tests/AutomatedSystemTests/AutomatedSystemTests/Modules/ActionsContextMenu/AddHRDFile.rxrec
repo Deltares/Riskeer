@@ -382,7 +382,7 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 			</helperscreenshot>
 		</mouseitem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>
