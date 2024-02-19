@@ -5533,7 +5533,7 @@ namespace AutomatedSystemTests
             /// Creates a new SelectItemDialog  folder.
             /// </summary>
             public SelectItemDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("SelectItemDialog", "/form[@controlname='SelectItemDialog']", parentFolder, 30000, null, true, "0d9a64ec-2e31-4550-883e-f86cf1e08e29", "")
+                    base("SelectItemDialog", "/form[@controlname='SelectItemDialog']", parentFolder, 30000, null, false, "0d9a64ec-2e31-4550-883e-f86cf1e08e29", "")
             {
                 _optioncsvInfo = new RepoItemInfo(this, "OptionCSV", "list/listitem[@text<'*.csv)']", "", 30000, null, "ab9a410e-84e4-4d83-aeb5-0574bad1c88e");
                 _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "button[@controlname='buttonOk']", "", 30000, null, "60eebdf2-2a5e-4a38-a8bb-e4c684bad433");

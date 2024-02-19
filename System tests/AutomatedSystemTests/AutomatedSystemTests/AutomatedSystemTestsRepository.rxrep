@@ -1678,7 +1678,7 @@ FjcAAAAASUVORK5CYII=
 		name="SelectItemDialog"
 		refpath="/form[@controlname='SelectItemDialog']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="listitem,checkable"
 			capname="listitem"
