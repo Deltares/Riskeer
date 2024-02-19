@@ -1774,7 +1774,7 @@ gg==
 		name="OpenFileDialog"
 		refimgid="de211477-5368-4a9b-be70-a4a8388097d0"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="button,nativewindow"
 			capname="button"
