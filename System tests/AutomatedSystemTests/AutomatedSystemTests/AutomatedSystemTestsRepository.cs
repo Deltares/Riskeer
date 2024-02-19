@@ -4490,7 +4490,7 @@ namespace AutomatedSystemTests
             /// Creates a new ActivityProgressDialog  folder.
             /// </summary>
             public ActivityProgressDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, true, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
+                    base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, false, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
             {
                 _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", "", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
                 _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", "", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
@@ -4632,7 +4632,7 @@ namespace AutomatedSystemTests
             /// Creates a new OpslaanAls  folder.
             /// </summary>
             public OpslaanAlsAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("OpslaanAls", "/form[@title='Opslaan als']", parentFolder, 30000, null, true, "b4da5f61-a7ae-4a2a-bd84-09bffaec5225", "")
+                    base("OpslaanAls", "/form[@title='Opslaan als']", parentFolder, 30000, null, false, "b4da5f61-a7ae-4a2a-bd84-09bffaec5225", "")
             {
                 _saveasfilenameInfo = new RepoItemInfo(this, "SaveAsFileName", "element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']", "", 30000, null, "29c5aee0-b248-4a91-82b3-a8a9f8f7382e");
                 _savebuttonInfo = new RepoItemInfo(this, "SaveButton", "button[@text='&Save']", "", 30000, null, "d1a05174-5318-4647-9db3-00a286f95fbc");

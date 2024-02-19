@@ -1195,7 +1195,7 @@ FjcAAAAASUVORK5CYII=
 		refimgid="0c9fa366-3792-4ebc-bea4-66980cf5fc8b"
 		refpath="/form[@controlname='ActivityProgressDialog']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="progressbar,control,nativewindow"
 			capname="progressbar"
@@ -1259,7 +1259,7 @@ cwAAAABJRU5ErkJggg==
 		name="OpslaanAls"
 		refimgid="1efc1fc8-8618-470a-8104-d8d5a9d36cb9"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="text,nativewindow"
 			capname="text"
