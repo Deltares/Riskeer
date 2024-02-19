@@ -884,7 +884,7 @@ namespace AutomatedSystemTests
             /// Creates a new ProjectExplorerPanel  folder.
             /// </summary>
             public ProjectExplorerPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("ProjectExplorerPanel", "*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
+                    base("ProjectExplorerPanel", "*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _trajectnode = new AutomatedSystemTestsRepositoryFolders.TrajectNodeFolder(this);
             }
@@ -4490,7 +4490,7 @@ namespace AutomatedSystemTests
             /// Creates a new ActivityProgressDialog  folder.
             /// </summary>
             public ActivityProgressDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, true, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
+                    base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, false, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
             {
                 _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", "", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
                 _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", "", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
@@ -5181,7 +5181,7 @@ namespace AutomatedSystemTests
             /// Creates a new DialogGenerateCalculations  folder.
             /// </summary>
             public DialogGenerateCalculationsAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DialogGenerateCalculations", "/form[@controlname~'SelectionDialog']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
+                    base("DialogGenerateCalculations", "/form[@controlname~'SelectionDialog']", parentFolder, 30000, null, false, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder6(this);
                 _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", "", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
@@ -5650,7 +5650,7 @@ namespace AutomatedSystemTests
             /// Creates a new OpenDialog  folder.
             /// </summary>
             public OpenDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("OpenDialog", "/form[@title='Openen']", parentFolder, 30000, null, true, "c507fecb-03d6-49f4-b5b8-7b6a4349c6de", "")
+                    base("OpenDialog", "/form[@title='Openen']", parentFolder, 30000, null, false, "c507fecb-03d6-49f4-b5b8-7b6a4349c6de", "")
             {
                 _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", "", 30000, null, "6605374b-06f5-4614-99d7-445816f0207d");
                 _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "cbbe1268-3660-4dd4-a308-278fbe50bc01");
