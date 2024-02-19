@@ -233,7 +233,7 @@ name="AutomatedSystemTestsRepository">
 					name="FM_ResultView"
 					refimgid="7e319871-37f1-4b74-b100-c8695681a8e2"
 					searchtimeout="10000ms"
-					usecache="True">
+					usecache="False">
 						<folder
 						capname="table"
 						id="a41c39c2-763f-4195-aef0-17e3e2be8655"
@@ -241,7 +241,7 @@ name="AutomatedSystemTestsRepository">
 						name="TableFMResultView"
 						refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
 						searchtimeout="10000ms"
-						usecache="True">
+						usecache="False">
 							<folder
 							capname="row"
 							id="bf8da9f6-504d-4a54-b6e0-6fbd5b8d7d1a"
@@ -1161,7 +1161,7 @@ DAPIxVgFicf/GQCdrAkiuOdOjQAAAABJRU5ErkJggg==
 		name="ConfirmSaveProjectDialogWhenClosing"
 		refpath="/form[@title='Project afsluiten']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="button,nativewindow"
 			capname="button"
@@ -1403,7 +1403,7 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 		name="DialogNewTraject"
 		refpath="/form[@controlname='ReferenceLineMetaSelectionDialog']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="radiobutton,control,nativewindow"
 			capname="radiobutton"
@@ -1431,7 +1431,7 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 			name="TrajectsTable"
 			refimgid="2ba06692-a4c1-48ac-9c46-26ef72184461"
 			searchtimeout="30000ms"
-			usecache="True">
+			usecache="False">
 				<folder
 				capname="row"
 				ensurevisible="False"
@@ -1491,7 +1491,7 @@ kEfF5TBp4wu7ctdIesgwigAAAABJRU5ErkJggg==
 		refimgid="8fb39dfd-af64-4ec2-bf3f-b40db91411d0"
 		refpath="/form[@title='Openen']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="text,nativewindow"
 			capname="text"

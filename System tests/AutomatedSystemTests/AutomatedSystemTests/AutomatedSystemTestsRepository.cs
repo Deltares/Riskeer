@@ -1811,7 +1811,7 @@ namespace AutomatedSystemTests
             /// Creates a new FM_ResultView  folder.
             /// </summary>
             public FM_ResultViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("FM_ResultView", "container[@controlname~'FailureMechanismResultView']", parentFolder, 10000, null, true, "9f847d0f-b605-48f5-b38e-9eb9bbefddb9", "")
+                    base("FM_ResultView", "container[@controlname~'FailureMechanismResultView']", parentFolder, 10000, null, false, "9f847d0f-b605-48f5-b38e-9eb9bbefddb9", "")
             {
                 _tablefmresultview = new AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder(this);
                 _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", "", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
@@ -1937,7 +1937,7 @@ namespace AutomatedSystemTests
             /// Creates a new TableFMResultView  folder.
             /// </summary>
             public TableFMResultViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("TableFMResultView", "container/table[@controlname='dataGridView']", parentFolder, 10000, null, true, "a41c39c2-763f-4195-aef0-17e3e2be8655", "")
+                    base("TableFMResultView", "container/table[@controlname='dataGridView']", parentFolder, 10000, null, false, "a41c39c2-763f-4195-aef0-17e3e2be8655", "")
             {
                 _row = new AutomatedSystemTestsRepositoryFolders.RowFolder(this);
             }
@@ -4421,7 +4421,7 @@ namespace AutomatedSystemTests
             /// Creates a new ConfirmSaveProjectDialogWhenClosing  folder.
             /// </summary>
             public ConfirmSaveProjectDialogWhenClosingAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("ConfirmSaveProjectDialogWhenClosing", "/form[@title='Project afsluiten']", parentFolder, 30000, null, true, "0c304014-01d3-44c4-9578-fb43d28c00b3", "")
+                    base("ConfirmSaveProjectDialogWhenClosing", "/form[@title='Project afsluiten']", parentFolder, 30000, null, false, "0c304014-01d3-44c4-9578-fb43d28c00b3", "")
             {
                 _buttonnoInfo = new RepoItemInfo(this, "ButtonNo", "button[@text='&No']", "", 30000, null, "2229a024-7306-4b0d-a6ab-e43f6a29c1bd");
             }
@@ -4817,7 +4817,7 @@ namespace AutomatedSystemTests
             /// Creates a new DialogNewTraject  folder.
             /// </summary>
             public DialogNewTrajectAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DialogNewTraject", "/form[@controlname='ReferenceLineMetaSelectionDialog']", parentFolder, 30000, null, true, "a95f8dbe-df2d-4b86-9086-a6751d400a59", "")
+                    base("DialogNewTraject", "/form[@controlname='ReferenceLineMetaSelectionDialog']", parentFolder, 30000, null, false, "a95f8dbe-df2d-4b86-9086-a6751d400a59", "")
             {
                 _trajectstable = new AutomatedSystemTestsRepositoryFolders.TrajectsTableFolder(this);
                 _normradiobuttonInfo = new RepoItemInfo(this, "NormRadioButton", "container/container/radiobutton[@controlname>$normType]", "", 30000, null, "f1bdec4b-e243-4cfe-8459-731408c338d4");
@@ -4918,7 +4918,7 @@ namespace AutomatedSystemTests
             /// Creates a new TrajectsTable  folder.
             /// </summary>
             public TrajectsTableFolder(RepoGenBaseFolder parentFolder) :
-                    base("TrajectsTable", "?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "16f13009-a75d-4921-8b3e-033e2bed69ca", "")
+                    base("TrajectsTable", "?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "16f13009-a75d-4921-8b3e-033e2bed69ca", "")
             {
                 _generictrajectidrow = new AutomatedSystemTestsRepositoryFolders.GenericTrajectIDRowFolder(this);
             }
@@ -5088,7 +5088,7 @@ namespace AutomatedSystemTests
             /// Creates a new Openen  folder.
             /// </summary>
             public OpenenAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("Openen", "/form[@title='Openen']", parentFolder, 30000, null, true, "3a716415-5c8c-4180-ba63-04ca2f4f5a22", "")
+                    base("Openen", "/form[@title='Openen']", parentFolder, 30000, null, false, "3a716415-5c8c-4180-ba63-04ca2f4f5a22", "")
             {
                 _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", "", 30000, null, "6fa717c9-c262-49c5-87e8-2cbf90c3d127");
                 _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "aad8cdda-9624-426d-9965-7ea59f8db536");
