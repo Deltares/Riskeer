@@ -571,11 +571,6 @@ iigBn4CiiigD/9k=
 						WindowsForms10.BUTTON.app.0.125ea89_r9_ad1
 					</attribute>
 					<attribute
-					name="controlname"
-					type="System.String">
-						SignallingValueRadioButton
-					</attribute>
-					<attribute
 					name="handle"
 					type="System.IntPtr">
 						69008
@@ -1435,11 +1430,6 @@ RQB//9k=
 					name="class"
 					type="System.String">
 						WindowsForms10.BUTTON.app.0.125ea89_r9_ad1
-					</attribute>
-					<attribute
-					name="controlname"
-					type="System.String">
-						Ok
 					</attribute>
 					<attribute
 					name="handle"

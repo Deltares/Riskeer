@@ -578,11 +578,6 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 						WindowsForms10.BUTTON.app.0.21a1964_r9_ad1
 					</attribute>
 					<attribute
-					name="controlname"
-					type="System.String">
-						DoForSelectedButton
-					</attribute>
-					<attribute
 					name="handle"
 					type="System.IntPtr">
 						135746
