@@ -27,7 +27,7 @@ name="AutomatedSystemTestsRepository">
 			name="ProjectExplorerPanel"
 			refimgid="0367a7c9-5817-4439-aa80-d9a552964982"
 			searchtimeout="30000ms"
-			usecache="False">
+			usecache="True">
 				<folder
 				capname="treeitem"
 				id="b466899e-e209-4d83-a46c-0533f333cea5"
@@ -1195,7 +1195,7 @@ FjcAAAAASUVORK5CYII=
 		refimgid="0c9fa366-3792-4ebc-bea4-66980cf5fc8b"
 		refpath="/form[@controlname='ActivityProgressDialog']"
 		searchtimeout="30000ms"
-		usecache="False">
+		usecache="True">
 			<item
 			addcaps="progressbar,control,nativewindow"
 			capname="progressbar"
@@ -1534,7 +1534,7 @@ gg==
 		isrooted="True"
 		name="DialogGenerateCalculations"
 		searchtimeout="30000ms"
-		usecache="False">
+		usecache="True">
 			<folder
 			capname="table"
 			id="4cff6d90-7520-4ee7-a00a-538e505578e2"
@@ -1729,7 +1729,7 @@ GpRSWkA/PmsAAR3/BasGFrRwBSdMgsu4P5OR+gCK7Y8YG21ArQAAAABJRU5ErkJggg==
 		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
 		refpath="/form[@title='Openen']"
 		searchtimeout="30000ms"
-		usecache="False">
+		usecache="True">
 			<item
 			addcaps="text,nativewindow"
 			capname="text"
