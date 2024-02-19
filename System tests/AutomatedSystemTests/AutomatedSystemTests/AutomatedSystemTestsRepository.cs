@@ -4724,7 +4724,7 @@ namespace AutomatedSystemTests
             /// Creates a new DropDownMenuItemList  folder.
             /// </summary>
             public DropDownMenuItemListAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
+                    base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, false, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
             {
                 _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", "", 5000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
                 _webmaptileservicewmtsInfo = new RepoItemInfo(this, "WebMapTileServiceWMTS", "listitem[@text>'Web Map Tile Service (WMT']", "", 30000, null, "1df21d19-b589-4ae0-9b5e-2ed3f606ff9d");
@@ -5348,7 +5348,7 @@ namespace AutomatedSystemTests
             /// Creates a new DropDownMenuInRowPropertiesPanel  folder.
             /// </summary>
             public DropDownMenuInRowPropertiesPanelAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DropDownMenuInRowPropertiesPanel", "/form[@title='']", parentFolder, 30000, null, true, "0ac12703-7585-4db4-95bd-26378ea2b64c", "")
+                    base("DropDownMenuInRowPropertiesPanel", "/form[@title='']", parentFolder, 30000, null, false, "0ac12703-7585-4db4-95bd-26378ea2b64c", "")
             {
                 _list = new AutomatedSystemTestsRepositoryFolders.ListFolder(this);
             }
