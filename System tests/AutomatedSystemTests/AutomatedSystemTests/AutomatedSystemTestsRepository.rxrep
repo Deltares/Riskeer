@@ -1534,7 +1534,7 @@ gg==
 		isrooted="True"
 		name="DialogGenerateCalculations"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<folder
 			capname="table"
 			id="4cff6d90-7520-4ee7-a00a-538e505578e2"
@@ -1729,7 +1729,7 @@ GpRSWkA/PmsAAR3/BasGFrRwBSdMgsu4P5OR+gCK7Y8YG21ArQAAAABJRU5ErkJggg==
 		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
 		refpath="/form[@title='Openen']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="text,nativewindow"
 			capname="text"
