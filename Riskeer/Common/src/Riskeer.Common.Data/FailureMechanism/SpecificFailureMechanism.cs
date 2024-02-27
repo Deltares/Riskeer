@@ -72,6 +72,8 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public bool InAssembly { get; set; }
 
+        public bool IsCorrelated { get; set; }
+
         public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public GeneralInput GeneralInput { get; }

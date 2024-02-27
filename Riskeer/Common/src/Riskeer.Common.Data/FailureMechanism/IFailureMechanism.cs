@@ -59,6 +59,11 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets a value indicating whether this failure mechanism is part of the assembly.
         /// </summary>
         bool InAssembly { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether this failure mechanism is correlated with other failure mechanisms.
+        /// </summary>
+        bool IsCorrelated { get; set; }
 
         /// <summary>
         /// Gets the source path of the imported <see cref="Sections"/>.
