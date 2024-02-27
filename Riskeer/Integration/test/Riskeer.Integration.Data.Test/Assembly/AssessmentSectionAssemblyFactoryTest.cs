@@ -42,8 +42,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
     [TestFixture]
     public class AssessmentSectionAssemblyFactoryTest
     {
-        #region Assemble Assessment Section
-
         [Test]
         public void AssembleAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -55,11 +53,14 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
+        #region Assemble Assessment Section
+
         [Test]
-        public void AssembleAssessmentSection_AssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState_SetsInputOnCalculator()
+        public void AssembleAssessmentSection_AssessmentSectionWithFailureMechanismsCorrelatedFalseAndContainingFailureMechanismsWithRandomInAssemblyState_SetsInputOnCalculator()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.AreFailureMechanismsCorrelated = false;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -84,14 +85,143 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 {
                     Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
                 }
+
+                Assert.IsNull(assessmentSectionAssemblyCalculator.CorrelatedFailureMechanismProbabilitiesInput);
+                Assert.IsNull(assessmentSectionAssemblyCalculator.UncorrelatedFailureMechanismProbabilitiesInput);
             }
         }
 
         [Test]
-        public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
+        public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsTrueAndAllCorrelatedFailureMechanismsInAssembly_SetsInputOnCalculator()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.GrassCoverErosionInwards.InAssembly = true;
+            assessmentSection.HeightStructures.InAssembly = true;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(contribution.SignalFloodingProbability, assessmentSectionAssemblyCalculator.SignalFloodingProbability);
+                Assert.AreEqual(contribution.MaximumAllowableFloodingProbability, assessmentSectionAssemblyCalculator.MaximumAllowableFloodingProbabilityInput);
+
+                const int expectedNrOfCorrelatedProbabilities = 2;
+                IEnumerable<double> correlatedFailureMechanismProbabilitiesInput = assessmentSectionAssemblyCalculator.CorrelatedFailureMechanismProbabilitiesInput;
+                Assert.AreEqual(expectedNrOfCorrelatedProbabilities, correlatedFailureMechanismProbabilitiesInput.Count());
+                foreach (double failureMechanismProbability in correlatedFailureMechanismProbabilitiesInput)
+                {
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
+                }
+
+                int expectedNrOfUncorrelatedProbabilities = assessmentSection.GetFailureMechanisms()
+                                                                             .Concat(assessmentSection.SpecificFailureMechanisms)
+                                                                             .Count(fp => fp != assessmentSection.HeightStructures && fp != assessmentSection.GrassCoverErosionInwards && fp.InAssembly);
+                IEnumerable<double> uncorrelatedFailureMechanismProbabilitiesInput = assessmentSectionAssemblyCalculator.UncorrelatedFailureMechanismProbabilitiesInput;
+                Assert.AreEqual(expectedNrOfUncorrelatedProbabilities, uncorrelatedFailureMechanismProbabilitiesInput.Count());
+                foreach (double failureMechanismProbability in uncorrelatedFailureMechanismProbabilitiesInput)
+                {
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
+                }
+
+                Assert.IsNull(assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput);
+            }
+        }
+        
+        [Test]
+        public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsFalseAndAllCorrelatedFailureMechanismsInAssembly_SetsInputOnCalculator()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.AreFailureMechanismsCorrelated = false;
+            assessmentSection.GrassCoverErosionInwards.InAssembly = true;
+            assessmentSection.HeightStructures.InAssembly = true;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(contribution.SignalFloodingProbability, assessmentSectionAssemblyCalculator.SignalFloodingProbability);
+                Assert.AreEqual(contribution.MaximumAllowableFloodingProbability, assessmentSectionAssemblyCalculator.MaximumAllowableFloodingProbabilityInput);
+
+                int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
+                                                                 .Concat(assessmentSection.SpecificFailureMechanisms)
+                                                                 .Count(fp => fp.InAssembly);
+                IEnumerable<double> calculatorInput = assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput;
+                Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
+                foreach (double failureMechanismProbability in calculatorInput)
+                {
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
+                }
+
+                Assert.IsNull(assessmentSectionAssemblyCalculator.CorrelatedFailureMechanismProbabilitiesInput);
+                Assert.IsNull(assessmentSectionAssemblyCalculator.UncorrelatedFailureMechanismProbabilitiesInput);
+            }
+        }
+        
+        [Test]
+        [TestCase(false, false)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsTrueAndVariousCorrelatedFailureMechanismsNotInAssembly_SetsInputOnCalculator(
+            bool grassCoverErosionInwardsInAssembly, bool heightStructuresInAssembly)
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.GrassCoverErosionInwards.InAssembly = grassCoverErosionInwardsInAssembly;
+            assessmentSection.HeightStructures.InAssembly = heightStructuresInAssembly;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(contribution.SignalFloodingProbability, assessmentSectionAssemblyCalculator.SignalFloodingProbability);
+                Assert.AreEqual(contribution.MaximumAllowableFloodingProbability, assessmentSectionAssemblyCalculator.MaximumAllowableFloodingProbabilityInput);
+
+                int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
+                                                                 .Concat(assessmentSection.SpecificFailureMechanisms)
+                                                                 .Count(fp => fp.InAssembly);
+                IEnumerable<double> calculatorInput = assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput;
+                Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
+                foreach (double failureMechanismProbability in calculatorInput)
+                {
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
+                }
+
+                Assert.IsNull(assessmentSectionAssemblyCalculator.CorrelatedFailureMechanismProbabilitiesInput);
+                Assert.IsNull(assessmentSectionAssemblyCalculator.UncorrelatedFailureMechanismProbabilitiesInput);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput(bool areFailureMechanismsCorrelated)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
+            assessmentSection.AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -107,9 +237,14 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_CalculatorThrowsException_ThrowsAssemblyException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssembleAssessmentSection_CalculatorThrowsException_ThrowsAssemblyException(bool areFailureMechanismsCorrelated)
         {
             // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
+            assessmentSection.AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated;
+            
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -117,7 +252,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -128,9 +263,14 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssembleAssessmentSection_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException(bool areFailureMechanismsCorrelated)
         {
             // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
+            assessmentSection.AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated;
+            
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -138,7 +278,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

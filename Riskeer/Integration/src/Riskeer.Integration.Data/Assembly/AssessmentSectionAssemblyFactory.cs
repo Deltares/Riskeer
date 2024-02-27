@@ -63,6 +63,118 @@ namespace Riskeer.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            return assessmentSection.AreFailureMechanismsCorrelated && AllCorrelatedFailureMechanismsInAssembly(assessmentSection)
+                       ? AssembleAssessmentSectionWithCorrelatedFailureMechanisms(assessmentSection)
+                       : AssembleAssessmentSectionWithoutCorrelatedFailureMechanisms(assessmentSection);
+        }
+
+        private static bool AllCorrelatedFailureMechanismsInAssembly(AssessmentSection assessmentSection)
+        {
+            return assessmentSection.GrassCoverErosionInwards.InAssembly && assessmentSection.HeightStructures.InAssembly;
+        }
+
+        /// <summary>
+        /// Gets the assessment section assembly result with correlated failure mechanisms.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the assessment section assembly results
+        /// for.</param>
+        /// <returns>The assessment section assembly result.</returns>
+        /// <exception cref="AssemblyException">Thrown when the result could not be assembled.</exception>
+        private static AssessmentSectionAssemblyResultWrapper AssembleAssessmentSectionWithCorrelatedFailureMechanisms(AssessmentSection assessmentSection)
+        {
+            try
+            {
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssessmentSectionAssemblyCalculator calculator =
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                IEnumerable<double> correlatedAssemblyResults = GetCorrelatedFailureMechanismAssemblyResults(assessmentSection);
+                IEnumerable<double> uncorrelatedAssemblyResults = GetUncorrelatedFailureMechanismAssemblyResults(assessmentSection);
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                return calculator.AssembleAssessmentSection(correlatedAssemblyResults, uncorrelatedAssemblyResults,
+                                                            contribution.MaximumAllowableFloodingProbability, contribution.SignalFloodingProbability);
+            }
+            catch (AssessmentSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms, e);
+            }
+        }
+
+        /// <summary>
+        /// Gets the correlated failure mechanism assembly results based on the input arguments.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the correlated failure mechanism assembly
+        /// results for.</param>
+        /// <returns>A collection of correlated failure mechanism assembly results.</returns>
+        /// <exception cref="AssemblyException">Thrown when the results could not be assembled.</exception>
+        private static IEnumerable<double> GetCorrelatedFailureMechanismAssemblyResults(AssessmentSection assessmentSection)
+        {
+            return new[]
+            {
+                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection).AssemblyResult,
+                HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection).AssemblyResult
+            };
+        }
+
+        /// <summary>
+        /// Gets the uncorrelated failure mechanism assembly results based on the input arguments.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the uncorrelated failure mechanism assembly
+        /// results for.</param>
+        /// <returns>A collection of uncorrelated failure mechanism assembly results.</returns>
+        /// <exception cref="AssemblyException">Thrown when the results could not be assembled.</exception>
+        private static IEnumerable<double> GetUncorrelatedFailureMechanismAssemblyResults(AssessmentSection assessmentSection)
+        {
+            var failureMechanismAssemblies = new List<double>();
+
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.Piping, assessmentSection,
+                                   PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.MacroStabilityInwards, assessmentSection,
+                                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.ClosingStructures, assessmentSection,
+                                   ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.StabilityPointStructures, assessmentSection,
+                                   StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverErosionOutwards, assessmentSection,
+                                   GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.StabilityStoneCover, assessmentSection,
+                                   StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaveImpactAsphaltCover, assessmentSection,
+                                   WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.DuneErosion, assessmentSection,
+                                   DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.PipingStructure, assessmentSection,
+                                   PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverSlipOffInwards, assessmentSection,
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverSlipOffOutwards, assessmentSection,
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.Microstability, assessmentSection,
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaterPressureAsphaltCover, assessmentSection,
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+
+            failureMechanismAssemblies.AddRange(assessmentSection.SpecificFailureMechanisms
+                                                                 .Where(fp => fp.InAssembly)
+                                                                 .Select(fp => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, assessmentSection)
+                                                                                                              .AssemblyResult));
+
+            return failureMechanismAssemblies;
+        }
+
+        /// <summary>
+        /// Gets the assessment section assembly result without correlated failure mechanisms.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the assessment section assembly results
+        /// for.</param>
+        /// <returns>The assessment section assembly result.</returns>
+        /// <exception cref="AssemblyException">Thrown when the result could not be assembled.</exception>
+        private static AssessmentSectionAssemblyResultWrapper AssembleAssessmentSectionWithoutCorrelatedFailureMechanisms(AssessmentSection assessmentSection)
+        {
             try
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
