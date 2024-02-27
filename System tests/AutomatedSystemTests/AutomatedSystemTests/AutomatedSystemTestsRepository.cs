@@ -1816,7 +1816,7 @@ namespace AutomatedSystemTests
                 _tablefmresultview = new AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder(this);
                 _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", "", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
                 _expanddropdownmenuInfo = new RepoItemInfo(this, "ExpandDropDownMenu", "container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button", "", 30000, null, "8a65568d-140f-4c4f-b21d-a105a8285816");
-                _failuremechanismassemblyprobabilityInfo = new RepoItemInfo(this, "FailureMechanismAssemblyProbability", "container[@automationid='TableLayoutPanel']/text[@automationid='failureMechanismAssemblyProbabilityTextBox']", "", 30000, null, "0a798c6e-09c7-4c5e-a5d5-688f39cf54c1");
+                _failuremechanismassemblyprobabilityInfo = new RepoItemInfo(this, "FailureMechanismAssemblyProbability", "container[@controlname='TableLayoutPanel']/text[@controlname='failureMechanismAssemblyProbabilityTextBox']", "", 30000, null, "0a798c6e-09c7-4c5e-a5d5-688f39cf54c1");
             }
 
             /// <summary>
