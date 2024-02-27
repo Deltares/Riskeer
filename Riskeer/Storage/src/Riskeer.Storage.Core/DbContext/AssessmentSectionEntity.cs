@@ -57,6 +57,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte NormativeProbabilityType { get; set; }
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
+        public byte AreFailureMechanismsCorrelated { get; set; }
 
         public virtual ProjectEntity ProjectEntity { get; set; }
         public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }

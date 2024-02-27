@@ -48,6 +48,7 @@
           <Property Name="NormativeProbabilityType" Type="tinyint" Nullable="false" />
           <Property Name="Composition" Type="tinyint" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="AreFailureMechanismsCorrelated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
           <Key>
@@ -4638,6 +4639,7 @@
           <Property Name="NormativeProbabilityType" Type="Byte" Nullable="false" />
           <Property Name="Composition" Type="Byte" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AreFailureMechanismsCorrelated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RiskeerEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity" Relationship="RiskeerEntitiesModel.FK_AssessmentSectionEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity1" Relationship="RiskeerEntitiesModel.FK_AssessmentSectionEntity_2_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
@@ -7914,6 +7916,7 @@
           <EntitySetMapping Name="AssessmentSectionEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.AssessmentSectionEntity">
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
+                <ScalarProperty Name="AreFailureMechanismsCorrelated" ColumnName="AreFailureMechanismsCorrelated" />
                 <ScalarProperty Name="ReferenceLinePointXml" ColumnName="ReferenceLinePointXml" />
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="NormativeProbabilityType" ColumnName="NormativeProbabilityType" />
