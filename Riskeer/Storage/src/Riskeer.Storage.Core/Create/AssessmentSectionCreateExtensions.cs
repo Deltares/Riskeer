@@ -71,6 +71,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 Id = section.Id.DeepClone(),
                 Name = section.Name.DeepClone(),
+                AreFailureMechanismsCorrelated = Convert.ToByte(section.AreFailureMechanismsCorrelated),
                 Composition = Convert.ToByte(section.Composition),
                 Comments = section.Comments.Body.DeepClone(),
                 MaximumAllowableFloodingProbability = contribution.MaximumAllowableFloodingProbability,

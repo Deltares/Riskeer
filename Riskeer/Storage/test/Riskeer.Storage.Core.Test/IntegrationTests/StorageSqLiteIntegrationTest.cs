@@ -223,6 +223,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             Assert.AreEqual(expectedAssessmentSection.Id, actualAssessmentSection.Id);
             Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
+            Assert.AreEqual(expectedAssessmentSection.AreFailureMechanismsCorrelated, actualAssessmentSection.AreFailureMechanismsCorrelated);
             AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
 
             FailureMechanismContribution expectedContribution = expectedAssessmentSection.FailureMechanismContribution;

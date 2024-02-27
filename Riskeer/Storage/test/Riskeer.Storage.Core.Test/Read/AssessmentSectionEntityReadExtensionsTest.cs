@@ -69,11 +69,16 @@ namespace Riskeer.Storage.Core.Test.Read
             const string comments = "Some text";
             const double maximumAllowableFloodingProbability = 0.05;
             const double signalFloodingProbability = 0.02;
-            var normativeProbabilityType = new Random(9).NextEnumValue<NormativeProbabilityType>();
+
+            var random = new Random(9);
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
+            bool areFailureMechanismsCorrelated = random.NextBoolean();
+            
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,
                 Name = testName,
+                AreFailureMechanismsCorrelated = Convert.ToByte(areFailureMechanismsCorrelated),
                 Composition = Convert.ToByte(assessmentSectionComposition),
                 Comments = comments,
                 MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
@@ -92,6 +97,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments.Body);
+            Assert.AreEqual(areFailureMechanismsCorrelated, section.AreFailureMechanismsCorrelated);
 
             Assert.AreEqual(maximumAllowableFloodingProbability, section.FailureMechanismContribution.MaximumAllowableFloodingProbability);
             Assert.AreEqual(signalFloodingProbability, section.FailureMechanismContribution.SignalFloodingProbability);

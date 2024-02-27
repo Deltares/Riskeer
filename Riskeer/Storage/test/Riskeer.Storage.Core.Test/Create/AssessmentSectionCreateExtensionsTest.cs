@@ -76,6 +76,7 @@ namespace Riskeer.Storage.Core.Test.Create
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
+            bool areFailureMechanismsCorrelated = random.NextBoolean();
             IEnumerable<SpecificFailureMechanism> specificFailureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
                                                                                         .ToArray();
 
@@ -83,6 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Id = testId,
                 Name = testName,
+                AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated,
                 Comments =
                 {
                     Body = comments
@@ -114,6 +116,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
+            Assert.AreEqual(Convert.ToByte(areFailureMechanismsCorrelated), entity.AreFailureMechanismsCorrelated);
             Assert.AreEqual(maximumAllowableFloodingProbability, entity.MaximumAllowableFloodingProbability);
             Assert.AreEqual(signalFloodingProbability, entity.SignalFloodingProbability);
             Assert.AreEqual(Convert.ToByte(normativeProbabilityType), entity.NormativeProbabilityType);

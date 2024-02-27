@@ -90,6 +90,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     }
                 },
                 Id = "12-2",
+                AreFailureMechanismsCorrelated = false,
                 FailureMechanismContribution =
                 {
                     MaximumAllowableFloodingProbability = 1.0 / 10,

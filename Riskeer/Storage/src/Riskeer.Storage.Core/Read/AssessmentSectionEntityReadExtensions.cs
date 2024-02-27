@@ -58,6 +58,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 Id = entity.Id,
                 Name = entity.Name,
+                AreFailureMechanismsCorrelated = Convert.ToBoolean(entity.AreFailureMechanismsCorrelated),
                 Comments =
                 {
                     Body = entity.Comments
