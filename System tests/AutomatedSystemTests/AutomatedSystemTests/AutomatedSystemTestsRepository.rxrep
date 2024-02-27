@@ -19,7 +19,7 @@ name="AutomatedSystemTestsRepository">
 		isrooted="True"
 		name="RiskeerMainWindow"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<folder
 			capname="tree"
 			id="f5ed0b8b-7145-426f-982e-b89248da6d53"
@@ -27,7 +27,7 @@ name="AutomatedSystemTestsRepository">
 			name="ProjectExplorerPanel"
 			refimgid="0367a7c9-5817-4439-aa80-d9a552964982"
 			searchtimeout="30000ms"
-			usecache="True">
+			usecache="False">
 				<folder
 				capname="treeitem"
 				id="b466899e-e209-4d83-a46c-0533f333cea5"
@@ -68,7 +68,7 @@ name="AutomatedSystemTestsRepository">
 			isrooted="True"
 			name="Ribbon"
 			searchtimeout="30000ms"
-			usecache="True">
+			usecache="False">
 				<item
 				addcaps="text,wpfelement,wpfgroupelement"
 				capname="text"
@@ -107,7 +107,7 @@ name="AutomatedSystemTestsRepository">
 				name="HeaderOpenViews"
 				refimgid="fcfe209d-b8ec-4630-bc95-492ec1caaab4"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<item
 					addcaps="text,wpfelement"
 					capname="button"
@@ -139,7 +139,7 @@ name="AutomatedSystemTestsRepository">
 				isrooted="True"
 				name="MessagesDataGridView"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="row"
 					id="43bcbd48-5fca-439f-aa46-2e7f8b5fc251"
@@ -192,14 +192,14 @@ name="AutomatedSystemTestsRepository">
 				isrooted="True"
 				name="PropertiesPanelContainer"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="table"
 					id="50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e"
 					isrooted="True"
 					name="Table"
 					searchtimeout="30000ms"
-					usecache="True">
+					usecache="False">
 						<item
 						addcaps="row,accessible"
 						capname="row"
@@ -607,7 +607,7 @@ TkSuQmCC
 						isrooted="True"
 						name="Table"
 						searchtimeout="30000ms"
-						usecache="True">
+						usecache="False">
 							<basepath>
 								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/table
 							</basepath>
@@ -704,7 +704,7 @@ TkSuQmCC
 				name="MapLegendPanel"
 				refimgid="12af5f5f-be0b-4475-abfa-13a1dd32870c"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="treeitem"
 					id="2068096e-8bfc-444e-ad21-f3ee0812f9bf"
@@ -1817,7 +1817,7 @@ FjcAAAAASUVORK5CYII=
 		name="BackgroundMapDataSelectionDialog"
 		refpath="/form[@controlname='BackgroundMapDataSelectionDialog']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="cell,accessible"
 			capname="cell"
@@ -1904,7 +1904,7 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		refimgid="22eceede-1e2f-4034-89cc-ae6e633c1e9b"
 		refpath="/form[@title='Fout']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="button,nativewindow"
 			capname="button"
@@ -1938,7 +1938,7 @@ FjcAAAAASUVORK5CYII=
 		name="DialogSelectionInformationImportMergeProject"
 		refpath="/form[@controlname='AssessmentSectionMergeDataProviderDialog']"
 		searchtimeout="30000ms"
-		usecache="True">
+		usecache="False">
 			<item
 			addcaps="button,control,nativewindow"
 			capname="button"

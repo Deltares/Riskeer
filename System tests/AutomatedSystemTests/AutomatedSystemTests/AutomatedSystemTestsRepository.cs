@@ -743,7 +743,7 @@ namespace AutomatedSystemTests
             /// Creates a new RiskeerMainWindow  folder.
             /// </summary>
             public RiskeerMainWindowAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("RiskeerMainWindow", "/form[@name='RiskeerMainWindow']", parentFolder, 30000, null, true, "d918d6a6-a4c6-4c01-a295-0360a81bad96", "")
+                    base("RiskeerMainWindow", "/form[@name='RiskeerMainWindow']", parentFolder, 30000, null, false, "d918d6a6-a4c6-4c01-a295-0360a81bad96", "")
             {
                 _projectexplorerpanel = new AutomatedSystemTestsRepositoryFolders.ProjectExplorerPanelFolder(this);
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
@@ -884,7 +884,7 @@ namespace AutomatedSystemTests
             /// Creates a new ProjectExplorerPanel  folder.
             /// </summary>
             public ProjectExplorerPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("ProjectExplorerPanel", "*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
+                    base("ProjectExplorerPanel", "*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _trajectnode = new AutomatedSystemTestsRepositoryFolders.TrajectNodeFolder(this);
             }
@@ -1028,7 +1028,7 @@ namespace AutomatedSystemTests
             /// Creates a new Ribbon  folder.
             /// </summary>
             public RibbonFolder(RepoGenBaseFolder parentFolder) :
-                    base("Ribbon", "menubar", parentFolder, 30000, null, true, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
+                    base("Ribbon", "menubar", parentFolder, 30000, null, false, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
             {
                 _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", "", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
                 _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", "", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
@@ -1215,7 +1215,7 @@ namespace AutomatedSystemTests
             /// Creates a new HeaderOpenViews  folder.
             /// </summary>
             public HeaderOpenViewsFolder(RepoGenBaseFolder parentFolder) :
-                    base("HeaderOpenViews", "container[11]/?/?/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, true, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
+                    base("HeaderOpenViews", "container[11]/?/?/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, false, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
             {
                 _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", "", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
                 _textheaderpanelInfo = new RepoItemInfo(this, "textHeaderPanel", "container[@automationid='HeaderPanel']/tabpage/?/text[@text>$nameMap]", "", 30000, null, "71969c09-ef02-4547-bddc-6e74e1272049");
@@ -1307,7 +1307,7 @@ namespace AutomatedSystemTests
             /// Creates a new MessagesDataGridView  folder.
             /// </summary>
             public MessagesDataGridViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("MessagesDataGridView", "container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, true, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
+                    base("MessagesDataGridView", "container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, false, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
             {
                 _genericrowmessage = new AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder(this);
                 _lastrowmessage = new AutomatedSystemTestsRepositoryFolders.LastRowMessageFolder(this);
@@ -1500,7 +1500,7 @@ namespace AutomatedSystemTests
             /// Creates a new PropertiesPanelContainer  folder.
             /// </summary>
             public PropertiesPanelContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("PropertiesPanelContainer", "container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, true, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
+                    base("PropertiesPanelContainer", "container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, false, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder(this);
             }
@@ -1551,7 +1551,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder(RepoGenBaseFolder parentFolder) :
-                    base("Table", ".//table", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
+                    base("Table", ".//table", parentFolder, 30000, null, false, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
                 _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", "", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
             }
@@ -3156,7 +3156,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder4(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container/table", parentFolder, 30000, null, true, "4c15a955-c1b0-48c4-bcdc-7150cc96054e", "")
+                    base("Table", "container/table", parentFolder, 30000, null, false, "4c15a955-c1b0-48c4-bcdc-7150cc96054e", "")
             {
             }
 
@@ -3456,7 +3456,7 @@ namespace AutomatedSystemTests
             /// Creates a new MapLegendPanel  folder.
             /// </summary>
             public MapLegendPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("MapLegendPanel", "*/*/container[@controlname='MapLegendView']/container", parentFolder, 30000, null, true, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
+                    base("MapLegendPanel", "*/*/container[@controlname='MapLegendView']/container", parentFolder, 30000, null, false, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
             {
                 _rootnode = new AutomatedSystemTestsRepositoryFolders.RootNodeFolder(this);
             }
@@ -5834,7 +5834,7 @@ namespace AutomatedSystemTests
             /// Creates a new BackgroundMapDataSelectionDialog  folder.
             /// </summary>
             public BackgroundMapDataSelectionDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("BackgroundMapDataSelectionDialog", "/form[@controlname='BackgroundMapDataSelectionDialog']", parentFolder, 30000, null, true, "4ed2421b-175c-4b4d-8733-b94793ed4133", "")
+                    base("BackgroundMapDataSelectionDialog", "/form[@controlname='BackgroundMapDataSelectionDialog']", parentFolder, 30000, null, false, "4ed2421b-175c-4b4d-8733-b94793ed4133", "")
             {
                 _dialogselectionbackground = new AutomatedSystemTestsRepositoryFolders.DialogSelectionBackgroundFolder(this);
                 _row0Info = new RepoItemInfo(this, "Row0", "?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[2]/cell[1]", "", 30000, null, "d0b3af51-09f6-49fb-89b1-52aafe114381");
@@ -6054,7 +6054,7 @@ namespace AutomatedSystemTests
             /// Creates a new Fout  folder.
             /// </summary>
             public FoutAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("Fout", "/form[@title='Fout']", parentFolder, 30000, null, true, "52ebd3be-7b30-4e13-885c-76c38357604f", "")
+                    base("Fout", "/form[@title='Fout']", parentFolder, 30000, null, false, "52ebd3be-7b30-4e13-885c-76c38357604f", "")
             {
                 _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", "", 30000, null, "b8fd9641-981d-469c-bcad-d5e852798a7d");
             }
@@ -6122,7 +6122,7 @@ namespace AutomatedSystemTests
             /// Creates a new DialogSelectionInformationImportMergeProject  folder.
             /// </summary>
             public DialogSelectionInformationImportMergeProjectAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("DialogSelectionInformationImportMergeProject", "/form[@controlname='AssessmentSectionMergeDataProviderDialog']", parentFolder, 30000, null, true, "a38813aa-c0d2-4abf-809e-aca709f1371e", "")
+                    base("DialogSelectionInformationImportMergeProject", "/form[@controlname='AssessmentSectionMergeDataProviderDialog']", parentFolder, 30000, null, false, "a38813aa-c0d2-4abf-809e-aca709f1371e", "")
             {
                 _tablefms = new AutomatedSystemTestsRepositoryFolders.TableFMsFolder(this);
                 _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']", "", 30000, null, "89a71866-d976-497c-a752-3afb1a05083b");
