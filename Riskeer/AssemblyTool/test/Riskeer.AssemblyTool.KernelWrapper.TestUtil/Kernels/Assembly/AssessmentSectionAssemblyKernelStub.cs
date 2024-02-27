@@ -39,6 +39,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public IEnumerable<Probability> FailureMechanismProbabilities { get; private set; }
 
         /// <summary>
+        /// Gets the collection of correlated <see cref="Probability"/> used as an input parameter for assembly methods.
+        /// </summary>
+        public IEnumerable<Probability> CorrelatedFailureMechanismProbabilities { get; private set; }
+
+        /// <summary>
+        /// Gets the collection of uncorrelated <see cref="Probability"/> used as an input parameter for assembly methods.
+        /// </summary>
+        public IEnumerable<Probability> UncorrelatedFailureMechanismProbabilities { get; private set; }
+
+        /// <summary>
         /// Gets the collection of assessment section categories.
         /// </summary>
         public CategoriesList<AssessmentSectionCategory> Categories { get; private set; }
@@ -102,7 +112,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             ThrowException();
 
             ProbabilityCalculated = true;
-            FailureMechanismProbabilities = correlatedFailureMechanismProbabilities;
+            CorrelatedFailureMechanismProbabilities = correlatedFailureMechanismProbabilities;
+            UncorrelatedFailureMechanismProbabilities = uncorrelatedFailureMechanismProbabilities;
             PartialAssembly = partialAssembly;
 
             return AssemblyProbability;

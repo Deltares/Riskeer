@@ -91,5 +91,53 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
+
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> correlatedFailureMechanismProbabilities,
+                                                                                IEnumerable<double> uncorrelatedFailureMechanismProbabilities,
+                                                                                double maximumAllowableFloodingProbability,
+                                                                                double signalFloodingProbability)
+        {
+            if (correlatedFailureMechanismProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(correlatedFailureMechanismProbabilities));
+            }
+
+            if (uncorrelatedFailureMechanismProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(uncorrelatedFailureMechanismProbabilities));
+            }
+
+            try
+            {
+                ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyGroupsKernel();
+                CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsBoi21(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
+
+                IAssessmentGradeAssembler assessmentSectionAssemblyKernel = factory.CreateAssessmentSectionAssemblyKernel();
+                IEnumerable<Probability> correlatedProbabilities = correlatedFailureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
+                                                                                                          .ToArray();
+                IEnumerable<Probability> uncorrelatedProbabilities = uncorrelatedFailureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
+                                                                                                              .ToArray();
+
+                Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A2(correlatedProbabilities, 
+                                                                                                                                     uncorrelatedProbabilities, 
+                                                                                                                                     false);
+                EAssessmentGrade assemblyCategory = assessmentSectionAssemblyKernel.DetermineAssessmentGradeBoi2B1(assemblyProbability, assessmentSectionCategories);
+
+                return new AssessmentSectionAssemblyResultWrapper(
+                    new AssessmentSectionAssemblyResult(assemblyProbability,
+                                                        AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory)),
+                    AssemblyMethod.BOI2A2, AssemblyMethod.BOI2B1);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
     }
 }
