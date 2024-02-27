@@ -674,6 +674,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.NaN, "-")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.NegativeInfinity, "-Oneindig")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.None, double.PositiveInfinity, "Oneindig")]
