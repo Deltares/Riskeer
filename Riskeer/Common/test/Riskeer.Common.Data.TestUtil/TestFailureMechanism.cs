@@ -70,8 +70,6 @@ namespace Riskeer.Common.Data.TestUtil
 
         public bool InAssembly { get; set; }
 
-        public bool IsCorrelated { get; set; }
-
         public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public GeneralInput GeneralInput { get; }

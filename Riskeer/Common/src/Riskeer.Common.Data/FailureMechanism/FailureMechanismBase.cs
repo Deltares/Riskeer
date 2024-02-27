@@ -80,8 +80,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
-        
-        public bool IsCorrelated { get; set; }
 
         public IObservableEnumerable<T> SectionResults => sectionResults;
 
