@@ -43,5 +43,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
                                                                          double maximumAllowableFloodingProbability,
                                                                          double signalFloodingProbability);
+
+        /// <summary>
+        /// Assembles an assessment section based on the input arguments.
+        /// </summary>
+        /// <param name="correlatedFailureMechanismProbabilities">The collection of correlated failure mechanism probabilities.</param>
+        /// <param name="uncorrelatedFailureMechanismProbabilities">The collection of uncorrelated failure mechanism probabilities.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to assemble with.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability to assemble with.</param>
+        /// <returns>An <see cref="AssessmentSectionAssemblyResultWrapper"/> containing the assembly result of the assessment section.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="correlatedFailureMechanismProbabilities"/>
+        /// or <paramref name="uncorrelatedFailureMechanismProbabilities"/> is <c>null</c>.</exception>
+        /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> correlatedFailureMechanismProbabilities,
+                                                                         IEnumerable<double> uncorrelatedFailureMechanismProbabilities,
+                                                                         double maximumAllowableFloodingProbability,
+                                                                         double signalFloodingProbability);
     }
 }

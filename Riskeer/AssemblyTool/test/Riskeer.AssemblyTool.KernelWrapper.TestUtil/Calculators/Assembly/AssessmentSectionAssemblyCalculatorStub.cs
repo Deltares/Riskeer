@@ -42,6 +42,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<double> FailureMechanismProbabilitiesInput { get; private set; }
 
         /// <summary>
+        /// Gets the correlated failure mechanism probabilities input.
+        /// </summary>
+        public IEnumerable<double> CorrelatedFailureMechanismProbabilitiesInput { get; private set; }
+        
+        /// <summary>
+        /// Gets the uncorrelated failure mechanism probabilities input.
+        /// </summary>
+        public IEnumerable<double> UncorrelatedFailureMechanismProbabilitiesInput { get; private set; }
+        
+        /// <summary>
         /// Gets the maximum allowable flooding probability input.
         /// </summary>
         public double MaximumAllowableFloodingProbabilityInput { get; private set; }
@@ -64,6 +74,27 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismProbabilitiesInput = failureMechanismProbabilities;
+            MaximumAllowableFloodingProbabilityInput = maximumAllowableFloodingProbability;
+            SignalFloodingProbability = signalFloodingProbability;
+
+            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult =
+                                                           new AssessmentSectionAssemblyResultWrapper(
+                                                               new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus),
+                                                               AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1));
+        }
+
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> correlatedFailureMechanismProbabilities, 
+                                                                                IEnumerable<double> uncorrelatedFailureMechanismProbabilities, 
+                                                                                double maximumAllowableFloodingProbability,
+                                                                                double signalFloodingProbability)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CorrelatedFailureMechanismProbabilitiesInput = correlatedFailureMechanismProbabilities;
+            UncorrelatedFailureMechanismProbabilitiesInput = uncorrelatedFailureMechanismProbabilities;
             MaximumAllowableFloodingProbabilityInput = maximumAllowableFloodingProbability;
             SignalFloodingProbability = signalFloodingProbability;
 
