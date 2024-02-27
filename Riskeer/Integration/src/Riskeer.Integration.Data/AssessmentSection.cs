@@ -95,6 +95,7 @@ namespace Riskeer.Integration.Data
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
+            AreFailureMechanismsCorrelated = true;
             Piping = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
             MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
@@ -114,6 +115,11 @@ namespace Riskeer.Integration.Data
             FailureMechanismContribution = new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability);
             ChangeComposition(composition);
         }
+        
+        /// <summary>
+        /// Gets or sets the indicator whether failure mechanisms are correlated.
+        /// </summary>
+        public bool AreFailureMechanismsCorrelated { get; set; }
 
         /// <summary>
         /// Gets or sets the "Piping" failure mechanism.
