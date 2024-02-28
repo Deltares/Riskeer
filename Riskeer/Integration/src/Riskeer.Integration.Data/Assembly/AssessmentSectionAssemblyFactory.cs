@@ -63,14 +63,9 @@ namespace Riskeer.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return assessmentSection.AreFailureMechanismsCorrelated && AllCorrelatedFailureMechanismsInAssembly(assessmentSection)
+            return assessmentSection.AreFailureMechanismsCorrelated && AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(assessmentSection)
                        ? AssembleAssessmentSectionWithCorrelatedFailureMechanisms(assessmentSection)
                        : AssembleAssessmentSectionWithoutCorrelatedFailureMechanisms(assessmentSection);
-        }
-
-        private static bool AllCorrelatedFailureMechanismsInAssembly(AssessmentSection assessmentSection)
-        {
-            return assessmentSection.GrassCoverErosionInwards.InAssembly && assessmentSection.HeightStructures.InAssembly;
         }
 
         /// <summary>

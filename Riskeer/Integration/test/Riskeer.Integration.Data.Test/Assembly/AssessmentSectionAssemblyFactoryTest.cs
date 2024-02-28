@@ -174,16 +174,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
         
         [Test]
-        [TestCase(false, false)]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsTrueAndVariousCorrelatedFailureMechanismsNotInAssembly_SetsInputOnCalculator(
-            bool grassCoverErosionInwardsInAssembly, bool heightStructuresInAssembly)
+        public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsTrueAndSomeCorrelatedFailureMechanismsNotInAssembly_SetsInputOnCalculator()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
-            assessmentSection.GrassCoverErosionInwards.InAssembly = grassCoverErosionInwardsInAssembly;
-            assessmentSection.HeightStructures.InAssembly = heightStructuresInAssembly;
+            assessmentSection.HeightStructures.InAssembly = false;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
