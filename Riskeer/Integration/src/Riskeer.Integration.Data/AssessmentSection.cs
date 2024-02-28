@@ -95,7 +95,6 @@ namespace Riskeer.Integration.Data
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
-            AreFailureMechanismsCorrelated = true;
             Piping = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
             MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();

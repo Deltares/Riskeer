@@ -96,6 +96,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.AreFailureMechanismsCorrelated = true;
             assessmentSection.GrassCoverErosionInwards.InAssembly = true;
             assessmentSection.HeightStructures.InAssembly = true;
 
