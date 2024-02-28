@@ -408,4 +408,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="HydraulicBoundaryDatabase_Version_Description" xml:space="preserve">
       <value>Versie van de hydraulische belastingendatabase.</value>
     </data>
+    <data name="AssemblyResultTotalView_GrassCoverErosionInwards_and_HeightStructures_correlated" xml:space="preserve">
+      <value>GEKB en HTKW gecorreleerd</value>
+    </data>
 </root>

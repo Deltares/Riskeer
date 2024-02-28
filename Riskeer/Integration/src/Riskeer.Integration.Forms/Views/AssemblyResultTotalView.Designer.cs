@@ -47,18 +47,21 @@ namespace Riskeer.Integration.Forms.Views
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.label = new System.Windows.Forms.Label();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBox = new System.Windows.Forms.CheckBox();
             this.refreshButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.warningProvider)).BeginInit();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewControl
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(0, 145);
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 108);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(789, 271);
+            this.dataGridViewControl.Size = new System.Drawing.Size(772, 291);
             this.dataGridViewControl.TabIndex = 3;
             // 
             // refreshAssemblyResultsButton
@@ -77,11 +80,10 @@ namespace Riskeer.Integration.Forms.Views
             // assessmentSectionAssemblyControl
             // 
             this.assessmentSectionAssemblyControl.AutoSize = true;
-            this.assessmentSectionAssemblyControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.assessmentSectionAssemblyControl.Location = new System.Drawing.Point(90, 3);
+            this.assessmentSectionAssemblyControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.assessmentSectionAssemblyControl.Location = new System.Drawing.Point(3, 3);
             this.assessmentSectionAssemblyControl.Name = "assessmentSectionAssemblyControl";
-            this.assessmentSectionAssemblyControl.Size = new System.Drawing.Size(690, 24);
-            this.assessmentSectionAssemblyControl.Name = "assessmentSectionAssemblyControl";
+            this.assessmentSectionAssemblyControl.Size = new System.Drawing.Size(230, 42);
             this.assessmentSectionAssemblyControl.TabIndex = 3;
             // 
             // refreshButtonPanel
@@ -91,7 +93,7 @@ namespace Riskeer.Integration.Forms.Views
             this.refreshButtonPanel.Location = new System.Drawing.Point(0, 0);
             this.refreshButtonPanel.Name = "refreshButtonPanel";
             this.refreshButtonPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.refreshButtonPanel.Size = new System.Drawing.Size(789, 35);
+            this.refreshButtonPanel.Size = new System.Drawing.Size(772, 35);
             this.refreshButtonPanel.TabIndex = 1;
             // 
             // warningProvider
@@ -104,13 +106,40 @@ namespace Riskeer.Integration.Forms.Views
             // label
             // 
             this.label.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label.Location = new System.Drawing.Point(0, 77);
+            this.label.Location = new System.Drawing.Point(0, 83);
             this.label.Margin = new System.Windows.Forms.Padding(3);
             this.label.Name = "label";
             this.label.Padding = new System.Windows.Forms.Padding(5);
-            this.label.Size = new System.Drawing.Size(789, 25);
+            this.label.Size = new System.Drawing.Size(772, 25);
             this.label.TabIndex = 4;
             this.label.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_Results_per_failureMechanism;
+            // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.AutoSize = true;
+            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel.Controls.Add(this.assessmentSectionAssemblyControl, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.checkBox, 1, 0);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 35);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 1;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(772, 48);
+            this.tableLayoutPanel.TabIndex = 5;
+            // 
+            // checkBox
+            // 
+            this.checkBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.checkBox.Location = new System.Drawing.Point(239, 21);
+            this.checkBox.Name = "checkBox";
+            this.checkBox.Size = new System.Drawing.Size(530, 24);
+            this.checkBox.TabIndex = 4;
+            this.checkBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_GrassCoverErosionInwards_and_HeightStructures_correlated;
+            this.checkBox.UseVisualStyleBackColor = true;
             // 
             // AssemblyResultTotalView
             // 
@@ -119,16 +148,22 @@ namespace Riskeer.Integration.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(350, 250);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.label);
-            this.Controls.Add(this.assessmentSectionAssemblyControl);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.refreshButtonPanel);
             this.Name = "AssemblyResultTotalView";
-            this.Size = new System.Drawing.Size(789, 416);
+            this.Size = new System.Drawing.Size(772, 399);
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.warningProvider)).EndInit();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.CheckBox checkBox;
+
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
 
         #endregion
 

@@ -114,9 +114,18 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual("Resultaten verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
-                var assemblyResultControl = (AssessmentSectionAssemblyResultControl) new ControlTester("assessmentSectionAssemblyControl").TheObject;
-                Assert.AreEqual(DockStyle.Top, assemblyResultControl.Dock);
+                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+                Assert.AreEqual(DockStyle.Top, tableLayoutPanel.Dock);
+                Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
+                Assert.AreEqual(1, tableLayoutPanel.RowCount);
+                
+                var assemblyResultControl = (AssessmentSectionAssemblyResultControl) tableLayoutPanel.GetControlFromPosition(0, 0);
+                Assert.AreEqual(DockStyle.Fill, assemblyResultControl.Dock);
 
+                var checkBox = (CheckBox) tableLayoutPanel.GetControlFromPosition(1, 0);
+                Assert.AreEqual("GEKB en HTKW gecorreleerd", checkBox.Text);
+                Assert.AreEqual(DockStyle.Bottom, checkBox.Dock);
+                
                 var label = (Label) new ControlTester("label").TheObject;
                 Assert.AreEqual("Samenvatting resultaten per faalmechanisme:", label.Text);
 
