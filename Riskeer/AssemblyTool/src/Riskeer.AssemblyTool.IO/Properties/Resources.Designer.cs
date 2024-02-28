@@ -172,6 +172,15 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BOI-2A-2.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI2A2_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI2A2_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BOI-2B-1.
         /// </summary>
         internal static string ExportableAssemblyMethod_BOI2B1_DisplayName {

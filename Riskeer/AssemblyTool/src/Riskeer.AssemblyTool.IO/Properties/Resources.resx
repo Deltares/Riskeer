@@ -207,4 +207,7 @@
   <data name="ExportableFailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName" xml:space="preserve">
     <value>NR</value>
   </data>
+  <data name="ExportableAssemblyMethod_BOI2A2_DisplayName" xml:space="preserve">
+    <value>BOI-2A-2</value>
+  </data>
 </root>
