@@ -60,12 +60,42 @@ namespace Riskeer.Migration.Integration.Test
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
 
+                    AssertAssessmentSection(reader, sourceFilePath);
+                    
                     AssertVersions(reader);
                     AssertDatabase(reader);
                 }
 
                 AssertLogDatabase(logFilePath, expectedMessages);
             }
+        }
+        
+        private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateAssessmentSection =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.AssessmentSectionEntity " +
+                ") " +
+                "FROM AssessmentSectionEntity NEW " +
+                "JOIN SOURCEPROJECT.AssessmentSectionEntity OLD USING(AssessmentSectionEntityId) " +
+                "WHERE NEW.[ProjectEntityId] = OLD.[ProjectEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity1Id] = OLD.[HydraulicLocationCalculationCollectionEntity1Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity2Id] = OLD.[HydraulicLocationCalculationCollectionEntity2Id] " +
+                "AND NEW.[Id] IS OLD.[Id] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[MaximumAllowableFloodingProbability] = OLD.[MaximumAllowableFloodingProbability] " +
+                "AND NEW.[SignalFloodingProbability] = OLD.[SignalFloodingProbability] " +
+                "AND NEW.[NormativeProbabilityType] = OLD.[NormativeProbabilityType] " +
+                "AND NEW.[Composition] = OLD.[Composition] " +
+                "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml]" +
+                "AND NEW.[AreFailureMechanismsCorrelated] = 0; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateAssessmentSection);
         }
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()

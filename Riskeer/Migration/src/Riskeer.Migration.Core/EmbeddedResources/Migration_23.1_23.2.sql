@@ -9,7 +9,36 @@ ATTACH DATABASE "{0}" AS SOURCEPROJECT;
  
 INSERT INTO AdoptableFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].AdoptableFailureMechanismSectionResultEntity;
 INSERT INTO AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity;
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity(
+    [AssessmentSectionEntityId],
+    [ProjectEntityId],
+    [HydraulicLocationCalculationCollectionEntity1Id],
+    [HydraulicLocationCalculationCollectionEntity2Id],
+    [Id],
+    [Name],
+    [Comments],
+    [MaximumAllowableFloodingProbability],
+    [SignalFloodingProbability],
+    [NormativeProbabilityType],
+    [Composition],
+    [ReferenceLinePointXml],
+    [AreFailureMechanismsCorrelated]
+) 
+SELECT
+    [AssessmentSectionEntityId],
+    [ProjectEntityId],
+    [HydraulicLocationCalculationCollectionEntity1Id],
+    [HydraulicLocationCalculationCollectionEntity2Id],
+    [Id],
+    [Name],
+    [Comments],
+    [MaximumAllowableFloodingProbability],
+    [SignalFloodingProbability],
+    [NormativeProbabilityType],
+    [Composition],
+    [ReferenceLinePointXml],
+    0
+FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
