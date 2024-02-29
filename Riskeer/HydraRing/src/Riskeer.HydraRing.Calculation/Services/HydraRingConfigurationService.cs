@@ -135,7 +135,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["ProbabilityAlternatives"] = new List<OrderedDictionary>(),
                 ["SetUpHeights"] = new List<OrderedDictionary>(),
                 ["CalcWindDirections"] = new List<OrderedDictionary>(),
-                ["Swells"] = new List<OrderedDictionary>(),
                 ["WaveReductions"] = new List<OrderedDictionary>(),
                 ["Areas"] = GetAreasConfiguration(),
                 ["Projects"] = GetProjectsConfiguration(),

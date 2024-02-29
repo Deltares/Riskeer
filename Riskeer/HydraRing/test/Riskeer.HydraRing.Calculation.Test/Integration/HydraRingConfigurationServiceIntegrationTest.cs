@@ -104,8 +104,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -188,8 +186,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -340,8 +336,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -491,8 +485,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -640,8 +632,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -803,8 +793,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                 Environment.NewLine +
                 "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                 Environment.NewLine +
-                "DELETE FROM [Swells];" + Environment.NewLine +
-                Environment.NewLine +
                 "DELETE FROM [WaveReductions];" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [Areas];" + Environment.NewLine +
@@ -912,8 +900,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1024,8 +1010,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1146,8 +1130,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1270,8 +1252,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1396,8 +1376,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1553,8 +1531,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -1709,8 +1685,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -1862,8 +1836,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -2017,8 +1989,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -2102,8 +2072,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -2256,8 +2224,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Areas];" + Environment.NewLine +
@@ -2401,8 +2367,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SetUpHeights];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Swells];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [WaveReductions];" + Environment.NewLine +
                                             Environment.NewLine +
