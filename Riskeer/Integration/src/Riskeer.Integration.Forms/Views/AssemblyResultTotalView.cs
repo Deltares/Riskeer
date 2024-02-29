@@ -76,12 +76,20 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(EnableRefreshButton)
+            assessmentSectionObserver = new Observer(() =>
+            {
+                EnableRefreshButton();
+                UpdateFailureMechanismsCorrelatedCheckBox();
+            })
             {
                 Observable = assessmentSection
             };
 
-            assessmentSectionResultObserver = new Observer(EnableRefreshButton)
+            assessmentSectionResultObserver = new Observer(() =>
+            {
+                EnableRefreshButton();
+                UpdateFailureMechanismsCorrelatedCheckBox();
+            })
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
             };
@@ -100,6 +108,7 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeDataGridView();
             UpdateAssemblyResultControls();
+            UpdateFailureMechanismsCorrelatedCheckBox();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -124,6 +133,12 @@ namespace Riskeer.Integration.Forms.Views
                 warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
             }
+        }
+
+        private void UpdateFailureMechanismsCorrelatedCheckBox()
+        {
+            checkBox.Visible = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(AssessmentSection);
+            checkBox.Checked = AssessmentSection.AreFailureMechanismsCorrelated;
         }
 
         private void InitializeDataGridView()
@@ -337,5 +352,11 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         #endregion
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableRefreshButton();
+            AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
+        }
     }
 }

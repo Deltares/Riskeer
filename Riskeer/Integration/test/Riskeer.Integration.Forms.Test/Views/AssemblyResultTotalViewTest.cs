@@ -47,6 +47,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Controls;
 using Riskeer.Integration.Forms.Views;
@@ -118,14 +119,15 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Top, tableLayoutPanel.Dock);
                 Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanel.RowCount);
-                
+
                 var assemblyResultControl = (AssessmentSectionAssemblyResultControl) tableLayoutPanel.GetControlFromPosition(0, 0);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultControl.Dock);
 
                 var checkBox = (CheckBox) tableLayoutPanel.GetControlFromPosition(1, 0);
                 Assert.AreEqual("GEKB en HTKW gecorreleerd", checkBox.Text);
+                Assert.AreEqual(assessmentSection.AreFailureMechanismsCorrelated, checkBox.Checked);
                 Assert.AreEqual(DockStyle.Bottom, checkBox.Dock);
-                
+
                 var label = (Label) new ControlTester("label").TheObject;
                 Assert.AreEqual("Samenvatting resultaten per faalmechanisme:", label.Text);
 
@@ -143,6 +145,118 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(new Size(350, 250), view.AutoScrollMinSize);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyTrue_ThenCheckboxVisible()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = true;
+            assessmentSection.GrassCoverErosionInwards.InAssembly = true;
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                bool allCorrelatedFailureMechanismsInAssembly = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(assessmentSection);
+                Assert.IsTrue(allCorrelatedFailureMechanismsInAssembly);
+
+                // Then
+                CheckBox checkBox = GetCorrelatedFailureMechanismsCheckBox();
+                Assert.IsTrue(checkBox.Visible);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyFalse_ThenCheckboxNotVisible()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = false;
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                bool allCorrelatedFailureMechanismsInAssembly = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(assessmentSection);
+                Assert.IsFalse(allCorrelatedFailureMechanismsInAssembly);
+
+                // Then
+                CheckBox checkBox = GetCorrelatedFailureMechanismsCheckBox();
+                Assert.IsFalse(checkBox.Visible);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyFalse_WhenAllCorrelatedFailureMechanismsInAssemblyTrueAndFailureMechanismNotifyObservers_ThenCheckboxVisible()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = false;
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                CheckBox checkBox = GetCorrelatedFailureMechanismsCheckBox();
+                Assert.IsFalse(checkBox.Visible);
+
+                // When
+                assessmentSection.HeightStructures.InAssembly = true;
+                assessmentSection.HeightStructures.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(checkBox.Visible);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyFalse_WhenAllCorrelatedFailureMechanismsInAssemblyTrueAndAssessmentSectionNotifyObservers_ThenCheckboxVisible()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = false;
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                CheckBox checkBox = GetCorrelatedFailureMechanismsCheckBox();
+                Assert.IsFalse(checkBox.Visible);
+
+                // When
+                assessmentSection.HeightStructures.InAssembly = true;
+                assessmentSection.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(checkBox.Visible);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyTrue_WhenCheckingCheckBox_ThenRefreshButtonEnabledWithWarningAndAreFailureMechanismsCorrelatedSet()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = true;
+            assessmentSection.GrassCoverErosionInwards.InAssembly = true;
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                CheckBox checkBox = GetCorrelatedFailureMechanismsCheckBox();
+                checkBox.Checked = true;
+
+                // Then
+                Assert.AreEqual(checkBox.Checked, assessmentSection.AreFailureMechanismsCorrelated);
+
+                Assert.IsTrue(button.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }
         }
 
@@ -653,6 +767,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static ErrorProvider GetWarningProvider(AssemblyResultTotalView resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+        }
+
+        private static CheckBox GetCorrelatedFailureMechanismsCheckBox()
+        {
+            return (CheckBox) new CheckBoxTester("checkBox").TheObject;
         }
 
         #endregion

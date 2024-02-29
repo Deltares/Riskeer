@@ -140,6 +140,7 @@ namespace Riskeer.Integration.Forms.Views
             this.checkBox.TabIndex = 4;
             this.checkBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_GrassCoverErosionInwards_and_HeightStructures_correlated;
             this.checkBox.UseVisualStyleBackColor = true;
+            this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // AssemblyResultTotalView
             // 
