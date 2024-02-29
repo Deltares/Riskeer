@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Riskeer.Common.Forms.Views
 {
     partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism>
@@ -36,13 +38,17 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
             this.listBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
-            this.labelCalculations = new System.Windows.Forms.Label();
+            this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.labelCalculations = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -106,16 +112,28 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.tableLayoutPanelDataGrid.ColumnCount = 1;
             this.tableLayoutPanelDataGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.DataGridViewControl, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
-            this.tableLayoutPanelDataGrid.RowCount = 2;
+            this.tableLayoutPanelDataGrid.RowCount = 3;
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100));
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(108, 150);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
+            this.labelTotalScenarioContribution.TabIndex = 3;
+            // 
+            // labelTotalScenarioContribution
+            // 
+            this.labelTotalScenarioContribution.AutoSize = true;
+            this.labelTotalScenarioContribution.Location = new System.Drawing.Point(3, 164);
+            this.labelTotalScenarioContribution.Name = "labelTotalScenarioContribution";
+            this.labelTotalScenarioContribution.Size = new System.Drawing.Size(182, 13);
+            this.labelTotalScenarioContribution.TabIndex = 3;
+            this.labelTotalScenarioContribution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCalculations
             // 
@@ -136,13 +154,19 @@ namespace Riskeer.Common.Forms.Views
             this.DataGridViewControl.Size = new System.Drawing.Size(183, 131);
             this.DataGridViewControl.TabIndex = 1;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
+            // 
             // ScenariosView
             // 
             this.Controls.Add(this.splitContainer);
             this.Name = "ScenariosView";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
@@ -159,6 +183,8 @@ namespace Riskeer.Common.Forms.Views
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
+        private System.Windows.Forms.Label labelTotalScenarioContribution;
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
+        private ErrorProvider errorProvider;
     }
 }
