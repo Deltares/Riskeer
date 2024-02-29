@@ -201,41 +201,12 @@ namespace Riskeer.Integration.Data.Assembly
         {
             var failureMechanismAssemblies = new List<double>();
 
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.Piping, assessmentSection,
-                                   PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.MacroStabilityInwards, assessmentSection,
-                                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverErosionInwards, assessmentSection,
-                                   GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.ClosingStructures, assessmentSection,
-                                   ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.HeightStructures, assessmentSection,
                                    HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.StabilityPointStructures, assessmentSection,
-                                   StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverErosionOutwards, assessmentSection,
-                                   GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.StabilityStoneCover, assessmentSection,
-                                   StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaveImpactAsphaltCover, assessmentSection,
-                                   WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.DuneErosion, assessmentSection,
-                                   DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.PipingStructure, assessmentSection,
-                                   PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverSlipOffInwards, assessmentSection,
-                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverSlipOffOutwards, assessmentSection,
-                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.Microstability, assessmentSection,
-                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
-            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaterPressureAsphaltCover, assessmentSection,
-                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverErosionInwards, assessmentSection,
+                                   GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            failureMechanismAssemblies.AddRange(assessmentSection.SpecificFailureMechanisms
-                                                                 .Where(fp => fp.InAssembly)
-                                                                 .Select(fp => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, assessmentSection)
-                                                                                                              .AssemblyResult));
+            failureMechanismAssemblies.AddRange(GetUncorrelatedFailureMechanismAssemblyResults(assessmentSection));
 
             return failureMechanismAssemblies;
         }
