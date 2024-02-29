@@ -86,8 +86,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -168,8 +166,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 11, 1, 1, 11);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -314,8 +310,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 103, 95);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -464,8 +458,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 103, 95);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -611,8 +603,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 103, 95);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -773,8 +763,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                 Environment.NewLine +
                 "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                 Environment.NewLine +
-                "DELETE FROM [Fetches];" + Environment.NewLine +
-                Environment.NewLine +
                 "DELETE FROM [AreaPoints];" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -880,8 +868,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 5, 71);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -990,8 +976,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 5, 70);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1110,8 +1094,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 107);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 425, 113);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1232,8 +1214,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 106);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 425, 111);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1356,8 +1336,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 105);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 425, 109);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1511,8 +1489,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 430, 114);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 435, 116);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -1665,8 +1641,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 430, 115);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 435, 117);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -1816,8 +1790,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 425, 111);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 430, 114);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 435, 116);" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1969,8 +1941,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 430, 115);" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 435, 117);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -2054,8 +2024,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 8);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -2206,8 +2174,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [PresentationSections];" + Environment.NewLine +
@@ -2349,8 +2315,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 103, 1, 1, 3014);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                            Environment.NewLine +
-                                            "DELETE FROM [Fetches];" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [AreaPoints];" + Environment.NewLine +
                                             Environment.NewLine +

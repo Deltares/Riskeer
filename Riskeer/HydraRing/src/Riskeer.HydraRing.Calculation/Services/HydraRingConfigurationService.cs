@@ -126,7 +126,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["CalculationProfiles"] = GetCalculationProfilesConfiguration(),
                 ["SectionFaultTreeModels"] = GetSectionFaultTreeModelsConfiguration(),
                 ["SectionSubMechanismModels"] = GetSectionSubMechanismModelsConfiguration(),
-                ["Fetches"] = new List<OrderedDictionary>(),
                 ["AreaPoints"] = new List<OrderedDictionary>(),
                 ["PresentationSections"] = new List<OrderedDictionary>(),
                 ["Profiles"] = GetProfilesConfiguration(),
