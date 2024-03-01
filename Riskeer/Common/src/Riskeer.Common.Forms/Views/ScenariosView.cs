@@ -177,7 +177,11 @@ namespace Riskeer.Common.Forms.Views
                 Observable = CalculationGroup
             };
 
-            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculationScenario>(() =>
+            {
+                UpdateScenarioRows();
+                UpdateTotalScenarioContributionLabel();
+            }, pcg => pcg.Children)
             {
                 Observable = CalculationGroup
             };
@@ -240,6 +244,11 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateTotalScenarioContributionLabel()
         {
+            if (scenarioRows == null)
+            {
+                return;
+            }
+            
             ClearErrorMessage();
 
             double totalScenarioContribution = scenarioRows.Where(r => r.IsRelevant)
@@ -250,7 +259,7 @@ namespace Riskeer.Common.Forms.Views
                 SetErrorMessage(Resources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
             }
 
-            labelTotalScenarioContribution.Text = string.Format(Resources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_, 
+            labelTotalScenarioContribution.Text = string.Format(Resources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_,
                                                                 roundedTotalScenarioContribution);
         }
 
