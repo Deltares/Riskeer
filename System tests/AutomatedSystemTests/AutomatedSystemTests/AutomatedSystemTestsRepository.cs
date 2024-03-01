@@ -3091,7 +3091,7 @@ namespace AutomatedSystemTests
             /// Creates a new Summary  folder.
             /// </summary>
             public SummaryFolder(RepoGenBaseFolder parentFolder) :
-                    base("Summary", "container/container", parentFolder, 30000, null, false, "b6c16815-7d2e-4c8f-a729-4eb72e26ccdd", "")
+                    base("Summary", "container/container/container", parentFolder, 30000, null, false, "b6c16815-7d2e-4c8f-a729-4eb72e26ccdd", "")
             {
                 _grouplabelInfo = new RepoItemInfo(this, "GroupLabel", "text[@controlname='groupLabel']", "", 30000, null, "65a52be4-1a60-4cd2-bb22-2195e8d80280");
             }
