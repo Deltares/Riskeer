@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Providers
 
             if (Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
-                return Resources.FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_contribution_for_this_section_not_100;
+                return Resources.CalculationScenarios_Scenario_contribution_for_this_section_not_100;
             }
 
             if (!relevantScenarios.All(s => s.HasOutput))

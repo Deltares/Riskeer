@@ -272,7 +272,7 @@
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_contribution_for_this_section_not_100"
+    <data name="CalculationScenarios_Scenario_contribution_for_this_section_not_100"
           xml:space="preserve">
     <value>De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.</value>
   </data>

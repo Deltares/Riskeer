@@ -247,7 +247,7 @@ namespace Riskeer.Common.Forms.Views
             double roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
             if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
             {
-                SetErrorMessage(Resources.FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_contribution_for_this_section_not_100);
+                SetErrorMessage(Resources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
             }
 
             labelTotalScenarioContribution.Text = string.Format(Resources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_, 

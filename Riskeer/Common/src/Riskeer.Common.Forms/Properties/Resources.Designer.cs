@@ -644,6 +644,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De bijdragen van de maatgevende scenario&apos;s voor dit vak moeten opgeteld gelijk zijn aan 100%..
+        /// </summary>
+        public static string CalculationScenarios_Scenario_contribution_for_this_section_not_100 {
+            get {
+                return ResourceManager.GetString("CalculationScenarios_Scenario_contribution_for_this_section_not_100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Damhoogte [m+NAP].
         /// </summary>
         public static string CalculationsView_BreakWaterHeight_DisplayName {
@@ -1859,16 +1868,6 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Not_all_re" +
                         "levant_calculation_scenarios_have_been_executed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bijdragen van de maatgevende scenario&apos;s voor dit vak moeten opgeteld gelijk zijn aan 100%..
-        /// </summary>
-        public static string FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_contribution_for_this_section_not_100 {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_c" +
-                        "ontribution_for_this_section_not_100", resourceCulture);
             }
         }
         
