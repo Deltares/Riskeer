@@ -178,20 +178,48 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Constructor_TotalScenarioContributionCorrectlyInitialized()
+        public void Constructor_WithVariousCalculationConfigurationsInSection_TotalContributionScenariosCorrectlyInitialized()
         {
-            // Call
-            TestScenariosView view = ShowFullyConfiguredScenariosView(new CalculationGroup(), new TestCalculatableFailureMechanism());
+            // Setup
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
 
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.AddRange(new[]
+            {
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 1",
+                    Contribution = (RoundedDouble) 0.137
+                },
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 2",
+                    Contribution = (RoundedDouble) 1,
+                    IsRelevant = false
+                },
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 3",
+                    Contribution = (RoundedDouble) 0.375
+                }
+            });
+
+            // Call
+            ShowScenariosView(calculationGroup, failureMechanism);
+            
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
 
             // Assert
-            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 51,20%",
                             totalScenarioContributionLabel.Text);
-
-            ErrorProvider errorProvider = GetErrorProvider(view);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
-            Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
         }
 
         [Test]
@@ -441,7 +469,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenScenariosViewWithTotalContributionsNotEqualTo100_WhenEditingScenarioContributionTo100_ThenTotalContributionLabelUpdatedAndErrorNotShown()
+        public void GivenScenariosViewWithTotalContributionsNotValid_WhenEditingScenarioContributionToValidValue_ThenTotalContributionLabelUpdatedAndErrorNotShown()
         {
             // Given
             var failureMechanism = new TestCalculatableFailureMechanism();
@@ -480,7 +508,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) 100;
 
             // Then
-            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
                             totalScenarioContributionLabel.Text);
             Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
         }
@@ -491,7 +519,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(100.01)]
         [TestCase(99.99)]
         [TestCase(50)]
-        public void GivenScenariosViewWithTotalContributionsEqualTo100_WhenEditingScenarioContributionsNotEqualTo100_ThenTotalContributionLabelUpdatedAndErrorShown(
+        public void GivenScenariosViewWithTotalContributionsNotValid_WhenEditingScenarioContributionsToValidValue_ThenTotalContributionLabelUpdatedAndErrorShown(
             double newContribution)
         {
             // Given
@@ -518,7 +546,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Precondition
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
-            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
                             totalScenarioContributionLabel.Text);
 
             ErrorProvider errorProvider = GetErrorProvider(view);
@@ -529,7 +557,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newContribution;
 
             // Then
-            Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution}%",
+            Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution:F2}%",
                             totalScenarioContributionLabel.Text);
             Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                             errorProvider.GetError(totalScenarioContributionLabel));

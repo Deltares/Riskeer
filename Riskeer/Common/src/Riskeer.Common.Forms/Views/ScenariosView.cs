@@ -253,7 +253,7 @@ namespace Riskeer.Common.Forms.Views
 
             double totalScenarioContribution = scenarioRows.Where(r => r.IsRelevant)
                                                            .Sum(r => r.Contribution);
-            double roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
             if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
             {
                 SetErrorMessage(Resources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
