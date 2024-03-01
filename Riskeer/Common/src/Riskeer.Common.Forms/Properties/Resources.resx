@@ -1598,4 +1598,7 @@ faalkans per vak
     <data name="FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported" xml:space="preserve">
       <value>Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.</value>
     </data>
+    <data name="ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_" xml:space="preserve">
+      <value>De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {0}%</value>
+    </data>
 </root>

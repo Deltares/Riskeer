@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Calculation;
@@ -110,7 +111,7 @@ namespace Riskeer.Common.Forms.Views
             InitializeDataGridView();
 
             UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
+            UpdateScenarioControls();
         }
 
         /// <summary>
@@ -171,7 +172,7 @@ namespace Riskeer.Common.Forms.Views
                 Observable = FailureMechanism
             };
 
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
             {
                 Observable = CalculationGroup
             };
@@ -182,12 +183,18 @@ namespace Riskeer.Common.Forms.Views
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateScenarioControls, pcg => pcg.Children.Concat<object>(
                                                                                                       pcg.Children.OfType<TCalculationScenario>()
                                                                                                          .Select(GetCalculationInput)))
             {
                 Observable = CalculationGroup
             };
+        }
+
+        private void UpdateScenarioControls()
+        {
+            UpdateDataGridViewDataSource();
+            UpdateTotalScenarioContributionLabel();
         }
 
         private void UpdateDataGridViewDataSource()
@@ -222,12 +229,40 @@ namespace Riskeer.Common.Forms.Views
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
+            UpdateTotalScenarioContributionLabel();
         }
 
         private void UpdateScenarioRows()
         {
             scenarioRows.ForEachElementDo(row => row.Update());
             DataGridViewControl.RefreshDataGridView();
+        }
+
+        private void UpdateTotalScenarioContributionLabel()
+        {
+            ClearErrorMessage();
+
+            double totalScenarioContribution = scenarioRows.Where(r => r.IsRelevant)
+                                                           .Sum(r => r.Contribution);
+            double roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
+            {
+                SetErrorMessage(Resources.FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_Scenario_contribution_for_this_section_not_100);
+            }
+
+            labelTotalScenarioContribution.Text = string.Format(Resources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_, 
+                                                                roundedTotalScenarioContribution);
+        }
+
+        private void SetErrorMessage(string errorMessage)
+        {
+            errorProvider.SetIconPadding(labelTotalScenarioContribution, 3);
+            errorProvider.SetError(labelTotalScenarioContribution, errorMessage);
+        }
+
+        private void ClearErrorMessage()
+        {
+            errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
     }
 }

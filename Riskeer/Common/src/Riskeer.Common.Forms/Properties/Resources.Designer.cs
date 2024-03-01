@@ -2866,6 +2866,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De som van de bijdragen van de maatgevende scenario&apos;s voor dit vak is gelijk aan {0}%.
+        /// </summary>
+        public static string ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_ {
+            get {
+                return ResourceManager.GetString("ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_" +
+                        "to_total_scenario_contribution_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faalkans
         ///[1/jaar].
         /// </summary>
