@@ -487,8 +487,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
+        [TestCase(150)]
         [TestCase(100.01)]
         [TestCase(99.99)]
+        [TestCase(50)]
         public void GivenScenariosViewWithTotalContributionsEqualTo100_WhenEditingScenarioContributionsNotEqualTo100_ThenTotalContributionLabelUpdatedAndErrorShown(
             double newContribution)
         {
