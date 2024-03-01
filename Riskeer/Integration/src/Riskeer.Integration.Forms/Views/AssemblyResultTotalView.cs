@@ -76,20 +76,12 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(() =>
-            {
-                EnableRefreshButton();
-                UpdateFailureMechanismsCorrelatedCheckBox();
-            })
+            assessmentSectionObserver = new Observer(UpdateUserControls)
             {
                 Observable = assessmentSection
             };
 
-            assessmentSectionResultObserver = new Observer(() =>
-            {
-                EnableRefreshButton();
-                UpdateFailureMechanismsCorrelatedCheckBox();
-            })
+            assessmentSectionResultObserver = new Observer(UpdateUserControls)
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
             };
@@ -123,6 +115,12 @@ namespace Riskeer.Integration.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void UpdateUserControls()
+        {
+            EnableRefreshButton();
+            UpdateFailureMechanismsCorrelatedCheckBox();
         }
 
         private void EnableRefreshButton()
@@ -222,6 +220,12 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         #endregion
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableRefreshButton();
+            AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
+        }
 
         #region Failure mechanism assembly result rows
 
@@ -352,11 +356,5 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         #endregion
-
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableRefreshButton();
-            AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
-        }
     }
 }
