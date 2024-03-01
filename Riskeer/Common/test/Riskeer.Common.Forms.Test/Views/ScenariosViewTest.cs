@@ -440,41 +440,97 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenScenariosViewWithTotalContributionsUnEqualTo100_WhenEditingScenarioContributionTo100_ThenTotalContributionLabelUpdatedAndErrorNotShown()
+        [SetCulture("nl-NL")]
+        public void GivenScenariosViewWithTotalContributionsNotEqualTo100_WhenEditingScenarioContributionTo100_ThenTotalContributionLabelUpdatedAndErrorNotShown()
         {
             // Given
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.AddRange(new[]
+            {
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 1",
+                    Contribution = (RoundedDouble) 1.0001
+                }
+            });
+
+            TestScenariosView view = ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,01%",
+                            totalScenarioContributionLabel.Text);
+
+            ErrorProvider errorProvider = GetErrorProvider(view);
+            Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
+                            errorProvider.GetError(totalScenarioContributionLabel));
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) 100;
+
+            // Then
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+                            totalScenarioContributionLabel.Text);
+            Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(100.01)]
+        [TestCase(99.99)]
+        public void GivenScenariosViewWithTotalContributionsEqualTo100_WhenEditingScenarioContributionsNotEqualTo100_ThenTotalContributionLabelUpdatedAndErrorShown(
+            double newContribution)
+        {
+            // Given
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.AddRange(new[]
             {
                 new TestCalculationScenario
                 {
                     Name = "Calculation 1"
-                },
-                new TestCalculationScenario
-                {
-                    Name = "Calculation 2"
                 }
             });
 
-            TestScenariosView view = ShowScenariosView(calculationGroup, new TestCalculatableFailureMechanism());
+            TestScenariosView view = ShowScenariosView(calculationGroup, failureMechanism);
 
             // Precondition
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
-            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 200%",
-                            totalScenarioContributionLabel.Text);
-
-            // ErrorProvider errorProvider = GetErrorProvider(view);
-            // Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.", 
-            //                 errorProvider.GetError(totalScenarioContributionLabel));
-            //
-            // When
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = 0;
-
-            // Then
             Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
                             totalScenarioContributionLabel.Text);
-            // Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+
+            ErrorProvider errorProvider = GetErrorProvider(view);
+            Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newContribution;
+
+            // Then
+            Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution}%",
+                            totalScenarioContributionLabel.Text);
+            Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
+                            errorProvider.GetError(totalScenarioContributionLabel));
         }
 
         private TestScenariosView ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
