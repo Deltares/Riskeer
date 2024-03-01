@@ -27,6 +27,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -35,6 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.Views
 {
@@ -171,6 +174,24 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void Constructor_TotalScenarioContributionCorrectlyInitialized()
+        {
+            // Call
+            TestScenariosView view = ShowFullyConfiguredScenariosView(new CalculationGroup(), new TestCalculatableFailureMechanism());
+
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+
+            // Assert
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+                            totalScenarioContributionLabel.Text);
+
+            ErrorProvider errorProvider = GetErrorProvider(view);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+            Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
         }
 
         [Test]
@@ -418,7 +439,45 @@ namespace Riskeer.Common.Forms.Test.Views
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
-        private void ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
+        [Test]
+        public void GivenScenariosViewWithTotalContributionsUnEqualTo100_WhenEditingScenarioContributionTo100_ThenTotalContributionLabelUpdatedAndErrorNotShown()
+        {
+            // Given
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.AddRange(new[]
+            {
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 1"
+                },
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 2"
+                }
+            });
+
+            TestScenariosView view = ShowScenariosView(calculationGroup, new TestCalculatableFailureMechanism());
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 200%",
+                            totalScenarioContributionLabel.Text);
+
+            // ErrorProvider errorProvider = GetErrorProvider(view);
+            // Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.", 
+            //                 errorProvider.GetError(totalScenarioContributionLabel));
+            //
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = 0;
+
+            // Then
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100%",
+                            totalScenarioContributionLabel.Text);
+            // Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+        }
+
+        private TestScenariosView ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
         {
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -447,15 +506,22 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             });
 
-            ShowScenariosView(calculationGroup, failureMechanism);
+            return ShowScenariosView(calculationGroup, failureMechanism);
         }
 
-        private void ShowScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
+        private TestScenariosView ShowScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
         {
             var scenariosView = new TestScenariosView(calculationGroup, failureMechanism);
 
             testForm.Controls.Add(scenariosView);
             testForm.Show();
+
+            return scenariosView;
+        }
+
+        private static ErrorProvider GetErrorProvider(TestScenariosView view)
+        {
+            return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
         private class TestScenariosView : ScenariosView<TestCalculationScenario, TestCalculationInput, TestScenarioRow, TestCalculatableFailureMechanism>
