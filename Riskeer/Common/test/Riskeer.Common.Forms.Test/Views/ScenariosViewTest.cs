@@ -222,6 +222,17 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_WithoutFailureMechanismSectionsAndCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized()
+        {
+            // Call
+            ShowScenariosView(new CalculationGroup(), new TestCalculatableFailureMechanism());
+            
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
         public void ScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
         {
             // Setup
@@ -591,7 +602,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenScenariosViewWithContributingScenarios_WhenMakingScenarioIrrelevant_ThenTotalContributionLabelHidden()
+        public void GivenScenariosViewWithContributingScenarios_WhenMakingContributingScenarioIrrelevant_ThenTotalContributionLabelNotVisible()
         {
             // Given
             var failureMechanism = new TestCalculatableFailureMechanism();
@@ -631,6 +642,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         public void GivenScenariosViewWithoutScenarios_WhenAddingRelevantScenarioAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelUpdatedAndShown()
         {
+            // Given
             var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -660,8 +672,9 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenScenariosViewWithScenarios_WhenCalculationsGroupClearedAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelHidden()
+        public void GivenScenariosViewWithScenarios_WhenCalculationsGroupClearedAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelNotVisible()
         {
+            // Given
             var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -683,6 +696,36 @@ namespace Riskeer.Common.Forms.Test.Views
             // When
             calculationGroup.Children.Clear();
             calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        public void GivenScenariosViewWithScenarios_WhenScenariosClearedAndFailureMechanismNotifiesObserver_ThenTotalContributionLabelNotVisible()
+        {
+            // Given
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(new TestCalculationScenario());
+            ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            calculationGroup.Children.Clear();
+            failureMechanism.NotifyObservers();
 
             // Then
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
