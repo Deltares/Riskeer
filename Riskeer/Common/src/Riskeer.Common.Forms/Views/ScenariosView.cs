@@ -232,8 +232,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
-            UpdateDataGridViewDataSource();
-            UpdateTotalScenarioContributionLabel();
+            UpdateScenarioControls();
         }
 
         private void UpdateScenarioRows()
@@ -268,7 +267,6 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetErrorMessage(string errorMessage)
         {
-            errorProvider.SetIconPadding(labelTotalScenarioContribution, 3);
             errorProvider.SetError(labelTotalScenarioContribution, errorMessage);
         }
 

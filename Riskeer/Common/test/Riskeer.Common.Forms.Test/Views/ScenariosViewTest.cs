@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -217,6 +218,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
 
             // Assert
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+            Assert.AreEqual(ContentAlignment.MiddleLeft, totalScenarioContributionLabel.TextAlign);
             Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 51,20%",
                             totalScenarioContributionLabel.Text);
         }
@@ -226,7 +229,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Call
             ShowScenariosView(new CalculationGroup(), new TestCalculatableFailureMechanism());
-            
+
             // Assert
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
@@ -559,6 +562,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution:F2}%",
                             totalScenarioContributionLabel.Text);
+            
             Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                             errorProvider.GetError(totalScenarioContributionLabel));
         }
