@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -553,7 +552,141 @@ namespace Riskeer.Common.Forms.Test.Views
                             errorProvider.GetError(totalScenarioContributionLabel));
         }
 
-        private TestScenariosView ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenScenariosViewWithoutContributingScenarios_WhenMakingScenarioRelevant_ThenTotalContributionLabelUpdatedAndShown()
+        {
+            // Given
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(new TestCalculationScenario
+            {
+                IsRelevant = false
+            });
+
+            ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[isRelevantColumnIndex].Value = true;
+
+            // Then
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        public void GivenScenariosViewWithContributingScenarios_WhenMakingScenarioIrrelevant_ThenTotalContributionLabelHidden()
+        {
+            // Given
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.AddRange(new[]
+            {
+                new TestCalculationScenario
+                {
+                    IsRelevant = true
+                }
+            });
+
+            ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[isRelevantColumnIndex].Value = false;
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenScenariosViewWithoutScenarios_WhenAddingRelevantScenarioAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelUpdatedAndShown()
+        {
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+
+            // When
+            calculationGroup.Children.Add(new TestCalculationScenario());
+            calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        public void GivenScenariosViewWithScenarios_WhenCalculationsGroupClearedAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelHidden()
+        {
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(new TestCalculationScenario());
+            ShowScenariosView(calculationGroup, failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            calculationGroup.Children.Clear();
+            calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
 
         private void ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
         {
