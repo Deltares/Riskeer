@@ -405,6 +405,33 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleAssessmentSectionWithCorrelatedFailureMechanismProbabilities_KernelThrowsException_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleAssessmentSection(
+                    Enumerable.Empty<double>(), Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+        
+        [Test]
         public void AssembleAssessmentSectionWithCorrelatedFailureMechanismProbabilities_KernelThrowsAssemblyException_ThrowsAssessmentSectionAssemblyCalculatorException()
         {
             // Setup

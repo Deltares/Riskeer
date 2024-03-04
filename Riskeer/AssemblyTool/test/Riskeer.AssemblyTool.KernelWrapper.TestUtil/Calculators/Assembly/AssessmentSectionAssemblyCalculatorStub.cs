@@ -101,7 +101,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult =
                                                            new AssessmentSectionAssemblyResultWrapper(
                                                                new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus),
-                                                               AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1));
+                                                               AssemblyMethod.BOI2A2, AssemblyMethod.BOI2B1));
         }
     }
 }
