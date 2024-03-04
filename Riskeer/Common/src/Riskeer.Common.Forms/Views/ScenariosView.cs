@@ -244,15 +244,18 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateTotalScenarioContributionLabel()
         {
-            if (scenarioRows == null)
-            {
-                return;
-            }
-            
             ClearErrorMessage();
 
-            double totalScenarioContribution = scenarioRows.Where(r => r.IsRelevant)
-                                                           .Sum(r => r.Contribution);
+            IEnumerable<TScenarioRow> contributingScenarios = scenarioRows?.Where(r => r.IsRelevant);
+            if (contributingScenarios == null || !contributingScenarios.Any())
+            {
+                labelTotalScenarioContribution.Visible = false;
+                return;
+            }
+
+            labelTotalScenarioContribution.Visible = true;
+
+            double totalScenarioContribution = contributingScenarios.Sum(r => r.Contribution);
             var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
             if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
             {
