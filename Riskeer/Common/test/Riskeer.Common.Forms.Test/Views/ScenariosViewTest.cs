@@ -197,7 +197,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 new TestCalculationScenario
                 {
                     Name = "Calculation 1",
-                    Contribution = (RoundedDouble) 0.137
+                    Contribution = (RoundedDouble) 0.13701
                 },
                 new TestCalculationScenario
                 {
@@ -208,13 +208,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 new TestCalculationScenario
                 {
                     Name = "Calculation 3",
-                    Contribution = (RoundedDouble) 0.375
+                    Contribution = (RoundedDouble) 0.37503
                 }
             });
 
             // Call
             ShowScenariosView(calculationGroup, failureMechanism);
-            
+
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
 
             // Assert
@@ -483,13 +483,9 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.AddRange(new[]
+            calculationGroup.Children.Add(new TestCalculationScenario
             {
-                new TestCalculationScenario
-                {
-                    Name = "Calculation 1",
-                    Contribution = (RoundedDouble) 1.0001
-                }
+                Contribution = (RoundedDouble) 1.0001
             });
 
             TestScenariosView view = ShowScenariosView(calculationGroup, failureMechanism);
@@ -534,13 +530,7 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.AddRange(new[]
-            {
-                new TestCalculationScenario
-                {
-                    Name = "Calculation 1"
-                }
-            });
+            calculationGroup.Children.Add(new TestCalculationScenario());
 
             TestScenariosView view = ShowScenariosView(calculationGroup, failureMechanism);
 
@@ -564,6 +554,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private TestScenariosView ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
+
+        private void ShowFullyConfiguredScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
         {
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -592,7 +584,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             });
 
-            return ShowScenariosView(calculationGroup, failureMechanism);
+            ShowScenariosView(calculationGroup, failureMechanism);
         }
 
         private TestScenariosView ShowScenariosView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism)
