@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -122,7 +123,8 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(calculations?.Select(CreateNewRow).ToArray());
+            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, lookup)).ToArray());
         }
 
         protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
@@ -155,9 +157,25 @@ namespace Riskeer.Common.Forms.Views
             return Enumerable.Empty<IllustrationPointControlItem>();
         }
 
-        private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
+        private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation,
+                                                                            IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup)
         {
-            return new HydraulicBoundaryLocationCalculationRow(calculation);
+            return new HydraulicBoundaryLocationCalculationRow(calculation, lookup[calculation.HydraulicBoundaryLocation]);
+        }
+        
+        
+        private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
+        {
+            var lookup = new Dictionary<HydraulicBoundaryLocation, string>();
+            foreach (HydraulicBoundaryDatabase database in AssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                foreach (HydraulicBoundaryLocation location in database.Locations)
+                {
+                    lookup[location] = Path.GetFileName(database.FilePath);
+                }
+            }
+
+            return lookup;
         }
     }
 }
