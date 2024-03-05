@@ -116,7 +116,7 @@ name="AutomatedSystemTestsRepository">
 					refimgid="db245c00-dff8-4d3c-aafb-9cbcb5b3a1cb"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/container/container[4]/container[11]/?/?/button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
+						/form[@name='RiskeerMainWindow']/container/container[4]/?/?/?/button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
 					</item>
 					<item
 					addcaps="text,wpfelement"
@@ -126,10 +126,10 @@ name="AutomatedSystemTestsRepository">
 					refimgid="eb4a8025-5cf6-4dd3-9fec-2688dceb885e"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/container/container[4]/container[11]/?/?/button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage/?/text[@text&gt;$nameMap]
+						/form[@name='RiskeerMainWindow']/container/container[4]/?/?/?/button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage/?/text[@text&gt;$nameMap]
 					</item>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/container/container[4]/container[11]/?/?/button[@automationid='MenuDropDownButton']
+						/form[@name='RiskeerMainWindow']/container/container[4]/?/?/?/button[@automationid='MenuDropDownButton']
 					</basepath>
 				</folder>
 				<folder

@@ -1215,7 +1215,7 @@ namespace AutomatedSystemTests
             /// Creates a new HeaderOpenViews  folder.
             /// </summary>
             public HeaderOpenViewsFolder(RepoGenBaseFolder parentFolder) :
-                    base("HeaderOpenViews", "container[11]/?/?/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, false, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
+                    base("HeaderOpenViews", "?/?/?/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, false, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
             {
                 _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", "", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
                 _textheaderpanelInfo = new RepoItemInfo(this, "textHeaderPanel", "container[@automationid='HeaderPanel']/tabpage/?/text[@text>$nameMap]", "", 30000, null, "71969c09-ef02-4547-bddc-6e74e1272049");
