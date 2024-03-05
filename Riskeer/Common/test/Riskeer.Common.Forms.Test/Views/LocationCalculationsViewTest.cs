@@ -72,9 +72,10 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNotNull(splitContainer);
                 Control.ControlCollection verticalSplitContainerPanel1Controls = splitContainer.Panel1.Controls;
                 Assert.AreEqual(new Size(535, 0), splitContainer.Panel1.AutoScrollMinSize);
-                Assert.AreEqual(2, verticalSplitContainerPanel1Controls.Count);
+                Assert.AreEqual(3, verticalSplitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[0]);
-                Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[1]);
+                Assert.IsInstanceOf<CheckBox>(verticalSplitContainerPanel1Controls[1]);
+                Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[2]);
 
                 Control.ControlCollection verticalSplitContainerPanel2Controls = splitContainer.Panel2.Controls;
                 Assert.AreEqual(1, verticalSplitContainerPanel2Controls.Count);
@@ -91,6 +92,18 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
+        public void Constructor_CheckBoxCorrectlyInitialized()
+        {
+            // Setup & Call
+            TestCalculationsView view = ShowTestCalculatableView();
+
+            // Assert
+            var checkBox = (CheckBox) view.Controls.Find("HideHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            Assert.AreEqual("Toon HRD bestand", checkBox.Text);
+            Assert.IsFalse(checkBox.Checked);
         }
 
         [Test]
