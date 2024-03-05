@@ -117,6 +117,14 @@ namespace Riskeer.Common.Forms.Views
         {
             dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableRow<T>.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
+            dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.IncludeIllustrationPoints),
+                                                  Resources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Name),
+                                                 Resources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Id),
+                                                 Resources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Location),
+                                                 Resources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
         }
 
         /// <summary>
