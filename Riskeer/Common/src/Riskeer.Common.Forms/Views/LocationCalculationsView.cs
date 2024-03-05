@@ -41,13 +41,13 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class LocationCalculationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
-        private bool suspendAllEvents;
-        private bool suspendIllustrationPointsControlSelectionChanges;
-        
+
         private readonly Observer calculationsObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
 
         private readonly IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+        private bool suspendAllEvents;
+        private bool suspendIllustrationPointsControlSelectionChanges;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Forms.Views
 
             calculationsObserver.Observable = calculations;
             calculationObserver.Observable = calculations;
-            
+
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
@@ -130,6 +130,19 @@ namespace Riskeer.Common.Forms.Views
         /// Sets the data source on the <see cref="DataGridView"/>.
         /// </summary>
         protected abstract void SetDataSource();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            calculationsObserver.Dispose();
+            calculationObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
 
         /// <summary>
         /// Handles the calculation routine for the currently selected rows.

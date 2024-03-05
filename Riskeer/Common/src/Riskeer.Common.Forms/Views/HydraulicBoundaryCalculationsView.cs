@@ -62,15 +62,7 @@ namespace Riskeer.Common.Forms.Views
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
-
-        protected override void Dispose(bool disposing)
-        {
-            calculationsObserver.Dispose();
-            calculationObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
+        
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
