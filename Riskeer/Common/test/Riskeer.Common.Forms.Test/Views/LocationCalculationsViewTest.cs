@@ -19,17 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
@@ -39,6 +44,10 @@ namespace Riskeer.Common.Forms.Test.Views
     public class LocationCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
+        private const int includeIllustrationPointsColumnIndex = 1;
+        private const int locationNameColumnIndex = 2;
+        private const int locationIdColumnIndex = 3;
+        private const int locationColumnIndex = 4;
 
         private Form testForm;
 
@@ -55,10 +64,35 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new TestCalculationsView())
+            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(null,
+                                                                                new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            using (var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                        new AssessmentSectionStub()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -84,10 +118,39 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowTestHydraulicBoundaryCalculationsView();
+
+            // Assert
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            Assert.AreEqual(5, dataGridView.ColumnCount);
+
+            var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
+            Assert.AreEqual("Berekenen", calculateColumn.HeaderText);
+
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
+
+            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
+            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
+
+            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
+            Assert.AreEqual("ID", locationIdColumn.HeaderText);
+
+            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
+            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
+
+            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            TestCalculationsView view = ShowTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView();
 
             // Assert
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -98,7 +161,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CheckBoxCorrectlyInitialized()
         {
             // Setup & Call
-            TestCalculationsView view = ShowTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView();
 
             // Assert
             var checkBox = (CheckBox) view.Controls.Find("HideHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
@@ -107,28 +170,10 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void OnLoad_DataGridViewCorrectlyInitialized()
-        {
-            // Setup & Call
-            TestCalculationsView view = ShowTestCalculatableView();
-
-            // Assert
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            Assert.AreEqual(1, dataGridView.ColumnCount);
-
-            var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
-            const string expectedCalculateHeaderText = "Berekenen";
-            Assert.AreEqual(expectedCalculateHeaderText, calculateColumn.HeaderText);
-
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.IsFalse(button.Enabled);
-        }
-
-        [Test]
         public void Selection_WithoutCalculations_ReturnsNull()
         {
             // Call
-            using (var view = new TestCalculationsView())
+            using (TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView())
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -139,7 +184,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
-            TestCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
@@ -207,7 +252,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
-            TestCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -220,7 +265,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
             // Given
-            TestCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             // When
@@ -237,7 +282,12 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedObjects()
         {
             // Setup
-            TestCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            var mocks = new MockRepository();
+            var guiService = mocks.Stub<IHydraulicBoundaryLocationCalculationGuiService>();
+            mocks.ReplayAll();
+
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            view.CalculationGuiService = guiService;
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
@@ -251,13 +301,38 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, view.ObjectsToCalculate.Count());
-            TestCalculatableObject expectedObject = ((IEnumerable<TestCalculatableObject>) view.Data).First();
-            Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
+
+            HydraulicBoundaryLocationCalculationRow[] rowsToBeCalculated = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                       .Select(r => r.DataBoundItem)
+                                                                                       .Cast<HydraulicBoundaryLocationCalculationRow>()
+                                                                                       .ToArray();
+            Assert.AreEqual(rowsToBeCalculated.First().CalculatableObject, view.ObjectsToCalculate.First());
+            mocks.VerifyAll();
         }
 
-        private TestCalculationsView ShowTestCalculatableView()
+        [Test]
+        public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
-            var view = new TestCalculationsView();
+            // Setup
+            ShowFullyConfiguredTestCalculatableView();
+
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[calculateColumnIndex].Value = true;
+
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            TestDelegate test = () => button.Click();
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        private TestHydraulicBoundaryCalculationsView ShowTestCalculatableView()
+        {
+            var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                 new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -265,127 +340,61 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
-        private TestCalculationsView ShowFullyConfiguredTestCalculatableView()
+        private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestCalculatableView()
         {
-            TestCalculationsView view = ShowTestCalculatableView();
-            view.Data = new[]
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new TestCalculatableObject
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                 {
-                    GeneralResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
-                        WindDirectionTestFactory.CreateTestWindDirection(),
-                        Enumerable.Empty<Stochast>(),
-                        new[]
-                        {
-                            new TopLevelSubMechanismIllustrationPoint(
-                                WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                                new SubMechanismIllustrationPoint("Point 1", 0.9,
-                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                  Enumerable.Empty<IllustrationPointResult>())),
-                            new TopLevelSubMechanismIllustrationPoint(
-                                WindDirectionTestFactory.CreateTestWindDirection(), "Open",
-                                new SubMechanismIllustrationPoint("Point 2", 0.7,
-                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                  Enumerable.Empty<IllustrationPointResult>()))
-                        })
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                 },
-                new TestCalculatableObject
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
                 {
-                    GeneralResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
-                        WindDirectionTestFactory.CreateTestWindDirection(),
-                        Enumerable.Empty<Stochast>(),
-                        new[]
-                        {
-                            new TopLevelSubMechanismIllustrationPoint(
-                                WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                                new SubMechanismIllustrationPoint("Point 1", 0.9,
-                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                  Enumerable.Empty<IllustrationPointResult>())),
-                            new TopLevelSubMechanismIllustrationPoint(
-                                WindDirectionTestFactory.CreateTestWindDirection(), "Open",
-                                new SubMechanismIllustrationPoint("Point 2", 0.7,
-                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                  Enumerable.Empty<IllustrationPointResult>())),
-                            new TopLevelSubMechanismIllustrationPoint(
-                                WindDirectionTestFactory.CreateTestWindDirection(), "Closed",
-                                new SubMechanismIllustrationPoint("Point 3", 0.8,
-                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                  Enumerable.Empty<IllustrationPointResult>()))
-                        })
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    }
                 }
-            };
+            });
+
             return view;
         }
 
-        private class TestCalculatableRow : CalculatableRow<TestCalculatableObject>
+        private void ShowTestHydraulicBoundaryCalculationsView()
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject)
-            {
-                ShouldCalculate = calculatableObject.IsChecked;
-            }
+            ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
         }
 
-        private class TestCalculatableObject
+        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            public bool IsChecked { get; }
+            var view = new TestHydraulicBoundaryCalculationsView(calculations, new AssessmentSectionStub());
 
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; set; }
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
         }
 
-        private class TestCalculationsView : LocationCalculationsView<TestCalculatableObject>
+        private class TestHydraulicBoundaryCalculationsView : LocationCalculationsView
         {
-            private IEnumerable<TestCalculatableObject> data;
-
-            public TestCalculationsView()
+            public TestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                         IAssessmentSection assessmentSection)
+                : base(calculations, assessmentSection)
             {
-                ObjectsToCalculate = new List<TestCalculatableObject>();
+                ObjectsToCalculate = new List<HydraulicBoundaryLocationCalculation>();
             }
 
-            public override object Data
-            {
-                get
-                {
-                    return data;
-                }
-                set
-                {
-                    data = value as IEnumerable<TestCalculatableObject>;
-                    UpdateDataGridViewDataSource();
-                }
-            }
+            public IEnumerable<HydraulicBoundaryLocationCalculation> ObjectsToCalculate { get; private set; }
 
-            public IEnumerable<TestCalculatableObject> ObjectsToCalculate { get; private set; }
+            protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+            {
+                ObjectsToCalculate = calculations;
+            }
 
             protected override object CreateSelectedItemFromCurrentRow()
             {
-                return ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
-            }
-
-            protected override void SetDataSource()
-            {
-                dataGridViewControl.SetDataSource(data.Select(d => new TestCalculatableRow(d)).ToArray());
-            }
-
-            protected override void CalculateForSelectedRows()
-            {
-                ObjectsToCalculate = GetCalculatableRows()
-                                     .Where(r => r.ShouldCalculate)
-                                     .Cast<TestCalculatableRow>()
-                                     .Select(row => row.CalculatableObject);
-            }
-
-            protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
-            {
-                TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
-
-                return calculatableObject?.GeneralResult?.TopLevelIllustrationPoints
-                                         .Select(topLevelSubMechanismIllustrationPoint =>
-                                                     new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                                      topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                                      topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts,
-                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta))
-                                         .ToArray();
+                return null;
             }
         }
     }
