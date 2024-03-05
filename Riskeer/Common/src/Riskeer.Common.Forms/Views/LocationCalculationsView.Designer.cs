@@ -161,7 +161,6 @@ namespace Riskeer.Common.Forms.Views
             this.HideHydraulicBoundaryDatabaseColumnCheckBox.Name = "HideHydraulicBoundaryDatabaseColumnCheckBox";
             this.HideHydraulicBoundaryDatabaseColumnCheckBox.Size = new System.Drawing.Size(536, 17);
             this.HideHydraulicBoundaryDatabaseColumnCheckBox.TabIndex = 3;
-            this.HideHydraulicBoundaryDatabaseColumnCheckBox.Text = global::Riskeer.Common.Forms.Properties.Resources.LocationCalculationsView_Show_HydraulicBoundaryDatabase_file_name_column;
             this.HideHydraulicBoundaryDatabaseColumnCheckBox.UseVisualStyleBackColor = true;
             // 
             // illustrationPointsControl

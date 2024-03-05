@@ -2479,9 +2479,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toon HRD bestand.
         /// </summary>
-        public static string LocationCalculationsView_Show_HydraulicBoundaryDatabase_file_name_column {
+        public static string LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text {
             get {
-                return ResourceManager.GetString("LocationCalculationsView_Show_HydraulicBoundaryDatabase_file_name_column", resourceCulture);
+                return ResourceManager.GetString("LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text", resourceCulture);
             }
         }
         
