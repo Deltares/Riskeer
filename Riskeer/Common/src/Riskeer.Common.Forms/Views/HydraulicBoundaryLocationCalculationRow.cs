@@ -37,9 +37,20 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationRow"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The <see cref="HydraulicBoundaryLocationCalculation"/> for this row.</param>
+        /// <param name="hydraulicBoundaryDatabaseFileName">The name of the hydraulic boundary database the
+        /// <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        internal HydraulicBoundaryLocationCalculationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocationCalculation) {}
+        internal HydraulicBoundaryLocationCalculationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                         string hydraulicBoundaryDatabaseFileName)
+            : base(hydraulicBoundaryLocationCalculation)
+        {
+            HydraulicBoundaryDatabaseFileName = hydraulicBoundaryDatabaseFileName;
+        }
+
+        /// <summary>
+        /// Gets the file name of the hydraulic boundary database the calculation belongs to.
+        /// </summary>
+        public string HydraulicBoundaryDatabaseFileName { get; }
 
         /// <summary>
         /// Gets or sets the value indicating whether the illustration points need to be included.

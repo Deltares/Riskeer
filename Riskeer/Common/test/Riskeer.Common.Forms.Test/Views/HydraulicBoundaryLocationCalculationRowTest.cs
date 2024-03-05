@@ -42,12 +42,13 @@ namespace Riskeer.Common.Forms.Test.Views
             const string locationName = "LocationName";
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
+            const string fileName = "HRD FileName";
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationName, coordinateX, coordinateY);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
-            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation);
+            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, fileName);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<HydraulicBoundaryLocationCalculation>>(row);
@@ -55,6 +56,8 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationName, row.Name);
             Assert.AreSame(hydraulicBoundaryLocation.Location, row.Location);
+
+            Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
 
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationRow, NoValueRoundedDoubleConverter>(nameof(HydraulicBoundaryLocationCalculationRow.Result));
             Assert.IsNaN(row.Result);
@@ -75,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation);
+            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, "HRD FileName");
 
             row.CalculatableObject.Attach(observer);
 
@@ -95,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation);
+            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, "HRD FileName");
 
             var random = new Random(432);
             var output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
