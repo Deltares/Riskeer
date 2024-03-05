@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -29,6 +30,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 
@@ -69,7 +71,8 @@ namespace Riskeer.Common.Forms.Views
             AssessmentSection = assessmentSection;
 
             calculationsObserver = new Observer(UpdateDataGridViewDataSource);
-            calculationObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, hblc => hblc);
+            calculationObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                HandleHydraulicBoundaryLocationCalculationUpdate, hblc => hblc);
 
             this.calculations = calculations;
 
@@ -79,6 +82,8 @@ namespace Riskeer.Common.Forms.Views
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
+
+            UpdateDataGridViewDataSource();
         }
 
         /// <summary>
@@ -86,15 +91,26 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
+        /// </summary>
+        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
+
         public object Selection { get; private set; }
 
-        public abstract object Data { get; set; }
+        public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             InitializeDataGridView();
         }
+
+        /// <summary>
+        /// Performs the selected <paramref name="calculations"/>.
+        /// </summary>
+        /// <param name="calculations">The calculations to perform.</param>
+        protected abstract void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations);
 
         /// <summary>
         /// Updates the data source of the data table based on the <see cref="Data"/>.
@@ -134,11 +150,6 @@ namespace Riskeer.Common.Forms.Views
         /// <returns>The newly created object.</returns>
         protected abstract object CreateSelectedItemFromCurrentRow();
 
-        /// <summary>
-        /// Sets the data source on the <see cref="DataGridView"/>.
-        /// </summary>
-        protected abstract void SetDataSource();
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -153,24 +164,19 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Handles the calculation routine for the currently selected rows.
-        /// </summary>
-        protected abstract void CalculateForSelectedRows();
-
-        /// <summary>
         /// Gets all the row items from the <see cref="DataGridView"/>.
         /// </summary>
-        protected IEnumerable<CalculatableRow<T>> GetCalculatableRows()
+        protected IEnumerable<CalculatableRow<HydraulicBoundaryLocationCalculation>> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem);
+                                      .Select(row => (CalculatableRow<HydraulicBoundaryLocationCalculation>) row.DataBoundItem);
         }
 
         /// <summary>
         /// Gets all the selected calculatable objects.
         /// </summary>
-        protected IEnumerable<T> GetSelectedCalculatableObjects()
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);
@@ -188,6 +194,42 @@ namespace Riskeer.Common.Forms.Views
             suspendAllEvents = false;
 
             HandlePossibleOutdatedIllustrationPointsSelection();
+        }
+
+        private void SetDataSource()
+        {
+            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, lookup)).ToArray());
+        }
+
+        private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation,
+                                                                            IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup)
+        {
+            return new HydraulicBoundaryLocationCalculationRow(calculation, lookup[calculation.HydraulicBoundaryLocation]);
+        }
+
+        private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
+        {
+            var lookup = new Dictionary<HydraulicBoundaryLocation, string>();
+            foreach (HydraulicBoundaryDatabase database in AssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                foreach (HydraulicBoundaryLocation location in database.Locations)
+                {
+                    lookup[location] = Path.GetFileName(database.FilePath);
+                }
+            }
+
+            return lookup;
+        }
+
+        private void CalculateForSelectedRows()
+        {
+            if (CalculationGuiService == null)
+            {
+                return;
+            }
+
+            PerformSelectedCalculations(GetSelectedCalculatableObjects());
         }
 
         private string ValidateCalculatableObjects()
@@ -302,12 +344,35 @@ namespace Riskeer.Common.Forms.Views
             OnSelectionChanged();
         }
 
-        /// <summary>
-        /// Gets the illustration point control items based on the data of the illustration points.
-        /// </summary>
-        /// <returns>The illustration point control items if it has obtained as part of the calculation, <c>null</c>
-        /// otherwise.</returns>
-        protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
+        private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+            if (currentRow == null)
+            {
+                return Enumerable.Empty<IllustrationPointControlItem>();
+            }
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = ((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject;
+
+            HydraulicBoundaryLocationCalculationOutput hydraulicBoundaryLocationCalculationOutput = hydraulicBoundaryLocationCalculation.Output;
+            if (hydraulicBoundaryLocationCalculation.HasOutput
+                && hydraulicBoundaryLocationCalculationOutput.HasGeneralResult)
+            {
+                return hydraulicBoundaryLocationCalculationOutput.GeneralResult.TopLevelIllustrationPoints.Select(
+                    topLevelSubMechanismIllustrationPoint =>
+                    {
+                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
+                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                                subMechanismIllustrationPoint.Stochasts,
+                                                                subMechanismIllustrationPoint.Beta);
+                    }).ToArray();
+            }
+
+            return Enumerable.Empty<IllustrationPointControlItem>();
+        }
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
