@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -41,13 +43,39 @@ namespace Riskeer.Common.Forms.Views
         private const int calculateColumnIndex = 0;
         private bool suspendAllEvents;
         private bool suspendIllustrationPointsControlSelectionChanges;
+        
+        private readonly Observer calculationsObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
+
+        private readonly IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="LocationCalculationsView{T}"/>.
         /// </summary>
-        protected LocationCalculationsView()
+        protected LocationCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                           IAssessmentSection assessmentSection)
         {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+
+            calculationsObserver = new Observer(UpdateDataGridViewDataSource);
+            calculationObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, hblc => hblc);
+
+            this.calculations = calculations;
+
+            calculationsObserver.Observable = calculations;
+            calculationObserver.Observable = calculations;
+            
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
@@ -190,6 +218,7 @@ namespace Riskeer.Common.Forms.Views
             DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
             SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
             ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
+            HideHydraulicBoundaryDatabaseColumnCheckBox.Text = Resources.LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()

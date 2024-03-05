@@ -51,28 +51,8 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                    IAssessmentSection assessmentSection)
+                                                    IAssessmentSection assessmentSection) : base(calculations, assessmentSection)
         {
-            if (calculations == null)
-            {
-                throw new ArgumentNullException(nameof(calculations));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            AssessmentSection = assessmentSection;
-
-            calculationsObserver = new Observer(UpdateDataGridViewDataSource);
-            calculationObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, hblc => hblc);
-
-            this.calculations = calculations;
-
-            calculationsObserver.Observable = calculations;
-            calculationObserver.Observable = calculations;
-
             UpdateDataGridViewDataSource();
         }
 
