@@ -2477,6 +2477,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toon HRD bestand.
+        /// </summary>
+        public static string LocationCalculationsView_Show_HydraulicBoundaryDatabase_file_name_column {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_Show_HydraulicBoundaryDatabase_file_name_column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De gemiddelde waarde van de lognormale verdeling..
         /// </summary>
         public static string LogNormalDistribution_Mean_Description {
