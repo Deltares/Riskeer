@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class LocationCalculationsView<T>
+    partial class LocationCalculationsView
     {
         /// <summary> 
         /// Required designer variable.

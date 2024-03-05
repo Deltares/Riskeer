@@ -39,8 +39,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// Base view for selecting and performing hydraulic boundary location calculations.
     /// </summary>
-    /// <typeparam name="T">The type of the calculation objects.</typeparam>
-    public abstract partial class LocationCalculationsView<T> : UserControl, ISelectionProvider, IView where T : class
+    public abstract partial class LocationCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int calculateColumnIndex = 0;
 
@@ -53,7 +52,7 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LocationCalculationsView{T}"/>.
+        /// Creates a new instance of <see cref="LocationCalculationsView"/>.
         /// </summary>
         protected LocationCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                            IAssessmentSection assessmentSection)
@@ -87,9 +86,9 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="IAssessmentSection"/>.
+        /// Gets the <see cref="IAssessmentSection"/>.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; protected set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
@@ -131,7 +130,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableRow<T>.ShouldCalculate),
+            dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
             dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.IncludeIllustrationPoints),
                                                   Resources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
@@ -173,20 +172,13 @@ namespace Riskeer.Common.Forms.Views
                                       .Select(row => (CalculatableRow<HydraulicBoundaryLocationCalculation>) row.DataBoundItem);
         }
 
-        /// <summary>
-        /// Gets all the selected calculatable objects.
-        /// </summary>
         private IEnumerable<HydraulicBoundaryLocationCalculation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);
         }
-
-        /// <summary>
-        /// Handles the update of a hydraulic boundary location calculation by refreshing the data grid view
-        /// and updating the data of the illustration points control.
-        /// </summary>
-        protected void HandleHydraulicBoundaryLocationCalculationUpdate()
+        
+        private void HandleHydraulicBoundaryLocationCalculationUpdate()
         {
             suspendAllEvents = true;
             dataGridViewControl.RefreshDataGridView();
