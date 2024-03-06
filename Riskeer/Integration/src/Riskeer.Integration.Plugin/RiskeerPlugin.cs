@@ -1492,7 +1492,7 @@ namespace Riskeer.Integration.Plugin
 
         #region HydraulicBoundaryCalculationsView ViewInfo
 
-        private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
+        private static bool CloseHydraulicBoundaryCalculationsViewForData(LocationCalculationsView view, object dataToCloseFor)
         {
             return ReferenceEquals(view.AssessmentSection, dataToCloseFor);
         }
