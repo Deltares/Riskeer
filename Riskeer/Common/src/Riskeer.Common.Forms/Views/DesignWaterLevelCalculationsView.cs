@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// View for presenting and performing design water level calculations.
     /// </summary>
-    public partial class DesignWaterLevelCalculationsView : LocationCalculationsView
+    public partial class DesignWaterLevelCalculationsView : HydraulicBoundaryCalculationsView
     {
         private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;

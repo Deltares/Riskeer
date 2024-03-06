@@ -44,7 +44,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class LocationCalculationsViewTest
+    public class HydraulicBoundaryCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
@@ -443,7 +443,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
-        private class TestHydraulicBoundaryCalculationsView : LocationCalculationsView
+        private class TestHydraulicBoundaryCalculationsView : HydraulicBoundaryCalculationsView
         {
             public TestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                          IAssessmentSection assessmentSection)

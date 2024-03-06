@@ -119,7 +119,7 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                    () => "1/100"))
             {
                 // Assert
-                Assert.IsInstanceOf<LocationCalculationsView>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -536,17 +536,17 @@ namespace Riskeer.Common.Forms.Test.Views
                 base.Setup();
             }
 
-            protected override object GetCalculationSelection(LocationCalculationsView view, object selectedRowObject)
+            protected override object GetCalculationSelection(HydraulicBoundaryCalculationsView view, object selectedRowObject)
             {
                 return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
             }
 
-            protected override LocationCalculationsView ShowFullyConfiguredCalculationsView(Form form)
+            protected override HydraulicBoundaryCalculationsView ShowFullyConfiguredCalculationsView(Form form)
             {
                 return ShowFullyConfiguredDesignWaterLevelCalculationsView(calculations, form);
             }
 
-            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationCalculationsView view)
+            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(HydraulicBoundaryCalculationsView view)
             {
                 return calculations;
             }

@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class LocationCalculationsView
+    partial class HydraulicBoundaryCalculationsView
     {
         /// <summary> 
         /// Required designer variable.
@@ -159,12 +159,12 @@ namespace Riskeer.Common.Forms.Views
             this.illustrationPointsControl.Size = new System.Drawing.Size(451, 425);
             this.illustrationPointsControl.TabIndex = 0;
             // 
-            // LocationCalculationsView
+            // HydraulicBoundaryCalculationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer);
-            this.Name = "LocationCalculationsView";
+            this.Name = "HydraulicBoundaryCalculationsView";
             this.Size = new System.Drawing.Size(991, 425);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.CalculateForSelectedButtonErrorProvider)).EndInit();

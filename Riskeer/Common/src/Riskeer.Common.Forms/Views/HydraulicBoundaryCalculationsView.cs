@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// Base view for selecting and performing hydraulic boundary location calculations.
     /// </summary>
-    public abstract partial class LocationCalculationsView : UserControl, ISelectionProvider, IView
+    public abstract partial class HydraulicBoundaryCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int calculateColumnIndex = 0;
 
@@ -52,9 +52,9 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LocationCalculationsView"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationsView"/>.
         /// </summary>
-        protected LocationCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        protected HydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                            IAssessmentSection assessmentSection)
         {
             if (calculations == null)
