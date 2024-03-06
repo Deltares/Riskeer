@@ -168,7 +168,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseFileNameColumnCheckBox", true)[0];
             Assert.AreEqual("Toon HRD bestand", checkBox.Text);
             Assert.IsFalse(checkBox.Checked);
         }
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -198,7 +198,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -206,13 +206,15 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
         }
 
         [Test]
         public void Constructor_CalculationsWithIllustrationPointsOutput_IllustrationPointControlDataCorrectlySet()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -223,7 +225,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
 
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 Output = output
             };
@@ -231,9 +233,18 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 calculation
             };
+            
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
 
             // Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations);
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations, assessmentSection);
 
             // Assert
             var illustrationPointControl = (IllustrationPointsControl) view.Controls.Find("illustrationPointsControl", true).First();
@@ -415,7 +426,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
 
             // When
-            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseFileNameColumnCheckBox", true)[0];
             checkBox.Checked = true;
 
             // Then
@@ -448,35 +459,62 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
+        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                                IAssessmentSection assessmentSection)
+        {
+            var view = new TestHydraulicBoundaryCalculationsView(calculations, assessmentSection);
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
+        }
+
         private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestHydraulicBoundaryCalculationsView()
         {
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
+            var location1 = new HydraulicBoundaryLocation(1, "1", 1.0, 1.0);
+            var location2 = new HydraulicBoundaryLocation(2, "2", 2.0, 2.0);
+            var location3 = new HydraulicBoundaryLocation(3, "3", 3.0, 3.0);
+
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
+                new HydraulicBoundaryLocationCalculation(location1),
+                new HydraulicBoundaryLocationCalculation(location2)
                 {
                     Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                 },
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
+                new HydraulicBoundaryLocationCalculation(location3)
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     }
                 }
+            };
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.AddRange(new[]
+            {
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = @"path\to\database1.sqlite",
+                    Locations =
+                    {
+                        location1,
+                        location2
+                    }
+                },
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = @"path\to\database2.sqlite",
+                    Locations =
+                    {
+                        location3
+                    }
+                }
             });
 
-            return view;
-        }
-
-        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
-        {
-            var view = new TestHydraulicBoundaryCalculationsView(calculations, new AssessmentSectionStub());
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            return view;
+            return ShowTestHydraulicBoundaryCalculationsView(calculations, assessmentSection);
         }
 
         private class TestHydraulicBoundaryCalculationsView : HydraulicBoundaryCalculationsView

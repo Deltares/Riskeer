@@ -196,16 +196,14 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetDataSource()
         {
-            // TODO: Wire lookup
-            // Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
-            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, null)).ToArray());
+            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, lookup)).ToArray());
         }
 
         private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation,
                                                                             IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup)
         {
-            // TODO: Wire lookup
-            return new HydraulicBoundaryLocationCalculationRow(calculation, string.Empty);
+            return new HydraulicBoundaryLocationCalculationRow(calculation, lookup[calculation.HydraulicBoundaryLocation]);
         }
 
         private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
@@ -215,7 +213,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 foreach (HydraulicBoundaryLocation location in database.Locations)
                 {
-                    lookup[location] = Path.GetFileName(database.FilePath);
+                    lookup[location] = Path.GetFileNameWithoutExtension(database.FilePath);
                 }
             }
 
