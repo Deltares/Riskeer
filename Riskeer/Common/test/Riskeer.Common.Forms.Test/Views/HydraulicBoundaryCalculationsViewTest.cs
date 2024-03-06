@@ -109,8 +109,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 Control.ControlCollection verticalSplitContainerPanel1Controls = splitContainer.Panel1.Controls;
                 Assert.AreEqual(new Size(535, 0), splitContainer.Panel1.AutoScrollMinSize);
                 Assert.AreEqual(3, verticalSplitContainerPanel1Controls.Count);
-                Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[0]);
-                Assert.IsInstanceOf<CheckBox>(verticalSplitContainerPanel1Controls[1]);
+                Assert.IsInstanceOf<CheckBox>(verticalSplitContainerPanel1Controls[0]);
+                Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[1]);
                 Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[2]);
 
                 Control.ControlCollection verticalSplitContainerPanel2Controls = splitContainer.Panel2.Controls;

@@ -59,12 +59,12 @@ namespace Riskeer.Common.Forms.Views
             // dataGridViewControl
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 40);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(536, 350);
+            this.dataGridViewControl.Size = new System.Drawing.Size(536, 324);
             this.dataGridViewControl.TabIndex = 0;
             // 
             // CalculateForSelectedButton
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Views
             this.ButtonGroupBox.Controls.Add(this.DeselectAllButton);
             this.ButtonGroupBox.Controls.Add(this.SelectAllButton);
             this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 350);
+            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 364);
             this.ButtonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.ButtonGroupBox.Name = "ButtonGroupBox";
             this.ButtonGroupBox.Size = new System.Drawing.Size(536, 61);
@@ -129,8 +129,8 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.splitContainer.Panel1.AutoScroll = true;
             this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(535, 0);
-            this.splitContainer.Panel1.Controls.Add(this.dataGridViewControl);
             this.splitContainer.Panel1.Controls.Add(this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox);
+            this.splitContainer.Panel1.Controls.Add(this.dataGridViewControl);
             this.splitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
             // 
             // splitContainer.Panel2
@@ -140,13 +140,15 @@ namespace Riskeer.Common.Forms.Views
             this.splitContainer.SplitterDistance = 536;
             this.splitContainer.TabIndex = 1;
             // 
-            // showHydraulicBoundaryDatabaseColumnCheckBox
+            // showHydraulicBoundaryDatabaseFileNameColumnCheckBox
             // 
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.AutoSize = true;
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Location = new System.Drawing.Point(0, 411);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Location = new System.Drawing.Point(0, 0);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.MinimumSize = new System.Drawing.Size(500, 40);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Name = "showHydraulicBoundaryDatabaseFileNameColumnCheckBox";
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Size = new System.Drawing.Size(536, 14);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Size = new System.Drawing.Size(536, 40);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.TabIndex = 3;
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.UseVisualStyleBackColor = true;
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.CheckedChanged += new System.EventHandler(this.ShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_CheckedChanged);
