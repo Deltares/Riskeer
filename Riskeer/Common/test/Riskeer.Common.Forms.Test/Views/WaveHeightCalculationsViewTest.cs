@@ -25,7 +25,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -49,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
-        private const int locationColumnIndex = 4;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 4;
         private const int waveHeightColumnIndex = 5;
 
         private Form testForm;
@@ -144,24 +143,27 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var calculateColumn = (DataGridViewCheckBoxColumn) calculationsDataGridView.Columns[calculateColumnIndex];
             Assert.AreEqual("Berekenen", calculateColumn.HeaderText);
+            Assert.IsTrue(calculateColumn.Visible);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) calculationsDataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
+            Assert.IsTrue(includeIllustrationPointsColumn.Visible);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
+            Assert.IsTrue(locationNameColumn.Visible);
 
             var locationIdColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[locationIdColumnIndex];
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
+            Assert.IsTrue(locationIdColumn.Visible);
 
-            var locationColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[locationColumnIndex];
-            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[hydraulicBoundaryDatabaseFileNameColumnIndex];
+            Assert.AreEqual("HRD bestand", hydraulicBoundaryDatabaseFileNameColumn.HeaderText);
+            Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
 
             var waveHeightColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[waveHeightColumnIndex];
             Assert.AreEqual("Golfhoogte [m]", waveHeightColumn.HeaderText);
-
-            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
-            Assert.IsFalse(button.Enabled);
+            Assert.IsTrue(waveHeightColumn.Visible);
         }
 
         [Test]
@@ -181,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
@@ -190,7 +192,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
@@ -199,7 +201,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[3].Cells;
@@ -208,7 +210,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
             Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
         }
 
@@ -217,11 +219,14 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            AssessmentSectionStub assessmentSection = GetConfiguredAssessmentSectionStub(hydraulicBoundaryLocationCalculations);
+            ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, assessmentSection, testForm);
 
-            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
+            var location = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases[0].Locations.Add(location);
 
             const double waveHeight = 10.23;
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(location)
             {
                 InputParameters =
                 {
@@ -249,7 +254,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
             Assert.AreEqual(waveHeight, cells[waveHeightColumnIndex].Value);
         }
 
@@ -372,12 +377,8 @@ namespace Riskeer.Common.Forms.Test.Views
             const double targetProbability = 0.01;
             const string calculationIdentifier = "1/100";
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            AssessmentSectionStub assessmentSection = GetConfiguredAssessmentSectionStub(hydraulicBoundaryLocationCalculations);
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
@@ -395,8 +396,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 });
 
             mockRepository.ReplayAll();
-
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             WaveHeightCalculationsView view = ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                              assessmentSection,
@@ -469,12 +468,18 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
+        private static WaveHeightCalculationsView ShowWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                 IAssessmentSection assessmentSection,
+                                                                                 Form form)
+        {
+            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "1/100", form);
+        }
+
         private static WaveHeightCalculationsView ShowFullyConfiguredWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                 Form form)
         {
-            var assessmentSection = new AssessmentSectionStub();
-
-            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "1/100", form);
+            AssessmentSectionStub assessmentSection = GetConfiguredAssessmentSectionStub(calculations);
+            return ShowWaveHeightCalculationsView(calculations, assessmentSection, form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -514,6 +519,29 @@ namespace Riskeer.Common.Forms.Test.Views
                     Output = new TestHydraulicBoundaryLocationCalculationOutput(1.01, generalResult)
                 }
             };
+        }
+
+        private static AssessmentSectionStub GetConfiguredAssessmentSectionStub(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+            {
+                FilePath = @"path\to\database1.sqlite"
+            };
+            hydraulicBoundaryDatabase1.Locations.AddRange(calculations.Take(2).Select(c => c.HydraulicBoundaryLocation));
+
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
+            {
+                FilePath = @"path\to\database2.sqlite"
+            };
+            hydraulicBoundaryDatabase2.Locations.AddRange(calculations.Skip(2).Select(c => c.HydraulicBoundaryLocation));
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.AddRange(new[]
+            {
+                hydraulicBoundaryDatabase1,
+                hydraulicBoundaryDatabase2
+            });
+            return assessmentSection;
         }
 
         [TestFixture]

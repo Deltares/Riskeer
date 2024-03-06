@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -92,8 +93,12 @@ namespace Riskeer.Common.Forms.TestUtil
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
+            IAssessmentSection assessmentSection = view.AssessmentSection;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases[0].Locations.Add(hydraulicBoundaryLocation);
+
             calculations.Clear();
-            calculations.Add(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)));
+            calculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             calculations.NotifyObservers();
         }
 
