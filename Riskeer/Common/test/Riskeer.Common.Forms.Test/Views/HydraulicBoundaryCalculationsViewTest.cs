@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
-        private const int hydraulicBoundaryDatabaseFileName = 4;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 4;
 
         private Form testForm;
 
@@ -145,7 +145,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
             Assert.IsTrue(locationIdColumn.Visible);
 
-            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileName];
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileNameColumnIndex];
             Assert.AreEqual("HRD bestand", hydraulicBoundaryDatabaseFileNameColumn.HeaderText);
             Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
         }
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -198,7 +198,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -206,7 +206,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
+            Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -422,7 +422,7 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
 
             // Precondition
-            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileName];
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileNameColumnIndex];
             Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
 
             // When
