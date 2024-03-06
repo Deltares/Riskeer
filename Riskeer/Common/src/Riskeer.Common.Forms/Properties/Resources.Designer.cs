@@ -2121,6 +2121,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestand.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {

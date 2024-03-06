@@ -42,6 +42,7 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class HydraulicBoundaryCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int calculateColumnIndex = 0;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 4;
 
         private readonly Observer calculationsObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
@@ -105,7 +106,9 @@ namespace Riskeer.Common.Forms.Views
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
             InitializeDataGridView();
+            UpdateDataGridViewColumnVisibility();
         }
 
         /// <summary>
@@ -127,8 +130,8 @@ namespace Riskeer.Common.Forms.Views
                                                  Resources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Id),
                                                  Resources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Location),
-                                                 Resources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.HydraulicBoundaryDatabaseFileName),
+                                                 Resources.HydraulicBoundaryDatabase_DisplayName);
         }
 
         /// <summary>
@@ -160,6 +163,12 @@ namespace Riskeer.Common.Forms.Views
 
             UpdateCalculateForSelectedButton();
             ProvideCalculationSelection();
+        }
+
+        private void UpdateDataGridViewColumnVisibility()
+        {
+            dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryDatabaseFileNameColumnIndex).Visible =
+                showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Checked;
         }
 
         private IEnumerable<CalculatableRow<HydraulicBoundaryLocationCalculation>> GetCalculatableRows()
@@ -272,7 +281,7 @@ namespace Riskeer.Common.Forms.Views
             DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
             SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
             ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
-            HideHydraulicBoundaryDatabaseColumnCheckBox.Text = Resources.LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
+            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = Resources.LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()
@@ -385,6 +394,11 @@ namespace Riskeer.Common.Forms.Views
         private void CalculateForSelectedButton_Click(object sender, EventArgs e)
         {
             CalculateForSelectedRows();
+        }
+
+        private void ShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewColumnVisibility();
         }
 
         #endregion

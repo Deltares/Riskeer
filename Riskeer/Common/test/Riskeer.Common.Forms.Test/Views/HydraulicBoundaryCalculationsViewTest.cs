@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
@@ -50,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
-        private const int locationColumnIndex = 4;
+        private const int hydraulicBoundaryDatabaseFileName = 4;
 
         private Form testForm;
 
@@ -132,23 +131,25 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
             Assert.AreEqual("Berekenen", calculateColumn.HeaderText);
+            Assert.IsTrue(calculateColumn.Visible);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
+            Assert.IsTrue(includeIllustrationPointsColumn.Visible);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
+            Assert.IsTrue(locationNameColumn.Visible);
 
             var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
+            Assert.IsTrue(locationIdColumn.Visible);
 
-            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
-
-            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
-            Assert.IsFalse(button.Enabled);
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileName];
+            Assert.AreEqual("HRD bestand", hydraulicBoundaryDatabaseFileNameColumn.HeaderText);
+            Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
         }
-        
+
         [Test]
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
@@ -167,12 +168,12 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            var checkBox = (CheckBox) view.Controls.Find("HideHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
             Assert.AreEqual("Toon HRD bestand", checkBox.Text);
             Assert.IsFalse(checkBox.Checked);
         }
-        
-         [Test]
+
+        [Test]
         public void Constructor_WithCalculations_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -189,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -197,7 +198,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -205,7 +206,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Empty, cells[hydraulicBoundaryDatabaseFileName].FormattedValue);
         }
 
         [Test]
@@ -401,6 +402,41 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.DoesNotThrow(test);
         }
 
+        [Test]
+        public void GivenView_WhenCheckingShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_ThenColumnVisible()
+        {
+            // Given
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+
+            // Precondition
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileName];
+            Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+
+            // When
+            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            checkBox.Checked = true;
+
+            // Then
+            Assert.IsTrue(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+        }
+
+        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        {
+            return generalResult.TopLevelIllustrationPoints
+                                .Select(topLevelIllustrationPoint =>
+                                {
+                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
+                                                                            topLevelIllustrationPoint.WindDirection.Name,
+                                                                            topLevelIllustrationPoint.ClosingSituation,
+                                                                            illustrationPoint.Stochasts,
+                                                                            illustrationPoint.Beta);
+                                });
+        }
+
         private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView()
         {
             var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
@@ -463,21 +499,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 return null;
             }
-        }
-
-        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
-        {
-            return generalResult.TopLevelIllustrationPoints
-                                .Select(topLevelIllustrationPoint =>
-                                {
-                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
-                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
-                                                                            topLevelIllustrationPoint.WindDirection.Name,
-                                                                            topLevelIllustrationPoint.ClosingSituation,
-                                                                            illustrationPoint.Stochasts,
-                                                                            illustrationPoint.Beta);
-                                });
         }
     }
 }

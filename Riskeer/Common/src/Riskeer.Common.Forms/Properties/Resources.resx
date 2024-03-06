@@ -1604,4 +1604,7 @@ faalkans per vak
     <data name="LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text" xml:space="preserve">
       <value>Toon HRD bestand</value>
     </data>
+    <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
+      <value>HRD bestand</value>
+    </data>
 </root>
