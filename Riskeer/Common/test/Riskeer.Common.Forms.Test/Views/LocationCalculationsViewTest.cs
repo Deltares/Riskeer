@@ -34,7 +34,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -365,6 +367,43 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.DoesNotThrow(test);
         }
+        
+        [Test]
+        public void GetIllustrationPointControlItems_ViewWithData_ReturnsExpectedControlItems()
+        {
+            // Setup
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
+
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = output
+            };
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                calculation
+            };
+
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations);
+
+            // Call
+            // IEnumerable<IllustrationPointControlItem> actualControlItems =
+                // view.PublicGetIllustrationPointControlItems();
+
+            // Assert
+            var illustrationPointControl = (IllustrationPointsControl) view.Controls.Find("illustrationPointsControl", true).First();
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointControl.Data,
+                                      new IllustrationPointControlItemComparer());
+        }
+
 
         private TestHydraulicBoundaryCalculationsView ShowTestCalculatableView()
         {
@@ -428,6 +467,21 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 return null;
             }
+        }
+        
+        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        {
+            return generalResult.TopLevelIllustrationPoints
+                                .Select(topLevelIllustrationPoint =>
+                                {
+                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
+                                                                            topLevelIllustrationPoint.WindDirection.Name,
+                                                                            topLevelIllustrationPoint.ClosingSituation,
+                                                                            illustrationPoint.Stochasts,
+                                                                            illustrationPoint.Beta);
+                                });
         }
     }
 }
