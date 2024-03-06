@@ -151,7 +151,7 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && components != null)
             {
                 components.Dispose();
             }
@@ -162,10 +162,7 @@ namespace Riskeer.Common.Forms.Views
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Gets all the row items from the <see cref="DataGridView"/>.
-        /// </summary>
-        protected IEnumerable<CalculatableRow<HydraulicBoundaryLocationCalculation>> GetCalculatableRows()
+        private IEnumerable<CalculatableRow<HydraulicBoundaryLocationCalculation>> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
@@ -190,14 +187,16 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetDataSource()
         {
-            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
-            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, lookup)).ToArray());
+            // TODO: Wire lookup
+            // Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            dataGridViewControl.SetDataSource(calculations?.Select(c => CreateNewRow(c, null)).ToArray());
         }
 
         private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation,
                                                                             IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup)
         {
-            return new HydraulicBoundaryLocationCalculationRow(calculation, lookup[calculation.HydraulicBoundaryLocation]);
+            // TODO: Wire lookup
+            return new HydraulicBoundaryLocationCalculationRow(calculation, string.Empty);
         }
 
         private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
