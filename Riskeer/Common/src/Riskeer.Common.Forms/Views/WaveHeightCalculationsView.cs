@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// View for presenting and performing wave height calculations.
     /// </summary>
-    public partial class WaveHeightCalculationsView : HydraulicBoundaryCalculationsView
+    public partial class WaveHeightCalculationsView : LocationCalculationsView
     {
         private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;
