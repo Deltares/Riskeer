@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowTestHydraulicBoundaryCalculationsView();
+            ShowTestCalculatableView();
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
@@ -146,8 +146,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
-        
-          [Test]
+
+        [Test]
         public void HydraulicBoundaryCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -396,11 +396,6 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             return view;
-        }
-
-        private void ShowTestHydraulicBoundaryCalculationsView()
-        {
-            ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
         }
 
         private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
