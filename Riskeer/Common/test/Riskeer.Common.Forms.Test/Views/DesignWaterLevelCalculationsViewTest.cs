@@ -517,7 +517,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [TestFixture]
-        private class ViewSynchronizationTest : CalculationsViewSynchronizationTester
+        private class ViewSynchronizationTest : HydraulicBoundaryCalculationsViewSynchronizationTester
         {
             private ObservableList<HydraulicBoundaryLocationCalculation> calculations;
 

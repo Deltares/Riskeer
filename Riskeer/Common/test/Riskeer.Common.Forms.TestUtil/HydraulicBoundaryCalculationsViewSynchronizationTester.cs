@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.TestUtil
     /// Class for testing data and selection synchronization in <see cref="HydraulicBoundaryCalculationsView"/> derivatives.
     /// </summary>
     [TestFixture]
-    public abstract class CalculationsViewSynchronizationTester
+    public abstract class HydraulicBoundaryCalculationsViewSynchronizationTester
     {
         private Form testForm;
 
