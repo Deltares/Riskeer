@@ -163,20 +163,32 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var random = new Random();
 
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location1,
+                    location2
+                }
+            });
+
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                new HydraulicBoundaryLocationCalculation(location1)
                 {
                     Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                 },
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                new HydraulicBoundaryLocationCalculation(location2)
                 {
                     Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                 }
             };
 
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
-                                                                                    new AssessmentSectionStub(),
+                                                                                    assessmentSection,
                                                                                     () => 0.01);
 
             using (var plugin = new RiskeerPlugin())
@@ -208,10 +220,18 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             double GetNormFunc() => 0.01;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
             assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             });
 
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);

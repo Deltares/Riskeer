@@ -164,22 +164,34 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var random = new Random();
 
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location1,
+                    location2
+                }
+            });
+
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    new HydraulicBoundaryLocationCalculation(location1)
                     {
                         Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                     },
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    new HydraulicBoundaryLocationCalculation(location2)
                     {
                         Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                     }
                 }
             };
 
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -207,7 +219,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedCalculationData()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
@@ -217,6 +231,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             };
 
             var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
