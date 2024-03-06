@@ -124,7 +124,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowTestCalculatableView();
+            ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
@@ -148,12 +148,35 @@ namespace Riskeer.Common.Forms.Test.Views
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
-
+        
         [Test]
-        public void HydraulicBoundaryCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+
+            // Assert
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
+        public void Constructor_CheckBoxCorrectlyInitialized()
+        {
+            // Setup & Call
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+
+            // Assert
+            var checkBox = (CheckBox) view.Controls.Find("HideHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
+            Assert.AreEqual("Toon HRD bestand", checkBox.Text);
+            Assert.IsFalse(checkBox.Checked);
+        }
+        
+         [Test]
+        public void Constructor_WithCalculations_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
@@ -186,33 +209,43 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_CalculateAllButtonCorrectlyInitialized()
+        public void Constructor_CalculationsWithIllustrationPointsOutput_IllustrationPointControlDataCorrectlySet()
         {
-            // Setup & Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView();
+            // Setup
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
+
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = output
+            };
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                calculation
+            };
+
+            // Call
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations);
 
             // Assert
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.IsFalse(button.Enabled);
-        }
-
-        [Test]
-        public void Constructor_CheckBoxCorrectlyInitialized()
-        {
-            // Setup & Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView();
-
-            // Assert
-            var checkBox = (CheckBox) view.Controls.Find("HideHydraulicBoundaryDatabaseColumnCheckBox", true)[0];
-            Assert.AreEqual("Toon HRD bestand", checkBox.Text);
-            Assert.IsFalse(checkBox.Checked);
+            var illustrationPointControl = (IllustrationPointsControl) view.Controls.Find("illustrationPointsControl", true).First();
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointControl.Data,
+                                      new IllustrationPointControlItemComparer());
         }
 
         [Test]
         public void Selection_WithoutCalculations_ReturnsNull()
         {
             // Call
-            using (TestHydraulicBoundaryCalculationsView view = ShowTestCalculatableView())
+            using (TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView())
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -223,7 +256,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
-            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
@@ -239,10 +272,10 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
+        public void SelectAllButton_SelectAllButtonClicked_AllCalculationsSelected()
         {
             // Setup
-            ShowFullyConfiguredTestCalculatableView();
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -261,10 +294,10 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void DeselectAllButton_AllCalculatableItemsSelectedDeselectAllButtonClicked_AllCalculatableItemsNotSelected()
+        public void DeselectAllButton_AllCalculationsSelectedDeselectAllButtonClicked_AllCalculationsNotSelected()
         {
             // Setup
-            ShowFullyConfiguredTestCalculatableView();
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             var button = new ButtonTester("DeselectAllButton", testForm);
@@ -291,7 +324,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
-            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -304,7 +337,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
             // Given
-            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             // When
@@ -318,14 +351,14 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedObjects()
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedCalculations()
         {
             // Setup
             var mocks = new MockRepository();
             var guiService = mocks.Stub<IHydraulicBoundaryLocationCalculationGuiService>();
             mocks.ReplayAll();
 
-            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
             view.CalculationGuiService = guiService;
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
@@ -350,10 +383,10 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
+        public void CalculateForSelectedButton_OneSelectedAndCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredTestCalculatableView();
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -367,45 +400,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.DoesNotThrow(test);
         }
-        
-        [Test]
-        public void GetIllustrationPointControlItems_ViewWithData_ReturnsExpectedControlItems()
-        {
-            // Setup
-            var topLevelIllustrationPoints = new[]
-            {
-                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                          "Regular",
-                                                          new TestSubMechanismIllustrationPoint())
-            };
 
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
-
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = output
-            };
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                calculation
-            };
-
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations);
-
-            // Call
-            // IEnumerable<IllustrationPointControlItem> actualControlItems =
-                // view.PublicGetIllustrationPointControlItems();
-
-            // Assert
-            var illustrationPointControl = (IllustrationPointsControl) view.Controls.Find("illustrationPointsControl", true).First();
-            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
-            CollectionAssert.AreEqual(expectedControlItems, illustrationPointControl.Data,
-                                      new IllustrationPointControlItemComparer());
-        }
-
-
-        private TestHydraulicBoundaryCalculationsView ShowTestCalculatableView()
+        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView()
         {
             var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                  new AssessmentSectionStub());
@@ -416,7 +412,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
-        private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestCalculatableView()
+        private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestHydraulicBoundaryCalculationsView()
         {
             TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
@@ -468,7 +464,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return null;
             }
         }
-        
+
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
