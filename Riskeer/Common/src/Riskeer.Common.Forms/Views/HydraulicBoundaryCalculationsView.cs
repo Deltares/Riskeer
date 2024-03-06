@@ -54,8 +54,11 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationsView"/>.
         /// </summary>
+        /// <param name="calculations">The calculations to show in the view.</param>
+        /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                           IAssessmentSection assessmentSection)
+                                                    IAssessmentSection assessmentSection)
         {
             if (calculations == null)
             {
@@ -112,20 +115,6 @@ namespace Riskeer.Common.Forms.Views
         protected abstract void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations);
 
         /// <summary>
-        /// Updates the data source of the data table based on the <see cref="Data"/>.
-        /// </summary>
-        protected void UpdateDataGridViewDataSource()
-        {
-            suspendAllEvents = true;
-            SetDataSource();
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
-            suspendAllEvents = false;
-
-            UpdateCalculateForSelectedButton();
-            ProvideCalculationSelection();
-        }
-
-        /// <summary>
         /// Initializes the <see cref="DataGridView"/>.
         /// </summary>
         protected virtual void InitializeDataGridView()
@@ -162,6 +151,17 @@ namespace Riskeer.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void UpdateDataGridViewDataSource()
+        {
+            suspendAllEvents = true;
+            SetDataSource();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendAllEvents = false;
+
+            UpdateCalculateForSelectedButton();
+            ProvideCalculationSelection();
+        }
+
         private IEnumerable<CalculatableRow<HydraulicBoundaryLocationCalculation>> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
@@ -169,12 +169,12 @@ namespace Riskeer.Common.Forms.Views
                                       .Select(row => (CalculatableRow<HydraulicBoundaryLocationCalculation>) row.DataBoundItem);
         }
 
-        private IEnumerable<HydraulicBoundaryLocationCalculation> GetSelectedCalculatableObjects()
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetSelectedHydraulicBoundaryLocationCalculations()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);
         }
-        
+
         private void HandleHydraulicBoundaryLocationCalculationUpdate()
         {
             suspendAllEvents = true;
@@ -220,7 +220,7 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
-            PerformSelectedCalculations(GetSelectedCalculatableObjects());
+            PerformSelectedCalculations(GetSelectedHydraulicBoundaryLocationCalculations());
         }
 
         private string ValidateCalculatableObjects()
