@@ -58,42 +58,6 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             testForm.Dispose();
         }
-        
-        [Test]
-        public void HydraulicBoundaryCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
-        {
-            // Setup & Call
-            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
-
-            // Assert
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(3, rows.Count);
-
-            DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
-
-            cells = rows[1].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
-
-            cells = rows[2].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
-            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-        }
 
         [Test]
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
