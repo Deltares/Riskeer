@@ -701,7 +701,7 @@ ooA//9k=
 			</helperscreenshot>
 		</mouseitem>
 		<explicitdelayitem
-		duration="100ms"
+		duration="300ms"
 		enabled="True"
 		optional="False">
 			<comment>
