@@ -35,9 +35,8 @@ namespace Riskeer.Common.Forms.TestUtil
     /// <summary>
     /// Class for testing data and selection synchronization in <see cref="LocationCalculationsView"/> derivatives.
     /// </summary>
-    /// <typeparam name="T">The type of the calculations contained by the view.</typeparam>
     [TestFixture]
-    public abstract class CalculationsViewSynchronizationTester<T> where T : class
+    public abstract class CalculationsViewSynchronizationTester
     {
         private Form testForm;
 
