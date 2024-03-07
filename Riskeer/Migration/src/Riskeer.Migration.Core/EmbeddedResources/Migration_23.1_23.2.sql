@@ -72,7 +72,85 @@ INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionEntity SEL
 INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
-INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
+INSERT INTO MacroStabilityInwardsCalculationOutputEntity(
+    [MacroStabilityInwardsCalculationOutputEntityId],
+    [MacroStabilityInwardsCalculationEntityId],
+    [FactorOfStability],
+    [ForbiddenZonesXEntryMin],
+    [ForbiddenZonesXEntryMax],
+    [SlidingCurveLeftSlidingCircleCenterX],
+    [SlidingCurveLeftSlidingCircleCenterY],
+    [SlidingCurveLeftSlidingCircleRadius],
+    [SlidingCurveLeftSlidingCircleIsActive],
+    [SlidingCurveLeftSlidingCircleNonIteratedForce],
+    [SlidingCurveLeftSlidingCircleIteratedForce],
+    [SlidingCurveLeftSlidingCircleDrivingMoment],
+    [SlidingCurveLeftSlidingCircleResistingMoment],
+    [SlidingCurveRightSlidingCircleCenterX],
+    [SlidingCurveRightSlidingCircleCenterY],
+    [SlidingCurveRightSlidingCircleRadius],
+    [SlidingCurveRightSlidingCircleIsActive],
+    [SlidingCurveRightSlidingCircleNonIteratedForce],
+    [SlidingCurveRightSlidingCircleIteratedForce],
+    [SlidingCurveRightSlidingCircleDrivingMoment],
+    [SlidingCurveRightSlidingCircleResistingMoment],
+    [SlidingCurveNonIteratedHorizontalForce],
+    [SlidingCurveIteratedHorizontalForce],
+    [SlidingCurveSliceXML],
+    [SlipPlaneLeftGridXLeft],
+    [SlipPlaneLeftGridXRight],
+    [SlipPlaneLeftGridNrOfHorizontalPoints],
+    [SlipPlaneLeftGridZTop],
+    [SlipPlaneLeftGridZBottom],
+    [SlipPlaneLeftGridNrOfVerticalPoints],
+    [SlipPlaneRightGridXLeft],
+    [SlipPlaneRightGridXRight],
+    [SlipPlaneRightGridNrOfHorizontalPoints],
+    [SlipPlaneRightGridZTop],
+    [SlipPlaneRightGridZBottom],
+    [SlipPlaneRightGridNrOfVerticalPoints],
+    [SlipPlaneTangentLinesXml])
+SELECT
+    [MacroStabilityInwardsCalculationOutputEntityId],
+    [MacroStabilityInwardsCalculationEntityId],
+    [FactorOfStability],
+    [ForbiddenZonesXEntryMin],
+    [ForbiddenZonesXEntryMax],
+    [SlidingCurveLeftSlidingCircleCenterX],
+    [SlidingCurveLeftSlidingCircleCenterY],
+    [SlidingCurveLeftSlidingCircleRadius],
+    [SlidingCurveLeftSlidingCircleIsActive],
+    [SlidingCurveLeftSlidingCircleNonIteratedForce],
+    [SlidingCurveLeftSlidingCircleIteratedForce],
+    [SlidingCurveLeftSlidingCircleDrivingMoment],
+    [SlidingCurveLeftSlidingCircleResistingMoment],
+    [SlidingCurveRightSlidingCircleCenterX],
+    [SlidingCurveRightSlidingCircleCenterY],
+    [SlidingCurveRightSlidingCircleRadius],
+    [SlidingCurveRightSlidingCircleIsActive],
+    [SlidingCurveRightSlidingCircleNonIteratedForce],
+    [SlidingCurveRightSlidingCircleIteratedForce],
+    [SlidingCurveRightSlidingCircleDrivingMoment],
+    [SlidingCurveRightSlidingCircleResistingMoment],
+    [SlidingCurveNonIteratedHorizontalForce],
+    [SlidingCurveIteratedHorizontalForce],
+    [SlidingCurveSliceXML],
+    [SlipPlaneLeftGridXLeft],
+    [SlipPlaneLeftGridXRight],
+    [SlipPlaneLeftGridNrOfHorizontalPoints],
+    [SlipPlaneLeftGridZTop],
+    [SlipPlaneLeftGridZBottom],
+    [SlipPlaneLeftGridNrOfVerticalPoints],
+    [SlipPlaneRightGridXLeft],
+    [SlipPlaneRightGridXRight],
+    [SlipPlaneRightGridNrOfHorizontalPoints],
+    [SlipPlaneRightGridZTop],
+    [SlipPlaneRightGridZBottom],
+    [SlipPlaneRightGridNrOfVerticalPoints],
+    [SlipPlaneTangentLinesXml]
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
@@ -95,7 +173,33 @@ INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
-INSERT INTO SemiProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity;
+INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    [Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall])
+SELECT
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    sppcoe.[Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall]
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
+    JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
@@ -163,6 +267,15 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
     'ToVersion' VARCHAR(20) NOT NULL,
     'LogMessage' TEXT NOT NULL);
 
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+VALUES (
+    "23.1",
+    "23.2",
+    "Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
+
 CREATE TEMP TABLE TempLogOutputDeleted
 (
     'NrDeleted' INTEGER NOT NULL
@@ -183,12 +296,12 @@ INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].Probabilist
 INSERT INTO TempLogOutputDeleted
 SELECT COUNT()
 FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
-    JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 0;
 INSERT INTO TempLogOutputDeleted
 SELECT COUNT()
 FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
-    JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 0;
 
 CREATE TEMP TABLE TempLogOutputRemaining
@@ -198,32 +311,32 @@ CREATE TEMP TABLE TempLogOutputRemaining
 
 INSERT INTO TempLogOutputRemaining
 SELECT COUNT() +
-       (
-           SELECT COUNT()
-           FROM MacroStabilityInwardsCalculationOutputEntity
-                    JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
-           WHERE UseAssessmentLevelManualInput = 1
-       )
+(
+   SELECT COUNT()
+   FROM MacroStabilityInwardsCalculationOutputEntity
+    JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+   WHERE UseAssessmentLevelManualInput = 1
+)
 FROM SemiProbabilisticPipingCalculationOutputEntity
-         JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
-[LogMessage])
+    [LogMessage])
 SELECT
-    "22.1",
     "23.1",
+    "23.2",
     CASE
         WHEN [NrRemaining] > 0
             THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
         ELSE "* Alle berekende resultaten zijn verwijderd."
         END
 FROM TempLogOutputDeleted
-         LEFT JOIN TempLogOutputRemaining
+LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
-    LIMIT 1;
+LIMIT 1;
 
 CREATE TEMP TABLE TempFailureMechanisms
 (
@@ -261,8 +374,8 @@ SELECT
     [FailureMechanismEntityId],
     [FailureMechanismName]
 FROM AssessmentSectionEntity
-    JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
-    JOIN TempFailureMechanisms USING (FailureMechanismType);
+JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
+JOIN TempFailureMechanisms USING (FailureMechanismType);
 
 CREATE TEMP TABLE TempChanges (
     [AssessmentSectionId],
@@ -382,15 +495,6 @@ DROP TABLE TempChanges;
 
 DROP TABLE TempLogOutputDeleted;
 DROP TABLE TempLogOutputRemaining;
-
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
-    [FromVersion],
-    [ToVersion],
-    [LogMessage])
-VALUES (
-    "23.1",
-    "23.2",
-    "Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
  
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
@@ -399,10 +503,10 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 SELECT "23.1",
        "23.2",
        "* Geen aanpassingen."
-    WHERE (
-        SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
-        WHERE [FromVersion] = "23.1"
-    ) IS 1;
+WHERE (
+    SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
+    WHERE [FromVersion] = "23.1"
+) IS 1;
  
 DETACH LOGDATABASE;
  
