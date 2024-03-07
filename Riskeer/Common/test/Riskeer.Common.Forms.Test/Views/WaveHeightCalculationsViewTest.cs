@@ -259,66 +259,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightCalculationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
-        {
-            // Setup
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
-
-            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
-
-            // Precondition
-            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
-            DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
-            DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-
-            HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocationCalculations.First();
-
-            // Call
-            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
-            calculation.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-        }
-
-        [Test]
-        public void WaveHeightCalculationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
-        {
-            // Setup
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
-
-            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
-
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
-
-            calculationsDataGridViewControl.SetCurrentCell(calculationsDataGridViewControl.GetCell(2, 0));
-
-            // Precondition
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-
-            var topLevelIllustrationPoints = new[]
-            {
-                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                          "Regular",
-                                                          new TestSubMechanismIllustrationPoint())
-            };
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
-
-            // Call
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculations.ElementAt(2);
-            hydraulicBoundaryLocationCalculation.Output = output;
-            hydraulicBoundaryLocationCalculation.NotifyObservers();
-
-            // Assert
-            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
-            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
-        }
-
-        [Test]
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights()
         {
             // Setup

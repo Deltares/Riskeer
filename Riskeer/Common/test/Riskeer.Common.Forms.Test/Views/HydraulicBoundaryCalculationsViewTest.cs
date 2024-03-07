@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            DataGridView dataGridView = GetDataGridView();
             Assert.AreEqual(5, dataGridView.ColumnCount);
 
             var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
@@ -165,10 +165,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CheckBoxCorrectlyInitialized()
         {
             // Setup & Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+            ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseFileNameColumnCheckBox", true)[0];
+            CheckBox checkBox = GetSHowHydraulicBoundaryDatabaseFileNameCheckBox();
             Assert.AreEqual("Toon HRD bestand", checkBox.Text);
             Assert.IsFalse(checkBox.Checked);
         }
@@ -180,7 +180,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
 
@@ -214,7 +214,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            
+
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -233,7 +233,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 calculation
             };
-            
+
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
@@ -244,10 +244,10 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             // Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations, assessmentSection);
+            ShowTestHydraulicBoundaryCalculationsView(calculations, assessmentSection);
 
             // Assert
-            var illustrationPointControl = (IllustrationPointsControl) view.Controls.Find("illustrationPointsControl", true).First();
+            IllustrationPointsControl illustrationPointControl = GetIllustrationPointsControl();
             IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
             CollectionAssert.AreEqual(expectedControlItems, illustrationPointControl.Data,
                                       new IllustrationPointControlItemComparer());
@@ -273,7 +273,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridView dataGridView = GetDataGridView();
 
             // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
@@ -289,7 +289,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             var button = new ButtonTester("SelectAllButton", testForm);
 
@@ -311,7 +311,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridView dataGridView = GetDataGridView();
             var button = new ButtonTester("DeselectAllButton", testForm);
 
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -341,7 +341,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
         }
 
@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridView dataGridView = GetDataGridView();
 
             // When
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
@@ -358,7 +358,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsTrue(button.Enabled);
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("", errorProvider.GetError(button));
         }
 
@@ -373,7 +373,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
             view.CalculationGuiService = guiService;
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridView dataGridView = GetDataGridView();
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -400,7 +400,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
@@ -417,20 +417,127 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenView_WhenCheckingShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_ThenColumnVisible()
         {
             // Given
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+            ShowTestHydraulicBoundaryCalculationsView();
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+            DataGridView dataGridView = GetDataGridView();
 
             // Precondition
             var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileNameColumnIndex];
             Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
 
             // When
-            var checkBox = (CheckBox) view.Controls.Find("showHydraulicBoundaryDatabaseFileNameColumnCheckBox", true)[0];
+            CheckBox checkBox = GetSHowHydraulicBoundaryDatabaseFileNameCheckBox();
             checkBox.Checked = true;
 
             // Then
             Assert.IsTrue(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+        }
+
+        [Test]
+        public void GivenView_WhenCalculationUpdated_ThenDataGridViewCorrectlyUpdated()
+        {
+            // Given
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(location);
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            });
+
+            ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                calculation
+            }, assessmentSection);
+
+            // Precondition
+            DataGridViewControl calculationsDataGridViewControl = GetDataGridViewControl();
+            DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+
+            // When
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            calculation.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void GivenView_WhenCalculationUpdated_ThenIllustrationPointsControlCorrectlyUpdated()
+        {
+            // Given
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(location);
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            });
+
+            ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                calculation
+            }, assessmentSection);
+
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl calculationsDataGridViewControl = GetDataGridViewControl();
+
+            calculationsDataGridViewControl.SetCurrentCell(calculationsDataGridViewControl.GetCell(0, 0));
+
+            // Precondition
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
+
+            // Call
+            calculation.Output = output;
+            calculation.NotifyObservers();
+
+            // Assert
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+        }
+
+        private DataGridView GetDataGridView()
+        {
+            return ControlTestHelper.GetDataGridView(testForm, "dataGridView");
+        }
+
+        private DataGridViewControl GetDataGridViewControl()
+        {
+            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+        }
+
+        private static ErrorProvider GetErrorProvider(TestHydraulicBoundaryCalculationsView view)
+        {
+            return TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+        }
+
+        private CheckBox GetSHowHydraulicBoundaryDatabaseFileNameCheckBox()
+        {
+            return ControlTestHelper.GetControls<CheckBox>(testForm, "showHydraulicBoundaryDatabaseFileNameColumnCheckBox").Single();
+        }
+
+        private IllustrationPointsControl GetIllustrationPointsControl()
+        {
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
