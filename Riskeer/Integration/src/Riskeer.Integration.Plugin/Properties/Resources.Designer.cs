@@ -384,15 +384,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to HRD bestand.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HRD bestand.
-        /// </summary>
         public static string HydraulicBoundaryDatabase_file_filter_Description {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_file_filter_Description", resourceCulture);

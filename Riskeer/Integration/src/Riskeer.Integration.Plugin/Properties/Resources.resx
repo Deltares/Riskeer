@@ -317,9 +317,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="HydraulicBoundaryDatabases_DisplayName" xml:space="preserve">
         <value>HRD bestanden</value>
     </data>
-    <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-        <value>HRD bestand</value>
-    </data>
     <data name="HydraulicLocationConfigurationDatabase_DisplayName" xml:space="preserve">
         <value>HLCD bestand</value>
     </data>
