@@ -40,8 +40,8 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationConfigurationTypeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
             this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.warningIcon = new System.Windows.Forms.PictureBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
@@ -52,9 +52,10 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.warningIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -77,48 +78,48 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationConfigurationTypeTableLayoutPanel.Name = "calculationConfigurationTypeTableLayoutPanel";
             this.calculationConfigurationTypeTableLayoutPanel.RowCount = 1;
             this.calculationConfigurationTypeTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.calculationConfigurationTypeTableLayoutPanel.Size = new System.Drawing.Size(150, 35);
+            this.calculationConfigurationTypeTableLayoutPanel.Size = new System.Drawing.Size(1348, 35);
             this.calculationConfigurationTypeTableLayoutPanel.TabIndex = 1;
             // 
             // selectScenarioConfigurationTypeLabel
             // 
             this.selectScenarioConfigurationTypeLabel.AutoSize = true;
             this.selectScenarioConfigurationTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 0);
+            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 5);
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.selectScenarioConfigurationTypeLabel.Name = "selectScenarioConfigurationTypeLabel";
-            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(60, 35);
+            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(57, 27);
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = global::Riskeer.Piping.Forms.Properties.Resources.PipingScenariosView_ScenarioConfigurationType_DisplayName;
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             // 
             // selectConfigurationTypeComboBox
             // 
             this.selectConfigurationTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selectConfigurationTypeComboBox.FormattingEnabled = true;
-            this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(75, 7);
+            this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(70, 7);
             this.selectConfigurationTypeComboBox.Name = "selectConfigurationTypeComboBox";
-            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(140, 35);
+            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(140, 21);
             this.selectConfigurationTypeComboBox.TabIndex = 3;
             this.selectConfigurationTypeComboBox.Margin = new System.Windows.Forms.Padding(7);
             this.selectConfigurationTypeComboBox.SelectedIndexChanged += SelectConfigurationTypeComboBox_OnSelectedIndexChanged;
+            // 
+            // warningIcon
+            // 
+            this.warningIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.warningIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.warningIcon.Location = new System.Drawing.Point(224, 7);
+            this.warningIcon.Margin = new System.Windows.Forms.Padding(7);
+            this.warningIcon.Name = "warningIcon";
+            this.warningIcon.Size = new System.Drawing.Size(16, 21);
+            this.warningIcon.TabIndex = 0;
+            this.warningIcon.TabStop = false;
             // 
             // toolTip
             // 
             this.toolTip.AutoPopDelay = 5000;
             this.toolTip.InitialDelay = 100;
             this.toolTip.ReshowDelay = 100;
-            // 
-            // warningIcon
-            // 
-            this.warningIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.warningIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.warningIcon.Location = new System.Drawing.Point(0, 7);
-            this.warningIcon.Margin = new System.Windows.Forms.Padding(7);
-            this.warningIcon.Name = "warningIcon";
-            this.warningIcon.Size = new System.Drawing.Size(16, 16);
-            this.warningIcon.TabIndex = 0;
-            this.warningIcon.TabStop = false;
             // 
             // splitContainer
             // 
@@ -134,8 +135,8 @@ namespace Riskeer.Piping.Forms.Views
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelDataGrid);
-            this.splitContainer.Size = new System.Drawing.Size(150, 150);
-            this.splitContainer.SplitterDistance = 38;
+            this.splitContainer.Size = new System.Drawing.Size(1348, 762);
+            this.splitContainer.SplitterDistance = 341;
             this.splitContainer.TabIndex = 0;
             // 
             // tableLayoutPanelListBox
@@ -150,7 +151,7 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelListBox.RowCount = 2;
             this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelListBox.Size = new System.Drawing.Size(38, 150);
+            this.tableLayoutPanelListBox.Size = new System.Drawing.Size(341, 762);
             this.tableLayoutPanelListBox.TabIndex = 0;
             // 
             // label
@@ -158,7 +159,7 @@ namespace Riskeer.Piping.Forms.Views
             this.label.AutoSize = true;
             this.label.Location = new System.Drawing.Point(3, 0);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(26, 13);
+            this.label.Size = new System.Drawing.Size(0, 13);
             this.label.TabIndex = 0;
             this.label.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
             // 
@@ -168,7 +169,7 @@ namespace Riskeer.Piping.Forms.Views
             this.listBox.FormattingEnabled = true;
             this.listBox.Location = new System.Drawing.Point(3, 16);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(44, 131);
+            this.listBox.Size = new System.Drawing.Size(335, 743);
             this.listBox.TabIndex = 1;
             // 
             // tableLayoutPanelDataGrid
@@ -178,14 +179,16 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.Controls.Add(this.radioButtonsPanel, 0, 0);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 1);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 2);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 3);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
-            this.tableLayoutPanelDataGrid.RowCount = 3;
+            this.tableLayoutPanelDataGrid.RowCount = 4;
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(108, 150);
+            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 762);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
             // 
             // radioButtonsPanel
@@ -193,18 +196,19 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Controls.Add(this.radioButtonProbabilistic);
             this.radioButtonsPanel.Controls.Add(this.radioButtonSemiProbabilistic);
             this.radioButtonsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButtonsPanel.Location = new System.Drawing.Point(3, 3);
-            this.radioButtonsPanel.Name = "radioButtonsPanel";
-            this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
-            this.radioButtonsPanel.TabIndex = 0;
+            this.radioButtonsPanel.Location = new System.Drawing.Point(3, 19);
             this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 19, 0, 0);
+            this.radioButtonsPanel.Name = "radioButtonsPanel";
+            this.radioButtonsPanel.Size = new System.Drawing.Size(1000, 30);
+            this.radioButtonsPanel.TabIndex = 0;
             // 
             // radioButtonProbabilistic
             // 
-            this.radioButtonProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButtonProbabilistic.Location = new System.Drawing.Point(0, 0);
-            this.radioButtonProbabilistic.Name = "radioButtonProbabilistic";
             this.radioButtonProbabilistic.AutoSize = true;
+            this.radioButtonProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButtonProbabilistic.Location = new System.Drawing.Point(117, 0);
+            this.radioButtonProbabilistic.Name = "radioButtonProbabilistic";
+            this.radioButtonProbabilistic.Size = new System.Drawing.Size(92, 30);
             this.radioButtonProbabilistic.TabIndex = 1;
             this.radioButtonProbabilistic.TabStop = true;
             this.radioButtonProbabilistic.Text = global::Riskeer.Piping.Forms.Properties.Resources.ScenarioConfigurationType_Probabilistic_DisplayName;
@@ -228,27 +232,38 @@ namespace Riskeer.Piping.Forms.Views
             // labelCalculations
             // 
             this.labelCalculations.AutoSize = true;
-            this.labelCalculations.Location = new System.Drawing.Point(3, 0);
+            this.labelCalculations.Location = new System.Drawing.Point(3, 49);
             this.labelCalculations.Name = "labelCalculations";
-            this.labelCalculations.Size = new System.Drawing.Size(182, 13);
+            this.labelCalculations.Size = new System.Drawing.Size(173, 13);
             this.labelCalculations.TabIndex = 0;
             this.labelCalculations.Text = global::Riskeer.Piping.Forms.Properties.Resources.Calculations_for_current_Selection_DisplayName;
             // 
             // dataGridViewControl
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 65);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(183, 131);
+            this.dataGridViewControl.Size = new System.Drawing.Size(997, 694);
             this.dataGridViewControl.TabIndex = 1;
+            // 
+            // labelTotalScenarioContribution
+            // 
+            this.labelTotalScenarioContribution.AutoSize = true;
+            this.labelTotalScenarioContribution.Location = new System.Drawing.Point(3, 762);
+            this.labelTotalScenarioContribution.Name = "labelTotalScenarioContribution";
+            this.labelTotalScenarioContribution.Size = new System.Drawing.Size(0, 13);
+            this.labelTotalScenarioContribution.TabIndex = 2;
+            this.labelTotalScenarioContribution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelTotalScenarioContribution.Text = "test";
             // 
             // PipingScenariosView
             // 
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.calculationConfigurationTypeTableLayoutPanel);
             this.Name = "PipingScenariosView";
+            this.Size = new System.Drawing.Size(1348, 797);
             this.calculationConfigurationTypeTableLayoutPanel.ResumeLayout(false);
             this.calculationConfigurationTypeTableLayoutPanel.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
@@ -261,6 +276,7 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
             this.radioButtonsPanel.ResumeLayout(false);
+            this.radioButtonsPanel.PerformLayout();
             this.ResumeLayout(false);
         }
 
@@ -274,6 +290,7 @@ namespace Riskeer.Piping.Forms.Views
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
+        private System.Windows.Forms.Label labelTotalScenarioContribution;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.ComboBox selectConfigurationTypeComboBox;
         private System.Windows.Forms.ToolTip toolTip;
