@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(9);
             var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
             bool areFailureMechanismsCorrelated = random.NextBoolean();
-            
+
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,

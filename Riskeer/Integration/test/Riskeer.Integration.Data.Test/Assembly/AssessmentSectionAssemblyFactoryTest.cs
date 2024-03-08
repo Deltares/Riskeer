@@ -42,6 +42,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
     [TestFixture]
     public class AssessmentSectionAssemblyFactoryTest
     {
+        #region Assemble Assessment Section
+
         [Test]
         public void AssembleAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -52,8 +54,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-
-        #region Assemble Assessment Section
 
         [Test]
         public void AssembleAssessmentSection_AssessmentSectionWithFailureMechanismsCorrelatedFalseAndContainingFailureMechanismsWithRandomInAssemblyState_SetsInputOnCalculator()
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput);
             }
         }
-        
+
         [Test]
         public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsFalseAndAllCorrelatedFailureMechanismsInAssembly_SetsInputOnCalculator()
         {
@@ -173,12 +173,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(assessmentSectionAssemblyCalculator.UncorrelatedFailureMechanismProbabilitiesInput);
             }
         }
-        
+
         [Test]
         public void AssembleAssessmentSection_AssessmentSectionWithCorrelatedFailureMechanismsTrueAndSomeCorrelatedFailureMechanismsNotInAssembly_SetsInputOnCalculator()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
+            assessmentSection.AreFailureMechanismsCorrelated = false;
             assessmentSection.HeightStructures.InAssembly = false;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -240,7 +241,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
             assessmentSection.AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated;
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -266,7 +267,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
             assessmentSection.AreFailureMechanismsCorrelated = areFailureMechanismsCorrelated;
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
