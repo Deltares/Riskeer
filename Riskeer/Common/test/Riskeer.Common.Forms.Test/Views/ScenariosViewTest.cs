@@ -235,6 +235,29 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
 
+        
+        [Test]
+        public void Constructor_WithFailureMechanismSectionsAndWithoutRelevantCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new TestCalculatableFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+            
+            // Call
+            ShowScenariosView(new CalculationGroup(), failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+        
         [Test]
         public void ScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
         {
@@ -528,7 +551,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(100.01)]
         [TestCase(99.99)]
         [TestCase(50)]
-        public void GivenScenariosViewWithTotalContributionsNotValid_WhenEditingScenarioContributionsToValidValue_ThenTotalContributionLabelUpdatedAndErrorShown(
+        public void GivenScenariosViewWithTotalContributionsValid_WhenEditingScenarioContributionsToInvalidValue_ThenTotalContributionLabelUpdatedAndErrorShown(
             double newContribution)
         {
             // Given

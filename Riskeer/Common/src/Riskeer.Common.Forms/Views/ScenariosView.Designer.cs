@@ -124,7 +124,6 @@ namespace Riskeer.Common.Forms.Views
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(108, 150);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
-            this.labelTotalScenarioContribution.TabIndex = 3;
             // 
             // labelTotalScenarioContribution
             // 
