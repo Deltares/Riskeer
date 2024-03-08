@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Enums;
@@ -111,6 +112,8 @@ namespace Riskeer.Piping.Forms.Views
             UpdateSectionsListBox();
             UpdateDataGridViewDataSource();
 
+            UpdateTotalScenarioContributionLabel();
+
             UpdateVisibility();
         }
 
@@ -172,20 +175,24 @@ namespace Riskeer.Piping.Forms.Views
                 Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
 
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
 
-            calculationObserver = new RecursiveObserver<CalculationGroup, IPipingCalculationScenario<PipingInput>>(UpdateScenarioRows, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, IPipingCalculationScenario<PipingInput>>(() =>
+            {
+                UpdateScenarioRows();
+                UpdateTotalScenarioContributionLabel();
+            }, pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
-                                                                                                pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
-                                                                                                   .Select(c => c.InputParameters)))
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateScenarioControls, pcg => pcg.Children.Concat<object>(
+                pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
+                   .Select(c => c.InputParameters)))
             {
                 Observable = calculationGroup
             };
@@ -285,7 +292,13 @@ namespace Riskeer.Piping.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
+            UpdateScenarioControls();
+        }
+
+        private void UpdateScenarioControls()
+        {
             UpdateDataGridViewDataSource();
+            UpdateTotalScenarioContributionLabel();
         }
 
         private void UpdateRadioButtons()
@@ -367,6 +380,40 @@ namespace Riskeer.Piping.Forms.Views
             UpdateVisibility();
             UpdateDataGridViewDataSource();
             checkedRadioButton = newCheckedRadioButton;
+        }
+
+        private void UpdateTotalScenarioContributionLabel()
+        {
+            ClearErrorMessage();
+
+            IEnumerable<IPipingScenarioRow> contributingScenarios = scenarioRows?.Where(r => r.IsRelevant);
+            if (contributingScenarios == null || !contributingScenarios.Any())
+            {
+                labelTotalScenarioContribution.Visible = false;
+                return;
+            }
+
+            labelTotalScenarioContribution.Visible = true;
+
+            double totalScenarioContribution = contributingScenarios.Sum(r => r.Contribution);
+            var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
+            {
+                SetErrorMessage(RiskeerCommonFormsResources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
+            }
+
+            labelTotalScenarioContribution.Text = string.Format(RiskeerCommonFormsResources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_,
+                                                                roundedTotalScenarioContribution);
+        }
+
+        private void SetErrorMessage(string errorMessage)
+        {
+            errorProvider.SetError(labelTotalScenarioContribution, errorMessage);
+        }
+
+        private void ClearErrorMessage()
+        {
+            errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
     }
 }

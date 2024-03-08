@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -339,6 +340,86 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
+        public void Constructor_FailureMechanismWithSectionsAndWithVariousRelevantScenarios_TotalContributionScenariosCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
+                                                                                                                                           PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ForEachElementDo(sc => sc.ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType);
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+            Assert.AreEqual(ContentAlignment.MiddleLeft, totalScenarioContributionLabel.TextAlign);
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 51,20%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
+        public void Constructor_FailureMechanismWithoutSectionsAndCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized(
+            PipingScenarioConfigurationType scenarioConfigurationType)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
+        public void Constructor_FailureMechanismWithSectionsAndWithoutCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized(
+            PipingScenarioConfigurationType scenarioConfigurationType)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
         public void PipingScenarioView_SemiProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -348,12 +429,12 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(8, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 13.701).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
             Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
@@ -363,9 +444,20 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(8, cells.Count);
-            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.IsFalse(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+
+            cells = rows[2].Cells;
+            Assert.AreEqual(8, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 37.503).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 3", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.038461838), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
@@ -389,13 +481,13 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(8, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 3", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 13.701).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 4", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(null, cells[failureProbabilityUpliftColumnIndex].Value);
             Assert.AreEqual(null, cells[failureProbabilityHeaveColumnIndex].Value);
             Assert.AreEqual(null, cells[failureProbabilitySellmeijerColumnIndex].Value);
@@ -404,9 +496,20 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(8, cells.Count);
-            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.IsFalse(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 4", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 5", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(null, cells[failureProbabilityUpliftColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilityHeaveColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilitySellmeijerColumnIndex].Value);
+            Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+
+            cells = rows[2].Cells;
+            Assert.AreEqual(8, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 37.503).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 6", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(null, cells[failureProbabilityUpliftColumnIndex].Value);
             Assert.AreEqual(null, cells[failureProbabilityHeaveColumnIndex].Value);
             Assert.AreEqual(null, cells[failureProbabilitySellmeijerColumnIndex].Value);
@@ -984,7 +1087,404 @@ namespace Riskeer.Piping.Forms.Test.Views
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
-        private void ConfigureFailureMechanism(PipingFailureMechanism failureMechanism)
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithTotalContributionsNotValid_WhenEditingScenarioContributionToValidValue_ThenTotalContributionLabelUpdatedAndErrorNotShown(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.5011
+                },
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.75
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.5011
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.75
+                }
+            });
+
+            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 125,11%",
+                            totalScenarioContributionLabel.Text);
+
+            ErrorProvider errorProvider = GetErrorProvider(view);
+            Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
+                            errorProvider.GetError(totalScenarioContributionLabel));
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) 25;
+
+            // Then
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+            Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [Combinatorial]
+        public void GivenPipingScenariosViewWithTotalContributionsValid_WhenEditingScenarioContributionsToInvalidValue_ThenTotalContributionLabelUpdatedAndErrorShown(
+            [Values(25.01, 24.99, 50)] double newContribution,
+            [Values(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationType.Probabilistic)]
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.25
+                },
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.75
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.25
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    Contribution = (RoundedDouble) 0.75
+                }
+            });
+
+            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+
+            ErrorProvider errorProvider = GetErrorProvider(view);
+            Assert.IsEmpty(errorProvider.GetError(totalScenarioContributionLabel));
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newContribution;
+
+            // Then
+            Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution + 75:F2}%",
+                            totalScenarioContributionLabel.Text);
+
+            Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
+                            errorProvider.GetError(totalScenarioContributionLabel));
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithoutContributingScenarios_WhenMakingScenarioRelevant_ThenTotalContributionLabelUpdatedAndShown(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    IsRelevant = false
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    },
+                    IsRelevant = false
+                }
+            });
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[isRelevantColumnIndex].Value = true;
+
+            // Then
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithContributingScenarios_WhenMakingContributingScenarioIrrelevant_ThenTotalContributionLabelNotVisible(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                }
+            });
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Rows[0].Cells[isRelevantColumnIndex].Value = false;
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithoutScenarios_WhenAddingRelevantScenarioAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelUpdatedAndShown(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+            failureMechanism.CalculationsGroup.Children.Clear();
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+
+            // When
+            IPipingCalculationScenario<PipingInput> calculationToAdd =
+                configurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                    ? (IPipingCalculationScenario<PipingInput>) new SemiProbabilisticPipingCalculationScenario
+                    {
+                        InputParameters =
+                        {
+                            SurfaceLine = failureMechanism.SurfaceLines.First()
+                        }
+                    }
+                    : new ProbabilisticPipingCalculationScenario
+                    {
+                        InputParameters =
+                        {
+                            SurfaceLine = failureMechanism.SurfaceLines.First()
+                        }
+                    };
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Add(calculationToAdd);
+            calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 100,00%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithScenarios_WhenCalculationsGroupClearedAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelNotVisible(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                }
+            });
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            calculationGroup.Children.Clear();
+            calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void GivenPipingScenariosViewWithScenarios_WhenScenariosClearedAndFailureMechanismNotifiesObserver_ThenTotalContributionLabelNotVisible(
+            PipingScenarioConfigurationType configurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = configurationType
+            };
+            ConfigureFailureMechanism(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            calculationGroup.Children.Clear();
+            calculationGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = failureMechanism.SurfaceLines.First()
+                    }
+                }
+            });
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+
+            // When
+            calculationGroup.Children.Clear();
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        private static ErrorProvider GetErrorProvider(PipingScenariosView view)
+        {
+            return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
+        }
+
+        private static void ConfigureFailureMechanism(PipingFailureMechanism failureMechanism)
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
@@ -1009,6 +1509,12 @@ namespace Riskeer.Piping.Forms.Test.Views
                 new Point3D(5.0, 0.0, 1.0),
                 new Point3D(5.0, -5.0, 0.0)
             });
+
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine1,
+                surfaceLine2
+            }, "Path");
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -1042,7 +1548,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                         },
                         EntryPointL = (RoundedDouble) 3.3333,
                         ExitPointL = (RoundedDouble) 4.4444
-                    }
+                    },
+                    Contribution = (RoundedDouble) 0.13701
                 },
                 new SemiProbabilisticPipingCalculationScenario
                 {
@@ -1061,29 +1568,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                         EntryPointL = (RoundedDouble) 7.7777,
                         ExitPointL = (RoundedDouble) 8.8888
                     },
-                    Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024)
+                    IsRelevant = false
                 },
-                new ProbabilisticPipingCalculationScenario
+                new SemiProbabilisticPipingCalculationScenario
                 {
                     Name = "Calculation 3",
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine1,
-                        DampingFactorExit =
-                        {
-                            Mean = (RoundedDouble) 1.1111
-                        },
-                        PhreaticLevelExit =
-                        {
-                            Mean = (RoundedDouble) 2.2222
-                        },
-                        EntryPointL = (RoundedDouble) 3.3333,
-                        ExitPointL = (RoundedDouble) 4.4444
-                    }
-                },
-                new ProbabilisticPipingCalculationScenario
-                {
-                    Name = "Calculation 4",
                     InputParameters =
                     {
                         SurfaceLine = surfaceLine2,
@@ -1098,7 +1587,66 @@ namespace Riskeer.Piping.Forms.Test.Views
                         EntryPointL = (RoundedDouble) 7.7777,
                         ExitPointL = (RoundedDouble) 8.8888
                     },
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                    Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024),
+                    Contribution = (RoundedDouble) 0.37503
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 4",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine1,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 1.1111
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 2.2222
+                        },
+                        EntryPointL = (RoundedDouble) 3.3333,
+                        ExitPointL = (RoundedDouble) 4.4444
+                    },
+                    Contribution = (RoundedDouble) 0.13701
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 5",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine1,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 1.1111
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 2.2222
+                        },
+                        EntryPointL = (RoundedDouble) 3.3333,
+                        ExitPointL = (RoundedDouble) 4.4444
+                    },
+                    IsRelevant = false
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 6",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine2,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 5.5555
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 6.6666
+                        },
+                        EntryPointL = (RoundedDouble) 7.7777,
+                        ExitPointL = (RoundedDouble) 8.8888
+                    },
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints(),
+                    Contribution = (RoundedDouble) 0.37503
                 }
             });
         }

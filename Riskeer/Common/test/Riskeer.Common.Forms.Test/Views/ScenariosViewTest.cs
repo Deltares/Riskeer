@@ -235,7 +235,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
 
-        
         [Test]
         public void Constructor_WithFailureMechanismSectionsAndWithoutRelevantCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized()
         {
@@ -249,7 +248,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     new Point2D(5.0, 0.0)
                 })
             });
-            
+
             // Call
             ShowScenariosView(new CalculationGroup(), failureMechanism);
 
@@ -257,7 +256,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
-        
+
         [Test]
         public void ScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
         {
@@ -585,7 +584,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             Assert.AreEqual($"De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {newContribution:F2}%",
                             totalScenarioContributionLabel.Text);
-            
+
             Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                             errorProvider.GetError(totalScenarioContributionLabel));
         }
