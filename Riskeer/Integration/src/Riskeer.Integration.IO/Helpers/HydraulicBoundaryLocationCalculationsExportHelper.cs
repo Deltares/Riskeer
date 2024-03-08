@@ -73,6 +73,19 @@ namespace Riskeer.Integration.IO.Helpers
                                                               calculations, calculationsType, exportedCalculationFileNames, folderPath));
         }
 
+        public static string GetUniqueName(HydraulicBoundaryLocationCalculationsType calculationsType, double targetProbability,
+                                           IEnumerable<string> existingFileNames = null)
+        {
+            string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
+                                    ? Resources.WaterLevels_DisplayName
+                                    : Resources.WaveHeights_DisplayName;
+
+            return NamingHelper.GetUniqueName(
+                existingFileNames ?? Enumerable.Empty<string>(),
+                $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
+                c => c);
+        }
+
         private static bool ExportCalculationsForTargetProbability(
             Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
             HydraulicBoundaryLocationCalculationsType calculationsType,
@@ -82,13 +95,8 @@ namespace Riskeer.Integration.IO.Helpers
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;
 
-            string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
-                                    ? Resources.WaterLevels_DisplayName
-                                    : Resources.WaveHeights_DisplayName;
+            string uniqueName = GetUniqueName(calculationsType, targetProbability, exportedCalculationFileNames);
 
-            string uniqueName = NamingHelper.GetUniqueName(
-                exportedCalculationFileNames, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
-                c => c);
             exportedCalculationFileNames.Add(uniqueName);
 
             string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
