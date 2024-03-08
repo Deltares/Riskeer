@@ -136,11 +136,12 @@ namespace Riskeer.Integration.Forms.Views
             this.checkBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.checkBox.Location = new System.Drawing.Point(239, 21);
             this.checkBox.Name = "checkBox";
+            this.checkBox.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.checkBox.Size = new System.Drawing.Size(530, 24);
             this.checkBox.TabIndex = 4;
             this.checkBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_GrassCoverErosionInwards_and_HeightStructures_correlated;
             this.checkBox.UseVisualStyleBackColor = true;
-            this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            this.checkBox.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
             // 
             // AssemblyResultTotalView
             // 

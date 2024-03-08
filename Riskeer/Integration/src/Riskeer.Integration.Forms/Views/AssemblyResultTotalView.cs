@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(UpdateUserControls)
+            assessmentSectionObserver = new Observer(EnableRefreshButton)
             {
                 Observable = assessmentSection
             };
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             EnableRefreshButton();
             AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
