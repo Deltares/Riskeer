@@ -61,7 +61,7 @@ namespace Core.Gui.Test.Helpers
         [Test]
         [TestCase(null)]
         [TestCase("C:/test")]
-        public void GetFilePath_Always_ReturnsSelectedFilePath(string expectedFilePath)
+        public void GetFilePath_WithoutSuggestedFileName_ReturnsSelectedFilePath(string expectedFilePath)
         {
             // Setup
             var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
@@ -74,6 +74,28 @@ namespace Core.Gui.Test.Helpers
 
             // Call
             string filePath = ExportHelper.GetFilePath(inquiryHelper, fileFilterGenerator);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, filePath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void GetFilePath_WithSuggestedFileName_ReturnsSelectedFilePath([Values(null, "C:/test")] string expectedFilePath,
+                                                                              [Values(null, "random.txt")] string suggestedFileName)
+        {
+            // Setup
+            var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName))
+                         .Return(expectedFilePath);
+            mocks.ReplayAll();
+
+            // Call
+            string filePath = ExportHelper.GetFilePath(inquiryHelper, fileFilterGenerator, suggestedFileName);
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);

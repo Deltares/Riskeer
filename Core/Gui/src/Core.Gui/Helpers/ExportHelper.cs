@@ -34,10 +34,11 @@ namespace Core.Gui.Helpers
         /// </summary>
         /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <param name="fileFilterGenerator">The file filter generator to use.</param>
+        /// <param name="suggestedFileName">The initial file name the user can choose.</param>
         /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
         /// was chosen.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static string GetFilePath(IInquiryHelper inquiryHelper, FileFilterGenerator fileFilterGenerator)
+        public static string GetFilePath(IInquiryHelper inquiryHelper, FileFilterGenerator fileFilterGenerator, string suggestedFileName = null)
         {
             if (inquiryHelper == null)
             {
@@ -49,7 +50,7 @@ namespace Core.Gui.Helpers
                 throw new ArgumentNullException(nameof(fileFilterGenerator));
             }
 
-            return inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, null);
+            return inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName);
         }
 
         /// <summary>
