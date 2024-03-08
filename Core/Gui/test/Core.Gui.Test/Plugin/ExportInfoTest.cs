@@ -88,7 +88,7 @@ namespace Core.Gui.Test.Plugin
                 Extension = extension,
                 Category = category,
                 Image = image,
-                GetExportPath = () => exportPath
+                GetExportPath = data => exportPath
             };
 
             // Precondition
@@ -108,7 +108,7 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(extension, info.Extension);
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
-            Assert.AreEqual(exportPath, info.GetExportPath());
+            Assert.AreEqual(exportPath, info.GetExportPath(12));
 
             mocks.VerifyAll();
         }

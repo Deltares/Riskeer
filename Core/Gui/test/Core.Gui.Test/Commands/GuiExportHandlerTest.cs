@@ -131,8 +131,8 @@ namespace Core.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (o, s) => exporter,
-                    GetExportPath = () => null
+                    CreateFileExporter = (data, s) => exporter,
+                    GetExportPath = data => null
                 }
             });
 
@@ -169,7 +169,11 @@ namespace Core.Gui.Test.Commands
                         Assert.AreEqual(targetExportFileName, filePath);
                         return exporter;
                     },
-                    GetExportPath = () => targetExportFileName
+                    GetExportPath = data =>
+                    {
+                        Assert.AreEqual(expectedData, data);
+                        return targetExportFileName;
+                    }
                 }
             });
 
@@ -206,7 +210,7 @@ namespace Core.Gui.Test.Commands
                 {
                     Name = i => exportInfoName,
                     CreateFileExporter = (data, filePath) => exporter,
-                    GetExportPath = () => targetExportFileName
+                    GetExportPath = data => targetExportFileName
                 }
             });
 
