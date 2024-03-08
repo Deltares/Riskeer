@@ -242,8 +242,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                                                          .ToString(CultureInfo.InvariantCulture));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
@@ -258,8 +258,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                                     WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)
                                                                                                                                              .ToString(CultureInfo.InvariantCulture)),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsCalculationGroupContext>(

@@ -602,8 +602,8 @@ namespace Riskeer.Integration.Plugin
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<AssemblyResultsContext>
@@ -612,8 +612,8 @@ namespace Riskeer.Integration.Plugin
                 Extension = Resources.AssemblyResults_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
-                                                                                                           Resources.AssemblyResults_DisplayName))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
+                                                                                                                Resources.AssemblyResults_DisplayName))
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
@@ -631,8 +631,8 @@ namespace Riskeer.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
                 IsEnabled = context => true,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -650,8 +650,8 @@ namespace Riskeer.Integration.Plugin
                             context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                     }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Zip_file_filter_Description))
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
@@ -1088,8 +1088,8 @@ namespace Riskeer.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
                 IsEnabled = context => true,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Shape_file_filter_Description))
             };
         }
 
@@ -1105,8 +1105,8 @@ namespace Riskeer.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                     locationCalculationsForTargetProbabilitiesFunc(context), calculationsType, filePath),
                 IsEnabled = context => locationCalculationsForTargetProbabilitiesFunc(context).Any(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Zip_file_filter_Description))
             };
         }
 

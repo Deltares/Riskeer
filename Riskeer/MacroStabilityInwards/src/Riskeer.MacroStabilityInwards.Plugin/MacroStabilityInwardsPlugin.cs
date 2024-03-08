@@ -188,8 +188,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                     context.WrappedData, context.FailureMechanism.GeneralInput, new PersistenceFactory(), filePath,
                     () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData)),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
-                                                                                                           Resources.Stix_file_filter_description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                                                                                Resources.Stix_file_filter_description))
             };
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
@@ -200,8 +200,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                                               new PersistenceFactory(), filePath, Resources.Stix_file_filter_extension,
                                                                                                               calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
                 IsEnabled = context => context.WrappedData.HasOutput(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                                RiskeerCommonIOResources.Zip_file_filter_Description))
             };
         }
 

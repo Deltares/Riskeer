@@ -233,7 +233,7 @@ namespace Riskeer.DuneErosion.Plugin
                            .ToArray(),
                     filePath),
                 IsEnabled = context => context.WrappedData.DuneLocationCalculations.Any(calculation => calculation.Output != null),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
 
             yield return new ExportInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
@@ -242,7 +242,7 @@ namespace Riskeer.DuneErosion.Plugin
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = CreateDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextFileExporter,
                 IsEnabled = IsDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportMenuItemEnabled,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
         }
 

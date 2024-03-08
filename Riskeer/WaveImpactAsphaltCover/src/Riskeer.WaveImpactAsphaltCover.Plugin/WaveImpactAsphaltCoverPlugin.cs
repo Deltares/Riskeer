@@ -237,7 +237,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                                          .ToString(CultureInfo.InvariantCulture));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
@@ -252,7 +252,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                                                  WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)
                                                                                                                                           .ToString(CultureInfo.InvariantCulture)),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverCalculationGroupContext>(

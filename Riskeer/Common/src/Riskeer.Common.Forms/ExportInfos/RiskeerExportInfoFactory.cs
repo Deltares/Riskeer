@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.ExportInfos
                 Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 IsEnabled = isEnabled,
                 CreateFileExporter = createFileExporter,
-                GetExportPath = () => ExportHelper.GetFilePath(
+                GetExportPath = context => ExportHelper.GetFilePath(
                     inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                            Resources.DataTypeDisplayName_xml_file_filter_Description))
             };
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.ExportInfos
                 Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 CreateFileExporter = createFileExporter,
                 IsEnabled = context => true,
-                GetExportPath = () => ExportHelper.GetFilePath(
+                GetExportPath = context => ExportHelper.GetFilePath(
                     inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                            Resources.DataTypeDisplayName_xml_file_filter_Description))
             };

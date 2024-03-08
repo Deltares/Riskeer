@@ -131,7 +131,7 @@ namespace Core.Gui.Commands
 
         private static void ExportItem(ExportInfo exportInfo, object source)
         {
-            string exportFilePath = exportInfo.GetExportPath();
+            string exportFilePath = exportInfo.GetExportPath(source);
             string exportInfoName = exportInfo.Name(source);
 
             if (exportFilePath != null)
