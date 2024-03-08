@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Riskeer.Piping.Forms.Views
 {
     partial class PipingScenariosView
@@ -54,6 +56,8 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.warningIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -186,7 +190,7 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.RowCount = 4;
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(SizeType.Percent, 100));
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 762);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
@@ -256,7 +260,12 @@ namespace Riskeer.Piping.Forms.Views
             this.labelTotalScenarioContribution.Size = new System.Drawing.Size(0, 13);
             this.labelTotalScenarioContribution.TabIndex = 2;
             this.labelTotalScenarioContribution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelTotalScenarioContribution.Text = "test";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // PipingScenariosView
             // 
@@ -298,5 +307,6 @@ namespace Riskeer.Piping.Forms.Views
         private System.Windows.Forms.Panel radioButtonsPanel;
         private System.Windows.Forms.RadioButton radioButtonProbabilistic;
         private System.Windows.Forms.RadioButton radioButtonSemiProbabilistic;
+        private ErrorProvider errorProvider;
     }
 }
