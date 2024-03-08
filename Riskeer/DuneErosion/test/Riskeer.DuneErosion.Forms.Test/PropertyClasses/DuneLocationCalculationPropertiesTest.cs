@@ -256,42 +256,42 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde waterstand [m+NAP]",
-                                                                            "Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde Hs [m]",
-                                                                            "Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor wavePeriodProperty = dynamicProperties[requiredWavePeriodPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(wavePeriodProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde Tp [s]",
-                                                                            "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor meanTidalAmplitudeProperty = dynamicProperties[requiredMeanTidalAmplitudePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanTidalAmplitudeProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde gemiddelde getijamplitude [m]",
-                                                                            "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor waveDirectionalSpreadProperty = dynamicProperties[requiredWaveDirectionalSpreadPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionalSpreadProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde golfrichtingspreiding [-]",
-                                                                            "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor tideSurgePhaseDifferenceProperty = dynamicProperties[requiredTideSurgePhaseDifferencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tideSurgePhaseDifferenceProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde faseverschuiving tussen getij en opzet [uur]",
-                                                                            "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
+                                                                            "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];

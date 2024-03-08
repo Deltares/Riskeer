@@ -157,7 +157,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             // Assert
             string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
-                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme duinen.";
+                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme Duinafslag.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }

@@ -133,19 +133,19 @@
     <value>Metrering [dam]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaterLevel_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaterLevel_DisplayName" xml:space="preserve">
     <value>Rekenwaarde waterstand [m+NAP]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveHeight_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveHeight_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Hs [m]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WavePeriod_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WavePeriod_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Tp [s]</value>
@@ -184,12 +184,12 @@
     <value>Rekenwaarde faseverschuiving tussen getij en opzet - {0}</value>
   </data>
   <data name="DuneLocationCalculationOutput_TideSurgePhaseDifference_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_MeanTidalAmplitude_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+    <value>Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
   </data>
 </root>
