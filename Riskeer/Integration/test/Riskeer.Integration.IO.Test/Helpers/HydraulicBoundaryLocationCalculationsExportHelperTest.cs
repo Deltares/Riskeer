@@ -207,6 +207,47 @@ namespace Riskeer.Integration.IO.Test.Helpers
             }
         }
 
+        [Test]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.001, "Waterstanden_1000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0001, "Waterstanden_10000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.001, "Golfhoogten_1000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.0001, "Golfhoogten_10000")]
+        public void GetUniqueFileName_WithoutExistingFileNames_ReturnsExpectedFileName(HydraulicBoundaryLocationCalculationsType calculationsType,
+                                                                                       double targetProbability, string expectedFileName)
+        {
+            // Call
+            string uniqueFileName = HydraulicBoundaryLocationCalculationsExportHelper.GetUniqueFileName(calculationsType, targetProbability);
+
+            // Assert
+            Assert.AreEqual(expectedFileName, uniqueFileName);
+        }
+
+        [Test]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.001, "Waterstanden_1000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0001, "Waterstanden_10000 (1)")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.001, "Golfhoogten_1000 (2)")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.0001, "Golfhoogten_10000")]
+        public void GetUniqueFileName_WithExistingFileNames_ReturnsExpectedFileName(HydraulicBoundaryLocationCalculationsType calculationsType,
+                                                                                    double targetProbability, string expectedFileName)
+        {
+            // Setup
+            var existingFileNames = new[]
+            {
+                "Waterstanden_1000 (1)",
+                "Waterstanden_10000",
+                "Golfhoogten_1000",
+                "Golfhoogten_1000 (1)",
+                "Golfhoogten_1000 (3)",
+                "Golfhoogten_10000 (1)"
+            };
+
+            // Call
+            string uniqueFileName = HydraulicBoundaryLocationCalculationsExportHelper.GetUniqueFileName(calculationsType, targetProbability, existingFileNames);
+
+            // Assert
+            Assert.AreEqual(expectedFileName, uniqueFileName);
+        }
+
         private static string GetExpectedShapeFileName(HydraulicBoundaryLocationCalculationsType calculationsType,
                                                        double targetProbability)
         {
