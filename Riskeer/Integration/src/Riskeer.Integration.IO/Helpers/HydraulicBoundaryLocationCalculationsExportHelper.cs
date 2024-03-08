@@ -73,8 +73,15 @@ namespace Riskeer.Integration.IO.Helpers
                                                               calculations, calculationsType, exportedCalculationFileNames, folderPath));
         }
 
-        public static string GetUniqueName(HydraulicBoundaryLocationCalculationsType calculationsType, double targetProbability,
-                                           IEnumerable<string> existingFileNames = null)
+        /// <summary>
+        /// Gets a unique file name for the location calculations corresponding to a specific target probability.
+        /// </summary>
+        /// <param name="calculationsType">The type of the calculations.</param>
+        /// <param name="targetProbability">The target probability of the calculations.</param>
+        /// <param name="existingFileNames">Any existing files names to take into account.</param>
+        /// <returns>A unique file name.</returns>
+        public static string GetUniqueFileName(HydraulicBoundaryLocationCalculationsType calculationsType, double targetProbability,
+                                               IEnumerable<string> existingFileNames = null)
         {
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                     ? Resources.WaterLevels_DisplayName
@@ -95,11 +102,11 @@ namespace Riskeer.Integration.IO.Helpers
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;
 
-            string uniqueName = GetUniqueName(calculationsType, targetProbability, exportedCalculationFileNames);
+            string uniqueFileName = GetUniqueFileName(calculationsType, targetProbability, exportedCalculationFileNames);
 
-            exportedCalculationFileNames.Add(uniqueName);
+            exportedCalculationFileNames.Add(uniqueFileName);
 
-            string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
+            string tempFilePath = Path.Combine(folderPath, $"{uniqueFileName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                 calculations, tempFilePath, calculationsType);
