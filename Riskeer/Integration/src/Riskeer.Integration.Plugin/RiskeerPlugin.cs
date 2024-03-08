@@ -82,6 +82,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.IO.Exporters;
+using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.FileImporters;
 using Riskeer.Integration.Plugin.Handlers;
@@ -631,8 +632,13 @@ namespace Riskeer.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
                 IsEnabled = context => true,
-                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                                RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(),
+                                                                    new FileFilterGenerator(
+                                                                        RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                        RiskeerCommonIOResources.Shape_file_filter_Description),
+                                                                    HydraulicBoundaryLocationCalculationsExportHelper.GetUniqueFileName(
+                                                                        HydraulicBoundaryLocationCalculationsType.WaterLevel,
+                                                                        context.GetNormFunc()))
             };
 
             yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -1088,8 +1094,13 @@ namespace Riskeer.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
                 IsEnabled = context => true,
-                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                                RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(),
+                                                                    new FileFilterGenerator(
+                                                                        RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                        RiskeerCommonIOResources.Shape_file_filter_Description),
+                                                                    HydraulicBoundaryLocationCalculationsExportHelper.GetUniqueFileName(
+                                                                        calculationsType,
+                                                                        context.WrappedData.TargetProbability))
             };
         }
 
