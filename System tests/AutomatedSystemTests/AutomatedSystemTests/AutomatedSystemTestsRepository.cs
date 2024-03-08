@@ -2371,7 +2371,7 @@ namespace AutomatedSystemTests
             /// Creates a new LeftSide  folder.
             /// </summary>
             public LeftSideFolder(RepoGenBaseFolder parentFolder) :
-                    base("LeftSide", "container[@controlname='panel1']", parentFolder, 30000, null, false, "1ab7d847-ce5b-4285-b807-fda2d07e73e8", "")
+                    base("LeftSide", "container[@controlname='panel1']/container", parentFolder, 30000, null, false, "1ab7d847-ce5b-4285-b807-fda2d07e73e8", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder1(this);
                 _calculationbuttons = new AutomatedSystemTestsRepositoryFolders.CalculationButtonsFolder(this);
