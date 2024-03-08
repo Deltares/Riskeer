@@ -619,6 +619,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
                 WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaterLevel,
                                                                               RiskeerIOResources.WaterLevels_DisplayName);
+
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
                 WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaveHeight,
                                                                               RiskeerIOResources.WaveHeights_DisplayName);

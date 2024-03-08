@@ -84,10 +84,11 @@ namespace Core.Gui.Plugin
         /// <summary>
         /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
         /// <list type="number">
+        ///     <item>The data to export.</item>
         ///     <item>out - the path to export to.</item>
         /// </list>
         /// </summary>
-        public Func<string> GetExportPath { get; set; }
+        public Func<object, string> GetExportPath { get; set; }
     }
 
     /// <summary>
@@ -149,10 +150,11 @@ namespace Core.Gui.Plugin
         /// <summary>
         /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
         /// <list type="number">
+        ///     <item>The data to export.</item>
         ///     <item>out - the path to export to.</item>
         /// </list>
         /// </summary>
-        public Func<string> GetExportPath { get; set; }
+        public Func<TData, string> GetExportPath { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ExportInfo{TData}"/> to <see cref="ExportInfo"/>.
@@ -170,7 +172,7 @@ namespace Core.Gui.Plugin
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
                 Extension = exportInfo.Extension,
-                GetExportPath = () => exportInfo.GetExportPath?.Invoke()
+                GetExportPath = data => exportInfo.GetExportPath?.Invoke((TData) data)
             };
         }
     }
