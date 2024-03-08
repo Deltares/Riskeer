@@ -55,7 +55,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationName, row.Name);
-            Assert.AreSame(hydraulicBoundaryLocation.Location, row.Location);
 
             Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
 

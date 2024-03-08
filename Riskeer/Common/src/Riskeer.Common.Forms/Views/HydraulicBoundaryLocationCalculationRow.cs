@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
 
@@ -87,17 +86,6 @@ namespace Riskeer.Common.Forms.Views
             get
             {
                 return CalculatableObject.HydraulicBoundaryLocation.Id;
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
-        /// </summary>
-        public Point2D Location
-        {
-            get
-            {
-                return CalculatableObject.HydraulicBoundaryLocation.Location;
             }
         }
 
