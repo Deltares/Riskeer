@@ -91,7 +91,7 @@ namespace Riskeer.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase..
+        ///   Looks up a localized string similar to Er zijn geen berekende hydraulische belastingen voor het faalmechnisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file {
             get {

@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen duinen.
+        ///   Looks up a localized string similar to Hydraulische belastingen faalmechanisme Duinafslag.
         /// </summary>
         internal static string DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description {
             get {
