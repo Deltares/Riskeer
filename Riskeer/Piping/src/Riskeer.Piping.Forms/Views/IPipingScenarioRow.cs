@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Riskeer.Piping.Data;
 
 namespace Riskeer.Piping.Forms.Views
@@ -28,6 +29,16 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public interface IPipingScenarioRow
     {
+        /// <summary>
+        /// Gets whether the <see cref="IPipingCalculationScenario{TPipingInput}"/> is relevant.
+        /// </summary>
+        bool IsRelevant { get; }
+        
+        /// <summary>
+        /// Gets the contribution of <see cref="IPipingCalculationScenario{TPipingInput}"/>.
+        /// </summary>
+        RoundedDouble Contribution { get; }
+        
         /// <summary>
         /// Gets the section failure probability of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
