@@ -101,7 +101,8 @@ namespace Riskeer.DuneErosion.Forms.Views
                 Observable = calculations
             };
 
-            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(() => dataGridViewControl.RefreshDataGridView(), list => list)
+            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(
+                () => dataGridViewControl.RefreshDataGridView(), list => list)
             {
                 Observable = calculations
             };
@@ -163,10 +164,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Updates the data source of the data table based on the <see cref="Data"/>.
-        /// </summary>
-        protected void UpdateDataGridViewDataSource()
+        private void UpdateDataGridViewDataSource()
         {
             updatingDataSource = true;
             SetDataSource();
@@ -202,29 +200,19 @@ namespace Riskeer.DuneErosion.Forms.Views
                                                  Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
         }
 
-        /// <summary>
-        /// Gets all the row items from the <see cref="DataGridView"/>.
-        /// </summary>
-        protected IEnumerable<DuneLocationCalculationRow> GetCalculatableRows()
+        private IEnumerable<DuneLocationCalculationRow> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
                                       .Select(row => (DuneLocationCalculationRow) row.DataBoundItem);
         }
 
-        /// <summary>
-        /// Gets all the selected calculatable objects.
-        /// </summary>
-        protected IEnumerable<DuneLocationCalculation> GetSelectedCalculatableObjects()
+        private IEnumerable<DuneLocationCalculation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);
         }
 
-        /// <summary>
-        /// Validates the calculatable objects.
-        /// </summary>
-        /// <returns>A validation message in case no calculations can be performed, <c>null</c> otherwise.</returns>
         private string ValidateCalculatableObjects()
         {
             if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
@@ -234,10 +222,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
             return null;
         }
-
-        /// <summary>
-        /// Updates the state of the calculation button and the corresponding error provider.
-        /// </summary>
+        
         private void UpdateCalculateForSelectedButton()
         {
             string validationText = ValidateCalculatableObjects();

@@ -36,13 +36,6 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneLocationCalculationsView : DuneLocationCalculationsViewBase
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer duneLocationCalculationsObserver;
-        private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
-        private readonly Func<double> getTargetProbabilityFunc;
-        private readonly Func<string> getCalculationIdentifierFunc;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsView"/>.
         /// </summary>
@@ -59,18 +52,8 @@ namespace Riskeer.DuneErosion.Forms.Views
                                             Func<string> getCalculationIdentifierFunc) : base(calculations, failureMechanism, assessmentSection, getTargetProbabilityFunc, getCalculationIdentifierFunc)
         {
             InitializeComponent();
-            UpdateDataGridViewDataSource();
         }
 
         public override object Data { get; set; }
-
-        protected override void Dispose(bool disposing)
-        {
-            duneLocationCalculationsObserver.Dispose();
-            duneLocationCalculationObserver.Dispose();
-            failureMechanismObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }
