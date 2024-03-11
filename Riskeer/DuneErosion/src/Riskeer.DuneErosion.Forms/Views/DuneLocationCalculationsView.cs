@@ -56,77 +56,13 @@ namespace Riskeer.DuneErosion.Forms.Views
                                             DuneErosionFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection,
                                             Func<double> getTargetProbabilityFunc,
-                                            Func<string> getCalculationIdentifierFunc)
+                                            Func<string> getCalculationIdentifierFunc) : base(calculations, failureMechanism, assessmentSection, getTargetProbabilityFunc, getCalculationIdentifierFunc)
         {
-            if (calculations == null)
-            {
-                throw new ArgumentNullException(nameof(calculations));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getTargetProbabilityFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
-            }
-
-            if (getCalculationIdentifierFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
-            }
-
             InitializeComponent();
-
-            this.calculations = calculations;
-            this.getTargetProbabilityFunc = getTargetProbabilityFunc;
-            this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
-            FailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
-
-            duneLocationCalculationsObserver = new Observer(UpdateDataGridViewDataSource)
-            {
-                Observable = calculations
-            };
-
-            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(() => dataGridViewControl.RefreshDataGridView(), list => list)
-            {
-                Observable = calculations
-            };
-
-            failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
-            {
-                Observable = failureMechanism
-            };
-
             UpdateDataGridViewDataSource();
         }
 
         public override object Data { get; set; }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
-
-        /// <summary>
-        /// Gets the <see cref="DuneErosionFailureMechanism"/> for which the
-        /// calculations are shown.
-        /// </summary>
-        public DuneErosionFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
-        /// to perform calculations with.
-        /// </summary>
-        public DuneLocationCalculationGuiService CalculationGuiService { get; set; }
 
         protected override void Dispose(bool disposing)
         {

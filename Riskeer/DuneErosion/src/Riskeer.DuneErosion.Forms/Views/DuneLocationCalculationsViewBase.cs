@@ -23,10 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.GuiServices;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {
@@ -35,15 +38,79 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// </summary>
     public abstract partial class DuneLocationCalculationsViewBase : UserControl, ISelectionProvider, IView
     {
+        private readonly Observer failureMechanismObserver;
+        private readonly Observer duneLocationCalculationsObserver;
+        private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
+        private readonly Func<double> getTargetProbabilityFunc;
+        private readonly Func<string> getCalculationIdentifierFunc;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
+        
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationCalculationsViewBase"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsView"/>.
         /// </summary>
-        protected DuneLocationCalculationsViewBase()
+        /// <param name="calculations">The calculations to show in the view.</param>
+        /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use during calculations.</param>
+        /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected DuneLocationCalculationsViewBase(IObservableEnumerable<DuneLocationCalculation> calculations,
+                                                   DuneErosionFailureMechanism failureMechanism,
+                                                   IAssessmentSection assessmentSection,
+                                                   Func<double> getTargetProbabilityFunc,
+                                                   Func<string> getCalculationIdentifierFunc)
         {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
+            }
+
+            if (getCalculationIdentifierFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
+            }
+            
+            this.calculations = calculations;
+            this.getTargetProbabilityFunc = getTargetProbabilityFunc;
+            this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+
+            duneLocationCalculationsObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = calculations
+            };
+
+            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(() => dataGridViewControl.RefreshDataGridView(), list => list)
+            {
+                Observable = calculations
+            };
+
+            failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
+            {
+                Observable = failureMechanism
+            };
+
+            
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
@@ -58,7 +125,24 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         public abstract object Data { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
+        /// to perform calculations with.
+        /// </summary>
+        public DuneLocationCalculationGuiService CalculationGuiService { get; set; }
 
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the <see cref="DuneErosionFailureMechanism"/> for which the
+        /// calculations are shown.
+        /// </summary>
+        public DuneErosionFailureMechanism FailureMechanism { get; }
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -71,6 +155,10 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 components?.Dispose();
             }
+            
+            duneLocationCalculationsObserver.Dispose();
+            duneLocationCalculationObserver.Dispose();
+            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }
