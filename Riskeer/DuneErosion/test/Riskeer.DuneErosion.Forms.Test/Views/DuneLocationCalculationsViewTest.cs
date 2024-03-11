@@ -28,7 +28,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -57,6 +56,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
     public class DuneLocationCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 3;
         private const int waterLevelColumnIndex = 6;
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
@@ -331,6 +331,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
         }
 
+        [Test]
+        public void Constructor_CheckBoxCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowDuneLocationCalculationsView();
+
+            // Assert
+            CheckBox checkBox = GetShowHydraulicBoundaryDatabaseFileNameCheckBox();
+            Assert.AreEqual("Toon HRD bestand", checkBox.Text);
+            Assert.IsFalse(checkBox.Checked);
         }
 
         [Test]
@@ -845,6 +855,25 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenView_WhenCheckingShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_ThenColumnVisible()
+        {
+            // Given
+            ShowFullyConfiguredDuneLocationCalculationsView();
+
+            DataGridView dataGridView = GetDataGridView();
+
+            // Precondition
+            var hydraulicBoundaryDatabaseFileNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[hydraulicBoundaryDatabaseFileNameColumnIndex];
+            Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+
+            // When
+            CheckBox checkBox = GetShowHydraulicBoundaryDatabaseFileNameCheckBox();
+            checkBox.Checked = true;
+
+            // Then
+            Assert.IsTrue(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+        }
 
         private DataGridView GetDataGridView()
         {
@@ -861,11 +890,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             return (Button) view.Controls.Find("CalculateForSelectedButton", true).Single();
         }
 
-        private DataGridViewControl GetDataGridViewControl()
+        private CheckBox GetShowHydraulicBoundaryDatabaseFileNameCheckBox()
         {
-            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+            return ControlTestHelper.GetControls<CheckBox>(testForm, "showHydraulicBoundaryDatabaseFileNameColumnCheckBox").Single();
         }
-
 
         private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView()
         {

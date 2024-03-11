@@ -281,6 +281,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toon HRD bestand.
+        /// </summary>
+        public static string CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text {
+            get {
+                return ResourceManager.GetString("CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecteer alles.
         /// </summary>
         public static string CalculatableView_SelectAllButton_Text {
@@ -2482,15 +2491,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string LoadSchematizationType_DisplayName {
             get {
                 return ResourceManager.GetString("LoadSchematizationType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon HRD bestand.
-        /// </summary>
-        public static string LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text {
-            get {
-                return ResourceManager.GetString("LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text", resourceCulture);
             }
         }
         

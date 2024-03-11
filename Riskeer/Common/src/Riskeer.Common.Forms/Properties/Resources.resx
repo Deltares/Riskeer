@@ -1601,7 +1601,7 @@ faalkans per vak
     <data name="ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_" xml:space="preserve">
       <value>De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {0}%</value>
     </data>
-    <data name="LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text" xml:space="preserve">
+    <data name="CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text" xml:space="preserve">
       <value>Toon HRD bestand</value>
     </data>
     <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">

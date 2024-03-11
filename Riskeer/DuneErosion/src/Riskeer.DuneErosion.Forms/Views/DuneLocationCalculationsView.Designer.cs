@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Riskeer.DuneErosion.Forms.Views
 {
     partial class DuneLocationCalculationsView
@@ -30,8 +32,8 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -42,20 +44,21 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.DeselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.SelectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox = new System.Windows.Forms.CheckBox();
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.ButtonGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.CalculateForSelectedButtonErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 40);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(533, 85);
+            this.dataGridViewControl.Size = new System.Drawing.Size(533, 45);
             this.dataGridViewControl.TabIndex = 2;
             // 
             // CalculateForSelectedButton
@@ -99,6 +102,19 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.ButtonGroupBox.TabIndex = 3;
             this.ButtonGroupBox.TabStop = false;
             // 
+            // showHydraulicBoundaryDatabaseFileNameColumnCheckBox
+            // 
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.AutoSize = true;
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Location = new System.Drawing.Point(0, 0);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.MinimumSize = new System.Drawing.Size(500, 40);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Name = "showHydraulicBoundaryDatabaseFileNameColumnCheckBox";
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Size = new System.Drawing.Size(533, 40);
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.TabIndex = 3;
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.UseVisualStyleBackColor = true;
+            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.CheckedChanged += new System.EventHandler(this.ShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_CheckedChanged);
+            // 
             // CalculateForSelectedButtonErrorProvider
             // 
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
@@ -106,7 +122,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
             this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             // 
-            // DuneLocationCalculationsViewBase
+            // DuneLocationCalculationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -114,12 +130,13 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.ButtonGroupBox);
+            this.Controls.Add(this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox);
             this.Name = "DuneLocationCalculationsView";
             this.Size = new System.Drawing.Size(533, 146);
             this.ButtonGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.CalculateForSelectedButtonErrorProvider)).EndInit();
             this.ResumeLayout(false);
-
+            this.PerformLayout();
         }
 
         #endregion
@@ -130,5 +147,6 @@ namespace Riskeer.DuneErosion.Forms.Views
         private Core.Common.Controls.Forms.EnhancedButton SelectAllButton;
         protected System.Windows.Forms.GroupBox ButtonGroupBox;
         private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
+        private System.Windows.Forms.CheckBox showHydraulicBoundaryDatabaseFileNameColumnCheckBox;
     }
 }

@@ -47,6 +47,8 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
 
         private const int calculateColumnIndex = 0;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 3;
+
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -60,10 +62,10 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
-                                                DuneErosionFailureMechanism failureMechanism,
-                                                IAssessmentSection assessmentSection,
-                                                Func<double> getTargetProbabilityFunc,
-                                                Func<string> getCalculationIdentifierFunc)
+                                            DuneErosionFailureMechanism failureMechanism,
+                                            IAssessmentSection assessmentSection,
+                                            Func<double> getTargetProbabilityFunc,
+                                            Func<string> getCalculationIdentifierFunc)
         {
             if (calculations == null)
             {
@@ -115,7 +117,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
-            
+
             UpdateDataGridViewDataSource();
         }
 
@@ -149,7 +151,9 @@ namespace Riskeer.DuneErosion.Forms.Views
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            
             InitializeDataGridView();
+            UpdateDataGridViewColumnVisibility();
         }
 
         protected override void Dispose(bool disposing)
@@ -172,6 +176,12 @@ namespace Riskeer.DuneErosion.Forms.Views
             SetDataSource();
             updatingDataSource = false;
             UpdateCalculateForSelectedButton();
+        }
+
+        private void UpdateDataGridViewColumnVisibility()
+        {
+            dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryDatabaseFileNameColumnIndex).Visible =
+                showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Checked;
         }
 
         private void InitializeDataGridView()
@@ -246,6 +256,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             DeselectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_DeselectAllButton_Text;
             SelectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_SelectAllButton_Text;
             ButtonGroupBox.Text = RiskeerCommonFormsResources.CalculatableView_ButtonGroupBox_Text;
+            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = RiskeerCommonFormsResources.CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()
@@ -313,6 +324,11 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void CalculateForSelectedButton_Click(object sender, EventArgs e)
         {
             CalculateForSelectedRows();
+        }
+
+        private void ShowHydraulicBoundaryDatabaseFileNameColumnCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewColumnVisibility();
         }
 
         #endregion

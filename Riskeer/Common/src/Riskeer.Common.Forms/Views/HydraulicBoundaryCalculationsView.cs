@@ -279,7 +279,7 @@ namespace Riskeer.Common.Forms.Views
             DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
             SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
             ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
-            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = Resources.LocationCalculationsView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
+            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = Resources.CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()
