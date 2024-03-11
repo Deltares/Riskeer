@@ -53,7 +53,5 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             InitializeComponent();
         }
-
-        public override object Data { get; set; }
     }
 }

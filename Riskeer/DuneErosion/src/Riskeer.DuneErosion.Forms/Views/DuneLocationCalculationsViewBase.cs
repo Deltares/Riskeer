@@ -37,7 +37,7 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// <summary>
     /// Base view for selecting dune location calculations and starting a calculation for said objects.
     /// </summary>
-    public abstract partial class DuneLocationCalculationsViewBase : UserControl, ISelectionProvider, IView
+    public partial class DuneLocationCalculationsViewBase : UserControl, ISelectionProvider, IView
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer duneLocationCalculationsObserver;
@@ -59,11 +59,11 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use during calculations.</param>
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected DuneLocationCalculationsViewBase(IObservableEnumerable<DuneLocationCalculation> calculations,
-                                                   DuneErosionFailureMechanism failureMechanism,
-                                                   IAssessmentSection assessmentSection,
-                                                   Func<double> getTargetProbabilityFunc,
-                                                   Func<string> getCalculationIdentifierFunc)
+        public DuneLocationCalculationsViewBase(IObservableEnumerable<DuneLocationCalculation> calculations,
+                                                DuneErosionFailureMechanism failureMechanism,
+                                                IAssessmentSection assessmentSection,
+                                                Func<double> getTargetProbabilityFunc,
+                                                Func<string> getCalculationIdentifierFunc)
         {
             if (calculations == null)
             {
@@ -115,6 +115,8 @@ namespace Riskeer.DuneErosion.Forms.Views
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
+            
+            UpdateDataGridViewDataSource();
         }
 
         public object Selection
@@ -125,7 +127,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             }
         }
 
-        public abstract object Data { get; set; }
+        public object Data { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
@@ -222,7 +224,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
             return null;
         }
-        
+
         private void UpdateCalculateForSelectedButton()
         {
             string validationText = ValidateCalculatableObjects();
