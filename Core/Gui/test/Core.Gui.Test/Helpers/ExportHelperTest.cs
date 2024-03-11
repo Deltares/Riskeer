@@ -61,7 +61,7 @@ namespace Core.Gui.Test.Helpers
         [Test]
         [TestCase(null)]
         [TestCase("C:/test")]
-        public void GetFilePath_WithoutSuggestedFileName_ReturnsSelectedFilePath(string expectedFilePath)
+        public void GetFilePath_WithoutSuggestedFileName_MakesExpectedCallToGetTargetFileLocationAndReturnsSelectedFilePath(string expectedFilePath)
         {
             // Setup
             var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
@@ -82,8 +82,8 @@ namespace Core.Gui.Test.Helpers
 
         [Test]
         [Combinatorial]
-        public void GetFilePath_WithSuggestedFileName_ReturnsSelectedFilePath([Values(null, "C:/test")] string expectedFilePath,
-                                                                              [Values(null, "random.txt")] string suggestedFileName)
+        public void GetFilePath_WithSuggestedFileName_MakesExpectedCallToGetTargetFileLocationAndReturnsSelectedFilePath(
+            [Values(null, "C:/test")] string expectedFilePath, [Values(null, "random.txt")] string suggestedFileName)
         {
             // Setup
             var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
