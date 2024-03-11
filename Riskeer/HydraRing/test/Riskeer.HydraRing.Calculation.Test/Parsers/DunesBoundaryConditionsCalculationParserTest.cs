@@ -106,7 +106,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(Call);
-            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechnisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechanisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(Call);
-            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechnisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechanisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
@@ -164,7 +164,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(Call);
-            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechnisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor het faalmechanisme Duinafslag gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
