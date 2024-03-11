@@ -52,7 +52,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 namespace Riskeer.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
-    public class DuneLocationCalculationsViewBaseTest
+    public class DuneLocationCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
         private const int waterLevelColumnIndex = 6;
@@ -92,7 +92,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new DuneLocationCalculationsViewBase(null,
+            void Call() => new DuneLocationCalculationsView(null,
                                                                 new DuneErosionFailureMechanism(),
                                                                 assessmentSection,
                                                                 () => 0.01,
@@ -111,7 +111,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new DuneLocationCalculationsViewBase(new ObservableList<DuneLocationCalculation>(),
+            void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                 null,
                                                                 assessmentSection,
                                                                 () => 0.01,
@@ -126,7 +126,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new DuneLocationCalculationsViewBase(new ObservableList<DuneLocationCalculation>(),
+            void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                 new DuneErosionFailureMechanism(),
                                                                 null,
                                                                 () => 0.01,
@@ -145,7 +145,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new DuneLocationCalculationsViewBase(new ObservableList<DuneLocationCalculation>(),
+            void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                 new DuneErosionFailureMechanism(),
                                                                 assessmentSection,
                                                                 null,
@@ -166,7 +166,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new DuneLocationCalculationsViewBase(new ObservableList<DuneLocationCalculation>(),
+            void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                 new DuneErosionFailureMechanism(),
                                                                 assessmentSection,
                                                                 () => 0.01,
@@ -187,7 +187,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new DuneLocationCalculationsViewBase(new ObservableList<DuneLocationCalculation>(),
+            using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                    failureMechanism,
                                                                    assessmentSection,
                                                                    () => 0.01,
@@ -208,7 +208,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView())
             {
                 // Assert
                 var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -220,7 +220,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView())
             {
                 // Assert
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -291,7 +291,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
                                                                                                            hydraulicBoundaryLocation))
             {
                 // Assert
@@ -339,7 +339,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView())
             {
                 var selectionChangedCount = 0;
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
@@ -359,7 +359,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Selection_WithoutCalculations_ReturnsNull()
         {
             // Call
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView())
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -373,7 +373,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
                                                                                                            new TestHydraulicBoundaryLocation()))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -396,7 +396,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void SelectAllButton_SelectAllButtonClicked_AllCalculationsSelected()
         {
             // Setup
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView())
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -419,7 +419,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void DeselectAllButton_AllCalculationsSelectedDeselectAllButtonClicked_AllCalculationsNotSelected()
         {
             // Setup
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView())
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 var button = new ButtonTester("DeselectAllButton", testForm);
@@ -447,7 +447,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView())
             {
                 // Then
                 var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -461,7 +461,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
             // Given
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView())
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView())
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
@@ -484,7 +484,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             var calculations = new ObservableList<DuneLocationCalculation>();
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView(calculations,
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                             new DuneErosionFailureMechanism(),
                                                                                             assessmentSection))
             {
@@ -551,7 +551,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView(calculations,
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                         new DuneErosionFailureMechanism(),
                                                                                         assessmentSection))
             {
@@ -644,7 +644,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView(calculations,
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                             failureMechanism,
                                                                                             assessmentSection))
             {
@@ -680,7 +680,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsViewBase view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
                                                                                                            new TestHydraulicBoundaryLocation()))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -741,7 +741,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (DuneLocationCalculationsViewBase view = ShowDuneLocationCalculationsView(calculations,
+            using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                             failureMechanism,
                                                                                             assessmentSection))
             {
@@ -839,7 +839,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneLocationCalculationsViewBase(duneLocationCalculations,
+            using (var view = new DuneLocationCalculationsView(duneLocationCalculations,
                                                                    failureMechanism,
                                                                    assessmentSection,
                                                                    () => targetProbability,
@@ -871,7 +871,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             }
         }
 
-        private DuneLocationCalculationsViewBase ShowFullyConfiguredDuneLocationCalculationsView()
+        private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView()
         {
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -904,7 +904,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                     assessmentSection);
         }
 
-        private DuneLocationCalculationsViewBase ShowFullyConfiguredDuneLocationCalculationsView(IAssessmentSection assessmentSection,
+        private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView(IAssessmentSection assessmentSection,
                                                                                                  HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -914,18 +914,18 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                     assessmentSection);
         }
 
-        private DuneLocationCalculationsViewBase ShowDuneLocationCalculationsView()
+        private DuneLocationCalculationsView ShowDuneLocationCalculationsView()
         {
             return ShowDuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                     new DuneErosionFailureMechanism(),
                                                     new AssessmentSectionStub());
         }
 
-        private DuneLocationCalculationsViewBase ShowDuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
+        private DuneLocationCalculationsView ShowDuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                                                               DuneErosionFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            var view = new DuneLocationCalculationsViewBase(calculations,
+            var view = new DuneLocationCalculationsView(calculations,
                                                             failureMechanism,
                                                             assessmentSection,
                                                             () => 0.01,

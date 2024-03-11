@@ -21,7 +21,7 @@
 
 namespace Riskeer.DuneErosion.Forms.Views
 {
-    partial class DuneLocationCalculationsViewBase
+    partial class DuneLocationCalculationsView
     {
         /// <summary> 
         /// Required designer variable.
@@ -114,7 +114,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.ButtonGroupBox);
-            this.Name = "DuneLocationCalculationsViewBase";
+            this.Name = "DuneLocationCalculationsView";
             this.Size = new System.Drawing.Size(533, 146);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();

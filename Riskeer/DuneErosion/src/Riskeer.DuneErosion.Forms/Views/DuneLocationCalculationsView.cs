@@ -35,9 +35,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// Base view for selecting dune location calculations and starting a calculation for said objects.
+    /// View for selecting dune location calculations and starting a calculation for said objects.
     /// </summary>
-    public partial class DuneLocationCalculationsViewBase : UserControl, ISelectionProvider, IView
+    public partial class DuneLocationCalculationsView : UserControl, ISelectionProvider, IView
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer duneLocationCalculationsObserver;
@@ -59,7 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use during calculations.</param>
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationCalculationsViewBase(IObservableEnumerable<DuneLocationCalculation> calculations,
+        public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                                 DuneErosionFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection,
                                                 Func<double> getTargetProbabilityFunc,
