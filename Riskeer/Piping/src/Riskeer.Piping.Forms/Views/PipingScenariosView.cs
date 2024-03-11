@@ -110,9 +110,8 @@ namespace Riskeer.Piping.Forms.Views
             InitializeDataGridView();
 
             UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
 
-            UpdateTotalScenarioContributionLabel();
+            UpdateScenarioControls();
 
             UpdateVisibility();
         }
@@ -190,9 +189,10 @@ namespace Riskeer.Piping.Forms.Views
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateScenarioControls, pcg => pcg.Children.Concat<object>(
-                pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
-                   .Select(c => c.InputParameters)))
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
+                UpdateScenarioControls, pcg => pcg.Children.Concat<object>(pcg.Children
+                                                                              .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                              .Select(c => c.InputParameters)))
             {
                 Observable = calculationGroup
             };

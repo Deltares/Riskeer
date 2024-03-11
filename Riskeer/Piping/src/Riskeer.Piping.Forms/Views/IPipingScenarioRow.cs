@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Forms.Views
         bool IsRelevant { get; }
         
         /// <summary>
-        /// Gets the contribution of <see cref="IPipingCalculationScenario{TPipingInput}"/>.
+        /// Gets the contribution of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         RoundedDouble Contribution { get; }
         
