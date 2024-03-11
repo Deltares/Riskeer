@@ -229,7 +229,7 @@ FROM [SOURCEPROJECT].VersionEntity;
 Outputs that used HydraRing are not migrated
 */
 -- ClosingStructuresOutputEntity
--- DuneLocationOutputEntity
+-- DuneLocationCalculationOutputEntity
 -- GrassCoverErosionInwardsDikeHeightOutputEntity
 -- GrassCoverErosionInwardsOutputEntity
 -- GrassCoverErosionInwardsOvertoppingRateOutputEntity
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
-[LogMessage])
+    [LogMessage])
 VALUES (
     "23.1",
     "23.2",
