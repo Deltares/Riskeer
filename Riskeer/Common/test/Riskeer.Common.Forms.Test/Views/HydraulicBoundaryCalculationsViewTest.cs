@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Button button = GetCalculateForSelectedButton(view);
             Assert.IsFalse(button.Enabled);
         }
 
@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            CheckBox checkBox = GetSHowHydraulicBoundaryDatabaseFileNameCheckBox();
+            CheckBox checkBox = GetShowHydraulicBoundaryDatabaseFileNameCheckBox();
             Assert.AreEqual("Toon HRD bestand", checkBox.Text);
             Assert.IsFalse(checkBox.Checked);
         }
@@ -344,7 +344,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Then
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Button button = GetCalculateForSelectedButton(view);
             Assert.IsFalse(button.Enabled);
             ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
@@ -361,7 +361,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
 
             // Then
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Button button = GetCalculateForSelectedButton(view);
             Assert.IsTrue(button.Enabled);
             ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("", errorProvider.GetError(button));
@@ -431,7 +431,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsFalse(hydraulicBoundaryDatabaseFileNameColumn.Visible);
 
             // When
-            CheckBox checkBox = GetSHowHydraulicBoundaryDatabaseFileNameCheckBox();
+            CheckBox checkBox = GetShowHydraulicBoundaryDatabaseFileNameCheckBox();
             checkBox.Checked = true;
 
             // Then
@@ -535,11 +535,16 @@ namespace Riskeer.Common.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
         }
 
-        private CheckBox GetSHowHydraulicBoundaryDatabaseFileNameCheckBox()
+        private CheckBox GetShowHydraulicBoundaryDatabaseFileNameCheckBox()
         {
             return ControlTestHelper.GetControls<CheckBox>(testForm, "showHydraulicBoundaryDatabaseFileNameColumnCheckBox").Single();
         }
 
+        private Button GetCalculateForSelectedButton(TestHydraulicBoundaryCalculationsView view)
+        {
+            return (Button) view.Controls.Find("CalculateForSelectedButton", true).Single();
+        }
+        
         private IllustrationPointsControl GetIllustrationPointsControl()
         {
             return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
