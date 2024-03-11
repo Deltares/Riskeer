@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
@@ -230,6 +231,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             var project = mocks.Stub<IProject>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -282,6 +284,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             var project = mocks.Stub<IProject>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -338,6 +341,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             var project = mocks.Stub<IProject>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -394,6 +398,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             var project = mocks.Stub<IProject>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))

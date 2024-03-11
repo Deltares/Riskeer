@@ -29,6 +29,7 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
@@ -145,6 +146,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             var window = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(window);
@@ -181,6 +183,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             var window = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.MainWindow).Return(window);
@@ -230,6 +233,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var plugin = new DuneErosionPlugin())
@@ -257,13 +261,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
             });
             assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSectionA.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
@@ -345,6 +351,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var plugin = new DuneErosionPlugin())
@@ -372,6 +379,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             using (var plugin = new DuneErosionPlugin())
