@@ -52,6 +52,24 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Asserts that all columns match the visibility.
+        /// </summary>
+        /// <param name="expectedVisibility">The expected column visibility.</param>
+        /// <param name="actualDataGridView">The view.</param>
+        /// <exception cref="AssertionException">Thrown when a column does not have the
+        /// expected visibility or there is a mismatch in the number of columns.</exception>
+        public static void AssertExpectedColumnVisibility(IEnumerable<bool> expectedVisibility, DataGridView actualDataGridView)
+        {
+            int expectedNrOfColumns = expectedVisibility.Count();
+            Assert.AreEqual(expectedNrOfColumns, actualDataGridView.ColumnCount);
+            for (var i = 0; i < expectedNrOfColumns; i++)
+            {
+                DataGridViewColumn column = actualDataGridView.Columns[i];
+                Assert.AreEqual(expectedVisibility.ElementAt(i), column.Visible);
+            }
+        }
+
+        /// <summary>
         /// Asserts that all columns are of the expected classes.
         /// </summary>
         /// <param name="expectedColumnTypes">The column types.</param>

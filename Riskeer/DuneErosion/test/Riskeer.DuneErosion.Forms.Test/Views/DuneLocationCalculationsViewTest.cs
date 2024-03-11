@@ -27,7 +27,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -182,6 +181,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -229,7 +229,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 "Berekenen",
                 "Naam",
                 "ID",
-                "Coördinaten [m]",
+                "HRD bestand",
                 "Kustvaknummer",
                 "Metrering [dam]",
                 "Rekenwaarde waterstand [m+NAP]",
@@ -241,6 +241,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             };
             DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
 
+            var expectedColumnVisibility = new[]
+            {
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            };
+            DataGridViewTestHelper.AssertExpectedColumnVisibility(expectedColumnVisibility, dataGridView);
+            
             Type[] expectedColumnTypes =
             {
                 typeof(DataGridViewCheckBoxColumn),
@@ -301,7 +318,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 false,
                 "1",
                 "0",
-                new Point2D(0, 0).ToString(),
+                "HRD dutch coast south",
                 "50",
                 "320",
                 "-",
@@ -318,7 +335,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 false,
                 "2",
                 "0",
-                new Point2D(0, 0).ToString(),
+                "HRD dutch coast south",
                 "60",
                 "230",
                 1.23.ToString(CultureInfo.CurrentCulture),
@@ -376,11 +393,27 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Selection_WithSelectedCalculation_ReturnsSelectedCalculation()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "Just/a/HRD",
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
-            DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
-                                                                                                new TestHydraulicBoundaryLocation());
+            DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRow selectedCalculationRow = dataGridView.Rows[0];
@@ -481,10 +514,28 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredDuneLocationCalculationsView_WhenDuneLocationCalculationsUpdatedAndNotified_ThenDataGridCorrectlyUpdated()
         {
             // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, string.Empty, 10.0, 10.0);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "Just/a/HRD",
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
             var calculations = new ObservableList<DuneLocationCalculation>();
+
             ShowDuneLocationCalculationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection);
 
             // Precondition
@@ -495,7 +546,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             // When
             var duneLocation = new DuneLocation(
-                "10", new HydraulicBoundaryLocation(10, string.Empty, 10.0, 10.0),
+                "10", hydraulicBoundaryLocation,
                 new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 3,
@@ -526,7 +577,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 false,
                 "10",
                 "10",
-                new Point2D(10, 10).ToString(),
+                "HRD",
                 "3",
                 "80",
                 3.21.ToString(CultureInfo.CurrentCulture),
@@ -543,9 +594,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredDuneLocationCalculationsView_WhenEachDuneLocationCalculationOutputClearedAndNotified_ThenDataGridViewRowsRefreshedWithNewValues()
         {
             // Given
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, string.Empty, 10.0, 10.0);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
@@ -668,10 +733,26 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
-            ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, new TestHydraulicBoundaryLocation());
+            ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;

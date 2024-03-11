@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.Properties;
@@ -39,15 +41,14 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneLocationCalculationsView : UserControl, ISelectionProvider, IView
     {
+        private const int calculateColumnIndex = 0;
+        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 3;
         private readonly Observer failureMechanismObserver;
         private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
-
-        private const int calculateColumnIndex = 0;
-        private const int hydraulicBoundaryDatabaseFileNameColumnIndex = 3;
 
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
@@ -121,16 +122,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        public object Selection
-        {
-            get
-            {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
-
-        public object Data { get; set; }
-
         /// <summary>
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
         /// to perform calculations with.
@@ -148,10 +139,20 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// </summary>
         public DuneErosionFailureMechanism FailureMechanism { get; }
 
+        public object Selection
+        {
+            get
+            {
+                return CreateSelectedItemFromCurrentRow();
+            }
+        }
+
+        public object Data { get; set; }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             InitializeDataGridView();
             UpdateDataGridViewColumnVisibility();
         }
@@ -192,8 +193,8 @@ namespace Riskeer.DuneErosion.Forms.Views
                                                  RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Id),
                                                  RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Location),
-                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.HydraulicBoundaryDatabaseFileName),
+                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.CoastalAreaId),
                                                  Resources.DuneLocation_CoastalAreaId_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Offset),
@@ -278,7 +279,10 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc, string.Empty)).ToArray());
+            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            dataGridViewControl.SetDataSource(
+                calculations?.Select(calc => new DuneLocationCalculationRow(calc, lookup[calc.DuneLocation.HydraulicBoundaryLocation]))
+                            .ToArray());
         }
 
         private void CalculateForSelectedRows()
@@ -287,6 +291,20 @@ namespace Riskeer.DuneErosion.Forms.Views
                                              AssessmentSection,
                                              getTargetProbabilityFunc(),
                                              getCalculationIdentifierFunc());
+        }
+
+        private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
+        {
+            var lookup = new Dictionary<HydraulicBoundaryLocation, string>();
+            foreach (HydraulicBoundaryDatabase database in AssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                foreach (HydraulicBoundaryLocation location in database.Locations)
+                {
+                    lookup[location] = Path.GetFileNameWithoutExtension(database.FilePath);
+                }
+            }
+
+            return lookup;
         }
 
         #region Event handling
