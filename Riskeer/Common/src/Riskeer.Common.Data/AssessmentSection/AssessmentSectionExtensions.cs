@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Contribution;
@@ -136,6 +137,33 @@ namespace Riskeer.Common.Data.AssessmentSection
             return calculations;
         }
 
+        /// <summary>
+        /// Gets a lookup mapping between the <see cref="HydraulicBoundaryLocation"/> and the file name of the hydraulic boundary
+        /// database that contains them. 
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to get the lookup from.</param>
+        /// <returns>A lookup mapping the <see cref="HydraulicBoundaryLocation"/> and file name of the hydraulic boundary
+        /// database that contains them.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IReadOnlyDictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup(this IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var lookup = new Dictionary<HydraulicBoundaryLocation, string>();
+            foreach (HydraulicBoundaryDatabase database in assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                foreach (HydraulicBoundaryLocation location in database.Locations)
+                {
+                    lookup[location] = Path.GetFileNameWithoutExtension(database.FilePath);
+                }
+            }
+
+            return lookup;
+        }
+        
         private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculationFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                                                                     IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {

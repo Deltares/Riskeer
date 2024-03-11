@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -279,7 +278,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetDataSource()
         {
-            Dictionary<HydraulicBoundaryLocation, string> lookup = GetHydraulicBoundaryLocationLookup();
+            IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup = AssessmentSection.GetHydraulicBoundaryLocationLookup();
             dataGridViewControl.SetDataSource(
                 calculations?.Select(calc => new DuneLocationCalculationRow(calc, lookup[calc.DuneLocation.HydraulicBoundaryLocation]))
                             .ToArray());
@@ -291,20 +290,6 @@ namespace Riskeer.DuneErosion.Forms.Views
                                              AssessmentSection,
                                              getTargetProbabilityFunc(),
                                              getCalculationIdentifierFunc());
-        }
-
-        private Dictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup()
-        {
-            var lookup = new Dictionary<HydraulicBoundaryLocation, string>();
-            foreach (HydraulicBoundaryDatabase database in AssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
-            {
-                foreach (HydraulicBoundaryLocation location in database.Locations)
-                {
-                    lookup[location] = Path.GetFileNameWithoutExtension(database.FilePath);
-                }
-            }
-
-            return lookup;
         }
 
         #region Event handling

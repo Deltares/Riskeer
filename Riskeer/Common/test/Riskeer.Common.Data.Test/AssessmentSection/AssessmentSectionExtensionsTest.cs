@@ -241,6 +241,64 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             Assert.AreSame(calculation, normativeHydraulicBoundaryLocationCalculation);
         }
 
+        [Test]
+        public void GetHydraulicBoundaryLocationLookup_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionExtensions.GetHydraulicBoundaryLocationLookup(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationLookup_AssessmentSectionWithHydraulicBoundaryLocations_ReturnsExpectedLookup()
+        {
+            // Setup
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = "Just/A/HRD1",
+                            Locations =
+                            {
+                                location1
+                            }
+                        },
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = "Just/A/HRD2",
+                            Locations =
+                            {
+                                location2
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Call
+            IReadOnlyDictionary<HydraulicBoundaryLocation, string> lookup = assessmentSection.GetHydraulicBoundaryLocationLookup();
+
+            // Assert
+            CollectionAssert.AreEquivalent(new Dictionary<HydraulicBoundaryLocation, string>
+            {
+                {
+                    location1, "HRD1"
+                },
+                {
+                    location2, "HRD2"
+                }
+            }, lookup);
+        }
+
         private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormativeProbabilityType()
         {
             var assessmentSection = new AssessmentSectionStub();
