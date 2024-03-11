@@ -208,10 +208,10 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.001, "Waterstanden_1000")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0001, "Waterstanden_10000")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.001, "Golfhoogten_1000")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.0001, "Golfhoogten_10000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.011, "Waterstanden_91")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0021, "Waterstanden_476")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.031, "Golfhoogten_32")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.0041, "Golfhoogten_244")]
         public void GetUniqueFileName_WithoutExistingFileNames_ReturnsExpectedFileName(HydraulicBoundaryLocationCalculationsType calculationsType,
                                                                                        double targetProbability, string expectedFileName)
         {
@@ -223,22 +223,22 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.001, "Waterstanden_1000")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0001, "Waterstanden_10000 (1)")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.001, "Golfhoogten_1000 (2)")]
-        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.0001, "Golfhoogten_10000")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.123, "Waterstanden_8")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, 0.0456, "Waterstanden_22 (1)")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.789, "Golfhoogten_1 (2)")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, 0.01011, "Golfhoogten_99")]
         public void GetUniqueFileName_WithExistingFileNames_ReturnsExpectedFileName(HydraulicBoundaryLocationCalculationsType calculationsType,
                                                                                     double targetProbability, string expectedFileName)
         {
             // Setup
             var existingFileNames = new[]
             {
-                "Waterstanden_1000 (1)",
-                "Waterstanden_10000",
-                "Golfhoogten_1000",
-                "Golfhoogten_1000 (1)",
-                "Golfhoogten_1000 (3)",
-                "Golfhoogten_10000 (1)"
+                "Waterstanden_8 (1)",
+                "Waterstanden_22",
+                "Golfhoogten_1",
+                "Golfhoogten_1 (1)",
+                "Golfhoogten_1 (3)",
+                "Golfhoogten_99 (1)"
             };
 
             // Call
