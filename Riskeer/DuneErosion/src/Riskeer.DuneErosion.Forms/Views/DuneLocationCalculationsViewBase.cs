@@ -27,9 +27,10 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
+using Riskeer.DuneErosion.Forms.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {
@@ -44,7 +45,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
-        
+
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
@@ -88,7 +89,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
             }
-            
+
             this.calculations = calculations;
             this.getTargetProbabilityFunc = getTargetProbabilityFunc;
             this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
@@ -110,7 +111,6 @@ namespace Riskeer.DuneErosion.Forms.Views
                 Observable = failureMechanism
             };
 
-            
             InitializeComponent();
             LocalizeControls();
             InitializeEventHandlers();
@@ -125,7 +125,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         public abstract object Data { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
         /// to perform calculations with.
@@ -142,7 +142,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// calculations are shown.
         /// </summary>
         public DuneErosionFailureMechanism FailureMechanism { get; }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -155,7 +155,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 components?.Dispose();
             }
-            
+
             duneLocationCalculationsObserver.Dispose();
             duneLocationCalculationObserver.Dispose();
             failureMechanismObserver.Dispose();
@@ -174,31 +174,33 @@ namespace Riskeer.DuneErosion.Forms.Views
             UpdateCalculateForSelectedButton();
         }
 
-        /// <summary>
-        /// Initializes the <see cref="DataGridView"/>.
-        /// </summary>
-        protected virtual void InitializeDataGridView()
+        private void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(nameof(DuneLocationCalculationRow.ShouldCalculate),
-                                                  Resources.CalculatableView_Calculate);
+                                                  RiskeerCommonFormsResources.CalculatableView_Calculate);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Name),
+                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Id),
+                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Location),
+                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.CoastalAreaId),
+                                                 Resources.DuneLocation_CoastalAreaId_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Offset),
+                                                 Resources.DuneLocation_Offset_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaterLevel),
+                                                 Resources.DuneLocationCalculationOutput_WaterLevel_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveHeight),
+                                                 Resources.DuneLocationCalculationOutput_WaveHeight_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WavePeriod),
+                                                 Resources.DuneLocationCalculationOutput_WavePeriod_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.MeanTidalAmplitude),
+                                                 Resources.DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveDirectionalSpread),
+                                                 Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.TideSurgePhaseDifference),
+                                                 Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
         }
-
-        /// <summary>
-        /// Creates a new object that is used as the object for <see cref="Selection"/> from
-        /// the currently selected row in the data table.
-        /// </summary>
-        /// <returns>The newly created object.</returns>
-        protected abstract object CreateSelectedItemFromCurrentRow();
-
-        /// <summary>
-        /// Sets the datasource on the <see cref="DataGridView"/>.
-        /// </summary>
-        protected abstract void SetDataSource();
-
-        /// <summary>
-        /// Handles the calculation routine for the currently selected rows.
-        /// </summary>
-        protected abstract void CalculateForSelectedRows();
 
         /// <summary>
         /// Gets all the row items from the <see cref="DataGridView"/>.
@@ -223,11 +225,11 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Validates the calculatable objects.
         /// </summary>
         /// <returns>A validation message in case no calculations can be performed, <c>null</c> otherwise.</returns>
-        protected virtual string ValidateCalculatableObjects()
+        private string ValidateCalculatableObjects()
         {
             if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
             {
-                return Resources.CalculatableViews_No_calculations_selected;
+                return RiskeerCommonFormsResources.CalculatableViews_No_calculations_selected;
             }
 
             return null;
@@ -236,7 +238,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <summary>
         /// Updates the state of the calculation button and the corresponding error provider.
         /// </summary>
-        protected void UpdateCalculateForSelectedButton()
+        private void UpdateCalculateForSelectedButton()
         {
             string validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
@@ -253,10 +255,10 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void LocalizeControls()
         {
-            CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
-            SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
-            ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
+            CalculateForSelectedButton.Text = RiskeerCommonFormsResources.CalculatableView_CalculateForSelectedButton_Text;
+            DeselectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_DeselectAllButton_Text;
+            SelectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_SelectAllButton_Text;
+            ButtonGroupBox.Text = RiskeerCommonFormsResources.CalculatableView_ButtonGroupBox_Text;
         }
 
         private void InitializeEventHandlers()
@@ -268,6 +270,25 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void OnSelectionChanged()
         {
             SelectionChanged?.Invoke(this, new EventArgs());
+        }
+
+        private object CreateSelectedItemFromCurrentRow()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+            return ((DuneLocationCalculationRow) currentRow?.DataBoundItem)?.CalculatableObject;
+        }
+
+        private void SetDataSource()
+        {
+            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc)).ToArray());
+        }
+
+        private void CalculateForSelectedRows()
+        {
+            CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
+                                             AssessmentSection,
+                                             getTargetProbabilityFunc(),
+                                             getCalculationIdentifierFunc());
         }
 
         #region Event handling

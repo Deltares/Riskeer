@@ -72,51 +72,5 @@ namespace Riskeer.DuneErosion.Forms.Views
 
             base.Dispose(disposing);
         }
-
-        protected override void InitializeDataGridView()
-        {
-            base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Name),
-                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Id),
-                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Location),
-                                                 RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.CoastalAreaId),
-                                                 Resources.DuneLocation_CoastalAreaId_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Offset),
-                                                 Resources.DuneLocation_Offset_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaterLevel),
-                                                 Resources.DuneLocationCalculationOutput_WaterLevel_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveHeight),
-                                                 Resources.DuneLocationCalculationOutput_WaveHeight_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WavePeriod),
-                                                 Resources.DuneLocationCalculationOutput_WavePeriod_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.MeanTidalAmplitude),
-                                                 Resources.DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveDirectionalSpread),
-                                                 Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.TideSurgePhaseDifference),
-                                                 Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
-        }
-
-        protected override object CreateSelectedItemFromCurrentRow()
-        {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            return ((DuneLocationCalculationRow) currentRow?.DataBoundItem)?.CalculatableObject;
-        }
-
-        protected override void SetDataSource()
-        {
-            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc)).ToArray());
-        }
-
-        protected override void CalculateForSelectedRows()
-        {
-            CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
-                                             AssessmentSection,
-                                             getTargetProbabilityFunc(),
-                                             getCalculationIdentifierFunc());
-        }
     }
 }
