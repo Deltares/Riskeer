@@ -41,6 +41,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_DuneLocationCalculationWithOutput_ExpectedValues(double offSet)
         {
             // Setup
+            const string fileName = "HRD FileName";
+            
             var duneLocation = new DuneLocation("test location", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
@@ -60,11 +62,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             };
 
             // Call
-            var row = new DuneLocationCalculationRow(duneLocationCalculation);
+            var row = new DuneLocationCalculationRow(duneLocationCalculation, fileName);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
             Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
+            Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
             Assert.AreEqual(duneLocation.Id, row.Id);
             Assert.AreEqual(duneLocation.Name, row.Name);
             Assert.AreSame(duneLocation.Location, row.Location);
@@ -98,7 +101,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            var row = new DuneLocationCalculationRow(duneLocationCalculation);
+            var row = new DuneLocationCalculationRow(duneLocationCalculation, string.Empty);
 
             // Assert
             Assert.IsNaN(row.WaterLevel);

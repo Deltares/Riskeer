@@ -40,9 +40,20 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Creates a new instance of <see cref="DuneLocationCalculationRow"/>.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to wrap.</param>
+        /// <param name="hydraulicBoundaryDatabaseFileName">The name of the hydraulic boundary database the
+        /// <paramref name="duneLocationCalculation"/> is associated with.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
-        public DuneLocationCalculationRow(DuneLocationCalculation duneLocationCalculation)
-            : base(duneLocationCalculation) {}
+        public DuneLocationCalculationRow(DuneLocationCalculation duneLocationCalculation,
+                                          string hydraulicBoundaryDatabaseFileName)
+            : base(duneLocationCalculation)
+        {
+            HydraulicBoundaryDatabaseFileName = hydraulicBoundaryDatabaseFileName;
+        }
+        
+        /// <summary>
+        /// Gets the file name of the hydraulic boundary database the calculation is associated with.
+        /// </summary>
+        public string HydraulicBoundaryDatabaseFileName { get; }
 
         /// <summary>
         /// Gets the <see cref="DuneLocation.Name"/>.

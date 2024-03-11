@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The <see cref="HydraulicBoundaryLocationCalculation"/> for this row.</param>
         /// <param name="hydraulicBoundaryDatabaseFileName">The name of the hydraulic boundary database the
-        /// <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
+        /// <paramref name="hydraulicBoundaryLocationCalculation"/> is associated with.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         internal HydraulicBoundaryLocationCalculationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                          string hydraulicBoundaryDatabaseFileName)
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the file name of the hydraulic boundary database the calculation belongs to.
+        /// Gets the file name of the hydraulic boundary database the calculation is associated with.
         /// </summary>
         public string HydraulicBoundaryDatabaseFileName { get; }
 

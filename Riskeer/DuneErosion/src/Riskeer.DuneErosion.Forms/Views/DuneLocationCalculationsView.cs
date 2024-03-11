@@ -278,7 +278,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc)).ToArray());
+            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc, string.Empty)).ToArray());
         }
 
         private void CalculateForSelectedRows()
