@@ -78,17 +78,6 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="DuneLocation.Location"/>.
-        /// </summary>
-        public Point2D Location
-        {
-            get
-            {
-                return CalculatableObject.DuneLocation.Location;
-            }
-        }
-
-        /// <summary>
         /// Gets the <see cref="DuneLocation.CoastalAreaId"/>.
         /// </summary>
         public int CoastalAreaId

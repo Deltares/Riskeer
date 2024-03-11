@@ -67,10 +67,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
             Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
-            Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
             Assert.AreEqual(duneLocation.Id, row.Id);
             Assert.AreEqual(duneLocation.Name, row.Name);
-            Assert.AreSame(duneLocation.Location, row.Location);
+            Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
             Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
