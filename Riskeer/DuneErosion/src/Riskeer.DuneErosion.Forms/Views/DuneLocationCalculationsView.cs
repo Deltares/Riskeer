@@ -30,6 +30,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.DuneErosion.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -273,7 +274,14 @@ namespace Riskeer.DuneErosion.Forms.Views
         private object CreateSelectedItemFromCurrentRow()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            return ((DuneLocationCalculationRow) currentRow?.DataBoundItem)?.CalculatableObject;
+
+            if (currentRow != null)
+            {
+                DuneLocationCalculation calculation = ((DuneLocationCalculationRow) currentRow?.DataBoundItem)?.CalculatableObject;
+                return new DuneLocationCalculationContext(calculation, AssessmentSection);
+            }
+
+            return null;
         }
 
         private void SetDataSource()

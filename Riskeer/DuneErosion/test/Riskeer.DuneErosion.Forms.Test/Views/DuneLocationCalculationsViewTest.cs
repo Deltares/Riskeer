@@ -43,6 +43,7 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -257,7 +258,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 true
             };
             DataGridViewTestHelper.AssertExpectedColumnVisibility(expectedColumnVisibility, dataGridView);
-            
+
             Type[] expectedColumnTypes =
             {
                 typeof(DataGridViewCheckBoxColumn),
@@ -422,12 +423,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             selectedCalculationRow.Cells[0].Value = true;
 
             // Assert
-            var selection = view.Selection as DuneLocationCalculation;
+            var selection = view.Selection as DuneLocationCalculationContext;
             var dataBoundItem = selectedCalculationRow.DataBoundItem as DuneLocationCalculationRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.CalculatableObject, selection);
+
+            Assert.AreSame(dataBoundItem.CalculatableObject, selection.WrappedData);
+            Assert.AreSame(assessmentSection, selection.AssessmentSection);
         }
 
         [Test]
