@@ -69,10 +69,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationCalculationProperties(null, assessmentSection);
+            void Call() => new DuneLocationCalculationProperties(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -85,10 +85,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Call
-            TestDelegate call = () => new DuneLocationCalculationProperties(duneLocationCalculation, null);
+            void Call() => new DuneLocationCalculationProperties(duneLocationCalculation, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 

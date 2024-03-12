@@ -42,24 +42,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private const int calculationsPropertyIndex = 1;
 
         [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new WaterLevelCalculationsForNormTargetProbabilityProperties(null, 0.1);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationCalculations", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
@@ -82,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                           assessmentSection, 0.1);
@@ -112,11 +101,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const double targetProbability = 0.1;
-            
+
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
