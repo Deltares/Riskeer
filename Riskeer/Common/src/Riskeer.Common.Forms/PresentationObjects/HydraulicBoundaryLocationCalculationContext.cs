@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Forms.PresentationObjects
@@ -35,8 +36,22 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
         /// <see cref="HydraulicBoundaryLocationCalculationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationContext(HydraulicBoundaryLocationCalculation wrappedData)
-            : base(wrappedData) {}
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationContext(HydraulicBoundaryLocationCalculation wrappedData, IAssessmentSection assessmentSection)
+            : base(wrappedData)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }
