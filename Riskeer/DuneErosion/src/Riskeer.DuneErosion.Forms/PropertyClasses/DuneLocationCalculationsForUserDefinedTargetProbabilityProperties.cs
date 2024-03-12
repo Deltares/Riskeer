@@ -27,6 +27,7 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
@@ -43,6 +44,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         private const int targetProbabilityPropertyIndex = 1;
         private const int calculationsPropertyIndex = 2;
 
+        private readonly IAssessmentSection assessmentSection;
         private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
 
@@ -50,14 +52,21 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The <see cref="DuneLocationCalculationsForTargetProbability"/> to show the properties for.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="targetProbabilityChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the target probability changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability,
+                                                                                 IAssessmentSection assessmentSection,
                                                                                  IObservablePropertyChangeHandler targetProbabilityChangeHandler)
         {
             if (calculationsForTargetProbability == null)
             {
                 throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (targetProbabilityChangeHandler == null)
@@ -67,6 +76,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
             Data = calculationsForTargetProbability;
 
+            this.assessmentSection = assessmentSection;
             this.targetProbabilityChangeHandler = targetProbabilityChangeHandler;
 
             calculationsObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
@@ -121,7 +131,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         private DuneLocationCalculationProperties[] GetDuneLocationCalculationProperties()
         {
-            return data.DuneLocationCalculations.Select(calculation => new DuneLocationCalculationProperties(calculation)).ToArray();
+            return data.DuneLocationCalculations.Select(calculation => new DuneLocationCalculationProperties(calculation, assessmentSection)).ToArray();
         }
     }
 }

@@ -112,6 +112,7 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 CreateInstance = context => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
                     context.WrappedData,
+                    context.AssessmentSection,
                     new DuneLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
             };
 
