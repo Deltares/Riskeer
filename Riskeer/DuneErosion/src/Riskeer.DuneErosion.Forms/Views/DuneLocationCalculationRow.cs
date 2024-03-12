@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
@@ -49,7 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             HydraulicBoundaryDatabaseFileName = hydraulicBoundaryDatabaseFileName;
         }
-        
+
         /// <summary>
         /// Gets the file name of the hydraulic boundary database the calculation is associated with.
         /// </summary>
