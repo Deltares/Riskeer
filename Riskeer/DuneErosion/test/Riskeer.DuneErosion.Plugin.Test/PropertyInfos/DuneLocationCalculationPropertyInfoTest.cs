@@ -23,8 +23,11 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
@@ -42,7 +45,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneLocationCalculation), info.DataType);
+                Assert.AreEqual(typeof(DuneLocationCalculationContext), info.DataType);
                 Assert.AreEqual(typeof(DuneLocationCalculationProperties), info.PropertyObjectType);
             }
         }
@@ -51,24 +54,31 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
         public void CreateInstance_WithDuneLocationCalculation_SetsDuneLocationCalculationAsData()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var context = new DuneLocationCalculationContext(duneLocationCalculation, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                IObjectProperties objectProperties = info.CreateInstance(duneLocationCalculation);
+                IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationProperties>(objectProperties);
                 Assert.AreSame(duneLocationCalculation, objectProperties.Data);
             }
+            
+            mocks.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculation));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculationContext));
         }
     }
 }
