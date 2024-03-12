@@ -292,11 +292,11 @@ namespace Riskeer.Integration.Plugin
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
-                CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData)
+                CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData, context.AssessmentSection)
             };
             yield return new PropertyInfo<WaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
-                CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData)
+                CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData, context.AssessmentSection)
             };
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
             yield return new PropertyInfo<ForeshoreProfilesContext, ForeshoreProfileCollectionProperties>
