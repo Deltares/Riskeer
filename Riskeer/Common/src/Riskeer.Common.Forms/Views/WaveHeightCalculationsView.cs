@@ -74,7 +74,8 @@ namespace Riskeer.Common.Forms.Views
 
             if (currentRow != null)
             {
-                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject);
+                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject, 
+                                                        AssessmentSection);
             }
 
             return null;

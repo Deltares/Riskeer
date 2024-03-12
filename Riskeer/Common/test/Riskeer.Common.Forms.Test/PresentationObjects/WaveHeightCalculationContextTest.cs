@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -33,14 +35,20 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation);
+            var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

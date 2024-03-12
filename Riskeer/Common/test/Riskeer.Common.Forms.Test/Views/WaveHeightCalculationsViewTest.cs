@@ -486,7 +486,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             protected override object GetCalculationSelection(HydraulicBoundaryCalculationsView view, object selectedRowObject)
             {
-                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
+                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject,
+                                                        view.AssessmentSection);
             }
 
             protected override HydraulicBoundaryCalculationsView ShowFullyConfiguredCalculationsView(Form form)
