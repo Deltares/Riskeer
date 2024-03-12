@@ -25,6 +25,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -40,10 +42,14 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithHydraulicBoundaryLocationCalculations_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var properties = new TestWaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
+            var properties = new TestWaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
@@ -51,13 +57,19 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<WaveHeightCalculationsProperties, ExpandableArrayConverter>(
                 nameof(WaveHeightCalculationsProperties.Calculations));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -69,29 +81,36 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische belastingendatabase.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
             var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 hydraulicBoundaryLocationCalculation
-            });
+            }, assessmentSection);
 
             // Assert
             Assert.AreEqual(1, properties.Calculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Calculations[0].Data);
+            mocks.VerifyAll();
         }
 
         private class TestWaveHeightCalculationsProperties : WaveHeightCalculationsProperties
         {
-            public TestWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-                : base(hydraulicBoundaryLocationCalculations) {}
+            public TestWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                                        IAssessmentSection assessmentSection)
+                : base(hydraulicBoundaryLocationCalculations, assessmentSection) {}
         }
     }
 }
