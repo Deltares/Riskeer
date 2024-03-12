@@ -27,6 +27,7 @@ using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -46,12 +47,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
             void Call() => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                null, targetProbabilityChangeHandler);
+                null, assessmentSection, targetProbabilityChangeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -62,13 +64,19 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_TargetProbabilityChangeHandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             // Call
             void Call() => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), null);
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("targetProbabilityChangeHandler", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -76,6 +84,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -83,7 +92,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                calculationsForTargetProbability, targetProbabilityChangeHandler);
+                calculationsForTargetProbability, assessmentSection, targetProbabilityChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(properties);
@@ -101,12 +110,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), targetProbabilityChangeHandler);
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection, targetProbabilityChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -133,6 +143,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -146,7 +157,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                calculationsForTargetProbability, targetProbabilityChangeHandler);
+                calculationsForTargetProbability, assessmentSection, targetProbabilityChangeHandler);
 
             // Assert
             Assert.AreEqual(calculationsForTargetProbability.TargetProbability, properties.TargetProbability);
@@ -160,6 +171,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -178,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             };
 
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                calculationsForTargetProbability, customHandler);
+                calculationsForTargetProbability, assessmentSection, customHandler);
 
             // Call
             properties.TargetProbability = 0.01;

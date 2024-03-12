@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
@@ -43,11 +44,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="WaterLevelCalculationsForNormTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="normTargetProbability">The norm target probability.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public WaterLevelCalculationsForNormTargetProbabilityProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                                                        IAssessmentSection assessmentSection,
                                                                         double normTargetProbability)
-            : base(hydraulicBoundaryLocationCalculations)
+            : base(hydraulicBoundaryLocationCalculations, assessmentSection)
         {
             TargetProbability = normTargetProbability;
         }

@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Converters;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 
@@ -39,8 +40,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsProperties"/>.
         /// </summary>
-        protected DesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-            : base(hydraulicBoundaryLocationCalculations) {}
+        protected DesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                                         IAssessmentSection assessmentSection)
+            : base(hydraulicBoundaryLocationCalculations, assessmentSection) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -56,7 +58,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         private DesignWaterLevelCalculationProperties[] GetCalculations()
         {
-            return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
+            return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation, AssessmentSection)).ToArray();
         }
     }
 }

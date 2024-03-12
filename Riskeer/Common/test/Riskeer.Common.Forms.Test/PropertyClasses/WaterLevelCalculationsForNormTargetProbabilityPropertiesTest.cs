@@ -26,6 +26,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -54,10 +56,14 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, 0.1);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, assessmentSection, 0.1);
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(properties);
@@ -66,13 +72,20 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.Calculations));
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, NoProbabilityValueDoubleConverter>(
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.TargetProbability));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(), 0.1);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                          assessmentSection, 0.1);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -91,6 +104,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische belastingendatabase.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,17 +112,23 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const double targetProbability = 0.1;
+            
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             };
 
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, targetProbability);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, assessmentSection, targetProbability);
 
             // Assert
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(1, properties.Calculations.Length);
+            mocks.VerifyAll();
         }
     }
 }

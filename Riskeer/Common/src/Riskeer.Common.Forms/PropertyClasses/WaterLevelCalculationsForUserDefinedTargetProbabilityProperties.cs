@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Properties;
@@ -46,11 +47,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="WaterLevelCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="targetProbabilityChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the target probability changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
+                                                                               IAssessmentSection assessmentSection,
                                                                                IObservablePropertyChangeHandler targetProbabilityChangeHandler)
-            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
+            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)), assessmentSection)
         {
             if (targetProbabilityChangeHandler == null)
             {
