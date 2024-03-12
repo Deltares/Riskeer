@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 
@@ -36,9 +37,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocationCalculation) {}
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation, 
+                                                     IAssessmentSection assessmentSection)
+            : base(hydraulicBoundaryLocationCalculation, assessmentSection) {}
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_Description))]
