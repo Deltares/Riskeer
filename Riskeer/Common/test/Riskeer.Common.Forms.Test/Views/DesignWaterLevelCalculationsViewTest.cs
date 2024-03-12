@@ -371,26 +371,6 @@ namespace Riskeer.Common.Forms.Test.Views
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
 
-        private IllustrationPointsControl GetIllustrationPointsControl()
-        {
-            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
-        }
-
-        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
-        {
-            return generalResult.TopLevelIllustrationPoints
-                                .Select(topLevelIllustrationPoint =>
-                                {
-                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
-                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
-                                                                            topLevelIllustrationPoint.WindDirection.Name,
-                                                                            topLevelIllustrationPoint.ClosingSituation,
-                                                                            illustrationPoint.Stochasts,
-                                                                            illustrationPoint.Beta);
-                                });
-        }
-
         private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                              IAssessmentSection assessmentSection,
                                                                                              double targetProbability,
@@ -506,7 +486,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             protected override object GetCalculationSelection(HydraulicBoundaryCalculationsView view, object selectedRowObject)
             {
-                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
+                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject, assessmentSection);
             }
 
             protected override HydraulicBoundaryCalculationsView ShowFullyConfiguredCalculationsView(Form form)

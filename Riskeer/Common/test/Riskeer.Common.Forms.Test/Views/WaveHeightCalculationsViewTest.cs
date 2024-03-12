@@ -371,26 +371,6 @@ namespace Riskeer.Common.Forms.Test.Views
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
 
-        private IllustrationPointsControl GetIllustrationPointsControl()
-        {
-            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
-        }
-
-        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
-        {
-            return generalResult.TopLevelIllustrationPoints
-                                .Select(topLevelIllustrationPoint =>
-                                {
-                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
-                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
-                                                                            topLevelIllustrationPoint.WindDirection.Name,
-                                                                            topLevelIllustrationPoint.ClosingSituation,
-                                                                            illustrationPoint.Stochasts,
-                                                                            illustrationPoint.Beta);
-                                });
-        }
-
         private static WaveHeightCalculationsView ShowWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                  IAssessmentSection assessmentSection,
                                                                                  double targetProbability,
