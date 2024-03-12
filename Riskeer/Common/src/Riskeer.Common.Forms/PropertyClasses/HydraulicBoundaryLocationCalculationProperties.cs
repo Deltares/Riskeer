@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 
@@ -34,13 +35,25 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class HydraulicBoundaryLocationCalculationProperties : HydraulicBoundaryLocationCalculationBaseProperties
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocationCalculation) {}
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation, 
+                                                                 IAssessmentSection assessmentSection)
+            : base(hydraulicBoundaryLocationCalculation)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+        }
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -75,6 +88,18 @@ namespace Riskeer.Common.Forms.PropertyClasses
             get
             {
                 return data.HydraulicBoundaryLocation.Location;
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Description))]
+        public string HRDFileName
+        {
+            get
+            {
+                return assessmentSection.GetHydraulicBoundaryLocationLookup()[data.HydraulicBoundaryLocation];
             }
         }
 

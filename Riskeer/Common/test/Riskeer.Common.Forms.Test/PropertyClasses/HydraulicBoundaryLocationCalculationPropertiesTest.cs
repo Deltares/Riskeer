@@ -26,6 +26,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -39,30 +41,51 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private const int idPropertyIndex = 0;
         private const int namePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private const int resultPropertyIndex = 3;
-        private const int targetProbabilityPropertyIndex = 4;
-        private const int targetReliabilityPropertyIndex = 5;
-        private const int calculatedProbabilityPropertyIndex = 6;
-        private const int calculatedReliabilityPropertyIndex = 7;
-        private const int convergencePropertyIndex = 8;
-        private const int shouldCalculateIllustrationPointsIndex = 9;
-        private const int governingWindDirectionIndex = 10;
-        private const int alphaValuesIndex = 11;
-        private const int durationsIndex = 12;
-        private const int illustrationPointsIndex = 13;
+        private const int hrdFileNamePropertyIndex = 3;
+        private const int resultPropertyIndex = 4;
+        private const int targetProbabilityPropertyIndex = 5;
+        private const int targetReliabilityPropertyIndex = 6;
+        private const int calculatedProbabilityPropertyIndex = 7;
+        private const int calculatedReliabilityPropertyIndex = 8;
+        private const int convergencePropertyIndex = 9;
+        private const int shouldCalculateIllustrationPointsIndex = 10;
+        private const int governingWindDirectionIndex = 11;
+        private const int alphaValuesIndex = 12;
+        private const int durationsIndex = 13;
+        private const int illustrationPointsIndex = 14;
 
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+            void Call() => new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
+                                                                                    assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationBaseProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -71,8 +94,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
+                                                                                    assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -101,6 +129,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Coördinaten [m]",
                                                                             "Coördinaten van de hydraulische belastingenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor hrdFileNameProperty = dynamicProperties[hrdFileNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFileNameProperty,
+                                                                            "Algemeen",
+                                                                            "HRD bestand",
+                                                                            "Naam van het bijbehorende HRD bestand.",
                                                                             true);
 
             PropertyDescriptor resultProperty = dynamicProperties[resultPropertyIndex];
@@ -161,8 +196,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
+                                                                                    assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -191,6 +231,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Coördinaten [m]",
                                                                             "Coördinaten van de hydraulische belastingenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor hrdFileNameProperty = dynamicProperties[hrdFileNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFileNameProperty,
+                                                                            "Algemeen",
+                                                                            "HRD bestand",
+                                                                            "Naam van het bijbehorende HRD bestand.",
                                                                             true);
 
             PropertyDescriptor resultProperty = dynamicProperties[resultPropertyIndex];
@@ -274,6 +321,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
+            const string hrdFileName = "HBHRD";
+
             var random = new Random(39);
             const long id = 1234L;
             const double x = 567.0;
@@ -287,14 +336,34 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(result, calculationConvergence)
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = $"Just/A/{hrdFileName}",
+                        Locations =
+                        {
+                            hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
+
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
+                                                                                    assessmentSection);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
+            Assert.AreEqual(hrdFileName, properties.HRDFileName);
             Assert.AreEqual(result, properties.Result, properties.Result.GetAccuracy());
             Assert.AreEqual(calculationConvergence, properties.Convergence);
         }
@@ -303,6 +372,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnsNameAndLocation()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             const string name = "test";
             const long id = 1234L;
             const double x = 567.0;
@@ -311,17 +384,20 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
-            HydraulicBoundaryLocationCalculationProperties properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+            HydraulicBoundaryLocationCalculationProperties properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
+                                                                                                                               assessmentSection);
 
             // Assert
             string expectedString = $"{name} {new Point2D(x, y)}";
             Assert.AreEqual(expectedString, properties.ToString());
+            mocks.VerifyAll();
         }
 
         private class TestHydraulicBoundaryLocationCalculationProperties : HydraulicBoundaryLocationCalculationProperties
         {
-            public TestHydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-                : base(hydraulicBoundaryLocationCalculation) {}
+            public TestHydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                      IAssessmentSection assessmentSection)
+                : base(hydraulicBoundaryLocationCalculation, assessmentSection) {}
         }
     }
 }
