@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Forms.PropertyClasses
@@ -31,19 +32,29 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
+        protected readonly IAssessmentSection AssessmentSection;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations, 
+                                                                  IAssessmentSection assessmentSection)
         {
             if (hydraulicBoundaryLocationCalculations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
 
             Data = hydraulicBoundaryLocationCalculations;
 
