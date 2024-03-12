@@ -25,6 +25,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
@@ -41,8 +42,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation("0", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
-            var calculation = new DuneLocationCalculation(duneLocation);
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
             var context = new DuneLocationCalculationContext(calculation, assessmentSection);

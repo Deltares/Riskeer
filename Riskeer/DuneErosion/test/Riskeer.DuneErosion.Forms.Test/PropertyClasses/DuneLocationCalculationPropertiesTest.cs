@@ -27,6 +27,8 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -44,39 +46,81 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredCoastalAreaIdPropertyIndex = 2;
         private const int requiredOffSetPropertyIndex = 3;
         private const int requiredLocationPropertyIndex = 4;
+        private const int requiredHRDatabaseFileNamePropertyIndex = 5;
 
-        private const int requiredWaterLevelPropertyIndex = 5;
-        private const int requiredWaveHeightPropertyIndex = 6;
-        private const int requiredWavePeriodPropertyIndex = 7;
-        private const int requiredMeanTidalAmplitudePropertyIndex = 8;
-        private const int requiredWaveDirectionalSpreadPropertyIndex = 9;
-        private const int requiredTideSurgePhaseDifferencePropertyIndex = 10;
-        private const int requiredTargetProbabilityPropertyIndex = 11;
-        private const int requiredTargetReliabilityPropertyIndex = 12;
-        private const int requiredCalculatedProbabilityPropertyIndex = 13;
-        private const int requiredCalculatedReliabilityPropertyIndex = 14;
-        private const int requiredConvergencePropertyIndex = 15;
+        private const int requiredWaterLevelPropertyIndex = 6;
+        private const int requiredWaveHeightPropertyIndex = 7;
+        private const int requiredWavePeriodPropertyIndex = 8;
+        private const int requiredMeanTidalAmplitudePropertyIndex = 9;
+        private const int requiredWaveDirectionalSpreadPropertyIndex = 10;
+        private const int requiredTideSurgePhaseDifferencePropertyIndex = 11;
+        private const int requiredTargetProbabilityPropertyIndex = 12;
+        private const int requiredTargetReliabilityPropertyIndex = 13;
+        private const int requiredCalculatedProbabilityPropertyIndex = 14;
+        private const int requiredCalculatedReliabilityPropertyIndex = 15;
+        private const int requiredConvergencePropertyIndex = 16;
 
         [Test]
         public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new DuneLocationCalculationProperties(null);
+            TestDelegate call = () => new DuneLocationCalculationProperties(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var duneLocation = new TestDuneLocation();
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Call
-            var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
+            TestDelegate call = () => new DuneLocationCalculationProperties(duneLocationCalculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetProperties_ValidData_ReturnsExpectedValues()
+        {
+            // Setup
+            const string hrdFileName = "DuneHrd";
+
+            var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = $"Just/A/{hrdFileName}",
+                        Locations =
+                        {
+                            duneLocation.HydraulicBoundaryLocation
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Assert
             Assert.AreEqual(duneLocation.Id, properties.Id);
@@ -84,6 +128,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(duneLocation.CoastalAreaId, properties.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
             Assert.AreEqual(duneLocation.Location, properties.Location);
+            Assert.AreEqual(hrdFileName, properties.HRDFileName);
 
             Assert.IsNaN(properties.WaterLevel);
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
@@ -121,12 +166,16 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             string convergenceValue = EnumDisplayNameHelper.GetDisplayName(CalculationConvergence.NotCalculated);
             Assert.AreEqual(convergenceValue, properties.Convergence);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_ValidOutput_ReturnsExpectedValues()
         {
             // Setup
+            const string hrdFileName = "DuneHrd";
+
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
@@ -136,7 +185,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             int coastalAreaId = random.Next();
             var convergence = random.NextEnumValue<CalculationConvergence>();
             double offset = random.NextDouble();
-            double orientation = random.NextDouble();
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
@@ -174,8 +222,26 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 Output = output
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = $"Just/A/{hrdFileName}",
+                        Locations =
+                        {
+                            duneLocation.HydraulicBoundaryLocation
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
+
             // Call
-            var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
+            var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
@@ -199,22 +265,28 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
+            var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[requiredIdPropertyIndex];
@@ -250,6 +322,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Algemeen",
                                                                             "Coördinaten [m]",
                                                                             "Coördinaten van de hydraulische belastingenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor hrdFileNameProperty = dynamicProperties[requiredHRDatabaseFileNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFileNameProperty,
+                                                                            "Algemeen",
+                                                                            "HRD bestand",
+                                                                            "Naam van het bijbehorende HRD bestand.",
                                                                             true);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
@@ -328,6 +407,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?",
                                                                             true);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -335,6 +416,11 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(3.1, "3.1")]
         public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var duneLocation = new DuneLocation("test", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
@@ -343,25 +429,31 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Call
-            var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
+            var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedPropertyValue, properties.Offset);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ToString_Always_ExpectedValue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var duneLocation = new DuneLocation("Name", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
-            var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
+            var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Call
             var result = properties.ToString();
 
             // Assert
             Assert.AreEqual($"{duneLocation.Name} {duneLocation.Location}", result);
+            mocks.VerifyAll();
         }
     }
 }

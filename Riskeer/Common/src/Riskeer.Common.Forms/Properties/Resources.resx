@@ -1607,4 +1607,7 @@ faalkans per vak
     <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
       <value>HRD bestand</value>
     </data>
+    <data name="HydraulicBoundaryDatabase_Description" xml:space="preserve">
+      <value>Naam van het bijbehorende HRD bestand.</value>
+    </data>
 </root>

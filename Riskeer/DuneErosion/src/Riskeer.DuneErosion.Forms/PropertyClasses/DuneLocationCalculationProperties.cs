@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
@@ -42,17 +43,27 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DuneLocationCalculationProperties : ObjectProperties<DuneLocationCalculation>
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="calculation">The dune location calculation at stake.</param>
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public DuneLocationCalculationProperties(DuneLocationCalculation calculation)
+        public DuneLocationCalculationProperties(DuneLocationCalculation calculation, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
 
             Data = calculation;
         }
@@ -111,6 +122,17 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.DuneLocation.Location;
+            }
+        }
+        
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Description))]
+        public string HRDFileName
+        {
+            get
+            {
+                return assessmentSection.GetHydraulicBoundaryLocationLookup()[data.DuneLocation.HydraulicBoundaryLocation];
             }
         }
 
