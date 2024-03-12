@@ -288,7 +288,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
     <data name="RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase" xml:space="preserve">
-        <value>Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen.
+        <value>Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de belastingenberekeningen voor bekledingen en de invoer van de sterkteberekeningen.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>

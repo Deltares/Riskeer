@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string onRemoveConfirmationText = info.OnRemoveConfirmationText(null);
 
                 // Assert
-                string expectedText = "Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen."
+                string expectedText = "Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de belastingenberekeningen voor bekledingen en de invoer van de sterkteberekeningen."
                                       + Environment.NewLine
                                       + Environment.NewLine
                                       + "Weet u zeker dat u wilt doorgaan?";
