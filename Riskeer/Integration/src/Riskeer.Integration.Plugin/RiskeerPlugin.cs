@@ -276,18 +276,18 @@ namespace Riskeer.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, ICalculatableFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, WaterLevelCalculationsForNormTargetProbabilityProperties>
             {
-                CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.GetNormFunc())
+                CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.AssessmentSection, context.GetNormFunc())
             };
             yield return new PropertyInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, WaterLevelCalculationsForUserDefinedTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                    context.WrappedData,
+                    context.WrappedData, context.AssessmentSection,
                     new WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData, context.AssessmentSection))
             };
             yield return new PropertyInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, WaveHeightCalculationsForUserDefinedTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(
-                    context.WrappedData,
+                    context.WrappedData, context.AssessmentSection,
                     new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
