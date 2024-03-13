@@ -305,6 +305,16 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD.
+        /// </summary>
+        public static string HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileNam" +
+                        "e_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///Er is geen HLCD geïmporteerd..
         /// </summary>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
@@ -38,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Call
             void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
-                null, string.Empty);
+                null, string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -46,11 +47,23 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
+        public void CreateHydraulicBoundaryLocationCalculationFeature_HydraulicBoundaryDatabaseFileNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryDatabaseFileName", exception.ParamName);
+        }
+        
+        [Test]
         public void CreateHydraulicBoundaryLocationCalculationFeature_MetaDataHeaderNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), null);
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +77,10 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Setup
             const string metaDataHeader = "header";
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("location 1"));
+            const string hrdFileName = "HRDFileName";
+
+            var location = new TestHydraulicBoundaryLocation("location 1");
+            var calculation = new HydraulicBoundaryLocationCalculation(location);
 
             if (calculationHasOutput)
             {
@@ -73,14 +89,20 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
-                calculation, metaDataHeader);
+                calculation, hrdFileName, metaDataHeader);
 
             // Assert
+            Assert.AreEqual(location.Location, feature.MapGeometries.Single().PointCollections.Single().Single());
+            
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
+            
             RoundedDouble expectedMetaDataValue = calculationHasOutput
                                                       ? calculation.Output.Result
                                                       : RoundedDouble.NaN;
             MapFeaturesMetaDataTestHelper.AssertMetaData(expectedMetaDataValue.ToString(),
                                                          feature, metaDataHeader);
+            MapFeaturesMetaDataTestHelper.AssertMetaData(hrdFileName, feature, "HRD");
         }
     }
 }

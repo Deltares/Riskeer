@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util;
+using Riskeer.Integration.IO.Properties;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Factories
@@ -34,15 +35,22 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a hydraulic boundary location calculation feature based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create the feature for.</param>
+        /// <param name="hydraulicBoundaryDatabaseFileName">The file name of the hydraulic boundary database the calculation belongs to.</param>
         /// <param name="metaDataHeader">The meta data header to use.</param>
         /// <returns>A feature based on the given <paramref name="calculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static MapFeature CreateHydraulicBoundaryLocationCalculationFeature(HydraulicBoundaryLocationCalculation calculation,
+                                                                                   string hydraulicBoundaryDatabaseFileName,
                                                                                    string metaDataHeader)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (hydraulicBoundaryDatabaseFileName == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFileName));
             }
 
             if (metaDataHeader == null)
@@ -54,6 +62,7 @@ namespace Riskeer.Integration.IO.Factories
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
+            feature.MetaData[Resources.HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName] = hydraulicBoundaryDatabaseFileName;
             feature.MetaData[metaDataHeader] = GetCalculationResult(calculation.Output).ToString();
             return feature;
         }

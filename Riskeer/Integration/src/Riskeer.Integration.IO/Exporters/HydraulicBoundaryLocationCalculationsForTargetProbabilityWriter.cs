@@ -92,7 +92,7 @@ namespace Riskeer.Integration.IO.Exporters
                 Features = new[]
                 {
                     HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
-                        calculation, metaDataHeader)
+                        calculation, string.Empty, metaDataHeader)
                 }
             };
         }

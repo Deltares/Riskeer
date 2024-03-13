@@ -215,4 +215,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files" xml:space="preserve">
     <value>Inlezen van de hydraulische belastingen bestanden.</value>
   </data>
+  <data name="HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName" xml:space="preserve">
+    <value>HRD</value>
+  </data>
 </root>
