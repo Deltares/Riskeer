@@ -188,6 +188,53 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyTrue_ThenRefreshButtonDisabledAndWarningCleared()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = true;
+            assessmentSection.GrassCoverErosionInwards.InAssembly = true;
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                bool allCorrelatedFailureMechanismsInAssembly = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(assessmentSection);
+                Assert.IsTrue(allCorrelatedFailureMechanismsInAssembly);
+
+                // Then
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button refreshButton = buttonTester.Properties;
+                Assert.IsFalse(refreshButton.Enabled);
+
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(refreshButton));
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyFalse_ThenRefreshButtonDisabledAndWarningCleared()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HeightStructures.InAssembly = false;
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                bool allCorrelatedFailureMechanismsInAssembly = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(assessmentSection);
+                Assert.IsFalse(allCorrelatedFailureMechanismsInAssembly);
+
+                // Then
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button refreshButton = buttonTester.Properties;
+                Assert.IsFalse(refreshButton.Enabled);
+
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(refreshButton));
+            }
+        }
+
+        [Test]
         public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyFalse_WhenAllCorrelatedFailureMechanismsInAssemblyTrueAndFailureMechanismNotifyObservers_ThenCheckboxVisible()
         {
             // Given

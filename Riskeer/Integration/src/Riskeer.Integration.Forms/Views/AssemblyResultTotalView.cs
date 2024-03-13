@@ -99,8 +99,11 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+
             UpdateAssemblyResultControls();
             UpdateFailureMechanismsCorrelatedCheckBox();
+
+            ResetRefreshAssemblyResultsButton();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
