@@ -23,7 +23,6 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
@@ -33,7 +32,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
     [TestFixture]
     public class DuneLocationCalculationContextTest
     {
-        
         [Test]
         public void Constructor_ExpectedValues()
         {
