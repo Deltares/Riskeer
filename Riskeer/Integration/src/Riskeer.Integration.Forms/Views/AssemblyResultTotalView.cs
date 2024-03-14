@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Views
         private readonly Observer assessmentSectionResultObserver;
         private IEnumerable<FailureMechanismAssemblyResultRow> assemblyResultRows;
 
-        private bool isCheckboxInitialized;
+        private bool updatingFailureMechanismsCorrelatedCheckBox;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
@@ -104,7 +104,6 @@ namespace Riskeer.Integration.Forms.Views
 
             UpdateAssemblyResultControls();
             UpdateFailureMechanismsCorrelatedCheckBox();
-            isCheckboxInitialized = true;
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -139,8 +138,10 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateFailureMechanismsCorrelatedCheckBox()
         {
+            updatingFailureMechanismsCorrelatedCheckBox = true;
             checkBox.Visible = AssessmentSectionAssemblyHelper.AllCorrelatedFailureMechanismsInAssembly(AssessmentSection);
             checkBox.Checked = AssessmentSection.AreFailureMechanismsCorrelated;
+            updatingFailureMechanismsCorrelatedCheckBox = false;
         }
 
         private void InitializeDataGridView()
@@ -227,11 +228,13 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (isCheckboxInitialized)
+            if (updatingFailureMechanismsCorrelatedCheckBox)
             {
-                EnableRefreshButton();
-                AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
+                return;
             }
+            
+            EnableRefreshButton();
+            AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
         }
 
         #region Failure mechanism assembly result rows
