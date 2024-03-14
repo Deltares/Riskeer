@@ -62,7 +62,7 @@ namespace Riskeer.Revetment.Data.TestUtil
             input.Orientation = random.NextRoundedDouble();
             input.LowerBoundaryRevetment = random.NextRoundedDouble(0, 2);
             input.UpperBoundaryRevetment = random.NextRoundedDouble(2, 4);
-            input.StepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
+            input.StepSize = random.NextRoundedDouble(0.01, 2.0);
             input.LowerBoundaryWaterLevels = random.NextRoundedDouble(0, 2);
             input.UpperBoundaryWaterLevels = random.NextRoundedDouble(2, 4);
             input.UseBreakWater = random.NextBoolean();
