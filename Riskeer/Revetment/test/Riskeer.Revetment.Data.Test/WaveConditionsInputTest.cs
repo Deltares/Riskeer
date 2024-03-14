@@ -68,7 +68,8 @@ namespace Riskeer.Revetment.Data.Test
             Assert.AreEqual(2, input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.IsNaN(input.UpperBoundaryWaterLevels.Value);
             Assert.AreEqual(2, input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(WaveConditionsInputStepSize.Half, input.StepSize);
+            Assert.AreEqual(0.5, input.StepSize);
+            Assert.AreEqual(2, input.StepSize.NumberOfDecimalPlaces);
             Assert.AreEqual(WaveConditionsInputWaterLevelType.None, input.WaterLevelType);
             Assert.IsNull(input.CalculationsTargetProbability);
         }
@@ -336,6 +337,46 @@ namespace Riskeer.Revetment.Data.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
+        [Test]
+        [TestCase(2.004)]
+        [TestCase(2.0)]
+        [TestCase(0.01)]
+        [TestCase(0.005)]
+        public void StepSize_ValidValue_NewValueSet(double stepSize)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.StepSize = (RoundedDouble) stepSize;
+
+            // Assert
+            Assert.AreEqual(2, input.StepSize.NumberOfDecimalPlaces);
+            Assert.AreEqual(stepSize, input.StepSize, input.StepSize.GetAccuracy());
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(double.NaN)]
+        [TestCase(5)]
+        [TestCase(2.01)]
+        [TestCase(0.004)]
+        [TestCase(0)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void StepSize_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            void Call() => input.StepSize = (RoundedDouble) invalidValue;
+
+            // Assert
+            const string message = "De waarde voor de stapgrootte moet in het bereik [0,01, 2,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+        
         [Test]
         public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {

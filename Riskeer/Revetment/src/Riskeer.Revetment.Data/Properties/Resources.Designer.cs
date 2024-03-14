@@ -82,6 +82,15 @@ namespace Riskeer.Revetment.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de stapgrootte moet in het bereik {0} liggen..
+        /// </summary>
+        internal static string StepSize_Value_needs_to_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("StepSize_Value_needs_to_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De bovengrens van de bekleding moet boven de ondergrens liggen..
         /// </summary>
         internal static string WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment {

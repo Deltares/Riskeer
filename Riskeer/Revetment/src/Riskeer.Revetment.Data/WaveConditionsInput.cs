@@ -44,12 +44,18 @@ namespace Riskeer.Revetment.Data
             new RoundedDouble(orientationNumberOfDecimals),
             new RoundedDouble(orientationNumberOfDecimals, 360));
 
+        private const int stepSizeNumberOfDecimals = 2;
+        private static readonly Range<RoundedDouble> stepSizeValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(stepSizeNumberOfDecimals, 0.01),
+            new RoundedDouble(stepSizeNumberOfDecimals, 2.0));
+        
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
         private RoundedDouble lowerBoundaryRevetment;
         private RoundedDouble upperBoundaryWaterLevels;
         private RoundedDouble lowerBoundaryWaterLevels;
         private RoundedDouble orientation;
+        private RoundedDouble stepSize;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
@@ -60,7 +66,7 @@ namespace Riskeer.Revetment.Data
 
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
-            StepSize = WaveConditionsInputStepSize.Half;
+            stepSize = new RoundedDouble(stepSizeNumberOfDecimals, 0.5);
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             WaterLevelType = WaveConditionsInputWaterLevelType.None;
@@ -133,7 +139,21 @@ namespace Riskeer.Revetment.Data
         /// <summary>
         /// Gets or sets the step size used for determining water levels.
         /// </summary>
-        public WaveConditionsInputStepSize StepSize { get; set; }
+        public RoundedDouble StepSize
+        {
+            get => stepSize;
+            set
+            {
+                RoundedDouble newStepSize = value.ToPrecision(stepSizeNumberOfDecimals);
+                if (double.IsNaN(newStepSize) || !stepSizeValidityRange.InRange(newStepSize))
+                {
+                    throw new ArgumentOutOfRangeException(null, string.Format(Resources.StepSize_Value_needs_to_be_in_Range_0_,
+                                                                              stepSizeValidityRange));
+                }
+
+                stepSize = newStepSize;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the lower boundary of the water levels range.
