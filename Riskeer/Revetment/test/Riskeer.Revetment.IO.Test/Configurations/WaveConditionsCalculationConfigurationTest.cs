@@ -75,7 +75,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             const double lowerBoundaryRevetment = 3.3;
             const double upperBoundaryWaterLevels = 4.4;
             const double lowerBoundaryWaterLevels = 5.5;
-            const ConfigurationWaveConditionsInputStepSize stepSize = ConfigurationWaveConditionsInputStepSize.Half;
+            const double stepSize = 0.5;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;

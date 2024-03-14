@@ -24,7 +24,6 @@ using System.Xml;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -85,8 +84,9 @@ namespace Riskeer.Revetment.IO.Configurations
                 writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
                 configuration.LowerBoundaryWaterLevels);
-            WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
+            WriteElementWhenContentAvailable(
                 writer,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
                 configuration.StepSize);
 
             WriteElementWhenContentAvailable(
@@ -114,28 +114,5 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <exception cref="NotSupportedException">Thrown when the conversion of a type 
         /// cannot be performed.</exception>
         protected abstract void WriteWaveConditionsSpecificParameters(XmlWriter writer, T configuration);
-
-        /// <summary>
-        /// Writes the <paramref name="stepSize"/> in XML format to file.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="stepSize">The stepsize to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the conversion
-        /// of <paramref name="stepSize"/> cannot be performed.</exception>
-        private static void WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
-            XmlWriter writer,
-            ConfigurationWaveConditionsInputStepSize? stepSize)
-        {
-            if (!stepSize.HasValue)
-            {
-                return;
-            }
-
-            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
-            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
-                                      converter.ConvertToInvariantString(stepSize.Value));
-        }
     }
 }

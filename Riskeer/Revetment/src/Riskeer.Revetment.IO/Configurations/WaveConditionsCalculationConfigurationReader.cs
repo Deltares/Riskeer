@@ -26,7 +26,6 @@ using Core.Common.Base.IO;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
-using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.Revetment.IO.Properties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -141,7 +140,7 @@ namespace Riskeer.Revetment.IO.Configurations
             configuration.LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
             configuration.UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);
             configuration.LowerBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels);
-            configuration.StepSize = (ConfigurationWaveConditionsInputStepSize?) calculationElement.GetConvertedValueFromDescendantDoubleElement<ConfigurationWaveConditionsInputStepSizeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize);
+            configuration.StepSize = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize);
             configuration.ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile);
             configuration.Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation);
             configuration.WaveReduction = calculationElement.GetWaveReductionParameters();

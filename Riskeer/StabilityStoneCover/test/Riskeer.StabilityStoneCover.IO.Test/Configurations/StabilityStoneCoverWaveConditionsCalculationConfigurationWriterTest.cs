@@ -19,15 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using System.IO;
 using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.TestUtil;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 
 namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
@@ -90,7 +87,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
                 LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
-                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1,
                 ForeshoreProfileId = "profiel1",
                 Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration
@@ -123,28 +120,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
-        }
-
-        [Test]
-        public void Write_InvalidCalculationType_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new StabilityStoneCoverWaveConditionsCalculationConfiguration("fail")
-            {
-                CalculationType = (ConfigurationStabilityStoneCoverCalculationType?) 99
-            };
-
-            var writer = new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter("valid");
-
-            // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)

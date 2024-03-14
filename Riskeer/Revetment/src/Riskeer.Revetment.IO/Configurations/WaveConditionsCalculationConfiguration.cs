@@ -77,7 +77,7 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <summary>
         /// Gets or sets the step size of the calculation.
         /// </summary>
-        public ConfigurationWaveConditionsInputStepSize? StepSize { get; set; }
+        public double? StepSize { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the foreshore profile of the calculation.

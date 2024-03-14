@@ -109,7 +109,6 @@ namespace Riskeer.Revetment.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            SetStepSize(readCalculation, waveConditionsCalculation);
             SetCalculationSpecificParameters(readCalculation, waveConditionsCalculation);
 
             if (TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, waveConditionsCalculation)
@@ -117,6 +116,7 @@ namespace Riskeer.Revetment.IO.Configurations
                 && TrySetBoundaries(readCalculation, waveConditionsCalculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, waveConditionsCalculation)
                 && TrySetOrientation(readCalculation, waveConditionsCalculation)
+                && TrySetStepSize(readCalculation, waveConditionsCalculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
                                                                        waveConditionsCalculation.Name, Log))
             {
@@ -184,15 +184,6 @@ namespace Riskeer.Revetment.IO.Configurations
             }
 
             return true;
-        }
-
-        private static void SetStepSize(WaveConditionsCalculationConfiguration calculationConfiguration,
-                                        ICalculation<WaveConditionsInput> calculation)
-        {
-            if (calculationConfiguration.StepSize.HasValue)
-            {
-                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) calculationConfiguration.StepSize.Value;
-            }
         }
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, ICalculation<WaveConditionsInput> calculation)
@@ -309,6 +300,35 @@ namespace Riskeer.Revetment.IO.Configurations
                                                calculation.Name, e);
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Assigns the step size.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the step size is invalid, <c>true</c> otherwise.</returns>
+        private bool TrySetStepSize(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                    ICalculation<WaveConditionsInput> calculation)
+        {
+            RoundedDouble stepSize = calculationConfiguration.StepSize.HasValue
+                                         ? (RoundedDouble) calculationConfiguration.StepSize.Value
+                                         : RoundedDouble.NaN;
+            try
+            {
+                calculation.InputParameters.StepSize = stepSize;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format(
+                                               RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                               stepSize,
+                                               RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                           calculation.Name, e);
+                return false;
             }
 
             return true;

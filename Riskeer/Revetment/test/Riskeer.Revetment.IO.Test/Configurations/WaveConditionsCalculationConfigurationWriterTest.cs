@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using System.IO;
 using System.Xml;
 using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -92,7 +90,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
                 LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
-                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1,
                 ForeshoreProfileId = "profiel1",
                 Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration
@@ -124,28 +122,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
-        }
-
-        [Test]
-        public void Write_InvalidStepSize_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new WaveConditionsCalculationConfiguration("fail")
-            {
-                StepSize = (ConfigurationWaveConditionsInputStepSize?) 9000
-            };
-
-            var writer = new TestWaveConditionsCalculationConfigurationWriter("valid");
-
-            // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriterInstance(string filePath)

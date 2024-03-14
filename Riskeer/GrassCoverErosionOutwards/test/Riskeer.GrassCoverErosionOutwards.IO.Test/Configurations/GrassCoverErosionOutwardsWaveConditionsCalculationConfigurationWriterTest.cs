@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
-using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {
@@ -91,7 +90,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
                 LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
-                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1,
                 ForeshoreProfileId = "profiel1",
                 Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration

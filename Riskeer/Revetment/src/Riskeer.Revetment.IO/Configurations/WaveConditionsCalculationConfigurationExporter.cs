@@ -28,7 +28,6 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -80,7 +79,7 @@ namespace Riskeer.Revetment.IO.Configurations
             calculationConfiguration.LowerBoundaryWaterLevels = input.LowerBoundaryWaterLevels;
             calculationConfiguration.UpperBoundaryWaterLevels = input.UpperBoundaryWaterLevels;
             calculationConfiguration.Orientation = input.Orientation;
-            calculationConfiguration.StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize);
+            calculationConfiguration.StepSize = input.StepSize;
 
             SetConfigurationForeshoreProfileDependentProperties(calculationConfiguration, input);
             SetConfigurationTargetProbabilityProperty(calculationConfiguration, input);
