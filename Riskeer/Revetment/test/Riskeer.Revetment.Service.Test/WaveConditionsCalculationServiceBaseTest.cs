@@ -254,7 +254,7 @@ namespace Riskeer.Revetment.Service.Test
                 Orientation = (RoundedDouble) 0,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
-                StepSize = WaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
@@ -459,7 +459,7 @@ namespace Riskeer.Revetment.Service.Test
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
-                StepSize = WaveConditionsInputStepSize.Two,
+                StepSize = (RoundedDouble) 2,
                 UseBreakWater = false,
                 UseForeshore = useForeshore,
                 Orientation = (RoundedDouble) 0
@@ -519,7 +519,7 @@ namespace Riskeer.Revetment.Service.Test
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
-                StepSize = WaveConditionsInputStepSize.Two,
+                StepSize = (RoundedDouble) 2,
                 UseBreakWater = true,
                 UseForeshore = true,
                 Orientation = (RoundedDouble) 0,
@@ -584,7 +584,7 @@ namespace Riskeer.Revetment.Service.Test
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
-                StepSize = WaveConditionsInputStepSize.Two,
+                StepSize = (RoundedDouble) 2,
                 Orientation = (RoundedDouble) 0
             };
 
@@ -858,7 +858,7 @@ namespace Riskeer.Revetment.Service.Test
                 UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                StepSize = WaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
                 Orientation = (RoundedDouble) 0
