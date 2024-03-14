@@ -26,6 +26,8 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
@@ -39,25 +41,50 @@ namespace Riskeer.Integration.IO.Test.Exporters
         [Test]
         public void WriteHydraulicBoundaryLocationCalculations_CalculationsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
-                null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                null, assessmentSection, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteHydraulicBoundaryLocationCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void WriteHydraulicBoundaryLocationCalculations_FilePathNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,15 +93,21 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), string.Empty, hydraulicBoundaryLocationCalculationsType);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, string.Empty, hydraulicBoundaryLocationCalculationsType);
 
             // Assert
             string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
                                      $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("calculationsType", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -89,13 +122,32 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile));
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
-            // Precondition
-            FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, false);
-
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("location 1"))
+            var location = new TestHydraulicBoundaryLocation("location 1");
+            var calculation = new HydraulicBoundaryLocationCalculation(location)
             {
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(0.1)
             };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "Just/A/HRD/File",
+                        Locations =
+                        {
+                            location
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
+
+            // Precondition
+            FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, false);
 
             try
             {
@@ -103,7 +155,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(new[]
                 {
                     calculation
-                }, filePath, calculationsType);
+                }, assessmentSection, filePath, calculationsType);
 
                 // Assert
                 FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, true);
@@ -111,12 +163,14 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                  nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter)),
-                    expectedExportFileName, 28, 8, 628);
+                    expectedExportFileName, 28, 8, 915);
             }
             finally
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+
+            mocks.VerifyAll();
         }
     }
 }
