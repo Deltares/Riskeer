@@ -83,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                     LowerBoundaryRevetment = (RoundedDouble) 3.58,
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
-                    StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
+                    StepSize = (RoundedDouble) 0.25,
                     CalculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>(),
                     WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
                 }
@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
             Assert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
+            Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize, input.StepSize.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
             Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 

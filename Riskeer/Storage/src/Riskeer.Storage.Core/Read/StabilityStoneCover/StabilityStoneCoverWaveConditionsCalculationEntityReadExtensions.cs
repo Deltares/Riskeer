@@ -93,7 +93,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             inputParameters.LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN();
             inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
-            inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+            inputParameters.StepSize = (RoundedDouble) entity.StepSize;
             inputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) entity.CalculationType;
             inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaterLevelType;
         }

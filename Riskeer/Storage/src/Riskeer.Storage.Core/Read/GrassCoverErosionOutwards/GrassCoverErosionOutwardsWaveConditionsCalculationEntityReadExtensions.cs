@@ -92,7 +92,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             inputParameters.LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN();
             inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
-            inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+            inputParameters.StepSize = (RoundedDouble) entity.StepSize;
             inputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) entity.CalculationType;
             inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaterLevelType;
         }
