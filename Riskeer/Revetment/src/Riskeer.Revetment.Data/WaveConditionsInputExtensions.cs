@@ -65,7 +65,7 @@ namespace Riskeer.Revetment.Data
 
             waterLevels.Add(upperBoundary);
 
-            double stepSizeValue = waveConditionsInput.StepSize.AsValue();
+            double stepSizeValue = waveConditionsInput.StepSize;
             var currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
 
             while (currentWaterLevel > lowerBoundary)

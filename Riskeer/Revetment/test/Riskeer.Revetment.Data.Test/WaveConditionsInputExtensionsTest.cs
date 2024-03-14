@@ -53,7 +53,7 @@ namespace Riskeer.Revetment.Data.Test
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
-                StepSize = WaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1.0,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
@@ -75,7 +75,7 @@ namespace Riskeer.Revetment.Data.Test
                 UpperBoundaryRevetment = (RoundedDouble) 6.10,
                 LowerBoundaryWaterLevels = (RoundedDouble) 6.20,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10,
-                StepSize = WaveConditionsInputStepSize.Half
+                StepSize = (RoundedDouble) 0.5
             };
 
             // Call
@@ -93,7 +93,7 @@ namespace Riskeer.Revetment.Data.Test
             {
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                StepSize = WaveConditionsInputStepSize.One,
+                StepSize = (RoundedDouble) 1.0,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
@@ -107,7 +107,7 @@ namespace Riskeer.Revetment.Data.Test
 
         [Test]
         [TestCaseSource(nameof(WaterLevels))]
-        public void GetWaterLevels_ValidInput_ReturnsExpectedWaterLevels(WaveConditionsInputStepSize stepSize,
+        public void GetWaterLevels_ValidInput_ReturnsExpectedWaterLevels(double stepSize,
                                                                          double lowerBoundaryRevetment,
                                                                          double upperBoundaryRevetment,
                                                                          double lowerBoundaryWaterLevels,
@@ -120,7 +120,7 @@ namespace Riskeer.Revetment.Data.Test
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
-                StepSize = stepSize,
+                StepSize = (RoundedDouble) stepSize,
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -134,13 +134,13 @@ namespace Riskeer.Revetment.Data.Test
 
         private static IEnumerable<TestCaseData> WaterLevels()
         {
-            yield return new TestCaseData(WaveConditionsInputStepSize.Two, 2.58, 6.10, 2.40, 3.89, 5.99, new[]
+            yield return new TestCaseData(2, 2.58, 6.10, 2.40, 3.89, 5.99, new[]
             {
                 new RoundedDouble(2, 3.89),
                 new RoundedDouble(2, 2.58)
             });
 
-            yield return new TestCaseData(WaveConditionsInputStepSize.Half, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
+            yield return new TestCaseData(0.5, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
             {
                 new RoundedDouble(2, 5.88),
                 new RoundedDouble(2, 5.5),
@@ -150,7 +150,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, 3.58)
             });
 
-            yield return new TestCaseData(WaveConditionsInputStepSize.One, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
+            yield return new TestCaseData(1, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
             {
                 new RoundedDouble(2, 5.80),
                 new RoundedDouble(2, 5),
@@ -163,7 +163,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, -1.20)
             });
 
-            yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
+            yield return new TestCaseData(2, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
             {
                 new RoundedDouble(2, 8.57),
                 new RoundedDouble(2, 8),
@@ -176,7 +176,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, -4.29)
             });
 
-            yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
+            yield return new TestCaseData(2, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
             {
                 new RoundedDouble(2, 8.57),
                 new RoundedDouble(2, 8),
