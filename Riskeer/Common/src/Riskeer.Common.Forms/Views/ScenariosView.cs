@@ -206,6 +206,7 @@ namespace Riskeer.Common.Forms.Views
             if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
                 DataGridViewControl.SetDataSource(null);
+                scenarioRows = null;
                 return;
             }
 
