@@ -28,6 +28,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Integration.IO.Exporters;
@@ -40,55 +42,90 @@ namespace Riskeer.Integration.IO.Test.Exporters
         [Test]
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
+                null, assessmentSection, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_FilePathNull_ThrowsArgumentException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InvalidHydraulicBoundaryLocationCalculationsType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
             const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
 
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, filePath, hydraulicBoundaryLocationCalculationsType);
 
             // Assert
             string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
                                      $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("calculationsType", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -104,10 +141,30 @@ namespace Riskeer.Integration.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
+            var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "Just/A/HRD/File",
+                        Locations =
+                        {
+                            location
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
+
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
-            }, filePath, calculationsType);
+                new HydraulicBoundaryLocationCalculation(location)
+            }, assessmentSection, filePath, calculationsType);
 
             // Precondition
             FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, false);
@@ -123,13 +180,15 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                  nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter)),
-                    expectedExportFileName, 28, 8, 628);
+                    expectedExportFileName, 28, 8, 915);
                 Assert.IsTrue(isExported);
             }
             finally
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -141,11 +200,31 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WriterThrowsCriticalFileWriteException_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
+            
+            var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "Just/A/HRD/File",
+                        Locations =
+                        {
+                            location
+                        }
+                    }
+                }
+            });
+            mocks.ReplayAll();
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
-            }, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                new HydraulicBoundaryLocationCalculation(location)
+            }, assessmentSection, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             try
             {
@@ -166,6 +245,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+            
+            mocks.VerifyAll();
         }
     }
 }

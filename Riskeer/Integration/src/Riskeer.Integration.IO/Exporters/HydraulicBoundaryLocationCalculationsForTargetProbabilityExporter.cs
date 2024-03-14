@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -39,6 +40,7 @@ namespace Riskeer.Integration.IO.Exporters
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter));
 
         private readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+        private readonly IAssessmentSection assessmentSection;
         private readonly string filePath;
         private readonly HydraulicBoundaryLocationCalculationsType calculationsType;
 
@@ -46,18 +48,26 @@ namespace Riskeer.Integration.IO.Exporters
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter"/>.
         /// </summary>
         /// <param name="calculations">The calculations to export.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <param name="calculationsType">The type of calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when the <see cref="calculationsType"/>
         /// is an invalid value.</exception>
         public HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                 IAssessmentSection assessmentSection,
                                                                                  string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             IOUtils.ValidateFilePath(filePath);
@@ -70,6 +80,7 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             this.calculations = calculations;
+            this.assessmentSection = assessmentSection;
             this.filePath = filePath;
             this.calculationsType = calculationsType;
         }
@@ -79,7 +90,7 @@ namespace Riskeer.Integration.IO.Exporters
             try
             {
                 HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
-                    calculations, filePath, calculationsType);
+                    calculations, assessmentSection, filePath, calculationsType);
             }
             catch (CriticalFileWriteException e)
             {
