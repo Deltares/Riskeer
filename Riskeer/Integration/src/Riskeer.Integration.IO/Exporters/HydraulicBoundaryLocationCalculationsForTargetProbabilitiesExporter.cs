@@ -27,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Helpers;
 using Riskeer.Integration.IO.Helpers;
@@ -42,6 +43,7 @@ namespace Riskeer.Integration.IO.Exporters
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter));
 
         private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> locationCalculationsForTargetProbabilities;
+        private readonly IAssessmentSection assessmentSection;
         private readonly HydraulicBoundaryLocationCalculationsType calculationsType;
         private readonly string filePath;
         private readonly string tempFolderPath;
@@ -50,20 +52,27 @@ namespace Riskeer.Integration.IO.Exporters
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter"/>.
         /// </summary>
         /// <param name="locationCalculationsForTargetProbabilities">The collection of calculations to export.</param>
+        /// <param name="assessmentSection">The assessment section the collection of calculations belong to.</param>
         /// <param name="calculationsType">The type of the calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationsType"/>
         /// is invalid.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
             IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> locationCalculationsForTargetProbabilities,
+            IAssessmentSection assessmentSection,
             HydraulicBoundaryLocationCalculationsType calculationsType, string filePath)
         {
             if (locationCalculationsForTargetProbabilities == null)
             {
                 throw new ArgumentNullException(nameof(locationCalculationsForTargetProbabilities));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (!Enum.IsDefined(typeof(HydraulicBoundaryLocationCalculationsType), calculationsType))
@@ -76,6 +85,7 @@ namespace Riskeer.Integration.IO.Exporters
             IOUtils.ValidateFilePath(filePath);
 
             this.locationCalculationsForTargetProbabilities = locationCalculationsForTargetProbabilities;
+            this.assessmentSection = assessmentSection;
             this.calculationsType = calculationsType;
             this.filePath = filePath;
             string folderPath = Path.GetDirectoryName(filePath);
@@ -87,7 +97,7 @@ namespace Riskeer.Integration.IO.Exporters
             try
             {
                 if (!HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
-                        locationCalculationsForTargetProbabilities, calculationsType, tempFolderPath))
+                        locationCalculationsForTargetProbabilities, assessmentSection, calculationsType, tempFolderPath))
                 {
                     return false;
                 }

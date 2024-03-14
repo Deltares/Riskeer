@@ -30,6 +30,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.IO.Exporters;
@@ -42,13 +44,31 @@ namespace Riskeer.Integration.IO.Test.Exporters
         [Test]
         public void Constructor_LocationCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                null, HydraulicBoundaryLocationCalculationsType.WaterLevel, string.Empty);
+                null, assessmentSection, HydraulicBoundaryLocationCalculationsType.WaterLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("locationCalculationsForTargetProbabilities", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -57,26 +77,37 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const HydraulicBoundaryLocationCalculationsType calculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), calculationsType, string.Empty);
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), assessmentSection, calculationsType, string.Empty);
 
             // Assert
             var expectedMessage = $"The value of argument 'calculationsType' ({calculationsType}) is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("calculationsType", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FilePathNull_ThrowsArgumentException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(),
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), assessmentSection,
                 HydraulicBoundaryLocationCalculationsType.WaterLevel, null);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -85,13 +116,18 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(),
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), assessmentSection,
                 HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,6 +137,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_LogsErrorAndReturnsFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
+            
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            mocks.ReplayAll();
 
             var calculationsForTargetProbabilities = new[]
             {
@@ -109,7 +150,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             };
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                calculationsForTargetProbabilities, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
+                calculationsForTargetProbabilities, assessmentSection, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
             try
             {
@@ -131,6 +172,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -140,6 +183,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CreatingZipFileThrowsCriticalFileWriteException_LogsErrorAndReturnsFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
+            
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            mocks.ReplayAll();
 
             var calculationsForTargetProbabilities = new[]
             {
@@ -148,7 +196,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             };
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                calculationsForTargetProbabilities, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
+                calculationsForTargetProbabilities, assessmentSection, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
             try
             {
@@ -171,6 +219,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -183,19 +233,24 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
+            
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            mocks.ReplayAll();
 
             var random = new Random(21);
 
             var calculationsForTargetProbabilities = new[]
             {
                 new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.1)),
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.1)),
                 new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.01))
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.01))
             };
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                calculationsForTargetProbabilities, calculationsType, filePath);
+                calculationsForTargetProbabilities, assessmentSection, calculationsType, filePath);
 
             try
             {
@@ -220,6 +275,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -233,14 +290,21 @@ namespace Riskeer.Integration.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            mocks.ReplayAll();
+            
             var calculationsForTargetProbabilities = new[]
             {
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new List<HydraulicBoundaryLocationCalculation>(), 0.1),
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new List<HydraulicBoundaryLocationCalculation>(), 0.1)
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), 0.1),
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), 0.1)
             };
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                calculationsForTargetProbabilities, calculationsType, filePath);
+                calculationsForTargetProbabilities, assessmentSection, calculationsType, filePath);
 
             try
             {
@@ -265,6 +329,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
+            
+            mocks.VerifyAll();
         }
 
         private static string GetReturnPeriodText(double targetProbability)
