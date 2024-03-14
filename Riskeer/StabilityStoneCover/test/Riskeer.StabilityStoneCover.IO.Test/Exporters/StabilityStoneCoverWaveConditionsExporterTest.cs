@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.StabilityStoneCover.Data;
@@ -161,7 +160,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Both
@@ -213,7 +212,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns
@@ -264,7 +263,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks
