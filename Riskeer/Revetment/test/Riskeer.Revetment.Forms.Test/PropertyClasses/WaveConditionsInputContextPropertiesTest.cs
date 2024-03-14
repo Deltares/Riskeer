@@ -146,7 +146,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             RoundedDouble lowerBoundaryWaterLevels = random.NextRoundedDouble();
             RoundedDouble upperBoundaryRevetment = lowerBoundaryRevetment + random.NextRoundedDouble();
             RoundedDouble upperBoundaryWaterLevels = lowerBoundaryWaterLevels + random.NextRoundedDouble();
-            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
+            RoundedDouble stepSize = random.NextRoundedDouble(0.01, 2.0);
 
             RoundedDouble worldX = random.NextRoundedDouble();
             RoundedDouble worldY = random.NextRoundedDouble();
@@ -200,7 +200,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(lowerBoundaryWaterLevels, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, properties.StepSize.AsValue());
+            Assert.AreEqual(stepSize, properties.StepSize.Value, properties.StepSize.GetAccuracy());
+            Assert.AreEqual(2, properties.StepSize.NumberOfDecimalPlaces);
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual("Test", properties.RevetmentType);
@@ -309,7 +310,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "Een aangepaste ondergrens voor de waterstanden.");
 
             PropertyDescriptor stepSizeProperty = dynamicProperties[stepSizePropertyIndex];
-            Assert.IsInstanceOf<EnumTypeConverter>(stepSizeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stepSizeProperty,
                                                                             hydraulicParametersCategory,
                                                                             "Stapgrootte [m]",
@@ -383,7 +383,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var lowerBoundaryWaterLevels = (RoundedDouble) 3.40;
             var upperBoundaryRevetment = (RoundedDouble) 6.10;
             var upperBoundaryWaterLevels = (RoundedDouble) 5.88;
-            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
+            var stepSize = (RoundedDouble) 0.5;
 
             var input = new WaveConditionsInput
             {
@@ -538,7 +538,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         [Test]
         public void StepSize_Always_InputChangedAndObservablesNotified()
         {
-            var waveConditionsInputStepSize = new Random(21).NextEnumValue<WaveConditionsInputStepSize>();
+            var waveConditionsInputStepSize = new Random(21).NextRoundedDouble(0.01, 2.0);
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
                 properties => properties.StepSize = waveConditionsInputStepSize);
         }

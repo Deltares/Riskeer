@@ -888,7 +888,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             {
                 LowerBoundaryRevetment = (RoundedDouble) 5,
                 UpperBoundaryRevetment = (RoundedDouble) 7,
-                StepSize = WaveConditionsInputStepSize.One
+                StepSize = (RoundedDouble) 1
             };
 
             // Call
@@ -927,7 +927,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
                 LowerBoundaryRevetment = (RoundedDouble) 5,
                 UpperBoundaryRevetment = (RoundedDouble) 7,
-                StepSize = WaveConditionsInputStepSize.One
+                StepSize = (RoundedDouble) 1
             };
 
             // Call

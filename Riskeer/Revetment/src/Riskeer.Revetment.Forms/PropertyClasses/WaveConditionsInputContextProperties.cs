@@ -27,7 +27,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
-using Core.Common.Util.Enums;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
@@ -204,11 +203,10 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [PropertyOrder(stepSizePropertyIndex)]
-        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_StepSize_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_StepSize_Description))]
-        public WaveConditionsInputStepSize StepSize
+        public RoundedDouble StepSize
         {
             get
             {
