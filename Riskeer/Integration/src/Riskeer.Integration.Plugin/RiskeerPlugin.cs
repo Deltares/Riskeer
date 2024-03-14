@@ -630,7 +630,7 @@ namespace Riskeer.Integration.Plugin
                 Name = context => $"{RiskeerIOResources.WaterLevels_DisplayName} ({ProbabilityFormattingHelper.Format(context.GetNormFunc())})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                    context.WrappedData, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
+                    context.WrappedData, context.AssessmentSection, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
                 IsEnabled = context => true,
                 GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(),
                                                                     new FileFilterGenerator(
@@ -654,7 +654,7 @@ namespace Riskeer.Integration.Plugin
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
                             context.AssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                             context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
-                    }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
+                    }, context.AssessmentSection, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
                 GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
                                                                                                                 RiskeerCommonIOResources.Zip_file_filter_Description))
@@ -1092,7 +1092,7 @@ namespace Riskeer.Integration.Plugin
                 Name = context => $"{displayName} ({ProbabilityFormattingHelper.Format(context.WrappedData.TargetProbability)})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                    context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
+                    context.WrappedData.HydraulicBoundaryLocationCalculations, context.AssessmentSection, filePath, calculationsType),
                 IsEnabled = context => true,
                 GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(),
                                                                     new FileFilterGenerator(
@@ -1114,7 +1114,7 @@ namespace Riskeer.Integration.Plugin
                 Name = context => displayName,
                 Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                    locationCalculationsForTargetProbabilitiesFunc(context), calculationsType, filePath),
+                    locationCalculationsForTargetProbabilitiesFunc(context), context.AssessmentSection, calculationsType, filePath),
                 IsEnabled = context => locationCalculationsForTargetProbabilitiesFunc(context).Any(),
                 GetExportPath = context => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
                                                                                                                 RiskeerCommonIOResources.Zip_file_filter_Description))
