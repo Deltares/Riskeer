@@ -29,7 +29,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 
@@ -154,7 +153,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
                         },
@@ -209,7 +208,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
@@ -264,7 +263,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
@@ -319,7 +318,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
@@ -374,7 +373,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
@@ -430,7 +429,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = WaveConditionsInputStepSize.Half,
+                            StepSize = (RoundedDouble) 0.5,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All

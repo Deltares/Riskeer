@@ -111,7 +111,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
-                    StepSize = WaveConditionsInputStepSize.Half,
+                    StepSize = (RoundedDouble) 0.5,
                     ForeshoreProfile = foreshoreProfile,
                     Orientation = (RoundedDouble) 5.5,
                     UseForeshore = false,

@@ -1668,7 +1668,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = WaveConditionsInputStepSize.Half,
+                    StepSize = (RoundedDouble) 0.5,
                     LowerBoundaryRevetment = (RoundedDouble) 4,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     UpperBoundaryWaterLevels = (RoundedDouble) 8,
