@@ -125,6 +125,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                   "Een waarde van '2,2' als ondergrens van de waterstanden is ongeldig. De bovengrens van de waterstanden moet boven de ondergrens liggen.")]
         [TestCase("validConfigurationOrientationOutOfRange.xml",
                   "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
+        [TestCase("validConfigurationStepSizeOutOfRange.xml",
+                  "Een waarde van '5' als stapgrootte is ongeldig. De waarde voor de stapgrootte moet in het bereik [0,01, 2,00] liggen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

@@ -314,21 +314,23 @@ namespace Riskeer.Revetment.IO.Configurations
         private bool TrySetStepSize(WaveConditionsCalculationConfiguration calculationConfiguration,
                                     ICalculation<WaveConditionsInput> calculation)
         {
-            RoundedDouble stepSize = calculationConfiguration.StepSize.HasValue
-                                         ? (RoundedDouble) calculationConfiguration.StepSize.Value
-                                         : RoundedDouble.NaN;
-            try
+            if (calculationConfiguration.StepSize.HasValue)
             {
-                calculation.InputParameters.StepSize = stepSize;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Log.LogOutOfRangeException(string.Format(
-                                               RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                               stepSize,
-                                               RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                           calculation.Name, e);
-                return false;
+                double stepSize = calculationConfiguration.StepSize.Value;
+
+                try
+                {
+                    calculation.InputParameters.StepSize = (RoundedDouble) stepSize;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Log.LogOutOfRangeException(string.Format(
+                                                   RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   stepSize,
+                                                   "stapgrootte"),
+                                               calculation.Name, e);
+                    return false;
+                }
             }
 
             return true;
