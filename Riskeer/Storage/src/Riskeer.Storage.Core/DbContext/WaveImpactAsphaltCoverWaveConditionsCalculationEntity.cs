@@ -58,7 +58,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? LowerBoundaryRevetment { get; set; }
         public double? UpperBoundaryWaterLevels { get; set; }
         public double? LowerBoundaryWaterLevels { get; set; }
-        public byte StepSize { get; set; }
+        public double StepSize { get; set; }
         public byte WaterLevelType { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

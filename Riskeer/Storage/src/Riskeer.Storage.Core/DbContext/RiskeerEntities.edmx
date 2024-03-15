@@ -479,7 +479,7 @@
           <Property Name="LowerBoundaryRevetment" Type="real" />
           <Property Name="UpperBoundaryWaterLevels" Type="real" />
           <Property Name="LowerBoundaryWaterLevels" Type="real" />
-          <Property Name="StepSize" Type="tinyint" Nullable="false" />
+          <Property Name="StepSize" Type="real" Nullable="false" />
           <Property Name="CalculationType" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -1344,7 +1344,7 @@
           <Property Name="LowerBoundaryRevetment" Type="real" />
           <Property Name="UpperBoundaryWaterLevels" Type="real" />
           <Property Name="LowerBoundaryWaterLevels" Type="real" />
-          <Property Name="StepSize" Type="tinyint" Nullable="false" />
+          <Property Name="StepSize" Type="real" Nullable="false" />
           <Property Name="CalculationType" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -1494,7 +1494,7 @@
           <Property Name="LowerBoundaryRevetment" Type="real" />
           <Property Name="UpperBoundaryWaterLevels" Type="real" />
           <Property Name="LowerBoundaryWaterLevels" Type="real" />
-          <Property Name="StepSize" Type="tinyint" Nullable="false" />
+          <Property Name="StepSize" Type="real" Nullable="false" />
           <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsOutputEntity">
@@ -5151,7 +5151,7 @@
           <Property Name="LowerBoundaryRevetment" Type="Double" />
           <Property Name="UpperBoundaryWaterLevels" Type="Double" />
           <Property Name="LowerBoundaryWaterLevels" Type="Double" />
-          <Property Name="StepSize" Type="Byte" Nullable="false" />
+          <Property Name="StepSize" Type="Double" Nullable="false" />
           <Property Name="CalculationType" Type="Byte" Nullable="false" />
           <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_3_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
@@ -6100,7 +6100,7 @@
           <Property Name="LowerBoundaryRevetment" Type="Double" />
           <Property Name="UpperBoundaryWaterLevels" Type="Double" />
           <Property Name="LowerBoundaryWaterLevels" Type="Double" />
-          <Property Name="StepSize" Type="Byte" Nullable="false" />
+          <Property Name="StepSize" Type="Double" Nullable="false" />
           <Property Name="CalculationType" Type="Byte" Nullable="false" />
           <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_3_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
@@ -6279,7 +6279,7 @@
           <Property Name="LowerBoundaryRevetment" Type="Double" />
           <Property Name="UpperBoundaryWaterLevels" Type="Double" />
           <Property Name="LowerBoundaryWaterLevels" Type="Double" />
-          <Property Name="StepSize" Type="Byte" Nullable="false" />
+          <Property Name="StepSize" Type="Double" Nullable="false" />
           <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_3_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
