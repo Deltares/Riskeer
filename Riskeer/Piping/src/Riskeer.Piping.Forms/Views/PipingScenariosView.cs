@@ -260,6 +260,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             if (selectedFailureMechanismSection == null)
             {
+                scenarioRows = null;
                 dataGridViewControl.SetDataSource(null);
                 return;
             }
@@ -285,6 +286,10 @@ namespace Riskeer.Piping.Forms.Views
                                            ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
                                              ?? failureMechanismSectionViewModels.First()
                                            : failureMechanismSectionViewModels.First();
+            }
+            else
+            {
+                selectedFailureMechanismSection = null;
             }
         }
 
