@@ -121,9 +121,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidStepSizeNoDouble.xml",
                                               "The 'stapgrootte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStepSizeNoDouble");
-                yield return new TestCaseData("invalidStepSizeUnknownValue.xml",
-                                              "The 'stapgrootte' element is invalid - The value '1.3' is invalid according to its datatype 'Double' - The Enumeration constraint failed.")
-                    .SetName("invalidStepSizeUnknownValue");
                 yield return new TestCaseData("invalidOrientationEmpty.xml",
                                               "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidOrientationEmpty");
@@ -355,7 +352,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.IsNull(configuration.UpperBoundaryWaterLevels);
             Assert.IsNull(configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.AreEqual(0.5, configuration.StepSize);
             Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
@@ -372,7 +369,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.AreEqual(0.5, configuration.StepSize);
             Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
             Assert.AreEqual(5.5, configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
@@ -399,7 +396,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 : base(xmlFilePath, configurationSchemas, new[]
                 {
                     Resources.BekledingenConfiguratieBasisSchema0To1,
-                    Resources.BekledingenConfiguratieBasisSchema1To2
+                    Resources.BekledingenConfiguratieBasisSchema1To2,
+                    Resources.BekledingenConfiguratieBasisSchema2To3
                 }) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
