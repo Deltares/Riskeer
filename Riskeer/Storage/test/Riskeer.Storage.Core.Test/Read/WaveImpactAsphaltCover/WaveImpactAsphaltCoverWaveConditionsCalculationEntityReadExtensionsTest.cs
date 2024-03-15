@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -82,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             const double upperBoundaryRevetment = 6.10;
             const double lowerBoundaryWaterLevels = 3.40;
             const double upperBoundaryWaterLevels = 5.88;
-            var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
+            RoundedDouble stepSize = random.NextRoundedDouble(0.01, 2.0);
             var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
@@ -98,7 +99,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = Convert.ToByte(stepSize),
+                StepSize = stepSize,
                 WaterLevelType = Convert.ToByte(waterLevelType)
             };
 
@@ -121,7 +122,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryRevetment, calculationInput.LowerBoundaryRevetment);
             RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
-            Assert.AreEqual(stepSize, calculationInput.StepSize);
+            RoundedDoubleTestHelper.AssertRoundedDouble(stepSize, calculationInput.StepSize);
             Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 
             Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
@@ -134,7 +135,10 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
         public void Read_EntityWithNullValues_ReturnCalculationWithNaNValues()
         {
             // Setup
-            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity();
+            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+            {
+                StepSize = 0.5
+            };
             var collector = new ReadConversionCollector();
 
             // Call
@@ -168,6 +172,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             };
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
@@ -194,6 +199,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
@@ -215,6 +221,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationEntity = hydraulicLocationEntity
             };
 
@@ -235,6 +242,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationEntity = hydraulicLocationEntity
             };
 
@@ -256,6 +264,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
             };
 
@@ -277,6 +286,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
             };
 
@@ -297,6 +307,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             const double outputBLevel = 2.3;
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 WaveImpactAsphaltCoverWaveConditionsOutputEntities =
                 {
                     new WaveImpactAsphaltCoverWaveConditionsOutputEntity

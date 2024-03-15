@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -44,10 +45,10 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StabilityStoneCoverWaveConditionsCalculationEntity) null).Read(new ReadConversionCollector());
+            void Call() => ((StabilityStoneCoverWaveConditionsCalculationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -58,10 +59,10 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", paramName);
         }
 
@@ -82,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             const double upperBoundaryRevetment = 6.10;
             const double lowerBoundaryWaterLevels = 3.40;
             const double upperBoundaryWaterLevels = 5.88;
-            var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
+            RoundedDouble stepSize = random.NextRoundedDouble(0.01, 2);
             var calculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>();
             var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
@@ -99,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = Convert.ToByte(stepSize),
+                StepSize = stepSize,
                 CalculationType = Convert.ToByte(calculationType),
                 WaterLevelType = Convert.ToByte(waterLevelType)
             };
@@ -123,7 +124,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryRevetment, calculationInput.LowerBoundaryRevetment);
             RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
-            Assert.AreEqual(stepSize, calculationInput.StepSize);
+            RoundedDoubleTestHelper.AssertRoundedDouble(stepSize, calculationInput.StepSize);
             Assert.AreEqual(calculationType, calculationInput.CalculationType);
             Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 
@@ -137,7 +138,10 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         public void Read_EntityWithNullValues_ReturnCalculationWithNaNValues()
         {
             // Setup
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity();
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            {
+                StepSize = 0.5
+            };
             var collector = new ReadConversionCollector();
 
             // Call
@@ -171,6 +175,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             };
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
@@ -197,6 +202,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
@@ -218,6 +224,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationEntity = hydraulicLocationEntity
             };
 
@@ -238,6 +245,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationEntity = hydraulicLocationEntity
             };
 
@@ -259,6 +267,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
             };
 
@@ -280,6 +289,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
             };
 
@@ -301,6 +311,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             const double outputCLevel = 13.2;
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 StabilityStoneCoverWaveConditionsOutputEntities =
                 {
                     new StabilityStoneCoverWaveConditionsOutputEntity
@@ -352,6 +363,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             const double outputBLevel = 2.3;
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 StabilityStoneCoverWaveConditionsOutputEntities =
                 {
                     new StabilityStoneCoverWaveConditionsOutputEntity
@@ -395,6 +407,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             const double outputBLevel = 2.3;
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
+                StepSize = 0.5,
                 StabilityStoneCoverWaveConditionsOutputEntities =
                 {
                     new StabilityStoneCoverWaveConditionsOutputEntity

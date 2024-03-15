@@ -828,12 +828,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        StepSize = 0.5
                     },
                     new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        StepSize = 0.5
                     }
                 }
             };
@@ -866,12 +868,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        StepSize = 0.5
                     },
                     new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        StepSize = 0.5
                     }
                 },
                 CalculationGroupEntity1 =
@@ -1608,12 +1612,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        StepSize = 0.5
                     },
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        StepSize = 0.5
                     }
                 }
             };
@@ -1646,12 +1652,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        StepSize = 0.5
                     },
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        StepSize = 0.5
                     }
                 },
                 CalculationGroupEntity1 =
@@ -1799,12 +1807,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        StepSize = 0.5
                     },
                     new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        StepSize = 0.5
                     }
                 }
             };
@@ -1837,12 +1847,14 @@ namespace Riskeer.Storage.Core.Test.Read
                     new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        StepSize = 0.5
                     },
                     new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        StepSize = 0.5
                     }
                 },
                 CalculationGroupEntity1 =
