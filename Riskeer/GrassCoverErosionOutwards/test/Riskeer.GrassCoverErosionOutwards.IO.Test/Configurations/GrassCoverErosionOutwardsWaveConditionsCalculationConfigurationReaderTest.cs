@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.AreEqual(0.5, configuration.StepSize);
             Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
             Assert.AreEqual(5.5, configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
