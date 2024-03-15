@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
             entity.LowerBoundaryRevetment = calculationInput.LowerBoundaryRevetment.ToNaNAsNull();
             entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
-            entity.StepSize = Convert.ToByte(calculationInput.StepSize);
+            entity.StepSize = calculationInput.StepSize;
             entity.WaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }
 

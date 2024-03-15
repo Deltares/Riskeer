@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             entity.LowerBoundaryRevetment = calculationInput.LowerBoundaryRevetment.ToNaNAsNull();
             entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
-            entity.StepSize = Convert.ToByte(calculationInput.StepSize);
+            entity.StepSize = calculationInput.StepSize;
             entity.CalculationType = Convert.ToByte(calculationInput.CalculationType);
             entity.WaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }
