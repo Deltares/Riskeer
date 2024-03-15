@@ -124,6 +124,11 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
+            
+            yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
+            {
+                "* Geen aanpassingen."
+            });
         }
 
         private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
