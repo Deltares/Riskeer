@@ -22,8 +22,7 @@ INSERT INTO AssessmentSectionEntity(
     [NormativeProbabilityType],
     [Composition],
     [ReferenceLinePointXml],
-    [AreFailureMechanismsCorrelated]
-) 
+    [AreFailureMechanismsCorrelated]) 
 SELECT
     [AssessmentSectionEntityId],
     [ProjectEntityId],
@@ -57,7 +56,56 @@ INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfil
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
+INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
+    [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    [StepSize],
+    [CalculationType],
+    [WaterLevelType]) 
+SELECT
+    [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    CASE 
+        WHEN [StepSize] = 1
+            THEN 0.5
+        WHEN [StepSize] = 2
+            THEN 1.0
+        WHEN [StepSize] = 3
+            THEN 2.0
+    END,
+    [CalculationType],
+    [WaterLevelType]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverSlipOffInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverSlipOffOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsFailureMechanismMetaEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
@@ -198,7 +246,7 @@ SELECT
     [SellmeijerCriticalFall],
     [SellmeijerReducedFall]
 FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
-    JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
@@ -206,13 +254,109 @@ INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].Stabilit
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
-INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
+INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity(
+    [StabilityStoneCoverWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    [StepSize],
+    [CalculationType],
+    [WaterLevelType])
+SELECT
+    [StabilityStoneCoverWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    CASE 
+        WHEN [StepSize] = 1
+            THEN 0.5
+        WHEN [StepSize] = 2
+            THEN 1.0
+        WHEN [StepSize] = 3
+            THEN 2.0
+    END,
+    [CalculationType],
+    [WaterLevelType]
+FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO WaterPressureAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
-INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
+INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity(
+    [WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    [StepSize],
+    [WaterLevelType])
+SELECT
+    [WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationForTargetProbabilityCollectionEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    CASE
+        WHEN [StepSize] = 1
+            THEN 0.5
+        WHEN [StepSize] = 2
+            THEN 1.0
+        WHEN [StepSize] = 3
+            THEN 2.0
+    END,
+    [WaterLevelType]
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
  
 INSERT INTO VersionEntity (
     [VersionId],
