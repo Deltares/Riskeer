@@ -281,7 +281,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester buttonTester = GetCalculateForSelectedButton();
 
             // Call
             buttonTester.Click();
@@ -301,7 +301,7 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
             void Call() => button.Click();
@@ -348,7 +348,7 @@ namespace Riskeer.Common.Forms.Test.Views
             rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
             button.Click();
@@ -369,6 +369,11 @@ namespace Riskeer.Common.Forms.Test.Views
         private DataGridViewControl GetCalculationsDataGridViewControl()
         {
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+        }
+
+        private ButtonTester GetCalculateForSelectedButton()
+        {
+            return new ButtonTester("calculateForSelectedButton", testForm);
         }
 
         private static WaveHeightCalculationsView ShowWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,

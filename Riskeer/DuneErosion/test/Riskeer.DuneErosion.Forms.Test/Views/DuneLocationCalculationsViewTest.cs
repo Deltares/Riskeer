@@ -212,7 +212,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DuneLocationCalculationsView view = ShowDuneLocationCalculationsView();
 
             // Assert
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsFalse(button.Enabled);
         }
 
@@ -441,7 +441,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            var button = new ButtonTester("SelectAllButton", testForm);
+            var button = new ButtonTester("selectAllButton", testForm);
 
             // Precondition
             Assert.IsFalse((bool) rows[0].Cells[calculateColumnIndex].Value);
@@ -462,7 +462,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             ShowFullyConfiguredDuneLocationCalculationsView();
 
             DataGridView dataGridView = GetDataGridView();
-            var button = new ButtonTester("DeselectAllButton", testForm);
+            var button = new ButtonTester("deselectAllButton", testForm);
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             foreach (DataGridViewRow row in rows)
@@ -489,7 +489,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView();
 
             // Then
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsFalse(button.Enabled);
             ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
@@ -507,9 +507,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
 
             // Then
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsTrue(button.Enabled);
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("", errorProvider.GetError(button));
         }
 
@@ -714,7 +714,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             calculations.Attach(calculationsObserver);
 
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester buttonTester = GetCalculateForSelectedButton();
 
             using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -761,7 +761,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
             void Call() => button.Click();
@@ -820,7 +820,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             calculations.Attach(calculationsObserver);
 
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester buttonTester = GetCalculateForSelectedButton();
 
             using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -920,7 +920,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[calculateColumnIndex].Value = true;
 
-                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+                ButtonTester buttonTester = GetCalculateForSelectedButton();
 
                 using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -959,19 +959,19 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.IsTrue(hydraulicBoundaryDatabaseFileNameColumn.Visible);
         }
 
+        private static ErrorProvider GetErrorProvider(DuneLocationCalculationsView view)
+        {
+            return TypeUtils.GetField<ErrorProvider>(view, "calculateForSelectedButtonErrorProvider");
+        }
+
         private DataGridView GetDataGridView()
         {
             return ControlTestHelper.GetDataGridView(testForm, "dataGridView");
         }
-
-        private static ErrorProvider GetErrorProvider(DuneLocationCalculationsView view)
+        
+        private ButtonTester GetCalculateForSelectedButton()
         {
-            return TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
-        }
-
-        private Button GetCalculateForSelectedButton(DuneLocationCalculationsView view)
-        {
-            return (Button) view.Controls.Find("CalculateForSelectedButton", true).Single();
+            return new ButtonTester("calculateForSelectedButton", testForm);
         }
 
         private CheckBox GetShowHydraulicBoundaryDatabaseFileNameCheckBox()

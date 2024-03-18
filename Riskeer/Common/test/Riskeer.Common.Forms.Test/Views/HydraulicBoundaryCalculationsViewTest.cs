@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsFalse(button.Enabled);
         }
 
@@ -296,7 +296,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            var button = new ButtonTester("SelectAllButton", testForm);
+            var button = new ButtonTester("selectAllButton", testForm);
 
             // Precondition
             Assert.IsFalse((bool) rows[0].Cells[calculateColumnIndex].Value);
@@ -317,7 +317,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             DataGridView dataGridView = GetDataGridView();
-            var button = new ButtonTester("DeselectAllButton", testForm);
+            var button = new ButtonTester("deselectAllButton", testForm);
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             foreach (DataGridViewRow row in rows)
@@ -344,7 +344,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Then
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsFalse(button.Enabled);
             ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
@@ -361,7 +361,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
 
             // Then
-            Button button = GetCalculateForSelectedButton(view);
+            Button button = GetCalculateForSelectedButton().Properties;
             Assert.IsTrue(button.Enabled);
             ErrorProvider errorProvider = GetErrorProvider(view);
             Assert.AreEqual("", errorProvider.GetError(button));
@@ -383,7 +383,7 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester buttonTester = GetCalculateForSelectedButton();
 
             // Call
             buttonTester.Click();
@@ -409,7 +409,7 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
             TestDelegate test = () => button.Click();
@@ -532,7 +532,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private static ErrorProvider GetErrorProvider(TestHydraulicBoundaryCalculationsView view)
         {
-            return TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(view, "calculateForSelectedButtonErrorProvider");
         }
 
         private CheckBox GetShowHydraulicBoundaryDatabaseFileNameCheckBox()
@@ -540,9 +540,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return ControlTestHelper.GetControls<CheckBox>(testForm, "showHydraulicBoundaryDatabaseFileNameColumnCheckBox").Single();
         }
 
-        private Button GetCalculateForSelectedButton(TestHydraulicBoundaryCalculationsView view)
+        private ButtonTester GetCalculateForSelectedButton()
         {
-            return (Button) view.Controls.Find("CalculateForSelectedButton", true).Single();
+            return new ButtonTester("calculateForSelectedButton", testForm);
         }
         
         private IllustrationPointsControl GetIllustrationPointsControl()

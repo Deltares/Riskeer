@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     rows[0].Cells[calculateColumnIndex].Value = true;
 
                     view.CalculationGuiService = guiService;
-                    var button = new ButtonTester("CalculateForSelectedButton", testForm);
+                    var button = new ButtonTester("calculateForSelectedButton", testForm);
 
                     button.Click();
 
