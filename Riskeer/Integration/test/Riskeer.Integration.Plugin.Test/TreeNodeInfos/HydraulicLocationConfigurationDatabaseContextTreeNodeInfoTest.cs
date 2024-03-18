@@ -82,13 +82,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Text_WithValidData_ReturnsExpectedName()
         {
             // Setup
-            const string fileName = "hlcdFile.sqlite";
+            const string fileName = "hlcdFile";
 
             var context = new HydraulicLocationConfigurationDatabaseContext(new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = $@"path\to\{fileName}"
+                    FilePath = $@"path\to\{fileName}.sqlite"
                 }
             }, new AssessmentSection(AssessmentSectionComposition.Dike));
 

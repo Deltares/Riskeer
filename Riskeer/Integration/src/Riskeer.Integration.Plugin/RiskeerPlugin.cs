@@ -886,7 +886,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicLocationConfigurationDatabaseContext>
             {
-                Text = context => Path.GetFileName(context.WrappedData.HydraulicLocationConfigurationDatabase.FilePath),
+                Text = context => Path.GetFileNameWithoutExtension(context.WrappedData.HydraulicLocationConfigurationDatabase.FilePath),
                 Image = context => RiskeerCommonFormsResources.DatabaseIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 ContextMenuStrip = HydraulicLocationConfigurationDatabaseContextMenuStrip
@@ -903,7 +903,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = context => Path.GetFileName(context.WrappedData.FilePath),
+                Text = context => Path.GetFileNameWithoutExtension(context.WrappedData.FilePath),
                 Image = context => RiskeerCommonFormsResources.DatabaseIcon,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip,
                 EnsureVisibleOnCreate = (context, o) => true,
