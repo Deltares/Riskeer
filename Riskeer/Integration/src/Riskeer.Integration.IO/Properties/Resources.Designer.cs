@@ -285,6 +285,16 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD.
+        /// </summary>
+        public static string HydraulicBoundaryLocationCalculationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationMapDataFeaturesFactory_HydraulicBoundaryDatab" +
+                        "ase_FileName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h.
         /// </summary>
         public static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName {
@@ -301,16 +311,6 @@ namespace Riskeer.Integration.IO.Properties {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_" +
                         "DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HRD.
-        /// </summary>
-        public static string HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileNam" +
-                        "e_DisplayName", resourceCulture);
             }
         }
         

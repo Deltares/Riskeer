@@ -129,7 +129,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = "Just/A/HRD/File",
+                        FilePath = "Just/A/HRD/File.sqlite",
                         Locations =
                         {
                             location
@@ -242,7 +242,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = "Just/A/HRD/File",
+                        FilePath = "Just/A/HRD/File.sqlite",
                         Locations =
                         {
                             location

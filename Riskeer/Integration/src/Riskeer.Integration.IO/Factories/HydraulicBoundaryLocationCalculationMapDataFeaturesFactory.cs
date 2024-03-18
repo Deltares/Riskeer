@@ -29,7 +29,10 @@ using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Factories
 {
-    public static class HydraulicBoundaryLocationMapDataFeaturesFactory
+    /// <summary>
+    /// Factory for creating <see cref="MapFeature"/> for <see cref="HydraulicBoundaryLocationCalculation"/>.
+    /// </summary>
+    public static class HydraulicBoundaryLocationCalculationMapDataFeaturesFactory
     {
         /// <summary>
         /// Creates a hydraulic boundary location calculation feature based on the given <paramref name="calculation"/>.
@@ -62,7 +65,7 @@ namespace Riskeer.Integration.IO.Factories
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
-            feature.MetaData[Resources.HydraulicBoundaryLocationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName] = hydraulicBoundaryDatabaseFileName;
+            feature.MetaData[Resources.HydraulicBoundaryLocationCalculationMapDataFeaturesFactory_HydraulicBoundaryDatabase_FileName_DisplayName] = hydraulicBoundaryDatabaseFileName;
             feature.MetaData[metaDataHeader] = GetCalculationResult(calculation.Output).ToString();
             return feature;
         }

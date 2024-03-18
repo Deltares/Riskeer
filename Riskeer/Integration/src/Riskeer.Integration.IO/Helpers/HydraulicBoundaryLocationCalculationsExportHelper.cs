@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// Exports the location calculations for a collection of target probabilities.
         /// </summary>
         /// <param name="calculationsForTargetProbabilities">The collection of calculations to export.</param>
-        /// <param name="assessmentSection">The assessment section the collection of calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the collection of calculations belongs to.</param>
         /// <param name="calculationsType">The type of the calculations.</param>
         /// <param name="folderPath">The path of the folder to export to.</param>
         /// <returns><c>true</c> when the export was successful; <c>false</c> otherwise.</returns>

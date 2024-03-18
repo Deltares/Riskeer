@@ -52,7 +52,7 @@ namespace Riskeer.Integration.IO.Exporters
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter"/>.
         /// </summary>
         /// <param name="locationCalculationsForTargetProbabilities">The collection of calculations to export.</param>
-        /// <param name="assessmentSection">The assessment section the collection of calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the collection of calculations belongs to.</param>
         /// <param name="calculationsType">The type of the calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>

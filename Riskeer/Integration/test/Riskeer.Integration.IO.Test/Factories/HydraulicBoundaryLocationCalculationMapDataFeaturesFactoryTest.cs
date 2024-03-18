@@ -32,13 +32,13 @@ using Riskeer.Integration.IO.Factories;
 namespace Riskeer.Integration.IO.Test.Factories
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationMapDataFeaturesFactoryTest
+    public class HydraulicBoundaryLocationCalculationMapDataFeaturesFactoryTest
     {
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationFeature_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+            void Call() => HydraulicBoundaryLocationCalculationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
                 null, string.Empty, string.Empty);
 
             // Assert
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateHydraulicBoundaryLocationCalculationFeature_HydraulicBoundaryDatabaseFileNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+            void Call() => HydraulicBoundaryLocationCalculationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), null, string.Empty);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateHydraulicBoundaryLocationCalculationFeature_MetaDataHeaderNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+            void Call() => HydraulicBoundaryLocationCalculationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), string.Empty, null);
 
             // Assert
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
 
             // Call
-            MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+            MapFeature feature = HydraulicBoundaryLocationCalculationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
                 calculation, hrdFileName, metaDataHeader);
 
             // Assert
