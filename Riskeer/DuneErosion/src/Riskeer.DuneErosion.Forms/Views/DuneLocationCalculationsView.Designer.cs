@@ -40,14 +40,14 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.CalculateForSelectedButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.DeselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.SelectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
+            this.calculateForSelectedButton = new Core.Common.Controls.Forms.EnhancedButton();
+            this.deselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
+            this.selectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
+            this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox = new System.Windows.Forms.CheckBox();
-            this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ButtonGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.CalculateForSelectedButtonErrorProvider)).BeginInit();
+            this.calculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.buttonGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.calculateForSelectedButtonErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -63,44 +63,44 @@ namespace Riskeer.DuneErosion.Forms.Views
             // 
             // CalculateForSelectedButton
             // 
-            this.CalculateForSelectedButton.Enabled = false;
-            this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 29);
-            this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
-            this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
-            this.CalculateForSelectedButton.TabIndex = 2;
-            this.CalculateForSelectedButton.UseVisualStyleBackColor = true;
-            this.CalculateForSelectedButton.Click += new System.EventHandler(this.CalculateForSelectedButton_Click);
+            this.calculateForSelectedButton.Enabled = false;
+            this.calculateForSelectedButton.Location = new System.Drawing.Point(227, 29);
+            this.calculateForSelectedButton.Name = "calculateForSelectedButton";
+            this.calculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
+            this.calculateForSelectedButton.TabIndex = 2;
+            this.calculateForSelectedButton.UseVisualStyleBackColor = true;
+            this.calculateForSelectedButton.Click += new System.EventHandler(this.CalculateForSelectedButton_Click);
             // 
             // DeselectAllButton
             // 
-            this.DeselectAllButton.Location = new System.Drawing.Point(110, 29);
-            this.DeselectAllButton.Name = "DeselectAllButton";
-            this.DeselectAllButton.Size = new System.Drawing.Size(111, 23);
-            this.DeselectAllButton.TabIndex = 1;
-            this.DeselectAllButton.UseVisualStyleBackColor = true;
-            this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
+            this.deselectAllButton.Location = new System.Drawing.Point(110, 29);
+            this.deselectAllButton.Name = "deselectAllButton";
+            this.deselectAllButton.Size = new System.Drawing.Size(111, 23);
+            this.deselectAllButton.TabIndex = 1;
+            this.deselectAllButton.UseVisualStyleBackColor = true;
+            this.deselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
             // 
             // SelectAllButton
             // 
-            this.SelectAllButton.Location = new System.Drawing.Point(6, 29);
-            this.SelectAllButton.Name = "SelectAllButton";
-            this.SelectAllButton.Size = new System.Drawing.Size(98, 23);
-            this.SelectAllButton.TabIndex = 0;
-            this.SelectAllButton.UseVisualStyleBackColor = true;
-            this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
+            this.selectAllButton.Location = new System.Drawing.Point(6, 29);
+            this.selectAllButton.Name = "selectAllButton";
+            this.selectAllButton.Size = new System.Drawing.Size(98, 23);
+            this.selectAllButton.TabIndex = 0;
+            this.selectAllButton.UseVisualStyleBackColor = true;
+            this.selectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
             // 
             // ButtonGroupBox
             // 
-            this.ButtonGroupBox.Controls.Add(this.CalculateForSelectedButton);
-            this.ButtonGroupBox.Controls.Add(this.DeselectAllButton);
-            this.ButtonGroupBox.Controls.Add(this.SelectAllButton);
-            this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 85);
-            this.ButtonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
-            this.ButtonGroupBox.Name = "ButtonGroupBox";
-            this.ButtonGroupBox.Size = new System.Drawing.Size(533, 61);
-            this.ButtonGroupBox.TabIndex = 3;
-            this.ButtonGroupBox.TabStop = false;
+            this.buttonGroupBox.Controls.Add(this.calculateForSelectedButton);
+            this.buttonGroupBox.Controls.Add(this.deselectAllButton);
+            this.buttonGroupBox.Controls.Add(this.selectAllButton);
+            this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonGroupBox.Location = new System.Drawing.Point(0, 85);
+            this.buttonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
+            this.buttonGroupBox.Name = "buttonGroupBox";
+            this.buttonGroupBox.Size = new System.Drawing.Size(533, 61);
+            this.buttonGroupBox.TabIndex = 3;
+            this.buttonGroupBox.TabStop = false;
             // 
             // showHydraulicBoundaryDatabaseFileNameColumnCheckBox
             // 
@@ -117,10 +117,10 @@ namespace Riskeer.DuneErosion.Forms.Views
             // 
             // CalculateForSelectedButtonErrorProvider
             // 
-            this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
-            this.CalculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
-            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
+            this.calculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.calculateForSelectedButtonErrorProvider.ContainerControl = this;
+            this.calculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
+            this.calculateForSelectedButtonErrorProvider.SetIconPadding(calculateForSelectedButton, 2);
             // 
             // DuneLocationCalculationsView
             // 
@@ -129,12 +129,12 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.ButtonGroupBox);
+            this.Controls.Add(this.buttonGroupBox);
             this.Controls.Add(this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox);
             this.Name = "DuneLocationCalculationsView";
             this.Size = new System.Drawing.Size(533, 146);
-            this.ButtonGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.CalculateForSelectedButtonErrorProvider)).EndInit();
+            this.buttonGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) (this.calculateForSelectedButtonErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -142,11 +142,11 @@ namespace Riskeer.DuneErosion.Forms.Views
         #endregion
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private Core.Common.Controls.Forms.EnhancedButton CalculateForSelectedButton;
-        private Core.Common.Controls.Forms.EnhancedButton DeselectAllButton;
-        private Core.Common.Controls.Forms.EnhancedButton SelectAllButton;
-        protected System.Windows.Forms.GroupBox ButtonGroupBox;
-        private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
+        private Core.Common.Controls.Forms.EnhancedButton calculateForSelectedButton;
+        private Core.Common.Controls.Forms.EnhancedButton deselectAllButton;
+        private Core.Common.Controls.Forms.EnhancedButton selectAllButton;
+        protected System.Windows.Forms.GroupBox buttonGroupBox;
+        private System.Windows.Forms.ErrorProvider calculateForSelectedButtonErrorProvider;
         private System.Windows.Forms.CheckBox showHydraulicBoundaryDatabaseFileNameColumnCheckBox;
     }
 }

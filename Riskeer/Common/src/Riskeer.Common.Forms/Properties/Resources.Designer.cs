@@ -245,69 +245,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string CalculatableView_ButtonGroupBox_Text {
-            get {
-                return ResourceManager.GetString("CalculatableView_ButtonGroupBox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string CalculatableView_Calculate {
-            get {
-                return ResourceManager.GetString("CalculatableView_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bereken voor geselecteerde locaties.
-        /// </summary>
-        public static string CalculatableView_CalculateForSelectedButton_Text {
-            get {
-                return ResourceManager.GetString("CalculatableView_CalculateForSelectedButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deselecteer alles.
-        /// </summary>
-        public static string CalculatableView_DeselectAllButton_Text {
-            get {
-                return ResourceManager.GetString("CalculatableView_DeselectAllButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon HRD bestand.
-        /// </summary>
-        public static string CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text {
-            get {
-                return ResourceManager.GetString("CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer alles.
-        /// </summary>
-        public static string CalculatableView_SelectAllButton_Text {
-            get {
-                return ResourceManager.GetString("CalculatableView_SelectAllButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen geselecteerd..
-        /// </summary>
-        public static string CalculatableViews_No_calculations_selected {
-            get {
-                return ResourceManager.GetString("CalculatableViews_No_calculations_selected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Be&amp;rekenen.
         /// </summary>
         public static string Calculate {
@@ -2500,6 +2437,69 @@ namespace Riskeer.Common.Forms.Properties {
         public static string LoadSchematizationType_DisplayName {
             get {
                 return ResourceManager.GetString("LoadSchematizationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
+        public static string LocationCalculationsView_ButtonGroupBox_Text {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_ButtonGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
+        public static string LocationCalculationsView_Calculate {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bereken voor geselecteerde locaties.
+        /// </summary>
+        public static string LocationCalculationsView_CalculateForSelectedButton_Text {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_CalculateForSelectedButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deselecteer alles.
+        /// </summary>
+        public static string LocationCalculationsView_DeselectAllButton_Text {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_DeselectAllButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen geselecteerd..
+        /// </summary>
+        public static string LocationCalculationsView_No_calculations_selected {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_No_calculations_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer alles.
+        /// </summary>
+        public static string LocationCalculationsView_SelectAllButton_Text {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_SelectAllButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon HRD bestand.
+        /// </summary>
+        public static string LocationCalculationsView_ShowHydraulicBoundaryDatabaseColumnCheckBox_Text {
+            get {
+                return ResourceManager.GetString("LocationCalculationsView_ShowHydraulicBoundaryDatabaseColumnCheckBox_Text", resourceCulture);
             }
         }
         

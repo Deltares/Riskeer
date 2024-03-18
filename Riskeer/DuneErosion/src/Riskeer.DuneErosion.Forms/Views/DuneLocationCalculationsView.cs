@@ -188,7 +188,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(nameof(DuneLocationCalculationRow.ShouldCalculate),
-                                                  RiskeerCommonFormsResources.CalculatableView_Calculate);
+                                                  RiskeerCommonFormsResources.LocationCalculationsView_Calculate);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Name),
                                                  RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Id),
@@ -230,7 +230,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
             {
-                return RiskeerCommonFormsResources.CalculatableViews_No_calculations_selected;
+                return RiskeerCommonFormsResources.LocationCalculationsView_No_calculations_selected;
             }
 
             return null;
@@ -241,23 +241,23 @@ namespace Riskeer.DuneErosion.Forms.Views
             string validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
             {
-                CalculateForSelectedButton.Enabled = false;
-                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, validationText);
+                calculateForSelectedButton.Enabled = false;
+                calculateForSelectedButtonErrorProvider.SetError(calculateForSelectedButton, validationText);
             }
             else
             {
-                CalculateForSelectedButton.Enabled = true;
-                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, "");
+                calculateForSelectedButton.Enabled = true;
+                calculateForSelectedButtonErrorProvider.SetError(calculateForSelectedButton, "");
             }
         }
 
         private void LocalizeControls()
         {
-            CalculateForSelectedButton.Text = RiskeerCommonFormsResources.CalculatableView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_DeselectAllButton_Text;
-            SelectAllButton.Text = RiskeerCommonFormsResources.CalculatableView_SelectAllButton_Text;
-            ButtonGroupBox.Text = RiskeerCommonFormsResources.CalculatableView_ButtonGroupBox_Text;
-            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = RiskeerCommonFormsResources.CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
+            calculateForSelectedButton.Text = RiskeerCommonFormsResources.LocationCalculationsView_CalculateForSelectedButton_Text;
+            deselectAllButton.Text = RiskeerCommonFormsResources.LocationCalculationsView_DeselectAllButton_Text;
+            selectAllButton.Text = RiskeerCommonFormsResources.LocationCalculationsView_SelectAllButton_Text;
+            buttonGroupBox.Text = RiskeerCommonFormsResources.LocationCalculationsView_ButtonGroupBox_Text;
+            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = RiskeerCommonFormsResources.LocationCalculationsView_ShowHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()

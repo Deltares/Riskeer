@@ -133,25 +133,25 @@
   <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="ButtonGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 344</value>
   </data>
-  <data name="ButtonGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>523, 61</value>
   </data>
-  <data name="ButtonGroupBox.Text" xml:space="preserve">
+  <data name="buttonGroupBox.Text" xml:space="preserve">
     <value>Berekenen</value>
   </data>
-  <data name="&gt;&gt;ButtonGroupBox.Name" xml:space="preserve">
-    <value>ButtonGroupBox</value>
+  <data name="&gt;&gt;buttonGroupBox.Name" xml:space="preserve">
+    <value>buttonGroupBox</value>
   </data>
-  <data name="&gt;&gt;ButtonGroupBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ButtonGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;ButtonGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

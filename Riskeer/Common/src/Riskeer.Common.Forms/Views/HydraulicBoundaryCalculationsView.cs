@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Views
         protected virtual void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.ShouldCalculate),
-                                                  Resources.CalculatableView_Calculate);
+                                                  Resources.LocationCalculationsView_Calculate);
             dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.IncludeIllustrationPoints),
                                                   Resources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Name),
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Forms.Views
         {
             if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
             {
-                return Resources.CalculatableViews_No_calculations_selected;
+                return Resources.LocationCalculationsView_No_calculations_selected;
             }
 
             return null;
@@ -230,13 +230,13 @@ namespace Riskeer.Common.Forms.Views
             string validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
             {
-                CalculateForSelectedButton.Enabled = false;
-                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, validationText);
+                calculateForSelectedButton.Enabled = false;
+                calculateForSelectedButtonErrorProvider.SetError(calculateForSelectedButton, validationText);
             }
             else
             {
-                CalculateForSelectedButton.Enabled = true;
-                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, "");
+                calculateForSelectedButton.Enabled = true;
+                calculateForSelectedButtonErrorProvider.SetError(calculateForSelectedButton, "");
             }
         }
 
@@ -260,11 +260,11 @@ namespace Riskeer.Common.Forms.Views
 
         private void LocalizeControls()
         {
-            CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
-            SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
-            ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
-            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = Resources.CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text;
+            calculateForSelectedButton.Text = Resources.LocationCalculationsView_CalculateForSelectedButton_Text;
+            deselectAllButton.Text = Resources.LocationCalculationsView_DeselectAllButton_Text;
+            selectAllButton.Text = Resources.LocationCalculationsView_SelectAllButton_Text;
+            buttonGroupBox.Text = Resources.LocationCalculationsView_ButtonGroupBox_Text;
+            showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Text = Resources.LocationCalculationsView_ShowHydraulicBoundaryDatabaseColumnCheckBox_Text;
         }
 
         private void InitializeEventHandlers()

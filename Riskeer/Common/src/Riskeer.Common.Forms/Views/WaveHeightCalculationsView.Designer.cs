@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
             // 
             // ButtonGroupBox
             // 
-            resources.ApplyResources(this.ButtonGroupBox, "ButtonGroupBox");
+            resources.ApplyResources(this.buttonGroupBox, "buttonGroupBox");
             // 
             // WaveHeightCalculationsView
             // 

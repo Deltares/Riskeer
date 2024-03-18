@@ -142,7 +142,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// database that contains them. 
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to get the lookup from.</param>
-        /// <returns>A lookup mapping the <see cref="HydraulicBoundaryLocation"/> and file name of the hydraulic boundary
+        /// <returns>A lookup mapping between the <see cref="HydraulicBoundaryLocation"/> and the file name of the hydraulic boundary
         /// database that contains them.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static IReadOnlyDictionary<HydraulicBoundaryLocation, string> GetHydraulicBoundaryLocationLookup(this IAssessmentSection assessmentSection)

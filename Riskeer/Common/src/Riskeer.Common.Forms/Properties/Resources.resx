@@ -646,19 +646,19 @@
     <data name="WaveConditionsExporter_DisplayName" xml:space="preserve">
     <value>Berekende belastingen bij verschillende waterstanden</value>
   </data>
-    <data name="CalculatableView_ButtonGroupBox_Text" xml:space="preserve">
+    <data name="LocationCalculationsView_ButtonGroupBox_Text" xml:space="preserve">
     <value>Berekenen</value>
   </data>
-    <data name="CalculatableView_Calculate" xml:space="preserve">
+    <data name="LocationCalculationsView_Calculate" xml:space="preserve">
     <value>Berekenen</value>
   </data>
-    <data name="CalculatableView_CalculateForSelectedButton_Text" xml:space="preserve">
+    <data name="LocationCalculationsView_CalculateForSelectedButton_Text" xml:space="preserve">
     <value>Bereken voor geselecteerde locaties</value>
   </data>
-    <data name="CalculatableView_DeselectAllButton_Text" xml:space="preserve">
+    <data name="LocationCalculationsView_DeselectAllButton_Text" xml:space="preserve">
     <value>Deselecteer alles</value>
   </data>
-    <data name="CalculatableView_SelectAllButton_Text" xml:space="preserve">
+    <data name="LocationCalculationsView_SelectAllButton_Text" xml:space="preserve">
     <value>Selecteer alles</value>
   </data>
     <data name="StructuresCollection_DisplayName" xml:space="preserve">
@@ -904,7 +904,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-    <data name="CalculatableViews_No_calculations_selected" xml:space="preserve">
+    <data name="LocationCalculationsView_No_calculations_selected" xml:space="preserve">
     <value>Er zijn geen berekeningen geselecteerd.</value>
   </data>
     <data name="ObservableCollectionWithSourcePath_SourcePath_DisplayName" xml:space="preserve">
@@ -1601,7 +1601,7 @@ faalkans per vak
     <data name="ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_" xml:space="preserve">
       <value>De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan {0}%</value>
     </data>
-    <data name="CalculatableView_HideHydraulicBoundaryDatabaseColumnCheckBox_Text" xml:space="preserve">
+    <data name="LocationCalculationsView_ShowHydraulicBoundaryDatabaseColumnCheckBox_Text" xml:space="preserve">
       <value>Toon HRD bestand</value>
     </data>
     <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
