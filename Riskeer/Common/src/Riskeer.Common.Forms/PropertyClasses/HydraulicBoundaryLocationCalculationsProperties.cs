@@ -32,7 +32,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
-        protected readonly IAssessmentSection AssessmentSection;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations, 
+        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
                                                                   IAssessmentSection assessmentSection)
         {
             if (hydraulicBoundaryLocationCalculations == null)
@@ -54,9 +53,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            AssessmentSection = assessmentSection;
-
             Data = hydraulicBoundaryLocationCalculations;
+            AssessmentSection = assessmentSection;
 
             hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, hblc => hblc)
             {
@@ -69,6 +67,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        /// <summary>
+        /// Gets the assessment section the calculations belong to.
+        /// </summary>
+        protected IAssessmentSection AssessmentSection { get; }
 
         protected virtual void Dispose(bool disposing)
         {

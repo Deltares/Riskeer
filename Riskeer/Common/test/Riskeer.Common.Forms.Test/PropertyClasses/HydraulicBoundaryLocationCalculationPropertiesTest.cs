@@ -185,6 +185,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             illustrationPointsCategory,
                                                                             "Illustratiepunten inlezen",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -315,6 +316,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Illustratiepunten",
                                                                             "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -344,7 +346,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = $"Just/A/{hrdFileName}",
+                        FilePath = $"Just/A/{hrdFileName}.sqlite",
                         Locations =
                         {
                             hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation
@@ -366,6 +368,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(hrdFileName, properties.HRDFileName);
             Assert.AreEqual(result, properties.Result, properties.Result.GetAccuracy());
             Assert.AreEqual(calculationConvergence, properties.Convergence);
+            mocks.VerifyAll();
         }
 
         [Test]
