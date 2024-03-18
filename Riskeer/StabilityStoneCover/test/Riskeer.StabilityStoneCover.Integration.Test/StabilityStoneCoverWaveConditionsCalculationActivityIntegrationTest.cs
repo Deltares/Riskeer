@@ -677,7 +677,9 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
 
         private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection));
+            RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection);
+
+            return calculation.InputParameters.GetWaterLevels(assessmentLevel).Reverse();
         }
     }
 }

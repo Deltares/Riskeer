@@ -618,7 +618,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                  IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection));
+            RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection);
+
+            return calculation.InputParameters.GetWaterLevels(assessmentLevel).Reverse();
         }
     }
 }
