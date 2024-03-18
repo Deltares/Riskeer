@@ -43,7 +43,7 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
-using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;

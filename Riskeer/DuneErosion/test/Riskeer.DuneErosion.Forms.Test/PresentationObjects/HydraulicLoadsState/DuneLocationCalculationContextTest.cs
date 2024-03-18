@@ -19,19 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
-using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
 {
     [TestFixture]
     public class DuneLocationCalculationContextTest
     {
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+
+            // Call
+            void Call() => new DuneLocationCalculationContext(calculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {

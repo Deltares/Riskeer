@@ -109,7 +109,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = $"Just/A/{hrdFileName}",
+                        FilePath = $"Just/A/{hrdFileName}.sqlite",
                         Locations =
                         {
                             duneLocation.HydraulicBoundaryLocation
@@ -230,7 +230,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = $"Just/A/{hrdFileName}",
+                        FilePath = $"Just/A/{hrdFileName}.sqlite",
                         Locations =
                         {
                             duneLocation.HydraulicBoundaryLocation
@@ -248,6 +248,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
+            Assert.AreEqual(hrdFileName, properties.HRDFileName);
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
 
@@ -420,7 +421,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var duneLocation = new DuneLocation("test", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
@@ -443,7 +444,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var duneLocation = new DuneLocation("Name", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);

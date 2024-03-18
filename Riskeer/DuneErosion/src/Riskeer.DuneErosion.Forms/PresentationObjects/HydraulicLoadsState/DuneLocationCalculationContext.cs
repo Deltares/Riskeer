@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 
-namespace Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState
+namespace Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="DuneLocationCalculation"/>.

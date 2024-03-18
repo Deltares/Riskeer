@@ -50,7 +50,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         /// </summary>
         /// <param name="calculation">The dune location calculation at stake.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parmeter is <c>null</c>.</exception>
         public DuneLocationCalculationProperties(DuneLocationCalculation calculation, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
