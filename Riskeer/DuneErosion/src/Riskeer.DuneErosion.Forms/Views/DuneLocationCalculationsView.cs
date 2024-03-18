@@ -277,7 +277,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
             if (currentRow != null)
             {
-                DuneLocationCalculation calculation = ((DuneLocationCalculationRow) currentRow.DataBoundItem)?.CalculatableObject;
+                DuneLocationCalculation calculation = ((DuneLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject;
                 return new DuneLocationCalculationContext(calculation, AssessmentSection);
             }
 
