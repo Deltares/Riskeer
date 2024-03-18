@@ -110,7 +110,11 @@ All rights reserved.
   <!--Specificeert de stapgrootte voor bepaling van de door te rekenen waterstanden.-->
   <xs:element name="stapgrootte">
     <xs:simpleType>
-      <xs:restriction base="xs:double" />
+       <xs:restriction base="xs:double">
+        <xs:enumeration value="0.5"/>
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="2.0"/>
+        </xs:restriction>
     </xs:simpleType>
   </xs:element>
 

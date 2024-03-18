@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                     LowerBoundaryRevetment = (RoundedDouble) 3.58,
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
-                    StepSize = (RoundedDouble) 0.25,
+                    StepSize = random.NextRoundedDouble(0.01, 2.0),
                     WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>(),
                     CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
                 }
