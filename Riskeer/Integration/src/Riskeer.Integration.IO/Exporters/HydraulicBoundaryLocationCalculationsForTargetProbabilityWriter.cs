@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Exporters
             {
                 Features = new[]
                 {
-                    HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+                    HydraulicBoundaryLocationCalculationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
                         calculation, lookup[hydraulicBoundaryLocation], metaDataHeader)
                 }
             };
