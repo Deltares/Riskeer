@@ -184,12 +184,12 @@
     <value>Rekenwaarde faseverschuiving tussen getij en opzet - {0}</value>
   </data>
   <data name="DuneLocationCalculationOutput_TideSurgePhaseDifference_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
+    <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_MeanTidalAmplitude_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
+    <value>Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.</value>
+    <value>Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
   </data>
 </root>

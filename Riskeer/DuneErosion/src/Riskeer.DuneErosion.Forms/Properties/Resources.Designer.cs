@@ -127,7 +127,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag..
         /// </summary>
         internal static string DuneLocationCalculationOutput_MeanTidalAmplitude_Description {
             get {
@@ -145,7 +145,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag..
         /// </summary>
         internal static string DuneLocationCalculationOutput_TideSurgePhaseDifference_Description {
             get {
@@ -181,7 +181,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag..
         /// </summary>
         internal static string DuneLocationCalculationOutput_WaveDirectionalSpread_Description {
             get {

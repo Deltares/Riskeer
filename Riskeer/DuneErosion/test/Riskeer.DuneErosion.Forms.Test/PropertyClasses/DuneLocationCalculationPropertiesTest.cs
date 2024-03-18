@@ -356,21 +356,21 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanTidalAmplitudeProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde gemiddelde getijamplitude [m]",
-                                                                            "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
+                                                                            "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor waveDirectionalSpreadProperty = dynamicProperties[requiredWaveDirectionalSpreadPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionalSpreadProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde golfrichtingspreiding [-]",
-                                                                            "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
+                                                                            "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor tideSurgePhaseDifferenceProperty = dynamicProperties[requiredTideSurgePhaseDifferencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tideSurgePhaseDifferenceProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde faseverschuiving tussen getij en opzet [uur]",
-                                                                            "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme Duinafslag.",
+                                                                            "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];
