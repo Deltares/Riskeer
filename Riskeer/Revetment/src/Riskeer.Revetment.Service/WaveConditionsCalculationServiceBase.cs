@@ -155,7 +155,7 @@ namespace Riskeer.Revetment.Service
             var calculationsFailed = 0;
             var outputs = new List<WaveConditionsOutput>();
 
-            RoundedDouble[] waterLevels = waveConditionsInput.GetWaterLevels(assessmentLevel).ToArray();
+            RoundedDouble[] waterLevels = waveConditionsInput.GetWaterLevels(assessmentLevel).Reverse().ToArray();
             foreach (RoundedDouble waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
                 try

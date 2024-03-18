@@ -37,6 +37,7 @@ namespace Riskeer.Revetment.Data
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> containing water levels.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
+        /// <remarks>When present the water levels are ordered from high to low.</remarks>
         public static IEnumerable<RoundedDouble> GetWaterLevels(this WaveConditionsInput waveConditionsInput,
                                                                 RoundedDouble assessmentLevel)
         {
