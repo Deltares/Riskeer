@@ -2963,9 +2963,9 @@ namespace AutomatedSystemTests
             /// Creates a new CalculationButtonsDA  folder.
             /// </summary>
             public CalculationButtonsDAFolder(RepoGenBaseFolder parentFolder) :
-                    base("CalculationButtonsDA", "container[@controlname>'Button']", parentFolder, 30000, null, false, "230b72be-fa67-4526-86b5-ffc995407fe1", "")
+                    base("CalculationButtonsDA", "container[@controlname>'button']", parentFolder, 30000, null, false, "230b72be-fa67-4526-86b5-ffc995407fe1", "")
             {
-                _calculateforselectedbuttonInfo = new RepoItemInfo(this, "CalculateForSelectedButton", "button[@controlname='CalculateForSelectedButton']", "", 30000, null, "c5d97332-76d8-4900-be29-cdffe99cbf99");
+                _calculateforselectedbuttonInfo = new RepoItemInfo(this, "CalculateForSelectedButton", "button[@controlname='calculateForSelectedButton']", "", 30000, null, "c5d97332-76d8-4900-be29-cdffe99cbf99");
             }
 
             /// <summary>

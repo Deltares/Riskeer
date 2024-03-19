@@ -551,10 +551,10 @@ TkSuQmCC
 							refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'button']
 							</basepath>
 						</folder>
 						<basepath>
