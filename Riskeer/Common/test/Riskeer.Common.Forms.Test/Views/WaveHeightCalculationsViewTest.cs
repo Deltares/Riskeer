@@ -500,7 +500,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return ShowFullyConfiguredWaveHeightCalculationsView(calculations, form);
             }
 
-            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(HydraulicBoundaryCalculationsView view)
+            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView()
             {
                 return calculations;
             }

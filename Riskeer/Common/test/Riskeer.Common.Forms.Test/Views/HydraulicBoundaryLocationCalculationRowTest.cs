@@ -77,7 +77,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, "HRD FileName");
+            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, string.Empty);
 
             row.CalculatableObject.Attach(observer);
 
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, "HRD FileName");
+            var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, string.Empty);
 
             var random = new Random(432);
             var output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());

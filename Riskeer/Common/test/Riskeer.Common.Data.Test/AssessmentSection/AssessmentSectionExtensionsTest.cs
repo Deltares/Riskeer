@@ -258,6 +258,11 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             // Setup
             var location1 = new TestHydraulicBoundaryLocation();
             var location2 = new TestHydraulicBoundaryLocation();
+            var location3 = new TestHydraulicBoundaryLocation();
+            var location4 = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryDatabaseFileName1 = "HRD1";
+            var hydraulicBoundaryDatabaseFileName2 = "HRD2";
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
@@ -266,18 +271,20 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
                     {
                         new HydraulicBoundaryDatabase
                         {
-                            FilePath = "Just/A/HRD1",
+                            FilePath = $"Just/A/{hydraulicBoundaryDatabaseFileName1}.sqlite",
                             Locations =
                             {
-                                location1
+                                location1,
+                                location2
                             }
                         },
                         new HydraulicBoundaryDatabase
                         {
-                            FilePath = "Just/A/HRD2",
+                            FilePath = $"Just/A/{hydraulicBoundaryDatabaseFileName2}.sqlite",
                             Locations =
                             {
-                                location2
+                                location3,
+                                location4
                             }
                         }
                     }
@@ -291,10 +298,16 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             CollectionAssert.AreEquivalent(new Dictionary<HydraulicBoundaryLocation, string>
             {
                 {
-                    location1, "HRD1"
+                    location1, hydraulicBoundaryDatabaseFileName1
                 },
                 {
-                    location2, "HRD2"
+                    location2, hydraulicBoundaryDatabaseFileName1
+                },
+                {
+                    location3, hydraulicBoundaryDatabaseFileName2
+                },
+                {
+                    location4, hydraulicBoundaryDatabaseFileName2
                 }
             }, lookup);
         }

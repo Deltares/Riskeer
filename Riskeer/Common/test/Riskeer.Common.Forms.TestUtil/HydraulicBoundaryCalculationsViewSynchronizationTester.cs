@@ -83,15 +83,14 @@ namespace Riskeer.Common.Forms.TestUtil
         protected abstract HydraulicBoundaryCalculationsView ShowFullyConfiguredCalculationsView(Form form);
 
         /// <summary>
-        /// Method for getting the calculations in <paramref name="view"/>.
+        /// Method for getting the calculations in the view.
         /// </summary>
-        /// <param name="view">The view to get the calculations from.</param>
         /// <returns>An <see cref="ObservableList{T}"/> of calculations.</returns>
-        protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(HydraulicBoundaryCalculationsView view);
+        protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView();
 
         private void ReplaceCalculationsAndNotifyObservers(HydraulicBoundaryCalculationsView view)
         {
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
             IAssessmentSection assessmentSection = view.AssessmentSection;
@@ -104,7 +103,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
         private void ClearCalculationOutputAndNotifyObservers(HydraulicBoundaryCalculationsView view)
         {
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView();
 
             calculations.ForEach(calculation =>
             {
@@ -115,7 +114,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
         private void SetCalculationOutputAndNotifyObservers(HydraulicBoundaryCalculationsView view)
         {
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView();
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = calculations.First();
             hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
