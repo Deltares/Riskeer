@@ -193,7 +193,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
 
@@ -201,7 +201,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual("database1", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
 
@@ -209,7 +209,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual("database2", cells[hydraulicBoundaryDatabaseFileNameColumnIndex].FormattedValue);
         }
@@ -589,9 +589,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestHydraulicBoundaryCalculationsView()
         {
-            var location1 = new HydraulicBoundaryLocation(1, "1", 1.0, 1.0);
-            var location2 = new HydraulicBoundaryLocation(2, "2", 2.0, 2.0);
-            var location3 = new HydraulicBoundaryLocation(3, "3", 3.0, 3.0);
+            var location1 = new HydraulicBoundaryLocation(1, "Location 1", 1.0, 1.0);
+            var location2 = new HydraulicBoundaryLocation(2, "Location 2", 2.0, 2.0);
+            var location3 = new HydraulicBoundaryLocation(3, "Location 3", 3.0, 3.0);
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {

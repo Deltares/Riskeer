@@ -549,7 +549,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             // When
             var duneLocation = new DuneLocation(
-                "10", hydraulicBoundaryLocation,
+                "DuneLocation 1", hydraulicBoundaryLocation,
                 new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 3,
@@ -578,7 +578,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var expectedRowValues = new object[]
             {
                 false,
-                "10",
+                "DuneLocation 1",
                 "10",
                 "HRD",
                 "3",
