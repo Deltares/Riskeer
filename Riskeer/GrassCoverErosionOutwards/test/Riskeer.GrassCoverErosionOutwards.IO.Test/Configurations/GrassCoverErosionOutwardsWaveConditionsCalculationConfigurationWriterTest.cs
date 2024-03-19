@@ -137,13 +137,13 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
+            void Call() => writer.Write(new[]
             {
                 configuration
             });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
