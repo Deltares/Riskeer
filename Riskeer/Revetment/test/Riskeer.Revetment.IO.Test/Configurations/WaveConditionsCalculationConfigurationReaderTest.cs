@@ -331,7 +331,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             // Assert
             var configuration = (WaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
-            AssertConfiguration(configuration);
+            AssertMigratedConfiguration(configuration);
             Assert.IsNull(configuration.TargetProbability);
         }
 
@@ -355,16 +355,33 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.IsNull(configuration.UpperBoundaryWaterLevels);
             Assert.IsNull(configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.5, configuration.StepSize);
+            Assert.AreEqual(0.33, configuration.StepSize);
             Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
-            Assert.AreEqual(3.3, configuration.WaveReduction.BreakWaterHeight);
+            Assert.AreEqual(4.4, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
         }
 
         private static void AssertConfiguration(WaveConditionsCalculationConfiguration configuration)
+        {
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
+            Assert.AreEqual(0.55, configuration.StepSize);
+            Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
+            Assert.AreEqual(6.6, configuration.Orientation);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(7.7, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
+        }
+        
+        private static void AssertMigratedConfiguration(WaveConditionsCalculationConfiguration configuration)
         {
             Assert.IsNotNull(configuration);
             Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);

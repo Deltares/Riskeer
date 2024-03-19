@@ -90,7 +90,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
                 LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
-                StepSize = (RoundedDouble) 1,
+                StepSize = (RoundedDouble) 0.15,
                 ForeshoreProfileId = "profiel1",
                 Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration

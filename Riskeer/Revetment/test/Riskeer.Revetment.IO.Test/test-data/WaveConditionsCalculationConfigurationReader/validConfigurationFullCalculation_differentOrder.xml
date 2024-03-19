@@ -3,13 +3,13 @@
   <berekening naam="Berekening 1">
     <golfreductie>
       <voorlandgebruiken>false</voorlandgebruiken>
-      <damhoogte>6.6</damhoogte>
+      <damhoogte>7.7</damhoogte>
       <damgebruiken>true</damgebruiken>
       <damtype>caisson</damtype>
     </golfreductie>
-    <orientatie>5.5</orientatie>
+    <orientatie>6.6</orientatie>
     <voorlandprofiel>Voorlandprofiel</voorlandprofiel>
-    <stapgrootte>0.5</stapgrootte>
+    <stapgrootte>0.55</stapgrootte>
     <ondergrenswaterstanden>4.4</ondergrenswaterstanden>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>
     <ondergrensbekleding>2.2</ondergrensbekleding>

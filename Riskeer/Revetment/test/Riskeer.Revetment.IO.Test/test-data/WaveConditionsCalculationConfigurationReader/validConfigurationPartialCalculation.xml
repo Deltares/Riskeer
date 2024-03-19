@@ -3,11 +3,11 @@
   <berekening naam="Berekening 1">
 	<bovengrensbekleding>1.1</bovengrensbekleding>
 	<ondergrensbekleding>2.2</ondergrensbekleding>
-	<stapgrootte>0.5</stapgrootte>
+	<stapgrootte>0.33</stapgrootte>
 	<golfreductie>
 	  <damgebruiken>true</damgebruiken>
 	  <damtype>caisson</damtype>
-	  <damhoogte>3.3</damhoogte>
+	  <damhoogte>4.4</damhoogte>
 	</golfreductie>
   </berekening>
 </configuratie>
