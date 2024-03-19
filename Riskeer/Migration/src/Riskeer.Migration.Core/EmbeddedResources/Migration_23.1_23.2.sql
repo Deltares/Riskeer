@@ -99,9 +99,9 @@ SELECT
         WHEN [StepSize] = 1
             THEN 0.5
         WHEN [StepSize] = 2
-            THEN 1.0
+            THEN 1
         WHEN [StepSize] = 3
-            THEN 2.0
+            THEN 2
     END,
     [CalculationType],
     [WaterLevelType]
@@ -297,9 +297,9 @@ SELECT
         WHEN [StepSize] = 1
             THEN 0.5
         WHEN [StepSize] = 2
-            THEN 1.0
+            THEN 1
         WHEN [StepSize] = 3
-            THEN 2.0
+            THEN 2
     END,
     [CalculationType],
     [WaterLevelType]
@@ -351,9 +351,9 @@ SELECT
         WHEN [StepSize] = 1
             THEN 0.5
         WHEN [StepSize] = 2
-            THEN 1.0
+            THEN 1
         WHEN [StepSize] = 3
-            THEN 2.0
+            THEN 2
     END,
     [WaterLevelType]
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
