@@ -365,7 +365,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = (RoundedDouble) 0.5,
                     LowerBoundaryRevetment = (RoundedDouble) 4,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     UpperBoundaryWaterLevels = (RoundedDouble) 8,
