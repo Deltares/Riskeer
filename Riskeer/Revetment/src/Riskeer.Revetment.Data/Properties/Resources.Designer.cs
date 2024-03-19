@@ -109,32 +109,5 @@ namespace Riskeer.Revetment.Data.Properties {
                         "_be_above_lower_boundary_water_levels", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 0.5.
-        /// </summary>
-        internal static string WaveConditionsInputStepSize_Half {
-            get {
-                return ResourceManager.GetString("WaveConditionsInputStepSize_Half", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1.0.
-        /// </summary>
-        internal static string WaveConditionsInputStepSize_One {
-            get {
-                return ResourceManager.GetString("WaveConditionsInputStepSize_One", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2.0.
-        /// </summary>
-        internal static string WaveConditionsInputStepSize_Two {
-            get {
-                return ResourceManager.GetString("WaveConditionsInputStepSize_Two", resourceCulture);
-            }
-        }
     }
 }

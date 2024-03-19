@@ -39,16 +39,16 @@ namespace Riskeer.Revetment.Data
                                        IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
+        private const int stepSizeNumberOfDecimals = 2;
 
         private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(
             new RoundedDouble(orientationNumberOfDecimals),
             new RoundedDouble(orientationNumberOfDecimals, 360));
 
-        private const int stepSizeNumberOfDecimals = 2;
         private static readonly Range<RoundedDouble> stepSizeValidityRange = new Range<RoundedDouble>(
             new RoundedDouble(stepSizeNumberOfDecimals, 0.01),
             new RoundedDouble(stepSizeNumberOfDecimals, 2.0));
-        
+
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
         private RoundedDouble lowerBoundaryRevetment;

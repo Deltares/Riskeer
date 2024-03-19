@@ -123,15 +123,6 @@
   <data name="WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment" xml:space="preserve">
     <value>De bovengrens van de bekleding moet boven de ondergrens liggen.</value>
   </data>
-  <data name="WaveConditionsInputStepSize_Half" xml:space="preserve">
-    <value>0.5</value>
-  </data>
-  <data name="WaveConditionsInputStepSize_One" xml:space="preserve">
-    <value>1.0</value>
-  </data>
-  <data name="WaveConditionsInputStepSize_Two" xml:space="preserve">
-    <value>2.0</value>
-  </data>
   <data name="StepSize_Value_needs_to_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor de stapgrootte moet in het bereik {0} liggen.</value>
   </data>
