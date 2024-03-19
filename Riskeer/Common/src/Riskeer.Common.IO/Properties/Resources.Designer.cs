@@ -225,6 +225,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to stapgrootte.
+        /// </summary>
+        public static string CalculationConfigurationImporter_StepSize_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_StepSize_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om {0} aan toe te voegen..
         /// </summary>
         public static string CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_ {
@@ -388,8 +397,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ConfiguratieSchema {
             get {
@@ -908,8 +916,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GolfReductieSchema {
             get {
@@ -929,8 +936,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HbLocatieSchema {
             get {
@@ -950,8 +956,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HbLocatieSchema_0 {
             get {
@@ -1204,8 +1209,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string KunstwerkenBasisSchema {
             get {
@@ -1225,8 +1229,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string KunstwerkenBasisSchema_0 {
             get {
@@ -1255,8 +1258,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string OrientatieSchema {
             get {
@@ -1591,8 +1593,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScenarioSchema {
             get {
@@ -1612,8 +1613,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScenarioSchema_0 {
             get {
@@ -1940,8 +1940,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastSchema {
             get {
@@ -1961,8 +1960,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastStandaardafwijkingSchema {
             get {
@@ -1982,8 +1980,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastVariatiecoefficientSchema {
             get {
@@ -2655,8 +2652,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string VersieSchema {
             get {
@@ -2676,8 +2672,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string VoorlandProfielSchema {
             get {
@@ -2697,8 +2692,7 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///MERCHANTABILITY or  [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied war [rest of string was truncated]&quot;;.
         /// </summary>
         public static string XmlGeometrySchema {
             get {

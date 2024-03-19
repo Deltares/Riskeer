@@ -327,7 +327,7 @@ namespace Riskeer.Revetment.IO.Configurations
                     Log.LogOutOfRangeException(string.Format(
                                                    RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                    stepSize,
-                                                   "stapgrootte"),
+                                                   RiskeerCommonIOResources.CalculationConfigurationImporter_StepSize_DisplayName),
                                                calculation.Name, e);
                     return false;
                 }

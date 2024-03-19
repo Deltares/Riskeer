@@ -259,6 +259,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsNaN(configuration.UpperBoundaryWaterLevels);
             Assert.IsNaN(configuration.LowerBoundaryWaterLevels);
             Assert.IsNaN(configuration.Orientation);
+            Assert.IsNaN(configuration.StepSize);
             Assert.IsNaN(configuration.WaveReduction.BreakWaterHeight);
         }
 
@@ -266,7 +267,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadWaveConditionsCalculation()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContaininInfinities.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
             var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
@@ -283,6 +284,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsNotNull(configuration.UpperBoundaryWaterLevels);
             Assert.IsNotNull(configuration.LowerBoundaryWaterLevels);
             Assert.IsNotNull(configuration.Orientation);
+            Assert.IsNotNull(configuration.StepSize);
             Assert.IsNotNull(configuration.WaveReduction.BreakWaterHeight);
 
             Assert.IsTrue(double.IsPositiveInfinity(configuration.TargetProbability.Value));
@@ -291,6 +293,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsTrue(double.IsPositiveInfinity(configuration.UpperBoundaryWaterLevels.Value));
             Assert.IsTrue(double.IsNegativeInfinity(configuration.LowerBoundaryWaterLevels.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.Orientation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.StepSize.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
         }
 

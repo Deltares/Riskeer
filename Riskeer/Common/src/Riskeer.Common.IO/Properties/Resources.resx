@@ -894,4 +894,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="Zip_file_filter_Description" xml:space="preserve">
         <value>zip archief</value>
     </data>
+  <data name="CalculationConfigurationImporter_StepSize_DisplayName" xml:space="preserve">
+    <value>stapgrootte</value>
+  </data>
 </root>
