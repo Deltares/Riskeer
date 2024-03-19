@@ -8,7 +8,7 @@
     <ondergrensbekleding>0.5</ondergrensbekleding>
     <bovengrenswaterstanden>1.4</bovengrenswaterstanden>
     <ondergrenswaterstanden>0.6</ondergrenswaterstanden>
-    <stapgrootte>1</stapgrootte>
+    <stapgrootte>0.15</stapgrootte>
     <voorlandprofiel>profiel1</voorlandprofiel>
     <orientatie>67.1</orientatie>
     <golfreductie>

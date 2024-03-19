@@ -129,12 +129,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                 }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "1/100"),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
-                    LowerBoundaryRevetment = (RoundedDouble) 1.384,
-                    UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                    StepSize = (RoundedDouble) 0.5,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                 }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, "1/100")
             };
 

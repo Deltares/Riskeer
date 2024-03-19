@@ -158,11 +158,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                         {
                             HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
-                            LowerBoundaryRevetment = (RoundedDouble) 1.384,
-                            UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                            StepSize = (RoundedDouble) 0.5,
-                            LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
-                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Both
                         },
                         Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]

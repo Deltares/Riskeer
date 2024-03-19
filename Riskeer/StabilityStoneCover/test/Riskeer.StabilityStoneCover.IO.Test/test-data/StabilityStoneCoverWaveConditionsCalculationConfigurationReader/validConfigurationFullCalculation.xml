@@ -7,13 +7,13 @@
     <ondergrensbekleding>2.2</ondergrensbekleding>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>
     <ondergrenswaterstanden>4.4</ondergrenswaterstanden>
-    <stapgrootte>0.5</stapgrootte>
+    <stapgrootte>0.55</stapgrootte>
     <voorlandprofiel>Voorlandprofiel</voorlandprofiel>
-    <orientatie>5.5</orientatie>
+    <orientatie>6.6</orientatie>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>caisson</damtype>
-      <damhoogte>6.6</damhoogte>
+      <damhoogte>7.7</damhoogte>
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
     <typebekleding>Steen (zuilen)</typebekleding>
