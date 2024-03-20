@@ -225,15 +225,6 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to stapgrootte.
-        /// </summary>
-        public static string CalculationConfigurationImporter_StepSize_DisplayName {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_StepSize_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om {0} aan toe te voegen..
         /// </summary>
         public static string CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_ {

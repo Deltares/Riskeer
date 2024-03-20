@@ -154,8 +154,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        /// [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without e [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BekledingenConfiguratieBasisSchema0To1 {
             get {
@@ -176,8 +175,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        /// [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without e [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BekledingenConfiguratieBasisSchema1To2 {
             get {
@@ -238,8 +236,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BekledingenConfiguratieSchema_0 {
             get {
@@ -259,12 +256,20 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BekledingenConfiguratieSchema_1 {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieSchema_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stapgrootte.
+        /// </summary>
+        public static string CalculationConfigurationImporter_StepSize_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_StepSize_DisplayName", resourceCulture);
             }
         }
         
