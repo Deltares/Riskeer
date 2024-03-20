@@ -142,6 +142,26 @@ namespace Riskeer.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BekledingenConfiguratieBasisSchema_2 {
+            get {
+                return ResourceManager.GetString("BekledingenConfiguratieBasisSchema_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;!--
         ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
@@ -180,26 +200,6 @@ namespace Riskeer.Revetment.IO.Properties {
         public static string BekledingenConfiguratieBasisSchema1To2 {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieBasisSchema1To2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
-        ///
-        ///This file is part of Riskeer.
-        ///
-        ///Riskeer is free software: you can redistribute it and/or modify
-        ///it under the terms of the GNU General Public License as published by
-        ///the Free Software Foundation, either version 3 of the License, or
-        ///(at your option) any later version.
-        ///
-        ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string BekledingenConfiguratieBasisSchema2 {
-            get {
-                return ResourceManager.GetString("BekledingenConfiguratieBasisSchema2", resourceCulture);
             }
         }
         

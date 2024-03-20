@@ -191,8 +191,8 @@
   <data name="WaveConditionsCalculationConfigurationImporter_TryMatchTargetProbability_TargetProbability_0_cannot_be_found" xml:space="preserve">
     <value>De doelkans '{0}' kan niet worden gevonden en kan daarom niet gebruikt worden.</value>
   </data>
-  <data name="BekledingenConfiguratieBasisSchema2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BekledingenConfiguratieBasisSchema2.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="BekledingenConfiguratieBasisSchema_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BekledingenConfiguratieBasisSchema_2.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="BekledingenConfiguratieBasisSchema2To3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BekledingenConfiguratieBasisSchema2To3.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
