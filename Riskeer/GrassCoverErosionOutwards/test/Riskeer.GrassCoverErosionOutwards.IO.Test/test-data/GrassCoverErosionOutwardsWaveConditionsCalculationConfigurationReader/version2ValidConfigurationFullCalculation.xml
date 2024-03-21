@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
-    <categoriegrens>IIIv</categoriegrens>
+    <doelkans>0.1</doelkans>
     <bovengrensbekleding>1.1</bovengrensbekleding>
     <ondergrensbekleding>2.2</ondergrensbekleding>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>
@@ -16,6 +16,6 @@
       <damhoogte>7.7</damhoogte>
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
-    <typebekleding>Gras (golfklap voor toets op maat)</typebekleding>
+    <typebekleding>Gras (golfklap)</typebekleding>
   </berekening>
 </configuratie>
