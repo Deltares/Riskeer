@@ -53,11 +53,13 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
             {
                 Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema_0,
                 Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema_1,
+                Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema_2,
                 Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema
             }, new[]
             {
                 RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema0To1,
-                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema1To2
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema1To2,
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema2To3
             }) {}
 
         protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)

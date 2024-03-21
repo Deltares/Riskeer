@@ -158,10 +158,6 @@
   <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
     <value>ondergrens van de waterstanden</value>
   </data>
-  <data name="BekledingenConfiguratieSchema_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\BekledingenConfiguratieSchema_1.xsd;System.String, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="CoverType_GrassWaveImpact" xml:space="preserve">
     <value>Gras (golfklap)</value>
   </data>
@@ -183,10 +179,6 @@
   <data name="BekledingenConfiguratieBasisSchema_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\bekledingenconfiguratiebasisschema_1.xsd;System.String, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BekledingenConfiguratieSchema_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\bekledingenconfiguratieschema_0.xsd;System.String, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="WaveConditionsCalculationConfigurationImporter_TryMatchTargetProbability_TargetProbability_0_cannot_be_found" xml:space="preserve">
     <value>De doelkans '{0}' kan niet worden gevonden en kan daarom niet gebruikt worden.</value>
