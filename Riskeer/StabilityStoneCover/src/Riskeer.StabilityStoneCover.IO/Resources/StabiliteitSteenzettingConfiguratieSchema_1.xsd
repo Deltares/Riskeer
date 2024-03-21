@@ -26,7 +26,7 @@ All rights reserved.
   <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
-  <!--Herdefinieer basiselementen zodat deze de juiste inhoud hebben.-->
+  <!--Herdefinieer bekleding, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd">
     <xs:complexType name="configuratieType">
       <xs:complexContent>
