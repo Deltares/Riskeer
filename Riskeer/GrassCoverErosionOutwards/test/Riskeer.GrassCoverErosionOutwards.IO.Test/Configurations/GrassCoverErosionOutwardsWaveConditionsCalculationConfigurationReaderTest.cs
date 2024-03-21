@@ -93,17 +93,17 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             // Assert
             var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readItems.Single();
 
-            AssertConfiguration(configuration);
-            Assert.AreEqual(0.1, configuration.TargetProbability);
-            Assert.AreEqual(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, configuration.CalculationType);
+            AssertConfiguration(configuration, 0.1, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, 0.55);
         }
 
         [Test]
-        [TestCase("version0ValidConfigurationFullCalculation.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
-        [TestCase("version1ValidConfigurationTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
-        [TestCase("version1ValidConfigurationWaveRunupAndTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
+        [TestCase("version0ValidConfigurationFullCalculation.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, null, 0.5)]
+        [TestCase("version1ValidConfigurationTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, null, 0.5)]
+        [TestCase("version1ValidConfigurationWaveRunupAndTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, null, 0.5)]
+        [TestCase("version2ValidConfigurationFullCalculation.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, 0.1, 0.5)]
         public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(
-            string fileName, ConfigurationGrassCoverErosionOutwardsCalculationType calculationType)
+            string fileName, ConfigurationGrassCoverErosionOutwardsCalculationType expectedCalculationType,
+            double? expectedTargetProbability, double expectedStepSize)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
@@ -115,42 +115,36 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             // Assert
             var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
-            AssertMigratedConfiguration(configuration);
-            Assert.IsNull(configuration.TargetProbability);
-            Assert.AreEqual(calculationType, configuration.CalculationType);
+            AssertConfiguration(configuration, expectedTargetProbability, expectedCalculationType, expectedStepSize);
         }
 
-        private static void AssertConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
+        private static void AssertConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration, double? expectedTargetProbability,
+                                                ConfigurationGrassCoverErosionOutwardsCalculationType expectedCalculationType, double expectedStepSize)
         {
             Assert.IsNotNull(configuration);
+
+            if (expectedTargetProbability.HasValue)
+            {
+                Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
+            }
+            else
+            {
+                Assert.IsNull(configuration.TargetProbability);
+            }
+
+            Assert.AreEqual(expectedCalculationType, configuration.CalculationType);
+
             Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.55, configuration.StepSize);
+            Assert.AreEqual(expectedStepSize, configuration.StepSize);
             Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
             Assert.AreEqual(6.6, configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(7.7, configuration.WaveReduction.BreakWaterHeight);
-            Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
-        }
-
-        private static void AssertMigratedConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
-        {
-            Assert.IsNotNull(configuration);
-            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
-            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
-            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
-            Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
-            Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.5, configuration.StepSize);
-            Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
-            Assert.AreEqual(5.5, configuration.Orientation);
-            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
-            Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
         }
     }
