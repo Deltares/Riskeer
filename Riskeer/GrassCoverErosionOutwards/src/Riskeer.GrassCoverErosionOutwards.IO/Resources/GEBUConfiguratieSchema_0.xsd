@@ -26,7 +26,7 @@ All rights reserved.
   <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
-  <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
+  <!--Herdefinieer basiselementen zodat deze de juiste inhoud hebben.-->
   <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
@@ -37,7 +37,6 @@ All rights reserved.
         <xs:enumeration value="Vv"/>
       </xs:restriction>
     </xs:simpleType>
-
     <xs:simpleType name="bekledingType">
       <xs:restriction base="bekledingType">
         <xs:enumeration value="Gras (golfoploop)"/>
@@ -49,4 +48,5 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
+
 </xs:schema>
