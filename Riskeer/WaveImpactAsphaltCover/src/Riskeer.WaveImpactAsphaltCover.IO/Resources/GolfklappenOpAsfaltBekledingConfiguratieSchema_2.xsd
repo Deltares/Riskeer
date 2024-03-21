@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
 
 This file is part of Riskeer.
@@ -23,18 +23,7 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!--Basis elementen voor een bekledingen configuratie.-->
-  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_2.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
-
-  <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd">
-    <xs:simpleType name="categoriegrensType">
-      <xs:restriction base="categoriegrensType">
-        <xs:enumeration value="A+"/>
-        <xs:enumeration value="A"/>
-        <xs:enumeration value="B"/>
-        <xs:enumeration value="C"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:redefine>
+  
 </xs:schema>

@@ -51,8 +51,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
         public WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath, new[]
             {
-                RiskeerRevetmentIOResources.BekledingenConfiguratieSchema_0,
-                RiskeerRevetmentIOResources.BekledingenConfiguratieSchema_1,
+                Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema_0,
+                Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema_1,
                 Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema
             }, new[]
             {
