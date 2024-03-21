@@ -46,7 +46,8 @@ namespace Riskeer.Revetment.IO.Configurations
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
         private const string revetmentBaseVersion0SchemaName = "BekledingenConfiguratieBasisSchema_0.xsd";
         private const string revetmentBaseVersion1SchemaName = "BekledingenConfiguratieBasisSchema_1.xsd";
-        private const string revetmentBaseVersion2SchemaName = "BekledingenConfiguratieBasisSchema.xsd";
+        private const string revetmentBaseVersion2SchemaName = "BekledingenConfiguratieBasisSchema_2.xsd";
+        private const string revetmentBaseVersion3SchemaName = "BekledingenConfiguratieBasisSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T}"/>.
@@ -113,7 +114,7 @@ namespace Riskeer.Revetment.IO.Configurations
                     new Dictionary<string, string>
                     {
                         {
-                            revetmentBaseVersion2SchemaName, Resources.BekledingenConfiguratieBasisSchema
+                            revetmentBaseVersion2SchemaName, Resources.BekledingenConfiguratieBasisSchema_2
                         },
                         {
                             hbLocationVersion1SchemaName, RiskeerCommonIOResources.HbLocatieSchema
@@ -127,7 +128,27 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, migrationScripts[1])
+                    }, migrationScripts[1]),
+                new CalculationConfigurationSchemaDefinition(
+                    3, mainSchemaDefinitions[3],
+                    new Dictionary<string, string>
+                    {
+                        {
+                            revetmentBaseVersion3SchemaName, Resources.BekledingenConfiguratieBasisSchema
+                        },
+                        {
+                            hbLocationVersion1SchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            foreshoreProfileSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        }
+                    }, migrationScripts[2])
             }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);
