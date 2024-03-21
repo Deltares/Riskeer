@@ -27,7 +27,7 @@ All rights reserved.
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_2.xsd">
     <xs:simpleType name="bekledingType">
       <xs:restriction base="bekledingType">
         <xs:enumeration value="Steen (blokken)"/>
