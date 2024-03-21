@@ -484,14 +484,14 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
-                    StepSize = (RoundedDouble) 0.5,
+                    StepSize = (RoundedDouble) 0.55,
                     ForeshoreProfile = foreshoreProfile,
-                    Orientation = (RoundedDouble) 5.5,
+                    Orientation = (RoundedDouble) 6.6,
                     UseForeshore = false,
                     UseBreakWater = true,
                     BreakWater =
                     {
-                        Height = (RoundedDouble) 6.6,
+                        Height = (RoundedDouble) 7.7,
                         Type = BreakWaterType.Caisson
                     }
                 }
