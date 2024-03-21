@@ -55,11 +55,13 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
             {
                 Resources.GEBUConfiguratieSchema_0,
                 Resources.GEBUConfiguratieSchema_1,
+                Resources.GEBUConfiguratieSchema_2,
                 Resources.GEBUConfiguratieSchema
             }, new[]
             {
                 RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema0To1,
-                Resources.GEBUConfiguratieSchema1To2
+                Resources.GEBUConfiguratieSchema1To2,
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema2To3
             }) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
