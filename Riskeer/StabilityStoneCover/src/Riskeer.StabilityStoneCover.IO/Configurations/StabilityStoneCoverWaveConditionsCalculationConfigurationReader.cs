@@ -55,11 +55,13 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             {
                 Resources.StabiliteitSteenzettingConfiguratieSchema_0,
                 Resources.StabiliteitSteenzettingConfiguratieSchema_1,
+                Resources.StabiliteitSteenzettingConfiguratieSchema_2,
                 Resources.StabiliteitSteenzettingConfiguratieSchema
             }, new[]
             {
                 RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema0To1,
-                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema1To2
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema1To2,
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema2To3
             }) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)

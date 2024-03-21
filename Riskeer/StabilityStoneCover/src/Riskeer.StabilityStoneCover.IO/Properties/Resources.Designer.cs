@@ -140,5 +140,25 @@ namespace Riskeer.StabilityStoneCover.IO.Properties {
                 return ResourceManager.GetString("StabiliteitSteenzettingConfiguratieSchema_1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string StabiliteitSteenzettingConfiguratieSchema_2 {
+            get {
+                return ResourceManager.GetString("StabiliteitSteenzettingConfiguratieSchema_2", resourceCulture);
+            }
+        }
     }
 }
