@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Schema;
+using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -36,6 +38,19 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityStoneCover.IO,
                                                                                nameof(StabilityStoneCoverWaveConditionsCalculationConfigurationReader));
 
+        private static IEnumerable<TestCaseData> InvalidConfigurations
+        {
+            get
+            {
+                yield return new TestCaseData("invalidCalculationMultipleRevetmentType.xml",
+                                              "Element 'typebekleding' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleRevetmentType");
+                yield return new TestCaseData("invalidRevetmentTypeUnknownValue.xml",
+                                              "The 'typebekleding' element is invalid - The value 'Steen' is invalid according to its datatype 'bekledingType' - The Enumeration constraint failed.")
+                    .SetName("invalidRevetmentTypeUnknownValue");
+            }
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -47,6 +62,22 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfigurationReader<StabilityStoneCoverWaveConditionsCalculationConfiguration>>(reader);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidConfigurations))]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            void Call() => new StabilityStoneCoverWaveConditionsCalculationConfigurationReader(filePath);
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
 
         [Test]
@@ -102,7 +133,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
             Assert.AreEqual(ConfigurationStabilityStoneCoverCalculationType.Columns, configuration.CalculationType);
         }
-
+        
         private static void AssertMigratedConfiguration(StabilityStoneCoverWaveConditionsCalculationConfiguration configuration)
         {
             Assert.IsNotNull(configuration);
