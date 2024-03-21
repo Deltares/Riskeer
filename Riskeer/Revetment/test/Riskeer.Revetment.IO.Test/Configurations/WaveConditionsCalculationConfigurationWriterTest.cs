@@ -137,7 +137,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             protected override int GetConfigurationVersion()
             {
-                return 2;
+                return 3;
             }
         }
     }

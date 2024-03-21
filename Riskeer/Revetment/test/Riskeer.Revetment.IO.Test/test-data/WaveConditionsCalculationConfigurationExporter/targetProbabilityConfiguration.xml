@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="2">
+<configuratie versie="3">
   <map naam="group 1">
     <berekening naam="Calculation 1 (lower limit)">
       <doelkans>0.1</doelkans>

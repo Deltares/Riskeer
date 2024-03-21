@@ -44,7 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
 
         protected override int GetConfigurationVersion()
         {
-            return 2;
+            return 3;
         }
     }
 }

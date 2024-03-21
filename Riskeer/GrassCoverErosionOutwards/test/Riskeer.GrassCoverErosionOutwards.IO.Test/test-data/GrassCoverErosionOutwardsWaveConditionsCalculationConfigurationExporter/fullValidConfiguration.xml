@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="2">
+<configuratie versie="3">
   <map naam="PK001_0001">
     <berekening naam="Calculation A">
       <doelkans>3.3333333333333335E-05</doelkans>

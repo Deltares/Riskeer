@@ -53,7 +53,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 
         protected override int GetConfigurationVersion()
         {
-            return 2;
+            return 3;
         }
     }
 }
