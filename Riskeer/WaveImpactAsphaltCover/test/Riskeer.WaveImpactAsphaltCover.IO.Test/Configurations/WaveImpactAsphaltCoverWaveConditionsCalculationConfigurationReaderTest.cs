@@ -62,15 +62,15 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
             // Assert
             var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            AssertConfiguration(configuration);
-            Assert.AreEqual(0.1, configuration.TargetProbability);
+            AssertConfiguration(configuration, 0.1, 0.55);
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(int versionNumber)
+        [TestCase(0, null, 0.5)]
+        [TestCase(1, null, 0.5)]
+        [TestCase(2, 0.1, 0.5)]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(
+            int versionNumber, double? expectedTargetProbability, double expectedStepSize)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"version{versionNumber}ValidConfigurationFullCalculation.xml");
@@ -82,42 +82,34 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
             // Assert
             var configuration = (WaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
-            AssertMigratedConfiguration(configuration);
-            Assert.IsNull(configuration.TargetProbability);
+            AssertConfiguration(configuration, expectedTargetProbability, expectedStepSize);
         }
 
-        private static void AssertConfiguration(WaveConditionsCalculationConfiguration configuration)
+        private static void AssertConfiguration(WaveConditionsCalculationConfiguration configuration, double? expectedTargetProbability, double expectedStepSize)
         {
             Assert.IsNotNull(configuration);
+
             Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.55, configuration.StepSize);
+            Assert.AreEqual(expectedStepSize, configuration.StepSize);
             Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
             Assert.AreEqual(6.6, configuration.Orientation);
             Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(7.7, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
-        }
-        
-        private static void AssertMigratedConfiguration(WaveConditionsCalculationConfiguration configuration)
-        {
-            Assert.IsNotNull(configuration);
-            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
-            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
-            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
-            Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
-            Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.5, configuration.StepSize);
-            Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
-            Assert.AreEqual(5.5, configuration.Orientation);
-            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
-            Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
-            Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
+
+            if (expectedTargetProbability.HasValue)
+            {
+                Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
+            }
+            else
+            {
+                Assert.IsNull(configuration.TargetProbability);
+            }
         }
     }
 }
