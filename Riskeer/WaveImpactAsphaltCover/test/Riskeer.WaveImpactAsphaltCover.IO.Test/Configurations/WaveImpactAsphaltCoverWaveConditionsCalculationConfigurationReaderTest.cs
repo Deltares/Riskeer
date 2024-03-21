@@ -89,6 +89,15 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
         {
             Assert.IsNotNull(configuration);
 
+            if (expectedTargetProbability.HasValue)
+            {
+                Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
+            }
+            else
+            {
+                Assert.IsNull(configuration.TargetProbability);
+            }
+
             Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
@@ -101,15 +110,6 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(7.7, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
-
-            if (expectedTargetProbability.HasValue)
-            {
-                Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
-            }
-            else
-            {
-                Assert.IsNull(configuration.TargetProbability);
-            }
         }
     }
 }
