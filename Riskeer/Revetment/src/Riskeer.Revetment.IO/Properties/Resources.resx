@@ -200,7 +200,4 @@
   <data name="CalculationConfigurationImporter_StepSize_DisplayName" xml:space="preserve">
     <value>stapgrootte</value>
   </data>
-  <data name="BekledingenConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BekledingenConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
 </root>
