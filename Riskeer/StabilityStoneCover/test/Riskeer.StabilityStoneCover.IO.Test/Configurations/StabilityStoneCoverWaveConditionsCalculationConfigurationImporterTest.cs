@@ -117,7 +117,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
-                    StepSize = (RoundedDouble) 0.5,
+                    StepSize = (RoundedDouble) 0.8,
                     ForeshoreProfile = foreshoreProfile,
                     Orientation = (RoundedDouble) 5.5,
                     UseForeshore = false,
