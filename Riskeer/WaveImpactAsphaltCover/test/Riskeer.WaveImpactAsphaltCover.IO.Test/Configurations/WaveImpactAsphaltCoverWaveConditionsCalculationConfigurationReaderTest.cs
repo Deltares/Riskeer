@@ -69,6 +69,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
         [Test]
         [TestCase(0)]
         [TestCase(1)]
+        [TestCase(2)]
         public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(int versionNumber)
         {
             // Setup
