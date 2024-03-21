@@ -594,11 +594,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd")),
+                    File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_2.xsd")),
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
                 }, new[]
                 {
                     Resources.BekledingenConfiguratieBasisSchema0To1,
-                    Resources.BekledingenConfiguratieBasisSchema1To2
+                    Resources.BekledingenConfiguratieBasisSchema1To2,
+                    Resources.BekledingenConfiguratieBasisSchema2To3
                 }) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
