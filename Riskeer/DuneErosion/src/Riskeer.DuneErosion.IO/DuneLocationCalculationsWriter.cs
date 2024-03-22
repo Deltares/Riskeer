@@ -71,7 +71,7 @@ namespace Riskeer.DuneErosion.IO
                     stringBuilder.AppendLine(CreateCsvLine(calculation));
                 }
 
-                File.WriteAllText(filePath, stringBuilder.ToString());
+                File.WriteAllText(filePath, stringBuilder.ToString(), Encoding.UTF8);
             }
             catch (SystemException e)
             {

@@ -67,7 +67,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
                     stringBuilder.AppendLine(CreateCsvLine(exportableWaveConditions));
                 }
 
-                File.WriteAllText(filePath, stringBuilder.ToString());
+                File.WriteAllText(filePath, stringBuilder.ToString(), Encoding.UTF8);
             }
             catch (SystemException e)
             {
