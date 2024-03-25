@@ -161,7 +161,6 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.AutoSize = true;
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Location = new System.Drawing.Point(3, 3);
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.MinimumSize = new System.Drawing.Size(500, 40);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Name = "showHydraulicBoundaryDatabaseFileNameColumnCheckBox";
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Size = new System.Drawing.Size(500, 40);

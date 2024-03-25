@@ -96,7 +96,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.buttonGroupBox.Controls.Add(this.calculateForSelectedButton);
             this.buttonGroupBox.Controls.Add(this.deselectAllButton);
             this.buttonGroupBox.Controls.Add(this.selectAllButton);
-            this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonGroupBox.Location = new System.Drawing.Point(0, 85);
             this.buttonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.buttonGroupBox.Name = "buttonGroupBox";
@@ -107,9 +107,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             // showHydraulicBoundaryDatabaseFileNameColumnCheckBox
             // 
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.AutoSize = true;
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Location = new System.Drawing.Point(0, 0);
-            this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.MinimumSize = new System.Drawing.Size(500, 40);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Name = "showHydraulicBoundaryDatabaseFileNameColumnCheckBox";
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox.Size = new System.Drawing.Size(533, 40);
