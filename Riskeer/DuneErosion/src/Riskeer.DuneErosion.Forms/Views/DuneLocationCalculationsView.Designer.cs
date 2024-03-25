@@ -39,6 +39,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculateForSelectedButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.deselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
@@ -48,6 +49,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.calculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.calculateForSelectedButtonErrorProvider)).BeginInit();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -122,25 +124,42 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.calculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
             this.calculateForSelectedButtonErrorProvider.SetIconPadding(calculateForSelectedButton, 2);
             // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 1;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel.Controls.Add(this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.buttonGroupBox, 0, 2);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 3;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.Size = new System.Drawing.Size(536, 425);
+            this.tableLayoutPanel.TabIndex = 4;
+            // 
             // DuneLocationCalculationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
-            this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.buttonGroupBox);
-            this.Controls.Add(this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Name = "DuneLocationCalculationsView";
             this.Size = new System.Drawing.Size(533, 146);
             this.buttonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.calculateForSelectedButtonErrorProvider)).EndInit();
+            this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
         #endregion
 
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         protected Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton calculateForSelectedButton;
         private Core.Common.Controls.Forms.EnhancedButton deselectAllButton;

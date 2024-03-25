@@ -39,6 +39,7 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculateForSelectedButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.deselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
@@ -46,7 +47,6 @@ namespace Riskeer.Common.Forms.Views
             this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.calculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.showHydraulicBoundaryDatabaseFileNameColumnCheckBox = new System.Windows.Forms.CheckBox();
             this.illustrationPointsControl = new Riskeer.Common.Forms.Views.IllustrationPointsControl();
             this.buttonGroupBox.SuspendLayout();
@@ -197,10 +197,9 @@ namespace Riskeer.Common.Forms.Views
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-
         #endregion
 
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         protected Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton calculateForSelectedButton;
         private Core.Common.Controls.Forms.EnhancedButton deselectAllButton;
