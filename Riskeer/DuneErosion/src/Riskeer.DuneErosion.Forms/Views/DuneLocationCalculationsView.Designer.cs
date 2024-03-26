@@ -81,7 +81,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.buttonGroupBox.Controls.Add(this.selectAllButton);
             this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonGroupBox.Location = new System.Drawing.Point(3, 355);
-            this.buttonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.buttonGroupBox.Name = "buttonGroupBox";
             this.buttonGroupBox.Size = new System.Drawing.Size(554, 61);
             this.buttonGroupBox.TabIndex = 3;
@@ -143,7 +142,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
+            this.AutoScrollMinSize = new System.Drawing.Size(536, 85);
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "DuneLocationCalculationsView";
             this.Size = new System.Drawing.Size(560, 419);

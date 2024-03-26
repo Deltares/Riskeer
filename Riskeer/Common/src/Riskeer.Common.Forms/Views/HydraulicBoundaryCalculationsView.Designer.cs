@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Views
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.AutoScroll = true;
-            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(535, 0);
+            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(536, 0);
             this.splitContainer.Panel1.Controls.Add(this.tableLayoutPanel);
             // 
             // splitContainer.Panel2
