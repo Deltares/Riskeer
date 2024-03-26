@@ -87,7 +87,6 @@ namespace Riskeer.Common.Forms.Views
             this.buttonGroupBox.Controls.Add(this.selectAllButton);
             this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonGroupBox.Location = new System.Drawing.Point(3, 361);
-            this.buttonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.buttonGroupBox.Name = "buttonGroupBox";
             this.buttonGroupBox.Size = new System.Drawing.Size(530, 61);
             this.buttonGroupBox.TabIndex = 3;
