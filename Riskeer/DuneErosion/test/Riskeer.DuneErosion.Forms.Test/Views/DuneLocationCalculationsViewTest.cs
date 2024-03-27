@@ -201,7 +201,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
-                Assert.AreEqual(new Size(526, 85), view.AutoScrollMinSize);
+                Assert.AreEqual(new Size(536, 85), view.AutoScrollMinSize);
             }
         }
 

@@ -107,7 +107,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var splitContainer = view.Controls[0] as SplitContainer;
                 Assert.IsNotNull(splitContainer);
                 Control.ControlCollection verticalSplitContainerPanel1Controls = splitContainer.Panel1.Controls;
-                Assert.AreEqual(new Size(535, 0), splitContainer.Panel1.AutoScrollMinSize);
+                Assert.AreEqual(new Size(536, 0), splitContainer.Panel1.AutoScrollMinSize);
                 Assert.AreEqual(1, verticalSplitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<TableLayoutPanel>(verticalSplitContainerPanel1Controls[0]);
 
