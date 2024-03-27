@@ -522,7 +522,7 @@ TkSuQmCC
 							name="GenericRowHydraulicBCDunes"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename&lt;' '+$indexRow]
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$indexRow]
 							</item>
 							<item
 							capname="cell"
@@ -530,10 +530,10 @@ TkSuQmCC
 							name="CellCalculatedWaterLevelDA"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table
 							</basepath>
 						</folder>
 						<folder
@@ -551,14 +551,14 @@ TkSuQmCC
 							refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'button']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container
 						</basepath>
 					</folder>
 					<item

@@ -2810,7 +2810,7 @@ namespace AutomatedSystemTests
             /// Creates a new HydraulicBCDunes  folder.
             /// </summary>
             public HydraulicBCDunesFolder(RepoGenBaseFolder parentFolder) :
-                    base("HydraulicBCDunes", "container[@controlname>'Dune']", parentFolder, 30000, null, false, "5463a298-04f2-4ecb-81d1-9702c5733f45", "")
+                    base("HydraulicBCDunes", "container[@controlname>'Dune']/container", parentFolder, 30000, null, false, "5463a298-04f2-4ecb-81d1-9702c5733f45", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder3(this);
                 _calculationbuttonsda = new AutomatedSystemTestsRepositoryFolders.CalculationButtonsDAFolder(this);
