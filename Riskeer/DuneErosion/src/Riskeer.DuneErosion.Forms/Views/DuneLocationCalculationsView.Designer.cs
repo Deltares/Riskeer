@@ -119,6 +119,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             // 
             this.calculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.calculateForSelectedButtonErrorProvider.ContainerControl = this;
+            this.calculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
             // 
             // tableLayoutPanel
             // 

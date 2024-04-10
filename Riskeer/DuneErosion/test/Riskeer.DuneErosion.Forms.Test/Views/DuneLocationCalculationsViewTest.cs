@@ -202,6 +202,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(new Size(536, 85), view.AutoScrollMinSize);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TestHelper.AssertImagesAreEqual(Core.Gui.Properties.Resources.warning.ToBitmap(), errorProvider.Icon.ToBitmap());
             }
         }
 
