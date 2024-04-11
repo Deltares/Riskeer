@@ -367,16 +367,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         private static void AssertConfiguration(WaveConditionsCalculationConfiguration configuration, double? expectedTargetProbability, double expectedStepSize)
         {
             Assert.IsNotNull(configuration);
-
-            if (expectedTargetProbability.HasValue)
-            {
-                Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
-            }
-            else
-            {
-                Assert.IsNull(configuration.TargetProbability);
-            }
-
+            Assert.AreEqual(expectedTargetProbability, configuration.TargetProbability);
             Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
