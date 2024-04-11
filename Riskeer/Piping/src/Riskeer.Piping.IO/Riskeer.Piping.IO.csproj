@@ -33,6 +33,9 @@
     <None Include="Resources\PipingConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\PipingConfiguratieSchema_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net">

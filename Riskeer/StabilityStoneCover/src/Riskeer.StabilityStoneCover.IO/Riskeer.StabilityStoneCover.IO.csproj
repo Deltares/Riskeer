@@ -10,10 +10,16 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema_1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema.xsd">
+    <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema_2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

@@ -22,13 +22,22 @@
     <None Include="Resources\HbLocatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\HbLocatieSchema_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\KunstwerkenBasisSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\KunstwerkenBasisSchema_0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\OrientatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\ScenarioSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\ScenarioSchema_0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\StochastSchema.xsd">
@@ -40,13 +49,13 @@
     <None Include="Resources\StochastVariatiecoefficientSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\VersieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\VoorlandProfielSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\XmlGeometrySchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Resources\ScenarioSchema_0.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

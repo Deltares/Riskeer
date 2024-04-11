@@ -40,6 +40,9 @@
     <None Include="Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\MacroStabiliteitBinnenwaartsGridsSchema.xsd">
       <SubType>Designer</SubType>
     </None>
