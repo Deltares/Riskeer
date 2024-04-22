@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
@@ -202,10 +201,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         # endregion
 
-        #region Assemble with FailureMechanismN and ApplyLengthEffect
+        #region Assemble with worst section result
 
         [Test]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_SectionAssemblyResultsNull_ThrowsArgumentNullException()
+        public void AssembleWithWorstSectionResult_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -226,9 +225,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        [TestCaseSource(nameof(GetApplyLengthEffectCases))]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_WithValidInput_SendsCorrectInputToKernel(
-            bool applySectionLengthEffect, Func<RiskeerFailureMechanismSectionAssemblyResult, double> getExpectedProbabilityFunc)
+        public void AssembleWithWorstSectionResult_WithValidInput_SendsCorrectInputToKernel()
         {
             // Setup
             var random = new Random(21);
@@ -248,20 +245,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                calculator.Assemble(failureMechanismN, sectionAssemblyResults, applySectionLengthEffect);
+                calculator.Assemble(failureMechanismN, sectionAssemblyResults, true);
 
                 // Assert
-                Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
+                Assert.AreEqual(1, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
                 Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionAssemblyResults.Count());
 
-                CollectionAssert.AreEqual(sectionAssemblyResults.Select(sr => new Probability(getExpectedProbabilityFunc(sr))),
+                CollectionAssert.AreEqual(sectionAssemblyResults.Select(sr => new Probability(sr.SectionProbability)),
                                           kernel.FailureMechanismSectionAssemblyResults);
             }
         }
 
         [Test]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_WithValidOutput_ReturnsExpectedOutput()
+        public void AssembleWithWorstSectionResult_WithValidOutput_ReturnsExpectedOutput()
         {
             // Setup
             var random = new Random(21);
@@ -287,7 +284,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithWorstSectionResult_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -313,7 +310,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleWithFailureMechanismNAndApplyLengthEffect_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithWorstSectionResult_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -337,15 +334,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);
                 Assert.IsFalse(kernel.Calculated);
             }
-        }
-
-        private static IEnumerable<TestCaseData> GetApplyLengthEffectCases()
-        {
-            return new[]
-            {
-                new TestCaseData(true, new Func<RiskeerFailureMechanismSectionAssemblyResult, double>(sr => sr.ProfileProbability)),
-                new TestCaseData(false, new Func<RiskeerFailureMechanismSectionAssemblyResult, double>(sr => sr.SectionProbability))
-            };
         }
 
         #endregion

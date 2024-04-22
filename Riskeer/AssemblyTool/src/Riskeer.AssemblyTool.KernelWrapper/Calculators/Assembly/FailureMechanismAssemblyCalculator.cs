@@ -90,14 +90,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
-
-                Func<FailureMechanismSectionAssemblyResult, double> probabilityFunc = applySectionLengthEffect
-                                                                                          ? (Func<FailureMechanismSectionAssemblyResult, double>) (sr => sr.ProfileProbability)
-                                                                                          : sr => sr.SectionProbability;
-
+                
                 Probability result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A2(
-                    sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(probabilityFunc(sr))).ToArray(),
-                    failureMechanismN, false);
+                    sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)).ToArray(),
+                    1, false);
 
                 return new FailureMechanismAssemblyResultWrapper(result, AssemblyMethod.BOI1A2);
             }
