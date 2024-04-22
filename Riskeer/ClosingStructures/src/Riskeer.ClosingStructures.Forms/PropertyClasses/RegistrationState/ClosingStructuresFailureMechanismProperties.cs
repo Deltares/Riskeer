@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
@@ -38,10 +36,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
 
-        private const int cPropertyIndex = 4;
-        private const int n2APropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int applyLengthEffectInSectionPropertyIndex = 7;
+        private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
@@ -71,65 +66,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
 
         #endregion
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(C).Equals(propertyName)
-                   || nameof(N2A).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
-        }
-
         #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(cPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_Description))]
-        public RoundedDouble C
-        {
-            get
-            {
-                return data.GeneralInput.C;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(n2APropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_Description))]
-        public int N2A
-        {
-            get
-            {
-                return data.GeneralInput.N2A;
-            }
-            set
-            {
-                data.GeneralInput.N2A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return new RoundedDouble(2, data.GeneralInput.N);
-            }
-        }
 
         [DynamicVisible]
         [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
@@ -145,5 +82,16 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(ApplyLengthEffectInSection).Equals(propertyName);
+        }
     }
 }

@@ -21,15 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
 {
@@ -39,10 +36,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
-        private const int cPropertyIndex = 3;
-        private const int n2APropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 6;
+
+        private const int applyLengthEffectInSectionPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -65,11 +60,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
-
-            Assert.AreEqual(generalInput.C, properties.C);
-            Assert.AreEqual(generalInput.N2A, properties.N2A);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
             Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
@@ -84,7 +74,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             const string lengthEffectCategory = "Lengte-effect";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -105,26 +95,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
                                                                             generalCategory,
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                            true);
-
-            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
-                                                                            lengthEffectCategory,
-                                                                            "C [-]",
-                                                                            "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
-                                                                            true);
-
-            PropertyDescriptor n2AProperty = dynamicProperties[n2APropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
-                                                                            lengthEffectCategory,
-                                                                            "2NA [-]",
-                                                                            "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
@@ -174,59 +144,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-20)]
-        [TestCase(41)]
-        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int newN2A)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
-
-            // Call
-            void Call() => properties.N2A = newN2A;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int newN2A)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
-
-            // Call
-            properties.N2A = newN2A;
-
-            // Assert
-            Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
@@ -243,9 +160,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
