@@ -83,6 +83,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
+                Assert.IsTrue(calculator.AssembleWithIndependentSectionResultsCalled);
                 Assert.IsFalse(calculator.AssembleWithWorstSectionResultCalled);
             }
         }
@@ -110,6 +111,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
+                Assert.IsFalse(calculator.AssembleWithIndependentSectionResultsCalled);
                 Assert.IsTrue(calculator.AssembleWithWorstSectionResultCalled);
             }
         }
@@ -158,6 +160,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 Assert.IsNull(calculator.SectionAssemblyResultsInput);
+                Assert.IsFalse(calculator.AssembleWithIndependentSectionResultsCalled);
                 Assert.IsFalse(calculator.AssembleWithWorstSectionResultCalled);
 
                 Assert.AreEqual(failureMechanismResult.ManualFailureMechanismAssemblyProbability, assemblyResult.AssemblyResult);

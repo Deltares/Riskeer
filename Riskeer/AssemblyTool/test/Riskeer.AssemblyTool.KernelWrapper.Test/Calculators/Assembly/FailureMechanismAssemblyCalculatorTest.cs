@@ -75,10 +75,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 
-        # region Assemble
+        # region Assemble with independent section results
 
         [Test]
-        public void Assemble_SectionAssemblyResultsNull_ThrowsArgumentNullException()
+        public void AssembleWithIndependentSectionResults_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -88,7 +88,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculator(kernelFactory);
 
             // Call
-            void Call() => calculator.Assemble(null);
+            void Call() => calculator.AssembleWithIndependentSectionResults(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -97,7 +97,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithValidInput_SendsCorrectInputToKernel()
+        public void AssembleWithIndependentSectionResults_WithValidInput_SendsCorrectInputToKernel()
         {
             // Setup
             var random = new Random(21);
@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                calculator.Assemble(sectionAssemblyResults);
+                calculator.AssembleWithIndependentSectionResults(sectionAssemblyResults);
 
                 // Assert
                 Assert.AreEqual(0, kernel.LenghtEffectFactor);
@@ -128,7 +128,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithValidOutput_ReturnsExpectedOutput()
+        public void AssembleWithIndependentSectionResults_WithValidOutput_ReturnsExpectedOutput()
         {
             // Setup
             var random = new Random(21);
@@ -143,7 +143,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.Assemble(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.AssembleWithIndependentSectionResults(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
@@ -153,7 +153,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithIndependentSectionResults_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -165,7 +165,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.AssembleWithIndependentSectionResults(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
@@ -176,7 +176,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
+        public void AssembleWithIndependentSectionResults_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -188,7 +188,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.AssembleWithIndependentSectionResults(Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);

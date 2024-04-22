@@ -40,12 +40,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismAssemblyResultWrapper AssembleWithWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
 
         /// <summary>
-        /// Assembles a failure mechanism based on the input.
+        /// Assembles a failure mechanism based on independent section results.
         /// </summary>
         /// <param name="sectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
-        FailureMechanismAssemblyResultWrapper Assemble(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
+        FailureMechanismAssemblyResultWrapper AssembleWithIndependentSectionResults(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }
