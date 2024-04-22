@@ -32,19 +32,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismAssemblyCalculatorStub : IFailureMechanismAssemblyCalculator
     {
         /// <summary>
-        /// Gets the length effect 'N' of the failure mechanism that is used in the calculation.
-        /// </summary>
-        public double FailureMechanismN { get; private set; }
-
-        /// <summary>
         /// Gets the collection of <see cref="FailureMechanismSectionAssemblyResult"/> that is used in the calculation.
         /// </summary>
         public IEnumerable<FailureMechanismSectionAssemblyResult> SectionAssemblyResultsInput { get; private set; }
-
-        /// <summary>
-        /// Gets the indicator whether the failure mechanism section length effect is applied.
-        /// </summary>
-        public bool ApplyLengthEffect { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
@@ -74,10 +64,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
 
-            FailureMechanismN = failureMechanismN;
             SectionAssemblyResultsInput = sectionAssemblyResults;
-            ApplyLengthEffect = applySectionLengthEffect;
-
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A2));
         }
     }

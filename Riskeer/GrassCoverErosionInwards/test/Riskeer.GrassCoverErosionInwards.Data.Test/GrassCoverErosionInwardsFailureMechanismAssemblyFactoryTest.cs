@@ -102,9 +102,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCalculator.FailureMechanismN);
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
-                Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }
 

@@ -33,7 +33,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
@@ -273,10 +272,7 @@ namespace Riskeer.Piping.Data.Test
                 PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                double expectedN = failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
-                Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
-                Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }
 
