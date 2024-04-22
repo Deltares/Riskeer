@@ -149,7 +149,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                         failureMechanism,
                         assessmentSection,
                         GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        fm => false, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };
 
