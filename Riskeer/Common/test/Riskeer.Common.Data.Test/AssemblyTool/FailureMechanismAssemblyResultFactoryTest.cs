@@ -82,9 +82,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(0, calculator.FailureMechanismN);
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
-                Assert.IsFalse(calculator.ApplyLengthEffect);
+                Assert.IsFalse(calculator.AssembleWithWorstSectionResultCalled);
             }
         }
 
@@ -110,9 +109,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(n, calculator.FailureMechanismN);
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
-                Assert.AreEqual(applyLengthEffect, calculator.ApplyLengthEffect);
+                Assert.IsTrue(calculator.AssembleWithWorstSectionResultCalled);
             }
         }
 
@@ -159,9 +157,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(0, calculator.FailureMechanismN);
                 Assert.IsNull(calculator.SectionAssemblyResultsInput);
-                Assert.IsFalse(calculator.ApplyLengthEffect);
+                Assert.IsFalse(calculator.AssembleWithWorstSectionResultCalled);
 
                 Assert.AreEqual(failureMechanismResult.ManualFailureMechanismAssemblyProbability, assemblyResult.AssemblyResult);
                 Assert.AreEqual(AssemblyMethod.Manual, assemblyResult.AssemblyMethod);

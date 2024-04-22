@@ -42,6 +42,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
+        /// Gets an indicator whether the assembly is based on the worst section result.
+        /// </summary>
+        public bool AssembleWithWorstSectionResultCalled { get; private set; }
+        
+        /// <summary>
         /// Gets or sets the result output of the assembly calculation.
         /// </summary>
         public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
@@ -63,6 +68,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             {
                 throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
+
+            AssembleWithWorstSectionResultCalled = true;
 
             SectionAssemblyResultsInput = sectionAssemblyResults;
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A2));
