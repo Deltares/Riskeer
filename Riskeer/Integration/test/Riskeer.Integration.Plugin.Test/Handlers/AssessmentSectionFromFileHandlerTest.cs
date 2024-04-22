@@ -378,7 +378,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     NormativeProbabilityType = useSignalFloodingProbability ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
-            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.HeightStructures.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -400,13 +399,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 FailureMechanismContribution =
                 {
                     NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
-                },
-                GrassCoverErosionOutwards =
-                {
-                    GeneralInput =
-                    {
-                        N = (RoundedDouble) 3.0
-                    }
                 },
                 HeightStructures =
                 {
@@ -461,7 +453,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expected.FailureMechanismContribution.NormativeProbabilityType, actual.FailureMechanismContribution.NormativeProbabilityType);
             Assert.AreEqual(expected.Composition, actual.Composition);
 
-            Assert.AreEqual(expected.GrassCoverErosionOutwards.GeneralInput.N, actual.GrassCoverErosionOutwards.GeneralInput.N);
             Assert.AreEqual(expected.HeightStructures.GeneralInput.N, actual.HeightStructures.GeneralInput.N);
 
             AssertReferenceLine(expected.ReferenceLine, actual.ReferenceLine);

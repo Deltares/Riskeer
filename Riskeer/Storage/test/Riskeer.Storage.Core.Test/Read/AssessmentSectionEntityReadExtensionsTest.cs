@@ -577,9 +577,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.GrassCoverErosionOutwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionOutwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionOutwards.ForeshoreProfiles.SourcePath);
-
-            RoundedDouble actualN = section.GrassCoverErosionOutwards.GeneralInput.N;
-            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]

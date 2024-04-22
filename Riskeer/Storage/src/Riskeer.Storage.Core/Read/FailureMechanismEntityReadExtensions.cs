@@ -42,7 +42,6 @@ using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.DuneErosion;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
-using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.Piping;
@@ -676,7 +675,6 @@ namespace Riskeer.Storage.Core.Read
                                                                              ReadConversionCollector collector)
         {
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
 
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
@@ -687,12 +685,6 @@ namespace Riskeer.Storage.Core.Read
                                   collector);
 
             ReadGrassCoverErosionOutwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-        }
-
-        private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity,
-                                                                                 GeneralGrassCoverErosionOutwardsInput input)
-        {
-            GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(entity).Read(input);
         }
 
         private static void ReadGrassCoverErosionOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
@@ -718,11 +710,6 @@ namespace Riskeer.Storage.Core.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
-        }
-
-        private static GrassCoverErosionOutwardsFailureMechanismMetaEntity GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(FailureMechanismEntity entity)
-        {
-            return entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
         }
 
         #endregion

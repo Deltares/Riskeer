@@ -74,11 +74,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1, 20),
-                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -94,11 +89,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-
-            Assert.AreEqual(1, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Count);
-            GrassCoverErosionOutwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), generalInputEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

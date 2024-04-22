@@ -2060,8 +2060,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            RoundedDouble actualN = failureMechanism.GeneralInput.N;
-            Assert.AreEqual(entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
 
