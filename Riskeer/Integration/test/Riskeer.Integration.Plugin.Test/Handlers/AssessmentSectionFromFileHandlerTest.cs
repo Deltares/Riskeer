@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
@@ -378,7 +377,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     NormativeProbabilityType = useSignalFloodingProbability ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
-            assessmentSection.HeightStructures.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(160679.9250, 475072.583),
@@ -399,13 +397,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 FailureMechanismContribution =
                 {
                     NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
-                },
-                HeightStructures =
-                {
-                    GeneralInput =
-                    {
-                        N = (RoundedDouble) 3.0
-                    }
                 }
             };
 
@@ -452,8 +443,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expected.FailureMechanismContribution.SignalFloodingProbability, actual.FailureMechanismContribution.SignalFloodingProbability);
             Assert.AreEqual(expected.FailureMechanismContribution.NormativeProbabilityType, actual.FailureMechanismContribution.NormativeProbabilityType);
             Assert.AreEqual(expected.Composition, actual.Composition);
-
-            Assert.AreEqual(expected.HeightStructures.GeneralInput.N, actual.HeightStructures.GeneralInput.N);
 
             AssertReferenceLine(expected.ReferenceLine, actual.ReferenceLine);
         }

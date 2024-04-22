@@ -98,13 +98,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             TryReadSourceFiles();
             return GetAssessmentSectionFromDialog();
         }
-
-        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
-        {
-            var roundedN = (RoundedDouble) n;
-            assessmentSection.HeightStructures.GeneralInput.N = roundedN;
-        }
-
+        
         #region Dialog
 
         private AssessmentSection GetAssessmentSectionFromDialog()
@@ -172,9 +166,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </exception>
         private static AssessmentSection CreateDikeAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability, int n)
         {
-            AssessmentSection assessmentSection = CreateDikeAssessmentSection(maximumAllowableFloodingProbability, signalFloodingProbability);
-            SetFailureMechanismsValueN(assessmentSection, n);
-            return assessmentSection;
+            return CreateDikeAssessmentSection(maximumAllowableFloodingProbability, signalFloodingProbability);
         }
 
         /// <summary>
@@ -194,11 +186,9 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </exception>
         private static AssessmentSection CreateDuneAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability, int n)
         {
-            var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
-                                                              maximumAllowableFloodingProbability,
-                                                              signalFloodingProbability);
-            SetFailureMechanismsValueN(duneAssessmentSection, n);
-            return duneAssessmentSection;
+            return new AssessmentSection(AssessmentSectionComposition.Dune,
+                                         maximumAllowableFloodingProbability,
+                                         signalFloodingProbability);
         }
 
         /// <summary>
