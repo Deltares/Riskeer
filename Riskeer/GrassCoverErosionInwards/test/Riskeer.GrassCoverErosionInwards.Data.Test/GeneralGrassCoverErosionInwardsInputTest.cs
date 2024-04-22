@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -71,10 +69,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var inputParameters = new GeneralGrassCoverErosionInwardsInput();
 
             // Assert
-            Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(2.0, inputParameters.N, inputParameters.N.GetAccuracy());
-            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
-
             DistributionAssert.AreEqual(fbFactor, inputParameters.FbFactor);
             DistributionAssert.AreEqual(fnFactor, inputParameters.FnFactor);
             DistributionAssert.AreEqual(fshallow, inputParameters.FshallowModelFactor);
@@ -82,44 +76,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             Assert.AreEqual(1, inputParameters.CriticalOvertoppingModelFactor);
             Assert.AreEqual(1, inputParameters.OvertoppingModelFactor);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        [TestCase(0.999)]
-        [TestCase(20.001)]
-        public void N_SetValidValue_UpdatesValue(double value)
-        {
-            // Setup
-            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionInwardsInput();
-
-            // Call
-            generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(2, generalGrassCoverErosionInwardsInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(value, generalGrassCoverErosionInwardsInput.N, generalGrassCoverErosionInwardsInput.N.GetAccuracy());
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-10.0)]
-        [TestCase(0.99)]
-        [TestCase(20.01)]
-        [TestCase(50.0)]
-        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionInwardsInput();
-
-            // Call
-            TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
 }
