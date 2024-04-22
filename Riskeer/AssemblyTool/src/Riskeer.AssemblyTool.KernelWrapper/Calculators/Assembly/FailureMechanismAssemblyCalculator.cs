@@ -79,8 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults,
-                                                              bool applySectionLengthEffect)
+        public FailureMechanismAssemblyResultWrapper AssembleWithWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (sectionAssemblyResults == null)
             {

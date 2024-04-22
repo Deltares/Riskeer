@@ -85,7 +85,7 @@ namespace Riskeer.Common.Data.AssemblyTool
                     case FailureMechanismAssemblyProbabilityResultType.P1:
                         return calculator.Assemble(failureMechanismSectionAssemblyResults);
                     case FailureMechanismAssemblyProbabilityResultType.P2:
-                        return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults, applyLengthEffect);
+                        return calculator.AssembleWithWorstSectionResult(failureMechanismSectionAssemblyResults);
                     default:
                         throw new NotSupportedException();
                 }
