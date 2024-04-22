@@ -75,10 +75,6 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -96,7 +92,6 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
 
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
             Assert.AreEqual(failureMechanism.HeightStructures.SourcePath, metaEntity.HeightStructureCollectionSourcePath);
             Assert.AreEqual(failureMechanism.ForeshoreProfiles.SourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
         }

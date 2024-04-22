@@ -724,9 +724,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.HeightStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.HeightStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.HeightStructures.HeightStructures.SourcePath);
-
-            RoundedDouble actualN = section.HeightStructures.GeneralInput.N;
-            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]

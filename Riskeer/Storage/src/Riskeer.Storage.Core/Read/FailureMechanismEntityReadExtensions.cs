@@ -352,7 +352,6 @@ namespace Riskeer.Storage.Core.Read
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
             entity.ReadHeightStructures(failureMechanism.HeightStructures, metaEntity.HeightStructureCollectionSourcePath, collector);
-            entity.ReadHeightStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
@@ -384,12 +383,6 @@ namespace Riskeer.Storage.Core.Read
                                                 .ToArray(),
                                           sourcePath);
             }
-        }
-
-        private static void ReadHeightStructuresGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)
-        {
-            GeneralHeightStructuresInput generalHeightStructuresInput = entity.HeightStructuresFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = generalHeightStructuresInput.N;
         }
 
         private static void ReadHeightStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,

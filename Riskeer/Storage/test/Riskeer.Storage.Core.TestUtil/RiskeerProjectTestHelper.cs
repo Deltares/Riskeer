@@ -770,8 +770,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
-
             HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations().ToArray();
 
             var heightStructure = new TestHeightStructure();

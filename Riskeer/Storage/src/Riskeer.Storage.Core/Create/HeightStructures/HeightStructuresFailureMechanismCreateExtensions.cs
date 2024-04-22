@@ -95,7 +95,6 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
         {
             entity.HeightStructuresFailureMechanismMetaEntities.Add(new HeightStructuresFailureMechanismMetaEntity
             {
-                N = mechanism.GeneralInput.N,
                 HeightStructureCollectionSourcePath = mechanism.HeightStructures.SourcePath.DeepClone(),
                 ForeshoreProfileCollectionSourcePath = mechanism.ForeshoreProfiles.SourcePath.DeepClone()
             });

@@ -2837,9 +2837,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            RoundedDouble actualN = failureMechanism.GeneralInput.N;
-            Assert.AreEqual(entity.HeightStructuresFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
-
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
 
@@ -2923,9 +2920,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
-
-            RoundedDouble actualN = failureMechanism.GeneralInput.N;
-            Assert.AreEqual(entity.HeightStructuresFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
         }
 
         [Test]
