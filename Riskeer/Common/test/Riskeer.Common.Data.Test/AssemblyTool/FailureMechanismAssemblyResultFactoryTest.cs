@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -42,7 +41,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_FailureMechanismSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, null, false, new FailureMechanismAssemblyResult());
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(null, new FailureMechanismAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,7 +52,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, Array.Empty<FailureMechanismSectionAssemblyResult>(), false, null);
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(Array.Empty<FailureMechanismSectionAssemblyResult>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,19 +63,16 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomaticIndependentSections_SetsInputOnCalculator()
         {
             // Setup
-            var random = new Random(21);
-            double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1
             };
-            bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
+                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(sectionResults, failureMechanismResult);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -92,19 +88,16 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomaticWorstSection_SetsInputOnCalculator()
         {
             // Setup
-            var random = new Random(21);
-            double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             };
-            bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
+                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(sectionResults, failureMechanismResult);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -120,17 +113,14 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeNone_ThrowsAssemblyException()
         {
             // Setup
-            var random = new Random(21);
-            double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.None
             };
-            bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             // Call
-            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(sectionResults, failureMechanismResult);
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(Call);
@@ -151,9 +141,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                    random.NextDouble(), Enumerable.Empty<FailureMechanismSectionAssemblyResult>(),
-                    random.NextBoolean(), failureMechanismResult);
+                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), failureMechanismResult);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -185,8 +173,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 };
 
                 // Call
-                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                    0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
+                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), failureMechanismAssemblyResult);
 
                 // Assert
                 Assert.AreSame(calculator.AssemblyResultOutput, assemblyResult);
@@ -210,8 +197,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 void Call() =>
-                    FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                        0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
+                    FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), failureMechanismAssemblyResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -231,8 +217,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             };
 
             // Call
-            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), failureMechanismAssemblyResult);
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);

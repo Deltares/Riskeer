@@ -39,9 +39,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Assembles the failure mechanism based on its input arguments.
         /// </summary>
-        /// <param name="failureMechanismN">The length effect factor 'N' of the failure mechanism.</param>
         /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
-        /// <param name="applyLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
         /// <param name="failureMechanismAssemblyResult">The <see cref="FailureMechanismAssemblyResult"/>.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
@@ -49,9 +47,8 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismAssemblyProbabilityResultType"/>
         /// of the failure mechanism is not supported.</exception>
-        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(
-            double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-            bool applyLengthEffect, FailureMechanismAssemblyResult failureMechanismAssemblyResult)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
+                                                                                     FailureMechanismAssemblyResult failureMechanismAssemblyResult)
         {
             if (failureMechanismSectionAssemblyResults == null)
             {
