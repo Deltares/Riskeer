@@ -55,8 +55,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             var inputParameters = new GeneralClosingStructuresInput();
 
             // Assert
-            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
-
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             AssertAreEqual(9.81, inputParameters.GravitationalAcceleration);
 

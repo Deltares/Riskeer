@@ -37,8 +37,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
 
-        private const int applyLengthEffectInSectionPropertyIndex = 3;
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -58,62 +56,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
-
-            GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
-        public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_PropertiesHaveExpectedAttributeValues()
         {
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism());
-
-            // Assert
-            const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect";
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het faalmechanisme.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het faalmechanisme.",
-                                                                            true);
-
-            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
-                                                                            generalCategory,
-                                                                            "In assemblage",
-                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                            true);
-
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Toepassen lengte-effect binnen vak",
-                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.",
-                                                                            true);
-        }
-
-        [Test]
-        public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributeValues()
-        {
-            // Call
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                InAssembly = false
-            };
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -141,28 +90,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                InAssembly = inAssembly
-            };
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
-
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

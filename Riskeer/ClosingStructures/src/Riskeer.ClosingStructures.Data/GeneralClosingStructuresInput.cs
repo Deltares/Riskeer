@@ -66,16 +66,7 @@ namespace Riskeer.ClosingStructures.Data
         public RoundedDouble GravitationalAcceleration { get; }
 
         #endregion
-
-        #region Length effect parameters
-
-        /// <summary>
-        /// Gets whether the length effect should be applied in the section.
-        /// </summary>
-        public bool ApplyLengthEffectInSection => false;
-
-        #endregion
-
+        
         #region Model factors
 
         /// <summary>

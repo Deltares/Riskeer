@@ -36,8 +36,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
 
-        private const int applyLengthEffectInSectionPropertyIndex = 4;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
         /// </summary>
@@ -65,33 +63,5 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         }
 
         #endregion
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_Description))]
-        public bool ApplyLengthEffectInSection
-        {
-            get
-            {
-                return data.GeneralInput.ApplyLengthEffectInSection;
-            }
-        }
-
-        #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(ApplyLengthEffectInSection).Equals(propertyName);
-        }
     }
 }
