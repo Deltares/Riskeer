@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomaticWorstSectionOrProfile_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomaticWorstSection_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);

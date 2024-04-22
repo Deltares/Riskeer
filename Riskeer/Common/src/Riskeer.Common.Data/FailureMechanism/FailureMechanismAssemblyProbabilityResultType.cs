@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         P1 = 2,
 
         /// <summary>
-        /// The automatically calculated probability type based on the worst section or profile.
+        /// The automatically calculated probability type based on the worst section.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName))]
         P2 = 3,
