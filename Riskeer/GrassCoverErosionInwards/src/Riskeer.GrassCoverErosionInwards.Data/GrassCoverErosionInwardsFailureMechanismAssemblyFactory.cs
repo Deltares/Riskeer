@@ -69,7 +69,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
                 new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios),
-                failureMechanism.GeneralInput.ApplyLengthEffectInSection, 1.0);
+                false, 1.0);
         }
 
         /// <summary>
