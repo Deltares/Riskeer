@@ -3206,7 +3206,6 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsClosingStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            const int generalInputN2A = 3;
             const string fileLocation = "some/location/to/foreshoreprofiles";
 
             var entity = new FailureMechanismEntity
@@ -3231,7 +3230,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
                     {
-                        N2A = generalInputN2A,
                         ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
@@ -3252,8 +3250,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
-
-            Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
         }
 
         [Test]

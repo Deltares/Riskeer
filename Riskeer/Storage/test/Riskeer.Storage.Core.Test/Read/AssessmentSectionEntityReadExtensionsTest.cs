@@ -742,7 +742,6 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
-            int n2a = random.Next(1, 40);
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
@@ -759,10 +758,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructuresFailureMechanismMetaEntity
-                    {
-                        N2A = n2a
-                    }
+                    new ClosingStructuresFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -779,7 +775,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyOutputComments, section.ClosingStructures.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.ClosingStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.ClosingStructures.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(n2a, section.ClosingStructures.GeneralInput.N2A);
         }
 
         [Test]

@@ -75,10 +75,6 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N2A = new Random().Next(0, 40)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -96,7 +92,6 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
             Assert.IsNull(metaEntity.ClosingStructureCollectionSourcePath);
         }

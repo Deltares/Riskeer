@@ -674,8 +674,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism,
                                                                        IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N2A = 6;
-
             ClosingStructure closingStructure = new TestClosingStructure("structureA");
             failureMechanism.ClosingStructures.AddRange(new[]
             {

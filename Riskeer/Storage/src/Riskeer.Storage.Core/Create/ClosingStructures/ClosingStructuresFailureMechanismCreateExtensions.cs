@@ -96,7 +96,6 @@ namespace Riskeer.Storage.Core.Create.ClosingStructures
         {
             var metaEntity = new ClosingStructuresFailureMechanismMetaEntity
             {
-                N2A = failureMechanism.GeneralInput.N2A,
                 ClosingStructureCollectionSourcePath = failureMechanism.ClosingStructures.SourcePath.DeepClone(),
                 ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
             };

@@ -479,7 +479,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadClosingStructures(failureMechanism.ClosingStructures,
                                          metaEntity.ClosingStructureCollectionSourcePath, collector);
 
-            entity.ReadClosingStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadClosingStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
@@ -496,12 +495,6 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
-        }
-
-        private static void ReadClosingStructuresGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
-        {
-            GeneralClosingStructuresInput generalClosingStructuresInput = entity.ClosingStructuresFailureMechanismMetaEntities.Single().Read();
-            generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
         private static void ReadClosingStructures(this FailureMechanismEntity entity,
