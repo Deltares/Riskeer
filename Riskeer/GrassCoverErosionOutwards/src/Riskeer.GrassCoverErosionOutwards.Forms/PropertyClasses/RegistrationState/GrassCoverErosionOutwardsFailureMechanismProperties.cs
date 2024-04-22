@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -36,8 +35,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationSt
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
@@ -62,63 +59,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationSt
             get
             {
                 return data.InAssembly;
-            }
-        }
-
-        #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.InAssembly && ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(N).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
-        }
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_Description))]
-        public bool ApplyLengthEffectInSection
-        {
-            get
-            {
-                return data.GeneralInput.ApplyLengthEffectInSection;
-            }
-            set
-            {
-                data.GeneralInput.ApplyLengthEffectInSection = value;
-                data.NotifyObservers();
             }
         }
 
