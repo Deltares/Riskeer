@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Riskeer.ClosingStructures.Data.Properties;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.ClosingStructures.Data
@@ -31,17 +29,11 @@ namespace Riskeer.ClosingStructures.Data
     /// </summary>
     public class GeneralClosingStructuresInput
     {
-        private static readonly Range<int> validityRangeN2A = new Range<int>(0, 40);
-        private int n2A;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralClosingStructuresInput"/> class.
         /// </summary>
         public GeneralClosingStructuresInput()
         {
-            C = new RoundedDouble(2, 0.5);
-            N2A = 1;
-
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
             ModelFactorOvertoppingFlow = new LogNormalDistribution(3)
@@ -76,45 +68,6 @@ namespace Riskeer.ClosingStructures.Data
         #endregion
 
         #region Length effect parameters
-
-        /// <summary>
-        /// Gets or sets the 'C' parameter used to factor in the 'length effect'.
-        /// </summary>
-        public RoundedDouble C { get; }
-
-        /// <summary>
-        /// Gets or sets the 'N2A' parameter used to factor in the 'length effect'.
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the 'N2A' value is set outside the range [0, 40].</exception>
-        /// </summary>
-        public int N2A
-        {
-            get
-            {
-                return n2A;
-            }
-            set
-            {
-                if (!validityRangeN2A.InRange(value))
-                {
-                    string message = string.Format(Resources.N2A_Value_should_be_in_Range_0_,
-                                                   validityRangeN2A);
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
-
-                n2A = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        public double N
-        {
-            get
-            {
-                return Math.Max(1, C * N2A);
-            }
-        }
 
         /// <summary>
         /// Gets whether the length effect should be applied in the section.

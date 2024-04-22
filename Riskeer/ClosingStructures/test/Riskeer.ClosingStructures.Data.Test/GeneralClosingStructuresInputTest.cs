@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -57,9 +55,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             var inputParameters = new GeneralClosingStructuresInput();
 
             // Assert
-            Assert.AreEqual(2, inputParameters.C.NumberOfDecimalPlaces);
-            AssertAreEqual(0.5, inputParameters.C);
-            Assert.AreEqual(1, inputParameters.N2A);
             Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
@@ -71,43 +66,6 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertAreEqual(1.0, inputParameters.ModelFactorInflowVolume);
-        }
-
-        [Test]
-        [TestCase(0, 1.0)]
-        [TestCase(8, 4.0)]
-        [TestCase(40, 20.0)]
-        public void N_VariousN2AValues_ReturnsExpectedValue(int n2A, double expected)
-        {
-            // Setup
-            var inputParameters = new GeneralClosingStructuresInput
-            {
-                N2A = n2A
-            };
-
-            // Call
-            double n = inputParameters.N;
-
-            // Assert
-            Assert.AreEqual(expected, n);
-        }
-
-        [Test]
-        [TestCase(-456)]
-        [TestCase(-1)]
-        [TestCase(41)]
-        [TestCase(687)]
-        public void N2A_ValuesOutOfRange_ThrowArgumentOutOfRangeException(int invalidValue)
-        {
-            // Setup
-            var inputParameters = new GeneralClosingStructuresInput();
-
-            // Call
-            TestDelegate call = () => inputParameters.N2A = invalidValue;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                call, "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
         }
 
         private static void AssertAreEqual(double expected, RoundedDouble actual)
