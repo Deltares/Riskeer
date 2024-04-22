@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -38,9 +35,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var inputParameters = new GeneralGrassCoverErosionOutwardsInput();
 
             // Assert
-            Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(2.0, inputParameters.N, inputParameters.N.GetAccuracy());
-
             GeneralWaveConditionsInput generalWaveImpactWaveConditionsInput = inputParameters.GeneralWaveImpactWaveConditionsInput;
             Assert.AreEqual(1.0, generalWaveImpactWaveConditionsInput.A, generalWaveImpactWaveConditionsInput.A.GetAccuracy());
             Assert.AreEqual(0.67, generalWaveImpactWaveConditionsInput.B, generalWaveImpactWaveConditionsInput.B.GetAccuracy());
@@ -55,46 +49,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(1.0, generalWaveImpactWithWaveDirectionWaveConditionsInput.A, generalWaveImpactWithWaveDirectionWaveConditionsInput.A.GetAccuracy());
             Assert.AreEqual(0.67, generalWaveImpactWithWaveDirectionWaveConditionsInput.B, generalWaveImpactWithWaveDirectionWaveConditionsInput.B.GetAccuracy());
             Assert.AreEqual(0.67, generalWaveImpactWithWaveDirectionWaveConditionsInput.C, generalWaveImpactWithWaveDirectionWaveConditionsInput.C.GetAccuracy());
-
-            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        [TestCase(0.999)]
-        [TestCase(20.001)]
-        public void N_SetValidValue_UpdatesValue(double value)
-        {
-            // Setup
-            var generalGrassCoverErosionOutwardsInput = new GeneralGrassCoverErosionOutwardsInput();
-
-            // Call
-            generalGrassCoverErosionOutwardsInput.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(2, generalGrassCoverErosionOutwardsInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(value, generalGrassCoverErosionOutwardsInput.N, generalGrassCoverErosionOutwardsInput.N.GetAccuracy());
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-10.0)]
-        [TestCase(0.99)]
-        [TestCase(20.01)]
-        [TestCase(50.0)]
-        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var generalGrassCoverErosionOutwardsInput = new GeneralGrassCoverErosionOutwardsInput();
-
-            // Call
-            TestDelegate test = () => generalGrassCoverErosionOutwardsInput.N = (RoundedDouble) value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
 }

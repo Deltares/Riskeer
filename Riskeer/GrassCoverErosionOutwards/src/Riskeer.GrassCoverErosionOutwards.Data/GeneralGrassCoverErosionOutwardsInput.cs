@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
-using Riskeer.Common.Data.Properties;
 using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data
@@ -31,19 +28,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// </summary>
     public class GeneralGrassCoverErosionOutwardsInput
     {
-        private const int numberOfDecimalPlacesN = 2;
-
-        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
-                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
-
-        private RoundedDouble n;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralGrassCoverErosionOutwardsInput"/> class.
         /// </summary>
         public GeneralGrassCoverErosionOutwardsInput()
         {
-            n = new RoundedDouble(numberOfDecimalPlacesN, 2.0);
             GeneralWaveImpactWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.0);
             GeneralWaveRunUpWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.7, 0.3);
             GeneralWaveImpactWithWaveDirectionWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.67);
@@ -63,39 +52,5 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// Gets the general input parameter used in wave conditions calculations for wave impact with a wave direction.
         /// </summary>
         public GeneralWaveConditionsInput GeneralWaveImpactWithWaveDirectionWaveConditionsInput { get; }
-
-        #region Probability assessment
-
-        /// <summary>
-        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/>
-        /// is not in the [1.0, 20.0] interval.</exception>
-        public RoundedDouble N
-        {
-            get
-            {
-                return n;
-            }
-            set
-            {
-                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
-                if (!validityRangeN.InRange(newValue))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
-                                                                                       validityRangeN));
-                }
-
-                n = newValue;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the length effect should be applied
-        /// in the section.
-        /// </summary>
-        public bool ApplyLengthEffectInSection { get; set; }
-
-        #endregion
     }
 }
