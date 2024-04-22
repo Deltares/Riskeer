@@ -100,10 +100,8 @@ namespace Riskeer.MacroStabilityInwards.Data
                 AssembleSection(sr, failureMechanism, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
                 failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
                                 .ToArray(),
-                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
                 failureMechanism.AssemblyResult);
         }
     }

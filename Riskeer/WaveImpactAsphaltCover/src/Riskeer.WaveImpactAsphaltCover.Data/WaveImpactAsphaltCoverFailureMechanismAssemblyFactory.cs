@@ -91,10 +91,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 AssembleSection(sr, failureMechanism, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
                 failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
                                 .ToArray(),
-                failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection,
                 failureMechanism.AssemblyResult);
         }
     }
