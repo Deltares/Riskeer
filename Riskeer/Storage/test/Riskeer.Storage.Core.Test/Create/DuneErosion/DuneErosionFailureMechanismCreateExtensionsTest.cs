@@ -73,10 +73,6 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                 CalculationsInputComments =
                 {
                     Body = "Some calculation comments"
-                },
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1, 20)
                 }
             };
 
@@ -93,9 +89,6 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-
-            DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]

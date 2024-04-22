@@ -926,16 +926,10 @@ namespace Riskeer.Storage.Core.Read
             failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
 
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
-            entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
             entity.ReadDuneLocations(failureMechanism, collector);
             entity.ReadDuneLocationCalculations(failureMechanism, collector);
         }
-
-        private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
-        {
-            GetDuneErosionFailureMechanismMetaEntity(entity).Read(input);
-        }
-
+        
         private static void ReadDuneErosionMechanismSectionResults(this FailureMechanismEntity entity,
                                                                    DuneErosionFailureMechanism failureMechanism,
                                                                    ReadConversionCollector collector)

@@ -772,10 +772,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = "Some calculation text",
                 DuneErosionFailureMechanismMetaEntities =
                 {
-                    new DuneErosionFailureMechanismMetaEntity
-                    {
-                        N = generalInputN
-                    }
+                    new DuneErosionFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -791,8 +788,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
