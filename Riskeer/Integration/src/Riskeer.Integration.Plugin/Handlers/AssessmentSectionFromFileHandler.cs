@@ -102,7 +102,6 @@ namespace Riskeer.Integration.Plugin.Handlers
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
             var roundedN = (RoundedDouble) n;
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = roundedN;
             assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = roundedN;
             assessmentSection.HeightStructures.GeneralInput.N = roundedN;
         }
