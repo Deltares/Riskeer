@@ -32,7 +32,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
@@ -236,10 +235,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 // Assert
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                double expectedN = failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
-                Assert.AreEqual(expectedN, calculator.FailureMechanismN);
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult,
+                               failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
             }
         }
 

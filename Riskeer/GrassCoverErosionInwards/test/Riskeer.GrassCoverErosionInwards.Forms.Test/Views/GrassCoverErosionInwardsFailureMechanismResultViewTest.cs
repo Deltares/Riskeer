@@ -242,9 +242,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 // Assert
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.FailureMechanismN);
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, 
+                               failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+
             }
         }
 
