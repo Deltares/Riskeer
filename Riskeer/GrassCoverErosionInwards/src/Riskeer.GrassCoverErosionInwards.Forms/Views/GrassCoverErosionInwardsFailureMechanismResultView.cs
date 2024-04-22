@@ -103,7 +103,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
                 () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
-                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                () => false,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -185,7 +185,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateVisibility()
         {
-            bool useLengthEffect = FailureMechanism.GeneralInput.ApplyLengthEffectInSection;
+            const bool useLengthEffect = false;
 
             DataGridViewControl.GetColumnFromIndex(initialFailureMechanismResultProfileProbabilityIndex).Visible = useLengthEffect;
             DataGridViewControl.GetColumnFromIndex(probabilityRefinementTypeIndex).Visible = useLengthEffect;
