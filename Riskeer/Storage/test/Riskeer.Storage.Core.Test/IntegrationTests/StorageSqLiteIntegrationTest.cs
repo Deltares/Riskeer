@@ -942,8 +942,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertDuneErosionFailureMechanism(DuneErosionFailureMechanism expectedFailureMechanism,
                                                               DuneErosionFailureMechanism actualFailureMechanism)
         {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
-
             AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
 
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);

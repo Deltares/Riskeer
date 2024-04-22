@@ -43,7 +43,6 @@ namespace Riskeer.DuneErosion.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
-            Assert.IsNotNull(failureMechanism.GeneralInput);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
 

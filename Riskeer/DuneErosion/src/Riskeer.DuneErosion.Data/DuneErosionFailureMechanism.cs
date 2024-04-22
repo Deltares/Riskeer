@@ -43,15 +43,9 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
             CalculationsInputComments = new Comment();
         }
-
-        /// <summary>
-        /// Gets the general dune erosion calculation input parameters that apply to each calculation.
-        /// </summary>
-        public GeneralDuneErosionInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the dune locations.

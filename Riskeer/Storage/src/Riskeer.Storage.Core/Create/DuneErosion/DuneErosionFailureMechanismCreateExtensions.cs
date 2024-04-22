@@ -69,11 +69,7 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
                                                                FailureMechanismEntity entity,
                                                                PersistenceRegistry registry)
         {
-            var metaEntity = new DuneErosionFailureMechanismMetaEntity
-            {
-                N = failureMechanism.GeneralInput.N
-            };
-
+            var metaEntity = new DuneErosionFailureMechanismMetaEntity();
             ObservableList<DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilities = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
             for (var i = 0; i < userDefinedTargetProbabilities.Count; i++)
             {

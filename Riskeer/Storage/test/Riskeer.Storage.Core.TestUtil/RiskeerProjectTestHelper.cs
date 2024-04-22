@@ -1346,8 +1346,6 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
 
-            failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
-
             var random = new Random(21);
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
