@@ -284,16 +284,9 @@ namespace Riskeer.Storage.Core.Read
                                                                             ReadConversionCollector collector)
         {
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadGeneralGrassCoverErosionInwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
             ReadGrassCoverErosionInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
-        }
-
-        private static void ReadGeneralGrassCoverErosionInwardsCalculationInput(this FailureMechanismEntity entity,
-                                                                                GeneralGrassCoverErosionInwardsInput input)
-        {
-            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single().Read(input);
         }
 
         private static void ReadDikeProfiles(this FailureMechanismEntity entity, DikeProfileCollection dikeProfiles, ReadConversionCollector collector)
@@ -929,7 +922,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadDuneLocations(failureMechanism, collector);
             entity.ReadDuneLocationCalculations(failureMechanism, collector);
         }
-        
+
         private static void ReadDuneErosionMechanismSectionResults(this FailureMechanismEntity entity,
                                                                    DuneErosionFailureMechanism failureMechanism,
                                                                    ReadConversionCollector collector)

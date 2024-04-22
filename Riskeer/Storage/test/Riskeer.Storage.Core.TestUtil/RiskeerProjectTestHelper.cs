@@ -841,7 +841,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
             var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
                                                new[]
                                                {

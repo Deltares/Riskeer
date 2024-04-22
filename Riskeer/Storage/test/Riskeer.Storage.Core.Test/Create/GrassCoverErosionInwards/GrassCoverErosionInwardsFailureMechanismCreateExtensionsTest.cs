@@ -55,7 +55,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
-            var random = new Random();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -74,11 +73,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1, 20),
-                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -94,11 +88,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-
-            Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
-            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), generalInputEntity.ApplyLengthEffectInSection);
         }
 
         [Test]
