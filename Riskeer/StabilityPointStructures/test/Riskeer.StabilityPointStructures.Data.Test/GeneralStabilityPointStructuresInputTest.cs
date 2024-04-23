@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -63,11 +61,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var inputParameters = new GeneralStabilityPointStructuresInput();
 
             // Assert
-            Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(3.0, inputParameters.N, inputParameters.N.GetAccuracy());
-
-            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
-
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
@@ -90,44 +83,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
             Assert.AreEqual(2, inputParameters.WaveRatioMaxHStandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, inputParameters.WaveRatioMaxHStandardDeviation, inputParameters.WaveRatioMaxHStandardDeviation.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        [TestCase(0.999)]
-        [TestCase(20.001)]
-        public void N_SetValidValue_UpdatesValue(double value)
-        {
-            // Setup
-            var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
-
-            // Call
-            generalStabilityPointStructuresInput.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(2, generalStabilityPointStructuresInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(value, generalStabilityPointStructuresInput.N, generalStabilityPointStructuresInput.N.GetAccuracy());
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-10.0)]
-        [TestCase(0.99)]
-        [TestCase(20.01)]
-        [TestCase(50.0)]
-        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
-
-            // Call
-            TestDelegate test = () => generalStabilityPointStructuresInput.N = (RoundedDouble) value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
 }
