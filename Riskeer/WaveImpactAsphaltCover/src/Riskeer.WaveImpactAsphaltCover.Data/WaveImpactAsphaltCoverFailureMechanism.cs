@@ -50,7 +50,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
-            GeneralWaveImpactAsphaltCoverInput = new GeneralWaveImpactAsphaltCoverInput();
             CalculationsInputComments = new Comment();
         }
 
@@ -63,11 +62,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
         public GeneralWaveConditionsInput GeneralInput { get; }
-
-        /// <summary>
-        /// Gets the general wave impact asphalt cover input parameters that apply to each calculation.
-        /// </summary>
-        public GeneralWaveImpactAsphaltCoverInput GeneralWaveImpactAsphaltCoverInput { get; }
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
 
