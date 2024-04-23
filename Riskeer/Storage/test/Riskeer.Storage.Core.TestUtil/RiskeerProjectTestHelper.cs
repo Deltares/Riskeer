@@ -1224,8 +1224,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
-
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup

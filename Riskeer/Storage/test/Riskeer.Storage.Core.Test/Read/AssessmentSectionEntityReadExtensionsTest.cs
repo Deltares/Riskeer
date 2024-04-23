@@ -671,9 +671,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.WaveImpactAsphaltCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.WaveImpactAsphaltCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.WaveImpactAsphaltCover.ForeshoreProfiles.SourcePath);
-
-            RoundedDouble actualDeltaL = section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL;
-            Assert.AreEqual(deltaL, actualDeltaL, actualDeltaL.GetAccuracy());
         }
 
         [Test]

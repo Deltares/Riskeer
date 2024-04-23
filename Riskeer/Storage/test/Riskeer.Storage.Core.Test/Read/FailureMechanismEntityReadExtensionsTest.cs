@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -2572,9 +2571,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            RoundedDouble actualDeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL;
-            Assert.AreEqual(entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL, actualDeltaL, actualDeltaL.GetAccuracy());
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }

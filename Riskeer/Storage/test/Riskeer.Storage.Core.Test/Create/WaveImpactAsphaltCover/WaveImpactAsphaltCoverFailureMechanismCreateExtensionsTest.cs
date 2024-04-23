@@ -74,11 +74,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralWaveImpactAsphaltCoverInput =
-                {
-                    DeltaL = random.NextRoundedDouble(0.1, 2000.0),
-                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -94,10 +89,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-            GeneralWaveImpactAsphaltCoverInput generalInput = failureMechanism.GeneralWaveImpactAsphaltCoverInput;
-            WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(generalInput.DeltaL, metaEntity.DeltaL);
-            Assert.AreEqual(Convert.ToByte(generalInput.ApplyLengthEffectInSection), metaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

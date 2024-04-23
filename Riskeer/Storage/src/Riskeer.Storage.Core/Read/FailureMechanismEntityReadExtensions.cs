@@ -46,7 +46,6 @@ using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
-using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Read
@@ -616,7 +615,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
             ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
-            entity.ReadWaveImpactAsphaltCoverGeneralInput(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
         }
 
         private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -643,11 +641,6 @@ namespace Riskeer.Storage.Core.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
-        }
-
-        private static void ReadWaveImpactAsphaltCoverGeneralInput(this FailureMechanismEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
-        {
-            entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion

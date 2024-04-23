@@ -1813,8 +1813,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism expectedFailureMechanism,
                                                                          WaveImpactAsphaltCoverFailureMechanism actualFailureMechanism)
         {
-            Assert.AreEqual(expectedFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL, actualFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
-
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
