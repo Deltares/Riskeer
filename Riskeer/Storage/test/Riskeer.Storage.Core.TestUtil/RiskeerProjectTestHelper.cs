@@ -570,8 +570,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 8.0;
-
             StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure("id structure1");
             failureMechanism.StabilityPointStructures.AddRange(new[]
             {

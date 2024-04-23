@@ -1036,7 +1036,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures,
                                                 metaEntity.StabilityPointStructureCollectionSourcePath,
                                                 collector);
-            entity.ReadStabilityPointStructuresGeneralInput(failureMechanism.GeneralInput);
             ReadStabilityPointStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
@@ -1069,13 +1068,7 @@ namespace Riskeer.Storage.Core.Read
                                                   sourcePath);
             }
         }
-
-        private static void ReadStabilityPointStructuresGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)
-        {
-            GeneralStabilityPointStructuresInput generalStabilityPointStructuresInput = entity.StabilityPointStructuresFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = generalStabilityPointStructuresInput.N;
-        }
-
+        
         private static void ReadStabilityPointStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                              CalculationGroup targetRootCalculationGroup,
                                                                              ReadConversionCollector collector)

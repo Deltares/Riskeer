@@ -75,10 +75,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -94,9 +90,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-
-            StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]

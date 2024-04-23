@@ -792,10 +792,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
-                    new StabilityPointStructuresFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new StabilityPointStructuresFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -813,9 +810,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.StabilityPointStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityPointStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityPointStructures.StabilityPointStructures.SourcePath);
-
-            RoundedDouble actualN = section.StabilityPointStructures.GeneralInput.N;
-            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]

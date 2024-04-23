@@ -98,8 +98,7 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
             var metaEntity = new StabilityPointStructuresFailureMechanismMetaEntity
             {
                 ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                StabilityPointStructureCollectionSourcePath = failureMechanism.StabilityPointStructures.SourcePath.DeepClone(),
-                N = failureMechanism.GeneralInput.N
+                StabilityPointStructureCollectionSourcePath = failureMechanism.StabilityPointStructures.SourcePath.DeepClone()
             };
             entity.StabilityPointStructuresFailureMechanismMetaEntities.Add(metaEntity);
         }
