@@ -62,7 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection);
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, false);
         }
 
         /// <summary>
