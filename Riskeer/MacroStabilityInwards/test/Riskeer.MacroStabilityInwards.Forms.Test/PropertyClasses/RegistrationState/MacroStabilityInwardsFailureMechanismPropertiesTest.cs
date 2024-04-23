@@ -27,14 +27,13 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationState
 {
+    [TestFixture]
     public class MacroStabilityInwardsFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
@@ -42,9 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         private const int inAssemblyPropertyIndex = 2;
         private const int aPropertyIndex = 3;
         private const int bPropertyIndex = 4;
-        private const int sectionLengthPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int applyLengthEffectInSectionPropertyIndex = 7;
+        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -84,14 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
-                            properties.N,
-                            properties.N.GetAccuracy());
-            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
-                            properties.SectionLength,
-                            properties.SectionLength.GetAccuracy());
+
             Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
@@ -115,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -152,20 +142,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
                                                                             lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
-                                                                            true);
-
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[sectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Lengte* [m]",
-                                                                            "Totale lengte van het traject in meters (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
@@ -306,8 +282,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));

@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.MacroStabilityInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -40,8 +38,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         private const int inAssemblyPropertyIndex = 3;
         private const int aPropertyIndex = 4;
         private const int bPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
         private const int applyLengthEffectInSectionPropertyIndex = 8;
 
         private readonly IAssessmentSection assessmentSection;
@@ -94,8 +90,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         {
             return nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
@@ -129,33 +123,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
             get
             {
                 return data.MacroStabilityInwardsProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
