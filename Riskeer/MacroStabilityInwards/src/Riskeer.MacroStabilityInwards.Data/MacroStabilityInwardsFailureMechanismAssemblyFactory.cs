@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
                 new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios, failureMechanism),
-                false,
+                true,
                 failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
 
