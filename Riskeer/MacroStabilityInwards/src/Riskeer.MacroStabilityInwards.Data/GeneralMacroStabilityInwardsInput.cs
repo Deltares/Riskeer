@@ -44,11 +44,6 @@ namespace Riskeer.MacroStabilityInwards.Data
         public double ModelFactor { get; }
 
         /// <summary>
-        /// Gets whether the length effect should be applied in the section.
-        /// </summary>
-        public bool ApplyLengthEffectInSection => true;
-
-        /// <summary>
         /// Gets the volumetric weight of water.
         /// </summary>
         public double WaterVolumetricWeight { get; }
