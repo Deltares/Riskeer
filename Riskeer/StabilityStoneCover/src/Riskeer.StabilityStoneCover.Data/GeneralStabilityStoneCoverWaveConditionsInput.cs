@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
-using Riskeer.Common.Data.Properties;
 using Riskeer.Revetment.Data;
 
 namespace Riskeer.StabilityStoneCover.Data
@@ -31,13 +28,6 @@ namespace Riskeer.StabilityStoneCover.Data
     /// </summary>
     public class GeneralStabilityStoneCoverWaveConditionsInput
     {
-        private const int numberOfDecimalPlacesN = 2;
-
-        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
-                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
-
-        private RoundedDouble n;
-
         /// <summary>
         /// Creates a new instance of <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
         /// </summary>
@@ -45,7 +35,6 @@ namespace Riskeer.StabilityStoneCover.Data
         {
             GeneralBlocksWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.0, 1.0);
             GeneralColumnsWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.4, 0.8);
-            n = new RoundedDouble(numberOfDecimalPlacesN, 4.0);
         }
 
         /// <summary>
@@ -57,34 +46,5 @@ namespace Riskeer.StabilityStoneCover.Data
         /// Gets the general input parameter used in wave conditions calculations for columns.
         /// </summary>
         public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; }
-
-        /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of <see cref="N"/>
-        /// is not in the range [1, 20].</exception>
-        public RoundedDouble N
-        {
-            get
-            {
-                return n;
-            }
-            set
-            {
-                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
-                if (!validityRangeN.InRange(newValue))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
-                                                                                       validityRangeN));
-                }
-
-                n = newValue;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the length effect should be applied in the section.
-        /// </summary>
-        public bool ApplyLengthEffectInSection { get; set; }
     }
 }

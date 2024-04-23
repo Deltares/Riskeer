@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 
@@ -54,48 +51,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             Assert.AreEqual(2, generalInput.GeneralColumnsWaveConditionsInput.C.NumberOfDecimalPlaces);
             Assert.AreEqual(0.8, generalInput.GeneralColumnsWaveConditionsInput.C, generalInput.GeneralColumnsWaveConditionsInput.C.GetAccuracy());
-
-            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(4.0, generalInput.N, generalInput.N.GetAccuracy());
-
-            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        [TestCase(0.999)]
-        [TestCase(20.001)]
-        public void N_SetValidValue_UpdatesValue(double value)
-        {
-            // Setup
-            var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
-
-            // Call
-            generalInput.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(value, generalInput.N, generalInput.N.GetAccuracy());
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-10.0)]
-        [TestCase(0.99)]
-        [TestCase(20.01)]
-        [TestCase(50.0)]
-        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
-
-            // Call
-            TestDelegate call = () => generalInput.N = (RoundedDouble) value;
-
-            // Assert
-            var expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
 }
