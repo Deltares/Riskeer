@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Data
 
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection, calculateProbabilityStrategy,
-                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                true,
                 failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
 
