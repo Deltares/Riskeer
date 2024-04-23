@@ -24,8 +24,6 @@ using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState;
@@ -40,25 +38,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
         private const int inAssemblyPropertyIndex = 2;
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
             var random = new Random(21);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
@@ -66,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
             };
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismPropertiesBase>(properties);
@@ -74,20 +56,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -115,8 +90,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
     }
 }

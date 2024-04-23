@@ -83,7 +83,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
             yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>

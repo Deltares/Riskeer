@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
@@ -42,9 +41,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any <paramref name="data"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
