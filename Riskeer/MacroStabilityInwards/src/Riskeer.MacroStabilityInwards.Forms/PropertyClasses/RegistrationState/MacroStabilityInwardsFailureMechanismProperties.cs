@@ -38,7 +38,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         private const int inAssemblyPropertyIndex = 3;
         private const int aPropertyIndex = 4;
         private const int bPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 8;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -89,8 +88,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
             return nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
+                   || nameof(B).Equals(propertyName);
         }
 
         #region Length effect parameters
@@ -123,19 +121,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
             get
             {
                 return data.MacroStabilityInwardsProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_Description))]
-        public bool ApplyLengthEffectInSection
-        {
-            get
-            {
-                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

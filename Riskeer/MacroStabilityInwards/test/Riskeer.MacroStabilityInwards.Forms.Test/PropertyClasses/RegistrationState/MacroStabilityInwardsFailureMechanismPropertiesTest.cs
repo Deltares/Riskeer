@@ -41,7 +41,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         private const int inAssemblyPropertyIndex = 2;
         private const int aPropertyIndex = 3;
         private const int bPropertyIndex = 4;
-        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -81,8 +80,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-
-            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }
@@ -142,13 +139,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
                                                                             lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
-                                                                            true);
-
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Toepassen lengte-effect binnen vak",
-                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.",
                                                                             true);
 
             mocks.VerifyAll();
@@ -282,7 +272,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 
