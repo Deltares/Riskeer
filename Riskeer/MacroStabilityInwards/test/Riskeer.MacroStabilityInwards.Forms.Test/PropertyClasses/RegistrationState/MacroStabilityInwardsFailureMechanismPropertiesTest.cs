@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState;
@@ -43,25 +42,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         private const int bPropertyIndex = 4;
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
             var random = new Random(21);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
@@ -69,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismPropertiesBase>(properties);
@@ -80,29 +63,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 InAssembly = true
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -140,25 +117,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 InAssembly = false
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -186,8 +157,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -200,14 +169,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.A = value;
@@ -229,7 +197,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -237,7 +204,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.A = value;
@@ -255,7 +222,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism
@@ -263,7 +229,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
                 InAssembly = inAssembly
             };
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(pipingFailureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(pipingFailureMechanism);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
