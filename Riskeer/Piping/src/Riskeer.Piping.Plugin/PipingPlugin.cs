@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>
             {
