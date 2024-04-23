@@ -21,14 +21,11 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState;
@@ -41,10 +38,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
-        private const int sectionLengthPropertyIndex = 3;
-        private const int deltaLPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -69,11 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
             var random = new Random(21);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
-                InAssembly = random.NextBoolean(),
-                GeneralWaveImpactAsphaltCoverInput =
-                {
-                    ApplyLengthEffectInSection = random.NextBoolean()
-                }
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -86,28 +75,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
-                            properties.SectionLength,
-                            properties.SectionLength.GetAccuracy());
-
-            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = failureMechanism.GeneralWaveImpactAsphaltCoverInput;
-            Assert.AreEqual(2, properties.DeltaL.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.DeltaL,
-                            properties.DeltaL,
-                            properties.DeltaL.GetAccuracy());
-
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
-                            properties.N,
-                            properties.N.GetAccuracy());
-            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
-
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,80 +88,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
 
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het faalmechanisme.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het faalmechanisme.",
-                                                                            true);
-
-            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
-                                                                            generalCategory,
-                                                                            "In assemblage",
-                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                            true);
-
-            PropertyDescriptor sectionLength = dynamicProperties[sectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLength,
-                                                                            lengthEffectCategory,
-                                                                            "Lengte* [m]",
-                                                                            "Totale lengte van het traject in meters (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor deltaLProperty = dynamicProperties[deltaLPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(deltaLProperty,
-                                                                            lengthEffectCategory,
-                                                                            "ΔL [m]",
-                                                                            "Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme.");
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect " +
-                                                                            "mee te nemen in de beoordeling (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Toepassen lengte-effect binnen vak",
-                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                InAssembly = false
-            };
-
-            // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -217,121 +115,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void DeltaL_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
-                failureMechanism,
-                assessmentSection);
-
-            // Call
-            void Call() => properties.DeltaL = (RoundedDouble) newN;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'ΔL' moet groter zijn dan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        public void DeltaL_SetValidValue_UpdateDataAndNotifyObservers(double newN)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
-                failureMechanism,
-                assessmentSection);
-
-            // Call
-            properties.DeltaL = (RoundedDouble) newN;
-
-            // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            failureMechanism.Attach(observer);
-
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Call
-            properties.ApplyLengthEffectInSection = true;
-
-            // Assert
-            Assert.IsTrue(failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                InAssembly = inAssembly
-            };
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
-
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.DeltaL)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 
             mocks.VerifyAll();
         }

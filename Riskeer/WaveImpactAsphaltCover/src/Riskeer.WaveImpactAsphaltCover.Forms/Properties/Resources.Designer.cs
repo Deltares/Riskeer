@@ -82,24 +82,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme..
-        /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ΔL [m].
-        /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Asfalt.
         /// </summary>
         public static string WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType {

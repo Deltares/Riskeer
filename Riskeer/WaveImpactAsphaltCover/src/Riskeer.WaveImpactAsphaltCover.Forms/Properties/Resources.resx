@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description" xml:space="preserve">
-    <value>Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme.</value>
-  </data>
-  <data name="WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName" xml:space="preserve">
-    <value>ΔL [m]</value>
-  </data>
   <data name="WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType" xml:space="preserve">
     <value>Asfalt</value>
   </data>
