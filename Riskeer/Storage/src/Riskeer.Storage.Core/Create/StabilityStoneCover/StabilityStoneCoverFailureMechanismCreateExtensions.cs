@@ -71,9 +71,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         {
             var metaEntity = new StabilityStoneCoverFailureMechanismMetaEntity
             {
-                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                N = failureMechanism.GeneralInput.N,
-                ApplyLengthEffectInSection = Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection)
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
             };
 
             entity.StabilityStoneCoverFailureMechanismMetaEntities.Add(metaEntity);

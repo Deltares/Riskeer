@@ -46,7 +46,6 @@ using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
-using Riskeer.Storage.Core.Read.StabilityStoneCover;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -974,7 +973,6 @@ namespace Riskeer.Storage.Core.Read
             ReadStabilityStoneCoverRootCalculationGroup(entity.CalculationGroupEntity,
                                                         failureMechanism.CalculationsGroup,
                                                         collector);
-            entity.ReadStabilityStoneCoverGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -1001,11 +999,6 @@ namespace Riskeer.Storage.Core.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
-        }
-
-        private static void ReadStabilityStoneCoverGeneralInput(this FailureMechanismEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
-        {
-            entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -1068,7 +1061,7 @@ namespace Riskeer.Storage.Core.Read
                                                   sourcePath);
             }
         }
-        
+
         private static void ReadStabilityPointStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                              CalculationGroup targetRootCalculationGroup,
                                                                              ReadConversionCollector collector)

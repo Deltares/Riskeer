@@ -624,9 +624,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.StabilityStoneCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityStoneCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityStoneCover.ForeshoreProfiles.SourcePath);
-
-            RoundedDouble actualN = section.StabilityStoneCover.GeneralInput.N;
-            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]

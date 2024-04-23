@@ -1108,8 +1108,6 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                          IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
-
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup

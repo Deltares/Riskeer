@@ -74,11 +74,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
-                },
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1, 20),
-                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -94,10 +89,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-            StabilityStoneCoverFailureMechanismMetaEntity failureMechanismMetaEntity = entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismMetaEntity.N);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection)
-                            , failureMechanismMetaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]
