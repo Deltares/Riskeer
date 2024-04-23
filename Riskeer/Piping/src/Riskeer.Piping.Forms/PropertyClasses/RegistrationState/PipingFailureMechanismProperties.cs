@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -40,9 +38,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         private const int inAssemblyPropertyIndex = 3;
         private const int aPropertyIndex = 4;
         private const int bPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-        private const int applyLengthEffectInSectionPropertyIndex = 8;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -92,10 +87,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
             return nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+                   || nameof(B).Equals(propertyName);
         }
 
         #region Length effect parameters
@@ -128,46 +120,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
             get
             {
                 return data.PipingProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_Description))]
-        public bool ApplyLengthEffectInSection
-        {
-            get
-            {
-                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 
