@@ -31,14 +31,12 @@ namespace Riskeer.Common.IO.Test
         {
             // Setup
             const string id = "test";
-            const int n = 1;
 
             // Call
-            AssessmentSectionSettings result = AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(id, n);
+            AssessmentSectionSettings result = AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(id);
 
             // Assert
             Assert.AreEqual(id, result.AssessmentSectionId);
-            Assert.AreEqual(n, result.N);
             Assert.IsFalse(result.IsDune);
         }
 
@@ -53,7 +51,6 @@ namespace Riskeer.Common.IO.Test
 
             // Assert
             Assert.AreEqual(id, result.AssessmentSectionId);
-            Assert.AreEqual(3, result.N);
             Assert.IsTrue(result.IsDune);
         }
     }

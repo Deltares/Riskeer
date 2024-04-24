@@ -39,12 +39,10 @@ namespace Riskeer.Common.IO.Test
             Assert.AreEqual(237, settingDefinitions.Length);
             AssessmentSectionSettings settings = settingDefinitions[1];
             Assert.AreEqual("1-2", settings.AssessmentSectionId);
-            Assert.AreEqual(2.0, settings.N);
             Assert.IsFalse(settings.IsDune);
 
             settings = settingDefinitions[2];
             Assert.AreEqual("2-1", settings.AssessmentSectionId);
-            Assert.AreEqual(3.0, settings.N);
             Assert.IsTrue(settings.IsDune);
         }
     }

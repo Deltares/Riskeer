@@ -29,17 +29,11 @@ namespace Riskeer.Common.IO
     /// </summary>
     public class AssessmentSectionSettings
     {
-        private AssessmentSectionSettings(string id, int n, bool isDune)
+        private AssessmentSectionSettings(string id, bool isDune)
         {
             AssessmentSectionId = id;
-            N = n;
             IsDune = isDune;
         }
-
-        /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        public int N { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is a dune assessment section or not.
@@ -55,11 +49,10 @@ namespace Riskeer.Common.IO
         /// Creates the settings for a dike assessment section.
         /// </summary>
         /// <param name="id">The identifier of the assessment section.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
-        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, int n)
+        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id)
         {
-            return new AssessmentSectionSettings(id, n, false);
+            return new AssessmentSectionSettings(id, false);
         }
 
         /// <summary>
@@ -69,7 +62,7 @@ namespace Riskeer.Common.IO
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
         public static AssessmentSectionSettings CreateDuneAssessmentSectionSettings(string id)
         {
-            return new AssessmentSectionSettings(id, 3, true);
+            return new AssessmentSectionSettings(id, true);
         }
     }
 }

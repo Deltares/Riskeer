@@ -73,13 +73,9 @@ namespace Riskeer.Common.IO
             string assessmentSectionId = lineValues[assessmentSectionIdColumnIndex];
             string nValue = lineValues[lengthEffectColumnIndex];
 
-            if (nValue == duneAssessmentSectionFlag)
-            {
-                return AssessmentSectionSettings.CreateDuneAssessmentSectionSettings(assessmentSectionId);
-            }
-
-            int n = int.Parse(nValue);
-            return AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(assessmentSectionId, n);
+            return nValue == duneAssessmentSectionFlag 
+                       ? AssessmentSectionSettings.CreateDuneAssessmentSectionSettings(assessmentSectionId) 
+                       : AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(assessmentSectionId);
         }
     }
 }
