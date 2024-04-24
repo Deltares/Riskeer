@@ -22,14 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -40,8 +38,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
-        private const int nPropertyIndex = 3;
-        private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -61,11 +57,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new SpecificFailureMechanism
             {
-                InAssembly = random.NextBoolean(),
-                GeneralInput =
-                {
-                    ApplyLengthEffectInSection = random.NextBoolean()
-                }
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -76,66 +68,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
-
-            GeneralInput input = failureMechanism.GeneralInput;
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
-            Assert.AreEqual(input.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
-        public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var failureMechanism = new SpecificFailureMechanism
-            {
-                InAssembly = true
-            };
-
-            // Call
-            var properties = new SpecificFailureMechanismProperties(failureMechanism);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het faalmechanisme.");
-
-            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het faalmechanisme.");
-
-            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
-                                                                            generalCategory,
-                                                                            "In assemblage",
-                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Toepassen lengte-effect binnen vak",
-                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
-        }
-
-        [Test]
-        public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new SpecificFailureMechanism
@@ -176,10 +112,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            const int numberOfChangedProperties = 2;
+
             var mocks = new MockRepository();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 3;
-            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -191,95 +128,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
-            failureMechanism.Attach(projectObserver);
+            failureMechanism.Attach(observer);
 
             // Call
             const string newName = "Some new cool pretty name";
             const string newCode = "Nieuw Faalmechanisme";
-            RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
             properties.Name = newName;
             properties.Code = newCode;
-            properties.N = newN;
 
             // Assert
             Assert.AreEqual(newName, failureMechanism.Name);
             Assert.AreEqual(newCode, failureMechanism.Code);
 
-            GeneralInput input = failureMechanism.GeneralInput;
-            Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
-
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new SpecificFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new SpecificFailureMechanismProperties(failureMechanism);
-
-            // Call
-            void Call() => properties.N = (RoundedDouble) newN;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new SpecificFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new SpecificFailureMechanismProperties(failureMechanism);
-
-            // Call
-            properties.ApplyLengthEffectInSection = true;
-
-            // Assert
-            Assert.IsTrue(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
-        {
-            // Setup
-            var failureMechanism = new SpecificFailureMechanism
-            {
-                InAssembly = inAssembly
-            };
-            var properties = new SpecificFailureMechanismProperties(failureMechanism);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
-
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

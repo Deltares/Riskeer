@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -37,8 +36,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailureMechanismProperties"/>.
@@ -53,18 +50,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
 
             Data = data;
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(N).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
         #region General
@@ -112,40 +97,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.InAssembly;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get => data.GeneralInput.N;
-            set
-            {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ApplyLengthEffectInSection_Description))]
-        public bool ApplyLengthEffectInSection
-        {
-            get => data.GeneralInput.ApplyLengthEffectInSection;
-            set
-            {
-                data.GeneralInput.ApplyLengthEffectInSection = value;
-                data.NotifyObservers();
             }
         }
 
