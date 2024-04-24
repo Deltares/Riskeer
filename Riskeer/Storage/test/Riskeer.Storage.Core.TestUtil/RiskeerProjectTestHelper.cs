@@ -212,7 +212,8 @@ namespace Riskeer.Storage.Core.TestUtil
                 SetFailureMechanismAssemblyResults(fm, i++);
             });
 
-            IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+            IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Range(1, random.Next(1, 10))
+                                                                                .Select(_ => new SpecificFailureMechanism())
                                                                                 .ToArray();
             SetSpecificFailureMechanisms(failureMechanisms);
             assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
