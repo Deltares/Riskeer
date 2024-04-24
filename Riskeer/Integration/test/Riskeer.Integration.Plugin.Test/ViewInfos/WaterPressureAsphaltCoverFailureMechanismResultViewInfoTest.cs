@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call

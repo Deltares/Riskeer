@@ -440,18 +440,18 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
                 PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(fp => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
