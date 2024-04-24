@@ -49,7 +49,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -248,7 +247,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
             AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
             AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
-            AssertPipingStructureFailureMechanism(expectedAssessmentSection.PipingStructure, actualAssessmentSection.PipingStructure);
             AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
             AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
             AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
@@ -706,20 +704,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertFailureMechanismSections(expected.Sections, actual.Sections);
             AssertFailureMechanismSectionResults(expected.SectionResults, actual.SectionResults);
 
-            Assert.AreEqual(expected.GeneralInput.N, actual.GeneralInput.N);
-            Assert.AreEqual(expected.GeneralInput.ApplyLengthEffectInSection, actual.GeneralInput.ApplyLengthEffectInSection);
-
             AssertFailureMechanismAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
-        }
-
-        #endregion
-
-        #region PipingStructure FailureMechanism
-
-        private static void AssertPipingStructureFailureMechanism(PipingStructureFailureMechanism expectedFailureMechanism,
-                                                                  PipingStructureFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
         }
 
         #endregion
