@@ -41,7 +41,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
             Assert.IsInstanceOf<IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
-            Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Nieuw faalmechanisme", failureMechanism.Name);
             Assert.AreEqual("NIEUW", failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);

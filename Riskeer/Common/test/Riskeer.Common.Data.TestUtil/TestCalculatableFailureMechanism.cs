@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// Simple calculatable failure mechanism which can be used for testing.
     /// </summary>
     public class TestCalculatableFailureMechanism : FailureMechanismBase<TestFailureMechanismSectionResult>,
-                                                    IHasGeneralInput, ICalculatableFailureMechanism
+                                                    ICalculatableFailureMechanism
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";

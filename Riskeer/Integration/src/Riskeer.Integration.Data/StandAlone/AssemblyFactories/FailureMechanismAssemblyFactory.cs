@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
         public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                                   IHasGeneralInput failureMechanism,
+                                                                                   IFailureMechanism failureMechanism,
                                                                                    IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             }
 
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
-                sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+                sectionResult, assessmentSection, false);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be assembled.</exception>
         public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
                                                                                                         IAssessmentSection assessmentSection)
-            where TFailureMechanism : IHasGeneralInput, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             if (failureMechanism == null)
             {

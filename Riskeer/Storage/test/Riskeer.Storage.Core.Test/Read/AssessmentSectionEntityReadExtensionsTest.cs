@@ -1212,7 +1212,7 @@ namespace Riskeer.Storage.Core.Test.Read
         private static void AssertFailureMechanismEqual<T>(bool expectedInAssembly,
                                                            FailureMechanismEntity entity,
                                                            T failureMechanism)
-            where T : IFailureMechanism, IHasGeneralInput
+            where T : IFailureMechanism
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);

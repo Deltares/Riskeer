@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<IFailureMechanismContext<IHasGeneralInput>, StandAloneFailureMechanismProperties>
+            yield return new PropertyInfo<IFailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
                 CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
             };
@@ -1144,7 +1144,7 @@ namespace Riskeer.Integration.Plugin
             Func<TFailureMechanism, bool> getUseLengthEffectFunc,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
-            where TFailureMechanism : class, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
                 TContext,

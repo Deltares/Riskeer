@@ -29,22 +29,20 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// Registration state related ViewModel of <see cref="IHasGeneralInput"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StandAloneFailureMechanismProperties : ObjectProperties<IHasGeneralInput>
+    public class StandAloneFailureMechanismProperties : ObjectProperties<IFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="StandAloneFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StandAloneFailureMechanismProperties(IHasGeneralInput failureMechanism)
+        public StandAloneFailureMechanismProperties(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

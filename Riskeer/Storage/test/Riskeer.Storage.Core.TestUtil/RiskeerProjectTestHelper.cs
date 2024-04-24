@@ -186,27 +186,22 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
-            ConfigurePipingStructureFailureMechanism(pipingStructureFailureMechanism);
             SetSections(pipingStructureFailureMechanism);
             SetSectionResults(pipingStructureFailureMechanism.SectionResults);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
-            SetGeneralInput(microstabilityFailureMechanism, random.Next());
             SetSections(microstabilityFailureMechanism);
             SetSectionResults(microstabilityFailureMechanism.SectionResults);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            SetGeneralInput(waterPressureAsphaltCoverFailureMechanism, random.Next());
             SetSections(waterPressureAsphaltCoverFailureMechanism);
             SetSectionResults(waterPressureAsphaltCoverFailureMechanism.SectionResults);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            SetGeneralInput(grassCoverSlipOffInwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffInwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            SetGeneralInput(grassCoverSlipOffOutwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffOutwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
 
@@ -228,12 +223,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 Description = "description"
             };
             return fullTestProject;
-        }
-
-        private static void SetGeneralInput(IHasGeneralInput failureMechanism, int seed)
-        {
-            var random = new Random(seed);
-            failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
         private static void ConfigureHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
@@ -531,15 +520,6 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        #region PipingStructure FailureMechanism
-
-        private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
-        {
-            pipingStructureFailureMechanism.GeneralInput.N = (RoundedDouble) 12.5;
-        }
-
-        #endregion
-
         #region Specific FailureMechanism
 
         private static void SetSpecificFailureMechanisms(IEnumerable<SpecificFailureMechanism> specificFailureMechanisms)
@@ -548,7 +528,6 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (SpecificFailureMechanism failureMechanism in specificFailureMechanisms)
             {
                 var random = new Random(i);
-                failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
 
                 failureMechanism.Name = $"Path {i}";
                 failureMechanism.InAssembly = random.NextBoolean();

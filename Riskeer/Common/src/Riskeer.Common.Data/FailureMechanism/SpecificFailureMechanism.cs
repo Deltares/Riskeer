@@ -29,8 +29,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// This class is the implementation for a specific failure mechanism.
     /// </summary>
-    public class SpecificFailureMechanism : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
-                                            IHasGeneralInput
+    public class SpecificFailureMechanism : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;

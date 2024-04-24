@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
-    public class TestFailureMechanism : Observable, IFailureMechanism<TestFailureMechanismSectionResult>, IHasGeneralInput
+    public class TestFailureMechanism : Observable, IFailureMechanism<TestFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;

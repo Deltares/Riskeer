@@ -29,7 +29,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Piping Structure failure mechanism.
     /// </summary>
-    public class PipingStructureFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>, IHasGeneralInput
+    public class PipingStructureFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.

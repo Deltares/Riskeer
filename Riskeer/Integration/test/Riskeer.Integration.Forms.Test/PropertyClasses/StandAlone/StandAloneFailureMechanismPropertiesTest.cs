@@ -37,8 +37,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
-        private const int nPropertyIndex = 3;
-        private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -66,7 +64,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var properties = new StandAloneFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IHasGeneralInput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);

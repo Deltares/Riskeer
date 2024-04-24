@@ -42,8 +42,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class FailureMechanismAssemblyFactoryTest
     {
-        private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
-                                             IHasGeneralInput
+        private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             public TestFailureMechanism() : base("Test", "Code") {}
         }
