@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public partial class WaterPressureAsphaltCoverFailureMechanismMetaEntity
+    public class WaterPressureAsphaltCoverFailureMechanismMetaEntity
     {
         public long WaterPressureAsphaltCoverFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }

@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public partial class MicrostabilityFailureMechanismMetaEntity
+    public class MicrostabilityFailureMechanismMetaEntity
     {
         public long MicrostabilityFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
