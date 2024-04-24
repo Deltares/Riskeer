@@ -39,7 +39,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AWO", failureMechanism.Code);
-            Assert.IsNotNull(failureMechanism.GeneralInput);
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);

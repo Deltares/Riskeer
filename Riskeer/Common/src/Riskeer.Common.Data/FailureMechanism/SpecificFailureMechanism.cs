@@ -45,7 +45,6 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            GeneralInput = new GeneralInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
@@ -73,8 +72,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         public bool InAssembly { get; set; }
 
         public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        public GeneralInput GeneralInput { get; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

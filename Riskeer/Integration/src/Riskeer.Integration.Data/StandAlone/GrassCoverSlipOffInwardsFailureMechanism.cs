@@ -35,11 +35,6 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverSlipOffInwardsFailureMechanism()
-            : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
-        {
-            GeneralInput = new GeneralInput();
-        }
-
-        public GeneralInput GeneralInput { get; }
+            : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code) {}
     }
 }

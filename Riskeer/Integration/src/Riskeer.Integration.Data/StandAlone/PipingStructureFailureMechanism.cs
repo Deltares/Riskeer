@@ -35,14 +35,6 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
         /// </summary>
         public PipingStructureFailureMechanism()
-            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
-        {
-            GeneralInput = new GeneralInput
-            {
-                ApplyLengthEffectInSection = false
-            };
-        }
-
-        public GeneralInput GeneralInput { get; }
+            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code) {}
     }
 }

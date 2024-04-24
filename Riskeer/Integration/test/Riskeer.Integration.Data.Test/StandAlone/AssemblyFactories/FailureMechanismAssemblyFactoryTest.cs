@@ -45,12 +45,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                              IHasGeneralInput
         {
-            public TestFailureMechanism() : base("Test", "Code")
-            {
-                GeneralInput = new GeneralInput();
-            }
-
-            public GeneralInput GeneralInput { get; }
+            public TestFailureMechanism() : base("Test", "Code") {}
         }
 
         #region AssembleSection

@@ -35,11 +35,6 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.
         /// </summary>
         public MicrostabilityFailureMechanism()
-            : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code)
-        {
-            GeneralInput = new GeneralInput();
-        }
-
-        public GeneralInput GeneralInput { get; }
+            : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code) {}
     }
 }

@@ -40,7 +40,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.AreEqual("Microstabiliteit", failureMechanism.Name);
             Assert.AreEqual("STMI", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.IsNotNull(failureMechanism.GeneralInput);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }

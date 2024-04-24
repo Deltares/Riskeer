@@ -35,11 +35,6 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaterPressureAsphaltCoverFailureMechanism()
-            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
-        {
-            GeneralInput = new GeneralInput();
-        }
-
-        public GeneralInput GeneralInput { get; }
+            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code) {}
     }
 }

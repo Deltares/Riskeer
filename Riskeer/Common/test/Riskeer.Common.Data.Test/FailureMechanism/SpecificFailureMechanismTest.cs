@@ -44,7 +44,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Nieuw faalmechanisme", failureMechanism.Name);
             Assert.AreEqual("NIEUW", failureMechanism.Code);
-            Assert.IsNotNull(failureMechanism.GeneralInput);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);
             Assert.IsNotNull(failureMechanism.InAssemblyOutputComments);
             Assert.IsNotNull(failureMechanism.NotInAssemblyComments);

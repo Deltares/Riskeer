@@ -68,7 +68,6 @@ namespace Riskeer.Common.Data.TestUtil
         {
             CalculationsGroup = new CalculationGroup();
             CalculationsGroup.Children.AddRange(calculations);
-            GeneralInput = new GeneralInput();
             CalculationsInputComments = new Comment();
         }
 
@@ -77,8 +76,6 @@ namespace Riskeer.Common.Data.TestUtil
         public Comment CalculationsInputComments { get; }
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        public GeneralInput GeneralInput { get; }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
