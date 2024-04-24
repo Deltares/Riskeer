@@ -277,9 +277,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -404,9 +401,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -534,9 +528,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            GrassCoverSlipOffOutwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -661,9 +652,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            MicrostabilityFailureMechanismMetaEntity metaEntity = entity.MicrostabilityFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -3824,9 +3812,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]

@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
@@ -55,12 +54,7 @@ namespace Riskeer.Storage.Core.Read
             var failureMechanism = new SpecificFailureMechanism
             {
                 Name = entity.Name,
-                Code = entity.Code,
-                GeneralInput =
-                {
-                    N = (RoundedDouble) entity.N,
-                    ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
-                }
+                Code = entity.Code
             };
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             ReadFailureMechanismSectionResults(entity, failureMechanism, collector);

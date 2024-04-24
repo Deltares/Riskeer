@@ -896,9 +896,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyOutputComments, section.PipingStructure.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.PipingStructure.NotInAssemblyComments.Body);
             Assert.IsNull(section.PipingStructure.FailureMechanismSectionSourcePath);
-
-            RoundedDouble actualN = section.PipingStructure.GeneralInput.N;
-            Assert.AreEqual(parameterN, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -971,23 +968,19 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             AssertFailureMechanismEqual(microstabilityInAssembly,
                                         microstabilityEntity,
-                                        section.Microstability,
-                                        microstabilityEntity.MicrostabilityFailureMechanismMetaEntities.Single().N);
+                                        section.Microstability);
 
             AssertFailureMechanismEqual(waterPressureAsphaltCoverInAssembly,
                                         waterPressureAsphaltCoverEntity,
-                                        section.WaterPressureAsphaltCover,
-                                        waterPressureAsphaltCoverEntity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N);
+                                        section.WaterPressureAsphaltCover);
 
             AssertFailureMechanismEqual(grassCoverSlipOffOutwardsInAssembly,
                                         grassRevetmentSlidingOutwardsEntity,
-                                        section.GrassCoverSlipOffOutwards,
-                                        grassRevetmentSlidingOutwardsEntity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N);
+                                        section.GrassCoverSlipOffOutwards);
 
             AssertFailureMechanismEqual(grassCoverSlipOffInwardsInAssembly,
                                         grassRevetmentSlidingInwardsEntity,
-                                        section.GrassCoverSlipOffInwards,
-                                        grassRevetmentSlidingInwardsEntity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N);
+                                        section.GrassCoverSlipOffInwards);
         }
 
         [Test]
@@ -1048,7 +1041,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyInputComments1, firstSpecificFailureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments1, firstSpecificFailureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments1, firstSpecificFailureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(n1, firstSpecificFailureMechanism.GeneralInput.N, firstSpecificFailureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsNull(firstSpecificFailureMechanism.FailureMechanismSectionSourcePath);
 
             SpecificFailureMechanism secondSpecificFailureMechanism = section.SpecificFailureMechanisms[1];
@@ -1058,7 +1050,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyInputComments2, secondSpecificFailureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments2, secondSpecificFailureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments2, secondSpecificFailureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(n2, secondSpecificFailureMechanism.GeneralInput.N, secondSpecificFailureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsNull(secondSpecificFailureMechanism.FailureMechanismSectionSourcePath);
         }
 
@@ -1220,7 +1211,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
         private static void AssertFailureMechanismEqual<T>(bool expectedInAssembly,
                                                            FailureMechanismEntity entity,
-                                                           T failureMechanism, double n)
+                                                           T failureMechanism)
             where T : IFailureMechanism, IHasGeneralInput
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
@@ -1228,7 +1219,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, n, failureMechanism.GeneralInput.N.GetAccuracy());
         }
     }
 }

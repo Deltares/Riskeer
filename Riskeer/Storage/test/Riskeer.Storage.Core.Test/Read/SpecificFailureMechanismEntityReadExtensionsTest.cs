@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
@@ -102,9 +101,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.Code, specificFailureMechanism.Code);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailureMechanism.Sections.Count());
             Assert.AreEqual(filePath, specificFailureMechanism.FailureMechanismSectionSourcePath);
-
-            Assert.AreEqual(entity.N, specificFailureMechanism.GeneralInput.N, specificFailureMechanism.GeneralInput.N.GetAccuracy());
-            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
 
         [Test]
