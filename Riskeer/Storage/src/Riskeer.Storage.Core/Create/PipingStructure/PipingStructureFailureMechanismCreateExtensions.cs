@@ -44,7 +44,6 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.PipingAtStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             return entity;
         }
 
@@ -58,17 +57,6 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
-        }
-
-        private static void AddEntitiesForFailureMechanismMeta(PipingStructureFailureMechanism failureMechanism,
-                                                               FailureMechanismEntity entity)
-        {
-            var metaEntity = new PipingStructureFailureMechanismMetaEntity
-            {
-                N = failureMechanism.GeneralInput.N
-            };
-
-            entity.PipingStructureFailureMechanismMetaEntities.Add(metaEntity);
         }
     }
 }

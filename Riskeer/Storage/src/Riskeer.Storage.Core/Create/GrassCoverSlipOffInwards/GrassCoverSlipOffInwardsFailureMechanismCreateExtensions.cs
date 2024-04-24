@@ -43,7 +43,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
         internal static FailureMechanismEntity Create(this GrassCoverSlipOffInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -59,11 +58,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
-        }
-
-        private static void AddEntitiesForFailureMechanismMeta(GrassCoverSlipOffInwardsFailureMechanism mechanism, FailureMechanismEntity entity)
-        {
-            entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Add(mechanism.Create<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>());
         }
     }
 }

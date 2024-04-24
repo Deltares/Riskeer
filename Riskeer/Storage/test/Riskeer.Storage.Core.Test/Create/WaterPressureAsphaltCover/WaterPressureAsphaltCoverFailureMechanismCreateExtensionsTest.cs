@@ -68,10 +68,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
                 NotInAssemblyComments =
                 {
                     Body = "Really not in assembly"
-                },
-                GeneralInput =
-                {
-                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -87,9 +83,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.IsNull(entity.CalculationsInputComments);
-
-            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]

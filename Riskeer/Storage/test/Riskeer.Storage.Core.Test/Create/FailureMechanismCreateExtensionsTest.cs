@@ -374,11 +374,6 @@ namespace Riskeer.Storage.Core.Test.Create
 
             var failureMechanism = new SpecificFailureMechanism
             {
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1, 20),
-                    ApplyLengthEffectInSection = random.NextBoolean()
-                },
                 InAssembly = random.NextBoolean(),
                 AssemblyResult =
                 {
@@ -394,8 +389,6 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.N);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), entity.ApplyLengthEffectInSection);
 
             Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);

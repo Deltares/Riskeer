@@ -43,7 +43,6 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
         internal static FailureMechanismEntity Create(this WaterPressureAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -59,11 +58,6 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
-        }
-
-        private static void AddEntitiesForFailureMechanismMeta(WaterPressureAsphaltCoverFailureMechanism mechanism, FailureMechanismEntity entity)
-        {
-            entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Add(mechanism.Create<WaterPressureAsphaltCoverFailureMechanismMetaEntity>());
         }
     }
 }

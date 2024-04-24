@@ -68,10 +68,6 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
                 NotInAssemblyComments =
                 {
                     Body = "Really not in assembly"
-                },
-                GeneralInput =
-                {
-                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -87,7 +83,6 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.IsNull(entity.CalculationsInputComments);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.PipingStructureFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]
