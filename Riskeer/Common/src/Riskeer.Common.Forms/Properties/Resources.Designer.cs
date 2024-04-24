@@ -1326,24 +1326,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
-        /// </summary>
-        public static string FailureMechanism_ApplyLengthEffectInSection_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
-        /// </summary>
-        public static string FailureMechanism_ApplyLengthEffectInSection_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
@@ -1403,42 +1385,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanism_Inputs_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Inputs_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling..
-        /// </summary>
-        public static string FailureMechanism_N_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N [-].
-        /// </summary>
-        public static string FailureMechanism_N_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N* [-].
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_DisplayName", resourceCulture);
             }
         }
         
