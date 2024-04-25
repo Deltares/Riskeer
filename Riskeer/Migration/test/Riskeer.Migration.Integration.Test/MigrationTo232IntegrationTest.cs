@@ -66,6 +66,15 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityStoneCoverWaveConditionsCalculation(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverWaveConditionsCalculation(reader, sourceFilePath);
 
+                    AssertClosingStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertDuneErosionFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertHeightStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertStabilityStoneCoverFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertStabilityPointStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
+                    
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
@@ -647,6 +656,148 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() = 0 " +
                 "FROM [TopLevelSubMechanismIllustrationPointEntity]; ";
             reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
+        }
+
+        #endregion
+
+        #region Failure mechanisms meta data
+
+        private static void AssertClosingStructuresFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.ClosingStructuresFailureMechanismMetaEntity " +
+                ") " +
+                "FROM ClosingStructuresFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.ClosingStructuresFailureMechanismMetaEntity OLD USING(ClosingStructuresFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ClosingStructureCollectionSourcePath] IS OLD.[ClosingStructureCollectionSourcePath] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath];" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertDuneErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.DuneErosionFailureMechanismMetaEntity " +
+                ") " +
+                "FROM DuneErosionFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.DuneErosionFailureMechanismMetaEntity OLD USING(DuneErosionFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM GrassCoverErosionInwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionInwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[DikeProfileCollectionSourcePath] IS OLD.[DikeProfileCollectionSourcePath]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionOutwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertHeightStructuresFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HeightStructuresFailureMechanismMetaEntity " +
+                ") " +
+                "FROM HeightStructuresFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.HeightStructuresFailureMechanismMetaEntity OLD USING(HeightStructuresFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[HeightStructureCollectionSourcePath] IS OLD.[HeightStructureCollectionSourcePath] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath];" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertStabilityPointStructuresFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityPointStructuresFailureMechanismMetaEntity " +
+                ") " +
+                "FROM StabilityPointStructuresFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityPointStructuresFailureMechanismMetaEntity OLD USING(StabilityPointStructuresFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[StabilityPointStructureCollectionSourcePath] IS OLD.[StabilityPointStructureCollectionSourcePath] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath];" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertStabilityStoneCoverFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityStoneCoverFailureMechanismMetaEntity " +
+                ") " +
+                "FROM StabilityStoneCoverFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityStoneCoverFailureMechanismMetaEntity OLD USING(StabilityStoneCoverFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity " +
+                ") " +
+                "FROM WaveImpactAsphaltCoverFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity OLD USING(WaveImpactAsphaltCoverFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
         #endregion
