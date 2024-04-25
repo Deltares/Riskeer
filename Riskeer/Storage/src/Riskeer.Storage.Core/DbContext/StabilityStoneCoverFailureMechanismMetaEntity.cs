@@ -35,8 +35,6 @@ namespace Riskeer.Storage.Core.DbContext
         public long StabilityStoneCoverFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string ForeshoreProfileCollectionSourcePath { get; set; }
-        public double N { get; set; }
-        public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

@@ -46,20 +46,15 @@ namespace Riskeer.Storage.Core.DbContext
             ForeshoreProfileEntities = new HashSet<ForeshoreProfileEntity>();
             GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>();
-            GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>();
             HeightStructureEntities = new HashSet<HeightStructureEntity>();
             HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
             MacroStabilityInwardsFailureMechanismMetaEntities = new HashSet<MacroStabilityInwardsFailureMechanismMetaEntity>();
-            MicrostabilityFailureMechanismMetaEntities = new HashSet<MicrostabilityFailureMechanismMetaEntity>();
             PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
-            PipingStructureFailureMechanismMetaEntities = new HashSet<PipingStructureFailureMechanismMetaEntity>();
             StabilityPointStructureEntities = new HashSet<StabilityPointStructureEntity>();
             StabilityPointStructuresFailureMechanismMetaEntities = new HashSet<StabilityPointStructuresFailureMechanismMetaEntity>();
             StabilityStoneCoverFailureMechanismMetaEntities = new HashSet<StabilityStoneCoverFailureMechanismMetaEntity>();
             StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
-            WaterPressureAsphaltCoverFailureMechanismMetaEntities = new HashSet<WaterPressureAsphaltCoverFailureMechanismMetaEntity>();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities = new HashSet<WaveImpactAsphaltCoverFailureMechanismMetaEntity>();
             FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
         }
@@ -98,12 +93,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverSlipOffInwardsFailureMechanismMetaEntity> GrassCoverSlipOffInwardsFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity> GrassCoverSlipOffOutwardsFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructureEntity> HeightStructureEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -113,13 +102,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<MacroStabilityInwardsFailureMechanismMetaEntity> MacroStabilityInwardsFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MicrostabilityFailureMechanismMetaEntity> MicrostabilityFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingStructureFailureMechanismMetaEntity> PipingStructureFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }
@@ -135,9 +118,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurfaceLineEntity> SurfaceLineEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WaterPressureAsphaltCoverFailureMechanismMetaEntity> WaterPressureAsphaltCoverFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }

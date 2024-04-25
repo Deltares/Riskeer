@@ -72,8 +72,6 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionOutwardsFailureMechanismMetaEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsOutputEntities.Load();
-            GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Load();
-            GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Load();
             HeightStructureEntities.Load();
             HeightStructuresCalculationEntities.Load();
             HeightStructuresFailureMechanismMetaEntities.Load();
@@ -98,7 +96,6 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
-            MicrostabilityFailureMechanismMetaEntities.Load();
             NonAdoptableFailureMechanismSectionResultEntities.Load();
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
             ProjectEntities.Load();
@@ -111,7 +108,6 @@ namespace Riskeer.Storage.Core.DbContext
             PipingScenarioConfigurationPerFailureMechanismSectionEntities.Load();
             PipingSoilLayerEntities.Load();
             PipingSoilProfileEntities.Load();
-            PipingStructureFailureMechanismMetaEntities.Load();
             PipingStochasticSoilProfileEntities.Load();
             StabilityPointStructureEntities.Load();
             StabilityPointStructuresCalculationEntities.Load();
@@ -122,7 +118,6 @@ namespace Riskeer.Storage.Core.DbContext
             StabilityStoneCoverWaveConditionsOutputEntities.Load();
             StochasticSoilModelEntities.Load();
             SurfaceLineEntities.Load();
-            WaterPressureAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsOutputEntities.Load();

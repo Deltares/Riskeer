@@ -43,7 +43,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         public long DuneErosionFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public double N { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
 

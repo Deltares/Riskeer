@@ -34,7 +34,6 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long HeightStructuresFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public double N { get; set; }
         public string HeightStructureCollectionSourcePath { get; set; }
         public string ForeshoreProfileCollectionSourcePath { get; set; }
 
