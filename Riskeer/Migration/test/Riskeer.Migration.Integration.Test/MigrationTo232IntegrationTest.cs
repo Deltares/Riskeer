@@ -124,7 +124,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
-            
+
             yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
             {
                 "* Geen aanpassingen."
@@ -158,6 +158,129 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateAssessmentSection);
         }
+
+        private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string[] tables =
+            {
+                "AdoptableFailureMechanismSectionResultEntity",
+                "AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
+                "AssessmentSectionEntity",
+                "BackgroundDataEntity",
+                "BackgroundDataMetaEntity",
+                "CalculationGroupEntity",
+                "ClosingStructureEntity",
+                "ClosingStructuresCalculationEntity",
+                "ClosingStructuresFailureMechanismMetaEntity",
+                "DikeProfileEntity",
+                "DuneErosionFailureMechanismMetaEntity",
+                "DuneLocationCalculationEntity",
+                "DuneLocationCalculationForTargetProbabilityCollectionEntity",
+                "DuneLocationEntity",
+                "FailureMechanismEntity",
+                "FailureMechanismFailureMechanismSectionEntity",
+                "FailureMechanismSectionEntity",
+                "ForeshoreProfileEntity",
+                "GrassCoverErosionInwardsCalculationEntity",
+                "GrassCoverErosionInwardsFailureMechanismMetaEntity",
+                "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
+                "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
+                "HeightStructureEntity",
+                "HeightStructuresCalculationEntity",
+                "HeightStructuresFailureMechanismMetaEntity",
+                "HydraulicBoundaryDataEntity",
+                "HydraulicBoundaryDatabaseEntity",
+                "HydraulicLocationCalculationCollectionEntity",
+                "HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity",
+                "HydraulicLocationCalculationEntity",
+                "HydraulicLocationCalculationForTargetProbabilityCollectionEntity",
+                "HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity",
+                "HydraulicLocationEntity",
+                "MacroStabilityInwardsCalculationEntity",
+                "MacroStabilityInwardsCharacteristicPointEntity",
+                "MacroStabilityInwardsFailureMechanismMetaEntity",
+                "MacroStabilityInwardsPreconsolidationStressEntity",
+                "MacroStabilityInwardsSoilLayerOneDEntity",
+                "MacroStabilityInwardsSoilLayerTwoDEntity",
+                "MacroStabilityInwardsSoilProfileOneDEntity",
+                "MacroStabilityInwardsSoilProfileTwoDEntity",
+                "MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity",
+                "MacroStabilityInwardsStochasticSoilProfileEntity",
+                "NonAdoptableFailureMechanismSectionResultEntity",
+                "NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
+                "PipingCharacteristicPointEntity",
+                "PipingFailureMechanismMetaEntity",
+                "PipingScenarioConfigurationPerFailureMechanismSectionEntity",
+                "PipingSoilLayerEntity",
+                "PipingSoilProfileEntity",
+                "PipingStochasticSoilProfileEntity",
+                "ProbabilisticPipingCalculationEntity",
+                "ProjectEntity",
+                "SemiProbabilisticPipingCalculationEntity",
+                "SpecificFailureMechanismEntity",
+                "SpecificFailureMechanismFailureMechanismSectionEntity",
+                "StabilityPointStructureEntity",
+                "StabilityPointStructuresCalculationEntity",
+                "StabilityPointStructuresFailureMechanismMetaEntity",
+                "StabilityStoneCoverFailureMechanismMetaEntity",
+                "StabilityStoneCoverWaveConditionsCalculationEntity",
+                "StochastEntity",
+                "StochasticSoilModelEntity",
+                "SurfaceLineEntity",
+                "VersionEntity",
+                "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
+            };
+
+            foreach (string table in tables)
+            {
+                string validateMigratedTable =
+                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                    $"SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].{table}) " +
+                    $"FROM {table};" +
+                    "DETACH SOURCEPROJECT;";
+                reader.AssertReturnedDataIsValid(validateMigratedTable);
+            }
+        }
+
+        private static void AssertLogDatabase(string logFilePath, IEnumerable<string> expectedMessages)
+        {
+            using (var reader = new MigrationLogDatabaseReader(logFilePath))
+            {
+                ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+
+                Assert.AreEqual(expectedMessages.Count() + 1, messages.Count);
+                var i = 0;
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("23.1", newVersion, $"Gevolgen van de migratie van versie 23.1 naar versie {newVersion}:"),
+                    messages[i++]);
+
+                foreach (string expectedMessage in expectedMessages)
+                {
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("23.1", newVersion, $"{expectedMessage}"),
+                        messages[i++]);
+                }
+            }
+        }
+
+        private static void AssertVersions(MigratedDatabaseReader reader)
+        {
+            const string validateVersion =
+                "SELECT COUNT() = 1 " +
+                "FROM [VersionEntity] " +
+                "WHERE [Version] = \"23.2\";";
+            reader.AssertReturnedDataIsValid(validateVersion);
+        }
+
+        private static void AssertDatabase(MigratedDatabaseReader reader)
+        {
+            const string validateForeignKeys =
+                "PRAGMA foreign_keys;";
+            reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        # region Revetment
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
@@ -287,6 +410,10 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH DATABASE SOURCE;";
             reader.AssertReturnedDataIsValid(validateStepSize);
         }
+
+        #endregion
+
+        # region Calculation outputs
 
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
         {
@@ -522,130 +649,6 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
         }
 
-        private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string[] tables =
-            {
-                "AdoptableFailureMechanismSectionResultEntity",
-                "AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
-                "AssessmentSectionEntity",
-                "BackgroundDataEntity",
-                "BackgroundDataMetaEntity",
-                "CalculationGroupEntity",
-                "ClosingStructureEntity",
-                "ClosingStructuresCalculationEntity",
-                "ClosingStructuresFailureMechanismMetaEntity",
-                "DikeProfileEntity",
-                "DuneErosionFailureMechanismMetaEntity",
-                "DuneLocationCalculationEntity",
-                "DuneLocationCalculationForTargetProbabilityCollectionEntity",
-                "DuneLocationEntity",
-                "FailureMechanismEntity",
-                "FailureMechanismFailureMechanismSectionEntity",
-                "FailureMechanismSectionEntity",
-                "ForeshoreProfileEntity",
-                "GrassCoverErosionInwardsCalculationEntity",
-                "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverSlipOffInwardsFailureMechanismMetaEntity",
-                "GrassCoverSlipOffOutwardsFailureMechanismMetaEntity",
-                "HeightStructureEntity",
-                "HeightStructuresCalculationEntity",
-                "HeightStructuresFailureMechanismMetaEntity",
-                "HydraulicBoundaryDataEntity",
-                "HydraulicBoundaryDatabaseEntity",
-                "HydraulicLocationCalculationCollectionEntity",
-                "HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity",
-                "HydraulicLocationCalculationEntity",
-                "HydraulicLocationCalculationForTargetProbabilityCollectionEntity",
-                "HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity",
-                "HydraulicLocationEntity",
-                "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCharacteristicPointEntity",
-                "MacroStabilityInwardsFailureMechanismMetaEntity",
-                "MacroStabilityInwardsPreconsolidationStressEntity",
-                "MacroStabilityInwardsSoilLayerOneDEntity",
-                "MacroStabilityInwardsSoilLayerTwoDEntity",
-                "MacroStabilityInwardsSoilProfileOneDEntity",
-                "MacroStabilityInwardsSoilProfileTwoDEntity",
-                "MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity",
-                "MacroStabilityInwardsStochasticSoilProfileEntity",
-                "MicrostabilityFailureMechanismMetaEntity",
-                "NonAdoptableFailureMechanismSectionResultEntity",
-                "NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
-                "PipingCharacteristicPointEntity",
-                "PipingFailureMechanismMetaEntity",
-                "PipingScenarioConfigurationPerFailureMechanismSectionEntity",
-                "PipingSoilLayerEntity",
-                "PipingSoilProfileEntity",
-                "PipingStochasticSoilProfileEntity",
-                "PipingStructureFailureMechanismMetaEntity",
-                "ProbabilisticPipingCalculationEntity",
-                "ProjectEntity",
-                "SemiProbabilisticPipingCalculationEntity",
-                "SpecificFailureMechanismEntity",
-                "SpecificFailureMechanismFailureMechanismSectionEntity",
-                "StabilityPointStructureEntity",
-                "StabilityPointStructuresCalculationEntity",
-                "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityStoneCoverFailureMechanismMetaEntity",
-                "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StochastEntity",
-                "StochasticSoilModelEntity",
-                "SurfaceLineEntity",
-                "VersionEntity",
-                "WaterPressureAsphaltCoverFailureMechanismMetaEntity",
-                "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
-            };
-
-            foreach (string table in tables)
-            {
-                string validateMigratedTable =
-                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                    $"SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].{table}) " +
-                    $"FROM {table};" +
-                    "DETACH SOURCEPROJECT;";
-                reader.AssertReturnedDataIsValid(validateMigratedTable);
-            }
-        }
-
-        private static void AssertLogDatabase(string logFilePath, IEnumerable<string> expectedMessages)
-        {
-            using (var reader = new MigrationLogDatabaseReader(logFilePath))
-            {
-                ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-
-                Assert.AreEqual(expectedMessages.Count() + 1, messages.Count);
-                var i = 0;
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("23.1", newVersion, $"Gevolgen van de migratie van versie 23.1 naar versie {newVersion}:"),
-                    messages[i++]);
-
-                foreach (string expectedMessage in expectedMessages)
-                {
-                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("23.1", newVersion, $"{expectedMessage}"),
-                        messages[i++]);
-                }
-            }
-        }
-
-        private static void AssertVersions(MigratedDatabaseReader reader)
-        {
-            const string validateVersion =
-                "SELECT COUNT() = 1 " +
-                "FROM [VersionEntity] " +
-                "WHERE [Version] = \"23.2\";";
-            reader.AssertReturnedDataIsValid(validateVersion);
-        }
-
-        private static void AssertDatabase(MigratedDatabaseReader reader)
-        {
-            const string validateForeignKeys =
-                "PRAGMA foreign_keys;";
-            reader.AssertReturnedDataIsValid(validateForeignKeys);
-        }
+        #endregion
     }
 }
