@@ -255,14 +255,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new[]
-                {
-                    new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
@@ -299,13 +292,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                },
-                GrassCoverSlipOffInwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -379,14 +365,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                WaterPressureAsphaltCoverFailureMechanismMetaEntities = new[]
-                {
-                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
@@ -423,13 +402,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                },
-                WaterPressureAsphaltCoverFailureMechanismMetaEntities =
-                {
-                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -506,14 +478,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new[]
-                {
-                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
@@ -550,13 +515,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                },
-                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -630,14 +588,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                MicrostabilityFailureMechanismMetaEntities = new[]
-                {
-                    new MicrostabilityFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new MicrostabilityFailureMechanism();
@@ -674,13 +625,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                },
-                MicrostabilityFailureMechanismMetaEntities =
-                {
-                    new MicrostabilityFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -746,8 +690,6 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsDuneErosionFailureMechanism_WithProperties_SetsFailureMechanismWithProperties()
         {
             // Setup
-            const int generalInputN = 3;
-
             var random = new Random(31);
             bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
@@ -800,10 +742,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 DuneErosionFailureMechanismMetaEntities =
                 {
-                    new DuneErosionFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new DuneErosionFailureMechanismMetaEntity()
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -838,10 +777,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 DuneErosionFailureMechanismMetaEntities =
                 {
-                    new DuneErosionFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new DuneErosionFailureMechanismMetaEntity()
                 },
                 DuneLocationEntities =
                 {
@@ -889,11 +825,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = "DuneLocation A"
             };
 
-            var duneErosionFailureMechanismMetaEntity = new DuneErosionFailureMechanismMetaEntity
-            {
-                N = 1
-            };
-
+            var duneErosionFailureMechanismMetaEntity = new DuneErosionFailureMechanismMetaEntity();
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1805,10 +1737,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = "Some calculation text",
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
-                    }
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity()
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -1843,7 +1772,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        N = 3,
                         DikeProfileCollectionSourcePath = sourcePath
                     }
                 },
@@ -1898,10 +1826,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity()
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -1944,10 +1869,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2025,10 +1947,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = "Some calculation text",
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
-                    }
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity()
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -2063,8 +1982,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2108,8 +2026,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2154,10 +2071,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity()
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
@@ -2200,10 +2114,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2282,10 +2193,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
-                    }
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2332,10 +2240,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        N = 4.2
-                    }
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2367,8 +2272,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1.2
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2411,8 +2315,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 8.123
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2458,10 +2361,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        N = 2
-                    }
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2539,10 +2439,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
-                    }
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2589,10 +2486,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
-                    }
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2624,8 +2518,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2669,8 +2562,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2716,10 +2608,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
-                    }
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2797,10 +2686,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 HeightStructuresFailureMechanismMetaEntities =
                 {
-                    new HeightStructuresFailureMechanismMetaEntity
-                    {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
-                    }
+                    new HeightStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -2834,8 +2720,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -2855,7 +2740,6 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsHeightStructuresFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {
             // Setup
-            const int generalInputN = 7;
             const string fileLocation = "some/location/to/foreshoreProfiles";
 
             var entity = new FailureMechanismEntity
@@ -2880,7 +2764,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = generalInputN,
                         ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
@@ -2915,7 +2798,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 7,
                         HeightStructureCollectionSourcePath = path
                     }
                 }
@@ -2960,7 +2842,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 7,
                         HeightStructureCollectionSourcePath = sourcePath
                     }
                 }
@@ -2995,7 +2876,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 7,
                         HeightStructureCollectionSourcePath = sourcePath
                     }
                 }
@@ -3035,10 +2915,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 HeightStructuresFailureMechanismMetaEntities =
                 {
-                    new HeightStructuresFailureMechanismMetaEntity
-                    {
-                        N = 2
-                    }
+                    new HeightStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -3150,8 +3027,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N2A = 1
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -3447,10 +3323,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
-                    new StabilityPointStructuresFailureMechanismMetaEntity
-                    {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
-                    }
+                    new StabilityPointStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -3484,8 +3357,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -3505,7 +3377,6 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsStabilityPointStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            const double generalInputN = 5.0;
             const string fileLocation = "some/location/to/foreshoreprofiles";
 
             var entity = new FailureMechanismEntity
@@ -3530,7 +3401,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = generalInputN,
                         ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
@@ -3565,7 +3435,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = 7,
                         StabilityPointStructureCollectionSourcePath = path
                     }
                 }
@@ -3610,7 +3479,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = 7,
                         StabilityPointStructureCollectionSourcePath = path
                     }
                 }
@@ -3662,10 +3530,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
-                    new StabilityPointStructuresFailureMechanismMetaEntity
-                    {
-                        N = 2
-                    }
+                    new StabilityPointStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -3710,10 +3575,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
-                    new StabilityPointStructuresFailureMechanismMetaEntity
-                    {
-                        N = 2
-                    }
+                    new StabilityPointStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -3790,14 +3652,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                PipingStructureFailureMechanismMetaEntities = new[]
-                {
-                    new PipingStructureFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new PipingStructureFailureMechanism();
@@ -3835,13 +3690,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                },
-                PipingStructureFailureMechanismMetaEntities =
-                {
-                    new PipingStructureFailureMechanismMetaEntity
-                    {
-                        N = 1.0
-                    }
                 }
             };
             var collector = new ReadConversionCollector();

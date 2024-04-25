@@ -509,10 +509,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -556,10 +553,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -603,10 +597,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -650,10 +641,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        DeltaL = deltaL
-                    }
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -697,10 +685,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
-                    new HeightStructuresFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new HeightStructuresFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -831,10 +816,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
-                    new DuneErosionFailureMechanismMetaEntity
-                    {
-                        N = n
-                    }
+                    new DuneErosionFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -873,14 +855,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
-                CalculationsInputComments = calculationsInputComments,
-                PipingStructureFailureMechanismMetaEntities =
-                {
-                    new PipingStructureFailureMechanismMetaEntity
-                    {
-                        N = parameterN
-                    }
-                }
+                CalculationsInputComments = calculationsInputComments
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
@@ -913,46 +888,18 @@ namespace Riskeer.Storage.Core.Test.Read
             FailureMechanismEntity microstabilityEntity = CreateFailureMechanismEntity(
                 microstabilityInAssembly,
                 FailureMechanismType.Microstability);
-            microstabilityEntity.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
-            {
-                new MicrostabilityFailureMechanismMetaEntity
-                {
-                    N = 1.0
-                }
-            };
 
             FailureMechanismEntity waterPressureAsphaltCoverEntity = CreateFailureMechanismEntity(
                 waterPressureAsphaltCoverInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            waterPressureAsphaltCoverEntity.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>
-            {
-                new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-                {
-                    N = 3.0
-                }
-            };
 
             FailureMechanismEntity grassRevetmentSlidingOutwardsEntity = CreateFailureMechanismEntity(
                 grassCoverSlipOffOutwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingOutwards);
-            grassRevetmentSlidingOutwardsEntity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>
-            {
-                new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
-                {
-                    N = 4.0
-                }
-            };
 
             FailureMechanismEntity grassRevetmentSlidingInwardsEntity = CreateFailureMechanismEntity(
                 grassCoverSlipOffInwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
-            grassRevetmentSlidingInwardsEntity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>
-            {
-                new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
-                {
-                    N = 5.0
-                }
-            };
 
             entity.FailureMechanismEntities.Add(microstabilityEntity);
             entity.FailureMechanismEntities.Add(waterPressureAsphaltCoverEntity);
