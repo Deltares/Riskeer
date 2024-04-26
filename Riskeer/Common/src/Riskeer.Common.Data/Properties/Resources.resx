@@ -396,8 +396,8 @@
     <data name="FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen o.b.v. onafhankelijke vakken</value>
   </data>
-    <data name="FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName" xml:space="preserve">
-    <value>Automatisch berekenen o.b.v. slechtste doorsnede of vak</value>
+  <data name="FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName" xml:space="preserve">
+    <value>Automatisch berekenen o.b.v. slechtste vak</value>
   </data>
     <data name="FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>

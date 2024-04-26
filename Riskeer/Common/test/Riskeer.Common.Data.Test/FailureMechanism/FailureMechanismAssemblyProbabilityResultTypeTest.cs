@@ -56,7 +56,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                     FailureMechanismAssemblyProbabilityResultType.P1, "Automatisch berekenen o.b.v. onafhankelijke vakken"
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.P2, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
+                    FailureMechanismAssemblyProbabilityResultType.P2, "Automatisch berekenen o.b.v. slechtste vak"
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.Manual, "Handmatig invullen"

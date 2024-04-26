@@ -415,7 +415,7 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. slechtste doorsnede of vak.
+        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. slechtste vak.
         /// </summary>
         public static string FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName {
             get {
