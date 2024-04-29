@@ -340,11 +340,6 @@ namespace Riskeer.Common.Forms.Views
             public int InitialFailureMechanismResultTypeIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the initial failure mechanism result profile probability index.
-            /// </summary>
-            public int InitialFailureMechanismResultProfileProbabilityIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the initial failure mechanism result section probability index.
             /// </summary>
             public int InitialFailureMechanismResultSectionProbabilityIndex { internal get; set; }
@@ -360,29 +355,14 @@ namespace Riskeer.Common.Forms.Views
             public int ProbabilityRefinementTypeIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the refined profile probability index.
-            /// </summary>
-            public int RefinedProfileProbabilityIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the refined section probability index.
             /// </summary>
             public int RefinedSectionProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the profile probability index.
-            /// </summary>
-            public int ProfileProbabilityIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the section probability index.
             /// </summary>
             public int SectionProbabilityIndex { internal get; set; }
-
-            /// <summary>
-            /// Sets the section N index.
-            /// </summary>
-            public int SectionNIndex { internal get; set; }
 
             /// <summary>
             /// Sets the assembly group index.

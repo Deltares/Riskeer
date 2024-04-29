@@ -43,16 +43,12 @@ namespace Riskeer.Piping.Forms.Views
         AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
-        private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
-        private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
-        private const int furtherAnalysisTypeIndex = 5;
-        private const int probabilityRefinementTypeIndex = 6;
-        private const int refinedProfileProbabilityIndex = 7;
-        private const int refinedSectionProbabilityIndex = 8;
-        private const int profileProbabilityIndex = 9;
-        private const int sectionProbabilityIndex = 10;
-        private const int sectionNIndex = 11;
-        private const int assemblyGroupIndex = 12;
+        private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
+        private const int furtherAnalysisTypeIndex = 4;
+        private const int probabilityRefinementTypeIndex = 5;
+        private const int refinedSectionProbabilityIndex = 6;
+        private const int sectionProbabilityIndex = 7;
+        private const int assemblyGroupIndex = 8;
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -115,15 +111,11 @@ namespace Riskeer.Piping.Forms.Views
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
-                    InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
                     FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
                     ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
-                    RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
-                    ProfileProbabilityIndex = profileProbabilityIndex,
                     SectionProbabilityIndex = sectionProbabilityIndex,
-                    SectionNIndex = sectionNIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
         }
