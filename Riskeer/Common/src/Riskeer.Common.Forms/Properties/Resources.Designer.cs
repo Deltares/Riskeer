@@ -1551,15 +1551,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aanscherpen faalkans.
-        /// </summary>
-        public static string FailureMechanismResultView_ProbabilityRefinementType_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_ProbabilityRefinementType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aangescherpte
         ///faalkans per vak
         ///[1/jaar].

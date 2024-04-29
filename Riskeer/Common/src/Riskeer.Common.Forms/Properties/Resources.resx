@@ -1529,9 +1529,6 @@ mechanisme per vak
     <data name="FailureMechanismResultView_FurtherAnalysis_DisplayName" xml:space="preserve">
     <value>Vervolganalyse</value>
   </data>
-    <data name="FailureMechanismResultView_ProbabilityRefinementType_DisplayName" xml:space="preserve">
-    <value>Aanscherpen faalkans</value>
-  </data>
     <data name="FailureMechanismResultView_RefinedSectionProbability_DisplayName" xml:space="preserve">
     <value>Aangescherpte
 faalkans per vak

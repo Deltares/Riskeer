@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Primitives;
 
@@ -316,59 +315,6 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> expectedDataSource = EnumDisplayWrapperHelper.GetEnumTypes<FailureMechanismSectionResultFurtherAnalysisType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>[]) columnData.DataSource);
-            }
-        }
-
-        [Test]
-        public void AddProbabilityRefinementTypeColumn_DataGridViewControlNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(null, "property");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("dataGridViewControl", exception.ParamName);
-        }
-
-        [Test]
-        public void AddProbabilityRefinementTypeColumn_DataPropertyNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(new DataGridViewControl(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("dataPropertyName", exception.ParamName);
-        }
-
-        [Test]
-        public void AddProbabilityRefinementTypeColumn_WithParameters_AddsColumnToDataGridViewControl()
-        {
-            // Setup
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(control, dataPropertyName);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
-                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Aanscherpen faalkans", columnData.HeaderText);
-                Assert.AreEqual("Value", columnData.ValueMember);
-                Assert.AreEqual("DisplayName", columnData.DisplayMember);
-
-                IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> expectedDataSource = EnumDisplayWrapperHelper.GetEnumTypes<ProbabilityRefinementType>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ProbabilityRefinementType>[]) columnData.DataSource);
             }
         }
 
