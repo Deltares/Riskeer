@@ -140,18 +140,12 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
             Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedProfileProbability));
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
-            TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
+            TestHelper.AssertTypeConverter<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+            TestHelper.AssertTypeConverter<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
+            TestHelper.AssertTypeConverter<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(6, columnStateDefinitions.Count);
