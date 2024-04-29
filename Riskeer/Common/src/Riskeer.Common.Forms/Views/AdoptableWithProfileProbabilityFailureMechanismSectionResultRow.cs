@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
@@ -153,23 +152,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the initial failure mechanism result per profile as a probability.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double InitialFailureMechanismResultProfileProbability
-        {
-            get => SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
-                       ? calculateProbabilityStrategy.CalculateProfileProbability()
-                       : SectionResult.ManualInitialFailureMechanismResultProfileProbability;
-            set
-            {
-                SectionResult.ManualInitialFailureMechanismResultProfileProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
@@ -213,23 +195,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the refined probability per profile.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public object RefinedProfileProbability
-        {
-            get => getApplyLengthEffectInSectionFunc() && ProbabilityRefinementType == ProbabilityRefinementType.Section
-                       ? (object) CommonFormsResources.FailureMechanismSectionResultRow_Derived_DisplayName
-                       : SectionResult.RefinedProfileProbability;
-            set
-            {
-                SectionResult.RefinedProfileProbability = (double) value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
@@ -247,22 +212,10 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the profile probability.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ProfileProbability => AssemblyResult.ProfileProbability;
-
-        /// <summary>
         /// Gets the section probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double SectionProbability => AssemblyResult.SectionProbability;
-
-        /// <summary>
-        /// Gets the section N.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble SectionN => new RoundedDouble(2, AssemblyResult.N);
 
         /// <summary>
         /// Gets the assembly group.
@@ -294,8 +247,6 @@ namespace Riskeer.Common.Forms.Views
 
                 if (SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Manual)
                 {
-                    ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                        InitialFailureMechanismResultProfileProbability);
                     ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
                         InitialFailureMechanismResultSectionProbability);
                 }
@@ -311,17 +262,11 @@ namespace Riskeer.Common.Forms.Views
             {
                 switch (SectionResult.ProbabilityRefinementType)
                 {
-                    case ProbabilityRefinementType.Profile:
-                        ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                            (double) RefinedProfileProbability);
-                        break;
                     case ProbabilityRefinementType.Section:
                         ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
                             (double) RefinedSectionProbability);
                         break;
                     case ProbabilityRefinementType.Both:
-                        ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                            (double) RefinedProfileProbability);
                         ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
                             (double) RefinedSectionProbability);
                         break;
