@@ -283,6 +283,10 @@ namespace Riskeer.Common.Forms.Views
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
+            }
 
             FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
