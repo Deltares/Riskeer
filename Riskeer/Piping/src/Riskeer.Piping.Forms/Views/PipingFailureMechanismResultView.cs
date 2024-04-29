@@ -142,10 +142,6 @@ namespace Riskeer.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
@@ -158,25 +154,13 @@ namespace Riskeer.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProbabilityRefinementType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
