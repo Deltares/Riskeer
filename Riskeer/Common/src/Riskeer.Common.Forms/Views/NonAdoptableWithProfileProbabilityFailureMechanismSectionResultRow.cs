@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
@@ -42,14 +41,10 @@ namespace Riskeer.Common.Forms.Views
     public class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly int initialFailureMechanismResultTypeIndex;
-        private readonly int initialFailureMechanismResultProfileProbabilityIndex;
         private readonly int initialFailureMechanismResultSectionProbabilityIndex;
         private readonly int furtherAnalysisTypeIndex;
-        private readonly int refinedProfileProbabilityIndex;
         private readonly int refinedSectionProbabilityIndex;
-        private readonly int profileProbabilityIndex;
         private readonly int sectionProbabilityIndex;
-        private readonly int sectionNIndex;
         private readonly int assemblyGroupIndex;
 
         private readonly IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
@@ -91,14 +86,10 @@ namespace Riskeer.Common.Forms.Views
             this.performAssemblyFunc = performAssemblyFunc;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
-            initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
             furtherAnalysisTypeIndex = constructionProperties.FurtherAnalysisTypeIndex;
-            refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
-            profileProbabilityIndex = constructionProperties.ProfileProbabilityIndex;
             sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
-            sectionNIndex = constructionProperties.SectionNIndex;
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
 
             CreateColumnStateDefinitions();
@@ -133,21 +124,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the initial failure mechanism result per profile as a probability.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double InitialFailureMechanismResultProfileProbability
-        {
-            get => SectionResult.ManualInitialFailureMechanismResultProfileProbability;
-            set
-            {
-                SectionResult.ManualInitialFailureMechanismResultProfileProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
@@ -176,21 +152,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the refined probability per profile.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double RefinedProfileProbability
-        {
-            get => SectionResult.RefinedProfileProbability;
-            set
-            {
-                SectionResult.RefinedProfileProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
@@ -206,22 +167,10 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the profile probability.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ProfileProbability => AssemblyResult.ProfileProbability;
-
-        /// <summary>
         /// Gets the section probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double SectionProbability => AssemblyResult.SectionProbability;
-
-        /// <summary>
-        /// Gets the section N.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble SectionN => new RoundedDouble(2, AssemblyResult.N);
 
         /// <summary>
         /// Gets the assembly group.
@@ -238,13 +187,10 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
 
             if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == NonAdoptableInitialFailureMechanismResultType.Manual)
             {
-                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                    InitialFailureMechanismResultProfileProbability);
                 ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
                     InitialFailureMechanismResultSectionProbability);
             }
@@ -252,13 +198,10 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateRefinedFailureMechanismResultErrors()
         {
-            ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = string.Empty;
 
             if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
-                ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                    RefinedProfileProbability);
                 ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
                     RefinedSectionProbability);
             }
@@ -272,9 +215,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void ResetAssemblyResultErrorTexts()
         {
-            ColumnStateDefinitions[profileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
-            ColumnStateDefinitions[sectionNIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[assemblyGroupIndex].ErrorText = string.Empty;
         }
 
@@ -287,9 +228,7 @@ namespace Riskeer.Common.Forms.Views
             catch (AssemblyException e)
             {
                 AssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
-                ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
-                ColumnStateDefinitions[sectionNIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
             }
         }
@@ -297,14 +236,10 @@ namespace Riskeer.Common.Forms.Views
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(initialFailureMechanismResultTypeIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(initialFailureMechanismResultProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(furtherAnalysisTypeIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(profileProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(sectionNIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
@@ -314,12 +249,10 @@ namespace Riskeer.Common.Forms.Views
 
             if (!IsRelevant || InitialFailureMechanismResultType == NonAdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex]);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
 
@@ -327,12 +260,10 @@ namespace Riskeer.Common.Forms.Views
 
             if (!IsRelevant || FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
             else
             {
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex]);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
 
