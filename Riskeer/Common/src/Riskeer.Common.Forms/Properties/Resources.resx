@@ -1283,10 +1283,6 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
     <value>Nvak* [-]</value>
   </data>
-    <data name="FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde Nvak*
-[-]</value>
-  </data>
     <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
     <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
   </data>
@@ -1524,12 +1520,6 @@ scenario
     <data name="FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName" xml:space="preserve">
     <value>Resultaat initieel mechanisme</value>
   </data>
-    <data name="FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName"
-          xml:space="preserve">
-    <value>Faalkans initieel
-mechanisme per doorsnede
-[1/jaar]</value>
-  </data>
     <data name="FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName"
           xml:space="preserve">
     <value>Faalkans initieel
@@ -1542,19 +1532,9 @@ mechanisme per vak
     <data name="FailureMechanismResultView_ProbabilityRefinementType_DisplayName" xml:space="preserve">
     <value>Aanscherpen faalkans</value>
   </data>
-    <data name="FailureMechanismResultView_RefinedProfileProbability_DisplayName" xml:space="preserve">
-    <value>Aangescherpte
-faalkans per doorsnede
-[1/jaar]</value>
-  </data>
     <data name="FailureMechanismResultView_RefinedSectionProbability_DisplayName" xml:space="preserve">
     <value>Aangescherpte
 faalkans per vak
-[1/jaar]</value>
-  </data>
-    <data name="FailureMechanismResultView_AssemblyProfileProbability_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde
-faalkans per doorsnede
 [1/jaar]</value>
   </data>
     <data name="FailureMechanismResultView_AssemblySectionProbability_DisplayName" xml:space="preserve">

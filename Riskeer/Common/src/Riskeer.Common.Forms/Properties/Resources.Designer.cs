@@ -1493,27 +1493,6 @@ namespace Riskeer.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde
-        ///faalkans per doorsnede
-        ///[1/jaar].
-        /// </summary>
-        public static string FailureMechanismResultView_AssemblyProfileProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_AssemblyProfileProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Nvak*
-        ///[-].
-        /// </summary>
-        public static string FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde
         ///faalkans per vak
         ///[1/jaar].
         /// </summary>
@@ -1538,18 +1517,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_FurtherAnalysis_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_FurtherAnalysis_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkans initieel
-        ///mechanisme per doorsnede
-        ///[1/jaar].
-        /// </summary>
-        public static string FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_Displa" +
-                        "yName", resourceCulture);
             }
         }
         
@@ -1589,17 +1556,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_ProbabilityRefinementType_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_ProbabilityRefinementType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aangescherpte
-        ///faalkans per doorsnede
-        ///[1/jaar].
-        /// </summary>
-        public static string FailureMechanismResultView_RefinedProfileProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_RefinedProfileProbability_DisplayName", resourceCulture);
             }
         }
         
