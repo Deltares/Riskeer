@@ -50,16 +50,12 @@ namespace Riskeer.Common.Forms.Test.Views
             new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
             {
                 InitialFailureMechanismResultTypeIndex = 2,
-                InitialFailureMechanismResultProfileProbabilityIndex = 3,
-                InitialFailureMechanismResultSectionProbabilityIndex = 4,
-                FurtherAnalysisTypeIndex = 5,
-                ProbabilityRefinementTypeIndex = 6,
-                RefinedProfileProbabilityIndex = 7,
-                RefinedSectionProbabilityIndex = 8,
-                ProfileProbabilityIndex = 9,
-                SectionProbabilityIndex = 10,
-                SectionNIndex = 11,
-                AssemblyGroupIndex = 12
+                InitialFailureMechanismResultSectionProbabilityIndex = 3,
+                FurtherAnalysisTypeIndex = 4,
+                ProbabilityRefinementTypeIndex = 5,
+                RefinedSectionProbabilityIndex = 6,
+                SectionProbabilityIndex = 7,
+                AssemblyGroupIndex = 8
             };
 
         [Test]
@@ -336,7 +332,7 @@ namespace Riskeer.Common.Forms.Test.Views
             errorProvider.Expect(ep => ep.GetCalculatedProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return(errorText)
-                         .Repeat.Twice();
+                         . Repeat.Once();
             mocks.ReplayAll();
 
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
