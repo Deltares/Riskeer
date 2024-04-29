@@ -88,13 +88,7 @@ namespace Riskeer.Common.Forms.Views
             this.getUseLengthEffectFunc = getUseLengthEffectFunc;
             this.performFailureMechanismSectionAssemblyFunc = performFailureMechanismSectionAssemblyFunc;
         }
-
-        protected override void UpdateInternalViewData()
-        {
-            UpdateVisibility();
-            base.UpdateInternalViewData();
-        }
-
+        
         protected override NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
@@ -130,10 +124,6 @@ namespace Riskeer.Common.Forms.Views
                 DataGridViewControl,
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
@@ -142,25 +132,13 @@ namespace Riskeer.Common.Forms.Views
                 DataGridViewControl,
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
-                DataGridViewControl,
-                nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
@@ -170,16 +148,6 @@ namespace Riskeer.Common.Forms.Views
         private IFailureMechanismSectionResultRowErrorProvider CreateErrorProvider()
         {
             return new FailureMechanismSectionResultRowErrorProvider();
-        }
-
-        private void UpdateVisibility()
-        {
-            bool useLengthEffect = getUseLengthEffectFunc(FailureMechanism);
-
-            DataGridViewControl.GetColumnFromIndex(initialFailureMechanismResultProfileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(refinedProfileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(profileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(sectionNIndex).Visible = useLengthEffect;
         }
     }
 }
