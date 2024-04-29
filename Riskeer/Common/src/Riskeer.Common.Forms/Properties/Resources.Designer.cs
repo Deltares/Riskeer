@@ -1681,15 +1681,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;afgeleid&gt;.
-        /// </summary>
-        public static string FailureMechanismSectionResultRow_Derived_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionResultRow_Derived_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_All_relevant_calculation_scenarios_must_have_valid_output {

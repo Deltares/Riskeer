@@ -1545,9 +1545,6 @@ faalkans per vak
     <data name="AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
   </data>
-    <data name="FailureMechanismSectionResultRow_Derived_DisplayName" xml:space="preserve">
-    <value>&lt;afgeleid&gt;</value>
-  </data>
     <data name="FailureProbability_must_not_be_NaN" xml:space="preserve">
       <value>Er moet een waarde worden ingevuld voor de faalkans.</value>
     </data>
