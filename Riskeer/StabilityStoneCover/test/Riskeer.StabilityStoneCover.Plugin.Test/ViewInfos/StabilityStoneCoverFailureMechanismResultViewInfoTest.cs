@@ -107,7 +107,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -137,7 +136,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -165,7 +163,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -189,7 +186,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -213,7 +209,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -239,7 +234,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
@@ -265,7 +259,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       fm => false,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call

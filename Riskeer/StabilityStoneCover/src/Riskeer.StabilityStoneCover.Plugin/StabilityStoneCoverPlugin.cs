@@ -131,7 +131,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                         failureMechanism,
                         assessmentSection,
                         StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        fm => false,
                         sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };

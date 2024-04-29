@@ -48,25 +48,22 @@ namespace Riskeer.Common.Forms.Views
         private const int sectionNIndex = 10;
         private const int assemblyGroupIndex = 11;
 
-        private readonly Func<TFailureMechanism, bool> getUseLengthEffectFunc;
         private readonly Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismResultView{TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to
-        /// show in the view.</param>
+        ///     show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="performFailureMechanismAssemblyFunc">Function to perform the assembly for a failure mechanism.</param>
-        /// <param name="getUseLengthEffectFunc">The <see cref="Func{T1,TResult}"/> to get whether to use the length effect.</param>
         /// <param name="performFailureMechanismSectionAssemblyFunc">Function to perform the assembly for a failure mechanism section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public NonAdoptableWithProfileProbabilityFailureMechanismResultView(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                             TFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection,
                                                                             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc,
-                                                                            Func<TFailureMechanism, bool> getUseLengthEffectFunc,
                                                                             Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
@@ -75,17 +72,11 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (getUseLengthEffectFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getUseLengthEffectFunc));
-            }
-
             if (performFailureMechanismSectionAssemblyFunc == null)
             {
                 throw new ArgumentNullException(nameof(performFailureMechanismSectionAssemblyFunc));
             }
 
-            this.getUseLengthEffectFunc = getUseLengthEffectFunc;
             this.performFailureMechanismSectionAssemblyFunc = performFailureMechanismSectionAssemblyFunc;
         }
         
