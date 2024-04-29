@@ -133,10 +133,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProbabilityRefinementType));
-
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));

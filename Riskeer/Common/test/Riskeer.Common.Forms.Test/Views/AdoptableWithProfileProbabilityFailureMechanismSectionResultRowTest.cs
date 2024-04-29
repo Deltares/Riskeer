@@ -52,10 +52,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultTypeIndex = 2,
                 InitialFailureMechanismResultSectionProbabilityIndex = 3,
                 FurtherAnalysisTypeIndex = 4,
-                ProbabilityRefinementTypeIndex = 5,
-                RefinedSectionProbabilityIndex = 6,
-                SectionProbabilityIndex = 7,
-                AssemblyGroupIndex = 8
+                RefinedSectionProbabilityIndex = 5,
+                SectionProbabilityIndex = 6,
+                AssemblyGroupIndex = 7
             };
 
         [Test]
@@ -175,7 +174,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
             Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
-            Assert.AreEqual(result.ProbabilityRefinementType, row.ProbabilityRefinementType);
             Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
             TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -186,12 +184,11 @@ namespace Riskeer.Common.Forms.Test.Views
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(7, columnStateDefinitions.Count);
+            Assert.AreEqual(6, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisTypeIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilityRefinementTypeIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
@@ -227,73 +224,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(ProbabilityRefinementType.Profile, double.NaN)]
-        [TestCase(ProbabilityRefinementType.Section, double.NaN)]
-        public void GivenRowWithApplyLengthEffectInSectionTrueAndProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(
-            ProbabilityRefinementType newValue, double newSectionValue)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
-            {
-                ProbabilityRefinementType = ProbabilityRefinementType.Both
-            };
-
-            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
-
-            // Precondition
-            Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
-
-            // When
-            row.ProbabilityRefinementType = newValue;
-
-            // Then
-            Assert.AreEqual(newSectionValue, row.RefinedSectionProbability);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(ProbabilityRefinementType.Profile)]
-        [TestCase(ProbabilityRefinementType.Section)]
-        public void GivenRowWithApplyLengthEffectInSectionFalseAndProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(
-            ProbabilityRefinementType newValue)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
-            {
-                ProbabilityRefinementType = ProbabilityRefinementType.Both
-            };
-
-            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
-                result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
-
-            // Precondition
-            Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
-
-            // When
-            row.ProbabilityRefinementType = newValue;
-
-            // Then
-            Assert.AreEqual(double.NaN, row.RefinedSectionProbability);
 
             mocks.VerifyAll();
         }
@@ -564,16 +494,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.FurtherAnalysisType = newValue,
                 result => result.FurtherAnalysisType,
-                newValue);
-        }
-
-        [Test]
-        public void ProbabilityRefinementType_SetNewValue_NotifyObserversAndPropertyChanged()
-        {
-            const ProbabilityRefinementType newValue = ProbabilityRefinementType.Both;
-            Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.ProbabilityRefinementType = newValue,
-                result => result.ProbabilityRefinementType,
                 newValue);
         }
 
@@ -862,8 +782,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 IsRelevant = isRelevant,
                 FurtherAnalysisType = FailureMechanismSectionResultFurtherAnalysisType.Executed,
-                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
-                ProbabilityRefinementType = ProbabilityRefinementType.Both
+                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual
             };
 
             // Call
@@ -878,8 +797,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.FurtherAnalysisTypeIndex], isRelevant);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                columnStateDefinitions[ConstructionProperties.ProbabilityRefinementTypeIndex], isRelevant);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
 
@@ -958,8 +875,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                columnStateDefinitions[ConstructionProperties.ProbabilityRefinementTypeIndex], expectedDisabled);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], expectedDisabled);
 

@@ -49,11 +49,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
         private const int furtherAnalysisTypeIndex = 4;
-        private const int probabilityRefinementTypeIndex = 5;
-        private const int refinedSectionProbabilityIndex = 6;
-        private const int sectionProbabilityIndex = 7;
-        private const int assemblyGroupIndex = 8;
-        private const int columnCount = 9;
+        private const int refinedSectionProbabilityIndex = 5;
+        private const int sectionProbabilityIndex = 6;
+        private const int assemblyGroupIndex = 7;
+        private const int columnCount = 8;
         private Form testForm;
 
         [SetUp]
@@ -111,7 +110,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[initialFailureMechanismResultTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[furtherAnalysisTypeIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[probabilityRefinementTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assemblyGroupIndex]);
@@ -121,7 +119,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Resultaat initieel mechanisme", dataGridView.Columns[initialFailureMechanismResultTypeIndex].HeaderText);
                 Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Vervolganalyse", dataGridView.Columns[furtherAnalysisTypeIndex].HeaderText);
-                Assert.AreEqual("Aanscherpen faalkans", dataGridView.Columns[probabilityRefinementTypeIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
@@ -131,7 +128,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[furtherAnalysisTypeIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[probabilityRefinementTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
@@ -173,7 +169,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultTypeIndex].Value);
                 Assert.AreEqual(probability, cells[initialFailureMechanismResultSectionProbabilityIndex].Value);
                 Assert.AreEqual(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, cells[furtherAnalysisTypeIndex].Value);
-                Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);

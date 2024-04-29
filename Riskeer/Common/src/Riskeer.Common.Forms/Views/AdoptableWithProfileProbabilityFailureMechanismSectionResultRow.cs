@@ -43,7 +43,6 @@ namespace Riskeer.Common.Forms.Views
         private readonly int initialFailureMechanismResultTypeIndex;
         private readonly int initialFailureMechanismResultSectionProbabilityIndex;
         private readonly int furtherAnalysisTypeIndex;
-        private readonly int probabilityRefinementTypeIndex;
         private readonly int refinedSectionProbabilityIndex;
         private readonly int sectionProbabilityIndex;
         private readonly int assemblyGroupIndex;
@@ -98,7 +97,6 @@ namespace Riskeer.Common.Forms.Views
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
             furtherAnalysisTypeIndex = constructionProperties.FurtherAnalysisTypeIndex;
-            probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
             sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
@@ -165,19 +163,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the probability refinement type.
-        /// </summary>
-        public ProbabilityRefinementType ProbabilityRefinementType
-        {
-            get => SectionResult.ProbabilityRefinementType;
-            set
-            {
-                SectionResult.ProbabilityRefinementType = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
@@ -237,17 +222,8 @@ namespace Riskeer.Common.Forms.Views
 
             if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
-                switch (SectionResult.ProbabilityRefinementType)
-                {
-                    case ProbabilityRefinementType.Section:
-                        ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                            (double) RefinedSectionProbability);
-                        break;
-                    case ProbabilityRefinementType.Both:
-                        ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
-                            (double) RefinedSectionProbability);
-                        break;
-                }
+                ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    (double) RefinedSectionProbability);
             }
         }
 
@@ -282,7 +258,6 @@ namespace Riskeer.Common.Forms.Views
             ColumnStateDefinitions.Add(initialFailureMechanismResultTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(furtherAnalysisTypeIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
@@ -303,7 +278,6 @@ namespace Riskeer.Common.Forms.Views
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisTypeIndex], !IsRelevant);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.Executed);
 
             if (!IsRelevant || FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
