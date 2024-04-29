@@ -85,12 +85,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             };
         }
 
-        protected override void UpdateInternalViewData()
-        {
-            UpdateVisibility();
-            base.UpdateInternalViewData();
-        }
-
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
@@ -142,10 +136,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
@@ -158,40 +148,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProbabilityRefinementType));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedProfileProbability));
-
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
-                DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
-
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
-        }
-
-        private void UpdateVisibility()
-        {
-            const bool useLengthEffect = false;
-
-            DataGridViewControl.GetColumnFromIndex(initialFailureMechanismResultProfileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(probabilityRefinementTypeIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(refinedProfileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(profileProbabilityIndex).Visible = useLengthEffect;
-            DataGridViewControl.GetColumnFromIndex(sectionNIndex).Visible = useLengthEffect;
         }
 
         private static GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
