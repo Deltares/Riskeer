@@ -48,17 +48,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private const int nameColumnIndex = 0;
         private const int isRelevantIndex = 1;
         private const int initialFailureMechanismResultTypeIndex = 2;
-        private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
-        private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
-        private const int furtherAnalysisTypeIndex = 5;
-        private const int probabilityRefinementTypeIndex = 6;
-        private const int refinedProfileProbabilityIndex = 7;
-        private const int refinedSectionProbabilityIndex = 8;
-        private const int profileProbabilityIndex = 9;
-        private const int sectionProbabilityIndex = 10;
-        private const int sectionNIndex = 11;
-        private const int assemblyGroupIndex = 12;
-        private const int columnCount = 13;
+        private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
+        private const int furtherAnalysisTypeIndex = 4;
+        private const int probabilityRefinementTypeIndex = 5;
+        private const int refinedSectionProbabilityIndex = 6;
+        private const int sectionProbabilityIndex = 7;
+        private const int assemblyGroupIndex = 8;
+        private const int columnCount = 9;
         private Form testForm;
 
         [SetUp]
@@ -112,43 +108,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[initialFailureMechanismResultTypeIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[furtherAnalysisTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[probabilityRefinementTypeIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedProfileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[profileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionNIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assemblyGroupIndex]);
 
                 Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
                 Assert.AreEqual("Resultaat initieel mechanisme", dataGridView.Columns[initialFailureMechanismResultTypeIndex].HeaderText);
-                Assert.AreEqual("Faalkans initieel\r\nmechanisme per doorsnede\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Vervolganalyse", dataGridView.Columns[furtherAnalysisTypeIndex].HeaderText);
                 Assert.AreEqual("Aanscherpen faalkans", dataGridView.Columns[probabilityRefinementTypeIndex].HeaderText);
-                Assert.AreEqual("Aangescherpte\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Rekenwaarde Nvak*\r\n[-]", dataGridView.Columns[sectionNIndex].HeaderText);
                 Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[isRelevantIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultTypeIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[furtherAnalysisTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[probabilityRefinementTypeIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[refinedProfileProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[profileProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[sectionNIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
             }
         }
@@ -187,16 +171,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
                 Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultTypeIndex].Value);
-                Assert.AreEqual(probability, cells[initialFailureMechanismResultProfileProbabilityIndex].Value);
                 Assert.AreEqual(probability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(section.Length),
                                 cells[initialFailureMechanismResultSectionProbabilityIndex].Value);
                 Assert.AreEqual(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, cells[furtherAnalysisTypeIndex].Value);
                 Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
-                Assert.AreEqual("<afgeleid>", cells[refinedProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
-                Assert.AreEqual("1/100", cells[profileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
-                Assert.AreEqual("10,00", cells[sectionNIndex].FormattedValue);
                 Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);
             }
         }
