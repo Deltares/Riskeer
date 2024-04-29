@@ -308,11 +308,6 @@ namespace Riskeer.Common.Forms.Views
             public int FurtherAnalysisTypeIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the probability refinement type index.
-            /// </summary>
-            public int ProbabilityRefinementTypeIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the refined section probability index.
             /// </summary>
             public int RefinedSectionProbabilityIndex { internal get; set; }

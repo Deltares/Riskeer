@@ -43,10 +43,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
         private const int furtherAnalysisTypeIndex = 4;
-        private const int probabilityRefinementTypeIndex = 5;
-        private const int refinedSectionProbabilityIndex = 6;
-        private const int sectionProbabilityIndex = 7;
-        private const int assemblyGroupIndex = 8;
+        private const int refinedSectionProbabilityIndex = 5;
+        private const int sectionProbabilityIndex = 6;
+        private const int assemblyGroupIndex = 7;
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -98,7 +97,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
                     FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
-                    ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
