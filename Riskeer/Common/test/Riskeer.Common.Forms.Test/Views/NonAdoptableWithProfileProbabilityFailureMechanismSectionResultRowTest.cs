@@ -50,15 +50,11 @@ namespace Riskeer.Common.Forms.Test.Views
             new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
             {
                 InitialFailureMechanismResultTypeIndex = 2,
-                InitialFailureMechanismResultProfileProbabilityIndex = 3,
-                InitialFailureMechanismResultSectionProbabilityIndex = 4,
-                FurtherAnalysisTypeIndex = 5,
-                RefinedProfileProbabilityIndex = 6,
-                RefinedSectionProbabilityIndex = 7,
-                ProfileProbabilityIndex = 8,
-                SectionProbabilityIndex = 9,
-                SectionNIndex = 10,
-                AssemblyGroupIndex = 11
+                InitialFailureMechanismResultSectionProbabilityIndex = 3,
+                FurtherAnalysisTypeIndex = 4,
+                RefinedSectionProbabilityIndex = 5,
+                SectionProbabilityIndex = 6,
+                AssemblyGroupIndex = 7
             };
 
         [Test]
