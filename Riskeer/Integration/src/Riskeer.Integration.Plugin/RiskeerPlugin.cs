@@ -440,18 +440,18 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
                 PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(fp => false, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
@@ -1121,7 +1121,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
+        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> 
+            CreateNonAdoptableFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> getFailureMechanismAssemblyResultFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
             where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
@@ -1140,9 +1141,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
-            Func<TFailureMechanism, bool> getUseLengthEffectFunc,
-            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>>
+            CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<TContext, TFailureMechanism>(Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
             where TFailureMechanism : class, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
