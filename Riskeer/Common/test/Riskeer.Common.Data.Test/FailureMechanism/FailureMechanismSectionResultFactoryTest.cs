@@ -80,19 +80,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void Create_TypeNonAdoptableWithProfileProbabilityFailureMechanismSectionResultAndWithSection_ReturnsExpectedFailureMechanismSectionResult()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            var sectionResult = FailureMechanismSectionResultFactory.Create<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(section);
-
-            // Assert
-            Assert.AreSame(section, sectionResult.Section);
-        }
-
-        [Test]
         public void Create_InvalidSectionResultType_ThrowsNotSupportedException()
         {
             // Setup

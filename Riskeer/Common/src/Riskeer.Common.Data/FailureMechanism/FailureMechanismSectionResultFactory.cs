@@ -39,9 +39,6 @@ namespace Riskeer.Common.Data.FailureMechanism
             },
             {
                 typeof(NonAdoptableFailureMechanismSectionResult), section => new NonAdoptableFailureMechanismSectionResult(section)
-            },
-            {
-                typeof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult), section => new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
             }
         };
 
