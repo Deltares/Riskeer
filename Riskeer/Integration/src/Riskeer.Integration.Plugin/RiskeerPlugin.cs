@@ -425,33 +425,34 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return CreateFailureMechanismViewInfo<MicrostabilityFailureMechanismContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<MicrostabilityFailureMechanismContext, MicrostabilityFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffOutwardsFailureMechanismContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffOutwardsFailureMechanismContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffInwardsFailureMechanismContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffInwardsFailureMechanismContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
             yield return CreateFailureMechanismViewInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateNonAdoptableFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
                 PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateNonAdoptableWithProfileProbabilityFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateNonAdoptableFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
@@ -699,28 +700,28 @@ namespace Riskeer.Integration.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverSlipOffInwardsFailureMechanismSectionsContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                GrassCoverSlipOffInwardsFailureMechanismSectionsContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverSlipOffOutwardsFailureMechanismSectionsContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                GrassCoverSlipOffOutwardsFailureMechanismSectionsContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MicrostabilityFailureMechanismSectionsContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                MicrostabilityFailureMechanismSectionsContext, MicrostabilityFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 PipingStructureFailureMechanismSectionsContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                SpecificFailureMechanismSectionsContext, SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                SpecificFailureMechanismSectionsContext, SpecificFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
@@ -1018,12 +1019,12 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
             {

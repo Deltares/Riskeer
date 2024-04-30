@@ -341,25 +341,25 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>));
+                    typeof(NonAdoptableFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>));
+                    typeof(NonAdoptableFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
+                    typeof(NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MicrostabilityFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>));
+                    typeof(NonAdoptableFailureMechanismResultView<MicrostabilityFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -371,7 +371,7 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(SpecificFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>));
+                    typeof(NonAdoptableFailureMechanismResultView<SpecificFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -406,19 +406,19 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(MicrostabilityFailureMechanismContext),
                     typeof(MicrostabilityFailureMechanism),
-                    typeof(StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+                    typeof(StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffOutwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffOutwardsFailureMechanism),
-                    typeof(StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+                    typeof(StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffInwardsFailureMechanism),
-                    typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+                    typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -430,7 +430,7 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(WaterPressureAsphaltCoverFailureMechanismContext),
                     typeof(WaterPressureAsphaltCoverFailureMechanism),
-                    typeof(StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+                    typeof(StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
