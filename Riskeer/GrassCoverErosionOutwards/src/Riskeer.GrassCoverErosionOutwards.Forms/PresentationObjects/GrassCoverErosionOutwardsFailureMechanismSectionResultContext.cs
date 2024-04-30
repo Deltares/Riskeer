@@ -29,7 +29,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
