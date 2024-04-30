@@ -65,11 +65,11 @@ namespace Riskeer.Storage.Core.Read
                                                                SpecificFailureMechanism specificFailureMechanism,
                                                                ReadConversionCollector collector)
         {
-            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in
-                     entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities))
+            foreach (NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity in
+                     entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = specificFailureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                NonAdoptableFailureMechanismSectionResult sectionResult = specificFailureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(sectionResult);
             }

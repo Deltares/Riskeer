@@ -279,13 +279,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -389,13 +389,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -417,7 +417,7 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.FailureMechanismSectionSourcePath);
 
             SectionResultTestHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
-                                                              .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                                              .SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities)
                                                               .Single(),
                                                         failureMechanism.SectionResults.Single());
         }
@@ -502,13 +502,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -612,13 +612,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2055,13 +2055,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2344,12 +2344,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -2591,12 +2591,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
