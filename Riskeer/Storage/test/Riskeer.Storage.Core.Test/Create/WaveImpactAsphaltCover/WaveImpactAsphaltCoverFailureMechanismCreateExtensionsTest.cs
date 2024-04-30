@@ -157,7 +157,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities
-                                     .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                     .SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities)
                                      .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }

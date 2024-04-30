@@ -100,14 +100,14 @@ namespace Riskeer.Storage.Core.Create
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
+            IEnumerable<NonAdoptableFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (NonAdoptableFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = sectionResult.Create();
+                NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity = sectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(sectionResult.Section);
-                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

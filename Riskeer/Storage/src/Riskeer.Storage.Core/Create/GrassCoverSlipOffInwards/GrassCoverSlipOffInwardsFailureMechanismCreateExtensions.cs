@@ -49,14 +49,14 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
+            IEnumerable<NonAdoptableFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

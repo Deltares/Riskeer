@@ -452,7 +452,7 @@ namespace Riskeer.Storage.Core.Test.Create
             int nrOfFailureMechanismSections = failureMechanism.Sections.Count();
             Assert.AreEqual(nrOfFailureMechanismSections, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(nrOfFailureMechanismSections, entity.FailureMechanismSectionEntities
-                                                                .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                                                .SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities)
                                                                 .Count());
             TestHelper.AssertAreEqualButNotSame(sectionsSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
