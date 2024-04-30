@@ -34,7 +34,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>,
                                                        ICalculatableFailureMechanism
     {
         /// <summary>

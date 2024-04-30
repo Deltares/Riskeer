@@ -38,7 +38,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
