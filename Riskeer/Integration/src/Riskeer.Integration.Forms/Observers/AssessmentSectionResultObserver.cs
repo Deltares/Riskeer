@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Forms.Observers
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult, GrassCoverErosionInwardsCalculation>(assessmentSection.GrassCoverErosionInwards);
 
             grassCoverErosionOutwardsObserver = CreateFailureMechanismObserver<GrassCoverErosionOutwardsFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.GrassCoverErosionOutwards);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.GrassCoverErosionOutwards);
 
             heightStructuresObserver = CreateCalculatableFailureMechanismObserver<HeightStructuresFailureMechanism,
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<HeightStructuresInput>>(assessmentSection.HeightStructures);
@@ -127,25 +127,25 @@ namespace Riskeer.Integration.Forms.Observers
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<StabilityPointStructuresInput>>(assessmentSection.StabilityPointStructures);
 
             stabilityStoneCoverObserver = CreateFailureMechanismObserver<StabilityStoneCoverFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.StabilityStoneCover);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.StabilityStoneCover);
 
             waveImpactAsphaltCoverObserver = CreateFailureMechanismObserver<WaveImpactAsphaltCoverFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.WaveImpactAsphaltCover);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.WaveImpactAsphaltCover);
 
             grassCoverSlipOffInwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffInwardsFailureMechanism,
                 NonAdoptableFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffInwards);
 
             grassCoverSlipOffOutwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffOutwardsFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffOutwards);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffOutwards);
 
             microstabilityObserver = CreateFailureMechanismObserver<MicrostabilityFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.Microstability);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.Microstability);
 
             pipingStructureObserver = CreateFailureMechanismObserver<PipingStructureFailureMechanism,
                 NonAdoptableFailureMechanismSectionResult>(assessmentSection.PipingStructure);
 
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
+                NonAdoptableFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
 
             specificFailureMechanismsObserver = new Observer(() =>
             {
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Forms.Observers
         private void CreateSpecificFailureMechanismObservers()
         {
             IEnumerable<Observer> observers = assessmentSection.SpecificFailureMechanisms.Select(CreateFailureMechanismObserver<SpecificFailureMechanism,
-                                                                                                     NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
+                                                                                                     NonAdoptableFailureMechanismSectionResult>);
             specificFailureMechanismObservers.AddRange(observers);
         }
 
