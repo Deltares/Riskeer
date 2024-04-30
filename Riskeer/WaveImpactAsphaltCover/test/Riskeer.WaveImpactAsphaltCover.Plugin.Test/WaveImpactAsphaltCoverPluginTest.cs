@@ -131,8 +131,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext),
-                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
+                    typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>),
+                    typeof(NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

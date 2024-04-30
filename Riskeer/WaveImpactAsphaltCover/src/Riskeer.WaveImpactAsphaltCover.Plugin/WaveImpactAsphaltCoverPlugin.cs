@@ -113,8 +113,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new RiskeerViewInfo<
                 WaveImpactAsphaltCoverFailureMechanismSectionResultContext,
-                IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
-                NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>>(() => Gui)
+                IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>,
+                NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
@@ -124,12 +124,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     var failureMechanism = (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism;
                     IAssessmentSection assessmentSection = context.AssessmentSection;
 
-                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                    return new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
                         assessmentSection,
-                        WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
                 }
             };
 
@@ -272,8 +271,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
@@ -294,7 +293,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private static bool CloseFailureMechanismResultViewForData(
-            NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism> view, object dataToCloseFor)
+            NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism> view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 

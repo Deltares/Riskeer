@@ -27,7 +27,6 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -49,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
         }
 
         [TearDown]
@@ -63,7 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -107,10 +106,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,10 +133,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -162,10 +159,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -185,10 +181,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -208,10 +203,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new WaveImpactAsphaltCoverFailureMechanism());
@@ -233,10 +227,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -259,10 +252,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -291,7 +283,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>>(view);
+            Assert.IsInstanceOf<NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

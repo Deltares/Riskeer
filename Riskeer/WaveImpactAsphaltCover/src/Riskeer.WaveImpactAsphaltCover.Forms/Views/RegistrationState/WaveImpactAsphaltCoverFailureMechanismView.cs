@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
@@ -41,7 +42,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> assemblyResultMapLayer;
+        private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableFailureMechanismSectionResult> assemblyResultMapLayer;
 
         private Observer failureMechanismObserver;
 
@@ -72,8 +73,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                FailureMechanism, sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
+            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableFailureMechanismSectionResult>(
+                FailureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
