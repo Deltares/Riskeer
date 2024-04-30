@@ -339,24 +339,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResultType, actualItem.InitialFailureMechanismResultType);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisType, actualItem.FurtherAnalysisType);
-                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
-        }
-
         private static void AssertFailureMechanismSectionResults(IEnumerable<NonAdoptableFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<NonAdoptableFailureMechanismSectionResult> actualSectionResults)
         {

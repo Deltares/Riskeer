@@ -505,22 +505,6 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-
-            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
-                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-                sectionResult.FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
-                sectionResult.RefinedProfileProbability = random.NextDouble();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
-            }
-        }
-
         #region Specific FailureMechanism
 
         private static void SetSpecificFailureMechanisms(IEnumerable<SpecificFailureMechanism> specificFailureMechanisms)

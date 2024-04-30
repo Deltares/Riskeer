@@ -110,33 +110,6 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
             sectionResult.SetCommonFailureMechanismSectionResultProperties(entity);
         }
 
-        /// <summary>
-        /// Reads the <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
-        /// to update an <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> used to update 
-        /// the <paramref name="sectionResult"/>.</param>
-        /// <param name="sectionResult">The target of the read operation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity,
-                                  NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            sectionResult.InitialFailureMechanismResultType = (NonAdoptableInitialFailureMechanismResultType) entity.InitialFailureMechanismResultType;
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
-            sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
-            sectionResult.SetCommonFailureMechanismSectionResultProperties(entity);
-        }
-
         private static void SetCommonFailureMechanismSectionResultProperties(this FailureMechanismSectionResult result,
                                                                              IFailureMechanismSectionResultEntity entity)
         {
