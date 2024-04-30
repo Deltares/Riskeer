@@ -29,10 +29,10 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResultContext"/>.
@@ -43,7 +43,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+        public StabilityStoneCoverFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
                                                                        IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }

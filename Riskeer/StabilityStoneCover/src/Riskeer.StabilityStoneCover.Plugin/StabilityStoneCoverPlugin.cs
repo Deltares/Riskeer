@@ -115,8 +115,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
 
             yield return new RiskeerViewInfo<StabilityStoneCoverFailureMechanismSectionResultContext,
-                IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
-                NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>>(() => Gui)
+                IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>,
+                NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
@@ -126,12 +126,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     var failureMechanism = (StabilityStoneCoverFailureMechanism) context.FailureMechanism;
                     IAssessmentSection assessmentSection = context.AssessmentSection;
 
-                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                    return new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
                         assessmentSection,
-                        StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
                 }
             };
 
@@ -271,8 +270,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
@@ -293,7 +292,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism> view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism> view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 

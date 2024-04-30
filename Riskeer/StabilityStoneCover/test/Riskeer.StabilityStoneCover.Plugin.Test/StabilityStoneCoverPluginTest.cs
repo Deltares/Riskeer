@@ -115,8 +115,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityStoneCoverFailureMechanismSectionResultContext),
-                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>));
+                    typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>),
+                    typeof(NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

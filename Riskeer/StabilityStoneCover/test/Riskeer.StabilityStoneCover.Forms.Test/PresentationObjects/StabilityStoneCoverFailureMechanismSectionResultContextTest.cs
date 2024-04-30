@@ -47,7 +47,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }
