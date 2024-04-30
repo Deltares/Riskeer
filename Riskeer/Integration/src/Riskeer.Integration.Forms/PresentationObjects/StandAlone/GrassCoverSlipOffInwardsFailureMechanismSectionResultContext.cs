@@ -29,21 +29,21 @@ using Riskeer.Integration.Data.StandAlone;
 namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
-        /// of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to wrap.</param>
+        /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverSlipOffInwardsFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverSlipOffInwardsFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+        public GrassCoverSlipOffInwardsFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
                                                                             IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }

@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new SpecificFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }

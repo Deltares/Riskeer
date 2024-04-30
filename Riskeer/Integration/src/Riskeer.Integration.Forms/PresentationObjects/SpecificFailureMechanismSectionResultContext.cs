@@ -28,23 +28,23 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="SpecificFailureMechanism"/>.
     /// </summary>
     public class SpecificFailureMechanismSectionResultContext
-        : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
-        /// of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to wrap.</param>
+        /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="SpecificFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SpecificFailureMechanismSectionResultContext(
-            IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+            IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
             SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
