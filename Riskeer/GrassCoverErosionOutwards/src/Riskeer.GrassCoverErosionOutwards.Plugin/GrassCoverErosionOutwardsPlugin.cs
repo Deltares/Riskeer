@@ -133,8 +133,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new RiskeerViewInfo<
                 GrassCoverErosionOutwardsFailureMechanismSectionResultContext,
-                IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
-                NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>>(() => Gui)
+                IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>,
+                NonAdoptableFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
@@ -144,11 +144,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     var failureMechanism = (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism;
                     IAssessmentSection assessmentSection = context.AssessmentSection;
 
-                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
+                    return new NonAdoptableFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
                         assessmentSection,
-                        GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism);
                 }
             };
 
@@ -279,8 +279,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         #region ViewInfos
@@ -294,7 +294,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism> view,
+        private static bool CloseFailureMechanismResultViewForData(NonAdoptableFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism> view,
                                                                    object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
