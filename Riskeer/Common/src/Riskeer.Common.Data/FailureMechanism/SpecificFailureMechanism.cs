@@ -29,10 +29,10 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// This class is the implementation for a specific failure mechanism.
     /// </summary>
-    public class SpecificFailureMechanism : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class SpecificFailureMechanism : Observable, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
-        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailureMechanism"/>.
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             NotInAssemblyComments = new Comment();
 
             AssemblyResult = new FailureMechanismAssemblyResult();
-            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
         }
 
         public string Name { get; set; }
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public bool InAssembly { get; set; }
 
-        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Microstabiliteit", failureMechanism.Name);
             Assert.AreEqual("STMI", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

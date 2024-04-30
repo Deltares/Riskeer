@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Grasbekleding afschuiven binnentalud", failureMechanism.Name);
             Assert.AreEqual("GABI", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

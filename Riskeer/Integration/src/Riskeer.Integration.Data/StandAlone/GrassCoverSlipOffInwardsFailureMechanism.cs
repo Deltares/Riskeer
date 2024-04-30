@@ -28,7 +28,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
