@@ -35,37 +35,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     public static class WaveImpactAsphaltCoverFailureMechanismAssemblyFactory
     {
         /// <summary>
-        /// Assembles the section based on the input arguments.
-        /// </summary>
-        /// <param name="sectionResult">The section result to assemble.</param>
-        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> the section result belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                                   WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                                   IAssessmentSection assessmentSection)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, false);
-        }
-
-        /// <summary>
         /// Assembles the failure mechanism based on its input arguments.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> to assemble.</param>
@@ -87,8 +56,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
-                AssembleSection(sr, failureMechanism, assessmentSection);
+            Func<NonAdoptableFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                 failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
