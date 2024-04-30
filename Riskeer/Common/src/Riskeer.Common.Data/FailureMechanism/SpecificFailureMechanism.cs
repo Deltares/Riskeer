@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             foreach (FailureMechanismSection section in sections)
             {
-                sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
+                sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
             }
         }
 

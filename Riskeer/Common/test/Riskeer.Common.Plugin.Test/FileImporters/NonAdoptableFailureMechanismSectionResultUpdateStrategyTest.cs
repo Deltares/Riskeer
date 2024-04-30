@@ -36,7 +36,7 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
     {
         protected override NonAdoptableFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
         protected override NonAdoptableFailureMechanismSectionResult CreateConfiguredSectionResult()
