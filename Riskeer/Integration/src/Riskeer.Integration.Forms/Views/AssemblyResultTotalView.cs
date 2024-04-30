@@ -35,7 +35,6 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Forms.Observers;
@@ -232,7 +231,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 return;
             }
-            
+
             EnableRefreshButton();
             AssessmentSection.AreFailureMechanismsCorrelated = checkBox.Checked;
         }
@@ -353,13 +352,11 @@ namespace Riskeer.Integration.Forms.Views
 
         private FailureMechanismAssemblyResultRow CreatePipingStructureFailureMechanismAssemblyResultRow()
         {
-            PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
-            return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                pipingStructure, () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, AssessmentSection));
+            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure);
         }
 
         private FailureMechanismAssemblyResultRow CreateStandAloneFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
                 failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));
