@@ -457,28 +457,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="581c8bba-28bd-4281-a8b2-2e6f69d9276c"
-			name="SelectState"
-			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="stateName"
-					datasourceid="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
-					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
-					variablename="stateName">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="5f54013e-c380-4b22-a591-eb123e11cbd0"
 			name="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
 			ref="3314c841-2400-467a-8ba2-57b55ddfeec2"
@@ -550,43 +528,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="63c12419-02aa-4ec0-a910-4ad1214f588a"
-			name="LengthEffects(trajectType=Dijk/Duin)">
-				<parameters>
-					<param
-					mask="False"
-					name="trajectLengthValue"
-					value="">
-					</param>
-					<param
-					mask="False"
-					name="pathToRefLineInPE"
-					value="Traject>Referentielijn">
-					</param>
-					<param
-					mask="False"
-					name="pathToLengthInPropPanel"
-					value="Algemeen>Lengte">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="65699a3b-a6bc-4727-bd0e-f832127575ce"
-			name="ReadTrajectLength">
-				<parameters>
-					<param
-					mask="False"
-					name="nameItemReferenceLineInProjectExplorer"
-					value="Referentielijn">
-					</param>
-					<param
-					mask="False"
-					name="nameLengthParameterInPropertiesPanel"
-					value="Lengte* [m]">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="70fde034-6e0d-4477-a610-4f610d49d6b7"
 			name="ReportToPDFModule"
@@ -625,17 +566,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="71111e7d-4681-4c61-914f-88f0063c31de"
-			name="SelectStateTraject">
-				<parameters>
-					<param
-					mask="False"
-					name="stateName"
-					value="@TR">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="75e453f0-f8b3-4939-99d7-8ba2f843583b"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -786,17 +716,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
-			name="SelectStateRegistryAssembly">
-				<parameters>
-					<param
-					mask="False"
-					name="stateName"
-					value="@RA">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="ab18eed6-f947-49b0-b36b-4d08cb042815"
 			name="CloseViewCentralPanelWithFocus"
@@ -908,28 +827,6 @@
 					</param>
 				</parameters>
 			</testcase>
-			<testmodule
-			id="b9cfc135-0d45-450f-ae34-b91cc213f873"
-			name="SelectState"
-			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="stateName"
-					datasourceid="71111e7d-4681-4c61-914f-88f0063c31de"
-					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
-					variablename="stateName">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="baadb165-b61c-4de8-af1f-30465183b113"
 			name="ValidateSectionCategoryBoundary"
@@ -1101,26 +998,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="dcdc9001-a1b0-4392-ac79-d7f64813cf66"
-			name="GetValueParameterInPropertiesPanelGivenPath"
-			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToLengthInPropPanel"
-					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
-					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="trajectLengthValue"
-					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
-					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
-					variablename="valueOfElement">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"
 			name="ValidateCategoriesBoundaries">
@@ -1168,20 +1045,6 @@
 			id="e87f41bd-72f5-4337-a46e-fdeb50c9c39e"
 			name="teardown">
 			</teardown>
-			<testmodule
-			id="ead7501b-3fdf-4b05-9b09-0d1943df0961"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToRefLineInPE"
-					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -1352,38 +1215,6 @@
 						<smartfoldernode
 						id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3"
 						name="b)LengthEffectParameters">
-							<smartfoldernode
-							id="63c12419-02aa-4ec0-a910-4ad1214f588a"
-							name="LengthEffects(trajectType=Dijk/Duin)">
-								<smartfoldernode
-								id="71111e7d-4681-4c61-914f-88f0063c31de"
-								name="SelectStateTraject">
-									<testmodule
-									id="b9cfc135-0d45-450f-ae34-b91cc213f873"
-									name="SelectState">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="65699a3b-a6bc-4727-bd0e-f832127575ce"
-								name="ReadTrajectLength">
-									<testmodule
-									id="ead7501b-3fdf-4b05-9b09-0d1943df0961"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="dcdc9001-a1b0-4392-ac79-d7f64813cf66"
-									name="GetValueParameterInPropertiesPanelGivenPath">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
-								name="SelectStateRegistryAssembly">
-									<testmodule
-									id="581c8bba-28bd-4281-a8b2-2e6f69d9276c"
-									name="SelectState">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
 							<smartfoldernode
 							id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
 							name="ValidationParameter_a">
