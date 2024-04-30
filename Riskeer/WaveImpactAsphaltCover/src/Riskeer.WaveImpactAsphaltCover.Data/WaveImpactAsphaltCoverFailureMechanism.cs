@@ -35,7 +35,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>,
                                                           ICalculatableFailureMechanism
     {
         /// <summary>
