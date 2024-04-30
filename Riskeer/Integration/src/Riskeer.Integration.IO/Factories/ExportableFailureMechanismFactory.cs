@@ -126,7 +126,7 @@ namespace Riskeer.Integration.IO.Factories
         public static ExportableSpecificFailureMechanism CreateExportableSpecificFailureMechanism(
             IdentifierGenerator idGenerator, ExportableModelRegistry registry, SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<SpecificFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, SpecificFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
+            Func<NonAdoptableFailureMechanismSectionResult, SpecificFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
         {
             if (idGenerator == null)
             {
