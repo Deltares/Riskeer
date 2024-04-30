@@ -27,7 +27,6 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -49,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
         }
 
         [TearDown]
@@ -63,7 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -106,10 +105,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,10 +133,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -163,10 +160,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -189,10 +185,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -215,10 +210,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
-                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -245,7 +239,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>>(view);
+            Assert.IsInstanceOf<NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

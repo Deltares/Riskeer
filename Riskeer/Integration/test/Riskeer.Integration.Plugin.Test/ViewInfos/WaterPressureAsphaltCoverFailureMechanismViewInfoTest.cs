@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism,
-                           NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+                           NonAdoptableFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,18 +161,18 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
+                NonAdoptableFailureMechanismSectionResult>>(view);
 
             var failureMechanismView = (StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
+                NonAdoptableFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
+        private static StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult> CreateView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            return new StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }
