@@ -147,13 +147,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "sections/File/Path";
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
 
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities = new List<NonAdoptableFailureMechanismSectionResultEntity>
             {
                 sectionResultEntity
             };

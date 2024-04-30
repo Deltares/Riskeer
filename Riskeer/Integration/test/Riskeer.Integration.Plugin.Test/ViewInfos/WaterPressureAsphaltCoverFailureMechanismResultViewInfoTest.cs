@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
