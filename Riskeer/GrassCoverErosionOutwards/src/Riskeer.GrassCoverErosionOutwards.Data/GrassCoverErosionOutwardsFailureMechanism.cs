@@ -34,7 +34,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>,
                                                              ICalculatableFailureMechanism
     {
         /// <summary>
