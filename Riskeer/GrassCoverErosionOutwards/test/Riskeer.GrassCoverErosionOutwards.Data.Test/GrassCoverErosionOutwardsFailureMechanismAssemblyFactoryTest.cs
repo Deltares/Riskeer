@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
@@ -30,173 +29,15 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryTest
     {
-        #region AssembleSection
-
-        [Test]
-        public void AssembleSection_SectionResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            void Call() => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("sectionResult", exception.ParamName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleSection_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleSection_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            void Call() => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void AssembleSection_WithInput_SetsInputOnCalculator()
-        {
-            // Setup
-            var random = new Random(21);
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
-            {
-                IsRelevant = random.NextBoolean(),
-                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.Manual,
-                ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
-                RefinedSectionProbability = random.NextDouble()
-            };
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
-
-                // Assert
-                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
-                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
-                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
-
-                Assert.AreEqual(sectionResult.IsRelevant, calculatorInput.IsRelevant);
-                Assert.IsTrue(calculatorInput.HasProbabilitySpecified);
-
-                Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, calculatorInput.InitialSectionProbability);
-                Assert.AreEqual(sectionResult.FurtherAnalysisType, calculatorInput.FurtherAnalysisType);
-                Assert.AreEqual(sectionResult.RefinedSectionProbability, calculatorInput.RefinedSectionProbability);
-            }
-        }
-
-        [Test]
-        public void AssembleSection_CalculatorRan_ReturnsExpectedOutput()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyResultWrapper result = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(
-                    sectionResult, failureMechanism, assessmentSection);
-
-                // Assert
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
-            }
-        }
-
-        [Test]
-        public void AssembleSection_CalculatorThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                void Call() => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(
-                    sectionResult, failureMechanism, assessmentSection);
-
-                // Assert
-                var exception = Assert.Throws<AssemblyException>(Call);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
-            }
-        }
-
-        #endregion
-
         #region AssembleFailureMechanism
 
         [Test]
