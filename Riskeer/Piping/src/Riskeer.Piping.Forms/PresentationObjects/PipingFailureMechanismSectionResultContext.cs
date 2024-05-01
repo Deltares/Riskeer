@@ -29,10 +29,10 @@ using Riskeer.Piping.Data;
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="AdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultContext"/>.
@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+        public PipingFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
                                                           IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
