@@ -39,8 +39,8 @@ namespace Riskeer.Piping.Forms.Views
     /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// in the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
-        AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, PipingFailureMechanism>
+    public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
+        AdoptableFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
@@ -56,12 +56,12 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="AdoptableFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
+        public PipingFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism)
@@ -99,14 +99,14 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult)
         {
-            return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
+            return new AdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, AssessmentSection),
                 CreateErrorProvider(sectionResult),
                 () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
+                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
