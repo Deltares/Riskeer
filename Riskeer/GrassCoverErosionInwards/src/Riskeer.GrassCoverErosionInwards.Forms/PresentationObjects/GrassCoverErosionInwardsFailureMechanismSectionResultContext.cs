@@ -29,10 +29,10 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="AdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultContext"/>.
@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+        public GrassCoverErosionInwardsFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
                                                                             IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }

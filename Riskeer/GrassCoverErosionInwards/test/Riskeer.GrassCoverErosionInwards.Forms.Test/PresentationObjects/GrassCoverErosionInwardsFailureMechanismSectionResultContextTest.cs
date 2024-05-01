@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }
