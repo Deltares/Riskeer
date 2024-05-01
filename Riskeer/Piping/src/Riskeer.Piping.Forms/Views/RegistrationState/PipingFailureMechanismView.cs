@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Forms.Views.RegistrationState
     /// </summary>
     public class PipingFailureMechanismView : CalculationsState.PipingFailureMechanismView
     {
-        private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput> assemblyResultMapLayer;
+        private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableFailureMechanismSectionResult, PipingInput> assemblyResultMapLayer;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Forms.Views.RegistrationState
         {
             base.CreateMapData();
 
-            assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput>(
+            assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableFailureMechanismSectionResult, PipingInput>(
                 FailureMechanism, sr => PipingFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
             MapDataCollection.Insert(4, assemblyResultMapLayer.MapData);
         }
