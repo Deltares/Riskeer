@@ -170,7 +170,7 @@ namespace Riskeer.Integration.IO.Factories
         {
             var exportableFailureMechanisms = new List<ExportableFailureMechanism>();
 
-            AddGenericFailureMechanismWhenInAssembly<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            AddGenericFailureMechanismWhenInAssembly<PipingFailureMechanism, AdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.Piping, assessmentSection,
                 PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 PipingFailureMechanismAssemblyFactory.AssembleSection);
