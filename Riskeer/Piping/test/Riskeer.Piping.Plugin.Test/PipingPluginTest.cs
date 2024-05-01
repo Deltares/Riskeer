@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingFailureMechanismSectionResultContext),
-                    typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
                     typeof(PipingFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

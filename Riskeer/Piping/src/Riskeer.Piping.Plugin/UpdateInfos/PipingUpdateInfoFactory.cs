@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                     context.AssessmentSection.ReferenceLine,
                     filePath,
                     new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
-                                                                    new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy()),
+                                                                    new AdoptableFailureMechanismSectionResultUpdateStrategy()),
                     new UpdateMessageProvider()),
                 VerifyUpdates = context =>
                 {

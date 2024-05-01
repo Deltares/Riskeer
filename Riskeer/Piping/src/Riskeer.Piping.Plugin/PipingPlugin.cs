@@ -265,7 +265,7 @@ namespace Riskeer.Piping.Plugin
 
             yield return new RiskeerViewInfo<
                 PipingFailureMechanismSectionResultContext,
-                IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
