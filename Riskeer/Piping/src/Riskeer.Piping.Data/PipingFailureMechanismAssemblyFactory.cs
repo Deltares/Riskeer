@@ -26,7 +26,6 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.Piping.Data
 {
@@ -45,7 +44,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
         public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            AdoptableFailureMechanismSectionResult sectionResult,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -67,10 +66,7 @@ namespace Riskeer.Piping.Data
             IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy =
                 PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, failureMechanism, assessmentSection);
 
-            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
-                sectionResult, assessmentSection, calculateProbabilityStrategy,
-                true,
-                failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, calculateProbabilityStrategy);
         }
 
         /// <summary>
@@ -95,7 +91,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+            Func<AdoptableFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
                 AssembleSection(sr, failureMechanism, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(

@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
@@ -112,14 +112,11 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.IsRelevant = random.NextBoolean();
             sectionResult.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
             sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
             sectionResult.FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
-            sectionResult.ProbabilityRefinementType = ProbabilityRefinementType.Both;
-            sectionResult.RefinedProfileProbability = random.NextDouble();
             sectionResult.RefinedSectionProbability = random.NextDouble();
 
             var assessmentSection = new AssessmentSectionStub();
@@ -141,10 +138,8 @@ namespace Riskeer.Piping.Data.Test
                 Assert.AreEqual(sectionResult.IsRelevant, calculatorInput.IsRelevant);
                 Assert.IsTrue(calculatorInput.HasProbabilitySpecified);
 
-                Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultProfileProbability, calculatorInput.InitialProfileProbability);
                 Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, calculatorInput.InitialSectionProbability);
                 Assert.AreEqual(sectionResult.FurtherAnalysisType, calculatorInput.FurtherAnalysisType);
-                Assert.AreEqual(sectionResult.RefinedProfileProbability, calculatorInput.RefinedProfileProbability);
                 Assert.AreEqual(sectionResult.RefinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
         }
@@ -158,7 +153,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -185,7 +180,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             var assessmentSection = new AssessmentSectionStub();
 
