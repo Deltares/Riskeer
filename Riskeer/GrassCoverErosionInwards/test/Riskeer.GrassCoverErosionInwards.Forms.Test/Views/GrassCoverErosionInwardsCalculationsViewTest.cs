@@ -670,8 +670,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Then
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>().ToArray();
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            AdoptableFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            AdoptableFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Func<GrassCoverErosionInwardsCalculationScenario, IEnumerable<Segment2D>, bool> intersectionFunc =
                 (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments);

@@ -81,8 +81,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
-                    AdoptableWithProfileProbabilityFailureMechanismSectionResultRow,
+                Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
+                    AdoptableFailureMechanismSectionResultRow,
                     GrassCoverErosionInwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
