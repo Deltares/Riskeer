@@ -216,7 +216,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.IsNotNull(entity);
             ICollection<FailureMechanismSectionEntity> failureMechanismSectionEntities = entity.FailureMechanismSectionEntities;
             Assert.AreEqual(1, failureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
                                                               .Count());
             Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities)
                                                               .Count());
