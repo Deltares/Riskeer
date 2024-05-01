@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contributions of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetInitialFailureMechanismResultProbability(this AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+        public static double GetInitialFailureMechanismResultProbability(this AdoptableFailureMechanismSectionResult sectionResult,
                                                                          IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
