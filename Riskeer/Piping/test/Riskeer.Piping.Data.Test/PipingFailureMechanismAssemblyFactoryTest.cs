@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Data.Test
                 PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
+                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
                 Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
