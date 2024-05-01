@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                             ICalculatableFailureMechanism
     {
         /// <summary>

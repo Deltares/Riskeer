@@ -42,7 +42,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", failureMechanism.Name);
             Assert.AreEqual("GEKB", failureMechanism.Code);
