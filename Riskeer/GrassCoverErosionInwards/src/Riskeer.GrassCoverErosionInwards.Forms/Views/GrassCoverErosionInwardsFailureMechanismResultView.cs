@@ -147,7 +147,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         }
 
         private static GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            AdoptableFailureMechanismSectionResult sectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(

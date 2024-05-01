@@ -30,17 +30,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
-        private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
+        private readonly AdoptableFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> to get the probabilities for.</param>
         /// <param name="calculationScenarios">All the <see cref="GrassCoverErosionInwardsCalculationScenario"/> of the failure mechanism. </param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            AdoptableFailureMechanismSectionResult sectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
