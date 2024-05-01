@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismSectionResultContext), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
