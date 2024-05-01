@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int sectionProbabilityIndex;
         private readonly int assemblyGroupIndex;
 
-        private readonly Func<double> calculateInitialFailureMechanismResultProbabilityFunc;
+        private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc;
 
@@ -55,8 +55,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
-        /// <param name="calculateInitialFailureMechanismResultProbabilityFunc">The <see cref="Func{TResult}"/>
-        /// to calculate the initial mechanism result probability.</param>
+        /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
         /// the failure mechanism section result row.</param>
         /// <param name="performAssemblyFunc">Function to perform the assembly.</param>
@@ -64,15 +63,15 @@ namespace Riskeer.Common.Forms.Views
         /// <see cref="AdoptableFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult,
-                                                         Func<double> calculateInitialFailureMechanismResultProbabilityFunc,
+                                                         IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                          IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                          Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
-            if (calculateInitialFailureMechanismResultProbabilityFunc == null)
+            if (calculateProbabilityStrategy == null)
             {
-                throw new ArgumentNullException(nameof(calculateInitialFailureMechanismResultProbabilityFunc));
+                throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
             if (failureMechanismSectionResultRowErrorProvider == null)
@@ -90,7 +89,7 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            this.calculateInitialFailureMechanismResultProbabilityFunc = calculateInitialFailureMechanismResultProbabilityFunc;
+            this.calculateProbabilityStrategy = calculateProbabilityStrategy;
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.performAssemblyFunc = performAssemblyFunc;
 
@@ -140,7 +139,7 @@ namespace Riskeer.Common.Forms.Views
         public double InitialFailureMechanismResultSectionProbability
         {
             get => SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
-                       ? calculateInitialFailureMechanismResultProbabilityFunc()
+                       ? calculateProbabilityStrategy.CalculateSectionProbability()
                        : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
             {
@@ -205,7 +204,7 @@ namespace Riskeer.Common.Forms.Views
                 if (SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
                 {
                     ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetCalculatedProbabilityValidationError(
-                        calculateInitialFailureMechanismResultProbabilityFunc);
+                        calculateProbabilityStrategy.CalculateSectionProbability);
                 }
 
                 if (SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Manual)

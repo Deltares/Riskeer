@@ -94,7 +94,7 @@ namespace Riskeer.Common.Forms.Views
 
             return new AdoptableFailureMechanismSectionResultRow(
                 sectionResult,
-                () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios),
+                CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
                 () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, AssessmentSection),
                 new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
@@ -157,6 +157,14 @@ namespace Riskeer.Common.Forms.Views
             return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
+        }
+        
+        private static StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput> CreateCalculateStrategy(
+            AdoptableFailureMechanismSectionResult sectionResult,
+            IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
+        {
+            return new StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput>(
+                sectionResult, calculationScenarios);
         }
     }
 }
