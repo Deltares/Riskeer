@@ -107,12 +107,13 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="sectionResult">The section result to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
-        /// <param name="calculateProbabilityFunc">The <see cref="Func{TResult}"/> to calculate the probability with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
+        /// <param name="calculateProbabilityStrategy">The <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/>
+        /// to assemble with.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
-            AdoptableFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection, Func<double> calculateProbabilityFunc)
+            AdoptableFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
+            IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy)
         {
             if (sectionResult == null)
             {
@@ -124,14 +125,14 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (calculateProbabilityFunc == null)
+            if (calculateProbabilityStrategy == null)
             {
-                throw new ArgumentNullException(nameof(calculateProbabilityFunc));
+                throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
             double initialFailureMechanismResultSectionProbability =
                 sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
-                    ? calculateProbabilityFunc()
+                    ? calculateProbabilityStrategy.CalculateSectionProbability()
                     : sectionResult.ManualInitialFailureMechanismResultSectionProbability;
 
             bool hasProbabilitySpecified = sectionResult.InitialFailureMechanismResultType != AdoptableInitialFailureMechanismResultType.NoFailureProbability;
@@ -142,7 +143,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             return PerformAssembly(input);
         }
-        
+
         /// <summary>
         /// Assembles a failure mechanism section result based on the input arguments. 
         /// </summary>
