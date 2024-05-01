@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// </summary>
     public class SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
-        private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
+        private readonly AdoptableFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -40,12 +40,12 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> to get the probabilities for.</param>
         /// <param name="calculationScenarios">All the <see cref="SemiProbabilisticPipingCalculationScenario"/> of the failure mechanism. </param>
         /// <param name="failureMechanism">The failure mechanism the calculation scenarios belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+        public SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                                 IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
                                                                                                 PipingFailureMechanism failureMechanism,
                                                                                                 IAssessmentSection assessmentSection)

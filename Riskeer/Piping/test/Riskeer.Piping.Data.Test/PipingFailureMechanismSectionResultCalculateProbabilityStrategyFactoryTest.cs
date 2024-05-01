@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(
@@ -85,8 +85,6 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = CreateScenarioConfigurationForSection(section);
-
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -182,11 +180,6 @@ namespace Riskeer.Piping.Data.Test
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             }, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic);
-        }
-
-        private static PipingScenarioConfigurationPerFailureMechanismSection CreateScenarioConfigurationForSection(FailureMechanismSection section)
-        {
-            return new PipingScenarioConfigurationPerFailureMechanismSection(section);
         }
     }
 }

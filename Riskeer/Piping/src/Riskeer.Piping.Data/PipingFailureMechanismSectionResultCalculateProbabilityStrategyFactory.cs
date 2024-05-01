@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the strategy with.</param>
         /// <returns>An <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+        public static IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                                          PipingFailureMechanism failureMechanism,
                                                                                                          IAssessmentSection assessmentSection)
         {
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Data
 
         private static ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateProbabilisticCalculateStrategy(
             PipingFailureMechanism failureMechanism,
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+            AdoptableFailureMechanismSectionResult sectionResult)
         {
             return new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>());
@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Data
 
         private static SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateSemiProbabilisticCalculateStrategy(
             PipingFailureMechanism failureMechanism,
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            AdoptableFailureMechanismSectionResult sectionResult,
             IAssessmentSection assessmentSection)
         {
             return new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
