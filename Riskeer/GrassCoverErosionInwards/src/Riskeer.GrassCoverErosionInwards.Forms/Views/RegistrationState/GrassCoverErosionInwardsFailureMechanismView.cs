@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private CalculatableFailureMechanismSectionResultsMapLayer<GrassCoverErosionInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, GrassCoverErosionInwardsInput> assemblyResultMapLayer;
+        private CalculatableFailureMechanismSectionResultsMapLayer<GrassCoverErosionInwardsFailureMechanism, AdoptableFailureMechanismSectionResult, GrassCoverErosionInwardsInput> assemblyResultMapLayer;
 
         private Observer failureMechanismObserver;
 
@@ -72,7 +72,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<GrassCoverErosionInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, GrassCoverErosionInwardsInput>(
+            assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<GrassCoverErosionInwardsFailureMechanism, AdoptableFailureMechanismSectionResult, GrassCoverErosionInwardsInput>(
                 FailureMechanism, sr => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);

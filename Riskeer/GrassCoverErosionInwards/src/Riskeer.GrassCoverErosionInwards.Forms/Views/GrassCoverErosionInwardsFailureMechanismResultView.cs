@@ -37,8 +37,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
-        AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
+        AdoptableFailureMechanismSectionResultRow, GrassCoverErosionInwardsFailureMechanism>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
@@ -54,11 +54,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of
-        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to show in the view.</param>
+        /// <see cref="AdoptableFailureMechanismSectionResult"/> to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
+        public GrassCoverErosionInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                   GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism)
@@ -80,19 +80,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             };
         }
 
-        protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+            AdoptableFailureMechanismSectionResult sectionResult)
         {
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = FailureMechanism.Calculations
                                                                                                  .OfType<GrassCoverErosionInwardsCalculationScenario>()
                                                                                                  .ToArray();
 
-            return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
+            return new AdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
                 () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
+                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
