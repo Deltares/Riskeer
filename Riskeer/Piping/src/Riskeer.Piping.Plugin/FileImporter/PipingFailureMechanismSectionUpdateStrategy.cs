@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
     public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<
-        AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        AdoptableFailureMechanismSectionResult>
     {
         private readonly PipingFailureMechanism failureMechanism;
 
@@ -44,12 +44,12 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionUpdateStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to update the sections for.</param>
-        /// <param name="sectionResultUpdateStrategy">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy"/>
+        /// <param name="sectionResultUpdateStrategy">The <see cref="AdoptableFailureMechanismSectionResultUpdateStrategy"/>
         /// to use when updating the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismSectionUpdateStrategy(
             PipingFailureMechanism failureMechanism,
-            AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
+            AdoptableFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
             : base(failureMechanism, sectionResultUpdateStrategy)
         {
             this.failureMechanism = failureMechanism;

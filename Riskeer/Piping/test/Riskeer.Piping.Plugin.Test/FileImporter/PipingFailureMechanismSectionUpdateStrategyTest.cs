@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Call
             var updateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                new PipingFailureMechanism(), new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                new PipingFailureMechanism(), new AdoptableFailureMechanismSectionResultUpdateStrategy());
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(updateStrategy);
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
             string sourcePath = TestHelper.GetScratchPadPath();
             FailureMechanismSection[] sections =
             {
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             // Given
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
 
             FailureMechanismSection[] sections =
             {
@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new ProbabilisticPipingCalculationScenario()
             });
 
-            var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+            var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
 
             // Call
             IEnumerable<IObservable> affectedObjects = replaceStrategy.DoPostUpdateActions();
