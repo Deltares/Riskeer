@@ -175,7 +175,7 @@ namespace Riskeer.Integration.IO.Factories
                 PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 PipingFailureMechanismAssemblyFactory.AssembleSection);
 
-            AddGenericFailureMechanismWhenInAssembly<GrassCoverErosionInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            AddGenericFailureMechanismWhenInAssembly<GrassCoverErosionInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.GrassCoverErosionInwards, assessmentSection,
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection);

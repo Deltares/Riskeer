@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Forms.Observers
             duneErosionObserver = CreateFailureMechanismObserver<DuneErosionFailureMechanism, NonAdoptableFailureMechanismSectionResult>(assessmentSection.DuneErosion);
 
             grassCoverErosionInwardsObserver = CreateCalculatableFailureMechanismObserver<GrassCoverErosionInwardsFailureMechanism,
-                AdoptableWithProfileProbabilityFailureMechanismSectionResult, GrassCoverErosionInwardsCalculation>(assessmentSection.GrassCoverErosionInwards);
+                AdoptableFailureMechanismSectionResult, GrassCoverErosionInwardsCalculation>(assessmentSection.GrassCoverErosionInwards);
 
             grassCoverErosionOutwardsObserver = CreateFailureMechanismObserver<GrassCoverErosionOutwardsFailureMechanism,
                 NonAdoptableFailureMechanismSectionResult>(assessmentSection.GrassCoverErosionOutwards);
