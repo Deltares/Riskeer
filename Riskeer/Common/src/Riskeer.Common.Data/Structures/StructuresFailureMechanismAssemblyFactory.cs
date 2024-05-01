@@ -68,8 +68,8 @@ namespace Riskeer.Common.Data.Structures
                                                                                                      .OfType<StructuresCalculationScenario<TStructuresInput>>()
                                                                                                      .ToArray();
 
-            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
-                sectionResult, assessmentSection, () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios));
+            var calculateStrategy = new StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput>(sectionResult, calculationScenarios);
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, calculateStrategy);
         }
     }
 }
