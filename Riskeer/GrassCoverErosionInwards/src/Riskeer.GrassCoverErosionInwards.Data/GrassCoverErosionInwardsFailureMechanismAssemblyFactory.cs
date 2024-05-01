@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                    GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                                    IAssessmentSection assessmentSection)
         {
@@ -68,8 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
-                new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios),
-                false, 1.0);
+                new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios));
         }
 
         /// <summary>
@@ -94,7 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+            Func<AdoptableFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
                 AssembleSection(sr, failureMechanism, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(

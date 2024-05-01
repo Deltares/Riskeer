@@ -196,7 +196,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
@@ -213,7 +213,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -232,13 +232,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section)
             {
                 IsRelevant = random.NextBoolean(),
                 InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
-                ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
-                ProbabilityRefinementType = ProbabilityRefinementType.Both,
                 RefinedSectionProbability = random.NextDouble()
             };
 
@@ -275,7 +273,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -302,7 +300,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             var assessmentSection = new AssessmentSectionStub();
 
