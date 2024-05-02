@@ -113,35 +113,35 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.Name));
+                nameof(AdoptableFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.IsRelevant));
+                nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
+                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisType));
+                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
+                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
+                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
+                nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
         private MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
