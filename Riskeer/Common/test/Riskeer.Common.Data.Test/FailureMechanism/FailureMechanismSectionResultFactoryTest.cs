@@ -52,20 +52,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreSame(section, sectionResult.Section);
         }
-
-        [Test]
-        public void Create_TypeAdoptableWithProfileProbabilityFailureMechanismSectionResultAndWithSection_ReturnsExpectedFailureMechanismSectionResult()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            var sectionResult = FailureMechanismSectionResultFactory.Create<AdoptableWithProfileProbabilityFailureMechanismSectionResult>(section);
-
-            // Assert
-            Assert.AreSame(section, sectionResult.Section);
-        }
-
+        
         [Test]
         public void Create_TypeNonAdoptableFailureMechanismSectionResultAndWithSection_ReturnsExpectedFailureMechanismSectionResult()
         {
