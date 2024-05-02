@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// <summary>
     /// Model for performing macro stability inwards calculations.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                          ICalculatableFailureMechanism
     {
         /// <summary>

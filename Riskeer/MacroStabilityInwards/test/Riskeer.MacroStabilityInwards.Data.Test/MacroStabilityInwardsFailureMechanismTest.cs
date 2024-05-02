@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
