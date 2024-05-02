@@ -120,45 +120,6 @@ namespace Riskeer.Common.Data.AssemblyTool
                 isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability);
         }
 
-        private static FailureMechanismSectionWithProfileProbabilityAssemblyInput CreateInput(
-            IAssessmentSection assessmentSection,
-            bool isRelevant, AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
-            double initialProfileProbability, double initialSectionProbability,
-            FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
-            double refinedProfileProbability, double refinedSectionProbability,
-            ProbabilityRefinementType probabilityRefinementType, double sectionN)
-        {
-            if (probabilityRefinementType == ProbabilityRefinementType.Profile)
-            {
-                refinedSectionProbability = Math.Min(1.0, refinedProfileProbability * sectionN);
-            }
-
-            if (probabilityRefinementType == ProbabilityRefinementType.Section)
-            {
-                refinedProfileProbability = refinedSectionProbability / sectionN;
-            }
-
-            bool hasProbabilitySpecified = initialFailureMechanismResultType != AdoptableInitialFailureMechanismResultType.NoFailureProbability;
-
-            return CreateInput(assessmentSection, isRelevant, hasProbabilitySpecified,
-                               initialProfileProbability, initialSectionProbability,
-                               furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
-        }
-
-        private static FailureMechanismSectionWithProfileProbabilityAssemblyInput CreateInput(
-            IAssessmentSection assessmentSection,
-            bool isRelevant, bool hasProbabilitySpecified,
-            double initialProfileProbability, double initialSectionProbability,
-            FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
-            double refinedProfileProbability, double refinedSectionProbability)
-        {
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                failureMechanismContribution.MaximumAllowableFloodingProbability, failureMechanismContribution.SignalFloodingProbability,
-                isRelevant, hasProbabilitySpecified, initialProfileProbability, initialSectionProbability,
-                furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
-        }
-
         /// <summary>
         /// Performs the assembly based on the <see cref="FailureMechanismSectionAssemblyInput"/>.
         /// </summary>

@@ -177,9 +177,6 @@
   <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen</value>
   </data>
-  <data name="N_Value_should_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde voor 'N' moet in het bereik {0} liggen.</value>
-  </data>
   <data name="FailureProbability_Value_needs_to_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
   </data>
@@ -384,16 +381,7 @@
   <data name="InitialFailureMechanismResultType_NoFailureProbability_DisplayName" xml:space="preserve">
     <value>Geen faalkans</value>
   </data>
-    <data name="ProbabilityRefinementType_Profile_DisplayName" xml:space="preserve">
-    <value>Per doorsnede</value>
-  </data>
-    <data name="ProbabilityRefinementType_Section_DisplayName" xml:space="preserve">
-    <value>Per vak</value>
-  </data>
-    <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
-    <value>Beide</value>
-  </data>
-    <data name="FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismAssemblyProbabilityResultTypeP1_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen o.b.v. onafhankelijke vakken</value>
   </data>
   <data name="FailureMechanismAssemblyProbabilityResultTypeP2_DisplayName" xml:space="preserve">

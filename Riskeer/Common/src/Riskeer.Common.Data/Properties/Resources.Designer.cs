@@ -656,15 +656,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in het bereik {0} liggen..
-        /// </summary>
-        public static string N_Value_should_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("N_Value_should_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde van de norm moet in het bereik {0} liggen..
         /// </summary>
         public static string Norm_should_be_in_Range_0_ {
@@ -715,33 +706,6 @@ namespace Riskeer.Common.Data.Properties {
         public static string ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beide.
-        /// </summary>
-        public static string ProbabilityRefinementType_Both_DisplayName {
-            get {
-                return ResourceManager.GetString("ProbabilityRefinementType_Both_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Per doorsnede.
-        /// </summary>
-        public static string ProbabilityRefinementType_Profile_DisplayName {
-            get {
-                return ResourceManager.GetString("ProbabilityRefinementType_Profile_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Per vak.
-        /// </summary>
-        public static string ProbabilityRefinementType_Section_DisplayName {
-            get {
-                return ResourceManager.GetString("ProbabilityRefinementType_Section_DisplayName", resourceCulture);
             }
         }
         
