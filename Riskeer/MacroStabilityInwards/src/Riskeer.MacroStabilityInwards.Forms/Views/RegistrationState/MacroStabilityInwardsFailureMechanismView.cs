@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, MacroStabilityInwardsInput> assemblyResultsMapLayer;
+        private CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult, MacroStabilityInwardsInput> assemblyResultsMapLayer;
 
         private Observer failureMechanismObserver;
 
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, MacroStabilityInwardsInput>(
+            assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult, MacroStabilityInwardsInput>(
                 FailureMechanism, sr => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
