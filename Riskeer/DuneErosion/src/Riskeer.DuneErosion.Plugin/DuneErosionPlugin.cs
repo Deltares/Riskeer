@@ -35,6 +35,7 @@ using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
@@ -185,7 +186,7 @@ namespace Riskeer.DuneErosion.Plugin
                     context.WrappedData,
                     (DuneErosionFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection,
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism)
+                    FailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
             yield return new RiskeerViewInfo<HydraulicLoadsStateFailureMechanismContext, HydraulicLoadsStateFailureMechanismView>(() => Gui)

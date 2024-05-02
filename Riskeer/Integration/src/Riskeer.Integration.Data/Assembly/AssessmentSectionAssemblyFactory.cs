@@ -31,7 +31,6 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
@@ -173,7 +172,7 @@ namespace Riskeer.Integration.Data.Assembly
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaveImpactAsphaltCover, assessmentSection,
                                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.DuneErosion, assessmentSection,
-                                   DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.PipingStructure, assessmentSection,
                                    FailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverSlipOffInwards, assessmentSection,

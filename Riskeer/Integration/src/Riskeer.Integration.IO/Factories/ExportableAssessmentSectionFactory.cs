@@ -241,7 +241,7 @@ namespace Riskeer.Integration.IO.Factories
 
             AddGenericFailureMechanismWhenInAssembly<DuneErosionFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.DuneErosion, assessmentSection,
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 (sr, fm, ass) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, ass));
 
             exportableFailureMechanisms.AddRange(

@@ -327,7 +327,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             DuneErosionFailureMechanism duneErosion = AssessmentSection.DuneErosion;
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                duneErosion, () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, AssessmentSection));
+                duneErosion, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateMicrostabilityFailureMechanismAssemblyResultRow()
