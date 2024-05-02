@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
+                new AdoptableFailureMechanismSectionResult(section), Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);

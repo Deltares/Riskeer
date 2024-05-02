@@ -36,7 +36,7 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// The view for the <see cref="AdoptableFailureMechanismSectionResult"/>
     /// in the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,

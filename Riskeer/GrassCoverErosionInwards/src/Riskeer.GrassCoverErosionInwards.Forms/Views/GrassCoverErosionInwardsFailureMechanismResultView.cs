@@ -34,7 +34,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// The view for the <see cref="AdoptableFailureMechanismSectionResult"/>
     /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,

@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, scenario => null);

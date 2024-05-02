@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             void Call() => new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), null, new PipingFailureMechanism(), assessmentSection);
+                new AdoptableFailureMechanismSectionResult(section), null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

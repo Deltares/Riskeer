@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            var sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
 
             var context = new GrassCoverErosionInwardsFailureMechanismSectionResultContext(
                 sectionResults, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
