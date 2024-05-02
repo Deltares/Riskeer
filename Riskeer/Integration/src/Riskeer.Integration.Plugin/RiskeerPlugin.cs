@@ -73,7 +73,6 @@ using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -447,7 +446,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
