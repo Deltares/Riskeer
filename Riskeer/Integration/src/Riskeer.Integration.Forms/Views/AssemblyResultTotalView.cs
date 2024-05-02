@@ -320,7 +320,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = AssessmentSection.GrassCoverErosionOutwards;
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                grassCoverErosionOutwards, () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards, AssessmentSection));
+                grassCoverErosionOutwards, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateDuneErosionFailureMechanismAssemblyResultRow()

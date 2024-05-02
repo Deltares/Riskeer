@@ -206,7 +206,7 @@ namespace Riskeer.Integration.IO.Factories
 
             AddGenericFailureMechanismWhenInAssembly<GrassCoverErosionOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.GrassCoverErosionOutwards, assessmentSection,
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 (sr, fm, ass) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, ass));
 
             AddGenericFailureMechanismWhenInAssembly<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
