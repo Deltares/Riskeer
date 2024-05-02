@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Observers
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<HeightStructuresInput>>(assessmentSection.HeightStructures);
 
             macroStabilityInwardsObserver = CreateCalculatableFailureMechanismObserver<MacroStabilityInwardsFailureMechanism,
-                AdoptableWithProfileProbabilityFailureMechanismSectionResult, MacroStabilityInwardsCalculationScenario>(assessmentSection.MacroStabilityInwards);
+                AdoptableFailureMechanismSectionResult, MacroStabilityInwardsCalculationScenario>(assessmentSection.MacroStabilityInwards);
 
             pipingObserver = CreateCalculatableFailureMechanismObserver<PipingFailureMechanism,
                 AdoptableFailureMechanismSectionResult, SemiProbabilisticPipingCalculationScenario>(assessmentSection.Piping);

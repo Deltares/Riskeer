@@ -180,7 +180,7 @@ namespace Riskeer.Integration.IO.Factories
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection);
 
-            AddGenericFailureMechanismWhenInAssembly<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            AddGenericFailureMechanismWhenInAssembly<MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.MacroStabilityInwards, assessmentSection,
                 MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection);
