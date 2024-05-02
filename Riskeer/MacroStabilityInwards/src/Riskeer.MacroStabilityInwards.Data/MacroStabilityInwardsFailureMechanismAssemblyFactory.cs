@@ -26,7 +26,6 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -44,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                    MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                                    IAssessmentSection assessmentSection)
         {
@@ -69,9 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Data
 
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
-                new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios, failureMechanism),
-                true,
-                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+                new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios, failureMechanism));
         }
 
         /// <summary>
@@ -96,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+            Func<AdoptableFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
                 AssembleSection(sr, failureMechanism, assessmentSection);
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(

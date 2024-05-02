@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
@@ -89,7 +89,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -108,15 +108,12 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section)
             {
                 IsRelevant = random.NextBoolean(),
                 InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
-                ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
-                ProbabilityRefinementType = ProbabilityRefinementType.Both,
-                RefinedProfileProbability = random.NextDouble(),
                 RefinedSectionProbability = random.NextDouble()
             };
 
@@ -132,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
+                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
                 Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
@@ -140,10 +137,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 Assert.AreEqual(sectionResult.IsRelevant, calculatorInput.IsRelevant);
                 Assert.IsTrue(calculatorInput.HasProbabilitySpecified);
 
-                Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultProfileProbability, calculatorInput.InitialProfileProbability);
                 Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, calculatorInput.InitialSectionProbability);
                 Assert.AreEqual(sectionResult.FurtherAnalysisType, calculatorInput.FurtherAnalysisType);
-                Assert.AreEqual(sectionResult.RefinedProfileProbability, calculatorInput.RefinedProfileProbability);
                 Assert.AreEqual(sectionResult.RefinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
         }
@@ -153,7 +148,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
@@ -177,7 +172,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
