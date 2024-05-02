@@ -51,25 +51,6 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
-        /// Sets random section results for a <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
-        /// </summary>
-        /// <param name="sectionResult">The failure mechanism section result to set.</param>
-        public static void SetSectionResult(AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
-            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<AdoptableInitialFailureMechanismResultType>());
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
-            sectionResult.RefinedSectionProbability = random.NextDouble();
-
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
-            sectionResult.RefinedProfileProbability = random.NextDouble();
-        }
-
-        /// <summary>
         /// Sets random section results for a <see cref="NonAdoptableFailureMechanismSectionResultEntity"/>. 
         /// </summary>
         /// <param name="sectionResult">The failure mechanism section result to set.</param>
@@ -103,27 +84,7 @@ namespace Riskeer.Storage.Core.TestUtil
             Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
             Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
         }
-
-        /// <summary>
-        /// Asserts whether the data of the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
-        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> have equal values.
-        /// </summary>
-        /// <param name="sectionResultEntity">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
-        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.</param>
-        public static void AssertSectionResult(AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity,
-                                               AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
-        }
-
+        
         /// <summary>
         /// Asserts whether the data of the <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> and
         /// <see cref="NonAdoptableFailureMechanismSectionResult"/> have equal values.

@@ -58,34 +58,6 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
         }
 
         /// <summary>
-        /// Reads the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
-        /// to update an <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> used to update 
-        /// the <paramref name="sectionResult"/>.</param>
-        /// <param name="sectionResult">The target of the read operation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity,
-                                  AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            sectionResult.InitialFailureMechanismResultType = (AdoptableInitialFailureMechanismResultType) entity.InitialFailureMechanismResultType;
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
-            sectionResult.ProbabilityRefinementType = (ProbabilityRefinementType) entity.ProbabilityRefinementType;
-            sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
-            sectionResult.SetCommonFailureMechanismSectionResultProperties(entity);
-        }
-
-        /// <summary>
         /// Reads the <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> and use the information
         /// to update a <see cref="NonAdoptableFailureMechanismSectionResult"/>.
         /// </summary>

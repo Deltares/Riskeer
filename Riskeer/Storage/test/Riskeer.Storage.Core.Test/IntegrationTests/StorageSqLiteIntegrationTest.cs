@@ -305,25 +305,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      AssertSpecificFailureMechanism);
         }
 
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResultType, actualItem.InitialFailureMechanismResultType);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisType, actualItem.FurtherAnalysisType);
-                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
-                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
-        }
-
         private static void AssertFailureMechanismSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<AdoptableFailureMechanismSectionResult> actualSectionResults)
         {
