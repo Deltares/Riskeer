@@ -28,13 +28,13 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 
-namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class FailureMechanismAssemblyFactoryTest
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, Enumerable.Single<FailureMechanismSectionAssemblyResult>(failureMechanismAssemblyCalculator.SectionAssemblyResultsInput));
             }
         }
 

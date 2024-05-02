@@ -22,12 +22,11 @@
 using System;
 using System.Linq;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
+namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
     /// Factory for assembling assembly results for a failure mechanism.
