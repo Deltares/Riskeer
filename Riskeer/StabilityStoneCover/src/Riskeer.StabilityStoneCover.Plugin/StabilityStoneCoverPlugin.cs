@@ -31,6 +31,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -130,7 +131,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                         context.WrappedData,
                         failureMechanism,
                         assessmentSection,
-                        StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+                        FailureMechanismAssemblyFactory.AssembleFailureMechanism);
                 }
             };
 

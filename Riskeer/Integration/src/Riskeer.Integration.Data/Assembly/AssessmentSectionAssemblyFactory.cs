@@ -37,7 +37,6 @@ using Riskeer.Integration.Data.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.Data.Assembly
@@ -167,7 +166,7 @@ namespace Riskeer.Integration.Data.Assembly
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.GrassCoverErosionOutwards, assessmentSection,
                                    FailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.StabilityStoneCover, assessmentSection,
-                                   StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
+                                   FailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaveImpactAsphaltCover, assessmentSection,
                                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism);
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.DuneErosion, assessmentSection,

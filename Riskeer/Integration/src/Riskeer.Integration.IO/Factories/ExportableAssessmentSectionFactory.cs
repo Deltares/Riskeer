@@ -191,7 +191,7 @@ namespace Riskeer.Integration.IO.Factories
 
             AddGenericFailureMechanismWhenInAssembly<StabilityStoneCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 idGenerator, registry, exportableFailureMechanisms, assessmentSection.StabilityStoneCover, assessmentSection,
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 (sr, fm, ass) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, ass));
 
             AddGenericFailureMechanismWhenInAssembly<WaveImpactAsphaltCoverFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
