@@ -26,10 +26,8 @@ using Core.Common.Base;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 
 namespace Riskeer.Common.Forms.Views
@@ -39,20 +37,11 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
-    public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
+    public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : AdoptableFailureMechanismResultView<
+        TFailureMechanism, StructuresCalculationScenario<TStructuresInput>, TStructuresInput>
         where TFailureMechanism : IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
-        private const int initialFailureMechanismResultTypeIndex = 2;
-        private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
-        private const int furtherAnalysisTypeIndex = 4;
-        private const int refinedSectionProbabilityIndex = 5;
-        private const int sectionProbabilityIndex = 6;
-        private const int assemblyGroupIndex = 7;
-
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="StructuresFailureMechanismResultView{TFailureMechanism,TStructuresInput}"/>.
         /// </summary>
@@ -66,105 +55,28 @@ namespace Riskeer.Common.Forms.Views
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
                                                     Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
-            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc,
+                   (sr, fm, ass) => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sr, fm, ass)) {}
+
+        protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                              IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
         {
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateInternalViewData,
-                cg => cg.Children.Concat(cg.Children
-                                           .OfType<StructuresCalculationScenario<TStructuresInput>>()
-                                           .Select(scenario => scenario.InputParameters)
-                                           .Cast<object>()))
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateInternalViewData,
-                c => c.Children)
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
+            return new StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput>(sectionResult, calculationScenarios);
         }
 
-        protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult)
-        {
-            StructuresCalculationScenario<TStructuresInput>[] calculationScenarios = FailureMechanism.Calculations
-                                                                                                     .OfType<StructuresCalculationScenario<TStructuresInput>>()
-                                                                                                     .ToArray();
-
-            return new AdoptableFailureMechanismSectionResultRow(
-                sectionResult,
-                CreateCalculateStrategy(sectionResult, calculationScenarios),
-                CreateErrorProvider(sectionResult, calculationScenarios),
-                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, AssessmentSection),
-                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
-                {
-                    InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
-                    InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
-                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
-                    SectionProbabilityIndex = sectionProbabilityIndex,
-                    AssemblyGroupIndex = assemblyGroupIndex
-                });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            calculationInputsObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.Name));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
-        }
-
-        private static FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<StructuresCalculationScenario<TStructuresInput>> CreateErrorProvider(
-            FailureMechanismSectionResult sectionResult, IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
+        protected override IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                                       IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
         {
             return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
         }
-        
-        private static StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput> CreateCalculateStrategy(
-            AdoptableFailureMechanismSectionResult sectionResult,
-            IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
+
+        protected override IEnumerable<StructuresCalculationScenario<TStructuresInput>> GetCalculationScenarios(AdoptableFailureMechanismSectionResult sectionResult)
         {
-            return new StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<TStructuresInput>(
-                sectionResult, calculationScenarios);
+            return FailureMechanism.Calculations
+                                   .OfType<StructuresCalculationScenario<TStructuresInput>>()
+                                   .ToArray();
         }
     }
 }

@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -39,18 +37,8 @@ namespace Riskeer.Piping.Forms.Views
     /// The view for the <see cref="AdoptableFailureMechanismSectionResult"/>
     /// in the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
-        AdoptableFailureMechanismSectionResultRow, PipingFailureMechanism>
+    public class PipingFailureMechanismResultView : AdoptableFailureMechanismResultView<PipingFailureMechanism, IPipingCalculationScenario<PipingInput>, PipingInput>
     {
-        private const int initialFailureMechanismResultTypeIndex = 2;
-        private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
-        private const int furtherAnalysisTypeIndex = 4;
-        private const int refinedSectionProbabilityIndex = 5;
-        private const int sectionProbabilityIndex = 6;
-        private const int assemblyGroupIndex = 7;
-
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
 
         /// <summary>
@@ -64,24 +52,8 @@ namespace Riskeer.Piping.Forms.Views
         public PipingFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
-            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism, PipingFailureMechanismAssemblyFactory.AssembleSection)
         {
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateInternalViewData,
-                cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<IPipingCalculationScenario<PipingInput>>()
-                                                   .Select(c => c.InputParameters)))
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateInternalViewData,
-                c => c.Children)
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-
             scenarioConfigurationsPerSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
                 UpdateInternalViewData,
                 sc => sc)
@@ -92,76 +64,31 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            calculationInputsObserver.Dispose();
-            calculationGroupObserver.Dispose();
             scenarioConfigurationsPerSectionObserver.Dispose();
 
             base.Dispose(disposing);
         }
 
-        protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult)
+        protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                              IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
         {
-            return new AdoptableFailureMechanismSectionResultRow(
-                sectionResult,
-                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, AssessmentSection),
-                CreateErrorProvider(sectionResult),
-                () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
-                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
-                {
-                    InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
-                    InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
-                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
-                    SectionProbabilityIndex = sectionProbabilityIndex,
-                    AssemblyGroupIndex = assemblyGroupIndex
-                });
+            return PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, AssessmentSection);
         }
 
-        protected override void AddDataGridColumns()
+        protected override IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                                       IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
         {
-            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.Name));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
-        }
-
-        private IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(FailureMechanismSectionResult sectionResult)
-        {
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
-            IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios = FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
-                                                                                            ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                                            : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
-
             return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<IPipingCalculationScenario<PipingInput>>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+        }
+
+        protected override IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationScenarios(AdoptableFailureMechanismSectionResult sectionResult)
+        {
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
+            return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
+                       ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                       : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
         }
     }
 }

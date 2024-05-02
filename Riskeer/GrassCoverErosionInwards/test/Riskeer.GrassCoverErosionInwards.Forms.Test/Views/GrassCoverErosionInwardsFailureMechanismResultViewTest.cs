@@ -81,57 +81,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
-                    AdoptableFailureMechanismSectionResultRow,
-                    GrassCoverErosionInwardsFailureMechanism>>(view);
+                Assert.IsInstanceOf<AdoptableFailureMechanismResultView<GrassCoverErosionInwardsFailureMechanism,
+                    GrassCoverErosionInwardsCalculationScenario,
+                    GrassCoverErosionInwardsInput>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenFormWithGrassCoverErosionInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                // Then
-                DataGridView dataGridView = GetDataGridView();
-
-                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
-
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[initialFailureMechanismResultTypeIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[furtherAnalysisTypeIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assemblyGroupIndex]);
-
-                Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
-                Assert.AreEqual("Resultaat initieel mechanisme", dataGridView.Columns[initialFailureMechanismResultTypeIndex].HeaderText);
-                Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Vervolganalyse", dataGridView.Columns[furtherAnalysisTypeIndex].HeaderText);
-                Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
-
-                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[isRelevantIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultTypeIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[furtherAnalysisTypeIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
-            }
         }
 
         [Test]

@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
@@ -37,19 +35,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// The view for the <see cref="AdoptableFailureMechanismSectionResult"/>
     /// in the <see cref="MacroStabilityInwardsFailureMechanism"/>.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
-        AdoptableFailureMechanismSectionResultRow, MacroStabilityInwardsFailureMechanism>
+    public class MacroStabilityInwardsFailureMechanismResultView : AdoptableFailureMechanismResultView<MacroStabilityInwardsFailureMechanism,
+        MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>
     {
-        private const int initialFailureMechanismResultTypeIndex = 2;
-        private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
-        private const int furtherAnalysisTypeIndex = 4;
-        private const int refinedSectionProbabilityIndex = 5;
-        private const int sectionProbabilityIndex = 6;
-        private const int assemblyGroupIndex = 7;
-
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
@@ -61,102 +49,28 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection,
+                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection) {}
+
+        protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                              IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
         {
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateInternalViewData,
-                cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                   .Select(c => c.InputParameters)))
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateInternalViewData,
-                c => c.Children)
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
+            return new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios, FailureMechanism);
         }
 
-        protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult)
-        {
-            MacroStabilityInwardsCalculationScenario[] calculationScenarios = FailureMechanism.Calculations
-                                                                                              .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                              .ToArray();
-            return new AdoptableFailureMechanismSectionResultRow(
-                sectionResult,
-                CreateCalculateStrategy(sectionResult, calculationScenarios),
-                CreateErrorProvider(sectionResult, calculationScenarios),
-                () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
-                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
-                {
-                    InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
-                    InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
-                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
-                    SectionProbabilityIndex = sectionProbabilityIndex,
-                    AssemblyGroupIndex = assemblyGroupIndex
-                });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            calculationInputsObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.Name));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisType));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
-                DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
-        }
-
-        private MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
-            AdoptableFailureMechanismSectionResult sectionResult,
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
-        {
-            return new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculationScenarios, FailureMechanism);
-        }
-
-        private static FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<MacroStabilityInwardsCalculationScenario> CreateErrorProvider(
-            FailureMechanismSectionResult sectionResult, IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
+        protected override IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                                       IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
         {
             return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<MacroStabilityInwardsCalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+        }
+
+        protected override IEnumerable<MacroStabilityInwardsCalculationScenario> GetCalculationScenarios(AdoptableFailureMechanismSectionResult sectionResult)
+        {
+            return FailureMechanism.Calculations
+                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                   .ToArray();
         }
     }
 }
