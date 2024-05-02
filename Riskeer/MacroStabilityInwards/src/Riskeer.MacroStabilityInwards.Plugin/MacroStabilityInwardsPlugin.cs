@@ -244,8 +244,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
+                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                new AdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -266,7 +266,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new RiskeerViewInfo<
                 MacroStabilityInwardsFailureMechanismSectionResultContext,
-                IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

@@ -191,7 +191,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MacroStabilityInwardsFailureMechanismSectionResultContext),
-                    typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
                     typeof(MacroStabilityInwardsFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
