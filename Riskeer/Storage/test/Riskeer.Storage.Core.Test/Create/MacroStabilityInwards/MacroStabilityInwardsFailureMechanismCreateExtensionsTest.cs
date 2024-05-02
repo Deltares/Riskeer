@@ -266,7 +266,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities
-                                     .SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                     .SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
                                      .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
