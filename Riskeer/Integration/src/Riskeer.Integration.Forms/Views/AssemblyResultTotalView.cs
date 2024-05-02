@@ -30,9 +30,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
@@ -42,8 +40,6 @@ using Riskeer.Integration.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
@@ -304,58 +300,50 @@ namespace Riskeer.Integration.Forms.Views
 
         private FailureMechanismAssemblyResultRow CreateStabilityStoneCoverFailureMechanismAssemblyResultRow()
         {
-            StabilityStoneCoverFailureMechanism stabilityStoneCover = AssessmentSection.StabilityStoneCover;
-            return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                stabilityStoneCover, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover, AssessmentSection));
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover);
         }
 
         private FailureMechanismAssemblyResultRow CreateWaveImpactFailureMechanismAssemblyResultRow()
         {
-            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = AssessmentSection.WaveImpactAsphaltCover;
-            return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                waveImpactAsphaltCover, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover, AssessmentSection));
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover);
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow()
         {
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = AssessmentSection.GrassCoverErosionOutwards;
-            return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                grassCoverErosionOutwards, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards, AssessmentSection));
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards);
         }
 
         private FailureMechanismAssemblyResultRow CreateDuneErosionFailureMechanismAssemblyResultRow()
         {
-            DuneErosionFailureMechanism duneErosion = AssessmentSection.DuneErosion;
-            return FailureMechanismAssemblyResultRowFactory.CreateRow(
-                duneErosion, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, AssessmentSection));
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion);
         }
 
         private FailureMechanismAssemblyResultRow CreateMicrostabilityFailureMechanismAssemblyResultRow()
         {
-            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.Microstability);
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.Microstability);
         }
 
         private FailureMechanismAssemblyResultRow CreateWaterPressureAsphaltCoverFailureMechanismAssemblyResultRow()
         {
-            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover);
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover);
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverSlipOffOutwardsFailureMechanismAssemblyResultRow()
         {
-            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards);
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards);
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverSlipOffInwardsFailureMechanismAssemblyResultRow()
         {
-            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards);
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards);
         }
 
         private FailureMechanismAssemblyResultRow CreatePipingStructureFailureMechanismAssemblyResultRow()
         {
-            return CreateStandAloneFailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure);
+            return CreateNonAdoptableFailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure);
         }
 
-        private FailureMechanismAssemblyResultRow CreateStandAloneFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
+        private FailureMechanismAssemblyResultRow CreateNonAdoptableFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
             where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
