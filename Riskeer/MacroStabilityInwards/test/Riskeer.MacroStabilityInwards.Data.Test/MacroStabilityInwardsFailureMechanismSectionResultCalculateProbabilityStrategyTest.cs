@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), null, new MacroStabilityInwardsFailureMechanism());
+                new AdoptableFailureMechanismSectionResult(section), null, new MacroStabilityInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section),
+                new AdoptableFailureMechanismSectionResult(section),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null);
 
             // Assert
@@ -84,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Call
             var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                new AdoptableFailureMechanismSectionResult(section), Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism());
 
             // Assert
@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             const double factorOfStability1 = 1.0 / 10.0;
             const double factorOfStability2 = 1.0 / 20.0;
@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
@@ -189,7 +189,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
@@ -204,7 +204,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
         private static MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateStrategyForMultipleScenarios(FailureMechanismSection section)
         {
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             const double factorOfStability1 = 1.0 / 10.0;
             const double factorOfStability2 = 1.0 / 20.0;

@@ -31,19 +31,19 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
-        private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
+        private readonly AdoptableFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> to get the probabilities for.</param>
         /// <param name="calculationScenarios">All the <see cref="MacroStabilityInwardsCalculationScenario"/> of the failure mechanism. </param>
         /// <param name="failureMechanism">The failure mechanism the calculation scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            AdoptableFailureMechanismSectionResult sectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
             MacroStabilityInwardsFailureMechanism failureMechanism)
         {
