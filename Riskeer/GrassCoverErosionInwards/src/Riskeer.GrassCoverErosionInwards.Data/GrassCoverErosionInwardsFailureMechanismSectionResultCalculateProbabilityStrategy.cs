@@ -57,11 +57,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             this.calculationScenarios = calculationScenarios;
         }
 
-        public double CalculateProfileProbability()
-        {
-            return CalculateSectionProbability();
-        }
-
         public double CalculateSectionProbability()
         {
             return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);

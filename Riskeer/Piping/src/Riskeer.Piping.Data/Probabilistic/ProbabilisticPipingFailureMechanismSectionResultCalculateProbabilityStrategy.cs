@@ -56,11 +56,6 @@ namespace Riskeer.Piping.Data.Probabilistic
             this.calculationScenarios = calculationScenarios;
         }
 
-        public double CalculateProfileProbability()
-        {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, scenario => scenario.Output.ProfileSpecificOutput);
-        }
-
         public double CalculateSectionProbability()
         {
             return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, scenario => scenario.Output.SectionSpecificOutput);

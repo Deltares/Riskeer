@@ -67,14 +67,11 @@ namespace Riskeer.MacroStabilityInwards.Data
             this.failureMechanism = failureMechanism;
         }
 
-        public double CalculateProfileProbability()
-        {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor);
-        }
-
         public double CalculateSectionProbability()
         {
-            return Math.Min(1.0, CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+            double profileProbability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
+                                                                                                  failureMechanism.GeneralInput.ModelFactor);
+            return Math.Min(1.0, profileProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

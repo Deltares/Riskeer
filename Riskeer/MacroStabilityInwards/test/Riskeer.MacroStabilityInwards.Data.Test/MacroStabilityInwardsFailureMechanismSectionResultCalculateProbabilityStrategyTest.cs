@@ -92,61 +92,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            const double factorOfStability1 = 1.0 / 10.0;
-            const double factorOfStability2 = 1.0 / 20.0;
-
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario1 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability1, section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability2, section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
-
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
-
-            MacroStabilityInwardsCalculationScenario[] calculations =
-            {
-                macroStabilityInwardsCalculationScenario1,
-                macroStabilityInwardsCalculationScenario2,
-                macroStabilityInwardsCalculationScenario3
-            };
-
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.AreEqual(0.99012835, profileProbability, 1e-8);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_NoScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
         public void CalculateSectionProbability_MultipleScenariosForSectionWithSmallLength_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup

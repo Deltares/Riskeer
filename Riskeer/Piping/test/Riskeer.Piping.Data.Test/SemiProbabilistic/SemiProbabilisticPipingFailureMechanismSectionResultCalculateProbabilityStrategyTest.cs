@@ -133,62 +133,6 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario3 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            calculationScenario1.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(1.1, 2.2, 3.3);
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
-            calculationScenario2.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(4.4, 5.5, 6.6);
-
-            calculationScenario3.IsRelevant = false;
-
-            SemiProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2,
-                calculationScenario3
-            };
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.AreEqual(9.2969543564512289E-16, profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_NoScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
         public void CalculateSectionProbability_MultipleScenariosForSectionWithSmallLength_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup

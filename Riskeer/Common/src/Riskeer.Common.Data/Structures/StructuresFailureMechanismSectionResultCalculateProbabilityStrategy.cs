@@ -35,6 +35,12 @@ namespace Riskeer.Common.Data.Structures
         private readonly AdoptableFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<StructuresCalculationScenario<T>> calculationScenarios;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="StructuresFailureMechanismSectionResultCalculateProbabilityStrategy{T}"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> to get the probabilities for.</param>
+        /// <param name="calculationScenarios">All the <see cref="StructuresCalculationScenario{T}"/> of the failure mechanism. </param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StructuresFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                    IEnumerable<StructuresCalculationScenario<T>> calculationScenarios)
         {
@@ -50,11 +56,6 @@ namespace Riskeer.Common.Data.Structures
 
             this.sectionResult = sectionResult;
             this.calculationScenarios = calculationScenarios;
-        }
-
-        public double CalculateProfileProbability()
-        {
-            throw new NotImplementedException();
         }
 
         public double CalculateSectionProbability()

@@ -75,58 +75,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario3 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
-
-            calculationScenario3.IsRelevant = false;
-
-            ProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2,
-                calculationScenario3
-            };
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculations);
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.AreEqual(0.24284668249632746, profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_NoScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<ProbabilisticPipingCalculationScenario>());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
         public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup

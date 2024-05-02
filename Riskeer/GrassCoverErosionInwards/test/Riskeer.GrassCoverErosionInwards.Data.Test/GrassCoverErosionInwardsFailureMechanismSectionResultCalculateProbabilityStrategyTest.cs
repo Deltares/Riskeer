@@ -74,61 +74,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            GrassCoverErosionInwardsCalculationScenario calculationScenario1 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
-            GrassCoverErosionInwardsCalculationScenario calculationScenario2 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
-            GrassCoverErosionInwardsCalculationScenario calculationScenario3 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            calculationScenario1.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(1.1), null, null);
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
-            calculationScenario1.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.2), null, null);
-
-            calculationScenario3.IsRelevant = false;
-
-            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
-            {
-                calculationScenario1,
-                calculationScenario2,
-                calculationScenario3
-            };
-
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculationScenarios);
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.AreEqual(0.3973850177700996, profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_NoScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
         public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup

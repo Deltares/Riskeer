@@ -27,12 +27,6 @@ namespace Riskeer.Common.Data.FailureMechanism
     public interface IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         /// <summary>
-        /// Calculates the initial failure mechanism result probability per profile.
-        /// </summary>
-        /// <returns>The calculated initial failure mechanism result probability per profile.</returns>
-        double CalculateProfileProbability();
-
-        /// <summary>
         /// Calculates the initial failure mechanism result probability per section.
         /// </summary>
         /// <returns>The calculated initial failure mechanism result probability per section.</returns>
