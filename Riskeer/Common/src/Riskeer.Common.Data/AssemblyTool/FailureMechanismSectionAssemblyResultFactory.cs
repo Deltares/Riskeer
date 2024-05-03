@@ -133,9 +133,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             try
             {
-                return input is FailureMechanismSectionWithProfileProbabilityAssemblyInput probabilityAssemblyInput
-                           ? calculator.AssembleFailureMechanismSection(probabilityAssemblyInput)
-                           : calculator.AssembleFailureMechanismSection(input);
+                return calculator.AssembleFailureMechanismSection(input);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
