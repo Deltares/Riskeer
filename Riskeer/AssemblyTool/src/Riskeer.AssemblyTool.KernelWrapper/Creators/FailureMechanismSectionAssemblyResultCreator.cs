@@ -46,9 +46,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is a valid value, but unsupported.</exception>
         public static FailureMechanismSectionAssemblyResult Create(Probability sectionProbability, EInterpretationCategory category)
         {
-            return new FailureMechanismSectionAssemblyResult(
-                sectionProbability, sectionProbability, 1.0,
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
+            return new FailureMechanismSectionAssemblyResult(sectionProbability, FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
         }
     }
 }
