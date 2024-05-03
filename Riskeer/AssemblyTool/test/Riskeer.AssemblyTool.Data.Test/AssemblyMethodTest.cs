@@ -35,34 +35,31 @@ namespace Riskeer.AssemblyTool.Data.Test
                     AssemblyMethod.BOI0A1, 1
                 },
                 {
-                    AssemblyMethod.BOI0A2, 2
+                    AssemblyMethod.BOI0B1, 2
                 },
                 {
-                    AssemblyMethod.BOI0B1, 3
+                    AssemblyMethod.BOI0C1, 3
                 },
                 {
-                    AssemblyMethod.BOI0C1, 4
+                    AssemblyMethod.BOI0C2, 4
                 },
                 {
-                    AssemblyMethod.BOI0C2, 5
+                    AssemblyMethod.BOI1A1, 5
                 },
                 {
-                    AssemblyMethod.BOI1A1, 6
+                    AssemblyMethod.BOI1A2, 6
                 },
                 {
-                    AssemblyMethod.BOI1A2, 7
+                    AssemblyMethod.Manual, 7
                 },
                 {
-                    AssemblyMethod.Manual, 8
+                    AssemblyMethod.BOI2A1, 8
                 },
                 {
-                    AssemblyMethod.BOI2A1, 9
+                    AssemblyMethod.BOI2A2, 9
                 },
                 {
-                    AssemblyMethod.BOI2A2, 10
-                },
-                {
-                    AssemblyMethod.BOI2B1, 11
+                    AssemblyMethod.BOI2B1, 10
                 }
             };
     }

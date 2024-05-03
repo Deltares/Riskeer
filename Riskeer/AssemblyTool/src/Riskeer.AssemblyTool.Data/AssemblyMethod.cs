@@ -30,55 +30,50 @@ namespace Riskeer.AssemblyTool.Data
         /// Represents the assembly method BOI-0A-1.
         /// </summary>
         BOI0A1 = 1,
-
-        /// <summary>
-        /// Represents the assembly method BOI-0A-12
-        /// </summary>
-        BOI0A2 = 2,
-
+        
         /// <summary>
         /// Represents the assembly method BOI-0B-1.
         /// </summary>
-        BOI0B1 = 3,
+        BOI0B1 = 2,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-1.
         /// </summary>
-        BOI0C1 = 4,
+        BOI0C1 = 3,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-2.
         /// </summary>
-        BOI0C2 = 5,
+        BOI0C2 = 4,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-1.
         /// </summary>
-        BOI1A1 = 6,
+        BOI1A1 = 5,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-2.
         /// </summary>
-        BOI1A2 = 7,
+        BOI1A2 = 6,
 
         /// <summary>
         /// Represents a manual failure mechanism assembly.
         /// </summary>
-        Manual = 8,
+        Manual = 7,
 
         /// <summary>
         /// Represents the assembly method BOI-2A-1.
         /// </summary>
-        BOI2A1 = 9,
+        BOI2A1 = 8,
         
         /// <summary>
         /// Represents the assembly method BOI-2A-2.
         /// </summary>
-        BOI2A2 = 10,
+        BOI2A2 = 9,
 
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
-        BOI2B1 = 11
+        BOI2B1 = 10
     }
 }
