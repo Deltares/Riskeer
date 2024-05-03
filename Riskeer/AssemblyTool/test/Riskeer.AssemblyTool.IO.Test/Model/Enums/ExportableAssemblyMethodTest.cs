@@ -36,34 +36,31 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     ExportableAssemblyMethod.BOI0A1, 1
                 },
                 {
-                    ExportableAssemblyMethod.BOI0A2, 2
+                    ExportableAssemblyMethod.BOI0B1, 2
                 },
                 {
-                    ExportableAssemblyMethod.BOI0B1, 3
+                    ExportableAssemblyMethod.BOI0C1, 3
                 },
                 {
-                    ExportableAssemblyMethod.BOI0C1, 4
+                    ExportableAssemblyMethod.BOI0C2, 4
                 },
                 {
-                    ExportableAssemblyMethod.BOI0C2, 5
+                    ExportableAssemblyMethod.BOI1A1, 5
                 },
                 {
-                    ExportableAssemblyMethod.BOI1A1, 6
+                    ExportableAssemblyMethod.BOI1A2, 6
                 },
                 {
-                    ExportableAssemblyMethod.BOI1A2, 7
+                    ExportableAssemblyMethod.Manual, 7
                 },
                 {
-                    ExportableAssemblyMethod.Manual, 8
+                    ExportableAssemblyMethod.BOI2A1, 8
                 },
                 {
-                    ExportableAssemblyMethod.BOI2A1, 9
+                    ExportableAssemblyMethod.BOI2A2, 9
                 },
                 {
-                    ExportableAssemblyMethod.BOI2A2, 10
-                },
-                {
-                    ExportableAssemblyMethod.BOI2B1, 11
+                    ExportableAssemblyMethod.BOI2B1, 10
                 }
             };
 
@@ -72,9 +69,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             {
                 {
                     ExportableAssemblyMethod.BOI0A1, "BOI-0A-1"
-                },
-                {
-                    ExportableAssemblyMethod.BOI0A2, "BOI-0A-2"
                 },
                 {
                     ExportableAssemblyMethod.BOI0B1, "BOI-0B-1"

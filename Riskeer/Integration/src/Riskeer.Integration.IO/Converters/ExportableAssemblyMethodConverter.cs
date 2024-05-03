@@ -54,8 +54,6 @@ namespace Riskeer.Integration.IO.Converters
             {
                 case AssemblyMethod.BOI0A1:
                     return ExportableAssemblyMethod.BOI0A1;
-                case AssemblyMethod.BOI0A2:
-                    return ExportableAssemblyMethod.BOI0A2;
                 case AssemblyMethod.BOI0B1:
                     return ExportableAssemblyMethod.BOI0B1;
                 case AssemblyMethod.BOI0C1:

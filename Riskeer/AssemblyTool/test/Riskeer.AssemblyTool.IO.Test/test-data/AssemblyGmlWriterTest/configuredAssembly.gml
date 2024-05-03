@@ -43,7 +43,7 @@
       <uboi:duidingsklasse>+III</uboi:duidingsklasse>
       <uboi:faalkans>0.00073</uboi:faalkans>
       <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
-      <uboi:assemblagemethodeFaalkans>BOI-0A-2</uboi:assemblagemethodeFaalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="toetsspoorGABI" />
       <uboi:geldtVoor xlink:href="vak_GABI_1" />
@@ -53,7 +53,7 @@
     <uboi:Faalanalyse gml:id="resultaat_GABI_2">
       <uboi:duidingsklasse>NDo</uboi:duidingsklasse>
       <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
-      <uboi:assemblagemethodeFaalkans>BOI-0A-2</uboi:assemblagemethodeFaalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="toetsspoorGABI" />
       <uboi:geldtVoor xlink:href="vak_GABI_1" />

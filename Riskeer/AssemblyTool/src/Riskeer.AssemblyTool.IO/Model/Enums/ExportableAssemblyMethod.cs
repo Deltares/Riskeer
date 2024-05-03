@@ -36,63 +36,57 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         BOI0A1 = 1,
 
         /// <summary>
-        /// Represents the assembly method BOI-0A-2.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0A2_DisplayName))]
-        BOI0A2 = 2,
-
-        /// <summary>
         /// Represents the assembly method BOI-0B-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0B1_DisplayName))]
-        BOI0B1 = 3,
+        BOI0B1 = 2,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0C1_DisplayName))]
-        BOI0C1 = 4,
+        BOI0C1 = 3,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-2.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0C2_DisplayName))]
-        BOI0C2 = 5,
+        BOI0C2 = 4,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI1A1_DisplayName))]
-        BOI1A1 = 6,
+        BOI1A1 = 5,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-2.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI1A2_DisplayName))]
-        BOI1A2 = 7,
+        BOI1A2 = 6,
 
         /// <summary>
         /// Represents a manual failure mechanism assembly.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_Manual_DisplayName))]
-        Manual = 8,
+        Manual = 7,
 
         /// <summary>
         /// Represents the assembly method BOI-2A-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2A1_DisplayName))]
-        BOI2A1 = 9,
+        BOI2A1 = 8,
 
         /// <summary>
         /// Represents the assembly method BOI-2A-2.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2A2_DisplayName))]
-        BOI2A2 = 10,
+        BOI2A2 = 9,
 
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2B1_DisplayName))]
-        BOI2B1 = 11
+        BOI2B1 = 10
     }
 }

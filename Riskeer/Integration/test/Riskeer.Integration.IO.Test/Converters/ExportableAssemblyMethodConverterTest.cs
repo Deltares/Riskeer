@@ -47,7 +47,6 @@ namespace Riskeer.Integration.IO.Test.Converters
 
         [Test]
         [TestCase(AssemblyMethod.BOI0A1, ExportableAssemblyMethod.BOI0A1)]
-        [TestCase(AssemblyMethod.BOI0A2, ExportableAssemblyMethod.BOI0A2)]
         [TestCase(AssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0B1)]
         [TestCase(AssemblyMethod.BOI0C1, ExportableAssemblyMethod.BOI0C1)]
         [TestCase(AssemblyMethod.BOI1A1, ExportableAssemblyMethod.BOI1A1)]
