@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.Data.TestUtil
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
         public static FailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
-            return new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
+            return new FailureMechanismSectionAssemblyResult(double.NaN, assemblyGroup);
         }
     }
 }

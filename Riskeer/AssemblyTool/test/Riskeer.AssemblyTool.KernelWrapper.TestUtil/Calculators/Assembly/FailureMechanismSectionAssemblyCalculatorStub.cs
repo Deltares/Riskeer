@@ -57,7 +57,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return FailureMechanismSectionAssemblyResultOutput ??
                    (FailureMechanismSectionAssemblyResultOutput =
                         new FailureMechanismSectionAssemblyResultWrapper(
-                            new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I),
+                            new FailureMechanismSectionAssemblyResult(0.1, FailureMechanismSectionAssemblyGroup.I),
                             AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1));
         }
     }

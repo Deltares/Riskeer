@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             var random = new Random(seed);
             double probability = random.NextDouble();
-            return new RiskeerFailureMechanismSectionAssemblyResult(probability, probability + 0.001, random.NextDouble(),
+            return new RiskeerFailureMechanismSectionAssemblyResult(probability,
                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 

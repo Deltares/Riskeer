@@ -37,8 +37,7 @@ namespace Riskeer.AssemblyTool.Data.TestUtil
         {
             var random = new Random(21);
             return new FailureMechanismSectionAssemblyResultWrapper(
-                new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
+                new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
                 random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
         }
     }
