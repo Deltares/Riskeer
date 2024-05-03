@@ -167,7 +167,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 new IdentifierGenerator(), new ExportableModelRegistry(),
                 new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 failureMechanism, assessmentSection, (sr, fm, section) => new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextDouble(), assemblyGroup),
+                    FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult(assemblyGroup),
                     random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>()));
 
             // Assert

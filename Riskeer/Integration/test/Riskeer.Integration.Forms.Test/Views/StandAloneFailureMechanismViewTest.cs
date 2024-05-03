@@ -25,12 +25,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -189,10 +189,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
             });
 
-            var random = new Random(21);
-            var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult =
+                FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             // Call
             using (var view = new StandAloneFailureMechanismView<IFailureMechanism<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
