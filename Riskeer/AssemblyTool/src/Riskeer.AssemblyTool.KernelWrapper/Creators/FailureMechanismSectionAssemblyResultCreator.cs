@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
@@ -49,32 +48,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         {
             return new FailureMechanismSectionAssemblyResult(
                 sectionProbability, sectionProbability, 1.0,
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
-        }
-
-        /// <summary>
-        /// Converts a <see cref="ResultWithProfileAndSectionProbabilities"/> combined with a <see cref="EInterpretationCategory"/>
-        /// into a <see cref="FailureMechanismSectionAssemblyResult"/>.
-        /// </summary>
-        /// <param name="result">The <see cref="ResultWithProfileAndSectionProbabilities"/> to convert.</param>
-        /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>
-        /// and <paramref name="category"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyResult Create(ResultWithProfileAndSectionProbabilities result,
-                                                                   EInterpretationCategory category)
-        {
-            if (result == null)
-            {
-                throw new ArgumentNullException(nameof(result));
-            }
-
-            return new FailureMechanismSectionAssemblyResult(
-                result.ProbabilityProfile, result.ProbabilitySection, result.LengthEffectFactor,
                 FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
         }
     }

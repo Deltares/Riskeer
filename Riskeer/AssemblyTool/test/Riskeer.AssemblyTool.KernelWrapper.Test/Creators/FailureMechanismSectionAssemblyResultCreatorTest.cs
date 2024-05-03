@@ -22,7 +22,6 @@
 using System;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -51,52 +50,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(1.0, result.N);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
                             result.FailureMechanismSectionAssemblyGroup);
-        }
-
-        [Test]
-        public void CreateForResultWithProfileAndSectionProbabilities_ResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-
-            // Call
-            void Call() => FailureMechanismSectionAssemblyResultCreator.Create(null, random.NextEnumValue<EInterpretationCategory>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateForResultWithProfileAndSectionProbabilities_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly()
-        {
-            // Setup
-            var random = new Random(21);
-            double profileProbability = random.NextDouble(0.0001, 0.001);
-            double sectionProbability = random.NextDouble(0.0, 0.01);
-            EInterpretationCategory category = random.NextEnumValue(new[]
-            {
-                EInterpretationCategory.III,
-                EInterpretationCategory.II,
-                EInterpretationCategory.I,
-                EInterpretationCategory.Zero,
-                EInterpretationCategory.IMin,
-                EInterpretationCategory.IIMin,
-                EInterpretationCategory.IIIMin
-            });
-
-            var result = new ResultWithProfileAndSectionProbabilities(
-                new Probability(profileProbability), new Probability(sectionProbability));
-
-            // Call
-            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.Create(result, category);
-
-            // Assert
-            Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
-            Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
-            Assert.AreEqual(result.LengthEffectFactor, createdAssemblyResult.N);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
-                            createdAssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
     }
 }
