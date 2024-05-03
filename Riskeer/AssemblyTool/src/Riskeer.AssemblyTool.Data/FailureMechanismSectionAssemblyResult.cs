@@ -29,33 +29,18 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile.</param>
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
-        /// <param name="n">The length effect of the failure mechanism section.</param>
         /// <param name="failureMechanismSectionAssemblyGroup">The <see cref="Data.FailureMechanismSectionAssemblyGroup"/>.</param>
-        public FailureMechanismSectionAssemblyResult(double profileProbability, double sectionProbability, double n,
-                                                     FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
+        public FailureMechanismSectionAssemblyResult(double sectionProbability, FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
         {
-            ProfileProbability = profileProbability;
             SectionProbability = sectionProbability;
-            N = n;
             FailureMechanismSectionAssemblyGroup = failureMechanismSectionAssemblyGroup;
         }
-
-        /// <summary>
-        /// Gets the probability of the profile.
-        /// </summary>
-        public double ProfileProbability { get; }
 
         /// <summary>
         /// Gets the probability of the section.
         /// </summary>
         public double SectionProbability { get; }
-
-        /// <summary>
-        /// Gets the length effect 'N'.
-        /// </summary>
-        public double N { get; }
 
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionAssemblyGroup"/>.
