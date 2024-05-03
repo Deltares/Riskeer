@@ -37,9 +37,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionAssemblyResult>(result);
 
-            Assert.IsNaN(result.ProfileProbability);
             Assert.IsNaN(result.SectionProbability);
-            Assert.IsNaN(result.N);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.FailureMechanismSectionAssemblyGroup);
         }
     }

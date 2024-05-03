@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -65,9 +66,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var random = new Random(21);
-            var expectedAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult expectedAssemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             // Call
             FailureMechanismSectionAssemblyResult assemblyResult = AssemblyToolHelper.AssembleFailureMechanismSection(

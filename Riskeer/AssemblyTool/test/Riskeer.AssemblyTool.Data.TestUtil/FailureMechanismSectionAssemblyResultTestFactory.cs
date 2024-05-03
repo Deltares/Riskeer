@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
+
 namespace Riskeer.AssemblyTool.Data.TestUtil
 {
     /// <summary>
@@ -26,6 +29,16 @@ namespace Riskeer.AssemblyTool.Data.TestUtil
     /// </summary>
     public static class FailureMechanismSectionAssemblyResultTestFactory
     {
+        /// <summary>
+        /// Creates a configured <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        public static FailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult()
+        {
+            var random = new Random(21);
+            return CreateFailureMechanismSectionAssemblyResult(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+        }
+        
         /// <summary>
         /// Creates a configured <see cref="FailureMechanismSectionAssemblyResult"/> with an user defined <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>

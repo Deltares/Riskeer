@@ -70,9 +70,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
 
-            var expectedAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            var expectedAssemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
             var shouldThrowException = true;
@@ -100,9 +98,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            var expectedAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            var expectedAssemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyGroupFeatures<FailureMechanismSectionResult>(

@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.MapLayers;
@@ -46,9 +47,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, string.Empty);
 
-            var assemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             // Call
             using (var mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<TestCalculatableFailureMechanism, TestFailureMechanismSectionResult, TestCalculationInput>(
@@ -75,9 +74,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, string.Empty);
 
-            var assemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             using (var mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<TestCalculatableFailureMechanism, TestFailureMechanismSectionResult, TestCalculationInput>(
                        failureMechanism, result => assemblyResult))
@@ -88,9 +85,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
-                assemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                assemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 failureMechanism.CalculationsGroup.Children.Add(new TestCalculation());
                 failureMechanism.CalculationsGroup.NotifyObservers();
@@ -122,9 +118,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, string.Empty);
 
-            var assemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             using (var mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<TestCalculatableFailureMechanism, TestFailureMechanismSectionResult, TestCalculationInput>(
                        failureMechanism, result => assemblyResult))
@@ -135,9 +129,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
-                assemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                assemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 calculationScenario.IsRelevant = false;
                 calculationScenario.NotifyObservers();
@@ -169,9 +162,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, string.Empty);
 
-            var assemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             using (var mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<TestCalculatableFailureMechanism, TestFailureMechanismSectionResult, TestCalculationInput>(
                        failureMechanism, result => assemblyResult))
@@ -182,9 +173,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
-                assemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                assemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 calculationScenario.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 calculationScenario.InputParameters.NotifyObservers();
@@ -221,9 +211,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             nestedCalculationGroup.Children.Add(nestedCalculationScenario);
             failureMechanism.CalculationsGroup.Children.Add(nestedCalculationGroup);
 
-            var assemblyResult = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             using (var mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<TestCalculatableFailureMechanism, TestFailureMechanismSectionResult, TestCalculationInput>(
                        failureMechanism, result => assemblyResult))
@@ -234,9 +222,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
-                assemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                assemblyResult = new FailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 nestedCalculationScenario.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 nestedCalculationScenario.InputParameters.NotifyObservers();

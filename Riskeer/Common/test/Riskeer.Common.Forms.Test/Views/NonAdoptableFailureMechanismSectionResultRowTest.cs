@@ -29,6 +29,7 @@ using Core.Common.Util.Enums;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -484,10 +485,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                                                              random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
-                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, errorProvider, new AssessmentSectionStub(), ConstructionProperties);
@@ -775,7 +772,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup),
+                    FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult(assemblyGroup),
                     random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call

@@ -186,8 +186,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var random = new Random(21);
             var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResultWrapper(
-                new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), 0.1, random.NextDouble(), FailureMechanismSectionAssemblyGroup.I),
+                new FailureMechanismSectionAssemblyResult(0.1, FailureMechanismSectionAssemblyGroup.I),
                 random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
             // Call
@@ -386,7 +385,7 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                                          failureMechanism,
                                                                                          assessmentSection,
                                                                                          performFailureMechanismAssemblyFunc,
-                                                                                         ((sr, fm, ass) => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
+                                                                                         (sr, fm, ass) => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create())
             {
                 CalculateProbabilityStrategy = calculateProbabilityStrategy,
                 RowErrorProvider = rowErrorProvider

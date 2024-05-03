@@ -34,6 +34,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -612,7 +613,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
             {
                 ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
-                AssemblyResult = new FailureMechanismSectionAssemblyResult(0, 0, 0, FailureMechanismSectionAssemblyGroup.NoResult);
+                AssemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
             }
 
             public string TestString
@@ -630,7 +631,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public override void Update()
             {
                 Updated = true;
-                AssemblyResult = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+                AssemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
             }
         }
 
