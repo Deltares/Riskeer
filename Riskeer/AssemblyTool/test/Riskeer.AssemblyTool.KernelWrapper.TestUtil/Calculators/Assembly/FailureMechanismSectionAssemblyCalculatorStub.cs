@@ -31,11 +31,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/> that is used in the calculation.
-        /// </summary>
-        public FailureMechanismSectionWithProfileProbabilityAssemblyInput FailureMechanismSectionWithProfileProbabilityAssemblyInput { get; private set; }
-
-        /// <summary>
         /// Gets the <see cref="FailureMechanismSectionAssemblyInput"/> that is used in the calculation.
         /// </summary>
         public FailureMechanismSectionAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
@@ -58,22 +53,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismSectionAssemblyInput = input;
-
-            return FailureMechanismSectionAssemblyResultOutput ??
-                   (FailureMechanismSectionAssemblyResultOutput =
-                        new FailureMechanismSectionAssemblyResultWrapper(
-                            new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I),
-                            AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1));
-        }
-
-        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
-            }
-
-            FailureMechanismSectionWithProfileProbabilityAssemblyInput = input;
 
             return FailureMechanismSectionAssemblyResultOutput ??
                    (FailureMechanismSectionAssemblyResultOutput =

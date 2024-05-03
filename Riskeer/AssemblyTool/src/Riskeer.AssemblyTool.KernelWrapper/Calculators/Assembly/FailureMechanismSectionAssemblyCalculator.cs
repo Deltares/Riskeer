@@ -24,7 +24,6 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -79,44 +78,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 return new FailureMechanismSectionAssemblyResultWrapper(
                     FailureMechanismSectionAssemblyResultCreator.Create(sectionProbability, interpretationCategory),
                     AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
-            }
-            catch (AssemblyException e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
-            }
-        }
-
-        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            try
-            {
-                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-
-                if (!IsProbabilityDefined(input))
-                {
-                    return AssembleWithUndefinedProbabilities(input, kernel);
-                }
-
-                ResultWithProfileAndSectionProbabilities output = kernel.DetermineRepresentativeProbabilitiesBoi0A2(
-                    input.FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.NotNecessary,
-                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability));
-                EInterpretationCategory interpretationCategory = AssembleInterpretationCategory(input, kernel, output.ProbabilitySection);
-
-                return new FailureMechanismSectionAssemblyResultWrapper(
-                    FailureMechanismSectionAssemblyResultCreator.Create(output, interpretationCategory),
-                    AssemblyMethod.BOI0A2, AssemblyMethod.BOI0B1);
             }
             catch (AssemblyException e)
             {
