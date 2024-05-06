@@ -80,9 +80,9 @@ namespace Riskeer.Common.Data.AssemblyTool
                 switch (failureMechanismAssemblyResult.ProbabilityResultType)
                 {
                     case FailureMechanismAssemblyProbabilityResultType.P1:
-                        return calculator.AssembleWithIndependentSectionResults(failureMechanismSectionAssemblyResults);
+                        return calculator.AssembleBasedOnIndependentSectionResults(failureMechanismSectionAssemblyResults);
                     case FailureMechanismAssemblyProbabilityResultType.P2:
-                        return calculator.AssembleWithWorstSectionResult(failureMechanismSectionAssemblyResults);
+                        return calculator.AssembleBasedOnWorstSectionResult(failureMechanismSectionAssemblyResults);
                     default:
                         throw new NotSupportedException();
                 }

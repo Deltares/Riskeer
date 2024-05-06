@@ -44,39 +44,39 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets an indicator whether the assembly is based on the worst section result.
         /// </summary>
-        public bool AssembleWithWorstSectionResultCalled { get; private set; }
+        public bool AssembleBasedOnWorstSectionResultCalled { get; private set; }
 
         /// <summary>
         /// Gets an indicator whether the assembly is based on independent section results.
         /// </summary>
-        public bool AssembleWithIndependentSectionResultsCalled { get; private set; }
+        public bool AssembleBasedOnIndependentSectionResultsCalled { get; private set; }
 
         /// <summary>
         /// Gets or sets the result output of the assembly calculation.
         /// </summary>
         public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
 
-        public FailureMechanismAssemblyResultWrapper AssembleWithIndependentSectionResults(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper AssembleBasedOnIndependentSectionResults(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
 
-            AssembleWithIndependentSectionResultsCalled = true;
+            AssembleBasedOnIndependentSectionResultsCalled = true;
 
             SectionAssemblyResultsInput = sectionAssemblyResults;
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
         }
 
-        public FailureMechanismAssemblyResultWrapper AssembleWithWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper AssembleBasedOnWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
 
-            AssembleWithWorstSectionResultCalled = true;
+            AssembleBasedOnWorstSectionResultCalled = true;
 
             SectionAssemblyResultsInput = sectionAssemblyResults;
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A2));

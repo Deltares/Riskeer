@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
-        FailureMechanismAssemblyResultWrapper AssembleWithWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
+        FailureMechanismAssemblyResultWrapper AssembleBasedOnWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
 
         /// <summary>
         /// Assembles a failure mechanism based on independent section results.
@@ -46,6 +46,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
-        FailureMechanismAssemblyResultWrapper AssembleWithIndependentSectionResults(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
+        FailureMechanismAssemblyResultWrapper AssembleBasedOnIndependentSectionResults(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }

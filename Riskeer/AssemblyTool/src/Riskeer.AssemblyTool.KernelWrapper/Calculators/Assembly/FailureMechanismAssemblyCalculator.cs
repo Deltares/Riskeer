@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismAssemblyResultWrapper AssembleWithIndependentSectionResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper AssembleBasedOnIndependentSectionResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (sectionAssemblyResults == null)
             {
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismAssemblyResultWrapper AssembleWithWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper AssembleBasedOnWorstSectionResult(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (sectionAssemblyResults == null)
             {
