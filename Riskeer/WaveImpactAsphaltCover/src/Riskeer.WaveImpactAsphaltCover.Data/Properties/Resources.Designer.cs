@@ -82,15 +82,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;ΔL&apos; moet groter zijn dan 0..
-        /// </summary>
-        public static string DeltaL_Value_should_be_larger_than_zero {
-            get {
-                return ResourceManager.GetString("DeltaL_Value_should_be_larger_than_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AGK.
         /// </summary>
         public static string WaveImpactAsphaltCoverFailureMechanism_Code {

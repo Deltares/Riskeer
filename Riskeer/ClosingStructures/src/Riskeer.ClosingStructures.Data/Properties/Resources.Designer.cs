@@ -116,14 +116,5 @@ namespace Riskeer.ClosingStructures.Data.Properties {
                 return ResourceManager.GetString("ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N2A&apos; moet in het bereik {0} liggen..
-        /// </summary>
-        public static string N2A_Value_should_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("N2A_Value_should_be_in_Range_0_", resourceCulture);
-            }
-        }
     }
 }
