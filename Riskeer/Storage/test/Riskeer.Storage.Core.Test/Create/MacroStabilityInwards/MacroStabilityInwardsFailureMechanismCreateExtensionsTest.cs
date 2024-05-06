@@ -317,7 +317,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(12, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
         }
 
-        private MacroStabilityInwardsSurfaceLine CreateSurfaceLine(Random random)
+        private static MacroStabilityInwardsSurfaceLine CreateSurfaceLine(Random random)
         {
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(nameof(MacroStabilityInwardsSurfaceLine))
             {

@@ -319,7 +319,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
         }
 
-        private PipingSurfaceLine CreateSurfaceLine(Random random)
+        private static PipingSurfaceLine CreateSurfaceLine(Random random)
         {
             var surfaceLine = new PipingSurfaceLine(nameof(PipingSurfaceLine))
             {

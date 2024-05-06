@@ -55,7 +55,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
-            var random = new Random();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 InAssembly = inAssembly,

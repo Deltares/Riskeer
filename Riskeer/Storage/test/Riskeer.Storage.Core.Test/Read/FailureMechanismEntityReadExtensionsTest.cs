@@ -1590,7 +1590,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity()
+            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -1810,7 +1810,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity()
+            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

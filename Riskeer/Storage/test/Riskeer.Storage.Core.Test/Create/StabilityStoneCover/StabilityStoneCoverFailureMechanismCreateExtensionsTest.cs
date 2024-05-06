@@ -55,7 +55,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
-            var random = new Random();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 InAssembly = inAssembly,
