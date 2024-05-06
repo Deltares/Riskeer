@@ -1112,10 +1112,8 @@
           <Property Name="InAssemblyInputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="InAssemblyOutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="N" Type="real" Nullable="false" />
           <Property Name="FailureMechanismAssemblyResultProbabilityResultType" Type="tinyint" Nullable="false" />
           <Property Name="FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability" Type="real" />
-          <Property Name="ApplyLengthEffectInSection" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="SpecificFailureMechanismFailureMechanismSectionEntity">
           <Key>
@@ -5688,10 +5686,8 @@
           <Property Name="InAssemblyInputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="InAssemblyOutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="N" Type="Double" Nullable="false" />
           <Property Name="FailureMechanismAssemblyResultProbabilityResultType" Type="Byte" Nullable="false" />
           <Property Name="FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability" Type="Double" />
-          <Property Name="ApplyLengthEffectInSection" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailureMechanismEntity_0_0" FromRole="SpecificFailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailureMechanismFailureMechanismSectionEntity" FromRole="SpecificFailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -8689,10 +8685,8 @@
           <EntitySetMapping Name="SpecificFailureMechanismEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailureMechanismEntity">
               <MappingFragment StoreEntitySet="SpecificFailureMechanismEntity">
-                <ScalarProperty Name="ApplyLengthEffectInSection" ColumnName="ApplyLengthEffectInSection" />
                 <ScalarProperty Name="FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability" ColumnName="FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability" />
                 <ScalarProperty Name="FailureMechanismAssemblyResultProbabilityResultType" ColumnName="FailureMechanismAssemblyResultProbabilityResultType" />
-                <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="InAssemblyOutputComments" ColumnName="InAssemblyOutputComments" />
                 <ScalarProperty Name="InAssemblyInputComments" ColumnName="InAssemblyInputComments" />

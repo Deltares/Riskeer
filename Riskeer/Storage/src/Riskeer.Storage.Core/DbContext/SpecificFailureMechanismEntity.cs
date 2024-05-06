@@ -46,8 +46,6 @@ namespace Riskeer.Storage.Core.DbContext
         public string Name { get; set; }
         public string Code { get; set; }
         public int Order { get; set; }
-        public double N { get; set; }
-        public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public byte InAssembly { get; set; }
