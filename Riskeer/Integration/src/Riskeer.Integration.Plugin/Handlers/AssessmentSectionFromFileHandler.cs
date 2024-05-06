@@ -131,46 +131,6 @@ namespace Riskeer.Integration.Plugin.Handlers
         #region Create AssessmentSection
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
-        /// set to <see cref="AssessmentSectionComposition.Dike"/>.
-        /// </summary>
-        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
-        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
-        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
-        /// </list>
-        /// </exception>
-        private static AssessmentSection CreateDikeAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability)
-        {
-            return new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
-        /// set to <see cref="AssessmentSectionComposition.Dune"/>.
-        /// </summary>
-        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
-        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
-        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
-        /// </list>
-        /// </exception>
-        private static AssessmentSection CreateDuneAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability)
-        {
-            return new AssessmentSection(AssessmentSectionComposition.Dune,
-                                         maximumAllowableFloodingProbability,
-                                         signalFloodingProbability);
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
@@ -195,15 +155,13 @@ namespace Riskeer.Integration.Plugin.Handlers
             if (settingOfSelectedAssessmentSection == null)
             {
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection);
-                assessmentSection = CreateDikeAssessmentSection(maximumAllowableFloodingProbability, signalFloodingProbability);
+                assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
             }
             else
             {
                 assessmentSection = settingOfSelectedAssessmentSection.IsDune
-                                        ? CreateDuneAssessmentSection(maximumAllowableFloodingProbability,
-                                                                      signalFloodingProbability)
-                                        : CreateDikeAssessmentSection(maximumAllowableFloodingProbability,
-                                                                      signalFloodingProbability);
+                                        ? new AssessmentSection(AssessmentSectionComposition.Dune, maximumAllowableFloodingProbability, signalFloodingProbability)
+                                        : new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
             }
 
             assessmentSection.Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId);
