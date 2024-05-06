@@ -852,6 +852,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Totale lengte van het traject in meters (afgerond)..
+        /// </summary>
+        public static string ReferenceLine_Length_Rounded_Description {
+            get {
+                return ResourceManager.GetString("ReferenceLine_Length_Rounded_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengte* [m].
+        /// </summary>
+        public static string ReferenceLine_Length_Rounded_DisplayName {
+            get {
+                return ResourceManager.GetString("ReferenceLine_Length_Rounded_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Traject ID.
         /// </summary>
         public static string ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId {

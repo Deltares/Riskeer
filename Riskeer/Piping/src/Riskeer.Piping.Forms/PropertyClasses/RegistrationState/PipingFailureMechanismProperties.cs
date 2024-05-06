@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="data"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public PipingFailureMechanismProperties(PipingFailureMechanism data)
             : base(data, new ConstructionProperties
             {

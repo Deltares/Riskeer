@@ -60,8 +60,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(lengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReferenceLine_Length_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ReferenceLine_Length_Rounded_Description))]
         public RoundedDouble Length
         {
             get

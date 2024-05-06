@@ -411,4 +411,10 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="AssemblyResultTotalView_GrassCoverErosionInwards_and_HeightStructures_correlated" xml:space="preserve">
       <value>GEKB en HTKW gecorreleerd</value>
     </data>
+    <data name="ReferenceLine_Length_Rounded_DisplayName" xml:space="preserve">
+      <value>Lengte* [m]</value>
+    </data>
+    <data name="ReferenceLine_Length_Rounded_Description" xml:space="preserve">
+      <value>Totale lengte van het traject in meters (afgerond).</value>
+    </data>
 </root>

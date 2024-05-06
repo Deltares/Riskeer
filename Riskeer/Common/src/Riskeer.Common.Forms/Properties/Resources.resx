@@ -1295,12 +1295,6 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="FailureMechanism_ProbabilityAssessmentInput_B_DisplayName" xml:space="preserve">
     <value>b [m]</value>
   </data>
-    <data name="ReferenceLine_Length_Rounded_DisplayName" xml:space="preserve">
-    <value>Lengte* [m]</value>
-  </data>
-    <data name="ReferenceLine_Length_Rounded_Description" xml:space="preserve">
-    <value>Totale lengte van het traject in meters (afgerond).</value>
-  </data>
     <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>
   </data>
