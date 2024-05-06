@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the length effect factor.
         /// </summary>
-        public double LenghtEffectFactor { get; private set; }
+        public double LengthEffectFactor { get; private set; }
 
         /// <summary>
         /// Gets the collection of <see cref="ResultWithProfileAndSectionProbabilities"/>. 
@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             ThrowException();
 
             Calculated = true;
-            LenghtEffectFactor = lengthEffectFactor;
+            LengthEffectFactor = lengthEffectFactor;
             FailureMechanismSectionAssemblyResults = failureMechanismSectionAssemblyResults;
             PartialAssembly = partialAssembly;
 

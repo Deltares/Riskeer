@@ -119,7 +119,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleWithIndependentSectionResults(sectionAssemblyResults);
 
                 // Assert
-                Assert.AreEqual(0, kernel.LenghtEffectFactor);
+                Assert.AreEqual(0, kernel.LengthEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
 
                 CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)),
@@ -245,7 +245,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleWithWorstSectionResult(sectionAssemblyResults);
 
                 // Assert
-                Assert.AreEqual(1, kernel.LenghtEffectFactor);
+                Assert.AreEqual(1, kernel.LengthEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
                 Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionAssemblyResults.Count());
 
