@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -941,13 +940,10 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyOutputComments2 = "Some output text2";
             const string notInAssemblyComments2 = "Some not relevant text2";
 
-            RoundedDouble n1 = random.NextRoundedDouble(1, 20);
-            RoundedDouble n2 = random.NextRoundedDouble(1, 20);
             var firstSpecificFailureMechanismEntity = new SpecificFailureMechanismEntity
             {
                 Name = name1,
                 InAssembly = Convert.ToByte(inAssembly1),
-                N = n1,
                 InAssemblyInputComments = inAssemblyInputComments1,
                 InAssemblyOutputComments = inAssemblyOutputComments1,
                 NotInAssemblyComments = notInAssemblyComments1
@@ -957,7 +953,6 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 Name = name2,
                 InAssembly = Convert.ToByte(inAssembly2),
-                N = n2,
                 InAssemblyInputComments = inAssemblyInputComments2,
                 InAssemblyOutputComments = inAssemblyOutputComments2,
                 NotInAssemblyComments = notInAssemblyComments2

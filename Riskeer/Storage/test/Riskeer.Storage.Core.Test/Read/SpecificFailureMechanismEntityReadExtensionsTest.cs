@@ -74,8 +74,6 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 Name = "Specific failure mechanism name",
                 Code = "FAALMECHANISME",
-                N = random.NextDouble(1.0, 20.0),
-                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean()),
                 InAssembly = Convert.ToByte(inAssembly),
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
@@ -107,10 +105,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityWithNullValues_ReturnSpecificFailureMechanism()
         {
             // Setup
-            var entity = new SpecificFailureMechanismEntity
-            {
-                N = 1.1
-            };
+            var entity = new SpecificFailureMechanismEntity();
             var collector = new ReadConversionCollector();
 
             // Call
@@ -125,11 +120,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_ValidEntityWithoutSections_ReturnSpecificFailureMechanism()
         {
             // Setup
-            var entity = new SpecificFailureMechanismEntity
-            {
-                N = 1.1
-            };
-
+            var entity = new SpecificFailureMechanismEntity();
             var collector = new ReadConversionCollector();
 
             // Call
@@ -160,7 +151,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             var entity = new SpecificFailureMechanismEntity
             {
-                N = 1.1,
                 FailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>
                 {
                     failureMechanismSectionEntity
