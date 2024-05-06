@@ -264,9 +264,9 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new SpecificFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
+            yield return new PropertyInfo<PipingStructureFailureMechanismContext, StandAloneFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingStructureFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, CalculationGroupContextProperties>
             {

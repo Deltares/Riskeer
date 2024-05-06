@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         /// Creates a new instance of <see cref="StandAloneFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public StandAloneFailureMechanismProperties(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
