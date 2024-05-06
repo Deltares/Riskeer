@@ -221,15 +221,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
-            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 InAssembly = inAssembly
             };
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(pipingFailureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -240,8 +237,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }

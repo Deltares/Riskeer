@@ -58,7 +58,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses.Registrati
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

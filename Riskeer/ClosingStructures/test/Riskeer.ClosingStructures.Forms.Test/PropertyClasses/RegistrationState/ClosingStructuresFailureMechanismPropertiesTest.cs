@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism());

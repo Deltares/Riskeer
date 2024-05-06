@@ -72,13 +72,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism
-            {
-                InAssembly = false
-            };
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             var properties = new StandAloneFailureMechanismProperties(failureMechanism);

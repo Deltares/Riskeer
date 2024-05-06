@@ -59,7 +59,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.Registration
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism());

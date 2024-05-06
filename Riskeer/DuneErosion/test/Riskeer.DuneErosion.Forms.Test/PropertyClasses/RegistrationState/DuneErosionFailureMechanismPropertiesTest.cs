@@ -59,7 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();

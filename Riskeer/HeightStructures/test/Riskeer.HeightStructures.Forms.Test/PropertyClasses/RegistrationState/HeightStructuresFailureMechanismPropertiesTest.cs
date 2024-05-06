@@ -57,7 +57,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();

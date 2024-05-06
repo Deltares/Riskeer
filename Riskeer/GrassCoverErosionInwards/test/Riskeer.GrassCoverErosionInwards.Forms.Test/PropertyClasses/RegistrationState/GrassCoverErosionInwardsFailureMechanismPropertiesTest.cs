@@ -58,13 +58,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses.Registrati
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                InAssembly = true
-            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
             var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);

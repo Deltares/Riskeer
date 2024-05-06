@@ -57,7 +57,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses.RegistrationSta
         }
 
         [Test]
-        public void Constructor_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
