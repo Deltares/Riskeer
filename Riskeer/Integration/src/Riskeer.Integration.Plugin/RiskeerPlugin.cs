@@ -78,7 +78,6 @@ using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses;
-using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Helpers;

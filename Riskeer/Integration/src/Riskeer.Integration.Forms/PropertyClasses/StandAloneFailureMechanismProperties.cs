@@ -26,7 +26,7 @@ using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.FailureMechanism;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// Registration state related ViewModel of <see cref="IFailureMechanism"/> for properties panel.

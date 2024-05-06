@@ -27,9 +27,9 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
+using Riskeer.Integration.Forms.PropertyClasses;
 
-namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class StandAloneFailureMechanismPropertiesTest

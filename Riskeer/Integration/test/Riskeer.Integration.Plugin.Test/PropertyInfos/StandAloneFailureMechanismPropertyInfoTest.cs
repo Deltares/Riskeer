@@ -27,7 +27,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
+using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
