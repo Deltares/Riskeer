@@ -286,7 +286,33 @@ SELECT
 FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
 JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
-INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
+INSERT INTO SpecificFailureMechanismEntity(
+    [SpecificFailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability])
+SELECT
+    [SpecificFailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]
+FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;

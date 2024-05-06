@@ -74,6 +74,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityStoneCoverFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStabilityPointStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertSpecificFailureMechanismMetaEntity(reader, sourceFilePath);
                     
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -799,6 +801,33 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
+        
+        private static void AssertSpecificFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.SpecificFailureMechanismEntity " +
+                ") " +
+                "FROM SpecificFailureMechanismEntity NEW " +
+                "JOIN SOURCEPROJECT.SpecificFailureMechanismEntity OLD USING(SpecificFailureMechanismEntityId) " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Code] IS OLD.[Code] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[InAssembly] = OLD.[InAssembly] " +
+                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
+                "AND NEW.[InAssemblyInputComments] IS OLD.[InAssemblyInputComments] " +
+                "AND NEW.[InAssemblyOutputComments] IS OLD.[InAssemblyOutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotInAssemblyComments] " +
+                "AND NEW.[FailureMechanismAssemblyResultProbabilityResultType] = OLD.[FailureMechanismAssemblyResultProbabilityResultType] " +
+                "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS OLD.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
 
         #endregion
     }
