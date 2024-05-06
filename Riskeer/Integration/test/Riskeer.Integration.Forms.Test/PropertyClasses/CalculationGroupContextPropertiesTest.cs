@@ -89,15 +89,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            projectObserver.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
             var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism);
 
-            calculationGroup.Attach(projectObserver);
+            calculationGroup.Attach(observer);
 
             // Call
             var properties = new CalculationGroupContextProperties(testCalculationGroupContext);
