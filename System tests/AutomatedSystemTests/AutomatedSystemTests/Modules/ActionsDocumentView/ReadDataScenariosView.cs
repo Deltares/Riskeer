@@ -86,7 +86,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             int indexInFinalRating = GetIndex(rowHeader, "In oordeel");
             int indexContribution = GetIndex(rowHeader, "Bijdrage aan");
             int indexName = GetIndex(rowHeader, "Naam");
-            int indexFailureProbability = GetIndex(rowHeader, "Faalkans");
+            int indexFailureProbability = GetIndex(rowHeader, "Faalkans per vak");
 
             var dataView = new DataRowsTableSectionScenariosView();
             rows.RemoveAt(0);

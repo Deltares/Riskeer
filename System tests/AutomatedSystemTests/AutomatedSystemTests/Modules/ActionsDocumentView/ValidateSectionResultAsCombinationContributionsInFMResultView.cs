@@ -96,15 +96,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         private int GetIndexCombinedProbability(Ranorex.Row row)
         {
             string queryOldResultTable = "Gedetailleerde toets per vak\r\nfaalkans";
-            string queryNewResultTable ="";
-            var newResultTableType1 = new List<string>(){"STPH", "STBI"};
-            var newResultTableType2 = new List<string>(){"HTKW", "BSKW", "STKWp", "GEKB"};
-            if (newResultTableType1.Contains(labelFM)) {
-                queryNewResultTable = "mechanisme per doorsnede";
-                }
-            else if(newResultTableType2.Contains(labelFM)) {
-                queryNewResultTable = "mechanisme per vak";
-                }
+            string queryNewResultTable ="mechanisme per vak";
+            
             int indexColumnCombinedProbability = GetIndex(row, queryOldResultTable);
             if (indexColumnCombinedProbability>0) {
                 Report.Warn($"Old Result View Windows. Using column with header containing {queryOldResultTable}");
