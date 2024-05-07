@@ -257,14 +257,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            AssessmentSection assessmentSection = null;
-
             // Call
-            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
-            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection3_3(), assessmentSection);
             mockRepository.VerifyAll();

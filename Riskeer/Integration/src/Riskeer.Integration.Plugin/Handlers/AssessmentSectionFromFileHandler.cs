@@ -31,7 +31,6 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.IO;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Integration.Data;
@@ -52,7 +51,25 @@ namespace Riskeer.Integration.Plugin.Handlers
         private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
-        private IEnumerable<AssessmentSectionSettings> settings;
+
+        private readonly HashSet<string> duneAssessmentSections = new HashSet<string>
+        {
+            "1-1",
+            "2-1",
+            "3-1",
+            "4-1",
+            "5-1",
+            "13-1",
+            "13-3",
+            "14-5",
+            "14-7",
+            "14-9",
+            "20-1",
+            "25-1",
+            "26-1",
+            "29-1"
+        };
+
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
 
         /// <summary>
@@ -150,19 +167,10 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                           double signalFloodingProbability,
                                                           NormativeProbabilityType normativeProbabilityType)
         {
-            AssessmentSection assessmentSection;
-            AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
-            if (settingOfSelectedAssessmentSection == null)
-            {
-                log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection);
-                assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
-            }
-            else
-            {
-                assessmentSection = settingOfSelectedAssessmentSection.IsDune
-                                        ? new AssessmentSection(AssessmentSectionComposition.Dune, maximumAllowableFloodingProbability, signalFloodingProbability)
-                                        : new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
-            }
+            AssessmentSection assessmentSection =
+                duneAssessmentSections.Contains(selectedItem.AssessmentSectionId)
+                    ? new AssessmentSection(AssessmentSectionComposition.Dune, maximumAllowableFloodingProbability, signalFloodingProbability)
+                    : new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
 
             assessmentSection.Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId);
             assessmentSection.Id = selectedItem.AssessmentSectionId;
@@ -243,8 +251,6 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </exception>
         private void TryReadSourceFiles()
         {
-            ReadAssessmentSectionSettings();
-
             try
             {
                 ReadReferenceLineMetas();
@@ -282,12 +288,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             {
                 throw new CriticalFileValidationException(Resources.AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file);
             }
-        }
-
-        private void ReadAssessmentSectionSettings()
-        {
-            var reader = new AssessmentSectionSettingsReader();
-            settings = reader.ReadSettings();
         }
 
         #endregion

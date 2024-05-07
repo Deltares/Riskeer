@@ -129,16 +129,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden..
-        /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection {
-            get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found" +
-                        "_for_AssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met een omgevingswaarde van {0} en een signaleringsparameter van {1}. De waarde van de omgevingswaarde en signaleringsparameter moet in het bereik {2} liggen en de omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
         /// </summary>
         public static string AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_MaximumAllowableFloodingProbability_0_and_SignalFloodingProbability_1_Probabilities_should_be_in_Range_2_ {
