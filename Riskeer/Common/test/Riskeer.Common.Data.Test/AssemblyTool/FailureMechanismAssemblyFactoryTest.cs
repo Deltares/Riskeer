@@ -39,13 +39,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
     [TestFixture]
     public class FailureMechanismAssemblyFactoryTest
     {
-        private class TestFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
-        {
-            public TestFailureMechanism() : base("Test", "Code") {}
-        }
-
-        #region AssembleFailureMechanism
-
         [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -107,7 +100,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, Enumerable.Single<FailureMechanismSectionAssemblyResult>(failureMechanismAssemblyCalculator.SectionAssemblyResultsInput));
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
             }
         }
 
@@ -169,6 +162,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             }
         }
 
-        #endregion
+        private class TestFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
+        {
+            public TestFailureMechanism() : base("Test", "Code") {}
+        }
     }
 }

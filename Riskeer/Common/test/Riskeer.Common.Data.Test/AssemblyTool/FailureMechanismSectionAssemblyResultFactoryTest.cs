@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         #region AdoptableFailureMechanismSectionResult
 
         [Test]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_SectionResultNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSection_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -83,10 +83,12 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculateStrategyNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSection_CalculateProbabilityStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -109,7 +111,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true)]
         [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_WithInput_ReturnsExpectedOutput(
+        public void AssembleSectionAdoptableSection_WithInput_ReturnsExpectedOutput(
             AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType, bool expectedHasProbabilitySpecified)
         {
             // Setup
@@ -160,10 +162,12 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(furtherAnalysisType, calculatorInput.FurtherAnalysisType);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculatorRan_ReturnsExpectedOutput()
+        public void AssembleSectionAdoptableSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
             var mocks = new MockRepository();
@@ -184,10 +188,12 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleSectionAdoptableSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -212,14 +218,16 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
+            
+            mocks.VerifyAll();
         }
 
         #endregion
 
-        #region NonAdoptableWithoutProfileProbability
+        #region NonAdoptableFailureMechanismSectionResult
 
         [Test]
-        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_SectionResultNull_ThrowsArgumentNullException()
+        public void AssembleSectionNonAdoptableSection_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -237,7 +245,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleSectionNonAdoptableSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var sectionResult = new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -253,7 +261,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
-        public void AssembleSectionNonAdoptableWithoutProfileProbability_WithInputAndUseLengthEffectFalse_SetsInputOnCalculator(
+        public void AssembleSectionNonAdoptable_WithInputAndUseLengthEffectFalse_SetsInputOnCalculator(
             NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType, bool expectedHasProbabilitySpecified)
         {
             // Setup
@@ -298,7 +306,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_CalculatorRan_ReturnsExpectedOutput()
+        public void AssembleSectionNonAdoptableSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -319,7 +327,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleSectionNonAdoptableSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();

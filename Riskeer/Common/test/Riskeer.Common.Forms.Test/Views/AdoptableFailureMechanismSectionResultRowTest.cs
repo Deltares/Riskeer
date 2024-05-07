@@ -100,6 +100,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResultRowErrorProvider", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -554,7 +555,7 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                     performAssemblyFunc, ConstructionProperties);
 
             // Assert
-            var assemblyResult = assemblyResultWrapper.AssemblyResult;
+            FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             Assert.AreEqual(assemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(assemblyResult.FailureMechanismSectionAssemblyGroup),
                             row.AssemblyGroup);

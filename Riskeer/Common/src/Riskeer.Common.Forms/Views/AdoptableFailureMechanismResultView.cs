@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
-    /// <typeparam name="TCalculationInput">The type of calculation input</typeparam>
+    /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     public abstract class AdoptableFailureMechanismResultView<TFailureMechanism, TCalculationScenario, TCalculationInput>
         : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
         where TFailureMechanism : IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism

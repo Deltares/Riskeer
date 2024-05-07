@@ -87,8 +87,8 @@ namespace Riskeer.Piping.Forms.Views
         {
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
             return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
-                       ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                       : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
+                       ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray()
+                       : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
         }
     }
 }

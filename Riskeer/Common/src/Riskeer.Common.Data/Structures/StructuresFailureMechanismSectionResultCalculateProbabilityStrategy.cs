@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.Structures
     /// <summary>
     /// Strategy to calculate probabilities for a section result of a structures failure mechanism.
     /// </summary>
-    /// <typeparam name="T">The type of the structure which can be assigned to the calculation.</typeparam>
+    /// <typeparam name="T">The type of the structure input which can be assigned to the calculation.</typeparam>
     public class StructuresFailureMechanismSectionResultCalculateProbabilityStrategy<T> : IFailureMechanismSectionResultCalculateProbabilityStrategy
         where T : IStructuresCalculationInput<StructureBase>, new()
     {

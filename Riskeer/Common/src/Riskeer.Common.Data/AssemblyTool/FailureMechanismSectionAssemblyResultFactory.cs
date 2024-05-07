@@ -44,6 +44,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
         /// <param name="calculateProbabilityStrategy">The <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/>
         /// to assemble with.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
