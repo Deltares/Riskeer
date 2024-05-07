@@ -100,7 +100,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var newResultTableType1 = new List<string>(){"STPH", "STBI"};
             var newResultTableType2 = new List<string>(){"HTKW", "BSKW", "STKWp", "GEKB"};
             if (newResultTableType1.Contains(labelFM)) {
-                queryNewResultTable = "mechanisme per vak";
+                queryNewResultTable = "mechanisme per doorsnede";
                 }
             else if(newResultTableType2.Contains(labelFM)) {
                 queryNewResultTable = "mechanisme per vak";
