@@ -12,7 +12,6 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="Resources\20160624v3 N-waarden voor GEKB en HTKW.csv" />
     <None Include="Resources\ConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -149,9 +149,6 @@ Er is geen referentielijn geïmporteerd.</value>
     <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IHW_filecontents" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\20160624v3 N-waarden voor GEKB en HTKW.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_" xml:space="preserve">
     <value>Geen shapebestand om trajecten te specificeren gevonden in de map '{0}'.</value>
   </data>
