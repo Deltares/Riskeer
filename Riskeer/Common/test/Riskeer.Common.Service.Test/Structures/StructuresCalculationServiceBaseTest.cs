@@ -832,9 +832,6 @@ namespace Riskeer.Common.Service.Test.Structures
             public override HydraRingSection Section => new HydraRingSection(0, 0, 0);
         }
 
-        private class GeneralTestInput
-        {
-            public double N => 0;
-        }
+        private class GeneralTestInput {}
     }
 }

@@ -135,10 +135,10 @@ namespace Riskeer.Common.Data.Test.Structures
                 sectionResult, Enumerable.Empty<TestStructuresCalculationScenario>());
 
             // Call
-            double profileProbability = strategy.CalculateSectionProbability();
+            double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.IsNaN(profileProbability);
+            Assert.IsNaN(sectionProbability);
         }
     }
 }

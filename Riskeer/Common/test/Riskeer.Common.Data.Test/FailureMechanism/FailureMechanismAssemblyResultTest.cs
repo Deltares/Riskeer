@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void ManualInitialFailureMechanismResultProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        public void ManualInitialFailureMechanismResultProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
             var result = new FailureMechanismAssemblyResult();
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         [TestCase(1 - 1e-6)]
         [TestCase(1)]
         [TestCase(double.NaN)]
-        public void ManualInitialFailureMechanismResultProfileProbability_ValidValue_NewValueSet(double newValue)
+        public void ManualInitialFailureMechanismResultProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
             var result = new FailureMechanismAssemblyResult();

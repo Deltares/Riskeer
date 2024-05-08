@@ -314,11 +314,6 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string FailureMechanismSectionAssemblyGroupAssemblyMethod = "assemblagemethodeDuidingsklasse";
 
-        /// <summary>
-        /// Identifier for an assembly method element.
-        /// </summary>
-        public const string AssemblyMethod = "assemblagemethode";
-
         #endregion
     }
 }
