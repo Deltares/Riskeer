@@ -167,13 +167,15 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                           double signalFloodingProbability,
                                                           NormativeProbabilityType normativeProbabilityType)
         {
-            AssessmentSection assessmentSection =
-                duneAssessmentSections.Contains(selectedItem.AssessmentSectionId)
-                    ? new AssessmentSection(AssessmentSectionComposition.Dune, maximumAllowableFloodingProbability, signalFloodingProbability)
-                    : new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
+            AssessmentSectionComposition composition = duneAssessmentSections.Contains(selectedItem.AssessmentSectionId)
+                                                           ? AssessmentSectionComposition.Dune
+                                                           : AssessmentSectionComposition.Dike;
 
-            assessmentSection.Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId);
-            assessmentSection.Id = selectedItem.AssessmentSectionId;
+            var assessmentSection = new AssessmentSection(composition, maximumAllowableFloodingProbability, signalFloodingProbability)
+            {
+                Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId),
+                Id = selectedItem.AssessmentSectionId
+            };
 
             if (!selectedItem.ReferenceLine.Points.Any())
             {

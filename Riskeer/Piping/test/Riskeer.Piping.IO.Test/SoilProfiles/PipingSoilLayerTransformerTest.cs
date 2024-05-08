@@ -104,7 +104,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         [Test]
         [TestCaseSource(nameof(GetColorCases))]
-        public void SoilLayer1DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
+        public void SoilLayer1DTransform_ValidColors_ReturnsPipingSoilLayer1D(double? color, Color transformedColor)
         {
             // Setup
             SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
@@ -446,7 +446,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
 
         [Test]
         [TestCaseSource(nameof(GetColorCases))]
-        public void SoilLayer2DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
+        public void SoilLayer2DTransform_ValidColors_ReturnsPipingSoilLayer2D(double? color, Color transformedColor)
         {
             // Setup
             const double x1 = 1.0;

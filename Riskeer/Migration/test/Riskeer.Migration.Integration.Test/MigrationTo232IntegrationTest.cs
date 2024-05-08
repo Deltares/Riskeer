@@ -74,7 +74,6 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityStoneCoverFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStabilityPointStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
-                    AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertSpecificFailureMechanismMetaEntity(reader, sourceFilePath);
                     
                     AssertVersions(reader);
