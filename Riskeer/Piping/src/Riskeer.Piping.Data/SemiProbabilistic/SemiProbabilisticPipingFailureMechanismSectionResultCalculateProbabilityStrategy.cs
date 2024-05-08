@@ -78,9 +78,9 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
 
         public double CalculateSectionProbability()
         {
-            double profileProbability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, 
-                                                                                                  assessmentSection.FailureMechanismContribution.NormativeProbability);
-            return Math.Min(1.0, profileProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+            double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
+                                                                                           assessmentSection.FailureMechanismContribution.NormativeProbability);
+            return Math.Min(1.0, probability * failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

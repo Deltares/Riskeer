@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.Data
         }
 
         /// <summary>
-        /// Gets the probability of the profile.
+        /// Gets the probability.
         /// </summary>
         public double Probability { get; }
 
