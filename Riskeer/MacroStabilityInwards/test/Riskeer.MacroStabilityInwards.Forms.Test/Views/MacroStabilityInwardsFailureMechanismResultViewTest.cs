@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
                 Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultTypeIndex].Value);
-                Assert.AreEqual(probability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(section.Length),
+                Assert.AreEqual(probability * failureMechanism.ProbabilityAssessmentInput.GetN(section.Length),
                                 cells[initialFailureMechanismResultSectionProbabilityIndex].Value);
                 Assert.AreEqual(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, cells[furtherAnalysisTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);

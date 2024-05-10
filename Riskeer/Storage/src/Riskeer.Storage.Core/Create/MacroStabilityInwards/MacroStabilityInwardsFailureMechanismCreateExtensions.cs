@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
         {
             var metaEntity = new MacroStabilityInwardsFailureMechanismMetaEntity
             {
-                A = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.A,
+                A = mechanism.ProbabilityAssessmentInput.A,
                 StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
                 SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone()
             };

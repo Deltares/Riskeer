@@ -1641,7 +1641,7 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                                            AssessmentSection assessmentSection)
         {
-            macroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.9;
+            macroStabilityInwardsFailureMechanism.ProbabilityAssessmentInput.A = 0.9;
             Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
             var soilLayer1D = new MacroStabilityInwardsSoilLayer1D(5)

@@ -533,7 +533,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.ProbabilityAssessmentInput);
 
             string stochasticSoilModelCollectionSourcePath = metaEntity.StochasticSoilModelCollectionSourcePath;
             if (stochasticSoilModelCollectionSourcePath != null)

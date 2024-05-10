@@ -1387,7 +1387,7 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
+            Assert.AreEqual(metaEntity.A, failureMechanism.ProbabilityAssessmentInput.A);
 
             Assert.IsNull(metaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(metaEntity.SurfaceLineCollectionSourcePath);
@@ -1415,7 +1415,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNotNull(failureMechanism);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
+            Assert.AreEqual(metaEntity.A, failureMechanism.ProbabilityAssessmentInput.A);
         }
 
         [Test]

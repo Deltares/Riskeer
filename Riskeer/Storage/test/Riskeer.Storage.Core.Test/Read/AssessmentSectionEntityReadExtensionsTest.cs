@@ -480,7 +480,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(section.MacroStabilityInwards.SurfaceLines.SourcePath);
 
             ProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
-                                                                           .MacroStabilityInwardsProbabilityAssessmentInput;
+                                                                           .ProbabilityAssessmentInput;
             Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
         }
 

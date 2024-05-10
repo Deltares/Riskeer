@@ -89,11 +89,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         {
             get
             {
-                return data.MacroStabilityInwardsProbabilityAssessmentInput.A;
+                return data.ProbabilityAssessmentInput.A;
             }
             set
             {
-                data.MacroStabilityInwardsProbabilityAssessmentInput.A = value;
+                data.ProbabilityAssessmentInput.A = value;
                 data.NotifyObservers();
             }
         }
@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         {
             get
             {
-                return data.MacroStabilityInwardsProbabilityAssessmentInput.B;
+                return data.ProbabilityAssessmentInput.B;
             }
         }
 

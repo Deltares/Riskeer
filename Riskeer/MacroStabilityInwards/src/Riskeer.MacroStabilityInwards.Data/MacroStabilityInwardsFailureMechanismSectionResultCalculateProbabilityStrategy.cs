@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         {
             double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
                                                                                            failureMechanism.GeneralInput.ModelFactor);
-            return Math.Min(1.0, probability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+            return Math.Min(1.0, probability * failureMechanism.ProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

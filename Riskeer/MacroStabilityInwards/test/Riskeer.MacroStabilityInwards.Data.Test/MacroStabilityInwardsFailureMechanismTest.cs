@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.ProbabilityAssessmentInput;
             Assert.AreEqual(0.033, probabilityAssessmentInput.A);
             Assert.AreEqual(50, probabilityAssessmentInput.B);
 

@@ -111,7 +111,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                               failureMechanismSection.Length)),
                             row.SectionFailureProbability);
         }
@@ -153,7 +153,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
         }
@@ -174,7 +174,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
 
@@ -203,7 +203,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
 
@@ -219,7 +219,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
         }

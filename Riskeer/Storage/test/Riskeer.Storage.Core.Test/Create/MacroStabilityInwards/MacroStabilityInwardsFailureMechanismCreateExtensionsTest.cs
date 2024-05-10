@@ -76,7 +76,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.ProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
         }
@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 {
                     Body = "Some calculation text"
                 },
-                MacroStabilityInwardsProbabilityAssessmentInput =
+                ProbabilityAssessmentInput =
                 {
                     A = random.NextDouble()
                 }
@@ -127,7 +127,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.ProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
         }

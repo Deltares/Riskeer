@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return Math.Min(1.0, derivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                    return Math.Min(1.0, derivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                              failureMechanismSection.Length));
                 }
 
