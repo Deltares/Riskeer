@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
@@ -27,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
@@ -95,9 +97,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
+                var random = new Random(21);
                 return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                              failureMechanism,
-                                                                             new PipingProbabilityAssessmentInput());
+                                                                             new ProbabilityAssessmentInput(random.NextDouble(), random.NextDouble()));
             }
         }
     }

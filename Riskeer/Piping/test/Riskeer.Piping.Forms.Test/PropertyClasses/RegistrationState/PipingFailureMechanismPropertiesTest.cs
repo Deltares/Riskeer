@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses.RegistrationState;
@@ -60,7 +61,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
         }

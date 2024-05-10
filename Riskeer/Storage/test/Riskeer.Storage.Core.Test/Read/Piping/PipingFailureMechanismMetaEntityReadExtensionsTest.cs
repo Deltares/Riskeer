@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
@@ -36,7 +37,8 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void ReadProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new PipingProbabilityAssessmentInput();
+            var random = new Random(21);
+            var input = new ProbabilityAssessmentInput(random.NextDouble(),  random.NextDouble());
 
             // Call
             void Call() => ((PipingFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
@@ -64,10 +66,11 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void ReadProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
         {
             // Setup
-            var inputToUpdate = new PipingProbabilityAssessmentInput();
+            var random = new Random(31);
+            var inputToUpdate = new ProbabilityAssessmentInput(random.NextDouble(),  random.NextDouble());
             var entity = new PipingFailureMechanismMetaEntity
             {
-                A = new Random(31).NextDouble()
+                A = random.NextDouble()
             };
 
             // Call

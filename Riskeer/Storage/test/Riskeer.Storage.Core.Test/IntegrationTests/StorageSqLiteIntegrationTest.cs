@@ -578,6 +578,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedComments.Body, actualComments.Body);
         }
 
+        private static void AssertProbabilityAssessmentInput(ProbabilityAssessmentInput expectedModel,
+                                                             ProbabilityAssessmentInput actualModel)
+        {
+            Assert.AreEqual(expectedModel.A, actualModel.A);
+        }
+
         private static void AssertStructureInputBase<T>(StructuresInputBase<T> expectedInput,
                                                         StructuresInputBase<T> actualInput) where T : StructureBase
         {
@@ -1052,7 +1058,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                          PipingFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.ScenarioConfigurationType, actualFailureMechanism.ScenarioConfigurationType);
-            AssertPipingProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
 
@@ -1063,12 +1069,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
                                      actualFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
                                      AssertPipingScenarioConfigurationPerFailureMechanismSection);
-        }
-
-        private static void AssertPipingProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel,
-                                                                   PipingProbabilityAssessmentInput actualModel)
-        {
-            Assert.AreEqual(expectedModel.A, actualModel.A);
         }
 
         private static void AssertSemiProbabilisticPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedPipingCalculation,

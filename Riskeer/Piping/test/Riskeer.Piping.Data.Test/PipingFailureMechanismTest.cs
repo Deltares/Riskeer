@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil;
 
@@ -45,7 +46,10 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual("STPH", failureMechanism.Code);
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
-            Assert.IsNotNull(failureMechanism.PipingProbabilityAssessmentInput);
+
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            Assert.AreEqual(0.4, probabilityAssessmentInput.A);
+            Assert.AreEqual(300, probabilityAssessmentInput.B);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);

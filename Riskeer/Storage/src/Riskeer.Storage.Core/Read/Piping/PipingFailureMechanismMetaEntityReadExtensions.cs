@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -39,11 +40,11 @@ namespace Riskeer.Storage.Core.Read.Piping
         /// </summary>
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the
         /// <paramref name="probabilityAssessmentInput"/>.</param>
-        /// <param name="probabilityAssessmentInput">The <see cref="PipingProbabilityAssessmentInput"/> to be
+        /// <param name="probabilityAssessmentInput">The <see cref="ProbabilityAssessmentInput"/> to be
         /// updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity,
-                                                            PipingProbabilityAssessmentInput probabilityAssessmentInput)
+                                                            ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {

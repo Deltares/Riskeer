@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data.SoilProfile;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
@@ -43,7 +44,7 @@ namespace Riskeer.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
         {
-            PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
+            PipingProbabilityAssessmentInput = new ProbabilityAssessmentInput(0.4, 300.0);
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new PipingSurfaceLineCollection();
             StochasticSoilModels = new PipingStochasticSoilModelCollection();
@@ -76,7 +77,7 @@ namespace Riskeer.Piping.Data
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
+        public ProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="PipingScenarioConfigurationType"/>.
