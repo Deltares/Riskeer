@@ -1262,7 +1262,7 @@
 					<param
 					mask="False"
 					name="pathToFileToOpen"
-					value="X:\script21\currentRelease\21_c_input.risk">
+					value="X:\script21\currentRelease\21_b_input.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2391,13 +2391,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script21_b_LoopFMsLEFalse"
 			errorbehavior="ContinueNextIteration"
 			id="ce053275-435b-46c2-bc29-54a4c19cdf09"
-			maxrange="5"
-			minrange="1"
-			name="LoopFMsLengthEffectFalse">
+			name="LoopFMs">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_b_IterationRowsResultView"
@@ -3176,7 +3173,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="ce053275-435b-46c2-bc29-54a4c19cdf09"
-							name="LoopFMsLengthEffectFalse">
+							name="LoopFMs">
 								<smartfoldernode
 								id="e0112c2b-5bb1-4484-ac11-09c66f5a774c"
 								name="OpenResultsView">
