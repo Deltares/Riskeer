@@ -22,7 +22,6 @@
 using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.TestUtil.Probability;
 
 namespace Riskeer.Common.Data.Test.Probability
 {
@@ -48,7 +47,7 @@ namespace Riskeer.Common.Data.Test.Probability
         public void GetN_WithValues_ReturnsExpectedResult(double a, double b, double length, double expectedN)
         {
             // Setup
-            var input = new TestProbabilityAssessmentInput(a, b);
+            var input = new ProbabilityAssessmentInput(a, b);
 
             // Call
             double actualN = input.GetN(length);

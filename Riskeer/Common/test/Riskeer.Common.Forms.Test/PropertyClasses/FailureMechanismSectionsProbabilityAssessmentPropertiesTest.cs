@@ -30,6 +30,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -60,8 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             void Call() => new FailureMechanismSectionsProbabilityAssessmentProperties(null, probabilityAssessmentInput);
@@ -78,8 +78,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var failureMechanism = new TestFailureMechanism();
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             IEnumerable<FailureMechanismSection> sections = new[]
             {
@@ -129,8 +128,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(
@@ -163,8 +161,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
             var failureMechanism = new TestFailureMechanism();
 
             using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(

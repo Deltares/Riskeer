@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 CreateFailureMechanismSection("c", 2.0, 2.0, 3.0, 3.0)
             };
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
             });
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                                                                                   failureMechanism,
@@ -218,7 +218,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
             });
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                                                                                   failureMechanism,
@@ -258,7 +258,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
             });
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                                                                                   failureMechanism,
@@ -288,13 +288,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 new Point2D(x1, y1),
                 new Point2D(x2, y2)
             });
-        }
-
-        private static TestProbabilityAssessmentInput CreateProbabilityAssessmentInput()
-        {
-            var random = new Random(39);
-
-            return new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
         }
 
         private static DataGridViewControl GetSectionsDataGridViewControl(FailureMechanismSectionsProbabilityAssessmentView view)

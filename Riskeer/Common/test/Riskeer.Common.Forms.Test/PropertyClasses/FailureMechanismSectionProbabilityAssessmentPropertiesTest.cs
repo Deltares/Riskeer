@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -56,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
 
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
@@ -78,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call

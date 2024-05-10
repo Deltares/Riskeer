@@ -55,7 +55,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = GetTestFailureMechanismSection();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
             var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, sectionStart, sectionEnd, probabilityAssessmentInput);
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var random = new Random(39);
             FailureMechanismSection section = GetTestFailureMechanismSection();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            ProbabilityAssessmentInput probabilityAssessmentInput = ProbabilityAssessmentInputTestFactory.Create();
             var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, double.NaN, double.NaN, probabilityAssessmentInput);
 
             // Precondition
