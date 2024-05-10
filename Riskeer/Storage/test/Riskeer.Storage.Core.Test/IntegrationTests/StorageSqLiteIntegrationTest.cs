@@ -42,6 +42,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -1257,8 +1258,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism expectedFailureMechanism,
                                                                         MacroStabilityInwardsFailureMechanism actualFailureMechanism)
         {
-            AssertMacroStabilityInwardsProbabilityAssessmentInput(expectedFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                  actualFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+            AssertProbabilityAssessmentInput(expectedFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                                             actualFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
             AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels,
                                                             actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
@@ -1267,12 +1268,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertMacroStabilityInwardsSurfaceLine);
-        }
-
-        private static void AssertMacroStabilityInwardsProbabilityAssessmentInput(MacroStabilityInwardsProbabilityAssessmentInput expectedModel,
-                                                                                  MacroStabilityInwardsProbabilityAssessmentInput actualModel)
-        {
-            Assert.AreEqual(expectedModel.A, actualModel.A);
         }
 
         private static void AssertMacroStabilityInwardsStochasticSoilModels(MacroStabilityInwardsStochasticSoilModelCollection expectedModels,

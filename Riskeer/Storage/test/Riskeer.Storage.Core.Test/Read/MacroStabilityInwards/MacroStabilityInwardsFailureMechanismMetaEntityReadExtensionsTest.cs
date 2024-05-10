@@ -21,7 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 
@@ -34,13 +35,13 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void ReadProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new MacroStabilityInwardsProbabilityAssessmentInput();
+            ProbabilityAssessmentInput input = ProbabilityAssessmentInputTestFactory.Create();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
+            void Call() => ((MacroStabilityInwardsFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -51,10 +52,10 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsFailureMechanismMetaEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadProbabilityAssessmentInput(null);
+            void Call() => entity.ReadProbabilityAssessmentInput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
@@ -62,10 +63,11 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void ReadProbabilityAssessmentInput_ValidParameters_SetMacroStabilityInwardsProbabilityAssessmentInputProperties()
         {
             // Setup
-            var inputToUpdate = new MacroStabilityInwardsProbabilityAssessmentInput();
+            var random = new Random(31);
+            ProbabilityAssessmentInput inputToUpdate = ProbabilityAssessmentInputTestFactory.Create();
             var entity = new MacroStabilityInwardsFailureMechanismMetaEntity
             {
-                A = new Random(31).NextDouble()
+                A = random.NextDouble()
             };
 
             // Call

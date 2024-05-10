@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.MacroStabilityInwards.Data.Properties;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -42,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code)
         {
             GeneralInput = new GeneralMacroStabilityInwardsInput();
-            MacroStabilityInwardsProbabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
+            MacroStabilityInwardsProbabilityAssessmentInput = new ProbabilityAssessmentInput(0.033, 50.0);
             SurfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             StochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
             CalculationsGroup = new CalculationGroup
@@ -71,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
+        public ProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 

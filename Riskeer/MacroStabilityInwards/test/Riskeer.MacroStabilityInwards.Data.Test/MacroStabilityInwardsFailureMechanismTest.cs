@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {
@@ -42,12 +43,15 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            Assert.AreEqual(0.033, probabilityAssessmentInput.A);
+            Assert.AreEqual(50, probabilityAssessmentInput.B);
+
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
-            Assert.IsNotNull(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
 

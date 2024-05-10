@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -97,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             {
                 return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                              failureMechanism,
-                                                                             new MacroStabilityInwardsProbabilityAssessmentInput());
+                                                                             ProbabilityAssessmentInputTestFactory.Create());
             }
         }
     }

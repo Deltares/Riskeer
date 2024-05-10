@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/> 
+    /// This class defines extension methods for read operations for a <see cref="ProbabilityAssessmentInput"/> 
     /// based on the <see cref="MacroStabilityInwardsFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsFailureMechanismMetaEntityReadExtensions
@@ -37,10 +37,10 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
         /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityInwardsFailureMechanismMetaEntity"/> to use to
         /// update the <paramref name="probabilityAssessmentInput"/>.</param>
-        /// <param name="probabilityAssessmentInput">The <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/> to be updated.</param>
+        /// <param name="probabilityAssessmentInput">The <see cref="ProbabilityAssessmentInput"/> to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadProbabilityAssessmentInput(this MacroStabilityInwardsFailureMechanismMetaEntity entity,
-                                                            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput)
+                                                            ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {
