@@ -1059,7 +1059,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                          PipingFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.ScenarioConfigurationType, actualFailureMechanism.ScenarioConfigurationType);
-            AssertProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertProbabilityAssessmentInput(expectedFailureMechanism.ProbabilityAssessmentInput, actualFailureMechanism.ProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
 

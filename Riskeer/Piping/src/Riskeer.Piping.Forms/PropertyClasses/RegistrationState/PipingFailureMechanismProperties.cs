@@ -89,11 +89,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         {
             get
             {
-                return data.PipingProbabilityAssessmentInput.A;
+                return data.ProbabilityAssessmentInput.A;
             }
             set
             {
-                data.PipingProbabilityAssessmentInput.A = value;
+                data.ProbabilityAssessmentInput.A = value;
                 data.NotifyObservers();
             }
         }
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         {
             get
             {
-                return data.PipingProbabilityAssessmentInput.B;
+                return data.ProbabilityAssessmentInput.B;
             }
         }
 

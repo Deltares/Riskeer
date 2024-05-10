@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
         {
-            PipingProbabilityAssessmentInput = new ProbabilityAssessmentInput(0.4, 300.0);
+            ProbabilityAssessmentInput = new ProbabilityAssessmentInput(0.4, 300.0);
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new PipingSurfaceLineCollection();
             StochasticSoilModels = new PipingStochasticSoilModelCollection();
@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Data
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public ProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
+        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="PipingScenarioConfigurationType"/>.

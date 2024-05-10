@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         {
             double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
                                                                                            assessmentSection.FailureMechanismContribution.NormativeProbability);
-            return Math.Min(1.0, probability * failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+            return Math.Min(1.0, probability * failureMechanism.ProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

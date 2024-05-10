@@ -80,7 +80,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
                 {
                     Body = "Some calculation text"
                 },
-                PipingProbabilityAssessmentInput =
+                ProbabilityAssessmentInput =
                 {
                     A = random.NextDouble()
                 },
@@ -107,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
 
             PipingFailureMechanismMetaEntity failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.ProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);

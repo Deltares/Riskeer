@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data.Test
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.ProbabilityAssessmentInput;
             Assert.AreEqual(0.4, probabilityAssessmentInput.A);
             Assert.AreEqual(300, probabilityAssessmentInput.B);
 

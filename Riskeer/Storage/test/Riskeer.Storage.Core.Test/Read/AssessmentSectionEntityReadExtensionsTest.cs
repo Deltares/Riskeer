@@ -426,7 +426,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyInputComments, section.Piping.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments, section.Piping.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.Piping.NotInAssemblyComments.Body);
-            Assert.AreEqual(parameterA, section.Piping.PipingProbabilityAssessmentInput.A);
+            Assert.AreEqual(parameterA, section.Piping.ProbabilityAssessmentInput.A);
             Assert.IsNull(section.Piping.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.Piping.StochasticSoilModels.SourcePath);
             Assert.IsNull(section.Piping.SurfaceLines.SourcePath);

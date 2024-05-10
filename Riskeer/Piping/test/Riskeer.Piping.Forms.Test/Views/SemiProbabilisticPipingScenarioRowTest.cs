@@ -152,7 +152,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
-            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                               failureMechanismSection.Length)),
                             row.SectionFailureProbability);
             mocks.VerifyAll();
@@ -213,7 +213,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
-            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
             mocks.VerifyAll();
@@ -243,7 +243,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
-            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
 
@@ -284,7 +284,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
-            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
 
@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(newExpectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(newExpectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(newExpectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
-            Assert.AreEqual(newExpectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+            Assert.AreEqual(newExpectedDerivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                 failureMechanismSection.Length),
                             row.SectionFailureProbability);
             mocks.VerifyAll();

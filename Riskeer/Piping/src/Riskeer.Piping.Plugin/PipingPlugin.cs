@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).ProbabilityAssessmentInput)
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
@@ -315,7 +315,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(
                     context.WrappedData.Sections, context.WrappedData,
-                    ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                    ((PipingFailureMechanism) context.WrappedData).ProbabilityAssessmentInput)
             };
 
             yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)

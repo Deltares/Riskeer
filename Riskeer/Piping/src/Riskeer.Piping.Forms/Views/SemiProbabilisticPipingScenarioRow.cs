@@ -84,7 +84,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return Math.Min(1.0, derivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                    return Math.Min(1.0, derivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
                                              failureMechanismSection.Length));
                 }
 

@@ -1357,7 +1357,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigurePipingFailureMechanism(PipingFailureMechanism pipingFailureMechanism, AssessmentSection assessmentSection)
         {
-            pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.9;
+            pipingFailureMechanism.ProbabilityAssessmentInput.A = 0.9;
 
             Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 

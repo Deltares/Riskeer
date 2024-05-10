@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.ProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
         }
@@ -208,7 +208,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
             properties.A = value;
 
             // Assert
-            Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            Assert.AreEqual(value, failureMechanism.ProbabilityAssessmentInput.A);
 
             mocks.VerifyAll();
         }
