@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.Probability
     /// <summary>
     /// Base class for an object that represents a probability assessment input.
     /// </summary>
-    public abstract class ProbabilityAssessmentInput
+    public class ProbabilityAssessmentInput
     {
         private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
         private double a;
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.Probability
         /// <param name="b">The default value for the parameter 'b' to be used to factor in the 'length effect'
         /// when determining the maximum tolerated probability of failure.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
-        protected ProbabilityAssessmentInput(double a, double b)
+        public ProbabilityAssessmentInput(double a, double b)
         {
             A = a;
             B = b;

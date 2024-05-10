@@ -42,8 +42,8 @@ namespace Riskeer.Common.Data.Test.Probability
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new TestProbabilityAssessmentInput(a,
-                                                                         random.NextDouble());
+            TestDelegate call = () => new ProbabilityAssessmentInput(a,
+                                                                     random.NextDouble());
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.Probability
             var random = new Random(39);
             double a = random.NextDouble();
             double b = random.NextDouble();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(a, b);
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput(a, b);
 
             // Assert
             Assert.AreEqual(a, probabilityAssessmentInput.A);
@@ -75,8 +75,8 @@ namespace Riskeer.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(),
-                                                                                random.NextDouble());
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput(random.NextDouble(),
+                                                                            random.NextDouble());
 
             // Call
             TestDelegate call = () => probabilityAssessmentInput.A = a;
@@ -96,19 +96,14 @@ namespace Riskeer.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(),
-                                                                                random.NextDouble());
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput(random.NextDouble(),
+                                                                            random.NextDouble());
 
             // Call
             probabilityAssessmentInput.A = a;
 
             // Assert
             Assert.AreEqual(a, probabilityAssessmentInput.A);
-        }
-
-        private class TestProbabilityAssessmentInput : ProbabilityAssessmentInput
-        {
-            public TestProbabilityAssessmentInput(double a, double b) : base(a, b) {}
         }
     }
 }
