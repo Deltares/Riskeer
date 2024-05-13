@@ -45,7 +45,6 @@ namespace Riskeer.Storage.Core.DbContext
         {
             AssessmentSectionEntities.Load();
             AdoptableFailureMechanismSectionResultEntities.Load();
-            AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
             BackgroundDataEntities.Load();
             BackgroundDataMetaEntities.Load();
             CalculationGroupEntities.Load();
@@ -97,7 +96,6 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
             NonAdoptableFailureMechanismSectionResultEntities.Load();
-            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
             ProjectEntities.Load();
             SemiProbabilisticPipingCalculationEntities.Load();
             SemiProbabilisticPipingCalculationOutputEntities.Load();
@@ -124,7 +122,6 @@ namespace Riskeer.Storage.Core.DbContext
 
             SpecificFailureMechanismEntities.Include(e => e.FailureMechanismSectionEntities)
                                             .Load();
-            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
 
             LoadIllustrationPointsIntoContext();
         }
