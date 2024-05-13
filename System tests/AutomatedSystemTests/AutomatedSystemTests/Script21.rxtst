@@ -1071,6 +1071,7 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			datasource="script21_IndecesColumnsDisabledNotRelevantSectionLEFalse"
 			id="62fe8830-30e1-4117-905d-95627cc4d7d9"
 			name="a)Relevance_Failure_mechanisms">
 				<parameters>
@@ -4382,7 +4383,7 @@
 		<DataSource
 		id="b84921f6-eff9-4602-a93c-b34cc5741eb1"
 		labelcolumn="labelIteration"
-		lastknownrowcount="18"
+		lastknownrowcount="27"
 		name="script_21b_ValidationTakenOverResultValuesLEFalse"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4409,6 +4410,105 @@
 					<th>
 						expectedValue
 					</th>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/1234251581
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						1/1234251581
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						+III
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/132756696666133
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						1/132756696666133
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						+III
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/485910097579797000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						1/485910097579797000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						8
+					</td>
+					<td>
+						+III
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4781,7 +4881,7 @@
 						true
 					</td>
 					<td>
-						n.a.
+						1-3
 					</td>
 					<td>
 						n.a.
@@ -4813,7 +4913,7 @@
 						true
 					</td>
 					<td>
-						1-4
+						4-7
 					</td>
 					<td>
 						1-4
@@ -4877,7 +4977,7 @@
 						false
 					</td>
 					<td>
-						5-6
+						8-9
 					</td>
 					<td>
 						11-12
@@ -5366,7 +5466,7 @@
 		<DataSource
 		id="ac9b2f45-2aaf-40cd-86cb-308ad2a95ea2"
 		labelcolumn="labelIteration"
-		lastknownrowcount="6"
+		lastknownrowcount="9"
 		name="script21_b_RowsTakerOverResultsInSectionLEFalse"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5396,7 +5496,7 @@
 				</tr>
 				<tr>
 					<td>
-						GEKB - row 1
+						STPH - row 1
 					</td>
 					<td>
 						2
@@ -5407,7 +5507,7 @@
 				</tr>
 				<tr>
 					<td>
-						GEKB - row 2
+						STPH - row 2
 					</td>
 					<td>
 						3
@@ -5418,7 +5518,7 @@
 				</tr>
 				<tr>
 					<td>
-						GEKB - row 3
+						STPH - row 3
 					</td>
 					<td>
 						4
@@ -5429,13 +5529,46 @@
 				</tr>
 				<tr>
 					<td>
+						GEKB - row 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						10-12
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB - row 2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						13-15
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB - row 3
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						16-18
+					</td>
+				</tr>
+				<tr>
+					<td>
 						GEKB - row 4
 					</td>
 					<td>
 						5
 					</td>
 					<td>
-						10-12
+						19-21
 					</td>
 				</tr>
 				<tr>
@@ -5446,7 +5579,7 @@
 						2
 					</td>
 					<td>
-						13-15
+						22-24
 					</td>
 				</tr>
 				<tr>
@@ -5457,7 +5590,7 @@
 						3
 					</td>
 					<td>
-						16-18
+						25-27
 					</td>
 				</tr>
 			</table>
