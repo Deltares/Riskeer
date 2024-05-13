@@ -249,7 +249,7 @@
 			name="OpenProject">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script21_b_RowsTakerOverResultsInSectionLEFalse"
+			datasource="script21_b_RowsTakenOverResultsInSection"
 			id="120ef7ee-78db-4bda-b952-72a601abdaec"
 			name="TakeOverResultInSectionLEFalse">
 				<parameters>
@@ -363,7 +363,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeRowsValidationTakeOverLEFalse"
+					dataname="rangeRowsValidationTakeOver"
 					datasourceid="28fce46d-9824-4312-943c-88bab3d4d7ab"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -645,7 +645,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script_21b_ManualResultValuesLEFalse"
+			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="4502708a-861b-4fe0-be1c-bf9f174b21f5"
 			name="SetManualResultValuesLEFalse">
@@ -803,7 +803,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script21_b_RowsManualResultsInSectionLEFalse"
+			datasource="script21_b_RowsManualResultsInSection"
 			errorbehavior="ContinueNextIteration"
 			id="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
 			name="ManualResultInSectionLEFalse">
@@ -1071,7 +1071,7 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datasource="script21_b_LoopFMsLEFalse"
+			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
 			id="62fe8830-30e1-4117-905d-95627cc4d7d9"
 			name="a)Relevance_Failure_mechanisms">
 				<parameters>
@@ -1181,7 +1181,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeSetManualResultValuesLEFalse"
+					dataname="rangeSetManualResultValues"
 					datasourceid="fc4c55e7-3a38-460b-93f3-adf8075a5b8d"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -1268,7 +1268,7 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script_21b_ManualResultValuesLEFalse"
+			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="72673703-a4e2-4b2d-9e10-c5077cc97fd8"
 			name="ValidateManualInitialResultValuesLEFalse">
@@ -1395,7 +1395,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeValidateManualInitialResultValuesLEFalse"
+					dataname="rangeValidateManualInitialResultValues"
 					datasourceid="fc4c55e7-3a38-460b-93f3-adf8075a5b8d"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -2010,7 +2010,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeValidateManualFinalResultValuesLEFalse"
+					dataname="rangeValidateManualFinalResultValues"
 					datasourceid="fc4c55e7-3a38-460b-93f3-adf8075a5b8d"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -2138,7 +2138,7 @@
 			name="ValidateValuesRefinedFailureProbabilityAfter">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script21_IndecesColumnsDisabledNotRelevantSectionLEFalse"
+			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
 			errorbehavior="ContinueNextIteration"
 			id="b64433a0-74c4-4e70-9598-b553b4b60d4b"
 			name="validateCellsAreDisabled">
@@ -2357,7 +2357,7 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeRowsManualResultInSectionLEFalse"
+					dataname="rangeRowsManualResultInSection"
 					datasourceid="28fce46d-9824-4312-943c-88bab3d4d7ab"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
@@ -2379,7 +2379,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script21_IndecesColumnsDisabledNotRelevantSectionLEFalse"
+			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
 			errorbehavior="ContinueNextIteration"
 			id="c755289e-9542-4c8c-8e2d-229685d728f6"
 			name="validateCelssAreEnabled">
@@ -2392,7 +2392,7 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script21_b_LoopFMsLEFalse"
+			datasource="script21_b_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="ce053275-435b-46c2-bc29-54a4c19cdf09"
 			name="LoopFMs">
@@ -2424,7 +2424,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script_21b_ValidationTakenOverResultValuesLEFalse"
+			datasource="script_21b_ValidationTakenOverResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="d5babda3-3011-4083-a093-abe84bcc938d"
 			name="ValidateTakenOverResultValuesLEFalse">
@@ -2788,7 +2788,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script_21b_ManualResultValuesLEFalse"
+			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="f25ce2f0-3a34-418f-a9f6-7e2677d7f996"
 			name="ValidateManualFinalResultValuesLEFalse">
@@ -3547,7 +3547,7 @@
 		id="6d81fed9-7060-4be1-8174-7f4d0688540d"
 		labelcolumn="labelIteration"
 		lastknownrowcount="66"
-		name="script_21b_ManualResultValuesLEFalse"
+		name="script_21b_ValidationManualResultValues"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -4510,7 +4510,7 @@
 		id="b84921f6-eff9-4602-a93c-b34cc5741eb1"
 		labelcolumn="labelIteration"
 		lastknownrowcount="27"
-		name="script_21b_ValidationTakenOverResultValuesLEFalse"
+		name="script_21b_ValidationTakenOverResultValues"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -4915,7 +4915,7 @@
 		id="28fce46d-9824-4312-943c-88bab3d4d7ab"
 		labelcolumn="labelFM"
 		lastknownrowcount="6"
-		name="script21_b_LoopFMsLEFalse"
+		name="script21_b_LoopFMs"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -4937,10 +4937,10 @@
 					ResultCanBeTakenOver
 				</column>
 				<column>
-					rangeRowsValidationTakeOverLEFalse
+					rangeRowsValidationTakeOver
 				</column>
 				<column>
-					rangeRowsManualResultInSectionLEFalse
+					rangeRowsManualResultInSection
 				</column>
 				<column>
 					refinedFailureProbPerSectionSingle
@@ -4969,10 +4969,10 @@
 						ResultCanBeTakenOver
 					</th>
 					<th>
-						rangeRowsValidationTakeOverLEFalse
+						rangeRowsValidationTakeOver
 					</th>
 					<th>
-						rangeRowsManualResultInSectionLEFalse
+						rangeRowsManualResultInSection
 					</th>
 					<th>
 						refinedFailureProbPerSectionSingle
@@ -5158,7 +5158,7 @@
 		id="fc4c55e7-3a38-460b-93f3-adf8075a5b8d"
 		labelcolumn="label"
 		lastknownrowcount="21"
-		name="script21_b_RowsManualResultsInSectionLEFalse"
+		name="script21_b_RowsManualResultsInSection"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -5171,13 +5171,13 @@
 					FMs
 				</column>
 				<column>
-					rangeValidateManualInitialResultValuesLEFalse
+					rangeValidateManualInitialResultValues
 				</column>
 				<column>
-					rangeSetManualResultValuesLEFalse
+					rangeSetManualResultValues
 				</column>
 				<column>
-					rangeValidateManualFinalResultValuesLEFalse
+					rangeValidateManualFinalResultValues
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5194,13 +5194,13 @@
 						FMs
 					</th>
 					<th>
-						rangeValidateManualInitialResultValuesLEFalse
+						rangeValidateManualInitialResultValues
 					</th>
 					<th>
-						rangeSetManualResultValuesLEFalse
+						rangeSetManualResultValues
 					</th>
 					<th>
-						rangeValidateManualFinalResultValuesLEFalse
+						rangeValidateManualFinalResultValues
 					</th>
 				</tr>
 				<tr>
@@ -5629,7 +5629,7 @@
 		id="ac9b2f45-2aaf-40cd-86cb-308ad2a95ea2"
 		labelcolumn="labelIteration"
 		lastknownrowcount="9"
-		name="script21_b_RowsTakerOverResultsInSectionLEFalse"
+		name="script21_b_RowsTakenOverResultsInSection"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -5760,7 +5760,7 @@
 		<DataSource
 		id="88dad57f-8b1b-493c-9b08-e3739f6f5daa"
 		lastknownrowcount="3"
-		name="script21_IndecesColumnsDisabledNotRelevantSectionLEFalse"
+		name="script21_IndecesColumnsDisabledNotRelevantSection"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
