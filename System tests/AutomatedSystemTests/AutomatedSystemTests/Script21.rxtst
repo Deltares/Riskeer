@@ -4937,9 +4937,6 @@
 					ResultCanBeTakenOver
 				</column>
 				<column>
-					LengthEffectCanBeTrue
-				</column>
-				<column>
 					rangeRowsValidationTakeOverLEFalse
 				</column>
 				<column>
@@ -4972,9 +4969,6 @@
 						ResultCanBeTakenOver
 					</th>
 					<th>
-						LengthEffectCanBeTrue
-					</th>
-					<th>
 						rangeRowsValidationTakeOverLEFalse
 					</th>
 					<th>
@@ -4999,9 +4993,6 @@
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						true
 					</td>
 					<td>
 						true
@@ -5036,9 +5027,6 @@
 						true
 					</td>
 					<td>
-						true
-					</td>
-					<td>
 						4-7
 					</td>
 					<td>
@@ -5066,9 +5054,6 @@
 					</td>
 					<td>
 						false
-					</td>
-					<td>
-						true
 					</td>
 					<td>
 						n.a.
@@ -5100,9 +5085,6 @@
 						true
 					</td>
 					<td>
-						false
-					</td>
-					<td>
 						8-9
 					</td>
 					<td>
@@ -5127,9 +5109,6 @@
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@PKW&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						false
 					</td>
 					<td>
 						false
@@ -5162,9 +5141,6 @@
 					</td>
 					<td>
 						false
-					</td>
-					<td>
-						true
 					</td>
 					<td>
 						n.a.
