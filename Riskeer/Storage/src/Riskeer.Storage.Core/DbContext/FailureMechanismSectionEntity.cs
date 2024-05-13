@@ -39,9 +39,7 @@ namespace Riskeer.Storage.Core.DbContext
         public FailureMechanismSectionEntity()
         {
             AdoptableFailureMechanismSectionResultEntities = new HashSet<AdoptableFailureMechanismSectionResultEntity>();
-            AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new HashSet<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
             NonAdoptableFailureMechanismSectionResultEntities = new HashSet<NonAdoptableFailureMechanismSectionResultEntity>();
-            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new HashSet<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
             PipingScenarioConfigurationPerFailureMechanismSectionEntities = new HashSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             SpecificFailureMechanismEntities = new HashSet<SpecificFailureMechanismEntity>();
@@ -55,13 +53,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<AdoptableFailureMechanismSectionResultEntity> AdoptableFailureMechanismSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NonAdoptableFailureMechanismSectionResultEntity> NonAdoptableFailureMechanismSectionResultEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }

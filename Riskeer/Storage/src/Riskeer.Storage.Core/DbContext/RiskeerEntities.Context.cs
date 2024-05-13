@@ -36,7 +36,6 @@ namespace Riskeer.Storage.Core.DbContext
     public partial class RiskeerEntities : System.Data.Entity.DbContext
     {
         public virtual DbSet<AdoptableFailureMechanismSectionResultEntity> AdoptableFailureMechanismSectionResultEntities { get; set; }
-        public virtual DbSet<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities { get; set; }
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
         public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
@@ -88,7 +87,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
         public virtual DbSet<NonAdoptableFailureMechanismSectionResultEntity> NonAdoptableFailureMechanismSectionResultEntities { get; set; }
-        public virtual DbSet<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities { get; set; }
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }
