@@ -206,7 +206,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderNotRequiredLEFalse"
+					dataname="nameFolderNotRequired"
 					datasourceid="45604941-f939-4402-b9d2-4686003f1008"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -255,8 +255,8 @@
 				<parameters>
 					<param
 					mask="False"
-					name="nameFolderValidateTakenOverResultValuesLEFalse"
-					value="ValidateTakenOverResultValuesLEFalse">
+					name="nameFolderValidateTakenOverResultValues"
+					value="ValidateTakenOverResultValues">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -663,18 +663,18 @@
 				<parameters>
 					<param
 					mask="False"
-					name="nameFolderNotRequiredLEFalse"
-					value="NotRequiredLEFalse">
+					name="nameFolderNotRequired"
+					value="NotRequired">
 					</param>
 					<param
 					mask="False"
-					name="nameFolderRequiredLEFalse"
-					value="RequiredLEFalse">
+					name="nameFolderRequired"
+					value="Required">
 					</param>
 					<param
 					mask="False"
-					name="nameFolderCarriedOutLEFalse"
-					value="CarriedOutLEFalse">
+					name="nameFolderCarriedOut"
+					value="CarriedOut">
 					</param>
 					<param
 					mask="False"
@@ -706,7 +706,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderValidateTakenOverResultValuesLEFalse"
+					dataname="nameFolderValidateTakenOverResultValues"
 					datasourceid="120ef7ee-78db-4bda-b952-72a601abdaec"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -778,7 +778,7 @@
 					<param
 					mask="False"
 					name="nameOfFolder"
-					value="RelevanceLEFalse">
+					value="Relevance">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -810,18 +810,18 @@
 				<parameters>
 					<param
 					mask="False"
-					name="nameFolderValidateManualInitialResultValuesLEFalse"
-					value="ValidateManualInitialResultValuesLEFalse">
+					name="nameFolderValidateManualInitialResultValues"
+					value="ValidateManualInitialResultValues">
 					</param>
 					<param
 					mask="False"
-					name="nameFolderSetManualInitialResultValuesLEFalse"
-					value="SetManualResultValuesLEFalse">
+					name="nameFolderSetManualInitialResultValues"
+					value="SetManualResultValues">
 					</param>
 					<param
 					mask="False"
-					name="nameFolderValidateManualFinalResultValuesLEFalse"
-					value="ValidateManualFinalResultValuesLEFalse">
+					name="nameFolderValidateManualFinalResultValues"
+					value="ValidateManualFinalResultValues">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1175,7 +1175,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderSetManualInitialResultValuesLEFalse"
+					dataname="nameFolderSetManualInitialResultValues"
 					datasourceid="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -1355,7 +1355,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderCarriedOutLEFalse"
+					dataname="nameFolderCarriedOut"
 					datasourceid="45604941-f939-4402-b9d2-4686003f1008"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -1389,7 +1389,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderValidateManualInitialResultValuesLEFalse"
+					dataname="nameFolderValidateManualInitialResultValues"
 					datasourceid="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -1929,7 +1929,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderRequiredLEFalse"
+					dataname="nameFolderRequired"
 					datasourceid="45604941-f939-4402-b9d2-4686003f1008"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -2004,7 +2004,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameFolderValidateManualFinalResultValuesLEFalse"
+					dataname="nameFolderValidateManualFinalResultValues"
 					datasourceid="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -2104,7 +2104,7 @@
 					<param
 					mask="False"
 					name="nameOfFolderToAdjust"
-					value="TakeOverResultInSectionLEFalse">
+					value="TakeOverResultInSection">
 					</param>
 				</parameters>
 				<conditiongroup
@@ -2189,7 +2189,7 @@
 			datasource="script21_b_IterationRowsResultView"
 			errorbehavior="ContinueNextIteration"
 			id="bcbd69af-a959-49df-8695-96760c9b7684"
-			name="CarriedOutLEFalse">
+			name="CarriedOut">
 				<parameters>
 					<param
 					mask="False"
@@ -2702,7 +2702,7 @@
 					<param
 					mask="False"
 					name="nameOfFolderToAdjust"
-					value="ManualResultInSectionLEFalse">
+					value="ManualResultInSection">
 					</param>
 					<param
 					mask="False"
@@ -3459,7 +3459,7 @@
 										</testmodule>
 										<smartfoldernode
 										id="bcbd69af-a959-49df-8695-96760c9b7684"
-										name="CarriedOutLEFalse">
+										name="CarriedOut">
 											<testmodule
 											id="e0c34542-a951-4834-beaf-3dc8dca7abad"
 											name="SelectOptionDropDownMenuInCellResultView">
