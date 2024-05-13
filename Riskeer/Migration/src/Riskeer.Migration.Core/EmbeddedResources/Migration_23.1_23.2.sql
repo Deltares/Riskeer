@@ -8,7 +8,26 @@ PRAGMA foreign_keys = OFF;
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
  
 INSERT INTO AdoptableFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].AdoptableFailureMechanismSectionResultEntity;
-INSERT INTO AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity;
+INSERT INTO AdoptableFailureMechanismSectionResultEntity(
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisType],
+    [RefinedSectionProbability])
+SELECT
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisType],
+    CASE 
+        WHEN [ProbabilityRefinementType] = 2 OR [ProbabilityRefinementType] = 3
+            THEN [RefinedSectionProbability]
+        WHEN [ProbabilityRefinementType] = 1
+            THEN NULL
+    END
+FROM [SOURCEPROJECT].AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity;
 INSERT INTO AssessmentSectionEntity(
     [AssessmentSectionEntityId],
     [ProjectEntityId],
@@ -249,7 +268,21 @@ INSERT INTO MacroStabilityInwardsSoilProfileTwoDEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsStochasticSoilProfileEntity;
 INSERT INTO NonAdoptableFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].NonAdoptableFailureMechanismSectionResultEntity;
-INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity;
+INSERT INTO NonAdoptableFailureMechanismSectionResultEntity(
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisType],
+    [RefinedSectionProbability])
+SELECT
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisType],
+    [RefinedSectionProbability]
+FROM [SOURCEPROJECT].NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingScenarioConfigurationPerFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].PipingScenarioConfigurationPerFailureMechanismSectionEntity;

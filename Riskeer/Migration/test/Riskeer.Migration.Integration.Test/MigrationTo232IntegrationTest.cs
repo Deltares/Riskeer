@@ -75,7 +75,10 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityPointStructuresFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertSpecificFailureMechanismMetaEntity(reader, sourceFilePath);
-                    
+
+                    AssertAdoptableFailureMechanismSectionResult(reader, sourceFilePath);
+                    AssertNonAdoptableFailureMechanismSectionResult(reader, sourceFilePath);
+
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
@@ -173,8 +176,6 @@ namespace Riskeer.Migration.Integration.Test
         {
             string[] tables =
             {
-                "AdoptableFailureMechanismSectionResultEntity",
-                "AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
                 "AssessmentSectionEntity",
                 "BackgroundDataEntity",
                 "BackgroundDataMetaEntity",
@@ -216,8 +217,6 @@ namespace Riskeer.Migration.Integration.Test
                 "MacroStabilityInwardsSoilProfileTwoDEntity",
                 "MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity",
                 "MacroStabilityInwardsStochasticSoilProfileEntity",
-                "NonAdoptableFailureMechanismSectionResultEntity",
-                "NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
                 "PipingScenarioConfigurationPerFailureMechanismSectionEntity",
@@ -800,7 +799,7 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
-        
+
         private static void AssertSpecificFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateMetaEntity =
@@ -827,6 +826,134 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
+        #endregion
+
+        #region Failure mechanism section results
+
+        private static void AssertAdoptableFailureMechanismSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateNrOfSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT SUM(count) " +
+                "FROM " +
+                "( " +
+                "SELECT COUNT() as count " +
+                "FROM SOURCEPROJECT.AdoptableFailureMechanismSectionResultEntity " +
+                "UNION " +
+                "SELECT COUNT() as count " +
+                "FROM SOURCEPROJECT.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity " +
+                ")" +
+                ")" +
+                "FROM AdoptableFailureMechanismSectionResultEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateNrOfSectionResults);
+
+            string validateExistingFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.AdoptableFailureMechanismSectionResultEntity " +
+                ")" +
+                "FROM AdoptableFailureMechanismSectionResultEntity NEW " +
+                "JOIN  SOURCEPROJECT.AdoptableFailureMechanismSectionResultEntity OLD USING(AdoptableFailureMechanismSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = OLD.[IsRelevant] " +
+                "AND NEW.[InitialFailureMechanismResultType] = OLD.[InitialFailureMechanismResultType] " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS OLD.[ManualInitialFailureMechanismResultSectionProbability] " +
+                "AND NEW.[FurtherAnalysisType] = OLD.[FurtherAnalysisType] " +
+                "AND NEW.[RefinedSectionProbability] IS OLD.[RefinedSectionProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateExistingFailureMechanismSectionResults);
+
+            string validateMigratedAdoptableWithProfileProbabilityFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity " +
+                ")" +
+                "FROM AdoptableFailureMechanismSectionResultEntity NEW " +
+                "JOIN  SOURCEPROJECT.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "JOIN ( " +
+                "SELECT " +
+                "FailureMechanismSectionEntityId, " +
+                "CASE " +
+                "WHEN [ProbabilityRefinementType] = 2 OR [ProbabilityRefinementType] = 3 " +
+                "THEN [RefinedSectionProbability] " +
+                "WHEN [ProbabilityRefinementType] = 1 " +
+                "THEN NULL " +
+                "END AS ExpectedRefinedSectionProbability " +
+                "FROM SOURCEPROJECT.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" +
+                ") AS ofmsr USING(FailureMechanismSectionEntityId)" +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = OLD.[IsRelevant] " +
+                "AND NEW.[InitialFailureMechanismResultType] = OLD.[InitialFailureMechanismResultType] " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS OLD.[ManualInitialFailureMechanismResultSectionProbability] " +
+                "AND NEW.[FurtherAnalysisType] = OLD.[FurtherAnalysisType] " +
+                "AND NEW.[RefinedSectionProbability] IS ofmsr.[ExpectedRefinedSectionProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMigratedAdoptableWithProfileProbabilityFailureMechanismSectionResults);
+        }
+
+        private static void AssertNonAdoptableFailureMechanismSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateNrOfSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT SUM(count) " +
+                "FROM " +
+                "( " +
+                "SELECT COUNT() as count " +
+                "FROM SOURCEPROJECT.NonAdoptableFailureMechanismSectionResultEntity " +
+                "UNION " +
+                "SELECT COUNT() as count " +
+                "FROM SOURCEPROJECT.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity " +
+                ")" +
+                ")" +
+                "FROM NonAdoptableFailureMechanismSectionResultEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateNrOfSectionResults);
+
+            string validateExistingFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.NonAdoptableFailureMechanismSectionResultEntity " +
+                ")" +
+                "FROM NonAdoptableFailureMechanismSectionResultEntity NEW " +
+                "JOIN  SOURCEPROJECT.NonAdoptableFailureMechanismSectionResultEntity OLD USING(NonAdoptableFailureMechanismSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = OLD.[IsRelevant] " +
+                "AND NEW.[InitialFailureMechanismResultType] = OLD.[InitialFailureMechanismResultType] " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS OLD.[ManualInitialFailureMechanismResultSectionProbability] " +
+                "AND NEW.[FurtherAnalysisType] = OLD.[FurtherAnalysisType] " +
+                "AND NEW.[RefinedSectionProbability] IS OLD.[RefinedSectionProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateExistingFailureMechanismSectionResults);
+
+            string validateMigratedNonAdoptableWithProfileProbabilityFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity " +
+                ")" +
+                "FROM NonAdoptableFailureMechanismSectionResultEntity NEW " +
+                "JOIN  SOURCEPROJECT.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = OLD.[IsRelevant] " +
+                "AND NEW.[InitialFailureMechanismResultType] = OLD.[InitialFailureMechanismResultType] " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS OLD.[ManualInitialFailureMechanismResultSectionProbability] " +
+                "AND NEW.[FurtherAnalysisType] = OLD.[FurtherAnalysisType] " +
+                "AND NEW.[RefinedSectionProbability] IS OLD.[RefinedSectionProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMigratedNonAdoptableWithProfileProbabilityFailureMechanismSectionResults);
+        }
 
         #endregion
     }
