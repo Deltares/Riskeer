@@ -40,19 +40,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Gets the initial probability of the profile for the failure mechanism section.
-        /// </summary>
-        public Probability ProbabilityInitialMechanismProfile { get; private set; }
-
-        /// <summary>
         /// Gets the initial probability of the section for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismSection { get; private set; }
-
-        /// <summary>
-        /// Gets the initial probability of the profile for the failure mechanism section.
-        /// </summary>
-        public Probability RefinedProbabilityProfile { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the section for the failure mechanism section.
@@ -88,11 +78,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Sets the section probability.
         /// </summary>
         public Probability SectionProbability { private get; set; }
-
-        /// <summary>
-        /// Gets the profile and section probability.
-        /// </summary>
-        public ResultWithProfileAndSectionProbabilities ProfileAndSectionProbabilities { private get; set; }
 
         /// <summary>
         /// Sets the category.
@@ -136,16 +121,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection,
             Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
         {
-            ThrowException();
-            Calculated = true;
-
-            RefinementNecessary = refinementNecessary;
-            ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
-            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
-            RefinedProbabilityProfile = refinedProbabilityProfile;
-            RefinedProbabilitySection = refinedProbabilitySection;
-
-            return ProfileAndSectionProbabilities;
+            throw new NotImplementedException();
         }
 
         public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(
