@@ -4,12 +4,12 @@
 		<flatlistofchildren>
 			<smartfoldernode
 			id="0183e3be-50a6-4639-8201-db31f4f764ff"
-			name="NoFailureProbabilityLEFalse">
+			name="NoFailureProbability">
 				<parameters>
 					<param
 					mask="False"
-					name="nameOfFolderNoFailureProbabilityLEFalse"
-					value="LoopNoFailureProbabilityLEFalse">
+					name="nameOfFolderNoFailureProbability"
+					value="LoopNoFailureProbability">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -251,7 +251,7 @@
 			<smartfoldernode
 			datasource="script21_b_RowsTakenOverResultsInSection"
 			id="120ef7ee-78db-4bda-b952-72a601abdaec"
-			name="TakeOverResultInSectionLEFalse">
+			name="TakeOverResultInSection">
 				<parameters>
 					<param
 					mask="False"
@@ -513,7 +513,7 @@
 			datasource="script21_b_IterationRowsResultView"
 			errorbehavior="ContinueNextIteration"
 			id="381f0f9b-31ab-411d-825e-9832ab947902"
-			name="LoopNoFailureProbabilityLEFalse">
+			name="LoopNoFailureProbability">
 				<parameters>
 					<param
 					mask="False"
@@ -648,7 +648,7 @@
 			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="4502708a-861b-4fe0-be1c-bf9f174b21f5"
-			name="SetManualResultValuesLEFalse">
+			name="SetManualResultValues">
 				<parameters>
 					<param
 					mask="False"
@@ -806,7 +806,7 @@
 			datasource="script21_b_RowsManualResultsInSection"
 			errorbehavior="ContinueNextIteration"
 			id="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
-			name="ManualResultInSectionLEFalse">
+			name="ManualResultInSection">
 				<parameters>
 					<param
 					mask="False"
@@ -1271,7 +1271,7 @@
 			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="72673703-a4e2-4b2d-9e10-c5077cc97fd8"
-			name="ValidateManualInitialResultValuesLEFalse">
+			name="ValidateManualInitialResultValues">
 				<parameters>
 					<param
 					mask="False"
@@ -1822,7 +1822,7 @@
 			datasource="script21_b_IterationRowsResultView"
 			errorbehavior="ContinueNextIteration"
 			id="a076f2eb-67f4-409d-8e4e-ef63d6131f5e"
-			name="RelevanceLEFalse">
+			name="Relevance">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_ListWithpathsFMs"
@@ -2241,7 +2241,7 @@
 			<smartfoldernode
 			datasource="script21_b_IterationRowsResultView"
 			id="bd9d311b-b18c-4f34-a647-866c63528130"
-			name="NotRequiredLEFalse">
+			name="NotRequired">
 				<parameters>
 					<param
 					mask="False"
@@ -2400,7 +2400,7 @@
 			<smartfoldernode
 			datasource="script21_b_IterationRowsResultView"
 			id="d092a3df-5878-4262-a36b-c20b132ca18a"
-			name="RequiredLEFalse">
+			name="Required">
 				<parameters>
 					<param
 					mask="False"
@@ -2427,7 +2427,7 @@
 			datasource="script_21b_ValidationTakenOverResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="d5babda3-3011-4083-a093-abe84bcc938d"
-			name="ValidateTakenOverResultValuesLEFalse">
+			name="ValidateTakenOverResultValues">
 				<parameters>
 					<param
 					mask="False"
@@ -2791,7 +2791,7 @@
 			datasource="script_21b_ValidationManualResultValues"
 			errorbehavior="ContinueNextIteration"
 			id="f25ce2f0-3a34-418f-a9f6-7e2677d7f996"
-			name="ValidateManualFinalResultValuesLEFalse">
+			name="ValidateManualFinalResultValues">
 				<parameters>
 					<param
 					mask="False"
@@ -2914,7 +2914,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="nameOfFolderNoFailureProbabilityLEFalse"
+					dataname="nameOfFolderNoFailureProbability"
 					datasourceid="0183e3be-50a6-4639-8201-db31f4f764ff"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
@@ -3196,7 +3196,7 @@
 									</testmodule>
 									<smartfoldernode
 									id="a076f2eb-67f4-409d-8e4e-ef63d6131f5e"
-									name="RelevanceLEFalse">
+									name="Relevance">
 										<smartfoldernode
 										id="acd74bfd-aabe-49e3-8b7e-7d8a54554b77"
 										name="SetRelevanceOff">
@@ -3298,7 +3298,7 @@
 											</testmodule>
 											<smartfoldernode
 											id="120ef7ee-78db-4bda-b952-72a601abdaec"
-											name="TakeOverResultInSectionLEFalse">
+											name="TakeOverResultInSection">
 												<testmodule
 												id="85727cad-a064-4e2e-a7b7-e3eb14908958"
 												name="SelectOptionDropDownMenuInCellResultView">
@@ -3309,7 +3309,7 @@
 												</testmodule>
 												<smartfoldernode
 												id="d5babda3-3011-4083-a093-abe84bcc938d"
-												name="ValidateTakenOverResultValuesLEFalse">
+												name="ValidateTakenOverResultValues">
 													<testmodule
 													id="c3f97e64-3bb6-486d-937c-e616ae7b51c3"
 													name="ValidateValueInCellResultView">
@@ -3326,7 +3326,7 @@
 											</testmodule>
 											<smartfoldernode
 											id="53b33eb1-aacf-4e02-9e8d-7b74608ccc50"
-											name="ManualResultInSectionLEFalse">
+											name="ManualResultInSection">
 												<testmodule
 												id="ab50032d-d7b3-4d5a-a056-5189e137bef0"
 												name="SelectOptionDropDownMenuInCellResultView">
@@ -3337,7 +3337,7 @@
 												</testmodule>
 												<smartfoldernode
 												id="72673703-a4e2-4b2d-9e10-c5077cc97fd8"
-												name="ValidateManualInitialResultValuesLEFalse">
+												name="ValidateManualInitialResultValues">
 													<testmodule
 													id="5c230a79-62a4-4bba-b054-1f87da73dd21"
 													name="ValidateValueInCellResultView">
@@ -3349,7 +3349,7 @@
 												</testmodule>
 												<smartfoldernode
 												id="4502708a-861b-4fe0-be1c-bf9f174b21f5"
-												name="SetManualResultValuesLEFalse">
+												name="SetManualResultValues">
 													<testmodule
 													id="16b9ade6-ab16-4c2b-a776-f6df343ba9c6"
 													name="SetValueInCellResultView">
@@ -3361,7 +3361,7 @@
 												</testmodule>
 												<smartfoldernode
 												id="f25ce2f0-3a34-418f-a9f6-7e2677d7f996"
-												name="ValidateManualFinalResultValuesLEFalse">
+												name="ValidateManualFinalResultValues">
 													<testmodule
 													id="41db5239-bb47-4f24-b04d-de398a8bc10a"
 													name="ValidateValueInCellResultView">
@@ -3371,14 +3371,14 @@
 										</smartfoldernode>
 										<smartfoldernode
 										id="0183e3be-50a6-4639-8201-db31f4f764ff"
-										name="NoFailureProbabilityLEFalse">
+										name="NoFailureProbability">
 											<testmodule
 											id="f6584d26-e075-452d-b431-2c560dc7bd12"
 											name="SetRangeInSmartFolder">
 											</testmodule>
 											<smartfoldernode
 											id="381f0f9b-31ab-411d-825e-9832ab947902"
-											name="LoopNoFailureProbabilityLEFalse">
+											name="LoopNoFailureProbability">
 												<testmodule
 												id="57f20084-6470-4784-b7b6-90f01214e058"
 												name="SelectOptionDropDownMenuInCellResultView">
@@ -3419,7 +3419,7 @@
 										</testmodule>
 										<smartfoldernode
 										id="bd9d311b-b18c-4f34-a647-866c63528130"
-										name="NotRequiredLEFalse">
+										name="NotRequired">
 											<testmodule
 											id="a200cdac-0ad6-4963-bff5-d51ca433b8df"
 											name="SelectOptionDropDownMenuInCellResultView">
@@ -3439,7 +3439,7 @@
 										</testmodule>
 										<smartfoldernode
 										id="d092a3df-5878-4262-a36b-c20b132ca18a"
-										name="RequiredLEFalse">
+										name="Required">
 											<testmodule
 											id="871e083d-9f9a-4ce3-b0f9-2adc39c3bc0d"
 											name="SelectOptionDropDownMenuInCellResultView">
