@@ -1644,24 +1644,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakspecifieke waarde voor het in rekening brengen van het lengte-effect tijdens assemblage (afgerond)..
-        /// </summary>
-        public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Rounded_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nvak* [-].
-        /// </summary>
-        public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismSectionResultIcon {

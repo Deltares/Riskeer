@@ -465,9 +465,6 @@
     <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-    <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_Description" xml:space="preserve">
-    <value>Vakspecifieke waarde voor het in rekening brengen van het lengte-effect tijdens assemblage (afgerond).</value>
-  </data>
     <data name="HydraulicBoundaryDatabase_Location_Coordinates_Description" xml:space="preserve">
     <value>Coördinaten van de hydraulische belastingenlocatie.</value>
   </data>
@@ -1279,9 +1276,6 @@ Betrouwbaarheidsindex = {1}</value>
   </data>
     <data name="FailureMechanismSection_StartPoint_DisplayName" xml:space="preserve">
     <value>Beginpunt</value>
-  </data>
-    <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
-    <value>Nvak* [-]</value>
   </data>
     <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
     <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
