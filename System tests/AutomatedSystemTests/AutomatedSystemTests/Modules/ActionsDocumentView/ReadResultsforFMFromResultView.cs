@@ -100,26 +100,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             foreach (var row in rowsData) {
                 var cellsDataInRow = row.Cells.ToList();
                 currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]);
-                if (sectionColumnIndeces[0]!=-1) {
-                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = GetAccValue(cellsDataInRow[sectionColumnIndeces[0]]);
-                } else {
-                    var denominatorCalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]).ToNoGroupSeparator().Substring(2);
-                    double numericCalculationFailureProbPerSection;
-                    string fractionCalculationFailureProbPerProfile;
-                    if (denominatorCalculationFailureProbPerSection=="Oneindig") {
-                        fractionCalculationFailureProbPerProfile = "1/Oneindig";
-                    } else {
-                        numericCalculationFailureProbPerSection = 1.0 / Double.Parse(denominatorCalculationFailureProbPerSection);
-                        var numericNParemeterFM = Double.Parse(N_FM);
-                        var numericCalculationFailureProbPerProfile = numericCalculationFailureProbPerSection * numericNParemeterFM;
-                        fractionCalculationFailureProbPerProfile = "1/" + Convert.ToInt32(1.0/numericCalculationFailureProbPerProfile).ToString();
-                    }
-                    
-                    
-                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = fractionCalculationFailureProbPerProfile;
-                }
-                
-
                 currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionColumnIndeces[2]]);
                 rowIndex++;
             }

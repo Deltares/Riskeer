@@ -35,11 +35,6 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         public string AssemblyGroup {get; set;}
         
         /// <summary>
-        /// Probability associated to the combined assessment of the profile (it exists for some FMs).
-        /// </summary>
-        public string CalculationFailureProbPerProfile {get; set;}
-
-        /// <summary>
         /// Probability associated to the combined assessment of the section (it exists for some FMs).
         /// </summary>
         public string CalculationFailureProbPerSection {get; set;}
