@@ -2768,16 +2768,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans
-        ///[1/jaar].
-        /// </summary>
-        public static string ScenarioView_FailureProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("ScenarioView_FailureProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bijdrage aan
         ///scenario
         ///[%].

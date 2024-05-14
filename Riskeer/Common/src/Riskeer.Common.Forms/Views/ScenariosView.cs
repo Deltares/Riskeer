@@ -161,7 +161,7 @@ namespace Riskeer.Common.Forms.Views
             );
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ScenarioRow<TCalculationScenario>.FailureProbability),
-                Resources.ScenarioView_FailureProbability_DisplayName
+                Resources.ScenarioView_SectionFailureProbability_DisplayName
             );
         }
 

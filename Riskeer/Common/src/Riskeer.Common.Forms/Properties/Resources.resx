@@ -1420,10 +1420,6 @@ berekende kans
     <data name="Calculations_per_FailureMechanismSection_DisplayName" xml:space="preserve">
     <value>Berekeningen voor geselecteerd vak</value>
   </data>
-    <data name="ScenarioView_FailureProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans
-[1/jaar]</value>
-  </data>
     <data name="ScenarioView_InitializeDataGridView_Contribution" xml:space="preserve">
     <value>Bijdrage aan
 scenario
