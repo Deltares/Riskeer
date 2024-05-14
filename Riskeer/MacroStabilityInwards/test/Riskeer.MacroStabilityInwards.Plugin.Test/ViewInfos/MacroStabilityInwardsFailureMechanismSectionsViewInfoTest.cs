@@ -27,7 +27,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -36,7 +35,7 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionsProbabilityAssessmentViewInfoTest
+    public class MacroStabilityInwardsFailureMechanismSectionsViewInfoTest
     {
         private static ViewInfo info;
 
@@ -45,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         {
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsProbabilityAssessmentView));
+                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
             }
         }
 
@@ -96,9 +95,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
-                return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
-                                                                             failureMechanism,
-                                                                             ProbabilityAssessmentInputTestFactory.Create());
+                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
             }
         }
     }

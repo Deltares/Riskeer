@@ -307,14 +307,12 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new RiskeerViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>(() => Gui)
+            yield return new RiskeerViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(
-                    context.WrappedData.Sections, context.WrappedData,
-                    ((PipingFailureMechanism) context.WrappedData).ProbabilityAssessmentInput)
+                CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData)
             };
 
             yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)

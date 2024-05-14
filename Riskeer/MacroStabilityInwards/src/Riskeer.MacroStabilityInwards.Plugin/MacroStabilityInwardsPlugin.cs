@@ -312,13 +312,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
             };
 
-            yield return new RiskeerViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>(() => Gui)
+            yield return new RiskeerViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(
-                    context.WrappedData.Sections, context.WrappedData,
-                    ((MacroStabilityInwardsFailureMechanism) context.WrappedData).ProbabilityAssessmentInput),
+                CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
         }
