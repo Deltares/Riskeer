@@ -29,24 +29,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     public class ValidateFailureProbabilityFMInResultView : ITestModule
     {
         
-        string _N_FM = "";
-        [TestVariable("197f7939-9789-4254-aca0-d93dded44192")]
-        public string N_FM
-        {
-            get { return _N_FM; }
-            set { _N_FM = value; }
-        }
-        
-        
-        string _ApplyLengthEffect = "";
-        [TestVariable("f6beed93-c034-4010-b334-8d111679a612")]
-        public string ApplyLengthEffect
-        {
-            get { return _ApplyLengthEffect; }
-            set { _ApplyLengthEffect = value; }
-        }
-        
-        
         string _labelFM = "";
         [TestVariable("d0d431e3-1478-40d4-b8fa-f84bbc8597e7")]
         public string labelFM

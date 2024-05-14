@@ -30,24 +30,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     public class ReadResultsforFMFromResultView : ITestModule
     {
         
-        string _ApplyLengthEffect = "";
-        [TestVariable("53f3fadb-213a-4cc3-9189-528011840720")]
-        public string ApplyLengthEffect
-        {
-            get { return _ApplyLengthEffect; }
-            set { _ApplyLengthEffect = value; }
-        }
-        
-        
-        string _N_FM = "";
-        [TestVariable("155dec49-5354-46b4-a93e-76f2d8c8f67d")]
-        public string N_FM
-        {
-            get { return _N_FM; }
-            set { _N_FM = value; }
-        }
-        
-        
         string _trajectAssessmentInformationString = "";
         [TestVariable("9ac12269-a27c-4f0c-9b29-11857490bb77")]
         public string trajectAssessmentInformationString

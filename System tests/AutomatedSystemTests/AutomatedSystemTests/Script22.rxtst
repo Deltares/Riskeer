@@ -95,6 +95,7 @@
 			includeimageschecked="False"
 			includerecordingschecked="False"
 			junitreport="False"
+			junitreportshowerrafterstd="True"
 			name="Script22"
 			overwritefilechecked="False"
 			reportcompress="False"
@@ -439,18 +440,6 @@
 			ref="0d324e02-5dae-41d7-8ee9-9352a1327e9c"
 			type="UserCode">
 				<databinding>
-					<var
-					dataname="ApplyLengthEffect"
-					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
-					variableid="53f3fadb-213a-4cc3-9189-528011840720"
-					variablename="ApplyLengthEffect">
-					</var>
-					<var
-					dataname="N_FM"
-					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
-					variableid="155dec49-5354-46b4-a93e-76f2d8c8f67d"
-					variablename="N_FM">
-					</var>
 					<var
 					dataname="fmLabel"
 					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
@@ -803,18 +792,6 @@
 			errorbehavior="ContinueNextIteration"
 			id="7bcf6b46-895c-4012-8c96-0106901f96a7"
 			name="LoopFms">
-				<parameters>
-					<param
-					mask="False"
-					name="N_FM"
-					value="">
-					</param>
-					<param
-					mask="False"
-					name="ApplyLengthEffect"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="7d752c96-a72c-46ff-9565-0295870509b9"
@@ -896,6 +873,8 @@
 					variableid="d0d431e3-1478-40d4-b8fa-f84bbc8597e7"
 					variablename="labelFM">
 					</var>
+				</databinding>
+				<missingdatabinding>
 					<var
 					dataname="N_FM"
 					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
@@ -908,7 +887,7 @@
 					variableid="f6beed93-c034-4010-b334-8d111679a612"
 					variablename="ApplyLengthEffect">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="9d0f3272-1dd5-46a7-9895-2e7160b20845"
