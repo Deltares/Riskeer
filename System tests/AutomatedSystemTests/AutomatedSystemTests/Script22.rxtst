@@ -1722,9 +1722,6 @@
 					fmLabel
 				</column>
 				<column>
-					pathToFM
-				</column>
-				<column>
 					pathToResultItem
 				</column>
 				<column>
@@ -1751,9 +1748,6 @@
 						fmLabel
 					</th>
 					<th>
-						pathToFM
-					</th>
-					<th>
 						pathToResultItem
 					</th>
 					<th>
@@ -1777,9 +1771,6 @@
 						STPH
 					</td>
 					<td>
-						@TR&gt;@GF&gt;@STPH
-					</td>
-					<td>
 						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
@@ -1800,9 +1791,6 @@
 						GEKB
 					</td>
 					<td>
-						@TR&gt;@GF&gt;@GEKB
-					</td>
-					<td>
 						@TR&gt;@GF&gt;@GEKB&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
@@ -1821,9 +1809,6 @@
 				<tr>
 					<td>
 						STMI
-					</td>
-					<td>
-						@TR&gt;@GF&gt;@STMI
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@STMI&gt;Oordeel&gt;Resultaat
@@ -1849,9 +1834,6 @@
 						BSKW
 					</td>
 					<td>
-						@TR&gt;@GF&gt;@BSKW
-					</td>
-					<td>
 						@TR&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
@@ -1875,9 +1857,6 @@
 						PKW
 					</td>
 					<td>
-						@TR&gt;@GF&gt;@PKW
-					</td>
-					<td>
 						@TR&gt;@GF&gt;@PKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
@@ -1896,9 +1875,6 @@
 				<tr>
 					<td>
 						NIEUW
-					</td>
-					<td>
-						@TR&gt;@SF&gt;Nieuw
 					</td>
 					<td>
 						@TR&gt;@SF&gt;Nieuw&gt;Oordeel&gt;Resultaat
