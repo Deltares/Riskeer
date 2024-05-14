@@ -117,10 +117,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 CreateInstance = soilProfile => new MacroStabilityInwardsStochasticSoilProfileProperties(soilProfile)
             };
-            yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismSectionsContext, FailureMechanismSectionsProperties>
             {
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    context.WrappedData, ((MacroStabilityInwardsFailureMechanism) context.WrappedData).ProbabilityAssessmentInput)
+                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData)
             };
         }
 

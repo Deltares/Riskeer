@@ -130,10 +130,9 @@ namespace Riskeer.Piping.Plugin
             {
                 CreateInstance = stochasticSoilProfile => new PipingStochasticSoilProfileProperties(stochasticSoilProfile)
             };
-            yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
+            yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProperties>
             {
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).ProbabilityAssessmentInput)
+                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {

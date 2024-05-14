@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismSectionsProbabilityAssessmentProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismSectionsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingFailureMechanismSectionsContext), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismSectionsProbabilityAssessmentProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(FailureMechanismSectionsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(failureMechanismSectionsContext);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionsProbabilityAssessmentProperties>(objectProperties);
+            Assert.IsInstanceOf<FailureMechanismSectionsProperties>(objectProperties);
             Assert.AreSame(failureMechanismSectionsContext.WrappedData, objectProperties.Data);
             mocks.VerifyAll();
         }
