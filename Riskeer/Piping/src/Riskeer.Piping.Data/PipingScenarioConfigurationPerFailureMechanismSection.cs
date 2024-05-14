@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Piping.Data
@@ -28,28 +27,18 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class PipingScenarioConfigurationPerFailureMechanismSection : Observable
+    public class PipingScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section)
+        public PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section) : base(section)
         {
-            if (section == null)
-            {
-                throw new ArgumentNullException(nameof(section));
-            }
-
-            Section = section;
+            A = 0.4;
             ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
         }
-
-        /// <summary>
-        /// Gets the <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        public FailureMechanismSection Section { get; }
 
         /// <summary>
         /// Gets or sets the scenario configuration.

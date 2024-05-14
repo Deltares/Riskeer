@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -51,7 +50,8 @@ namespace Riskeer.Piping.Data.Test
             var scenarioConfigurationPerFailureMechanismSection = new PipingScenarioConfigurationPerFailureMechanismSection(section);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(scenarioConfigurationPerFailureMechanismSection);
+            Assert.IsInstanceOf<ScenarioConfigurationPerFailureMechanismSection>(scenarioConfigurationPerFailureMechanismSection);
+            Assert.AreEqual(0.4, scenarioConfigurationPerFailureMechanismSection.A);
             Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
             Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
                             scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType);
