@@ -2,26 +2,6 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
-			<testmodule
-			id="011ce58e-75e3-473c-b0a5-93de77d449b8"
-			name="GetValueParameterInPropertiesPanelGivenPath"
-			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToNParameterInPP"
-					datasourceid="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
-					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="N_FM"
-					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
-					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
-					variablename="valueOfElement">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
 			name="ChangeFMFailureProbabilitiesToManual">
@@ -567,26 +547,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="5821b973-681c-432c-9fdd-de9b86d6860d"
-			name="GetValueParameterInPropertiesPanelGivenPath"
-			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToApplyLengthEffectInPP"
-					datasourceid="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
-					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="ApplyLengthEffect"
-					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
-					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
-					variablename="valueOfElement">
-					</var>
-				</databinding>
-			</testmodule>
 			<teardown
 			id="584fac82-6351-4197-932a-8b2d2ede2d5c"
 			name="teardown">
@@ -975,20 +935,6 @@
 			id="a1a419de-ae0e-4484-871d-4e461673f3e8"
 			name="TakeScreenshot">
 			</smartfoldernode>
-			<testmodule
-			id="a1dbbd34-e5dd-4891-af0f-0043ce5e916b"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToFM"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="a2727582-55dc-4810-b276-f4c237c42e0b"
 			name="ReadCombinedAssessmentInformationForFM">
@@ -1086,22 +1032,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
-			name="ReadFMInformationRelevantForFMFailureProbability">
-				<parameters>
-					<param
-					mask="False"
-					name="pathToNParameterInPP"
-					value="Lengte-effect>N">
-					</param>
-					<param
-					mask="False"
-					name="pathToApplyLengthEffectInPP"
-					value="Lengte-effect>Toepassen lengte-effect binnen vak">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2"
 			name="OpenResultsView">
@@ -1314,22 +1244,6 @@
 							<smartfoldernode
 							id="7bcf6b46-895c-4012-8c96-0106901f96a7"
 							name="LoopFms">
-								<smartfoldernode
-								id="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
-								name="ReadFMInformationRelevantForFMFailureProbability">
-									<testmodule
-									id="a1dbbd34-e5dd-4891-af0f-0043ce5e916b"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="011ce58e-75e3-473c-b0a5-93de77d449b8"
-									name="GetValueParameterInPropertiesPanelGivenPath">
-									</testmodule>
-									<testmodule
-									id="5821b973-681c-432c-9fdd-de9b86d6860d"
-									name="GetValueParameterInPropertiesPanelGivenPath">
-									</testmodule>
-								</smartfoldernode>
 								<smartfoldernode
 								id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f"
 								name="ReadDivisionInSections">
@@ -2098,9 +2012,6 @@
 			</testcontainer>
 			<testcontainer
 			id="c2dae628-5195-4cc9-8348-296f5a64bbce">
-			</testcontainer>
-			<testcontainer
-			id="d39e3b0f-5ec5-44a5-bc75-7122911255e1">
 			</testcontainer>
 			<testcontainer
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2">
