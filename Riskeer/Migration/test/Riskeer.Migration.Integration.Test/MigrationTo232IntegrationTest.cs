@@ -109,6 +109,11 @@ namespace Riskeer.Migration.Integration.Test
             yield return new TestCaseData("MigrationTestProject231NoOutput.risk", new[]
             {
                 "* Geen aanpassingen."
+            });           
+            
+            yield return new TestCaseData("MigrationTestProject231VariousFailureMechanismSectionResultConfigurations.risk", new[]
+            {
+                "* Geen aanpassingen."
             });
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
