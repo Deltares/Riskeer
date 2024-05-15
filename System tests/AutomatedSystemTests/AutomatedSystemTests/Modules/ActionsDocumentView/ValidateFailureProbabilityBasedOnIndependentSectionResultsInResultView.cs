@@ -26,7 +26,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     /// Description of ValidateFailureProbabilityFMInResultView.
     /// </summary>
     [TestModule("624D9FA1-26B3-40F8-BFC7-47503BA11A9D", ModuleType.UserCode, 1)]
-    public class ValidateFailureProbabilityFMInResultView : ITestModule
+    public class ValidateFailureProbabilityBasedOnIndependentSectionResultsInResultView : ITestModule
     {
         
         string _labelFM = "";
@@ -48,7 +48,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateFailureProbabilityFMInResultView()
+        public ValidateFailureProbabilityBasedOnIndependentSectionResultsInResultView()
         {
             // Do not delete - a parameterless constructor is required!
         }

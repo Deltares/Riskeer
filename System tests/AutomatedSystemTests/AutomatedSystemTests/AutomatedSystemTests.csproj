@@ -564,7 +564,7 @@
       <UserCode>true</UserCode>
       <id>d64324b9-a0a0-444a-8ca8-be84c77dacc0</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\SeManualFailureProbabilityFMInResultView.cs">
+    <Compile Include="Modules\ActionsDocumentView\SetManualFailureProbabilityFMInResultView.cs">
       <id>b1dc28ee-2c35-4a85-8de5-656510b35fd9</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.cs">
@@ -591,7 +591,7 @@
       <UserCode>true</UserCode>
       <id>f0ec8e33-f569-4e1d-be5c-8be631f580cc</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidateFailureProbabilityFMInResultView.cs">
+    <Compile Include="Modules\ActionsDocumentView\ValidateFailureProbabilityBasedOnIndependentSectionResultsInResultView.cs">
       <id>b4d167ad-dc06-4869-8c29-91a1702642fb</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateSectionResultAsCombinationContributionsInFMResultView.cs">

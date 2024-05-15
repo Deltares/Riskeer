@@ -27,7 +27,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     /// Description of SeManualFailureProbabilityFMInResultView.
     /// </summary>
     [TestModule("11B4F29F-CD05-44C2-A71F-20FD99B75F3B", ModuleType.UserCode, 1)]
-    public class SeManualFailureProbabilityFMInResultView : ITestModule
+    public class SetManualFailureProbabilityFMInResultView : ITestModule
     {
         
         string _trajectAssessmentInformationString = "";
@@ -58,7 +58,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SeManualFailureProbabilityFMInResultView()
+        public SetManualFailureProbabilityFMInResultView()
         {
             // Do not delete - a parameterless constructor is required!
         }

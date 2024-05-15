@@ -4,7 +4,7 @@
 		<flatlistofchildren>
 			<smartfoldernode
 			id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
-			name="ChangeFMFailureProbabilitiesToManual">
+			name="ChangeFMFailureProbabilityToManual">
 				<parameters>
 					<param
 					mask="False"
@@ -12,27 +12,6 @@
 					value="Handmatig invullen">
 					</param>
 				</parameters>
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="newManualFMFailureProb"
-								id="a3c4f19e-1fe0-492d-bccc-4896a68bce52">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="06ae6619-df4b-4a43-ad11-5f25a702fd38"
@@ -120,7 +99,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="1b2177e3-9dcc-4116-bc74-e7d4768bd387"
-			name="SeManualFailureProbabilityFMInResultView"
+			name="SetManualFailureProbabilityFMInResultView"
 			ref="11b4f29f-cd05-44c2-a71f-20fd99b75f3b"
 			type="UserCode">
 				<databinding>
@@ -146,7 +125,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="1e51d9c7-7b31-4a0a-85c3-f8d038dfba6c"
-			name="ValidateFailureProbabilitiesForP2">
+			name="ValidateFMFailureProbabilityBasedOnWorstSectionResult">
 				<parameters>
 					<param
 					mask="False"
@@ -154,27 +133,6 @@
 					value="Automatisch berekenen o.b.v. slechtste vak">
 					</param>
 				</parameters>
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="P2FMFailureProb"
-								id="a3c4f19e-1fe0-492d-bccc-4896a68bce52">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="1f74c9cf-7c9e-4214-ae66-7c351a603695"
@@ -267,7 +225,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="P2FMFailureProb"
+					dataname="FMFailureProbWorst"
 					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
 					variableid="f0dc1f20-f699-422e-bdc0-2a3455febb1b"
 					variablename="FMAssemblyProbability">
@@ -827,7 +785,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="91177b82-eb70-499f-aeff-5c8abe08d6d7"
-			name="ValidateFailureProbabilityFM">
+			name="ValidateFMFailureProbabilityBasedOnIndependentSectionResults">
 			</smartfoldernode>
 			<smartfoldernode
 			id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57"
@@ -857,7 +815,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="9cc765bc-8ee1-455f-803f-a6cf4032bb82"
-			name="ValidateFailureProbabilityFMInResultView"
+			name="ValidateFailureProbabilityBasedOnIndependentSectionResultsInResultView"
 			ref="624d9fa1-26b3-40f8-bfc7-47503ba11a9d"
 			type="UserCode">
 				<databinding>
@@ -925,31 +883,6 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			id="b959386f-31fa-4971-b122-c525b0a3acdb"
-			name="ValidateFailureProbabilitiesForP1">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="P1FMFailureProb"
-								id="a3c4f19e-1fe0-492d-bccc-4896a68bce52">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
-			<smartfoldernode
 			id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7"
 			name="CloseView">
 			</smartfoldernode>
@@ -1015,20 +948,6 @@
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2"
 			name="OpenResultsView">
 			</smartfoldernode>
-			<testmodule
-			id="d754d66c-1306-4a72-b962-6f9aaf90b055"
-			name="ValidateFMAssemblyProbability"
-			ref="20872583-1d50-4408-9f39-87126baf3c34"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="P1FMFailureProb"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="f0dc1f20-f699-422e-bdc0-2a3455febb1b"
-					variablename="FMAssemblyProbability">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="de05eee5-6aeb-42c0-b48a-ac3a513e05d4"
 			name="CloseView">
@@ -1325,23 +1244,15 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="91177b82-eb70-499f-aeff-5c8abe08d6d7"
-								name="ValidateFailureProbabilityFM">
+								name="ValidateFMFailureProbabilityBasedOnIndependentSectionResults">
 									<testmodule
 									id="9cc765bc-8ee1-455f-803f-a6cf4032bb82"
-									name="ValidateFailureProbabilityFMInResultView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="b959386f-31fa-4971-b122-c525b0a3acdb"
-								name="ValidateFailureProbabilitiesForP1">
-									<testmodule
-									id="d754d66c-1306-4a72-b962-6f9aaf90b055"
-									name="ValidateFMAssemblyProbability">
+									name="ValidateFailureProbabilityBasedOnIndependentSectionResultsInResultView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="1e51d9c7-7b31-4a0a-85c3-f8d038dfba6c"
-								name="ValidateFailureProbabilitiesForP2">
+								name="ValidateFMFailureProbabilityBasedOnWorstSectionResult">
 									<testmodule
 									id="78a4ddeb-1401-44b5-9eaa-e72754adaca5"
 									name="SelectTypeFailureMechanismForFM">
@@ -1353,14 +1264,14 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
-								name="ChangeFMFailureProbabilitiesToManual">
+								name="ChangeFMFailureProbabilityToManual">
 									<testmodule
 									id="40b0efd3-bb7e-41d0-abed-e65696acd72d"
 									name="SelectTypeFailureMechanismForFM">
 									</testmodule>
 									<testmodule
 									id="1b2177e3-9dcc-4116-bc74-e7d4768bd387"
-									name="SeManualFailureProbabilityFMInResultView">
+									name="SetManualFailureProbabilityFMInResultView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -1713,10 +1624,7 @@
 					newManualFMFailureProb
 				</column>
 				<column>
-					P1FMFailureProb
-				</column>
-				<column>
-					P2FMFailureProb
+					FMFailureProbWorst
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -1739,10 +1647,7 @@
 						newManualFMFailureProb
 					</th>
 					<th>
-						P1FMFailureProb
-					</th>
-					<th>
-						P2FMFailureProb
+						FMFailureProbWorst
 					</th>
 				</tr>
 				<tr>
@@ -1759,10 +1664,10 @@
 						X:\script22\reference\@TR_@GF_@STPH_Oordeel_Resultaat.csv
 					</td>
 					<td>
+						1/123
 					</td>
 					<td>
-					</td>
-					<td>
+						1/1234251581
 					</td>
 				</tr>
 				<tr>
@@ -1779,10 +1684,10 @@
 						X:\script22\reference\@TR_@GF_@GEKB_Oordeel_Resultaat.csv
 					</td>
 					<td>
+						1/1234
 					</td>
 					<td>
-					</td>
-					<td>
+						1/43663
 					</td>
 				</tr>
 				<tr>
@@ -1799,10 +1704,7 @@
 						X:\script22\reference\@TR_@GF_@STMI_Oordeel_Resultaat.csv
 					</td>
 					<td>
-						1/7654321
-					</td>
-					<td>
-						1/1.111
+						1/12345
 					</td>
 					<td>
 						1/1.234
@@ -1822,10 +1724,7 @@
 						X:\script22\reference\@TR_@GF_@BSKW_Oordeel_Resultaat.csv
 					</td>
 					<td>
-						1/8877665
-					</td>
-					<td>
-						1/456.589
+						1/123456
 					</td>
 					<td>
 						1/555.555
@@ -1845,10 +1744,10 @@
 						X:\script22\reference\@TR_@GF_@PKW_Oordeel_Resultaat.csv
 					</td>
 					<td>
+						1/1234567
 					</td>
 					<td>
-					</td>
-					<td>
+						1/888888
 					</td>
 				</tr>
 				<tr>
@@ -1865,10 +1764,7 @@
 						X:\script22\reference\@TR_@SF_Nieuw_Oordeel_Resultaat.csv
 					</td>
 					<td>
-						1/7766554
-					</td>
-					<td>
-						1/96.618
+						1/12345678
 					</td>
 					<td>
 						1/123.456
@@ -1958,9 +1854,6 @@
 			</testcontainer>
 			<testcontainer
 			id="a2727582-55dc-4810-b276-f4c237c42e0b">
-			</testcontainer>
-			<testcontainer
-			id="b959386f-31fa-4971-b122-c525b0a3acdb">
 			</testcontainer>
 			<testcontainer
 			id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7">
