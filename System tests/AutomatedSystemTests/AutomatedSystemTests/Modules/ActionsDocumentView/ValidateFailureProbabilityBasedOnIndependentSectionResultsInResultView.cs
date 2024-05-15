@@ -102,11 +102,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             private double CalculateExpectedFailureProbFM(FailureMechanismResultInformation fmResultInfo)
             {
-                return PCombin1(fmResultInfo);
-            }
-            
-            private double PCombin1(FailureMechanismResultInformation fmResultInfo)
-            {
                 double productInverseFailureProbability = 1.0;
                 foreach (var section in fmResultInfo.SectionList) {
                     var denominator = section.CalculationFailureProbPerSection.Substring(2).ToNoGroupSeparator();
