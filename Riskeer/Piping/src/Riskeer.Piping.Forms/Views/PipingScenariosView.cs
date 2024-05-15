@@ -246,14 +246,16 @@ namespace Riskeer.Piping.Forms.Views
                                                             : radioButtonSemiProbabilistic.Checked;
 
             bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
-            bool semiProbabilisticColumnsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                                                   || perFailureMechanismSection && perFailureMechanismSemiProbabilistic;
+            bool semiProbabilisticControlsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                                                    || perFailureMechanismSection && perFailureMechanismSemiProbabilistic;
 
             radioButtonsPanel.Visible = perFailureMechanismSection;
             warningIcon.Visible = perFailureMechanismSection;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = semiProbabilisticColumnsVisible;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticColumnsVisible;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticColumnsVisible;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = semiProbabilisticControlsVisible;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticControlsVisible;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticControlsVisible;
+
+            lengthEffectTableLayoutPanel.Visible = semiProbabilisticControlsVisible;
         }
 
         private void UpdateDataGridViewDataSource()

@@ -235,6 +235,32 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_LengthEffectControlsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool controlsShouldBeVisible)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var tableLayoutPanel = (TableLayoutPanel) new ControlTester("lengthEffectTableLayoutPanel").TheObject;
+            Assert.AreEqual(controlsShouldBeVisible, tableLayoutPanel.Visible);
+
+            var lengthEffectALabel = (Label) new LabelTester("lengthEffectALabel").TheObject;
+            Assert.AreEqual("Lengte-effect parameter a (-)", lengthEffectALabel.Text);
+
+            var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
+            Assert.AreEqual("Lengte-effect parameter Nvak* (-)", lengthEffectNRoundedLabel.Text);
+        }
+
+        [Test]
         [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, false)]
         [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
         [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
@@ -681,6 +707,44 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
+        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenLengthEffectControlsUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
+                                                                                                     PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+            };
+            ConfigureFailureMechanism(failureMechanism);
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialScenarioConfigurationType);
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var tableLayoutPanel = (TableLayoutPanel) new ControlTester("lengthEffectTableLayoutPanel").TheObject;
+            bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, tableLayoutPanel.Visible);
+
+            // When
+            if (newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
+            {
+                var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
+                radioButtonSemiProbabilistic.Checked = true;
+            }
+            else
+            {
+                var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
+                radioButtonProbabilistic.Checked = true;
+            }
+
+            // Then
+            bool updatedSemiProbabilisticControlsShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, tableLayoutPanel.Visible);
         }
 
         [Test]
