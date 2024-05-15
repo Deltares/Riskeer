@@ -606,8 +606,10 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("  + Faalmechanisme: 'Technische innovaties'");
                 migrationLog.AppendLine("    - De automatisch berekende faalkans van het faalmechanisme is verwijderd.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
-                migrationLog.AppendLine("* Geen aanpassingen.");
-
+                migrationLog.AppendLine("* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:");
+                migrationLog.AppendLine("  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'");
+                migrationLog.AppendLine("  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'");
+                migrationLog.AppendLine("  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {

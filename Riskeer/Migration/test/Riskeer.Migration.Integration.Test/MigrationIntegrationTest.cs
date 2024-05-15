@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -64,10 +65,10 @@ namespace Riskeer.Migration.Integration.Test
                 using (new FileDisposeHelper(targetFilePath))
                 {
                     // When
-                    TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+                    void Call() => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                     // Then
-                    Assert.DoesNotThrow(call);
+                    Assert.DoesNotThrow(Call);
                 }
             }
             finally
@@ -143,10 +144,10 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("21.1", "22.1", "Gevolgen van de migratie van versie 21.1 naar versie 22.1:"),
                         messages[12]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("21.1", "22.1", "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
+                        new MigrationLogMessage("21.1", "22.1", $"* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.{Environment.NewLine}* Alle toetsoordelen zijn verwijderd."),
                         messages[13]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("22.1", "23.1", $"Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
+                        new MigrationLogMessage("22.1", "23.1", "Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                         messages[14]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("22.1", "23.1", "* Geen aanpassingen."),
@@ -155,7 +156,11 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("23.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 23.1 naar versie {latestVersion}:"),
                         messages[16]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("23.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        new MigrationLogMessage("23.1", $"{latestVersion}",
+                                                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
+                                                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
+                                                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
+                                                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"),
                         messages[17]);
                 }
             }

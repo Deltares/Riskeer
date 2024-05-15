@@ -614,6 +614,17 @@ LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
 LIMIT 1;
 
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+VALUES ("23.1",
+    "23.2",
+    "* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:
+  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'
+  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'
+  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'");
+
 CREATE TEMP TABLE TempFailureMechanisms
 (
     'FailureMechanismType' INTEGER NOT NULL,
