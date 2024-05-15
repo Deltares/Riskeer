@@ -81,8 +81,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             rowsData.RemoveAt(0);
             foreach (var row in rowsData) {
                 var cellsDataInRow = row.Cells.ToList();
-                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]);
-                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionColumnIndeces[2]]);
+                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[0]]);
+                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]);
                 rowIndex++;
             }
             
@@ -124,10 +124,9 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
         private List<int> GetColumnIndecesResultView(Row headerRow)
         {
-            int indexCalculationFailureProbPerProfile = GetColumnIndex(headerRow, "Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]");
             int indexCalculationFailureProbPerSection = GetColumnIndex(headerRow, "Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]");
             int indexAssemblyGroup = GetColumnIndex(headerRow, "Duidingsklasse");
-            return new List<int>{indexCalculationFailureProbPerProfile, indexCalculationFailureProbPerSection, indexAssemblyGroup};
+            return new List<int>{indexCalculationFailureProbPerSection, indexAssemblyGroup};
         }
 
         private string GetAccValue(Cell cell)
