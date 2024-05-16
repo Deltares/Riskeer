@@ -179,7 +179,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Updates the internal data in the view.
         /// </summary>
-        protected virtual void UpdateInternalViewData()
+        protected void UpdateInternalViewData()
         {
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
