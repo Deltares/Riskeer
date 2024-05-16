@@ -258,6 +258,9 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter Nvak* (-)", lengthEffectNRoundedLabel.Text);
+
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
         }
 
         [Test]
@@ -972,6 +975,71 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(initialValue, firstConfigurationPerSection.A);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenLengthEffectControlsUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ConfigureFailureMechanism(failureMechanism);
+
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            Assert.IsTrue(lengthEffectATextBox.Enabled);
+            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
+
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
+            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
+
+            // When
+            failureMechanism.ClearAllSections();
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.IsFalse(lengthEffectATextBox.Enabled);
+            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
+
+            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
+            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
+        }
+
+        [Test]
+        public void GivenPipingScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenLengthEffectControlsUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingScenariosView(failureMechanism);
+
+            // Precondition
+            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            Assert.IsFalse(lengthEffectATextBox.Enabled);
+            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
+
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
+            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
+
+            // When
+            failureMechanism.SetSections(new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            }, string.Empty);
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.IsTrue(lengthEffectATextBox.Enabled);
+            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
+
+            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
+            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
         }
 
         [Test]

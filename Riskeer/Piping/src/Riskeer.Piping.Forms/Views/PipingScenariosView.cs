@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -117,6 +118,7 @@ namespace Riskeer.Piping.Forms.Views
             UpdateVisibility();
 
             UpdateLengthEffectControls();
+            UpdateLengthEffectData();
         }
 
         public object Data
@@ -166,7 +168,11 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            failureMechanismObserver = new Observer(() =>
+            {
+                UpdateSectionsListBox();
+                UpdateLengthEffectControls();
+            })
             {
                 Observable = failureMechanism
             };
@@ -302,8 +308,8 @@ namespace Riskeer.Piping.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
-            UpdateLengthEffectControls();
             UpdateScenarioControls();
+            UpdateLengthEffectData();
         }
 
         private void UpdateScenarioControls()
@@ -438,7 +444,7 @@ namespace Riskeer.Piping.Forms.Views
             if (e.KeyCode == Keys.Escape)
             {
                 ClearLengthEffectErrorMessage();
-                SetLengthEffectATextBoxValue(selectedFailureMechanismSection?.ScenarioConfigurationPerSection.A ?? double.NaN);
+                SetLengthEffectATextBoxValue(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
                 e.Handled = true;
             }
         }
@@ -464,6 +470,8 @@ namespace Riskeer.Piping.Forms.Views
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
                 scenarioConfigurationPerSection.A = lengthEffectA;
                 scenarioConfigurationPerSection.NotifyObservers();
+
+                UpdateScenarioRows();
             }
             catch (Exception exception) when (exception is ArgumentOutOfRangeException
                                               || exception is OverflowException
@@ -476,8 +484,20 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateLengthEffectControls()
         {
+            bool hasSection = failureMechanism.Sections.Any();
+            lengthEffectATextBox.Enabled = hasSection;
+            lengthEffectATextBox.ReadOnly = !hasSection;
+            lengthEffectATextBox.Refresh();
+
+            lengthEffectNRoundedTextBox.Enabled = hasSection;
+            lengthEffectNRoundedTextBox.BackColor = hasSection ? SystemColors.Window : SystemColors.Control;
+            lengthEffectNRoundedTextBox.Refresh();
+        }
+
+        private void UpdateLengthEffectData()
+        {
             ClearLengthEffectErrorMessage();
-            
+
             if (selectedFailureMechanismSection != null)
             {
                 SetLengthEffectATextBoxValue(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
@@ -488,14 +508,13 @@ namespace Riskeer.Piping.Forms.Views
         {
             lengthEffectATextBox.Text = value.ToString(CultureInfo.CurrentCulture);
         }
-        
-        
+
         private void SetLengthEffectErrorMessage(string errorMessage)
         {
             lengthEffectErrorProvider.SetIconPadding(lengthEffectATextBox, 5);
             lengthEffectErrorProvider.SetError(lengthEffectATextBox, errorMessage);
         }
-        
+
         private void ClearLengthEffectErrorMessage()
         {
             lengthEffectErrorProvider.SetError(lengthEffectATextBox, string.Empty);

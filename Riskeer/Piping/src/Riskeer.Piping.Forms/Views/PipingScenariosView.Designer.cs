@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectALabel = new System.Windows.Forms.Label();
             this.lengthEffectNRoundedLabel = new System.Windows.Forms.Label();
             this.lengthEffectATextBox = new System.Windows.Forms.TextBox();
-            this.roundedNLabel = new Core.Common.Controls.BorderedLabel();
+            this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
@@ -254,7 +254,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectALabel, 0, 0);
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedLabel, 0, 1);
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectATextBox, 1, 0);
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.roundedNLabel, 1, 1);
+            this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedTextBox, 1, 1);
             this.lengthEffectTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(0, 52);
             this.lengthEffectTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectTableLayoutPanel.RowCount = 2;
             this.lengthEffectTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.lengthEffectTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.lengthEffectTableLayoutPanel.Size = new System.Drawing.Size(1003, 46);
+            this.lengthEffectTableLayoutPanel.Size = new System.Drawing.Size(1003, 52);
             this.lengthEffectTableLayoutPanel.TabIndex = 0;
             // 
             // lengthEffectALabel
@@ -282,7 +282,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectNRoundedLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lengthEffectNRoundedLabel.Location = new System.Drawing.Point(3, 26);
             this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
-            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 20);
+            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 26);
             this.lengthEffectNRoundedLabel.TabIndex = 1;
             this.lengthEffectNRoundedLabel.Text = "Lengte-effect parameter Nvak* (-)";
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -297,23 +297,19 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectATextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LengthEffectATextBoxKeyDown);
             this.lengthEffectATextBox.Leave += new System.EventHandler(this.LengthEffectATextBoxLeave);
             // 
-            // roundedNLabel
+            // lengthEffectNRoundedTextBox
             // 
-            this.roundedNLabel.AutoSize = false;
-            this.roundedNLabel.BackColor = System.Drawing.Color.White;
-            this.roundedNLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.roundedNLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.roundedNLabel.Location = new System.Drawing.Point(174, 26);
-            this.roundedNLabel.Name = "roundedNLabel";
-            this.roundedNLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.roundedNLabel.Size = new System.Drawing.Size(100, 20);
-            this.roundedNLabel.TabIndex = 0;
-            this.roundedNLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lengthEffectNRoundedTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(174, 29);
+            this.lengthEffectNRoundedTextBox.Name = "lengthEffectNRoundedTextBox";
+            this.lengthEffectNRoundedTextBox.ReadOnly = true;
+            this.lengthEffectNRoundedTextBox.Size = new System.Drawing.Size(100, 20);
+            this.lengthEffectNRoundedTextBox.TabIndex = 4;
             // 
             // labelCalculations
             // 
             this.labelCalculations.AutoSize = true;
-            this.labelCalculations.Location = new System.Drawing.Point(3, 101);
+            this.labelCalculations.Location = new System.Drawing.Point(3, 107);
             this.labelCalculations.Name = "labelCalculations";
             this.labelCalculations.Size = new System.Drawing.Size(173, 13);
             this.labelCalculations.TabIndex = 0;
@@ -322,11 +318,11 @@ namespace Riskeer.Piping.Forms.Views
             // dataGridViewControl
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 117);
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 123);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(997, 629);
+            this.dataGridViewControl.Size = new System.Drawing.Size(997, 623);
             this.dataGridViewControl.TabIndex = 1;
             // 
             // labelTotalScenarioContribution
@@ -374,9 +370,9 @@ namespace Riskeer.Piping.Forms.Views
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
+        private System.Windows.Forms.TextBox lengthEffectNRoundedTextBox;
 
-        private Core.Common.Controls.BorderedLabel roundedNLabel;
+        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
 
         private System.Windows.Forms.Label lengthEffectALabel;
         private System.Windows.Forms.Label lengthEffectNRoundedLabel;
