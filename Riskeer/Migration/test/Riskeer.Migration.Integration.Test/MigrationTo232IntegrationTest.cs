@@ -107,38 +107,31 @@ namespace Riskeer.Migration.Integration.Test
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
+            string adjustedAssemblyResultsMigrationMessage =
+                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
+                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.{Environment.NewLine}" +
+                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.{Environment.NewLine}" +
+                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.";
             yield return new TestCaseData("MigrationTestProject231NoOutput.risk", new[]
             {
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231VariousFailureMechanismSectionResultConfigurations.risk", new[]
             {
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
                 "* Alle berekende resultaten zijn verwijderd.",
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231PipingNoManualAssessmentLevels.risk", new[]
             {
                 "* Alle berekende resultaten zijn verwijderd.",
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
@@ -146,36 +139,24 @@ namespace Riskeer.Migration.Integration.Test
             yield return new TestCaseData("MigrationTestProject231WithOutput.risk", new[]
             {
                 "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld.",
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231DunesWithOutput.risk", new[]
             {
                 "* Alle berekende resultaten zijn verwijderd.",
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsWithOutput.risk", new[]
             {
                 "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld.",
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
             {
-                $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
-                $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen.'{Environment.NewLine}" +
-                $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide.'{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door de methode 'Automatisch berekenen o.b.v. slechtste vak.'"
+                adjustedAssemblyResultsMigrationMessage
             });
         }
 

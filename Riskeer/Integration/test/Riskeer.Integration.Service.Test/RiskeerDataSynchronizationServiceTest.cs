@@ -1042,7 +1042,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_HeightStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileWithHeightStructuresFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -1116,7 +1116,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_ClosingStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileWithClosingStructuresFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1190,7 +1190,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_StabilityPointStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileWithStabilityPointStructuresFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1264,7 +1264,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileWithStabilityStoneCoverFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -1338,7 +1338,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileWaveImpactAsphaltCoverFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1412,7 +1412,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveForeshoreProfileGrassCoverErosionOutwardsFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -1485,7 +1485,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
+        public void RemoveDikeProfileWithGrassCoverErosionInwardsFailureMechanism_ProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();

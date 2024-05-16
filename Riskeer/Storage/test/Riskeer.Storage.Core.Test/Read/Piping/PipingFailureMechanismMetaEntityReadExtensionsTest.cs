@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         }
 
         [Test]
-        public void ReadProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
+        public void ReadProbabilityAssessmentInput_ValidParameters_SetProbabilityAssessmentInputProperties()
         {
             // Setup
             var random = new Random(31);
@@ -151,7 +151,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         }
 
         [Test]
-        public void ReadFailureMechanismValues_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
+        public void ReadFailureMechanismValues_ValidParameters_SetPipingScenarioConfigurationType()
         {
             // Setup
             var random = new Random(31);

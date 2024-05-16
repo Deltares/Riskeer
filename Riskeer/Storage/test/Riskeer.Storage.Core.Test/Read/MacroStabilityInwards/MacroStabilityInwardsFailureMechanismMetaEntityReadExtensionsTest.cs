@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void ReadProbabilityAssessmentInput_ValidParameters_SetMacroStabilityInwardsProbabilityAssessmentInputProperties()
+        public void ReadProbabilityAssessmentInput_ValidParameters_SetProbabilityAssessmentInputProperties()
         {
             // Setup
             var random = new Random(31);

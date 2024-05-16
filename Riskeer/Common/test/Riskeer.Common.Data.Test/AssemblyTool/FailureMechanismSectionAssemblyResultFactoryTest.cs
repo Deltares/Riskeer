@@ -261,7 +261,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
-        public void AssembleSectionNonAdoptable_WithInput_SetsInputOnCalculator(
+        public void AssembleSectionNonAdoptableSection_WithInput_SetsInputOnCalculator(
             NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType, bool expectedHasProbabilitySpecified)
         {
             // Setup

@@ -28,7 +28,7 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
-    /// Base class for an object that represents a probability assessment input.
+    /// Class that represents a probability assessment input.
     /// </summary>
     public class ProbabilityAssessmentInput
     {

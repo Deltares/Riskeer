@@ -25,7 +25,6 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -93,15 +92,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets the section probability.
         /// </summary>
         public Probability SectionProbabilityInput { get; private set; }
-
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                               Probability probabilityInitialMechanismSection,
-                                                                                               ERefinementStatus refinementStatus,
-                                                                                               Probability refinedProbabilitySection,
-                                                                                               CategoriesList<InterpretationCategory> categories)
-        {
-            throw new NotImplementedException();
-        }
 
         public Probability DetermineRepresentativeProbabilityBoi0A1(
             bool refinementNecessary, Probability probabilityInitialMechanismSection,
