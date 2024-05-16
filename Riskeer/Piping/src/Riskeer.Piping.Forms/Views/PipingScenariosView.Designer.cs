@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -62,6 +63,7 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lengthEffectErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.warningIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
@@ -73,6 +75,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.SuspendLayout();
             this.lengthEffectTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // calculationConfigurationTypeTableLayoutPanel
@@ -291,6 +294,8 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectATextBox.Name = "lengthEffectATextBox";
             this.lengthEffectATextBox.Size = new System.Drawing.Size(100, 20);
             this.lengthEffectATextBox.TabIndex = 3;
+            this.lengthEffectATextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LengthEffectATextBoxKeyDown);
+            this.lengthEffectATextBox.Leave += new System.EventHandler(this.LengthEffectATextBoxLeave);
             // 
             // roundedNLabel
             // 
@@ -338,6 +343,11 @@ namespace Riskeer.Piping.Forms.Views
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // lengthEffectErrorProvider
+            // 
+            this.lengthEffectErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.lengthEffectErrorProvider.ContainerControl = this;
+            // 
             // PipingScenariosView
             // 
             this.Controls.Add(this.splitContainer);
@@ -360,8 +370,11 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectTableLayoutPanel.ResumeLayout(false);
             this.lengthEffectTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
 
         private Core.Common.Controls.BorderedLabel roundedNLabel;
 

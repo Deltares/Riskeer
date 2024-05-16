@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -114,6 +115,8 @@ namespace Riskeer.Piping.Forms.Views
             UpdateScenarioControls();
 
             UpdateVisibility();
+
+            UpdateLengthEffectControls();
         }
 
         public object Data
@@ -299,6 +302,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
+            UpdateLengthEffectControls();
             UpdateScenarioControls();
         }
 
@@ -421,6 +425,80 @@ namespace Riskeer.Piping.Forms.Views
         private void ClearErrorMessage()
         {
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
+        }
+
+        private void LengthEffectATextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                lengthEffectALabel.Focus(); // Focus on different component to raise a leave event on the text box
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                ClearLengthEffectErrorMessage();
+                SetLengthEffectATextBoxValue(selectedFailureMechanismSection?.ScenarioConfigurationPerSection.A ?? double.NaN);
+                e.Handled = true;
+            }
+        }
+
+        private void LengthEffectATextBoxLeave(object sender, EventArgs e)
+        {
+            ClearLengthEffectErrorMessage();
+            ProcessLengthEffectATextBox();
+        }
+
+        private void ProcessLengthEffectATextBox()
+        {
+            if (selectedFailureMechanismSection == null)
+            {
+                return;
+            }
+
+            try
+            {
+                double lengthEffectA = double.Parse(lengthEffectATextBox.Text);
+
+                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
+                    selectedFailureMechanismSection.ScenarioConfigurationPerSection;
+                scenarioConfigurationPerSection.A = lengthEffectA;
+                scenarioConfigurationPerSection.NotifyObservers();
+            }
+            catch (Exception exception) when (exception is ArgumentOutOfRangeException
+                                              || exception is OverflowException
+                                              || exception is FormatException)
+            {
+                SetLengthEffectErrorMessage(exception.Message);
+                lengthEffectATextBox.Focus();
+            }
+        }
+
+        private void UpdateLengthEffectControls()
+        {
+            ClearLengthEffectErrorMessage();
+            
+            if (selectedFailureMechanismSection != null)
+            {
+                SetLengthEffectATextBoxValue(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
+            }
+        }
+
+        private void SetLengthEffectATextBoxValue(double value)
+        {
+            lengthEffectATextBox.Text = value.ToString(CultureInfo.CurrentCulture);
+        }
+        
+        
+        private void SetLengthEffectErrorMessage(string errorMessage)
+        {
+            lengthEffectErrorProvider.SetIconPadding(lengthEffectATextBox, 5);
+            lengthEffectErrorProvider.SetError(lengthEffectATextBox, errorMessage);
+        }
+        
+        private void ClearLengthEffectErrorMessage()
+        {
+            lengthEffectErrorProvider.SetError(lengthEffectATextBox, string.Empty);
         }
     }
 }
