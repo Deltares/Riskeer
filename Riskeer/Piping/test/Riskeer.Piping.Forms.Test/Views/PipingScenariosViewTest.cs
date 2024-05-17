@@ -828,12 +828,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,4", lengthEffectATextBox.Text);
+            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                  .Select(r => r.DataBoundItem)
@@ -847,6 +849,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,7", lengthEffectATextBox.Text);
+            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
@@ -874,6 +877,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             string errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsNotEmpty(errorMessage);
 
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
+
             // When
             textBoxTester.Enter("0,6");
 
@@ -882,6 +888,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsEmpty(errorMessage);
 
             Assert.AreEqual("0,6", lengthEffectATextBox.Text);
+            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -893,10 +900,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            Assert.AreEqual("0,4", lengthEffectATextBox.Text);
+            
+            ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
             string errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsEmpty(errorMessage);
+            
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             // When
             var textBoxTester = new TextBoxTester("lengthEffectATextBox");
@@ -905,6 +917,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsNotEmpty(errorMessage);
+            
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -990,10 +1004,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
             Assert.IsTrue(lengthEffectATextBox.Enabled);
             Assert.IsFalse(lengthEffectATextBox.ReadOnly);
+            Assert.IsNotEmpty(lengthEffectATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
             Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
+            Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
             failureMechanism.ClearAllSections();
@@ -1002,9 +1018,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.IsFalse(lengthEffectATextBox.Enabled);
             Assert.IsTrue(lengthEffectATextBox.ReadOnly);
+            Assert.IsEmpty(lengthEffectATextBox.Text);
 
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
             Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -1018,10 +1036,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
             Assert.IsFalse(lengthEffectATextBox.Enabled);
             Assert.IsTrue(lengthEffectATextBox.ReadOnly);
+            Assert.IsEmpty(lengthEffectATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
             Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
             failureMechanism.SetSections(new[]
@@ -1037,9 +1057,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.IsTrue(lengthEffectATextBox.Enabled);
             Assert.IsFalse(lengthEffectATextBox.ReadOnly);
+            Assert.IsNotEmpty(lengthEffectATextBox.Text);
 
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
             Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
+            Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]

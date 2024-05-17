@@ -33,6 +33,7 @@ using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -172,6 +173,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 UpdateSectionsListBox();
                 UpdateLengthEffectControls();
+                UpdateLengthEffectData();
             })
             {
                 Observable = failureMechanism
@@ -444,7 +446,7 @@ namespace Riskeer.Piping.Forms.Views
             if (e.KeyCode == Keys.Escape)
             {
                 ClearLengthEffectErrorMessage();
-                SetLengthEffectATextBoxValue(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
+                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
                 e.Handled = true;
             }
         }
@@ -477,6 +479,7 @@ namespace Riskeer.Piping.Forms.Views
                                               || exception is OverflowException
                                               || exception is FormatException)
             {
+                ClearNRoundedData();
                 SetLengthEffectErrorMessage(exception.Message);
                 lengthEffectATextBox.Focus();
             }
@@ -497,16 +500,31 @@ namespace Riskeer.Piping.Forms.Views
         private void UpdateLengthEffectData()
         {
             ClearLengthEffectErrorMessage();
+            ClearLengthEffectData();
 
             if (selectedFailureMechanismSection != null)
             {
-                SetLengthEffectATextBoxValue(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
+                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
             }
         }
 
-        private void SetLengthEffectATextBoxValue(double value)
+        private void ClearLengthEffectData()
+        {
+            lengthEffectATextBox.Text = string.Empty;
+            ClearNRoundedData();
+        }
+
+        private void ClearNRoundedData()
+        {
+            lengthEffectNRoundedTextBox.Text = string.Empty;
+        }
+
+        private void SetLengthEffectData(double value)
         {
             lengthEffectATextBox.Text = value.ToString(CultureInfo.CurrentCulture);
+
+            double n = failureMechanism.ProbabilityAssessmentInput.GetN(selectedFailureMechanismSection.Section.Length);
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();
         }
 
         private void SetLengthEffectErrorMessage(string errorMessage)
