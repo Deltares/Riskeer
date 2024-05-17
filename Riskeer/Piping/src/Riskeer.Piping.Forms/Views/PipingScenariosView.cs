@@ -446,7 +446,7 @@ namespace Riskeer.Piping.Forms.Views
             if (e.KeyCode == Keys.Escape)
             {
                 ClearLengthEffectErrorMessage();
-                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
+                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
                 e.Handled = true;
             }
         }
@@ -504,7 +504,7 @@ namespace Riskeer.Piping.Forms.Views
 
             if (selectedFailureMechanismSection != null)
             {
-                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection.A);
+                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
             }
         }
 
@@ -519,11 +519,11 @@ namespace Riskeer.Piping.Forms.Views
             lengthEffectNRoundedTextBox.Text = string.Empty;
         }
 
-        private void SetLengthEffectData(double value)
+        private void SetLengthEffectData(PipingScenarioConfigurationPerFailureMechanismSection configuration)
         {
-            lengthEffectATextBox.Text = value.ToString(CultureInfo.CurrentCulture);
+            lengthEffectATextBox.Text = configuration.A.ToString(CultureInfo.CurrentCulture);
 
-            double n = failureMechanism.ProbabilityAssessmentInput.GetN(selectedFailureMechanismSection.Section.Length);
+            double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
             lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();
         }
 

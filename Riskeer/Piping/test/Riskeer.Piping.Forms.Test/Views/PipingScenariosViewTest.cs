@@ -849,7 +849,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,7", lengthEffectATextBox.Text);
-            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
+            Assert.AreEqual("1,22", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
@@ -857,6 +857,109 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                            .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenSettingNewAValue_ThenControlsUpdatedAndObserversNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var surfaceLine = new PipingSurfaceLine("Surface line 1")
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(100, 0)
+                })
+            }, string.Empty);
+            failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 1",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 1.1111
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 2.2222
+                        },
+                        EntryPointL = (RoundedDouble) 3.3333,
+                        ExitPointL = (RoundedDouble) 4.4444
+                    },
+                    Contribution = (RoundedDouble) 0.13701
+                },
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 2",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 5.5555
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 6.6666
+                        },
+                        EntryPointL = (RoundedDouble) 7.7777,
+                        ExitPointL = (RoundedDouble) 8.8888
+                    },
+                    IsRelevant = false
+                }
+            });
+
+            PipingScenarioConfigurationPerFailureMechanismSection affectedConfiguration =
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
+            affectedConfiguration.Attach(observer);
+
+            ShowPipingScenariosView(failureMechanism);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                 .Select(r => r.DataBoundItem)
+                                                                 .Cast<IPipingScenarioRow>()
+                                                                 .ToArray();
+
+            // When
+            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            textBoxTester.Enter("0,7");
+
+            // Then
+            Assert.AreEqual(0.7, affectedConfiguration.A);
+
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
+
+            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                           .Select(r => r.DataBoundItem)
+                                                           .Cast<IPipingScenarioRow>()
+                                                           .ToArray();
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -902,11 +1005,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
             Assert.AreEqual("0,4", lengthEffectATextBox.Text);
-            
+
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
             string errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsEmpty(errorMessage);
-            
+
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
@@ -917,7 +1020,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsNotEmpty(errorMessage);
-            
+
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -1812,7 +1915,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 new FailureMechanismSection("Section 2", new[]
                 {
                     new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
+                    new Point2D(100.0, 0.0)
                 })
             });
 
