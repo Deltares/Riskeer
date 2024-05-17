@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Piping.Data;
@@ -36,7 +35,7 @@ namespace Riskeer.Piping.Forms.Views
     public class SemiProbabilisticPipingScenarioRow : PipingScenarioRow<SemiProbabilisticPipingCalculationScenario>
     {
         private readonly PipingFailureMechanism failureMechanism;
-        private readonly FailureMechanismSection failureMechanismSection;
+        private readonly PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration;
         private readonly IAssessmentSection assessmentSection;
         private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
@@ -45,12 +44,12 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         /// <param name="calculationScenario">The <see cref="SemiProbabilisticPipingCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
-        /// <param name="failureMechanismSection">The failure mechanism section that the calculation belongs to.</param>
+        /// <param name="sectionConfiguration">The configuration for the failure mechanism section that the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal SemiProbabilisticPipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario,
                                                     PipingFailureMechanism failureMechanism,
-                                                    FailureMechanismSection failureMechanismSection,
+                                                    PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration,
                                                     IAssessmentSection assessmentSection)
             : base(calculationScenario)
         {
@@ -59,9 +58,9 @@ namespace Riskeer.Piping.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (failureMechanismSection == null)
+            if (sectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
+                throw new ArgumentNullException(nameof(sectionConfiguration));
             }
 
             if (assessmentSection == null)
@@ -70,7 +69,7 @@ namespace Riskeer.Piping.Forms.Views
             }
 
             this.failureMechanism = failureMechanism;
-            this.failureMechanismSection = failureMechanismSection;
+            this.sectionConfiguration = sectionConfiguration;
             this.assessmentSection = assessmentSection;
 
             CreateDerivedOutput();
@@ -84,8 +83,8 @@ namespace Riskeer.Piping.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return Math.Min(1.0, derivedOutput.PipingProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                             failureMechanismSection.Length));
+                    return Math.Min(1.0, derivedOutput.PipingProbability * sectionConfiguration.GetN(
+                                             failureMechanism.ProbabilityAssessmentInput.B));
                 }
 
                 return double.NaN;

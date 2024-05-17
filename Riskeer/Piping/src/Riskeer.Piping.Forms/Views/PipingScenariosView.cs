@@ -347,7 +347,7 @@ namespace Riskeer.Piping.Forms.Views
         private IEnumerable<IPipingScenarioRow> GetSemiProbabilisticPipingScenarioRows(IEnumerable<Segment2D> lineSegments)
         {
             return GetScenarios<SemiProbabilisticPipingCalculationScenario>(lineSegments)
-                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.Section, assessmentSection))
+                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection, assessmentSection))
                    .ToList();
         }
 
