@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -34,6 +33,8 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Exceptions;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -466,18 +467,15 @@ namespace Riskeer.Piping.Forms.Views
 
             try
             {
-                double lengthEffectA = double.Parse(lengthEffectATextBox.Text);
-
                 PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = lengthEffectA;
+                scenarioConfigurationPerSection.A = RoundedDoubleParsingHelper.Parse(lengthEffectATextBox.Text, 3);
                 scenarioConfigurationPerSection.NotifyObservers();
 
                 UpdateScenarioRows();
             }
             catch (Exception exception) when (exception is ArgumentOutOfRangeException
-                                              || exception is OverflowException
-                                              || exception is FormatException)
+                                              || exception is RoundedDoubleParsingException)
             {
                 ClearNRoundedData();
                 SetLengthEffectErrorMessage(exception.Message);
@@ -521,7 +519,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetLengthEffectData(PipingScenarioConfigurationPerFailureMechanismSection configuration)
         {
-            lengthEffectATextBox.Text = configuration.A.ToString(CultureInfo.CurrentCulture);
+            lengthEffectATextBox.Text = configuration.A.ToString();
 
             double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
             lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();

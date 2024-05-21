@@ -819,7 +819,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             ConfigureFailureMechanism(failureMechanism);
             PipingScenarioConfigurationPerFailureMechanismSection lastConfigurationPerSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Last();
             lastConfigurationPerSection.ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
-            lastConfigurationPerSection.A = 0.7;
+            lastConfigurationPerSection.A = (RoundedDouble) 0.7;
 
             ShowPipingScenariosView(failureMechanism);
 
@@ -834,7 +834,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
-            Assert.AreEqual("0,4", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,400", lengthEffectATextBox.Text);
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -848,7 +848,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
-            Assert.AreEqual("0,7", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,700", lengthEffectATextBox.Text);
             Assert.AreEqual("1,22", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -990,7 +990,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             errorMessage = errorProvider.GetError(lengthEffectATextBox);
             Assert.IsEmpty(errorMessage);
 
-            Assert.AreEqual("0,6", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,600", lengthEffectATextBox.Text);
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -1004,7 +1004,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.AreEqual("0,4", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,400", lengthEffectATextBox.Text);
 
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
             string errorMessage = errorProvider.GetError(lengthEffectATextBox);
@@ -1056,7 +1056,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             const double initialValue = 0.5;
-            const string initialValueText = "0,5";
+            const string initialValueText = "0,500";
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -1066,7 +1066,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             ConfigureFailureMechanism(failureMechanism);
             PipingScenarioConfigurationPerFailureMechanismSection firstConfigurationPerSection =
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
-            firstConfigurationPerSection.A = initialValue;
+            firstConfigurationPerSection.A = (RoundedDouble) initialValue;
 
             ShowPipingScenariosView(failureMechanism);
 
