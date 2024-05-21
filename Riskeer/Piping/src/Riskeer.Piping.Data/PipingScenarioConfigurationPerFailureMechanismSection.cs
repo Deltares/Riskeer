@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Piping.Data
@@ -34,9 +35,8 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section) : base(section)
+        public PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section) : base(section, (RoundedDouble) 0.4)
         {
-            A = 0.4;
             ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
         }
 
