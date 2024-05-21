@@ -1060,9 +1060,6 @@
 				<column>
 					newValue_a
 				</column>
-				<column>
-					newValue_N
-				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -1074,9 +1071,6 @@
 					<th>
 						newValue_a
 					</th>
-					<th>
-						newValue_N
-					</th>
 				</tr>
 				<tr>
 					<td>
@@ -1085,9 +1079,6 @@
 					<td>
 						0.8
 					</td>
-					<td>
-						57.23
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -1095,9 +1086,6 @@
 					</td>
 					<td>
 						0.05
-					</td>
-					<td>
-						22.09
 					</td>
 				</tr>
 			</table>
