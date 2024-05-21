@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
@@ -80,7 +81,11 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         {
             double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
                                                                                            assessmentSection.FailureMechanismContribution.NormativeProbability);
-            return Math.Min(1.0, probability * failureMechanism.ProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+
+            PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration = 
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(c.Section, sectionResult.Section));
+            
+            return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B));
         }
     }
 }
