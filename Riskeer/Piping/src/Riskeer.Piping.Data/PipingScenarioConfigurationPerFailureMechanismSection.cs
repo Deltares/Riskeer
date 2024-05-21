@@ -26,7 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
+    /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/> of piping.
     /// </summary>
     public class PipingScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
     {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -29,17 +28,6 @@ namespace Riskeer.Piping.Data.Test
     [TestFixture]
     public class PipingScenarioConfigurationPerFailureMechanismSectionTest
     {
-        [Test]
-        public void Constructor_SectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new PipingScenarioConfigurationPerFailureMechanismSection(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("section", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
