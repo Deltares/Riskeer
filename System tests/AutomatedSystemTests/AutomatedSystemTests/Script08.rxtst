@@ -15,14 +15,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="02cd3733-484f-4f49-92bb-9dbf78252635"
@@ -116,14 +108,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testsuite
 			ExportColumnList="None"
@@ -169,38 +153,6 @@
 					variablename="expectedCategoriesBoundaries">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedBoundaryValue"
-					datasourceid="aedd5571-96f0-44fd-9a62-fa76607ec249"
-					variableid="2cf00c13-2878-4943-b748-690262879fa5"
-					variablename="expectedBoundary">
-					</var>
-					<var
-					dataname="prefixBoundaryType"
-					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
-					variableid="1f89c2ef-1e04-4e47-8930-eaea2121eed6"
-					variablename="boundaryTypeSubstring">
-					</var>
-					<var
-					dataname="prefix"
-					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
-					variableid="28562d45-d12f-40d8-b2bc-22381f14aa7a"
-					variablename="categoryName">
-					</var>
-					<var
-					dataname="substringScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="a54874c0-7e6e-487a-a690-8a06dd4d1bff"
-					variablename="sectionSubstring">
-					</var>
-					<var
-					dataname="suffixScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="64559a28-482c-44af-95a6-c33e7b67d554"
-					variablename="categorySuffix">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3dd6af9a-fd6b-4cf2-a0c1-dc543b75560d"
@@ -287,14 +239,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToAssemblyCombinedAssessmentSection"
-					datasourceid="b9a31d77-70d9-4350-b971-fe7f81576009"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
@@ -382,20 +326,6 @@
 					variablename="signallingValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="e01fd9fd-aa65-4395-8eb5-c1f689b71205"
-					variablename="lowerLimitValue">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="c2e11629-322d-4b63-afe5-6fef0cc6581e"
-					variablename="signallingValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4d0d5f9e-9af7-45f2-8147-ef7480721d7d"
@@ -501,32 +431,6 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="ItemInTraject"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="Parameter"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="70fde034-6e0d-4477-a610-4f610d49d6b7"
@@ -639,14 +543,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToAssemblyCombinedAssessmentSection"
-					datasourceid="b9a31d77-70d9-4350-b971-fe7f81576009"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2"
@@ -693,14 +589,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a92e5ce2-f5a6-48ae-babb-3fb6d732fded"
@@ -758,32 +646,6 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="ItemInTraject"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="Parameter"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="646b926d-6fe9-4e3c-b8b3-fd5b7ff6956e"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
@@ -840,38 +702,6 @@
 					variablename="expectedCategoriesBoundaries">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedBoundaryValue"
-					datasourceid="aedd5571-96f0-44fd-9a62-fa76607ec249"
-					variableid="2cf00c13-2878-4943-b748-690262879fa5"
-					variablename="expectedBoundary">
-					</var>
-					<var
-					dataname="prefixBoundaryType"
-					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
-					variableid="1f89c2ef-1e04-4e47-8930-eaea2121eed6"
-					variablename="boundaryTypeSubstring">
-					</var>
-					<var
-					dataname="prefix"
-					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
-					variableid="28562d45-d12f-40d8-b2bc-22381f14aa7a"
-					variablename="categoryName">
-					</var>
-					<var
-					dataname="substringScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="a54874c0-7e6e-487a-a690-8a06dd4d1bff"
-					variablename="sectionSubstring">
-					</var>
-					<var
-					dataname="suffixScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="64559a28-482c-44af-95a6-c33e7b67d554"
-					variablename="categorySuffix">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="be32de9f-ad56-4116-a647-11fe4090a876"
@@ -902,14 +732,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="cbbfccbf-354e-48b2-bc41-4f9934607fb2"
@@ -971,32 +793,6 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="NormType"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="5cbfe7da-3ce3-4a31-baa8-dcc95a2c80d7"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="3624ac3a-3bbc-43cf-8c5b-c6a96b97116f"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
-					variablename="trajectID">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"

@@ -124,20 +124,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToParameterInPropertiesPanel"
-					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
-					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
-					variablename="pathToItemInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
-					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
-					variablename="newValueForParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="1987343c-9fd7-4fe7-88e0-45cbd939390d"
@@ -284,20 +270,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToParameterInPropertiesPanel"
-					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
-					variableid="be2f1205-1a50-44d6-a190-fa98d028c783"
-					variablename="pathToItemInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="2bd17374-e47d-4122-9284-44fa4d4408f2"
-					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
-					variablename="newValueForParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2ac6d119-b50e-4fd4-94e5-7ca0eb3fc011"
@@ -599,20 +571,6 @@
 					variablename="caseNumberVar">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
-					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
-					variablename="scriptOutputFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="41495277-3d9f-4c68-b1c7-65e3298096c1"
@@ -1183,20 +1141,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="mergedFileNameToSave"
-					datasourceid="c6708ce1-b12a-47da-997f-96835283f968"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="2049f710-f464-4306-8792-331fc00825d6"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7156da21-70a3-4cbd-8df8-d5d65b76a4b4"
@@ -1497,14 +1441,6 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameFolderLoopCalculations"
-					datasourceid="32f58135-5939-4c24-bff0-83d8569efeb1"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="864c4e83-d9b0-4363-8436-5a2f6497aeeb"
@@ -1705,14 +1641,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameFolderConfigurationCalculationsLoopItems"
-					datasourceid="c88ea21d-67ab-4e3e-88ba-67cdf06e30f0"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="90597bfb-3e22-4181-b599-932584561999"
@@ -1739,14 +1667,6 @@
 					variablename="indexRowCalculation">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexRowCalculation"
-					datasourceid="5a4d3ec6-6daa-41ae-a347-751c30862313"
-					variableid="22cf54d8-7caa-49ab-8e5b-1c14fb3ba580"
-					variablename="indexRowCalculation">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="909ff5a0-c492-4296-bbb2-619de9b2cda7"
@@ -2332,14 +2252,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSectionsInStateFA"
-					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5"
@@ -2550,14 +2462,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameFolderConfigurationCalculationsLoopItems"
-					datasourceid="c88ea21d-67ab-4e3e-88ba-67cdf06e30f0"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f7d45b39-9d70-40c6-8be0-1b81c6c6c413"
@@ -2653,20 +2557,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="mergedFileNameToSave"
-					datasourceid="c6708ce1-b12a-47da-997f-96835283f968"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="2049f710-f464-4306-8792-331fc00825d6"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="fd15e174-2eb3-4c6e-980c-ffd1d08e1730"

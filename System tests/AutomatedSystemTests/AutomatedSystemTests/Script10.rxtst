@@ -21,14 +21,6 @@
 					variablename="expectedTextValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterNameSourcePath"
-					datasourceid="cb48deea-129f-47c2-88a2-2631beb1ffe3"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="03197364-200b-4423-bb96-f291ad862be0"
@@ -91,14 +83,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
-					datasourceid="53e1ba4a-8367-4678-b592-948b8c0d9663"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="07cc4409-385b-49d4-b972-577e291b1ef9"
@@ -259,14 +243,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
-					datasourceid="f1e18cb1-0825-40b7-8ef4-fbc44f776754"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="181e7107-d919-4241-b724-2100ef62766a"
@@ -585,26 +561,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="360c46e5-ac6f-4970-a0b8-a676ca92e3ac"
@@ -619,14 +575,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="messageToLog"
-					datasourceid="dd390d45-fb5f-4088-af5d-8fdfc81dd872"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3646e16f-57ee-4053-8b56-cbf6da758506"
@@ -1051,14 +999,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="message2ToLog"
-					datasourceid="090f0704-fc32-41b8-b32f-e6be461e4457"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5c9da9fd-c0a2-467d-abe3-d28b73b0aa7c"
@@ -1147,14 +1087,6 @@
 					variablename="expectedTextValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterNameSourcePath"
-					datasourceid="cb48deea-129f-47c2-88a2-2631beb1ffe3"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="654acbc2-c32b-41cf-b3af-ac2cd151928d"
@@ -1169,14 +1101,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediateString4"
-					datasourceid="07cc4409-385b-49d4-b972-577e291b1ef9"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="65ec3026-0296-448b-9002-e7be435dd008"
@@ -1194,14 +1118,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script10_LoopEditedCalculations"
@@ -1294,50 +1210,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="string4Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="string5Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
-					variablename="string5">
-					</var>
-					<var
-					dataname="string6Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
-					variablename="string6">
-					</var>
-					<var
-					dataname="string7Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
-					variablename="string7">
-					</var>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6b4214e7-467b-4916-80c4-20ae9a8c79b1"
@@ -1355,14 +1227,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<setup
 			id="6c82c153-2c4d-45d1-913f-b6fde9e0ced4"
@@ -1421,14 +1285,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
-					datasourceid="07cc4409-385b-49d4-b972-577e291b1ef9"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7133ae37-577d-4915-9f96-d0731cc237dc"
@@ -1482,14 +1338,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="759a92ae-f93c-4368-b726-ce11cf61d7be"
@@ -1599,14 +1447,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="calculationName"
-					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="79d5bcd3-bca0-45b3-a9d6-c01a9381a946"
@@ -1745,56 +1585,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="relativePathToSubsurfaceModelSchematization"
-					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="string4Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="string5Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
-					variablename="string5">
-					</var>
-					<var
-					dataname="string6Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
-					variablename="string6">
-					</var>
-					<var
-					dataname="string7Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
-					variablename="string7">
-					</var>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="80324926-3a9b-4c8a-b7f8-bf6303c64f9a"
@@ -1963,14 +1753,6 @@
 					variablename="nameOfSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameSmartFolderLoopSubsurfaceSchematizations"
-					datasourceid="e24d7ae7-6563-4de7-aeed-508d674136fa"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8e96faea-d457-4364-8e2c-7353331f6c00"
@@ -1991,14 +1773,6 @@
 					variablename="expectedValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="schematizationContribution"
-					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script10_listRemovedSurfaceLines"
@@ -2101,14 +1875,6 @@
 					variablename="expectedTextValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterNameSourcePath"
-					datasourceid="cb48deea-129f-47c2-88a2-2631beb1ffe3"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="98a65026-b27a-4c12-95ac-f8a6a8886ae9"
@@ -2213,50 +1979,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="string4Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="string5Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
-					variablename="string5">
-					</var>
-					<var
-					dataname="string6Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
-					variablename="string6">
-					</var>
-					<var
-					dataname="string7Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
-					variablename="string7">
-					</var>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script10_LoopValidateEditedSubsurfaceShcematizations"
@@ -2374,26 +2096,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9e25dbe5-3e4a-478f-9cfd-3d404e434ff3"
@@ -2468,14 +2170,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="calculationName"
-					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9e9fc692-fc84-4d72-897b-fc5c4a4782cb"
@@ -2529,14 +2223,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="messageToLog"
-					datasourceid="ff569ec3-1ebb-4118-98ce-f4fe6ed2d181"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a1eb5503-553b-4970-9a45-3b1be1cc3491"
@@ -2565,14 +2251,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="messageToLog"
-					datasourceid="a7edc670-1e91-4a2c-b50d-bcb9f9880c59"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="a3a8b164-39aa-40d6-905a-c17c427d941f"
@@ -2706,14 +2384,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="afd94b04-b8d3-4da0-8923-1e9fb78f0bf7"
@@ -2742,14 +2412,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="messageToLog"
-					datasourceid="a7edc670-1e91-4a2c-b50d-bcb9f9880c59"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b26849d6-3393-41cd-a2f7-5e1bd96e6b90"
@@ -3064,50 +2726,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="string4Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="string5Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
-					variablename="string5">
-					</var>
-					<var
-					dataname="string6Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
-					variablename="string6">
-					</var>
-					<var
-					dataname="string7Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
-					variablename="string7">
-					</var>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c36f6e37-5661-4da0-b4e0-ea2eabfb4645"
@@ -3142,14 +2760,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="message2ToLog"
-					datasourceid="090f0704-fc32-41b8-b32f-e6be461e4457"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c55d48f0-aaca-426d-bec0-2044f87003c0"
@@ -3313,14 +2923,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="message1ToLog"
-					datasourceid="090f0704-fc32-41b8-b32f-e6be461e4457"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="d25a83cf-5f1e-462a-ba68-59a53e6108d2"
@@ -3420,14 +3022,6 @@
 					variablename="expectedTextValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="schematizationName"
-					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
-					variableid="5642b8a6-821a-4701-9c40-24555e5f8c14"
-					variablename="expectedTextValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d99eb0a4-852c-41ec-a6d3-eb56c744685e"
@@ -3675,56 +3269,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediateString4"
-					datasourceid="07cc4409-385b-49d4-b972-577e291b1ef9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="string4Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="string5Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
-					variablename="string5">
-					</var>
-					<var
-					dataname="string6Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
-					variablename="string6">
-					</var>
-					<var
-					dataname="string7Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
-					variablename="string7">
-					</var>
-					<var
-					dataname="string8Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
-					variablename="string8">
-					</var>
-					<var
-					dataname="string9Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
-					variablename="string9">
-					</var>
-					<var
-					dataname="string10Dummy"
-					datasourceid="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
-					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
-					variablename="string10">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e89f8e8b-ea51-48a5-8c2d-5f566a41ff14"
@@ -3807,14 +3351,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="messageToLog"
-					datasourceid="dd390d45-fb5f-4088-af5d-8fdfc81dd872"
-					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="eeceaf97-dbf3-4bf7-9ae8-665730691ec1"
@@ -4087,14 +3623,6 @@
 					variablename="expectedTextValue">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameSurfaceLine"
-					datasourceid="4ce93af7-822a-4e20-8d70-2e16628861e4"
-					variableid="5642b8a6-821a-4701-9c40-24555e5f8c14"
-					variablename="expectedTextValue">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>

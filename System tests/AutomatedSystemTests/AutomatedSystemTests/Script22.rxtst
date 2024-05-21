@@ -517,20 +517,6 @@
 					variablename="caseNumberVar">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="6a877048-89b6-4b16-8e16-fd8de63831cb"
-					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
-					variablename="scriptOutputFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5b91f52c-6071-422d-8dd3-f0f17ae38844"
@@ -675,20 +661,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="78337b07-06ac-4efb-b70c-3605a183e682"
@@ -1036,20 +1008,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="fd6d9356-1eb6-4271-a3a2-4d1cebace71c"
@@ -1070,14 +1028,6 @@
 					variablename="labelFM">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="groupFM"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
-					variablename="groupFM">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>

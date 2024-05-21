@@ -237,20 +237,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="extensionRiskeerProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="07e9c8fa-da31-405c-9047-11e3d0dafeac"
@@ -283,32 +269,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
@@ -323,14 +283,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script27b_ValidationMessagesSuccesfullyImportedConfiguration"
@@ -357,14 +309,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
@@ -379,14 +323,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0f392ad9-a690-4775-9c3b-266f465ef525"
@@ -447,20 +383,6 @@
 					variablename="sourceFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderPreviousReleaseProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="131b2f31-5756-461d-b187-1637e4b17d41"
@@ -519,32 +441,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1404061f-62f1-4af2-9f2a-ef9d6f1f2425"
@@ -619,32 +515,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="14bb9daf-d795-4b04-ad29-8cba05c5123b"
@@ -659,14 +529,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="14c33598-00f3-4424-b4d7-c40b1d581a36"
@@ -681,14 +543,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="15eb4364-803d-44a3-b3a9-1fad523bf7ab"
@@ -848,14 +702,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1e77ac14-1c72-4df3-b16b-54103c873842"
@@ -870,14 +716,6 @@
 					variablename="warningMessageToLog">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="warningMessageValidConfiguration"
-					datasourceid="9d33a326-23a9-4c11-98fe-8387b3a83b5c"
-					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
-					variablename="warningMessageToLog">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="20fcebbe-c873-49b0-8895-c695ff74aa4d"
@@ -896,14 +734,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="24d7a302-9c0b-4ba2-98b7-77002d98c6dd"
@@ -932,14 +762,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="27211147-bdc1-4e33-9592-2525fa608234"
@@ -977,20 +799,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2a6c917a-8f2e-44fd-a12e-c94452dc2fdd"
@@ -1005,14 +813,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="2afb400f-4ec3-48bb-a1fd-27eac9da685c"
@@ -1037,20 +837,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fileNameOfProject"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
-					</var>
-					<var
-					dataname="fileNameOfProject"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileName">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2dc4961e-a3f1-4df9-a7e4-6080f387009b"
@@ -1158,14 +944,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="characterNewStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="313e7d90-1e24-45e6-baf7-2911988fd596"
@@ -1377,14 +1155,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fielNameToOpen"
-					datasourceid="5c68fcb8-4ef4-4268-8a33-9ff8282b1237"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="37cb93c8-a462-46f6-825d-8003d8158c40"
@@ -1427,20 +1197,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPath"
-					datasourceid="b1ba515e-b23b-4caa-afee-d8886ab86cea"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemToOpenView">
-					</var>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3e2f8fa6-2419-423e-9cc7-b498edb152f5"
@@ -1461,20 +1217,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3f16f439-9473-41e1-8fd4-f98928d82a39"
@@ -1489,14 +1231,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3fda2ee5-48dc-46b2-8600-6d757bec5917"
@@ -1529,14 +1263,6 @@
 					variablename="originalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4243a9cb-f011-460e-bead-7e8ee8196e6a"
@@ -1654,20 +1380,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="4c907162-660f-424b-90e4-7ba8eeea9a86"
@@ -1704,32 +1416,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="50be77b8-a3db-4e62-afa2-9faf9d60efeb"
@@ -1872,14 +1558,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="56c178d9-9b14-4f13-937f-e601b69ce0ac"
@@ -1997,20 +1675,6 @@
 					variablename="filePath1">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameCreatedConfigurationXMLFileToExport"
-					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="nameReferenceConfigurationXMLFile"
-					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="667617a3-be48-4f8c-b378-1a4bf7fa5fb0"
@@ -2081,14 +1745,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6abbf642-2b5a-4dc7-9ade-c61e30e31a5b"
@@ -2103,14 +1759,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6e1b16e9-3bf0-4523-9103-2d863094e1e2"
@@ -2207,20 +1855,6 @@
 					variablename="string2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="74136d6b-dd8e-4275-a4fb-0c0ed630f11b"
@@ -2322,14 +1956,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="801a49b3-0a12-4183-9b83-173e22421e44"
@@ -2350,20 +1976,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8054c751-598c-4a94-8454-a8d2eb77cfa8"
@@ -2396,32 +2008,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="809afd42-18f5-44f9-9984-1f5366c71332"
@@ -2453,14 +2039,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="82382ec4-9749-4f41-a4a5-12e59040f697"
@@ -2613,32 +2191,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
@@ -2663,20 +2215,6 @@
 					variablename="expectedMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="substringMessage"
-					datasourceid="f5d32590-a65d-4ce1-9e03-049af5e31a87"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
@@ -2691,14 +2229,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="88a8f33c-27b2-442e-b5e0-8f5a40fd3d53"
@@ -2733,14 +2263,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8b0f626d-c2f3-4058-a3d7-46671b4bb3f6"
@@ -2779,32 +2301,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8b807e25-aad2-40c4-b612-33246a227a4a"
@@ -2949,32 +2445,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="92361155-729f-43bd-9970-041f48d37a30"
@@ -3049,32 +2519,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9376a69e-42eb-4a6d-8b7d-7eb844fe063a"
@@ -3109,14 +2553,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -3136,14 +2572,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="96841e19-07cf-4a15-ab00-a2c08280aa04"
@@ -3158,14 +2586,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="delayBeforeValidatingTextMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9cfc7df4-d398-4ad6-9c93-43d2d18ecead"
@@ -3223,14 +2643,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a1698953-2f50-4036-b0c6-e5e4e74b9b21"
@@ -3403,20 +2815,6 @@
 					variablename="indexRowMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexLastRowMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="expectedTextLastRowMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a3849823-b824-403e-9b6f-8d1f3a7527a4"
@@ -3497,14 +2895,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a6fbaa8f-3ea7-4230-9fab-83d5866c4901"
@@ -3579,14 +2969,6 @@
 					variablename="string1">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="suffixItem"
-					datasourceid="9e2ca6b0-b53f-480b-aabd-d0512e5f3996"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a84b2474-77f9-4bb8-98f7-bc751c3f058e"
@@ -3613,26 +2995,6 @@
 					variablename="preffixToInsert">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="preffixCopyOfCalculation"
-					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixCopyCalculation">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixToInsert">
-					</var>
-					<var
-					dataname="pathDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
-					variablename="finalPathItem">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="aac90b26-7184-4289-a147-ec4e86afded4"
@@ -3659,26 +3021,6 @@
 					variablename="preffixToInsert">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="preffixCopyOfCalculation"
-					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixCopyCalculation">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixToInsert">
-					</var>
-					<var
-					dataname="pathDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
-					variablename="finalPathItem">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="aba10684-1384-4446-83a2-9e87e2734f46"
@@ -3762,14 +3104,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b34d98ac-e377-4cde-abb9-862ff5d1e081"
@@ -3804,20 +3138,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testsuite
 			ExportColumnList="None"
@@ -3901,14 +3221,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="03516193-c159-43bc-8599-7d2a7b5f7875"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="b760b111-c7e1-46bd-8c65-3883bd80fa20"
@@ -3939,14 +3251,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="bab32384-004a-4f2d-b2b4-d476443c3c6b"
@@ -4081,20 +3385,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileOriginalCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c0e66152-4fed-4245-a32c-4b684f7f1198"
@@ -4143,14 +3433,6 @@
 					variablename="fileNameToSave">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameCreatedConfigurationXMLFileToExport"
-					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
-					variableid="56347b29-0010-4e17-9350-df3326ef24fd"
-					variablename="fileNameToSave">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="c365c99f-26a4-45ed-b307-e1b457212d15"
@@ -4197,20 +3479,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="c3d47425-4c67-497b-be97-6dc074657541"
@@ -4229,14 +3497,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c42fcb27-3b0c-4dbb-9949-5eb10f39ee9c"
@@ -4271,14 +3531,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c76607d5-3287-4feb-8471-9c7109beb9f0"
@@ -4353,20 +3605,6 @@
 					variablename="string2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="c7c18410-bef2-4017-829e-7312bd78512a"
@@ -4455,32 +3693,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
@@ -4495,14 +3707,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="ca01ff9b-a3a6-4875-ae3a-2f97970259c5"
@@ -4612,32 +3816,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="replacementChar"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d02045c1-c585-4e6d-a87e-8ca36dedca10"
@@ -4652,14 +3830,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<setup
 			id="d345290e-4840-4f60-9055-3afa172e987e"
@@ -4688,14 +3858,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="delayBeforeValidatingTextMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d619e32d-4ff5-45a6-9850-478bd67f1bb4"
@@ -4770,20 +3932,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d8ac58af-53d2-4a2a-b5f7-c6a822b0caf1"
@@ -4841,14 +3989,6 @@
 					variablename="originalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="da54220b-2f11-4803-951f-18362d2da43d"
@@ -4869,20 +4009,6 @@
 					variablename="indexRowMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexLastRowMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="expectedTextLastRowMessages"
-					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="da77ea7a-2db4-411b-8fcd-c092e04c0e54"
@@ -4897,14 +4023,6 @@
 					variablename="warningMessageToLog">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="warningMessageInvalidConfiguration"
-					datasourceid="e849d429-496b-401b-a721-656cfa1c10d9"
-					variableid="ae07b435-7dab-403c-a0aa-8229f2068fa2"
-					variablename="warningMessageToLog">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="dba17d9c-43ce-4691-8ac1-e4c3f1b1d132"
@@ -4945,20 +4063,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e0d70b4e-5ae8-48aa-8093-38021e3b1e14"
@@ -4979,20 +4083,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e2f83475-bff2-4d51-b24a-cf065fd3e6f2"
@@ -5021,20 +4111,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileOriginalCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e52ff0d6-fa66-439f-a832-7d2178e2a08e"
@@ -5049,14 +4125,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e756f027-f3fa-4075-8fa8-312c270cbdde"
@@ -5071,14 +4139,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e849d429-496b-401b-a721-656cfa1c10d9"
@@ -5442,32 +4502,6 @@
 					variablename="string3">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fileExtensionCSV"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
-					variablename="string3">
-					</var>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="f4161aa8-edea-4a04-aaa6-2b8ab6d220e6"
@@ -5488,20 +4522,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separatorInCSVFile"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="f7fee35d-e8be-4b5a-9d47-9e65da5d5460"
@@ -5576,20 +4596,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="f7ffb608-a677-40b7-b391-d987fbd6c167"
@@ -5624,14 +4630,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21"
@@ -5768,20 +4766,6 @@
 					variablename="string2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixItem"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>

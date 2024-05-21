@@ -171,14 +171,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateToSet"
-					datasourceid="2fc53948-30d7-4767-83cc-f75854b101b8"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="527a42ff-6fde-4f62-9fc6-95bb1500ccb0"
@@ -349,14 +341,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToNormTreeItem"
-					datasourceid="4118f277-3c9f-40d7-aa1f-533c497557b0"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<teardown
 			id="81ba8163-5d1c-4705-a2b5-c334c3ff30e7"
@@ -395,20 +379,6 @@
 					variablename="caseNumberVar">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
-					variablename="scriptOutputFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a1688ad4-bcd2-476d-ad4b-273913269c9e"

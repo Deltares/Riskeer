@@ -69,14 +69,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"
@@ -177,20 +169,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathCurrentFile"
-					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="pathReferenceFile"
-					datasourceid="69b45515-b73e-4a04-b26c-4d9a6583daae"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6fdd63f3-98dc-4de5-9c17-540461667cff"
@@ -214,20 +192,6 @@
 					variablename="sourceFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="migrationSourceFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="migrationTargetFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="71878c99-ebd8-40e3-8d1e-ea11162a6757"
@@ -442,20 +406,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="migrationTargetFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="filterRiskeerProjects"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
@@ -580,14 +530,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="dd2ca099-2926-4cc4-93c9-5fc261368498"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="d1f455d9-5741-41e6-983e-8e71f91f7a54"
@@ -704,20 +646,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPath"
-					datasourceid="b1ba515e-b23b-4caa-afee-d8886ab86cea"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemToOpenView">
-					</var>
-					<var
-					dataname="pathToAllCalculationsItem"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f74440b5-100e-4202-8e7f-4c4ef2a4e1ac"

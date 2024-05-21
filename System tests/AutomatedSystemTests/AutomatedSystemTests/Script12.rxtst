@@ -27,14 +27,6 @@
 					variablename="sourcePath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="originalFiles"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="02be9221-9592-4297-8734-1330d1bad490"
@@ -195,14 +187,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTime"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1822424e-32cd-4625-900f-8c20d01ef70a"
@@ -280,14 +264,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfFileToImportSchematizations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1c59642e-978d-40ad-abfb-2625b40adcb7"
@@ -308,20 +284,6 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rangeSchematizations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-					<var
-					dataname="smartFolderToSetRange"
-					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1fc5d4ef-5856-475b-8c7a-1f20daccdae9"
@@ -362,14 +324,6 @@
 					variablename="sourcePath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="originalFiles"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="2549982b-d8a7-438e-b98a-58c31403bc05"
@@ -392,14 +346,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2dc7cd41-ffd9-4362-af4c-3f6c6c8a9a2b"
@@ -598,14 +544,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="36ff1015-a327-4b0d-97cf-f421f1e490bc"
@@ -626,20 +564,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathInputFiles"
-					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script12_LoopRemovedStructures"
@@ -666,14 +590,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="7fea90cf-52f4-4fb1-916e-cc6a478acb35"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="3c3c0623-573b-4b86-ad3b-88cad1ccc70b"
@@ -757,20 +673,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="startPathReferenceCSV"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="41607cad-da90-4e44-bf9c-439055cfb68c"
@@ -839,26 +741,6 @@
 					variablename="nameOfNode">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nodeRemovedSchematizationMustBePresent"
-					datasourceid="0659e551-fd9f-47f5-ac88-42bde8e95ec7"
-					variableid="7cec956b-d645-4283-82ca-087a2f1a38e7"
-					variablename="nodeIsExpectedToBeContained">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="efaeaf78-0e0f-4fc7-978d-729eef4c8fc0"
-					variableid="67b6bc6d-0da4-4cfb-b318-dee7e61facb8"
-					variablename="nameOfNode">
-					</var>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="18dbb304-aeb2-4af5-a75e-da05307d5569"
-					variablename="pathToFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="44854e7c-b212-4c5a-a832-1f7406c0c5ac"
@@ -882,14 +764,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="486dae69-556c-4094-a2d3-d685c6433f5b"
@@ -910,20 +784,6 @@
 					variablename="expectedMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="637a1776-3804-41ed-889d-753d946a265b"
-					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
-					variablename="indexRowMessage">
-					</var>
-					<var
-					dataname="substringMessage"
-					datasourceid="637a1776-3804-41ed-889d-753d946a265b"
-					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
-					variablename="expectedMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="489ba052-67b1-4370-aa9a-3572cf909017"
@@ -938,14 +798,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4a03d143-9988-466c-a0ce-5dbd2e8ce5e0"
@@ -989,20 +841,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="nameConfigurationFileToSave"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4f24774f-c18b-486e-8414-4e1d4bb399bb"
@@ -1115,20 +953,6 @@
 					variablename="originalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathSeparator"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="55da4b1d-09c1-44a4-88b0-b652b72958b5"
@@ -1203,14 +1027,6 @@
 					variablename="string6">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfFileToImportSchematizations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5659aec2-4cac-46b7-a313-c239ec38156b"
@@ -1246,20 +1062,6 @@
 					variablename="originalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathSeparator"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script12_LoopRemainingStructures"
@@ -1333,20 +1135,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathInputFiles"
-					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="f071a0bf-16ac-4c47-9b4e-91e5ec67d0d1"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5f06f76f-784a-48b5-8150-b6d8b7b948a5"
@@ -1361,14 +1149,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testsuite
 			ExportColumnList="None"
@@ -1636,14 +1416,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateCalculations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="7cf7ad1f-edf1-46f4-bd42-481fa8ace8e8"
@@ -1664,20 +1436,6 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rangeRemainingItems"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-					<var
-					dataname="smartFolderToSetRange"
-					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7d3ea903-a12a-421a-a602-b73b49a91613"
@@ -1741,14 +1499,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8be0406c-439a-4b84-b2a9-bb325768da65"
@@ -1769,20 +1519,6 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rangeRemovedItems"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-					<var
-					dataname="smartFolderToSetRange"
-					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -1835,14 +1571,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationToExpandAllParametersInItem"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="94c3d5c7-5b29-43f4-8479-2f7bb85eed0b"
@@ -1857,14 +1585,6 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="a3deddb5-ab48-4a6d-8501-80fbde5bc326"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="95234f4b-edf7-4304-8a6f-db40e5580f0e"
@@ -2018,14 +1738,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTime"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a15e619d-2030-4044-8cf2-485d82c1d32d"
@@ -2162,20 +1874,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separationCharacterCsvFile"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a4f5d1f0-be8d-47dc-b16e-9b7529cc2671"
@@ -2280,20 +1978,6 @@
 					variablename="separationCharacter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="separationCharacterCsvFile"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5485f5bd-8954-4627-887f-89283106e308"
-					variablename="separationCharacter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a7fb65a1-b634-4c9c-a4c2-2ae7553734e1"
@@ -2314,14 +1998,6 @@
 					variablename="fullPathToSubitemOfFM">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="9731f22a-ca63-407b-a787-7c6c8ce0c3e9"
-					variablename="fullPathToSubitemOfFM">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a95ff1de-eeb0-46a9-b92a-4cd92e484d60"
@@ -2336,14 +2012,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationRightKey"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -2363,14 +2031,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="ac7dfe3b-c68f-408c-abb4-56f843ef2033"
@@ -2407,14 +2067,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ae2eb5bb-766e-488d-8a00-cf8f945d7131"
@@ -2438,20 +2090,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathReferenceConfigurationFile"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="nameConfigurationFileToSave"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="aead3b41-fb2f-406d-8f19-2f3736face72"
@@ -2466,14 +2104,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationRightKey"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="af2aaaff-495f-4935-9588-b3731a99b83f"
@@ -2532,20 +2162,6 @@
 					variablename="nameOfNode">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="18dbb304-aeb2-4af5-a75e-da05307d5569"
-					variablename="pathToFolder">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="5b91415a-f457-4483-91b9-353f23fcffe5"
-					variableid="67b6bc6d-0da4-4cfb-b318-dee7e61facb8"
-					variablename="nameOfNode">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="b1bb6e05-948f-4eee-bf7c-5f75845ddde0"
@@ -2644,20 +2260,6 @@
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rangeSchematizations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-					<var
-					dataname="smartFolderToSetRange"
-					datasourceid="da5fff66-2225-4c1b-9c49-23928d144375"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b9e0a030-9013-4996-9672-09eb56fa4fa5"
@@ -2693,14 +2295,6 @@
 					variablename="originalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="bc801d79-734e-4c7a-9527-e3b7a9105436"
@@ -2784,20 +2378,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="startPathReferenceCSV"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="bf8992cb-e8e6-4d7c-b216-4af527eb7062"
@@ -2821,20 +2401,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3ddd79e4-a99e-40f0-b120-763a595ad464"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
-					dataname="nameConfigurationFileToSave"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -2884,14 +2450,6 @@
 					variablename="sourcePath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filesRemovedElements"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="cab6c691-7b2b-4cc3-8083-5a3e568b2cdf"
@@ -2906,14 +2464,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateCalculations"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="cc1dcaab-4baa-4b34-906f-d2eaac3f3893"
@@ -3331,14 +2881,6 @@
 					variablename="sourcePath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filesModifiedElements"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f0bb88be-c18f-47bf-b5fe-3293142b004b"
@@ -3389,14 +2931,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeUntilReadingPropertiesPanelContent"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f8934ef6-279f-49ac-90a4-89dd2414cf03"
@@ -3432,14 +2966,6 @@
 					variablename="milisecondsToWait">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTimeInMiliseconds"
-					datasourceid="0b6f41f3-ba41-4894-b9df-cedb4f0ed6f1"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="fefe446a-6f8c-4268-8296-e9943d8ebe0d"

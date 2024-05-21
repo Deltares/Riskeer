@@ -27,26 +27,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterPath"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-					<var
-					dataname="valueType"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="0084d137-ffe9-4b58-b512-15c2386f2074"
@@ -116,14 +96,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0af79179-4d04-43f8-8fcf-a8470df438ca"
@@ -138,14 +110,6 @@
 					variablename="pathToItem">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="layerName"
-					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
-					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
-					variablename="pathToItem">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="0bda162f-c614-4263-8b75-c7d17bc4e183"
@@ -176,26 +140,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterPath"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-					<var
-					dataname="valueType"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0fc749d6-5015-41f9-9c79-8957000deb2f"
@@ -269,14 +213,6 @@
 					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="durationRightKey"
-					datasourceid="27244f6b-5185-4fe9-b709-ded1ec69674b"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="1626ce58-36b1-472f-a1eb-0957153ffc21"
@@ -365,14 +301,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="21114deb-06e3-49f6-85ff-11b20b73d8e5"
@@ -535,14 +463,6 @@
 					variablename="backgroundFileNameToAdd">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="backgroundFileName"
-					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
-					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
-					variablename="backgroundFileNameToAdd">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2c53608a-befe-4889-b250-e8adbdaecdcc"
@@ -557,14 +477,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="32ce3729-3337-403a-ac0f-d62f21b0571e"
@@ -664,14 +576,6 @@
 					variablename="string4">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToFPItem"
-					datasourceid="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="3789e403-9ec5-4959-8ef7-03c7af296b21"
@@ -729,14 +633,6 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fileNameOfProject"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
-					variablename="fileNameToOpen">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="39eed5ed-c905-406e-aa86-d518e9e6ec26"
@@ -842,20 +738,6 @@
 					variablename="fileNameOfProjectThatShouldBeOpen">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="projectNeedsToBeOpened"
-					datasourceid="696988c2-3878-48b6-a624-bb79f50a8b31"
-					variableid="f5d6fdf5-43e2-42d5-a343-d130722b19cb"
-					variablename="projectMustBeOpened">
-					</var>
-					<var
-					dataname="fileNameOfProject"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="72fcd65e-4903-4569-8c21-047c0d41f306"
-					variablename="fileNameOfProjectThatShouldBeOpen">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="3d83574c-6f48-4cb7-9396-3f339e4f315e"
@@ -1158,14 +1040,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="64f55c0a-44d9-4bd6-9ef5-33544121d1a4"
@@ -1270,26 +1144,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterPath"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-					<var
-					dataname="valueType"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6e3077b3-7e22-4a13-aac9-350f7d55580a"
@@ -1359,20 +1213,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="extensionRiskeerProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7a92df26-5b69-488b-9ab3-023b5e42ded5"
@@ -1438,14 +1278,6 @@
 					variablename="pathToItem">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="layerName"
-					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
-					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
-					variablename="pathToItem">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="8293e81d-5f90-489a-9f7b-704464594049"
@@ -1491,14 +1323,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathBackgroundItem"
-					datasourceid="19271aef-36fe-45c2-89e7-be8267cec39a"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="85c80477-b489-48ce-858b-44638a9a14a5"
@@ -1643,26 +1467,6 @@
 					variablename="typeParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="typeValueTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-					<var
-					dataname="pathTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="9493147b-c5ae-424c-b2de-61a04c62d489"
@@ -1687,14 +1491,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="e5a82a8e-76aa-4d23-b28b-02d06f176938"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="97564205-2db8-4dec-8ec7-0e8d060c9e8c"
@@ -1857,14 +1653,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="a33a0afd-21e6-4f15-9203-784ac7c1ad4d"
@@ -1899,20 +1687,6 @@
 					variablename="sourceFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderPreviousReleaseProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a50723e0-93c3-4d3d-9609-5e88801cec41"
@@ -1944,14 +1718,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a8df83ad-70aa-40ce-bb62-20f298169a62"
@@ -2152,14 +1918,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script29b_LoopHideAllLayers"
@@ -2233,26 +1991,6 @@
 					variablename="typeParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="typeValueTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-					<var
-					dataname="pathTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newTransparency"
-					datasourceid="9171da9b-1de8-4b61-b7da-29a24db1ff96"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="bfff5cfe-6e13-4b37-8a00-e8983f2e7ed8"
@@ -2337,26 +2075,6 @@
 					variablename="newValueForParameter">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="parameterPath"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-					<var
-					dataname="valueType"
-					datasourceid="e079db33-936e-4f23-80ce-3eb19b64441b"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c7173f56-2d64-4a11-9508-ab317cd5f199"
@@ -2371,14 +2089,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="c744394e-a51d-45c5-b365-1fc604a16075"
@@ -2610,14 +2320,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ed5b6e4a-db7c-4f4f-b2ea-cf6208bb2256"
@@ -2632,14 +2334,6 @@
 					variablename="nameOfPanel">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="namePanelMap"
-					datasourceid="0701a612-4ab3-42e2-9e1c-4fd15a807b31"
-					variableid="cd9ca8c4-f4fd-4730-9744-6ce82d091e5c"
-					variablename="nameOfPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="ef5c10ce-1552-4002-b0a0-883ff7f4aefb"
@@ -2693,14 +2387,6 @@
 					variablename="indexContainerMap">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexView"
-					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
-					variableid="e7772450-4ae6-4220-b179-f7318fbcd095"
-					variablename="indexContainerMap">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="fd5f57de-985f-4620-8da9-2488385bc4e9"
@@ -2736,14 +2422,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="fe5937d2-4f4b-4f48-96ca-c5579492e67c"

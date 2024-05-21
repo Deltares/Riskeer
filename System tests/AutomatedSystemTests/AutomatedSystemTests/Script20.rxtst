@@ -32,20 +32,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-					<var
-					dataname="projectFileNameA"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="05343d06-3786-4fbe-8baa-5d8914887b64"
@@ -152,20 +138,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="caseNumber"
-					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
-					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-					variablename="caseNumberVar">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="15814730-7475-4cd0-9966-6072c33e93ed"
-					variableid="5a58e76a-8d63-45cf-9337-4cedcbf6e9f6"
-					variablename="scriptOutputFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="12f522a3-ac39-4cce-824b-9e10160dc9f6"
@@ -201,20 +173,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-					<var
-					dataname="projectFileNameA"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="19716ddc-c107-48ce-958d-7044ad935cb3"
@@ -365,20 +323,6 @@
 					variablename="folderToDeleteFiles">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="extensionRiskeerProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="2d33db74-1ec9-42f4-bc92-4fa517d782fc"
@@ -542,14 +486,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="4328510d-6fcf-464c-a832-f74124cceaba"
@@ -564,14 +500,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="4369cb7f-b6d3-4757-a40f-8a68494a29da"
@@ -641,14 +569,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfExportedPropertiesCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
-					variablename="fileName">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="4b7e5ce5-86d8-4e0a-aa7a-5b79b45317c7"
@@ -734,26 +654,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToCalculationSubFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="charPathSeparator"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToResultsItem"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="4c6c6a01-b1b1-4e90-af7d-f7b026dcc54d"
@@ -958,20 +858,6 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfExportedPropertiesCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
-					variablename="filePath1">
-					</var>
-					<var
-					dataname="referencePropertiesCSVFilePath"
-					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="56403b92-1ec8-48e1-bffb-a878cd205956"
@@ -1096,14 +982,6 @@
 					variablename="fileName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6b6971ce-9a68-47db-8c71-2768ef8155b3"
@@ -1152,14 +1030,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6d5f9b21-e8ad-450b-90b3-c61967f3358b"
@@ -1304,14 +1174,6 @@
 					variablename="stateName">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="StateWithCalculations"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="8cd7ede6-b322-41ef-b90b-d46b2020d79b"
@@ -1378,26 +1240,6 @@
 					variablename="illPointMustBeChecked">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="calcMustBeChecked"
-					datasourceid="e2fa936d-5ff1-4f04-95b6-fcfb6b46ec63"
-					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
-					variablename="calculationMustBeChecked">
-					</var>
-					<var
-					dataname="illPointMustBechecked"
-					datasourceid="e2fa936d-5ff1-4f04-95b6-fcfb6b46ec63"
-					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
-					variablename="illPointMustBeChecked">
-					</var>
-					<var
-					dataname="listIndecesHBCLocationsToCalculate"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
-					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
-					variablename="listRowIndecesToSelect">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9489196a-d36c-4a54-8240-858eafa60b99"
@@ -1511,14 +1353,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToCalculationSubFolder"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a0a988c0-71ad-4516-8e89-3ff81fb3e6e9"
@@ -1660,20 +1494,6 @@
 					variablename="sourceFolder">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderPreviousReleaseProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="a795e298-d855-4933-aa46-f34b8767b21f"
@@ -1708,14 +1528,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToResultsItem"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ac0dc9b4-4d64-4498-87a0-f7805d84fbc8"
@@ -1900,26 +1712,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="charSpace"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="charUnderscore"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="nameOfExportedPropertiesCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="b5191ae7-b79c-4bd1-8b34-12b69bb9eb78"
@@ -2333,20 +2125,6 @@
 					variablename="stringToAppendToMainString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfExportedPropertiesCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="extensionCSVFile"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f2756322-b4f6-434d-a12d-fa731c793f9d"
@@ -2410,26 +2188,6 @@
 					variablename="finalString">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fullPathToResultsItem"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="charPathSeparator"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-					<var
-					dataname="charUnderscore"
-					datasourceid="bedf8dc4-6eec-4382-acdd-81cf1f53dcd1"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="f9575b86-8955-41f5-9963-ba28357c3318"
