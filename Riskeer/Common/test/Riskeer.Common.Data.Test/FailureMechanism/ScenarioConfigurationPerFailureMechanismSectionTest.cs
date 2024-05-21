@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-
 using System;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
@@ -34,66 +34,90 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         [Test]
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            void Call() => new ScenarioConfigurationPerFailureMechanismSection(null);
+            void Call() => new TestScenarioConfigurationPerFailureMechanismSection(null, random.NextRoundedDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Call
+            // Setup
+            var random = new Random(21);
+            RoundedDouble a = random.NextRoundedDouble();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            
+
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new ScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, a);
 
             // Assert
-            Assert.AreEqual(0, scenarioConfigurationPerFailureMechanismSection.A);
+            Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+
             Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(-1)]
+        [TestCase(-0.0005)]
         [TestCase(-0.1)]
         [TestCase(1.1)]
+        [TestCase(1.0005)]
         [TestCase(8)]
         [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
         public void A_InvalidValue_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
+            var random = new Random(21);
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new ScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
             // Call
-            void Call() => scenarioConfigurationPerFailureMechanismSection.A = a;
+            void Call() => scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
-        
+
         [Test]
+        [TestCase(-0.0004)]
         [TestCase(0)]
         [TestCase(0.1)]
         [TestCase(1)]
+        [TestCase(1.0004)]
         [TestCase(0.0000001)]
         [TestCase(0.9999999)]
         public void A_ValidValue_SetsValue(double a)
         {
             // Setup
+            var random = new Random(21);
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new ScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
             // Call
-            scenarioConfigurationPerFailureMechanismSection.A = a;
+            scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
 
             // Assert
-            Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A);
+            Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+        }
+
+        private class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
+        {
+            public TestScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a) : base(section, a) {}
         }
     }
 }

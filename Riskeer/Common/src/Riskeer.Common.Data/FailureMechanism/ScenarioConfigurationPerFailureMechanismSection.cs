@@ -27,48 +27,56 @@ using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
-    
     /// <summary>
-    /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
+    /// This base class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class ScenarioConfigurationPerFailureMechanismSection : Observable
+    public abstract class ScenarioConfigurationPerFailureMechanismSection : Observable
     {
-        private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
-        private double a;
+        private const int aNrOfDecimals = 3;
+
+        private static readonly Range<RoundedDouble> validityRangeA = new Range<RoundedDouble>(
+            new RoundedDouble(aNrOfDecimals), new RoundedDouble(aNrOfDecimals, 1));
+
+        private RoundedDouble a;
 
         /// <summary>
-        /// Creates a new instance of <see cref="Riskeer.Piping.Data.PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
+        /// <param name="a">The 'a' parameter used to factor in the 'length effect' when determining the
+        /// maximum tolerated probability of failure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public ScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section)
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
+        protected ScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a)
         {
             if (section == null)
             {
                 throw new ArgumentNullException(nameof(section));
             }
 
+            A = a;
             Section = section;
         }
-        
+
         /// <summary>
         /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
-        public double A
+        public RoundedDouble A
         {
             get => a;
             set
             {
-                if (!validityRangeA.InRange(value))
+                RoundedDouble newA = value.ToPrecision(aNrOfDecimals);
+                if (!validityRangeA.InRange(newA))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
                                                           string.Format(Resources.ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
                                                                         validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
 
-                a = value;
+                a = newA;
             }
         }
 

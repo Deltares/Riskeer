@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
@@ -56,16 +57,18 @@ namespace Riskeer.Common.Data.Test.Probability
                 new Point2D(length, 0)
             });
 
-            var configuration = new ScenarioConfigurationPerFailureMechanismSection(section)
-            {
-                A = a
-            };
+            var configuration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
 
             // Call
             double actualN = configuration.GetN(b);
 
             // Assert
             Assert.AreEqual(expectedN, actualN);
+        }
+
+        private class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
+        {
+            public TestScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a) : base(section, a) {}
         }
     }
 }
