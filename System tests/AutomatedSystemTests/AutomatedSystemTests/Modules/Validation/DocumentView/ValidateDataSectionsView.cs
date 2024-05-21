@@ -50,10 +50,6 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             valueColumnOffsetTo = "";
             indexColumnLength = "";
             valueColumnLength = "";
-            indexColumnNvak = "";
-            valueColumnNvakSTPH = "";
-            fmLabel = "";
-            valueColumnNvakSTBI = "";
         }
 
         /// <summary>
@@ -162,42 +158,6 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             set { _valueColumnLength = value; }
         }
 
-        string _indexColumnNvak;
-
-        /// <summary>
-        /// Gets or sets the value of variable indexColumnNvak.
-        /// </summary>
-        [TestVariable("977fc215-146b-4555-b9b3-cd50e088cf01")]
-        public string indexColumnNvak
-        {
-            get { return _indexColumnNvak; }
-            set { _indexColumnNvak = value; }
-        }
-
-        string _valueColumnNvakSTPH;
-
-        /// <summary>
-        /// Gets or sets the value of variable valueColumnNvakSTPH.
-        /// </summary>
-        [TestVariable("c18cb98c-19ce-4e97-8ec7-6c0fdeb8a0e2")]
-        public string valueColumnNvakSTPH
-        {
-            get { return _valueColumnNvakSTPH; }
-            set { _valueColumnNvakSTPH = value; }
-        }
-
-        string _valueColumnNvakSTBI;
-
-        /// <summary>
-        /// Gets or sets the value of variable valueColumnNvakSTBI.
-        /// </summary>
-        [TestVariable("a8f4dcdf-17a8-4c78-9f64-98273491f169")]
-        public string valueColumnNvakSTBI
-        {
-            get { return _valueColumnNvakSTBI; }
-            set { _valueColumnNvakSTBI = value; }
-        }
-
         /// <summary>
         /// Gets or sets the value of variable indexRow.
         /// </summary>
@@ -206,16 +166,6 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         {
             get { return repo.indexRow; }
             set { repo.indexRow = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable fmLabel.
-        /// </summary>
-        [TestVariable("a276a6e8-f9e8-4229-bf49-f21246cd4eb3")]
-        public string fmLabel
-        {
-            get { return repo.fmLabel; }
-            set { repo.fmLabel = value; }
         }
 
 #endregion

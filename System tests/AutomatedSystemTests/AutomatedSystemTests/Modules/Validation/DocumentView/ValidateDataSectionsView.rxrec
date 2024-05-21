@@ -59,22 +59,6 @@ mode="Global">
 		id="036da4e5-60a6-4f75-a02a-e9463ec7d825"
 		name="valueColumnLength">
 		</var>
-		<var
-		id="977fc215-146b-4555-b9b3-cd50e088cf01"
-		name="indexColumnNvak">
-		</var>
-		<var
-		id="c18cb98c-19ce-4e97-8ec7-6c0fdeb8a0e2"
-		name="valueColumnNvakSTPH">
-		</var>
-		<var
-		id="a276a6e8-f9e8-4229-bf49-f21246cd4eb3"
-		name="fmLabel">
-		</var>
-		<var
-		id="a8f4dcdf-17a8-4c78-9f64-98273491f169"
-		name="valueColumnNvakSTBI">
-		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem

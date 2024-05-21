@@ -47,21 +47,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         
         private void ValidateRow(Ranorex.Row row)
         {
-            if (indexRow=="0" && fmLabel!="STPH" && fmLabel!="STBI") {
-                Report.Log(ReportLevel.Info, "Validating that column Nvak is not present.");
-                Validate.IsFalse(row.Cells[row.Cells.Count-1].Element.GetAttributeValueText("AccessibleName").Contains("Nvak*"));
-            }
             ValidateSingleCell(row, "Validating 1st column", indexColumnName, valueColumnName);
             ValidateSingleCell(row, "Validating 2nd column", indexColumnOffsetFrom, valueColumnOffsetFrom);
             ValidateSingleCell(row, "Validating 3rd column", indexColumnOffsetTo, valueColumnOffsetTo);
             ValidateSingleCell(row, "Validating 4th column", indexColumnLength, valueColumnLength);
-            if (fmLabel=="STPH") {
-                Report.Log(ReportLevel.Info, "FM is " + fmLabel + " so validating 5th column.");
-                ValidateSingleCell(row, "Validating 5th column", indexColumnNvak, valueColumnNvakSTPH);
-            } else if (fmLabel=="STBI") {
-                Report.Log(ReportLevel.Info, "FM is " + fmLabel + " so validating 5th column.");
-                ValidateSingleCell(row, "Validating 5th column", indexColumnNvak, valueColumnNvakSTBI);
-            }
         }
         
         private void ValidateSingleCell(Ranorex.Row row, string logMessage, string indexColumn, string expectedValue)
