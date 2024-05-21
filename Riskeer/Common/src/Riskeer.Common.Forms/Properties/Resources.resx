@@ -765,7 +765,7 @@
     <data name="Probability_Could_not_parse_string_to_probability" xml:space="preserve">
     <value>De waarde kon niet geïnterpreteerd worden als een kans.</value>
   </data>
-    <data name="Probability_Value_too_large" xml:space="preserve">
+    <data name="ParsingHelper_Value_too_large" xml:space="preserve">
     <value>De waarde is te groot of te klein.</value>
   </data>
     <data name="Structure_Description" xml:space="preserve">
@@ -1549,5 +1549,8 @@ faalkans per vak
     </data>
     <data name="HydraulicBoundaryDatabase_Description" xml:space="preserve">
       <value>Naam van het bijbehorende HRD bestand.</value>
+    </data>
+    <data name="Value_Could_not_parse_string_to_RoundedDouble" xml:space="preserve">
+      <value>De waarde kon niet geïnterpreteerd worden als een kommagetal.</value>
     </data>
 </root>

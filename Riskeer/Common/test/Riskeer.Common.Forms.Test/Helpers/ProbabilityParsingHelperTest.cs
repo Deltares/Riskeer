@@ -31,6 +31,20 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class ProbabilityParsingHelperTest
     {
         [Test]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void Parse_NullOrEmptyString_ReturnsExpectedOutput(string value)
+        {
+            // Call
+            double parsedValue = ProbabilityParsingHelper.Parse(value);
+
+            // Assert
+            Assert.IsNaN(parsedValue);
+        }
+        
+        [Test]
         [SetCulture("nl-NL")]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2,500", 0.4)]
@@ -86,10 +100,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
             const string invalidValue = "I'm not a number!";
 
             // Call
-            TestDelegate call = () => ProbabilityParsingHelper.Parse(invalidValue);
+            void Call() => ProbabilityParsingHelper.Parse(invalidValue);
 
             // Assert
-            var exception = Assert.Throws<ProbabilityParsingException>(call);
+            var exception = Assert.Throws<ProbabilityParsingException>(Call);
             Assert.IsInstanceOf<FormatException>(exception.InnerException);
             Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", exception.Message);
         }
@@ -101,10 +115,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
             string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             // Call
-            TestDelegate call = () => ProbabilityParsingHelper.Parse(invalidValue);
+            void Call() => ProbabilityParsingHelper.Parse(invalidValue);
 
             // Assert
-            var exception = Assert.Throws<ProbabilityParsingException>(call);
+            var exception = Assert.Throws<ProbabilityParsingException>(Call);
             Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             Assert.AreEqual("De waarde is te groot of te klein.", exception.Message);
         }

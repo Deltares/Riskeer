@@ -20,53 +20,44 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Properties;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class to parse probabilities.
+    /// Helper class to parse <see cref="RoundedDouble"/>.
     /// </summary>
-    public static class ProbabilityParsingHelper
+    public static class RoundedDoubleParsingHelper
     {
-        private const string returnPeriodNotation = "1/";
-
         /// <summary>
-        /// Parses a string value to a probability.
+        /// Parses a string value to a <see cref="RoundedDouble"/>.
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
-        /// <returns>A <see cref="double"/> representing a probability.</returns>
-        /// <exception cref="ProbabilityParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
-        public static double Parse(string value)
+        /// <param name="nrOfDecimals">The number of decimals.</param>
+        /// <returns>A <see cref="RoundedDouble"/>.</returns>
+        /// <exception cref="RoundedDoubleParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
+        public static RoundedDouble Parse(string value, int nrOfDecimals)
         {
-            if (string.IsNullOrWhiteSpace(value) || value.Trim() == Resources.RoundedDouble_No_result_dash)
+            if (string.IsNullOrWhiteSpace(value))
             {
-                return double.NaN;
+                return RoundedDouble.NaN;
             }
 
             try
             {
-                if (!value.StartsWith(returnPeriodNotation))
-                {
-                    return Convert.ToDouble(value);
-                }
-
-                string returnPeriodValue = value.Substring(2).ToLower();
-                return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
-                           ? 1 / Convert.ToDouble(returnPeriodValue)
-                           : 0.0;
+                return new RoundedDouble(nrOfDecimals, Convert.ToDouble(value));
             }
             catch (FormatException exception)
             {
-                throw new ProbabilityParsingException(Resources.Probability_Could_not_parse_string_to_probability,
-                                                      exception);
+                throw new RoundedDoubleParsingException(Resources.Value_Could_not_parse_string_to_RoundedDouble,
+                                                 exception);
             }
             catch (OverflowException exception)
             {
-                throw new ProbabilityParsingException(Resources.ParsingHelper_Value_too_large,
-                                                      exception);
+                throw new RoundedDoubleParsingException(Resources.ParsingHelper_Value_too_large,
+                                                 exception);
             }
         }
     }
