@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {
@@ -117,6 +120,57 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
+        }
+
+        [Test]
+        public void SetSections_WithSection_SetsSectionResults()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
+            Assert.AreEqual(1, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
+            Assert.AreSame(section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().Section);
+        }
+
+        [Test]
+        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                })
+            });
+
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
         }
     }
 }
