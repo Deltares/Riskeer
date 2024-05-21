@@ -4523,9 +4523,6 @@
 				<column>
 					valueColumnLength
 				</column>
-				<column>
-					indexColumnNvak
-				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -4561,9 +4558,6 @@
 					<th>
 						valueColumnLength
 					</th>
-					<th>
-						indexColumnNvak
-					</th>
 				</tr>
 				<tr>
 					<td>
@@ -4595,9 +4589,6 @@
 					</td>
 					<td>
 						Lengte* [m]
-					</td>
-					<td>
-						5
 					</td>
 				</tr>
 				<tr>
@@ -4631,9 +4622,6 @@
 					<td>
 						5410.14
 					</td>
-					<td>
-						5
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4666,9 +4654,6 @@
 					<td>
 						9403.50
 					</td>
-					<td>
-						5
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4700,9 +4685,6 @@
 					</td>
 					<td>
 						6034.23
-					</td>
-					<td>
-						5
 					</td>
 				</tr>
 			</table>
@@ -4743,15 +4725,6 @@
 				<column>
 					valueColumnLength
 				</column>
-				<column>
-					indexColumnNvak
-				</column>
-				<column>
-					valueColumnNvakSTPH
-				</column>
-				<column>
-					valueColumnNvakSTBI
-				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -4787,15 +4760,6 @@
 					<th>
 						valueColumnLength
 					</th>
-					<th>
-						indexColumnNvak
-					</th>
-					<th>
-						valueColumnNvakSTPH
-					</th>
-					<th>
-						valueColumnNvakSTBI
-					</th>
 				</tr>
 				<tr>
 					<td>
@@ -4827,15 +4791,6 @@
 					</td>
 					<td>
 						Lengte* [m]
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						Nvak* [-]
-					</td>
-					<td>
-						Nvak* [-]
 					</td>
 				</tr>
 				<tr>
@@ -4869,15 +4824,6 @@
 					<td>
 						5410.14
 					</td>
-					<td>
-						5
-					</td>
-					<td>
-						8.21
-					</td>
-					<td>
-						4.57
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4909,15 +4855,6 @@
 					</td>
 					<td>
 						2358.15
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						4.14
-					</td>
-					<td>
-						2.56
 					</td>
 				</tr>
 				<tr>
@@ -4951,15 +4888,6 @@
 					<td>
 						7045.34
 					</td>
-					<td>
-						5
-					</td>
-					<td>
-						10.39
-					</td>
-					<td>
-						5.65
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4992,15 +4920,6 @@
 					<td>
 						4686.60
 					</td>
-					<td>
-						5
-					</td>
-					<td>
-						7.25
-					</td>
-					<td>
-						4.09
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5032,15 +4951,6 @@
 					</td>
 					<td>
 						1347.63
-					</td>
-					<td>
-						5
-					</td>
-					<td>
-						2.80
-					</td>
-					<td>
-						1.89
 					</td>
 				</tr>
 			</table>
