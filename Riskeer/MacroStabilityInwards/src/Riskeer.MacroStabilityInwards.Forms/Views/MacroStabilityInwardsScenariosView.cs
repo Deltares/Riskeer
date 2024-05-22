@@ -18,23 +18,18 @@
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
+using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// View for configuring macrostability inwards calculation scenarios.
     /// </summary>
-    public class MacroStabilityInwardsScenariosView : ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>
+    public partial class MacroStabilityInwardsScenariosView : UserControl, IView
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
@@ -45,48 +40,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// to get the sections from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsScenariosView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism)
-            : base(calculationGroup, failureMechanism) {}
-
-        protected override MacroStabilityInwardsInput GetCalculationInput(MacroStabilityInwardsCalculationScenario calculationScenario)
         {
-            return calculationScenario.InputParameters;
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            InitializeComponent();
         }
 
-        protected override IEnumerable<MacroStabilityInwardsScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
-        {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = CalculationGroup
-                                                                                 .GetCalculations()
-                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
-
-            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection sectionConfiguration =
-                FailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(c.Section, failureMechanismSection));
-            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, sectionConfiguration)).ToList();
-        }
-
-        protected override void InitializeDataGridView()
-        {
-            DataGridViewControl.AddCheckBoxColumn(
-                nameof(MacroStabilityInwardsScenarioRow.IsRelevant),
-                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsScenarioRow.Contribution),
-                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsScenarioRow.Name),
-                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsScenarioRow.FailureProbability),
-                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsScenarioRow.SectionFailureProbability),
-                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
-            );
-        }
+        public object Data { get; set; }
     }
 }
