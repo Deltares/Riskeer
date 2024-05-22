@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 
@@ -71,7 +72,10 @@ namespace Riskeer.MacroStabilityInwards.Data
         {
             double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
                                                                                            failureMechanism.GeneralInput.ModelFactor);
-            return Math.Min(1.0, probability * failureMechanism.ProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+
+            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection sectionConfiguration =
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(sectionResult.Section, c.Section));
+            return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B));
         }
     }
 }

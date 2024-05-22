@@ -148,9 +148,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -172,9 +176,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -242,10 +250,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
                 }
             };
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "APath");
+            });
 
             var assessmentSection = new AssessmentSectionStub();
 

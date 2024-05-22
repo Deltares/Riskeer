@@ -134,11 +134,16 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                new MacroStabilityInwardsFailureMechanism());
+                failureMechanism);
 
             // Call
             double sectionProbability = strategy.CalculateSectionProbability();
@@ -149,7 +154,12 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
         private static MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateStrategyForMultipleScenarios(FailureMechanismSection section)
         {
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+            AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             const double factorOfStability1 = 1.0 / 10.0;
             const double factorOfStability2 = 1.0 / 20.0;
@@ -172,7 +182,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             };
 
             return new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new MacroStabilityInwardsFailureMechanism());
+                sectionResult, calculations, failureMechanism);
         }
     }
 }
