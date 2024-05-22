@@ -60,7 +60,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                  .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, failureMechanismSection)).ToList();
+            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection sectionConfiguration =
+                FailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(c.Section, failureMechanismSection));
+            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, sectionConfiguration)).ToList();
         }
 
         protected override void InitializeDataGridView()

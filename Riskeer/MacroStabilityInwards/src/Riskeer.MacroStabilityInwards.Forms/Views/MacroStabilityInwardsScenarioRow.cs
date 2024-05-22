@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -35,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsScenarioRow : ScenarioRow<MacroStabilityInwardsCalculationScenario>
     {
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
-        private readonly FailureMechanismSection failureMechanismSection;
+        private readonly MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection sectionConfiguration;
         private DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
@@ -43,11 +42,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         /// <param name="calculationScenario">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
-        /// <param name="failureMechanismSection">The failure mechanism section that the calculation belongs to.</param>
+        /// <param name="sectionConfiguration">The configuration for the failure mechanism section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                   MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                  FailureMechanismSection failureMechanismSection)
+                                                  MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection sectionConfiguration)
             : base(calculationScenario)
         {
             if (failureMechanism == null)
@@ -55,13 +54,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (failureMechanismSection == null)
+            if (sectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
+                throw new ArgumentNullException(nameof(sectionConfiguration));
             }
 
             this.failureMechanism = failureMechanism;
-            this.failureMechanismSection = failureMechanismSection;
+            this.sectionConfiguration = sectionConfiguration;
 
             CreateDerivedOutput();
         }
@@ -78,8 +77,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return Math.Min(1.0, derivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                             failureMechanismSection.Length));
+                    return Math.Min(1.0, derivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(
+                                             failureMechanism.ProbabilityAssessmentInput.B));
                 }
 
                 return double.NaN;

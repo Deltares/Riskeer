@@ -108,6 +108,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(1.1, section));
 
+            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfiguration = 
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single();
+
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -126,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
                 Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultTypeIndex].Value);
-                Assert.AreEqual(probability * failureMechanism.ProbabilityAssessmentInput.GetN(section.Length),
+                Assert.AreEqual(probability * scenarioConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B),
                                 cells[initialFailureMechanismResultSectionProbabilityIndex].Value);
                 Assert.AreEqual(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, cells[furtherAnalysisTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);

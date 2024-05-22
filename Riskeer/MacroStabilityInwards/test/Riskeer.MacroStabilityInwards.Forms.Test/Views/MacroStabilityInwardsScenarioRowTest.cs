@@ -42,10 +42,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            void Call() => new MacroStabilityInwardsScenarioRow(calculation, null, failureMechanismSection);
+            void Call() => new MacroStabilityInwardsScenarioRow(calculation, null, sectionConfiguration);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -53,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
+        public void Constructor_SectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -64,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismSection", exception.ParamName);
+            Assert.AreEqual("sectionConfiguration", exception.ParamName);
         }
 
         [Test]
@@ -73,10 +75,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<MacroStabilityInwardsCalculationScenario>>(row);
@@ -99,20 +103,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 })
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var failureMechanismSection = new FailureMechanismSection("test", new[]
+
+            var section = new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(sectionLength, 0)
             });
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                              failureMechanismSection.Length)),
+            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B)),
                             row.SectionFailureProbability);
         }
 
@@ -122,10 +127,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
@@ -138,9 +145,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -153,8 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length),
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B),
                             row.SectionFailureProbability);
         }
 
@@ -167,15 +175,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length),
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B),
                             row.SectionFailureProbability);
 
             // When
@@ -196,15 +205,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length),
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B),
                             row.SectionFailureProbability);
 
             var random = new Random(11);
@@ -219,8 +229,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.ProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length),
+            Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B),
                             row.SectionFailureProbability);
         }
     }
