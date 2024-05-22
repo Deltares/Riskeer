@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Probability
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            return 1 + (configuration.A * configuration.Section.Length) / b;
+            return 1 + ((double)configuration.A * configuration.Section.Length) / b;
         }
     }
 }
