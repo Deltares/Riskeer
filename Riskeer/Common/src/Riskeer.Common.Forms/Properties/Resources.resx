@@ -1553,4 +1553,10 @@ faalkans per vak
     <data name="Value_Could_not_parse_string_to_RoundedDouble" xml:space="preserve">
       <value>De waarde kon niet geïnterpreteerd worden als een kommagetal.</value>
     </data>
+    <data name="LengthEffect_A_DisplayName" xml:space="preserve">
+      <value>Lengte-effect parameter a [-]</value>
+    </data>
+    <data name="LengthEffect_RoundedNSection_DisplayName" xml:space="preserve">
+      <value>Lengte-effect parameter Nvak* [-]</value>
+    </data>
 </root>

@@ -155,8 +155,10 @@ namespace Riskeer.Piping.Forms.Views
             // 
             // tableLayoutPanelListBox
             // 
+            this.tableLayoutPanelListBox.AutoSize = true;
+            this.tableLayoutPanelListBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanelListBox.ColumnCount = 1;
-            this.tableLayoutPanelListBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelListBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelListBox.Controls.Add(this.label, 0, 0);
             this.tableLayoutPanelListBox.Controls.Add(this.listBox, 0, 1);
             this.tableLayoutPanelListBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -164,7 +166,7 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelListBox.Name = "tableLayoutPanelListBox";
             this.tableLayoutPanelListBox.RowCount = 2;
             this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelListBox.Size = new System.Drawing.Size(341, 762);
             this.tableLayoutPanelListBox.TabIndex = 0;
             // 
@@ -273,7 +275,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectALabel.Name = "lengthEffectALabel";
             this.lengthEffectALabel.Size = new System.Drawing.Size(165, 26);
             this.lengthEffectALabel.TabIndex = 0;
-            this.lengthEffectALabel.Text = "Lengte-effect parameter a (-)";
+            this.lengthEffectALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
             this.lengthEffectALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectNRoundedLabel
@@ -284,7 +286,7 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
             this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 26);
             this.lengthEffectNRoundedLabel.TabIndex = 1;
-            this.lengthEffectNRoundedLabel.Text = "Lengte-effect parameter Nvak* (-)";
+            this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectATextBox
@@ -317,6 +319,8 @@ namespace Riskeer.Piping.Forms.Views
             // 
             // dataGridViewControl
             // 
+            this.dataGridViewControl.AutoScroll = true;
+            this.dataGridViewControl.AutoSize = true;
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewControl.Location = new System.Drawing.Point(3, 123);
             this.dataGridViewControl.MultiSelect = true;
