@@ -254,10 +254,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(controlsShouldBeVisible, tableLayoutPanel.Visible);
 
             var lengthEffectALabel = (Label) new LabelTester("lengthEffectALabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter a (-)", lengthEffectALabel.Text);
+            Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter Nvak* (-)", lengthEffectNRoundedLabel.Text);
+            Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
