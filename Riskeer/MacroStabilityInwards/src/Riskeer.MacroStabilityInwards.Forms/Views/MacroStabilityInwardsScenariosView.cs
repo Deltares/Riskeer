@@ -196,6 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel;
             UpdateScenarioControls();
+            UpdateLengthEffectData();
         }
 
         private void UpdateScenarioRows()

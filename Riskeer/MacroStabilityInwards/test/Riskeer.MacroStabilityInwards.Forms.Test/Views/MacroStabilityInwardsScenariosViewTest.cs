@@ -20,17 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -59,6 +64,28 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsScenariosView(null, new MacroStabilityInwardsFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsScenariosView(new CalculationGroup(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -68,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (var scenarioView = new MacroStabilityInwardsScenariosView(calculationGroup, new MacroStabilityInwardsFailureMechanism()))
             {
                 // Assert
-                Assert.IsInstanceOf<ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>>(scenarioView);
+                Assert.IsInstanceOf<IView>(scenarioView);
                 Assert.AreSame(calculationGroup, scenarioView.Data);
             }
         }
@@ -90,6 +117,64 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_ListBoxCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+
+            // Call
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+
+            // Assert
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
+            Assert.AreSame(failureMechanismSection2, ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);
+            Assert.AreSame(failureMechanismSection3, ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.Items[2]).Section);
+            Assert.AreSame(failureMechanismSection1, ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+        }
+
+        [Test]
+        public void Constructor_LengthEffectControlsCorrectlyInitialized()
+        {
+            // Call
+            ShowMacroStabilityInwardsScenariosView(new MacroStabilityInwardsFailureMechanism());
+
+            // Assert
+            var lengthEffectALabel = (Label) new LabelTester("lengthEffectALabel").TheObject;
+            Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
+
+            var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
+            Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
+
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
         public void MacroStabilityInwardsScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -99,26 +184,196 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 13.70).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
-            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.IsFalse(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
+
+            cells = rows[2].Cells;
+            Assert.AreEqual(5, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 37.50).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 3", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("1/93", cells[failureProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual("1/88", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
         }
 
+        [Test]
+        public void Constructor_FailureMechanismWithSectionsAndWithVariousRelevantScenarios_TotalContributionScenariosCorrectlyInitialized()
+        {
+            // Call
+            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsTrue(totalScenarioContributionLabel.Visible);
+            Assert.AreEqual(ContentAlignment.MiddleLeft, totalScenarioContributionLabel.TextAlign);
+            Assert.AreEqual("De som van de bijdragen van de maatgevende scenario's voor dit vak is gelijk aan 51,20%",
+                            totalScenarioContributionLabel.Text);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismWithoutSectionsAndCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismWithSectionsAndWithoutCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            });
+
+            // Call
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+
+            // Assert
+            var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
+            Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        public void ScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
+        {
+            // Setup
+            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = "test";
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(1e-6)]
+        [TestCase(100)]
+        [TestCase(14.3)]
+        public void ScenariosView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue)
+        {
+            // Setup
+            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(isRelevantColumnIndex, true)]
+        [TestCase(contributionColumnIndex, 30.0)]
+        public void ScenariosView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            ConfigureFailureMechanism(failureMechanism);
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+
+            CalculationGroup calculationGroup = failureMechanism.CalculationsGroup;
+            ICalculation calculation = calculationGroup.GetCalculations().First();
+            calculation.Attach(calculationObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenMacroStabilityInwardsScenariosView_WhenSelectingDifferentItemInSectionsListBox_ThenControlsUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            ConfigureFailureMechanism(failureMechanism);
+            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection lastConfigurationPerSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Last();
+            lastConfigurationPerSection.A = (RoundedDouble) 0.7;
+
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+
+            // Precondition
+            Assert.AreSame(failureMechanism.Sections.First(), ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreEqual("0,033", lengthEffectATextBox.Text);
+            Assert.AreEqual("1,05", lengthEffectNRoundedTextBox.Text);
+
+            MacroStabilityInwardsScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                               .Select(r => r.DataBoundItem)
+                                                                               .Cast<MacroStabilityInwardsScenarioRow>()
+                                                                               .ToArray();
+
+            // When
+            listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
+
+            // Then
+            Assert.AreEqual("0,700", lengthEffectATextBox.Text);
+            Assert.AreEqual("1,14", lengthEffectNRoundedTextBox.Text);
+
+            MacroStabilityInwardsScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                         .Select(r => r.DataBoundItem)
+                                                                         .Cast<MacroStabilityInwardsScenarioRow>()
+                                                                         .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
         private void ShowFullyConfiguredMacroStabilityInwardsScenariosView()
+        {
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            ConfigureFailureMechanism(failureMechanism);
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
+        }
+
+        private static void ConfigureFailureMechanism(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
             {
@@ -144,8 +399,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new Point3D(5.0, -5.0, 0.0)
             });
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new[]
@@ -168,7 +421,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     InputParameters =
                     {
                         SurfaceLine = surfaceLine1
-                    }
+                    },
+                    Contribution = (RoundedDouble) 0.13701
                 },
                 new MacroStabilityInwardsCalculationScenario
                 {
@@ -177,14 +431,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     {
                         SurfaceLine = surfaceLine2
                     },
+                    IsRelevant = false
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Calculation 3",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine2
+                    },
                     Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
                     {
                         FactorOfStability = 0.8
-                    })
+                    }),
+                    Contribution = (RoundedDouble) 0.37503
                 }
             });
-
-            ShowMacroStabilityInwardsScenariosView(failureMechanism);
         }
 
         private void ShowMacroStabilityInwardsScenariosView(MacroStabilityInwardsFailureMechanism failureMechanism)
