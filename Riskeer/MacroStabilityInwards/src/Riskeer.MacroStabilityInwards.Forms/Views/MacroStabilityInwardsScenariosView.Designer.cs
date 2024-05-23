@@ -54,6 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.lengthEffectATextBox = new System.Windows.Forms.TextBox();
             this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lengthEffectErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -62,6 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelDataGrid.SuspendLayout();
             this.lengthEffectTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -234,6 +236,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
+            // lengthEffectErrorProvider
+            // 
+            this.lengthEffectErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.lengthEffectErrorProvider.ContainerControl = this;
+            this.lengthEffectErrorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
+            // 
             // MacroStabilityInwardsScenariosView
             // 
             this.Controls.Add(this.splitContainer);
@@ -251,8 +259,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.lengthEffectTableLayoutPanel.ResumeLayout(false);
             this.lengthEffectTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
 
         private System.Windows.Forms.TextBox lengthEffectATextBox;
         private System.Windows.Forms.TextBox lengthEffectNRoundedTextBox;
