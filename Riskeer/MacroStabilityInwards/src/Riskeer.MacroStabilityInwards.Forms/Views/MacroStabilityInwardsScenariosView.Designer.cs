@@ -194,6 +194,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedTextBox, 1, 1);
             this.lengthEffectTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(0, 3);
+            this.lengthEffectTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.lengthEffectTableLayoutPanel.Name = "lengthEffectTableLayoutPanel";
             this.lengthEffectTableLayoutPanel.RowCount = 2;
             this.lengthEffectTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
