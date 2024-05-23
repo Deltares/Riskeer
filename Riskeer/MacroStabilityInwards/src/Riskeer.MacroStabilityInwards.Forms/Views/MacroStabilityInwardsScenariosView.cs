@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -31,6 +32,9 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Exceptions;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -90,6 +94,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             UpdateSectionsListBox();
             UpdateScenarioControls();
+            
+            UpdateLengthEffectControls();
+            UpdateLengthEffectData();
         }
 
         public object Data
@@ -119,8 +126,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
-                // UpdateLengthEffectControls();
-                // UpdateLengthEffectData();
+                UpdateLengthEffectControls();
+                UpdateLengthEffectData();
             })
             {
                 Observable = failureMechanism
@@ -174,10 +181,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                  .First(sc => sc.Section == section))).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
-                listBox.SelectedItem =  selectedFailureMechanismSection != null
-                                            ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
-                                              ?? failureMechanismSectionViewModels.First()
-                                            : failureMechanismSectionViewModels.First();
+                listBox.SelectedItem = selectedFailureMechanismSection != null
+                                           ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
+                                             ?? failureMechanismSectionViewModels.First()
+                                           : failureMechanismSectionViewModels.First();
             }
             else
             {
@@ -284,6 +291,106 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
+        }
+
+        private void LengthEffectATextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                lengthEffectALabel.Focus(); // Focus on different component to raise a leave event on the text box
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                ClearLengthEffectErrorMessage();
+                SetLengthEffectData();
+                e.Handled = true;
+            }
+        }
+
+        private void LengthEffectATextBoxLeave(object sender, EventArgs e)
+        {
+            ClearLengthEffectErrorMessage();
+            ProcessLengthEffectATextBox();
+        }
+
+        private void ProcessLengthEffectATextBox()
+        {
+            if (selectedFailureMechanismSection == null)
+            {
+                return;
+            }
+
+            try
+            {
+                MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
+                    selectedFailureMechanismSection.ScenarioConfigurationPerSection;
+                scenarioConfigurationPerSection.A = RoundedDoubleParsingHelper.Parse(lengthEffectATextBox.Text, 3);
+                scenarioConfigurationPerSection.NotifyObservers();
+
+                UpdateScenarioRows();
+            }
+            catch (Exception exception) when (exception is ArgumentOutOfRangeException
+                                              || exception is RoundedDoubleParsingException)
+            {
+                ClearNRoundedData();
+                SetLengthEffectErrorMessage(exception.Message);
+                lengthEffectATextBox.Focus();
+            }
+        }
+
+        private void UpdateLengthEffectControls()
+        {
+            bool hasSection = failureMechanism.Sections.Any();
+            lengthEffectATextBox.Enabled = hasSection;
+            lengthEffectATextBox.ReadOnly = !hasSection;
+            lengthEffectATextBox.Refresh();
+
+            lengthEffectNRoundedTextBox.Enabled = hasSection;
+            lengthEffectNRoundedTextBox.BackColor = hasSection ? SystemColors.Window : SystemColors.Control;
+            lengthEffectNRoundedTextBox.Refresh();
+        }
+
+        private void UpdateLengthEffectData()
+        {
+            ClearLengthEffectErrorMessage();
+            ClearLengthEffectData();
+
+            if (selectedFailureMechanismSection != null)
+            {
+                SetLengthEffectData();
+            }
+        }
+
+        private void ClearLengthEffectData()
+        {
+            lengthEffectATextBox.Text = string.Empty;
+            ClearNRoundedData();
+        }
+
+        private void ClearNRoundedData()
+        {
+            lengthEffectNRoundedTextBox.Text = string.Empty;
+        }
+
+        private void SetLengthEffectData()
+        {
+            lengthEffectATextBox.Text = selectedFailureMechanismSection.ScenarioConfigurationPerSection.A.ToString();
+
+            double n = selectedFailureMechanismSection.ScenarioConfigurationPerSection.GetN(failureMechanism.ProbabilityAssessmentInput.B);
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();
+        }
+
+        private void SetLengthEffectErrorMessage(string errorMessage)
+        {
+            lengthEffectErrorProvider.SetIconPadding(lengthEffectATextBox, 5);
+            lengthEffectErrorProvider.SetError(lengthEffectATextBox, errorMessage);
+        }
+
+        private void ClearLengthEffectErrorMessage()
+        {
+            lengthEffectErrorProvider.SetError(lengthEffectATextBox, string.Empty);
         }
     }
 }

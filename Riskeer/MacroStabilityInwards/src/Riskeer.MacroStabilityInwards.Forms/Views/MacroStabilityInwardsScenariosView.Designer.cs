@@ -70,6 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.MinimumSize = new System.Drawing.Size(150, 150);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -80,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             // 
             this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelDataGrid);
             this.splitContainer.Size = new System.Drawing.Size(1348, 797);
-            this.splitContainer.SplitterDistance = 449;
+            this.splitContainer.SplitterDistance = 341;
             this.splitContainer.TabIndex = 0;
             // 
             // tableLayoutPanelListBox
@@ -97,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelListBox.RowCount = 2;
             this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelListBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelListBox.Size = new System.Drawing.Size(449, 797);
+            this.tableLayoutPanelListBox.Size = new System.Drawing.Size(341, 797);
             this.tableLayoutPanelListBox.TabIndex = 0;
             // 
             // label
@@ -220,6 +221,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.lengthEffectATextBox.Name = "lengthEffectATextBox";
             this.lengthEffectATextBox.Size = new System.Drawing.Size(100, 20);
             this.lengthEffectATextBox.TabIndex = 2;
+            this.lengthEffectATextBox.Leave += (sender, args) => LengthEffectATextBoxLeave(sender, args);
+            this.lengthEffectATextBox.KeyDown += (sender, args) => LengthEffectATextBoxKeyDown(sender, args);
             // 
             // lengthEffectNRoundedTextBox
             // 
