@@ -18,11 +18,22 @@
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -31,6 +42,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsScenariosView : UserControl, IView
     {
+        private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private CalculationGroup calculationGroup;
+
+        private Observer failureMechanismObserver;
+
+        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>, MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>
+            scenarioConfigurationsPerFailureMechanismSectionObserver;
+
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
+        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
+
+        private IEnumerable<MacroStabilityInwardsScenarioRow> scenarioRows;
+        private MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
         /// </summary>
@@ -51,9 +78,212 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            this.calculationGroup = calculationGroup;
+            this.failureMechanism = failureMechanism;
+
+            InitializeObservers();
+
             InitializeComponent();
+
+            InitializeListBox();
+            InitializeDataGridView();
+
+            UpdateSectionsListBox();
+            UpdateScenarioControls();
         }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get => calculationGroup;
+            set => calculationGroup = (CalculationGroup) value;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            failureMechanismObserver.Dispose();
+            scenarioConfigurationsPerFailureMechanismSectionObserver.Dispose();
+            calculationGroupObserver.Dispose();
+            calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void InitializeObservers()
+        {
+            failureMechanismObserver = new Observer(() =>
+            {
+                UpdateSectionsListBox();
+                // UpdateLengthEffectControls();
+                // UpdateLengthEffectData();
+            })
+            {
+                Observable = failureMechanism
+            };
+
+            scenarioConfigurationsPerFailureMechanismSectionObserver = new RecursiveObserver<IObservableEnumerable<
+                MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>, MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>(
+                UpdateSectionsListBox, section => section)
+            {
+                Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+            };
+
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
+            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(() =>
+            {
+                UpdateScenarioRows();
+                UpdateTotalScenarioContributionLabel();
+            }, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(
+                UpdateScenarioControls, pcg => pcg.Children.Concat<object>(pcg.Children
+                                                                              .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                              .Select(c => c.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+        }
+
+        private void InitializeListBox()
+        {
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (failureMechanism.Sections.Any())
+            {
+                MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
+                    section => new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(
+                        section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                 .First(sc => sc.Section == section))).ToArray();
+
+                listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
+                listBox.SelectedItem =  selectedFailureMechanismSection != null
+                                            ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
+                                              ?? failureMechanismSectionViewModels.First()
+                                            : failureMechanismSectionViewModels.First();
+            }
+            else
+            {
+                selectedFailureMechanismSection = null;
+            }
+        }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
+        {
+            selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel;
+            UpdateScenarioControls();
+        }
+
+        private void UpdateScenarioRows()
+        {
+            scenarioRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.IsRelevant),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.Contribution),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.Name),
+                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.FailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.SectionFailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
+            );
+        }
+
+        private void UpdateScenarioControls()
+        {
+            UpdateDataGridViewDataSource();
+            UpdateTotalScenarioContributionLabel();
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            if (selectedFailureMechanismSection == null)
+            {
+                scenarioRows = null;
+                dataGridViewControl.SetDataSource(null);
+                return;
+            }
+
+            scenarioRows = GetScenarioRows();
+            dataGridViewControl.SetDataSource(scenarioRows);
+        }
+
+        private void UpdateTotalScenarioContributionLabel()
+        {
+            ClearErrorMessage();
+
+            IEnumerable<MacroStabilityInwardsScenarioRow> contributingScenarios = scenarioRows?.Where(r => r.IsRelevant);
+            if (contributingScenarios == null || !contributingScenarios.Any())
+            {
+                labelTotalScenarioContribution.Visible = false;
+                return;
+            }
+
+            labelTotalScenarioContribution.Visible = true;
+
+            double totalScenarioContribution = contributingScenarios.Sum(r => r.Contribution);
+            var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
+            {
+                SetErrorMessage(RiskeerCommonFormsResources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
+            }
+
+            labelTotalScenarioContribution.Text = string.Format(RiskeerCommonFormsResources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_,
+                                                                roundedTotalScenarioContribution);
+        }
+
+        private void SetErrorMessage(string errorMessage)
+        {
+            errorProvider.SetError(labelTotalScenarioContribution, errorMessage);
+        }
+
+        private void ClearErrorMessage()
+        {
+            errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
+        }
+
+        private IEnumerable<MacroStabilityInwardsScenarioRow> GetScenarioRows()
+        {
+            FailureMechanismSection section = selectedFailureMechanismSection.Section;
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(section.Points);
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
+                                                                                 .GetCalculations()
+                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+
+            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
+        }
     }
 }
