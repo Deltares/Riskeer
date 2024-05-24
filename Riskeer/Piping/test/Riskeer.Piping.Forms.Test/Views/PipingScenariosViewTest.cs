@@ -261,6 +261,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
+            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
         }
 
         [Test]
@@ -1111,7 +1112,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -1123,8 +1123,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsTrue(lengthEffectATextBox.ReadOnly);
             Assert.IsEmpty(lengthEffectATextBox.Text);
 
-            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -1163,7 +1161,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNotEmpty(lengthEffectATextBox.Text);
 
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 

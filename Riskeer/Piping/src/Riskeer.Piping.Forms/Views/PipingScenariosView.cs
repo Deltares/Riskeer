@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -491,7 +490,6 @@ namespace Riskeer.Piping.Forms.Views
             lengthEffectATextBox.Refresh();
 
             lengthEffectNRoundedTextBox.Enabled = hasSection;
-            lengthEffectNRoundedTextBox.BackColor = hasSection ? SystemColors.Window : SystemColors.Control;
             lengthEffectNRoundedTextBox.Refresh();
         }
 
