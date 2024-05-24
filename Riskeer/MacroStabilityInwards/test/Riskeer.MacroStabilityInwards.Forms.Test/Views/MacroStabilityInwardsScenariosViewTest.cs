@@ -877,7 +877,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
             ShowFullyConfiguredMacroStabilityInwardsScenariosView(failureMechanism);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
