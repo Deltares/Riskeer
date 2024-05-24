@@ -82,15 +82,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen voor huidige selectie.
-        /// </summary>
-        public static string Calculations_for_current_Selection_DisplayName {
-            get {
-                return ResourceManager.GetString("Calculations_for_current_Selection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vakinformatie.
         /// </summary>
         public static string Categories_FailureMechanismSection {

@@ -968,9 +968,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingScenariosViewWithLengthEffectError_WhenSettingValidValue_ThenErrorClearedAndLengthEffectControlsUpdated()
         {
             // Given
-            var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+            var view = ShowFullyConfiguredPipingScenariosView();
 
             // Precondition
             var textBoxTester = new TextBoxTester("lengthEffectATextBox");
@@ -999,9 +997,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingScenariosViewWithoutLengthEffectError_WhenSettingInvalidValue_ThenErrorSetAndLengthEffectControlsUpdated()
         {
             // Given
-            var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+            PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
 
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
@@ -1029,9 +1025,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingScenariosViewWithLengthEffectError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+            PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
 
             var textBoxTester = new TextBoxTester("lengthEffectATextBox");
             textBoxTester.Enter("NotADouble");
@@ -1100,9 +1094,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-
-            ShowPipingScenariosView(failureMechanism);
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
@@ -2040,8 +2032,14 @@ namespace Riskeer.Piping.Forms.Test.Views
         private void ShowFullyConfiguredPipingScenariosView(PipingFailureMechanism failureMechanism)
         {
             ConfigureFailureMechanism(failureMechanism);
-
             ShowPipingScenariosView(failureMechanism);
+        }
+
+        private PipingScenariosView ShowFullyConfiguredPipingScenariosView()
+        {
+            var failureMechanism = new PipingFailureMechanism();
+            ConfigureFailureMechanism(failureMechanism);
+            return ShowPipingScenariosView(failureMechanism);
         }
 
         private PipingScenariosView ShowPipingScenariosView(PipingFailureMechanism failureMechanism)

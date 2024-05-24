@@ -316,7 +316,7 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations.Name = "labelCalculations";
             this.labelCalculations.Size = new System.Drawing.Size(173, 13);
             this.labelCalculations.TabIndex = 0;
-            this.labelCalculations.Text = global::Riskeer.Piping.Forms.Properties.Resources.Calculations_for_current_Selection_DisplayName;
+            this.labelCalculations.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
             // 
             // dataGridViewControl
             // 
