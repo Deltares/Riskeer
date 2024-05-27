@@ -61,6 +61,7 @@ namespace Riskeer.Piping.Data
             Gravity = 9.81;
             MeanDiameter70 = 2.08e-4;
             SellmeijerReductionFactor = 0.3;
+            B = 300.0;
         }
 
         #region Heave specific parameters
@@ -169,6 +170,16 @@ namespace Riskeer.Piping.Data
         /// Gets the reduction factor Sellmeijer.
         /// </summary>
         public double SellmeijerReductionFactor { get; }
+
+        #endregion
+
+        #region Length Effect parameters
+
+        /// <summary>
+        /// Gets the 'b' parameter used to factor in the 'length effect' when determining
+        /// the maximum tolerated probability of failure.
+        /// </summary>
+        public double B { get; }
 
         #endregion
     }

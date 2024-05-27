@@ -72,6 +72,7 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual(9.81, inputParameters.Gravity);
             Assert.AreEqual(2.08e-4, inputParameters.MeanDiameter70);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor);
+            Assert.AreEqual(300.0, inputParameters.B);
         }
 
         [Test]

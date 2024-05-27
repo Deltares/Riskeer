@@ -36,6 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         {
             ModelFactor = 1.06;
             WaterVolumetricWeight = 9.81;
+            B = 50.0;
         }
 
         /// <summary>
@@ -47,5 +48,11 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the volumetric weight of water.
         /// </summary>
         public double WaterVolumetricWeight { get; }
+        
+        /// <summary>
+        /// Gets the 'b' parameter used to factor in the 'length effect' when determining
+        /// the maximum tolerated probability of failure.
+        /// </summary>
+        public double B { get; }
     }
 }
