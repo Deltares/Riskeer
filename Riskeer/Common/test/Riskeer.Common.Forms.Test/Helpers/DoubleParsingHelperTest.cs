@@ -21,9 +21,7 @@
 
 using System;
 using System.Globalization;
-using Core.Common.Base.Data;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 
@@ -39,74 +37,63 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [TestCase(null)]
         public void Parse_NullOrEmptyString_ReturnsExpectedOutput(string value)
         {
-            // Setup
-            var random = new Random(21);
-
             // Call
-            double parsedValue = DoubleParsingHelper.Parse(value, random.Next());
+            double parsedValue = DoubleParsingHelper.Parse(value);
 
             // Assert
             Assert.IsNaN(parsedValue);
         }
 
         [Test]
-        [TestCase("13.137,371446", 13137.371)]
-        [TestCase("13,3701231", 13.370)]
-        [TestCase("1,000000001", 1.0)]
+        [SetCulture("nl-NL")]
+        [TestCase("13.137,371446", 13137.371446)]
+        [TestCase("13,3701231", 13.3701231)]
+        [TestCase("1,000000001", 1.000000001)]
         [TestCase("1e-2", 0.01)]
         [TestCase("0,003", 0.003)]
         [TestCase("-0,003", -0.003)]
         [TestCase("-1e-2", -0.01)]
-        [TestCase("-1,000000001", -1.0)]
-        [TestCase("-13,3701231", -13.370)]
-        [TestCase("-13.137,37446", -13137.374)]
+        [TestCase("-1,000000001", -1.000000001)]
+        [TestCase("-13,3701231", -13.3701231)]
+        [TestCase("-13.137,37446", -13137.37446)]
         public void Parse_ValidStringInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
-            // Setup
-            const int nrOfDecimals = 3;
-
             // Call
-            RoundedDouble parsedValue = DoubleParsingHelper.Parse(value, nrOfDecimals);
+            double parsedValue = DoubleParsingHelper.Parse(value);
 
             // Assert
-            Assert.AreEqual(nrOfDecimals, parsedValue.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedValue, parsedValue, parsedValue.GetAccuracy());
+            Assert.AreEqual(expectedValue, parsedValue);
         }
 
         [Test]
         [SetCulture("en-US")]
-        [TestCase("13,137.371446", 13137.371)]
-        [TestCase("13.3701231", 13.370)]
-        [TestCase("1.000000001", 1.0)]
+        [TestCase("13,137.371446", 13137.371446)]
+        [TestCase("13.3701231", 13.3701231)]
+        [TestCase("1.000000001", 1.000000001)]
         [TestCase("1e-2", 0.01)]
         [TestCase("0.003", 0.003)]
         [TestCase("-0.003", -0.003)]
         [TestCase("-1e-2", -0.01)]
-        [TestCase("-1.000000001", -1.0)]
-        [TestCase("-13.3701231", -13.370)]
-        [TestCase("-13,137.37446", -13137.374)]
+        [TestCase("-1.000000001", -1.000000001)]
+        [TestCase("-13.3701231", -13.3701231)]
+        [TestCase("-13,137.37446", -13137.37446)]
         public void Parse_ValidStringInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
-            // Setup
-            const int nrOfDecimals = 3;
-
             // Call
-            RoundedDouble parsedValue = DoubleParsingHelper.Parse(value, nrOfDecimals);
+            double parsedValue = DoubleParsingHelper.Parse(value);
 
             // Assert
-            Assert.AreEqual(nrOfDecimals, parsedValue.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedValue, parsedValue, parsedValue.GetAccuracy());
+            Assert.AreEqual(expectedValue, parsedValue);
         }
 
         [Test]
         public void Parse_ValueDoesNotRepresentRoundedDouble_ThrowsProbabilityParsingException()
         {
             // Setup
-            var random = new Random(21);
             const string invalidValue = "I'm not a number!";
 
             // Call
-            void Call() => DoubleParsingHelper.Parse(invalidValue, random.Next());
+            void Call() => DoubleParsingHelper.Parse(invalidValue);
 
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);
@@ -118,11 +105,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void Parse_ValueTooLargeToStoreInDouble_ThrowsProbabilityParsingException()
         {
             // Setup
-            var random = new Random(21);
             string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             // Call
-            void Call() => DoubleParsingHelper.Parse(invalidValue, random.Next());
+            void Call() => DoubleParsingHelper.Parse(invalidValue);
 
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);

@@ -327,7 +327,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = DoubleParsingHelper.Parse(lengthEffectATextBox.Text, 3);
+                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(lengthEffectATextBox.Text);
                 scenarioConfigurationPerSection.NotifyObservers();
 
                 UpdateScenarioRows();

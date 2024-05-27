@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Properties;
 
@@ -35,19 +34,18 @@ namespace Riskeer.Common.Forms.Helpers
         /// Parses a string value to a <see cref="double"/>.
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
-        /// <param name="nrOfDecimals">The number of decimals.</param>
-        /// <returns>A <see cref="RoundedDouble"/>.</returns>
+        /// <returns>A <see cref="double"/>.</returns>
         /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
-        public static RoundedDouble Parse(string value, int nrOfDecimals)
+        public static double Parse(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                return RoundedDouble.NaN;
+                return double.NaN;
             }
 
             try
             {
-                return new RoundedDouble(nrOfDecimals, Convert.ToDouble(value));
+                return Convert.ToDouble(value);
             }
             catch (FormatException exception)
             {

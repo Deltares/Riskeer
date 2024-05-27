@@ -468,7 +468,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = DoubleParsingHelper.Parse(lengthEffectATextBox.Text, 3);
+                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(lengthEffectATextBox.Text);
                 scenarioConfigurationPerSection.NotifyObservers();
 
                 UpdateScenarioRows();
