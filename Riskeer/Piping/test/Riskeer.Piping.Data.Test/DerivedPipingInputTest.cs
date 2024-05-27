@@ -703,11 +703,13 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
+            const double belowPhreaticLevelMeanA = 2.55;
+            const double belowPhreaticLevelMeanB = 3.44;
+
             var random = new Random(21);
-            double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
-            double belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
+
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
@@ -800,8 +802,9 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
-            const double belowPhreaticLevelMeanA = 2.5;
-            const double belowPhreaticLevelMeanB = 3.4;
+            const double belowPhreaticLevelMeanA = 2.55;
+            const double belowPhreaticLevelMeanB = 3.44;
+
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
@@ -918,9 +921,9 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
-            var random = new Random(21);
-            double mean = 0.1 + random.NextDouble();
-            double mean2 = 0.1 + random.NextDouble();
+            const double mean = 0.000001;
+            const double mean2 = 0.123;
+
             const double coefficientOfVariation = 0.5;
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", 0.0, new[]
@@ -930,7 +933,7 @@ namespace Riskeer.Piping.Data.Test
                         IsAquifer = true,
                         Permeability = new VariationCoefficientLogNormalDistribution
                         {
-                            Mean = (RoundedDouble) mean,
+                            Mean = (RoundedDouble) 0.000001,
                             CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
                         }
                     },
