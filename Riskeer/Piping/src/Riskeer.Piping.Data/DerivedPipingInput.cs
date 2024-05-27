@@ -50,11 +50,11 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(input));
             }
 
-            double seepageLengthMean = input.ExitPointL - input.EntryPointL;
+            RoundedDouble seepageLengthMean = input.ExitPointL - input.EntryPointL;
 
             return new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) seepageLengthMean,
+                Mean = seepageLengthMean,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
         }
