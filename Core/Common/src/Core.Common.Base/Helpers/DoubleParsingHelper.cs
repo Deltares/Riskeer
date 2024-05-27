@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms.Exceptions;
-using Riskeer.Common.Forms.Properties;
+using System.Globalization;
+using Core.Common.Base.Exceptions;
+using Core.Common.Base.Properties;
 
-namespace Riskeer.Common.Forms.Helpers
+namespace Core.Common.Base.Helpers
 {
     /// <summary>
     /// Helper class to parse <see cref="double"/>.
@@ -35,26 +36,28 @@ namespace Riskeer.Common.Forms.Helpers
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <returns>A <see cref="double"/>.</returns>
-        /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
+        /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully
+        /// parsed as a <see cref="double"/>.</exception>
         public static double Parse(string value)
         {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return double.NaN;
-            }
-
             try
             {
-                return Convert.ToDouble(value);
+                return Convert.ToDouble(value, CultureInfo.CurrentCulture);
             }
             catch (FormatException exception)
             {
-                throw new DoubleParsingException(Resources.Value_Could_not_parse_string_to_RoundedDouble,
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty,
+                                                     exception);
+                }
+
+                throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_must_represent_number,
                                                  exception);
             }
             catch (OverflowException exception)
             {
-                throw new DoubleParsingException(Resources.ParsingHelper_Value_too_largeor_too_small,
+                throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double,
                                                  exception);
             }
         }

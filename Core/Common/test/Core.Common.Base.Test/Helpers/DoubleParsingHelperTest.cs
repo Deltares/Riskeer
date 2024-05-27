@@ -21,11 +21,11 @@
 
 using System;
 using System.Globalization;
+using Core.Common.Base.Exceptions;
+using Core.Common.Base.Helpers;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Exceptions;
-using Riskeer.Common.Forms.Helpers;
 
-namespace Riskeer.Common.Forms.Test.Helpers
+namespace Core.Common.Base.Test.Helpers
 {
     [TestFixture]
     public class DoubleParsingHelperTest

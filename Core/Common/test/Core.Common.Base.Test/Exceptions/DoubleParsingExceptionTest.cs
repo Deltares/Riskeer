@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Exceptions;
 
-namespace Riskeer.Common.Forms.Test.Exceptions
+namespace Core.Common.Base.Test.Exceptions
 {
     [TestFixture]
     public class DoubleParsingExceptionTest :

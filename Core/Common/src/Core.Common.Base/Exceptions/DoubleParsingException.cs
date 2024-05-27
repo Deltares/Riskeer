@@ -23,7 +23,7 @@ using System;
 using System.Runtime.Serialization;
 using Core.Common.Base.Data;
 
-namespace Riskeer.Common.Forms.Exceptions
+namespace Core.Common.Base.Exceptions
 {
     /// <summary>
     /// Exception thrown when the <see cref="RoundedDouble"/> could not be parsed successfully.
