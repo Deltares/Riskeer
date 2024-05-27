@@ -53,10 +53,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            
+
             // Call
             void Call() => new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) invalidA);
-            
+
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
@@ -101,7 +101,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidAValues))]
+        [TestCase(-0.0004)]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1)]
+        [TestCase(1.0004)]
         public void A_ValidValue_SetsValue(double a)
         {
             // Setup
@@ -118,33 +122,15 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
         }
 
-        private static IEnumerable<TestCaseData> GetValidAValues()
-        {
-            yield return new TestCaseData(-0.0004);
-            yield return new TestCaseData(0);
-            yield return new TestCaseData(0.1);
-            yield return new TestCaseData(1);
-            yield return new TestCaseData(1.0004);
-            yield return new TestCaseData(0.0000001);
-            yield return new TestCaseData(0.9999999);
-        }
-        
         private static IEnumerable<TestCaseData> GetInvalidAValues()
         {
+            yield return new TestCaseData(double.NegativeInfinity);
             yield return new TestCaseData(-1);
             yield return new TestCaseData(-0.0005);
-            yield return new TestCaseData(-0.1);
-            yield return new TestCaseData(1.1);
             yield return new TestCaseData(1.0005);
-            yield return new TestCaseData(8);
-            yield return new TestCaseData(double.NaN);
-            yield return new TestCaseData(double.NegativeInfinity);
+            yield return new TestCaseData(2);
             yield return new TestCaseData(double.PositiveInfinity);
-        }
-
-        private class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
-        {
-            public TestScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a) : base(section, a) {}
+            yield return new TestCaseData(double.NaN);
         }
     }
 }

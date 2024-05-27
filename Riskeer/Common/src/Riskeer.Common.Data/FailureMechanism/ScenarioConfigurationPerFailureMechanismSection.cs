@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets or sets 'a' parameter for determining the maximum tolerated probability of failure.
+        /// Gets or sets 'a' parameter.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
         public RoundedDouble A

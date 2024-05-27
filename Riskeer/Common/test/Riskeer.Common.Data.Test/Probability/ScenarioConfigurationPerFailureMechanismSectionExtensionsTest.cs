@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Test.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Probability
@@ -64,11 +65,6 @@ namespace Riskeer.Common.Data.Test.Probability
 
             // Assert
             Assert.AreEqual(expectedN, actualN);
-        }
-
-        private class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
-        {
-            public TestScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a) : base(section, a) {}
         }
     }
 }
