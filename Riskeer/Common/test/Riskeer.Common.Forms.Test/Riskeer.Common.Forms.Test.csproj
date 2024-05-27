@@ -43,6 +43,7 @@
     <ProjectReference Include="..\..\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
+    <ProjectReference Include="..\Riskeer.Common.Data.Test\Riskeer.Common.Data.Test.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj" />
   </ItemGroup>
