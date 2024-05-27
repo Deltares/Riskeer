@@ -42,11 +42,10 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
-        /// <param name="a">The 'a' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> the scenario configuration belongs to.</param>
+        /// <param name="a">The 'a' parameter for determining the maximum tolerated probability of failure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when '<paramref name="a"/> is not in the range [0, 1].</exception>
         protected ScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a)
         {
             if (section == null)
@@ -59,8 +58,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
+        /// Gets or sets 'a' parameter for determining the maximum tolerated probability of failure.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
         public RoundedDouble A

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -46,6 +47,22 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
+        [SetCulture("nl-NL")]
+        [TestCaseSource(nameof(GetInvalidAValues))]
+        public void Constructor_WithInvalidAValue_ThrowsArgumentOutOfRangeException(double invalidA)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            
+            // Call
+            void Call() => new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) invalidA);
+            
+            // Assert
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -66,15 +83,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.0005)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(1.0005)]
-        [TestCase(8)]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
+        [TestCaseSource(nameof(GetInvalidAValues))]
         public void A_InvalidValue_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
@@ -92,13 +101,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [TestCase(-0.0004)]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(1.0004)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
+        [TestCaseSource(nameof(GetValidAValues))]
         public void A_ValidValue_SetsValue(double a)
         {
             // Setup
@@ -113,6 +116,30 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
             Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+        }
+
+        private static IEnumerable<TestCaseData> GetValidAValues()
+        {
+            yield return new TestCaseData(-0.0004);
+            yield return new TestCaseData(0);
+            yield return new TestCaseData(0.1);
+            yield return new TestCaseData(1);
+            yield return new TestCaseData(1.0004);
+            yield return new TestCaseData(0.0000001);
+            yield return new TestCaseData(0.9999999);
+        }
+        
+        private static IEnumerable<TestCaseData> GetInvalidAValues()
+        {
+            yield return new TestCaseData(-1);
+            yield return new TestCaseData(-0.0005);
+            yield return new TestCaseData(-0.1);
+            yield return new TestCaseData(1.1);
+            yield return new TestCaseData(1.0005);
+            yield return new TestCaseData(8);
+            yield return new TestCaseData(double.NaN);
+            yield return new TestCaseData(double.NegativeInfinity);
+            yield return new TestCaseData(double.PositiveInfinity);
         }
 
         private class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection

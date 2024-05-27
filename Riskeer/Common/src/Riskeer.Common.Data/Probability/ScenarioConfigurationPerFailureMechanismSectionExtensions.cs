@@ -30,11 +30,11 @@ namespace Riskeer.Common.Data.Probability
     public static class ScenarioConfigurationPerFailureMechanismSectionExtensions
     {
         /// <summary>
-        /// Calculates the N based on the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>
+        /// Calculates the 'N' based on the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>
         /// and the 'b' parameter to factor in the 'length effect' when determining
         /// the maximum tolerated probability of failure.
         /// </summary>
-        /// <param name="configuration">The probability assessment input parameters.</param>
+        /// <param name="configuration">The scenario configuration for the failure mechanism section.</param>
         /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
         /// the maximum tolerated probability of failure.</param>
         /// <returns>The 'N' parameter used to factor in the 'length effect'.</returns>
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Probability
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            return 1 + ((double)configuration.A * configuration.Section.Length) / b;
+            return 1 + ((double) configuration.A * configuration.Section.Length) / b;
         }
     }
 }
