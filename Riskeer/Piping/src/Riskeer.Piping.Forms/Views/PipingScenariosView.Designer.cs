@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Forms.Views
             this.selectScenarioConfigurationTypeLabel.AutoSize = true;
             this.selectScenarioConfigurationTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 5);
-            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.selectScenarioConfigurationTypeLabel.Name = "selectScenarioConfigurationTypeLabel";
             this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(57, 27);
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
