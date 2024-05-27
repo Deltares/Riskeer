@@ -299,9 +299,9 @@ namespace Riskeer.Piping.Forms.Views
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
                 listBox.SelectedItem = selectedFailureMechanismSection != null
-                                           ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
-                                             ?? failureMechanismSectionViewModels.First()
-                                           : failureMechanismSectionViewModels.First();
+                                           ? Array.Find(failureMechanismSectionViewModels, vm => vm.Section == selectedFailureMechanismSection.Section)
+                                             ?? failureMechanismSectionViewModels[0]
+                                           : failureMechanismSectionViewModels[0];
             }
             else
             {

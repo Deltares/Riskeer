@@ -31,7 +31,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Helpers;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
@@ -47,7 +46,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public partial class MacroStabilityInwardsScenariosView : UserControl, IView
     {
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
         private CalculationGroup calculationGroup;
 
         private Observer failureMechanismObserver;
@@ -182,9 +180,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
                 listBox.SelectedItem = selectedFailureMechanismSection != null
-                                           ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
-                                             ?? failureMechanismSectionViewModels.First()
-                                           : failureMechanismSectionViewModels.First();
+                                           ? Array.Find(failureMechanismSectionViewModels, vm => vm.Section == selectedFailureMechanismSection.Section)
+                                             ?? failureMechanismSectionViewModels[0]
+                                           : failureMechanismSectionViewModels[0];
             }
             else
             {
