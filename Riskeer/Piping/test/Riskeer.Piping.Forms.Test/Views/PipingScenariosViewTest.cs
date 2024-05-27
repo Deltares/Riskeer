@@ -260,7 +260,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
         }
 
@@ -1099,7 +1098,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
             Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
             Assert.IsNotEmpty(lengthEffectATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
@@ -1112,7 +1110,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
             Assert.IsEmpty(lengthEffectATextBox.Text);
 
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
@@ -1128,7 +1125,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
             Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
             Assert.IsEmpty(lengthEffectATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
@@ -1149,7 +1145,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
             Assert.IsNotEmpty(lengthEffectATextBox.Text);
 
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);

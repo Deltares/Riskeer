@@ -53,6 +53,9 @@ namespace Riskeer.Piping.Forms.Views
         private const int failureProbabilityHeaveColumnIndex = 4;
         private const int failureProbabilitySellmeijerColumnIndex = 5;
 
+        private const int totalScenarioContributionNrOfDecimals = 2;
+        private const int lengthEffectNNrOfDecimals = 2;
+
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private CalculationGroup calculationGroup;
@@ -403,7 +406,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateTotalScenarioContributionLabel()
         {
-            ClearErrorMessage();
+            ClearTotalScenarioContributionErrorMessage();
 
             IEnumerable<IPipingScenarioRow> contributingScenarios = scenarioRows?.Where(r => r.IsRelevant);
             if (contributingScenarios == null || !contributingScenarios.Any())
@@ -415,22 +418,22 @@ namespace Riskeer.Piping.Forms.Views
             labelTotalScenarioContribution.Visible = true;
 
             double totalScenarioContribution = contributingScenarios.Sum(r => r.Contribution);
-            var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            var roundedTotalScenarioContribution = new RoundedDouble(totalScenarioContributionNrOfDecimals, totalScenarioContribution);
             if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
             {
-                SetErrorMessage(RiskeerCommonFormsResources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
+                SetTotalScenarioContributionErrorMessage(RiskeerCommonFormsResources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
             }
 
             labelTotalScenarioContribution.Text = string.Format(RiskeerCommonFormsResources.ScenariosView_Total_contribution_of_relevant_scenarios_for_this_section_is_equal_to_total_scenario_contribution_0_,
                                                                 roundedTotalScenarioContribution);
         }
 
-        private void SetErrorMessage(string errorMessage)
+        private void SetTotalScenarioContributionErrorMessage(string errorMessage)
         {
             errorProvider.SetError(labelTotalScenarioContribution, errorMessage);
         }
 
-        private void ClearErrorMessage()
+        private void ClearTotalScenarioContributionErrorMessage()
         {
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
@@ -486,7 +489,6 @@ namespace Riskeer.Piping.Forms.Views
         {
             bool hasSection = failureMechanism.Sections.Any();
             lengthEffectATextBox.Enabled = hasSection;
-            lengthEffectATextBox.ReadOnly = !hasSection;
             lengthEffectATextBox.Refresh();
 
             lengthEffectNRoundedTextBox.Enabled = hasSection;
@@ -520,7 +522,7 @@ namespace Riskeer.Piping.Forms.Views
             lengthEffectATextBox.Text = configuration.A.ToString();
 
             double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
-            lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNNrOfDecimals, n).ToString();
         }
 
         private void SetLengthEffectErrorMessage(string errorMessage)
