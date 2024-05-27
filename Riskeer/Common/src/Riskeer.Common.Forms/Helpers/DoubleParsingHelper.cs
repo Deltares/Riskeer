@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Helpers
             }
             catch (OverflowException exception)
             {
-                throw new DoubleParsingException(Resources.ParsingHelper_Value_too_large,
+                throw new DoubleParsingException(Resources.ParsingHelper_Value_too_largeor_too_small,
                                                  exception);
             }
         }

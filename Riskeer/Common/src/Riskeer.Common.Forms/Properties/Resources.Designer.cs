@@ -2584,9 +2584,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde is te groot of te klein..
         /// </summary>
-        public static string ParsingHelper_Value_too_large {
+        public static string ParsingHelper_Value_too_largeor_too_small {
             get {
-                return ResourceManager.GetString("ParsingHelper_Value_too_large", resourceCulture);
+                return ResourceManager.GetString("ParsingHelper_Value_too_largeor_too_small", resourceCulture);
             }
         }
         
