@@ -703,11 +703,13 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer<TestPipingInput>();
 
+            const double belowPhreaticLevelMeanA = 2.55;
+            const double belowPhreaticLevelMeanB = 3.44;
+
             var random = new Random(21);
-            double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
-            double belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
+
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
@@ -802,6 +804,7 @@ namespace Riskeer.Piping.Data.Test
 
             const double belowPhreaticLevelMeanA = 2.55;
             const double belowPhreaticLevelMeanB = 3.44;
+
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
