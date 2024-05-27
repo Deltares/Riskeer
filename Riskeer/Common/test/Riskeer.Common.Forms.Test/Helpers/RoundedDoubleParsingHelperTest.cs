@@ -109,7 +109,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             void Call() => RoundedDoubleParsingHelper.Parse(invalidValue, random.Next());
 
             // Assert
-            var exception = Assert.Throws<RoundedDoubleParsingException>(Call);
+            var exception = Assert.Throws<DoubleParsingException>(Call);
             Assert.IsInstanceOf<FormatException>(exception.InnerException);
             Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kommagetal.", exception.Message);
         }
@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             void Call() => RoundedDoubleParsingHelper.Parse(invalidValue, random.Next());
 
             // Assert
-            var exception = Assert.Throws<RoundedDoubleParsingException>(Call);
+            var exception = Assert.Throws<DoubleParsingException>(Call);
             Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             Assert.AreEqual("De waarde is te groot of te klein.", exception.Message);
         }

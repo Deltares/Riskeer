@@ -333,7 +333,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 UpdateScenarioRows();
             }
             catch (Exception exception) when (exception is ArgumentOutOfRangeException
-                                              || exception is RoundedDoubleParsingException)
+                                              || exception is DoubleParsingException)
             {
                 ClearNRoundedData();
                 SetLengthEffectErrorMessage(exception.Message);

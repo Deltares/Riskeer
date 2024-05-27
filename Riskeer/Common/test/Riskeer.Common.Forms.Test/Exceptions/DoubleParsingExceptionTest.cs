@@ -28,5 +28,5 @@ namespace Riskeer.Common.Forms.Test.Exceptions
 {
     [TestFixture]
     public class DoubleParsingExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<RoundedDoubleParsingException, Exception> {}
+        CustomExceptionDesignGuidelinesTestFixture<DoubleParsingException, Exception> {}
 }

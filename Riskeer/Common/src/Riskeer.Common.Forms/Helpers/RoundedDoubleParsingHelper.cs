@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <param name="value">The value to be parsed.</param>
         /// <param name="nrOfDecimals">The number of decimals.</param>
         /// <returns>A <see cref="RoundedDouble"/>.</returns>
-        /// <exception cref="RoundedDoubleParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
+        /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
         public static RoundedDouble Parse(string value, int nrOfDecimals)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -51,12 +51,12 @@ namespace Riskeer.Common.Forms.Helpers
             }
             catch (FormatException exception)
             {
-                throw new RoundedDoubleParsingException(Resources.Value_Could_not_parse_string_to_RoundedDouble,
+                throw new DoubleParsingException(Resources.Value_Could_not_parse_string_to_RoundedDouble,
                                                  exception);
             }
             catch (OverflowException exception)
             {
-                throw new RoundedDoubleParsingException(Resources.ParsingHelper_Value_too_large,
+                throw new DoubleParsingException(Resources.ParsingHelper_Value_too_large,
                                                  exception);
             }
         }
