@@ -253,7 +253,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var tableLayoutPanel = (TableLayoutPanel) new ControlTester("lengthEffectTableLayoutPanel").TheObject;
             Assert.AreEqual(controlsShouldBeVisible, tableLayoutPanel.Visible);
 
-            var lengthEffectALabel = (Label) new LabelTester("lengthEffectALabel").TheObject;
+            var lengthEffectALabel = (Label) new LabelTester("parameterALabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
@@ -827,14 +827,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
-            Assert.AreEqual("0,400", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,400", parameterATextBox.Text);
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -848,7 +848,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
-            Assert.AreEqual("0,700", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,700", parameterATextBox.Text);
             Assert.AreEqual("1,22", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -944,7 +944,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                                  .ToArray();
 
             // When
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("0,7");
 
             // Then
@@ -970,12 +970,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             var view = ShowFullyConfiguredPipingScenariosView();
 
             // Precondition
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
@@ -985,10 +985,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             textBoxTester.Enter("0,6");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
 
-            Assert.AreEqual("0,600", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,600", parameterATextBox.Text);
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -999,22 +999,22 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.AreEqual("0,400", lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.AreEqual("0,400", parameterATextBox.Text);
 
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             // When
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
@@ -1026,13 +1026,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
 
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             // When
@@ -1040,7 +1040,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
         }
 
@@ -1064,25 +1064,25 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingScenariosView(failureMechanism);
 
-            var textBoxTester = new ControlTester("lengthEffectATextBox");
+            var textBoxTester = new ControlTester("parameterATextBox");
             const Keys keyData = Keys.Escape;
 
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            lengthEffectATextBox.TextChanged += (sender, args) =>
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            parameterATextBox.TextChanged += (sender, args) =>
             {
                 textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
             };
 
             // Precondition
-            Assert.AreEqual(initialValueText, lengthEffectATextBox.Text);
+            Assert.AreEqual(initialValueText, parameterATextBox.Text);
 
             failureMechanism.AssemblyResult.Attach(observer);
 
             // When
-            lengthEffectATextBox.Text = "NotAProbability";
+            parameterATextBox.Text = "NotAProbability";
 
             // Then
-            Assert.AreEqual(initialValueText, lengthEffectATextBox.Text);
+            Assert.AreEqual(initialValueText, parameterATextBox.Text);
             Assert.AreEqual(initialValue, firstConfigurationPerSection.A);
 
             mocks.VerifyAll();
@@ -1096,9 +1096,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsNotEmpty(lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.IsTrue(parameterATextBox.Enabled);
+            Assert.IsNotEmpty(parameterATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
@@ -1109,8 +1109,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsEmpty(lengthEffectATextBox.Text);
+            Assert.IsFalse(parameterATextBox.Enabled);
+            Assert.IsEmpty(parameterATextBox.Text);
 
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
@@ -1123,9 +1123,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsEmpty(lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.IsFalse(parameterATextBox.Enabled);
+            Assert.IsEmpty(parameterATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
@@ -1144,8 +1144,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsNotEmpty(lengthEffectATextBox.Text);
+            Assert.IsTrue(parameterATextBox.Enabled);
+            Assert.IsNotEmpty(parameterATextBox.Text);
 
             Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
