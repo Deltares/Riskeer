@@ -99,10 +99,10 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst moet een getal zijn.", message);
             mocks.VerifyAll();
         }
@@ -120,10 +120,10 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst mag niet leeg zijn.", message);
             mocks.ReplayAll();
         }
@@ -141,10 +141,10 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", message);
             mocks.VerifyAll();
         }

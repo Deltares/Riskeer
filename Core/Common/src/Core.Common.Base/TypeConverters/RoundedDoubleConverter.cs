@@ -23,7 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
+using Core.Common.Base.Exceptions;
+using Core.Common.Base.Helpers;
 
 namespace Core.Common.Base.TypeConverters
 {
@@ -50,23 +51,11 @@ namespace Core.Common.Base.TypeConverters
             {
                 try
                 {
-                    return (RoundedDouble) Convert.ToDouble(text, CultureInfo.CurrentCulture);
+                    return (RoundedDouble) DoubleParsingHelper.Parse(text);
                 }
-                catch (FormatException exception)
+                catch (DoubleParsingException exception)
                 {
-                    if (string.IsNullOrWhiteSpace(text))
-                    {
-                        throw new NotSupportedException(Resources.DoubleParsingHelper_Parse_String_cannot_be_empty,
-                                                        exception);
-                    }
-
-                    throw new NotSupportedException(Resources.DoubleParsingHelper_Parse_String_must_represent_number,
-                                                    exception);
-                }
-                catch (OverflowException exception)
-                {
-                    throw new NotSupportedException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double,
-                                                    exception);
+                    throw new NotSupportedException(exception.Message);
                 }
             }
 

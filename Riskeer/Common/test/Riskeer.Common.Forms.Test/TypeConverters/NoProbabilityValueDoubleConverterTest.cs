@@ -75,10 +75,10 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(new object());
+            void Call() => converter.ConvertFrom(new object());
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]
@@ -194,10 +194,10 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", message);
             mocks.VerifyAll();
         }
@@ -215,10 +215,10 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De waarde is te groot of te klein.", message);
             mocks.VerifyAll();
         }
@@ -256,10 +256,10 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(1.1, typeof(object));
+            void Call() => converter.ConvertTo(1.1, typeof(object));
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]
