@@ -933,7 +933,7 @@ namespace Riskeer.Piping.Data.Test
                         IsAquifer = true,
                         Permeability = new VariationCoefficientLogNormalDistribution
                         {
-                            Mean = (RoundedDouble) 0.000001,
+                            Mean = (RoundedDouble) mean,
                             CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
                         }
                     },
