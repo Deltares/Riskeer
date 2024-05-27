@@ -388,7 +388,7 @@ namespace Riskeer.Piping.Data
                 double thicknessUnderSurface = Math.Min(layer.Top, surfaceLevel) - bottom;
 
                 totalThickness += thicknessUnderSurface;
-                weighedTotal += layer.BelowPhreaticLevel.Mean * thicknessUnderSurface;
+                weighedTotal += (double) layer.BelowPhreaticLevel.Mean * thicknessUnderSurface;
             }
 
             return weighedTotal / totalThickness;
@@ -408,7 +408,7 @@ namespace Riskeer.Piping.Data
                 double thicknessUnderSurface = Math.Min(layer.Top, surfaceLevel) - bottom;
 
                 totalThickness += thicknessUnderSurface;
-                weighedTotal += layer.Permeability.Mean * thicknessUnderSurface;
+                weighedTotal += (double) layer.Permeability.Mean * thicknessUnderSurface;
             }
 
             return weighedTotal / totalThickness;
