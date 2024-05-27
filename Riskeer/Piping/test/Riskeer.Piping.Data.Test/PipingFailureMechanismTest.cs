@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void SetSections_WithSection_SetsSectionResults()
+        public void SetSections_WithSection_SetsSectionDependentData()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -148,7 +148,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionDependentDataCleared()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

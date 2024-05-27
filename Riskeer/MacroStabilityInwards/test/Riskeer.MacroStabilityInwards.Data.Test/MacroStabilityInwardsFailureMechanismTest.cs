@@ -57,6 +57,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
 
             Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
@@ -123,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SetSections_WithSection_SetsSectionResults()
+        public void SetSections_WithSection_SetsSectionDependentData()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -144,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionDependentDataCleared()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
