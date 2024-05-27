@@ -74,6 +74,21 @@ namespace Riskeer.Common.Forms.Test.Controls
         }
 
         [Test]
+        public void SetScenarioConfiguration_ScenarioConfigurationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            LengthEffectSettingsControl control = ShowLengthEffectSettingsControl(random.NextDouble());
+            
+            // Call
+            void Call() => control.SetScenarioConfiguration(null);
+            
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("scenarioConfiguration", exception.ParamName);
+        }
+
+        [Test]
         [SetCulture("nl-NL")]
         public void GivenControl_WhenSettingConfiguration_ThenControlUpdated()
         {
@@ -465,12 +480,12 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
-        private TextBoxTester GetParameterATextBox()
+        private static TextBoxTester GetParameterATextBox()
         {
             return new TextBoxTester("parameterATextBox");
         }
 
-        private TextBox GetLengthEffectNRoundedTextBox()
+        private static TextBox GetLengthEffectNRoundedTextBox()
         {
             return (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
         }
