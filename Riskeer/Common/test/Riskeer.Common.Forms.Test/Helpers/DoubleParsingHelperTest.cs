@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class RoundedDoubleParsingHelperTest
+    public class DoubleParsingHelperTest
     {
         [Test]
         [TestCase("")]
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var random = new Random(21);
 
             // Call
-            double parsedValue = RoundedDoubleParsingHelper.Parse(value, random.Next());
+            double parsedValue = DoubleParsingHelper.Parse(value, random.Next());
 
             // Assert
             Assert.IsNaN(parsedValue);
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             const int nrOfDecimals = 3;
 
             // Call
-            RoundedDouble parsedValue = RoundedDoubleParsingHelper.Parse(value, nrOfDecimals);
+            RoundedDouble parsedValue = DoubleParsingHelper.Parse(value, nrOfDecimals);
 
             // Assert
             Assert.AreEqual(nrOfDecimals, parsedValue.NumberOfDecimalPlaces);
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             const int nrOfDecimals = 3;
 
             // Call
-            RoundedDouble parsedValue = RoundedDoubleParsingHelper.Parse(value, nrOfDecimals);
+            RoundedDouble parsedValue = DoubleParsingHelper.Parse(value, nrOfDecimals);
 
             // Assert
             Assert.AreEqual(nrOfDecimals, parsedValue.NumberOfDecimalPlaces);
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             const string invalidValue = "I'm not a number!";
 
             // Call
-            void Call() => RoundedDoubleParsingHelper.Parse(invalidValue, random.Next());
+            void Call() => DoubleParsingHelper.Parse(invalidValue, random.Next());
 
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);
@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             // Call
-            void Call() => RoundedDoubleParsingHelper.Parse(invalidValue, random.Next());
+            void Call() => DoubleParsingHelper.Parse(invalidValue, random.Next());
 
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);

@@ -27,12 +27,12 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class to parse <see cref="RoundedDouble"/>.
+    /// Helper class to parse <see cref="double"/>.
     /// </summary>
-    public static class RoundedDoubleParsingHelper
+    public static class DoubleParsingHelper
     {
         /// <summary>
-        /// Parses a string value to a <see cref="RoundedDouble"/>.
+        /// Parses a string value to a <see cref="double"/>.
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <param name="nrOfDecimals">The number of decimals.</param>
