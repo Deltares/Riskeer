@@ -2582,15 +2582,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde is te groot of te klein..
-        /// </summary>
-        public static string ParsingHelper_Value_too_largeor_too_small {
-            get {
-                return ResourceManager.GetString("ParsingHelper_Value_too_largeor_too_small", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ProbabilisticCalculationIcon {
@@ -2624,6 +2615,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string Probability_Could_not_parse_string_to_probability {
             get {
                 return ResourceManager.GetString("Probability_Could_not_parse_string_to_probability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde is te groot of te klein..
+        /// </summary>
+        public static string Probability_Value_too_large_or_too_small {
+            get {
+                return ResourceManager.GetString("Probability_Value_too_large_or_too_small", resourceCulture);
             }
         }
         
@@ -3966,15 +3966,6 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ValidateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde kon niet geïnterpreteerd worden als een kommagetal..
-        /// </summary>
-        public static string Value_Could_not_parse_string_to_RoundedDouble {
-            get {
-                return ResourceManager.GetString("Value_Could_not_parse_string_to_RoundedDouble", resourceCulture);
             }
         }
         
