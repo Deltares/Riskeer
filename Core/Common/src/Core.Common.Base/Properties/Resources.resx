@@ -159,16 +159,16 @@
   <data name="RoundedDouble_ToString_NegativeInfinity" xml:space="preserve">
     <value>-Oneindig</value>
   </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_must_represent_number" xml:space="preserve">
+  <data name="DoubleParsingHelper_Parse_String_must_represent_number" xml:space="preserve">
     <value>De tekst moet een getal zijn.</value>
   </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double" xml:space="preserve">
+  <data name="DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double" xml:space="preserve">
     <value>De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.</value>
   </data>
   <data name="Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_" xml:space="preserve">
     <value>Vector moet 2 dimensies hebben, maar heeft er {0}.</value>
   </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
+  <data name="DoubleParsingHelper_Parse_String_cannot_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
   <data name="Activity_Finish_ActivityDescription_0_has_been_skipped" xml:space="preserve">

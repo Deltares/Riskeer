@@ -146,6 +146,33 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
+        /// </summary>
+        public static string DoubleParsingHelper_Parse_String_cannot_be_empty {
+            get {
+                return ResourceManager.GetString("DoubleParsingHelper_Parse_String_cannot_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De tekst moet een getal zijn..
+        /// </summary>
+        public static string DoubleParsingHelper_Parse_String_must_represent_number {
+            get {
+                return ResourceManager.GetString("DoubleParsingHelper_Parse_String_must_represent_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden..
+        /// </summary>
+        public static string DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double {
+            get {
+                return ResourceManager.GetString("DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string Error {
@@ -261,34 +288,6 @@ namespace Core.Common.Base.Properties {
         public static string RoundedDouble_ToString_PositiveInfinity {
             get {
                 return ResourceManager.GetString("RoundedDouble_ToString_PositiveInfinity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
-        /// </summary>
-        public static string RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty {
-            get {
-                return ResourceManager.GetString("RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De tekst moet een getal zijn..
-        /// </summary>
-        public static string RoundedDoubleConverter_ConvertFrom_String_must_represent_number {
-            get {
-                return ResourceManager.GetString("RoundedDoubleConverter_ConvertFrom_String_must_represent_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden..
-        /// </summary>
-        public static string RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double {
-            get {
-                return ResourceManager.GetString("RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_do" +
-                        "uble", resourceCulture);
             }
         }
         

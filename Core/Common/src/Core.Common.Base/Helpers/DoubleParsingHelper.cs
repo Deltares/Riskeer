@@ -48,16 +48,16 @@ namespace Core.Common.Base.Helpers
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty,
+                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_cannot_be_empty,
                                                      exception);
                 }
 
-                throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_must_represent_number,
+                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_must_represent_number,
                                                  exception);
             }
             catch (OverflowException exception)
             {
-                throw new DoubleParsingException(Resources.RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double,
+                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double,
                                                  exception);
             }
         }

@@ -31,21 +31,8 @@ namespace Core.Common.Base.Test.Helpers
     public class DoubleParsingHelperTest
     {
         [Test]
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase("    ")]
-        [TestCase(null)]
-        public void Parse_NullOrEmptyString_ReturnsExpectedOutput(string value)
-        {
-            // Call
-            double parsedValue = DoubleParsingHelper.Parse(value);
-
-            // Assert
-            Assert.IsNaN(parsedValue);
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
+        [TestCase(null, 0)]
         [TestCase("13.137,371446", 13137.371446)]
         [TestCase("13,3701231", 13.3701231)]
         [TestCase("1,000000001", 1.000000001)]
@@ -66,7 +53,8 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [SetCulture("en-US")]        
+        [TestCase(null, 0)]
         [TestCase("13,137.371446", 13137.371446)]
         [TestCase("13.3701231", 13.3701231)]
         [TestCase("1.000000001", 1.000000001)]
@@ -87,7 +75,22 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        public void Parse_ValueDoesNotRepresentRoundedDouble_ThrowsProbabilityParsingException()
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("    ")]
+        public void Parse_WhitespacesOrEmptyString_ThrowsDoubleParsingException(string value)
+        {
+            // Call
+            void Call() => DoubleParsingHelper.Parse(value);
+
+            // Assert
+            var exception = Assert.Throws<DoubleParsingException>(Call);
+            Assert.IsInstanceOf<FormatException>(exception.InnerException);
+            Assert.AreEqual("De tekst mag niet leeg zijn.", exception.Message);
+        }
+
+        [Test]
+        public void Parse_ValueDoesNotRepresentRoundedDouble_ThrowsDoubleParsingException()
         {
             // Setup
             const string invalidValue = "I'm not a number!";
@@ -98,14 +101,16 @@ namespace Core.Common.Base.Test.Helpers
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);
             Assert.IsInstanceOf<FormatException>(exception.InnerException);
-            Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kommagetal.", exception.Message);
+            Assert.AreEqual("De tekst moet een getal zijn.", exception.Message);
         }
 
         [Test]
-        public void Parse_ValueTooLargeToStoreInDouble_ThrowsProbabilityParsingException()
+        [TestCase("1")]
+        [TestCase("-1")]
+        public void Parse_ValueTooLargeToStoreInDouble_ThrowsDoubleParsingException(string prefix)
         {
             // Setup
-            string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
+            string invalidValue = prefix + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             // Call
             void Call() => DoubleParsingHelper.Parse(invalidValue);
@@ -113,7 +118,7 @@ namespace Core.Common.Base.Test.Helpers
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);
             Assert.IsInstanceOf<OverflowException>(exception.InnerException);
-            Assert.AreEqual("De waarde is te groot of te klein.", exception.Message);
+            Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", exception.Message);
         }
     }
 }
