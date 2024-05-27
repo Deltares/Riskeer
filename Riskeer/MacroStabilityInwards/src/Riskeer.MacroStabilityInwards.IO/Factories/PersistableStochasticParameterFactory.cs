@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
         private static double GetStandardDeviation(IVariationCoefficientDistribution distribution)
         {
-            return distribution.Mean * distribution.CoefficientOfVariation;
+            return (double) distribution.Mean * (double) distribution.CoefficientOfVariation;
         }
     }
 }

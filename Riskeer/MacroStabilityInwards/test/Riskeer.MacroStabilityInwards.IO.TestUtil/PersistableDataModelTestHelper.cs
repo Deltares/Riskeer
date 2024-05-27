@@ -211,7 +211,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public static void AssertStochasticParameter(IVariationCoefficientDistribution distribution, PersistableStochasticParameter stochasticParameter, bool expectedIsProbabilistic = true)
         {
             Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
-            Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
+            Assert.AreEqual(distribution.Mean.Value * distribution.CoefficientOfVariation.Value, stochasticParameter.StandardDeviation);
             Assert.AreEqual(expectedIsProbabilistic, stochasticParameter.IsProbabilistic);
         }
 
