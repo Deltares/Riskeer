@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Forms.Views
             InitializeComponent();
 
             InitializeCombobox();
-            InitializeWarningIcon();
+            InitializeScenarioConfigurationTypeWarningIcon();
 
             checkedRadioButton = radioButtonSemiProbabilistic;
 
@@ -164,7 +164,7 @@ namespace Riskeer.Piping.Forms.Views
             selectConfigurationTypeComboBox.EndUpdate();
         }
 
-        private void InitializeWarningIcon()
+        private void InitializeScenarioConfigurationTypeWarningIcon()
         {
             warningIcon.BackgroundImage = CoreGuiResources.warning.ToBitmap();
             toolTip.SetToolTip(warningIcon, Resources.PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip);
@@ -438,11 +438,11 @@ namespace Riskeer.Piping.Forms.Views
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
 
-        private void LengthEffectATextBoxKeyDown(object sender, KeyEventArgs e)
+        private void ParameterATextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                lengthEffectALabel.Focus(); // Focus on different component to raise a leave event on the text box
+                parameterALabel.Focus(); // Focus on different component to raise a leave event on the text box
                 e.Handled = true;
             }
 
@@ -454,24 +454,19 @@ namespace Riskeer.Piping.Forms.Views
             }
         }
 
-        private void LengthEffectATextBoxLeave(object sender, EventArgs e)
+        private void ParameterATextBoxLeave(object sender, EventArgs e)
         {
             ClearLengthEffectErrorMessage();
-            ProcessLengthEffectATextBox();
+            ProcessParameterATextBox();
         }
 
-        private void ProcessLengthEffectATextBox()
+        private void ProcessParameterATextBox()
         {
-            if (selectedFailureMechanismSection == null)
-            {
-                return;
-            }
-
             try
             {
                 PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(lengthEffectATextBox.Text);
+                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(parameterATextBox.Text);
                 scenarioConfigurationPerSection.NotifyObservers();
 
                 UpdateScenarioRows();
@@ -481,15 +476,15 @@ namespace Riskeer.Piping.Forms.Views
             {
                 ClearNRoundedData();
                 SetLengthEffectErrorMessage(exception.Message);
-                lengthEffectATextBox.Focus();
+                parameterATextBox.Focus();
             }
         }
 
         private void UpdateLengthEffectControls()
         {
             bool hasSection = failureMechanism.Sections.Any();
-            lengthEffectATextBox.Enabled = hasSection;
-            lengthEffectATextBox.Refresh();
+            parameterATextBox.Enabled = hasSection;
+            parameterATextBox.Refresh();
 
             lengthEffectNRoundedTextBox.Enabled = hasSection;
             lengthEffectNRoundedTextBox.Refresh();
@@ -508,7 +503,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void ClearLengthEffectData()
         {
-            lengthEffectATextBox.Text = string.Empty;
+            parameterATextBox.Text = string.Empty;
             ClearNRoundedData();
         }
 
@@ -519,7 +514,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetLengthEffectData(PipingScenarioConfigurationPerFailureMechanismSection configuration)
         {
-            lengthEffectATextBox.Text = configuration.A.ToString();
+            parameterATextBox.Text = configuration.A.ToString();
 
             double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
             lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNNrOfDecimals, n).ToString();
@@ -527,13 +522,13 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetLengthEffectErrorMessage(string errorMessage)
         {
-            lengthEffectErrorProvider.SetIconPadding(lengthEffectATextBox, 5);
-            lengthEffectErrorProvider.SetError(lengthEffectATextBox, errorMessage);
+            lengthEffectErrorProvider.SetIconPadding(parameterATextBox, 5);
+            lengthEffectErrorProvider.SetError(parameterATextBox, errorMessage);
         }
 
         private void ClearLengthEffectErrorMessage()
         {
-            lengthEffectErrorProvider.SetError(lengthEffectATextBox, string.Empty);
+            lengthEffectErrorProvider.SetError(parameterATextBox, string.Empty);
         }
     }
 }

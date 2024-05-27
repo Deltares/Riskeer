@@ -55,9 +55,9 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonProbabilistic = new System.Windows.Forms.RadioButton();
             this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();
             this.lengthEffectTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthEffectALabel = new System.Windows.Forms.Label();
+            this.parameterALabel = new System.Windows.Forms.Label();
             this.lengthEffectNRoundedLabel = new System.Windows.Forms.Label();
-            this.lengthEffectATextBox = new System.Windows.Forms.TextBox();
+            this.parameterATextBox = new System.Windows.Forms.TextBox();
             this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
@@ -253,9 +253,9 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectTableLayoutPanel.ColumnCount = 2;
             this.lengthEffectTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.lengthEffectTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectALabel, 0, 0);
+            this.lengthEffectTableLayoutPanel.Controls.Add(this.parameterALabel, 0, 0);
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedLabel, 0, 1);
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectATextBox, 1, 0);
+            this.lengthEffectTableLayoutPanel.Controls.Add(this.parameterATextBox, 1, 0);
             this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedTextBox, 1, 1);
             this.lengthEffectTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(0, 52);
@@ -267,16 +267,16 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectTableLayoutPanel.Size = new System.Drawing.Size(1003, 52);
             this.lengthEffectTableLayoutPanel.TabIndex = 0;
             // 
-            // lengthEffectALabel
+            // parameterALabel
             // 
-            this.lengthEffectALabel.AutoSize = true;
-            this.lengthEffectALabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectALabel.Location = new System.Drawing.Point(3, 0);
-            this.lengthEffectALabel.Name = "lengthEffectALabel";
-            this.lengthEffectALabel.Size = new System.Drawing.Size(165, 26);
-            this.lengthEffectALabel.TabIndex = 0;
-            this.lengthEffectALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
-            this.lengthEffectALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.parameterALabel.AutoSize = true;
+            this.parameterALabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parameterALabel.Location = new System.Drawing.Point(3, 0);
+            this.parameterALabel.Name = "parameterALabel";
+            this.parameterALabel.Size = new System.Drawing.Size(165, 26);
+            this.parameterALabel.TabIndex = 0;
+            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
+            this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectNRoundedLabel
             // 
@@ -289,15 +289,15 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lengthEffectATextBox
+            // parameterATextBox
             // 
-            this.lengthEffectATextBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lengthEffectATextBox.Location = new System.Drawing.Point(174, 3);
-            this.lengthEffectATextBox.Name = "lengthEffectATextBox";
-            this.lengthEffectATextBox.Size = new System.Drawing.Size(100, 20);
-            this.lengthEffectATextBox.TabIndex = 3;
-            this.lengthEffectATextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LengthEffectATextBoxKeyDown);
-            this.lengthEffectATextBox.Leave += new System.EventHandler(this.LengthEffectATextBoxLeave);
+            this.parameterATextBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.parameterATextBox.Location = new System.Drawing.Point(174, 3);
+            this.parameterATextBox.Name = "parameterATextBox";
+            this.parameterATextBox.Size = new System.Drawing.Size(100, 20);
+            this.parameterATextBox.TabIndex = 3;
+            this.parameterATextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ParameterATextBoxKeyDown);
+            this.parameterATextBox.Leave += new System.EventHandler(this.ParameterATextBoxLeave);
             // 
             // lengthEffectNRoundedTextBox
             // 
@@ -379,9 +379,9 @@ namespace Riskeer.Piping.Forms.Views
 
         private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
 
-        private System.Windows.Forms.Label lengthEffectALabel;
+        private System.Windows.Forms.Label parameterALabel;
         private System.Windows.Forms.Label lengthEffectNRoundedLabel;
-        private System.Windows.Forms.TextBox lengthEffectATextBox;
+        private System.Windows.Forms.TextBox parameterATextBox;
 
         private System.Windows.Forms.TableLayoutPanel lengthEffectTableLayoutPanel;
 
