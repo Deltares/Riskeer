@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("1/25", 0.04)]
+        [TestCase("1/25     ", 0.04)]
         [TestCase("1/2,500", 0.4)]
         [TestCase("1/2.500", 0.0004)]
         [TestCase("1e-3", 0.001)]
@@ -56,9 +56,9 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [TestCase("1/oneINdig", 0.0)]
         [TestCase("1/-1.000", -0.001)]
         [TestCase("1/-10", -0.1)]
-        [TestCase("1/-2,5", -0.4)]
-        [TestCase("-0,5", -0.5)]
-        [TestCase("-1", -1.0)]
+        [TestCase("    1/-2,5", -0.4)]
+        [TestCase("    -0,5", -0.5)]
+        [TestCase("-1     ", -1.0)]
         [TestCase("-1e-2", -0.01)]
         public void Parse_ValidStringInDutchCulture_ReturnsExpectedOutput(string value, double expectedProbability)
         {
@@ -71,6 +71,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
         [Test]
         [SetCulture("en-US")]
+        [TestCase("1/25     ", 0.04)]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2.5", 0.4)]
         [TestCase("1e-3", 0.001)]
@@ -80,9 +81,9 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [TestCase("1/oneINdig", 0.0)]
         [TestCase("1/-1,000", -0.001)]
         [TestCase("1/-10", -0.1)]
-        [TestCase("1/-2.5", -0.4)]
-        [TestCase("-0.5", -0.5)]
-        [TestCase("-1", -1.0)]
+        [TestCase("    1/-2.5", -0.4)]
+        [TestCase("    -0.5", -0.5)]
+        [TestCase("-1     ", -1.0)]
         [TestCase("-1e-2", -0.01)]
         public void Parse_ValidStringInEnglishCulture_ReturnsExpectedOutput(string value, double expectedProbability)
         {
@@ -109,10 +110,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void Parse_ValueTooLargeToStoreInDouble_ThrowsProbabilityParsingException()
+        [TestCase("1")]
+        [TestCase("-1")]
+        public void Parse_ValueTooLargeToStoreInDouble_ThrowsProbabilityParsingException(string prefix)
         {
             // Setup
-            string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
+            string invalidValue = prefix + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             // Call
             void Call() => ProbabilityParsingHelper.Parse(invalidValue);

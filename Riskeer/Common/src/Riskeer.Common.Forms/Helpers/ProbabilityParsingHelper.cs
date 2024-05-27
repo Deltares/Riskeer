@@ -48,12 +48,13 @@ namespace Riskeer.Common.Forms.Helpers
 
             try
             {
-                if (!value.StartsWith(returnPeriodNotation))
+                string trimmedString = value.Trim();
+                if (!trimmedString.StartsWith(returnPeriodNotation))
                 {
                     return Convert.ToDouble(value);
                 }
-
-                string returnPeriodValue = value.Substring(2).ToLower();
+                
+                string returnPeriodValue = trimmedString.Substring(2).ToLower();
                 return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
                            ? 1 / Convert.ToDouble(returnPeriodValue)
                            : 0.0;
