@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Views
         private const int failureProbabilitySellmeijerColumnIndex = 5;
 
         private const int totalScenarioContributionNrOfDecimals = 2;
-        private const int lengthEffectNNrOfDecimals = 2;
+        private const int lengthEffectRoundedNNrOfDecimals = 2;
 
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -485,9 +485,6 @@ namespace Riskeer.Piping.Forms.Views
             bool hasSection = failureMechanism.Sections.Any();
             parameterATextBox.Enabled = hasSection;
             parameterATextBox.Refresh();
-
-            lengthEffectNRoundedTextBox.Enabled = hasSection;
-            lengthEffectNRoundedTextBox.Refresh();
         }
 
         private void UpdateLengthEffectData()
@@ -517,7 +514,7 @@ namespace Riskeer.Piping.Forms.Views
             parameterATextBox.Text = configuration.A.ToString();
 
             double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
-            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNNrOfDecimals, n).ToString();
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectRoundedNNrOfDecimals, n).ToString();
         }
 
         private void SetLengthEffectErrorMessage(string errorMessage)

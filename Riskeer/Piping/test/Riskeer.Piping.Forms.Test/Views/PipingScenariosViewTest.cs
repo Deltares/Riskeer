@@ -1101,7 +1101,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNotEmpty(parameterATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -1147,7 +1146,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 

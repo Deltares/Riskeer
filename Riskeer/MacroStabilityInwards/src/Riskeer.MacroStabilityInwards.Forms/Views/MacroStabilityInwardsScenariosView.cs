@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -45,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsScenariosView : UserControl, IView
     {
+        private const int totalScenarioContributionNrOfDecimals = 2;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
         private CalculationGroup calculationGroup;
 
@@ -59,6 +59,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<MacroStabilityInwardsScenarioRow> scenarioRows;
         private MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
+        private int lengthEffectRoundNNrOfDecimals;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
@@ -260,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             labelTotalScenarioContribution.Visible = true;
 
             double totalScenarioContribution = contributingScenarios.Sum(r => r.Contribution);
-            var roundedTotalScenarioContribution = new RoundedDouble(2, totalScenarioContribution);
+            var roundedTotalScenarioContribution = new RoundedDouble(totalScenarioContributionNrOfDecimals, totalScenarioContribution);
             if (Math.Abs(totalScenarioContribution - 100) >= 1e-6)
             {
                 SetErrorMessage(RiskeerCommonFormsResources.CalculationScenarios_Scenario_contribution_for_this_section_not_100);
@@ -296,7 +297,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             if (e.KeyCode == Keys.Enter)
             {
-                lengthEffectALabel.Focus(); // Focus on different component to raise a leave event on the text box
+                parameterALabel.Focus(); // Focus on different component to raise a leave event on the text box
                 e.Handled = true;
             }
 
@@ -316,16 +317,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void ProcessLengthEffectATextBox()
         {
-            if (selectedFailureMechanismSection == null)
-            {
-                return;
-            }
-
             try
             {
                 MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
                     selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(lengthEffectATextBox.Text);
+                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(parameterATextBox.Text);
                 scenarioConfigurationPerSection.NotifyObservers();
 
                 UpdateScenarioRows();
@@ -335,20 +331,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 ClearNRoundedData();
                 SetLengthEffectErrorMessage(exception.Message);
-                lengthEffectATextBox.Focus();
+                parameterATextBox.Focus();
             }
         }
 
         private void UpdateLengthEffectControls()
         {
             bool hasSection = failureMechanism.Sections.Any();
-            lengthEffectATextBox.Enabled = hasSection;
-            lengthEffectATextBox.ReadOnly = !hasSection;
-            lengthEffectATextBox.Refresh();
-
-            lengthEffectNRoundedTextBox.Enabled = hasSection;
-            lengthEffectNRoundedTextBox.BackColor = hasSection ? SystemColors.Window : SystemColors.Control;
-            lengthEffectNRoundedTextBox.Refresh();
+            parameterATextBox.Enabled = hasSection;
+            parameterATextBox.Refresh();
         }
 
         private void UpdateLengthEffectData()
@@ -364,7 +355,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void ClearLengthEffectData()
         {
-            lengthEffectATextBox.Text = string.Empty;
+            parameterATextBox.Text = string.Empty;
             ClearNRoundedData();
         }
 
@@ -375,21 +366,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void SetLengthEffectData()
         {
-            lengthEffectATextBox.Text = selectedFailureMechanismSection.ScenarioConfigurationPerSection.A.ToString();
+            parameterATextBox.Text = selectedFailureMechanismSection.ScenarioConfigurationPerSection.A.ToString();
 
             double n = selectedFailureMechanismSection.ScenarioConfigurationPerSection.GetN(failureMechanism.ProbabilityAssessmentInput.B);
-            lengthEffectNRoundedTextBox.Text = new RoundedDouble(2, n).ToString();
+            lengthEffectRoundNNrOfDecimals = 2;
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectRoundNNrOfDecimals, n).ToString();
         }
 
         private void SetLengthEffectErrorMessage(string errorMessage)
         {
-            lengthEffectErrorProvider.SetIconPadding(lengthEffectATextBox, 5);
-            lengthEffectErrorProvider.SetError(lengthEffectATextBox, errorMessage);
+            lengthEffectErrorProvider.SetIconPadding(parameterATextBox, 5);
+            lengthEffectErrorProvider.SetError(parameterATextBox, errorMessage);
         }
 
         private void ClearLengthEffectErrorMessage()
         {
-            lengthEffectErrorProvider.SetError(lengthEffectATextBox, string.Empty);
+            lengthEffectErrorProvider.SetError(parameterATextBox, string.Empty);
         }
     }
 }

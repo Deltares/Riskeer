@@ -164,14 +164,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ShowMacroStabilityInwardsScenariosView(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            var lengthEffectALabel = (Label) new LabelTester("lengthEffectALabel").TheObject;
+            var lengthEffectALabel = (Label) new LabelTester("parameterALabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsTrue(lengthEffectNRoundedTextBox.ReadOnly);
+            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
         }
 
         [Test]
@@ -337,12 +337,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), ((MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
-            Assert.AreEqual("0,033", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,033", parameterATextBox.Text);
             Assert.AreEqual("1,05", lengthEffectNRoundedTextBox.Text);
 
             MacroStabilityInwardsScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -354,7 +354,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
 
             // Then
-            Assert.AreEqual("0,700", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,700", parameterATextBox.Text);
             Assert.AreEqual("1,14", lengthEffectNRoundedTextBox.Text);
 
             MacroStabilityInwardsScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -430,7 +430,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                .ToArray();
 
             // When
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("0,7");
 
             // Then
@@ -456,12 +456,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsScenariosView view = ShowFullyConfiguredMacroStabilityInwardsScenariosView();
 
             // Precondition
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
@@ -471,10 +471,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             textBoxTester.Enter("0,6");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
 
-            Assert.AreEqual("0,600", lengthEffectATextBox.Text);
+            Assert.AreEqual("0,600", parameterATextBox.Text);
             Assert.AreEqual("1,96", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -485,22 +485,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsScenariosView view = ShowFullyConfiguredMacroStabilityInwardsScenariosView();
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.AreEqual("0,033", lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.AreEqual("0,033", parameterATextBox.Text);
 
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
             Assert.AreEqual("1,05", lengthEffectNRoundedTextBox.Text);
 
             // When
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
@@ -512,13 +512,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             MacroStabilityInwardsScenariosView view = ShowFullyConfiguredMacroStabilityInwardsScenariosView();
 
-            var textBoxTester = new TextBoxTester("lengthEffectATextBox");
+            var textBoxTester = new TextBoxTester("parameterATextBox");
             textBoxTester.Enter("NotADouble");
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             // When
@@ -526,7 +526,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
         }
 
@@ -550,25 +550,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsScenariosView(failureMechanism);
 
-            var textBoxTester = new ControlTester("lengthEffectATextBox");
+            var textBoxTester = new ControlTester("parameterATextBox");
             const Keys keyData = Keys.Escape;
 
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            lengthEffectATextBox.TextChanged += (sender, args) =>
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            parameterATextBox.TextChanged += (sender, args) =>
             {
                 textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
             };
 
             // Precondition
-            Assert.AreEqual(initialValueText, lengthEffectATextBox.Text);
+            Assert.AreEqual(initialValueText, parameterATextBox.Text);
 
             failureMechanism.AssemblyResult.Attach(observer);
 
             // When
-            lengthEffectATextBox.Text = "NotAProbability";
+            parameterATextBox.Text = "NotAProbability";
 
             // Then
-            Assert.AreEqual(initialValueText, lengthEffectATextBox.Text);
+            Assert.AreEqual(initialValueText, parameterATextBox.Text);
             Assert.AreEqual(initialValue, firstConfigurationPerSection.A);
 
             mocks.VerifyAll();
@@ -582,14 +582,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ShowFullyConfiguredMacroStabilityInwardsScenariosView(failureMechanism);
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
-            Assert.IsNotEmpty(lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.IsTrue(parameterATextBox.Enabled);
+            Assert.IsNotEmpty(parameterATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -597,12 +594,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
-            Assert.IsEmpty(lengthEffectATextBox.Text);
+            Assert.IsFalse(parameterATextBox.Enabled);
+            Assert.IsEmpty(parameterATextBox.Text);
 
-            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -614,14 +608,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ShowMacroStabilityInwardsScenariosView(failureMechanism);
 
             // Precondition
-            var lengthEffectATextBox = (TextBox) new ControlTester("lengthEffectATextBox").TheObject;
-            Assert.IsFalse(lengthEffectATextBox.Enabled);
-            Assert.IsTrue(lengthEffectATextBox.ReadOnly);
-            Assert.IsEmpty(lengthEffectATextBox.Text);
+            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            Assert.IsFalse(parameterATextBox.Enabled);
+            Assert.IsEmpty(parameterATextBox.Text);
 
             var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -636,12 +627,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsTrue(lengthEffectATextBox.Enabled);
-            Assert.IsFalse(lengthEffectATextBox.ReadOnly);
-            Assert.IsNotEmpty(lengthEffectATextBox.Text);
+            Assert.IsTrue(parameterATextBox.Enabled);
+            Assert.IsNotEmpty(parameterATextBox.Text);
 
-            Assert.IsTrue(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Window, lengthEffectNRoundedTextBox.BackColor);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 

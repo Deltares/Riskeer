@@ -304,10 +304,10 @@ namespace Riskeer.Piping.Forms.Views
             this.lengthEffectNRoundedTextBox.BackColor = System.Drawing.SystemColors.Control;
             this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(174, 29);
             this.lengthEffectNRoundedTextBox.Name = "lengthEffectNRoundedTextBox";
-            this.lengthEffectNRoundedTextBox.ReadOnly = true;
             this.lengthEffectNRoundedTextBox.Enabled = false;
             this.lengthEffectNRoundedTextBox.Size = new System.Drawing.Size(100, 20);
             this.lengthEffectNRoundedTextBox.TabIndex = 4;
+            this.lengthEffectNRoundedTextBox.Enabled = false;
             // 
             // labelCalculations
             // 
