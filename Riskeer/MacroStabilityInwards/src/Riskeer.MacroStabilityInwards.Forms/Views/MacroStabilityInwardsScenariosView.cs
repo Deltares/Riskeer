@@ -297,7 +297,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (selectedFailureMechanismSection != null)
             {
                 lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection,
-                                                    failureMechanism.ProbabilityAssessmentInput.B);
+                                                    failureMechanism.GeneralInput.B);
             }
         }
     }
