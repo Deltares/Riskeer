@@ -116,6 +116,7 @@ namespace Riskeer.Piping.Forms.Views
             UpdateScenarioControls();
 
             UpdateVisibility();
+            UpdateLengthEffectControl();
         }
 
         public object Data
@@ -165,13 +166,21 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            failureMechanismObserver = new Observer(()=>
+            {
+                UpdateSectionsListBox();
+                UpdateLengthEffectControl();
+            })
             {
                 Observable = failureMechanism
             };
 
             scenarioConfigurationsPerFailureMechanismSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
-                UpdateSectionsListBox, section => section)
+                () =>
+                {
+                    UpdateSectionsListBox();
+                    UpdateScenarioRows();
+                }, section => section)
             {
                 Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
@@ -257,7 +266,7 @@ namespace Riskeer.Piping.Forms.Views
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticControlsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticControlsVisible;
 
-            // lengthEffectSettingsControl.Visible = semiProbabilisticControlsVisible;
+            lengthEffectSettingsControl.Visible = semiProbabilisticControlsVisible;
         }
 
         private void UpdateDataGridViewDataSource()
@@ -302,6 +311,7 @@ namespace Riskeer.Piping.Forms.Views
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
             UpdateScenarioControls();
+            UpdateLengthEffectControl();
         }
 
         private void UpdateScenarioControls()
@@ -423,6 +433,17 @@ namespace Riskeer.Piping.Forms.Views
         private void ClearTotalScenarioContributionErrorMessage()
         {
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
+        }
+
+        private void UpdateLengthEffectControl()
+        {
+            lengthEffectSettingsControl.ClearData();
+
+            if (selectedFailureMechanismSection != null)
+            {
+                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection,
+                                                    failureMechanism.ProbabilityAssessmentInput.B);
+            }
         }
     }
 }

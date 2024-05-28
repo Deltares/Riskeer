@@ -39,6 +39,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -238,7 +239,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
         [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
         [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
-        public void Constructor_LengthEffectControlsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool controlsShouldBeVisible)
+        public void Constructor_LengthEffectSettingsControlCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool controlShouldBeVisible)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
@@ -250,17 +251,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Assert
-            var tableLayoutPanel = (TableLayoutPanel) new ControlTester("lengthEffectTableLayoutPanel").TheObject;
-            Assert.AreEqual(controlsShouldBeVisible, tableLayoutPanel.Visible);
-
-            var lengthEffectALabel = (Label) new LabelTester("parameterALabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
-
-            var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
-
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            Assert.AreEqual(controlShouldBeVisible, lengthEffectSettingsControl.Visible);
         }
 
         [Test]
@@ -715,8 +707,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenLengthEffectControlsUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
-                                                                                                     PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
+        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenLengthEffectSettingsControlsUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
+                                                                                                             PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
@@ -729,9 +721,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            var tableLayoutPanel = (TableLayoutPanel) new ControlTester("lengthEffectTableLayoutPanel").TheObject;
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
             bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, tableLayoutPanel.Visible);
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, lengthEffectSettingsControl.Visible);
 
             // When
             if (newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
@@ -747,7 +739,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             bool updatedSemiProbabilisticControlsShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, tableLayoutPanel.Visible);
+            Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, lengthEffectSettingsControl.Visible);
         }
 
         [Test]
@@ -827,8 +819,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            TextBoxTester parameterATextBox = GetParameterATextBoxTester();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
@@ -860,82 +854,10 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosView_WhenSettingNewAValue_ThenControlsUpdatedAndObserversNotified()
+        public void GivenPipingScenariosView_WhenSettingNewParameterA_ThenDataGridViewUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var surfaceLine = new PipingSurfaceLine("Surface line 1")
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(100, 0)
-                })
-            }, string.Empty);
-            failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
-            {
-                new SemiProbabilisticPipingCalculationScenario
-                {
-                    Name = "Calculation 1",
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        DampingFactorExit =
-                        {
-                            Mean = (RoundedDouble) 1.1111
-                        },
-                        PhreaticLevelExit =
-                        {
-                            Mean = (RoundedDouble) 2.2222
-                        },
-                        EntryPointL = (RoundedDouble) 3.3333,
-                        ExitPointL = (RoundedDouble) 4.4444
-                    },
-                    Contribution = (RoundedDouble) 0.13701
-                },
-                new SemiProbabilisticPipingCalculationScenario
-                {
-                    Name = "Calculation 2",
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        DampingFactorExit =
-                        {
-                            Mean = (RoundedDouble) 5.5555
-                        },
-                        PhreaticLevelExit =
-                        {
-                            Mean = (RoundedDouble) 6.6666
-                        },
-                        EntryPointL = (RoundedDouble) 7.7777,
-                        ExitPointL = (RoundedDouble) 8.8888
-                    },
-                    IsRelevant = false
-                }
-            });
-
-            PipingScenarioConfigurationPerFailureMechanismSection affectedConfiguration =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
-            affectedConfiguration.Attach(observer);
-
-            ShowPipingScenariosView(failureMechanism);
+            ShowFullyConfiguredPipingScenariosView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
@@ -944,94 +866,30 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                                  .ToArray();
 
             // When
-            var textBoxTester = new TextBoxTester("parameterATextBox");
+            TextBoxTester textBoxTester = GetParameterATextBoxTester();
             textBoxTester.Enter("0,7");
 
             // Then
-            Assert.AreEqual(0.7, affectedConfiguration.A);
-
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
-
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
                                                            .Cast<IPipingScenarioRow>()
                                                            .ToArray();
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void GivenPipingScenariosViewWithLengthEffectError_WhenSettingValidValue_ThenErrorClearedAndLengthEffectControlsUpdated()
-        {
-            // Given
-            var view = ShowFullyConfiguredPipingScenariosView();
-
-            // Precondition
-            var textBoxTester = new TextBoxTester("parameterATextBox");
-            textBoxTester.Enter("NotADouble");
-
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
-            string errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsNotEmpty(errorMessage);
-
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
-
-            // When
-            textBoxTester.Enter("0,6");
-
-            // Then
-            errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsEmpty(errorMessage);
-
-            Assert.AreEqual("0,600", parameterATextBox.Text);
-            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
-        }
-
-        [Test]
-        public void GivenPipingScenariosViewWithoutLengthEffectError_WhenSettingInvalidValue_ThenErrorSetAndLengthEffectControlsUpdated()
-        {
-            // Given
-            PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
-
-            // Precondition
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
-            Assert.AreEqual("0,400", parameterATextBox.Text);
-
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            string errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsEmpty(errorMessage);
-
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
-
-            // When
-            var textBoxTester = new TextBoxTester("parameterATextBox");
-            textBoxTester.Enter("NotADouble");
-
-            // Then
-            errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsNotEmpty(errorMessage);
-
-            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
         public void GivenPipingScenariosViewWithLengthEffectError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
         {
             // Setup
-            PipingScenariosView view = ShowFullyConfiguredPipingScenariosView();
+            ShowFullyConfiguredPipingScenariosView();
 
-            var textBoxTester = new TextBoxTester("parameterATextBox");
+            TextBoxTester textBoxTester = GetParameterATextBoxTester();
             textBoxTester.Enter("NotADouble");
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(view);
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            ErrorProvider errorProvider = GetLengthEffectErrorProvider(lengthEffectSettingsControl);
+            var parameterATextBox = (TextBox) textBoxTester.TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
@@ -1045,62 +903,19 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void GivenPipingScenariosView_WhenSettingInvalidValueAndEscPressed_ThenLengthEffectControlsSetToInitialValues()
-        {
-            // Given
-            const double initialValue = 0.5;
-            const string initialValueText = "0,500";
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            PipingScenarioConfigurationPerFailureMechanismSection firstConfigurationPerSection =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
-            firstConfigurationPerSection.A = (RoundedDouble) initialValue;
-
-            ShowPipingScenariosView(failureMechanism);
-
-            var textBoxTester = new ControlTester("parameterATextBox");
-            const Keys keyData = Keys.Escape;
-
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
-            parameterATextBox.TextChanged += (sender, args) =>
-            {
-                textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
-            };
-
-            // Precondition
-            Assert.AreEqual(initialValueText, parameterATextBox.Text);
-
-            failureMechanism.AssemblyResult.Attach(observer);
-
-            // When
-            parameterATextBox.Text = "NotAProbability";
-
-            // Then
-            Assert.AreEqual(initialValueText, parameterATextBox.Text);
-            Assert.AreEqual(initialValue, firstConfigurationPerSection.A);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenLengthEffectControlsUpdated()
+        public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenLengthEffectSettingsControlUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -1115,20 +930,19 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenLengthEffectControlsUpdated()
+        public void GivenPipingScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenLengthEffectSettingsControlUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) new ControlTester("parameterATextBox").TheObject;
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
 
-            var lengthEffectNRoundedTextBox = (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
-            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
-            Assert.AreEqual(SystemColors.Control, lengthEffectNRoundedTextBox.BackColor);
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -1845,16 +1659,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
 
-        private static ErrorProvider GetErrorProvider(PipingScenariosView view)
-        {
-            return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
-        }
-
-        private static ErrorProvider GetLengthEffectErrorProvider(PipingScenariosView view)
-        {
-            return TypeUtils.GetField<ErrorProvider>(view, "lengthEffectErrorProvider");
-        }
-
         private static void ConfigureFailureMechanism(PipingFailureMechanism failureMechanism)
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
@@ -2028,11 +1832,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
         }
 
-        private PipingScenariosView ShowFullyConfiguredPipingScenariosView()
+        private void ShowFullyConfiguredPipingScenariosView()
         {
             var failureMechanism = new PipingFailureMechanism();
             ConfigureFailureMechanism(failureMechanism);
-            return ShowPipingScenariosView(failureMechanism);
+            ShowPipingScenariosView(failureMechanism);
         }
 
         private PipingScenariosView ShowPipingScenariosView(PipingFailureMechanism failureMechanism)
@@ -2044,5 +1848,35 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             return pipingScenarioView;
         }
+
+        #region Control helpers
+
+        private static ErrorProvider GetErrorProvider(PipingScenariosView view)
+        {
+            return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
+        }
+
+        private static ErrorProvider GetLengthEffectErrorProvider(LengthEffectSettingsControl settingsControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(settingsControl, "lengthEffectErrorProvider");
+        }
+
+        private static TextBoxTester GetParameterATextBoxTester()
+        {
+            return new TextBoxTester("parameterATextBox");
+        }
+
+        private static TextBox GetLengthEffectNRoundedTextBox(LengthEffectSettingsControl settingsControl)
+        {
+            var tableLayoutPanel = (TableLayoutPanel) settingsControl.Controls["tableLayoutPanel"];
+            return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
+        }
+
+        private static LengthEffectSettingsControl GetLengthEffectSettingsControl()
+        {
+            return (LengthEffectSettingsControl) new ControlTester("lengthEffectSettingsControl").TheObject;
+        }
+
+        #endregion
     }
 }
