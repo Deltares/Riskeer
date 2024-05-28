@@ -257,7 +257,7 @@ namespace Riskeer.Piping.Forms.Views
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticControlsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticControlsVisible;
 
-            lengthEffectTableLayoutPanel.Visible = semiProbabilisticControlsVisible;
+            // lengthEffectSettingsControl.Visible = semiProbabilisticControlsVisible;
         }
 
         private void UpdateDataGridViewDataSource()

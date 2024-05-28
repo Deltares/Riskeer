@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Riskeer.Common.Forms.Controls;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -41,6 +42,7 @@ namespace Riskeer.Piping.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.lengthEffectSettingsControl = new LengthEffectSettingsControl();
             this.calculationConfigurationTypeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
             this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -185,6 +187,7 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.ColumnCount = 1;
             this.tableLayoutPanelDataGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelDataGrid.Controls.Add(this.radioButtonsPanel, 0, 0);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.lengthEffectSettingsControl, 0, 1);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 3);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 4);
@@ -199,6 +202,16 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 762);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
+            // 
+            // lengthEffectSettingsControl
+            // 
+            this.lengthEffectSettingsControl.AutoSize = true;
+            this.lengthEffectSettingsControl.Enabled = true;
+            this.lengthEffectSettingsControl.Visible = true;
+            this.lengthEffectSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lengthEffectSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.lengthEffectSettingsControl.Name = "lengthEffectSettingsControl";
+            this.lengthEffectSettingsControl.Size = new System.Drawing.Size(1003, 52);
             // 
             // radioButtonsPanel
             // 
@@ -300,6 +313,7 @@ namespace Riskeer.Piping.Forms.Views
 
         #endregion
 
+        private Riskeer.Common.Forms.Controls.LengthEffectSettingsControl lengthEffectSettingsControl;
         private System.Windows.Forms.TableLayoutPanel calculationConfigurationTypeTableLayoutPanel;
         private System.Windows.Forms.Label selectScenarioConfigurationTypeLabel;
         private System.Windows.Forms.SplitContainer splitContainer;
