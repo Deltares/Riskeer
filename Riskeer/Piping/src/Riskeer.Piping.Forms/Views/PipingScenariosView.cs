@@ -25,15 +25,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Exceptions;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Helpers;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -54,7 +51,6 @@ namespace Riskeer.Piping.Forms.Views
         private const int failureProbabilitySellmeijerColumnIndex = 5;
 
         private const int totalScenarioContributionNrOfDecimals = 2;
-        private const int lengthEffectRoundedNNrOfDecimals = 2;
 
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -120,9 +116,6 @@ namespace Riskeer.Piping.Forms.Views
             UpdateScenarioControls();
 
             UpdateVisibility();
-
-            UpdateLengthEffectControls();
-            UpdateLengthEffectData();
         }
 
         public object Data
@@ -172,12 +165,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(() =>
-            {
-                UpdateSectionsListBox();
-                UpdateLengthEffectControls();
-                UpdateLengthEffectData();
-            })
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
                 Observable = failureMechanism
             };
@@ -314,7 +302,6 @@ namespace Riskeer.Piping.Forms.Views
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
             UpdateScenarioControls();
-            UpdateLengthEffectData();
         }
 
         private void UpdateScenarioControls()
@@ -436,96 +423,6 @@ namespace Riskeer.Piping.Forms.Views
         private void ClearTotalScenarioContributionErrorMessage()
         {
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
-        }
-
-        private void ParameterATextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                parameterALabel.Focus(); // Focus on different component to raise a leave event on the text box
-                e.Handled = true;
-            }
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                ClearLengthEffectErrorMessage();
-                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
-                e.Handled = true;
-            }
-        }
-
-        private void ParameterATextBoxLeave(object sender, EventArgs e)
-        {
-            ClearLengthEffectErrorMessage();
-            ProcessParameterATextBox();
-        }
-
-        private void ProcessParameterATextBox()
-        {
-            try
-            {
-                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection =
-                    selectedFailureMechanismSection.ScenarioConfigurationPerSection;
-                scenarioConfigurationPerSection.A = (RoundedDouble) DoubleParsingHelper.Parse(parameterATextBox.Text);
-                scenarioConfigurationPerSection.NotifyObservers();
-
-                UpdateScenarioRows();
-            }
-            catch (Exception exception) when (exception is ArgumentOutOfRangeException
-                                              || exception is DoubleParsingException)
-            {
-                ClearNRoundedData();
-                SetLengthEffectErrorMessage(exception.Message);
-                parameterATextBox.Focus();
-            }
-        }
-
-        private void UpdateLengthEffectControls()
-        {
-            bool hasSection = failureMechanism.Sections.Any();
-            parameterATextBox.Enabled = hasSection;
-            parameterATextBox.Refresh();
-        }
-
-        private void UpdateLengthEffectData()
-        {
-            ClearLengthEffectErrorMessage();
-            ClearLengthEffectData();
-
-            if (selectedFailureMechanismSection != null)
-            {
-                SetLengthEffectData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
-            }
-        }
-
-        private void ClearLengthEffectData()
-        {
-            parameterATextBox.Text = string.Empty;
-            ClearNRoundedData();
-        }
-
-        private void ClearNRoundedData()
-        {
-            lengthEffectNRoundedTextBox.Text = string.Empty;
-        }
-
-        private void SetLengthEffectData(PipingScenarioConfigurationPerFailureMechanismSection configuration)
-        {
-            parameterATextBox.Text = configuration.A.ToString();
-
-            double n = configuration.GetN(failureMechanism.ProbabilityAssessmentInput.B);
-            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectRoundedNNrOfDecimals, n).ToString();
-        }
-
-        private void SetLengthEffectErrorMessage(string errorMessage)
-        {
-            lengthEffectErrorProvider.SetIconPadding(parameterATextBox, 5);
-            lengthEffectErrorProvider.SetError(parameterATextBox, errorMessage);
-        }
-
-        private void ClearLengthEffectErrorMessage()
-        {
-            lengthEffectErrorProvider.SetError(parameterATextBox, string.Empty);
         }
     }
 }
