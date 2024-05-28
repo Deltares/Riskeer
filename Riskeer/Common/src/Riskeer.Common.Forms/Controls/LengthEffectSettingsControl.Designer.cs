@@ -52,6 +52,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             // tableLayoutPanel
             // 
+            this.tableLayoutPanel.AutoSize = true;
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -72,9 +73,10 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.parameterALabel.AutoSize = true;
             this.parameterALabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.parameterALabel.Location = new System.Drawing.Point(3, 0);
+            this.parameterALabel.Location = new System.Drawing.Point(0, 3);
+            this.parameterALabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.parameterALabel.Name = "parameterALabel";
-            this.parameterALabel.Size = new System.Drawing.Size(165, 26);
+            this.parameterALabel.Size = new System.Drawing.Size(165, 20);
             this.parameterALabel.TabIndex = 0;
             this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
             this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -83,9 +85,10 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.lengthEffectNRoundedLabel.AutoSize = true;
             this.lengthEffectNRoundedLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectNRoundedLabel.Location = new System.Drawing.Point(3, 26);
+            this.lengthEffectNRoundedLabel.Location = new System.Drawing.Point(0, 29);
+            this.lengthEffectNRoundedLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
-            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 124);
+            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 118);
             this.lengthEffectNRoundedLabel.TabIndex = 1;
             this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -94,7 +97,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.lengthEffectNRoundedTextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.lengthEffectNRoundedTextBox.Enabled = false;
-            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(174, 29);
+            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(171, 29);
             this.lengthEffectNRoundedTextBox.Name = "lengthEffectNRoundedTextBox";
             this.lengthEffectNRoundedTextBox.Size = new System.Drawing.Size(69, 20);
             this.lengthEffectNRoundedTextBox.TabIndex = 2;
@@ -102,11 +105,11 @@ namespace Riskeer.Common.Forms.Controls
             // parameterATextBox
             // 
             this.parameterATextBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.parameterATextBox.Location = new System.Drawing.Point(174, 3);
+            this.parameterATextBox.Enabled = false;
+            this.parameterATextBox.Location = new System.Drawing.Point(171, 3);
             this.parameterATextBox.Name = "parameterATextBox";
             this.parameterATextBox.Size = new System.Drawing.Size(69, 20);
             this.parameterATextBox.TabIndex = 3;
-            this.parameterATextBox.Enabled = false;
             this.parameterATextBox.KeyDown += ParameterATextBoxKeyDown;
             this.parameterATextBox.Leave += ParameterATextBoxLeave;
             // 
@@ -127,6 +130,7 @@ namespace Riskeer.Common.Forms.Controls
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         private System.Windows.Forms.Label parameterALabel;
