@@ -1331,6 +1331,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="7a8560b7-f4dc-4712-b611-95e2ec36e98e"
+			name="SelectGenericSectionInListScenariosView"
+			ref="c28d218c-b230-4ca9-8820-6cd4085c3ae0"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexSection"
+					datasourceid="678f5fae-ec64-4031-b8d3-355418ae2c6e"
+					variableid="b1c29580-7a2f-407e-b875-ee536111ae7b"
+					variablename="indexSection">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="7e1f1aec-e6c6-4ff4-a22f-fed96a07e4b1"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1777,6 +1791,7 @@
 			includeimageschecked="False"
 			includerecordingschecked="False"
 			junitreport="False"
+			junitreportshowerrafterstd="True"
 			name="Script17"
 			overwritefilechecked="False"
 			reportcompress="False"
@@ -3158,6 +3173,10 @@
 										<testmodule
 										id="651fcaab-25e1-46ad-bd42-e05ee5591cef"
 										name="ReadDataScenariosView">
+										</testmodule>
+										<testmodule
+										id="7a8560b7-f4dc-4712-b611-95e2ec36e98e"
+										name="SelectGenericSectionInListScenariosView">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
