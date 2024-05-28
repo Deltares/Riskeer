@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Riskeer.Common.Forms.Controls;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -41,6 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.lengthEffectSettingsControl = new LengthEffectSettingsControl();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
@@ -120,6 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 3);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.lengthEffectSettingsControl, 0, 0);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
@@ -130,6 +133,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 797);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
+            // 
+            // lengthEffectSettingsControl
+            // 
+            this.lengthEffectSettingsControl.AutoSize = true;
+            this.lengthEffectSettingsControl.Enabled = true;
+            this.lengthEffectSettingsControl.Visible = true;
+            this.lengthEffectSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lengthEffectSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.lengthEffectSettingsControl.Name = "lengthEffectSettingsControl";
+            this.lengthEffectSettingsControl.Size = new System.Drawing.Size(1003, 52);
             // 
             // labelTotalScenarioContribution
             // 
@@ -184,19 +197,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.ResumeLayout(false);
         }
 
+        private Riskeer.Common.Forms.Controls.LengthEffectSettingsControl lengthEffectSettingsControl;
         private System.Windows.Forms.ErrorProvider errorProvider;
-
         private System.Windows.Forms.Label labelCalculations;
-
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-
         private System.Windows.Forms.Label labelTotalScenarioContribution;
-
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
-
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.ListBox listBox;
-
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBox;
 

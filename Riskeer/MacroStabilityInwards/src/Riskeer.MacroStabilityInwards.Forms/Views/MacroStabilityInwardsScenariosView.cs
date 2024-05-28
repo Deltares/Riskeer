@@ -56,7 +56,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<MacroStabilityInwardsScenarioRow> scenarioRows;
         private MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
-        private int lengthEffectRoundNNrOfDecimals;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
@@ -90,6 +89,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             UpdateSectionsListBox();
             UpdateScenarioControls();
+            UpdateLengthEffectControl();
         }
 
         public object Data
@@ -119,6 +119,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
+                UpdateLengthEffectControl();
             })
             {
                 Observable = failureMechanism
@@ -126,7 +127,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             scenarioConfigurationsPerFailureMechanismSectionObserver = new RecursiveObserver<IObservableEnumerable<
                 MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>, MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>(
-                UpdateSectionsListBox, section => section)
+                () =>
+                {
+                    UpdateSectionsListBox();
+                    UpdateScenarioRows();
+                }, section => section)
             {
                 Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
@@ -187,6 +192,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel;
             UpdateScenarioControls();
+            UpdateLengthEffectControl();
         }
 
         private void UpdateScenarioRows()
@@ -282,6 +288,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
+        }
+        
+        private void UpdateLengthEffectControl()
+        {
+            lengthEffectSettingsControl.ClearData();
+
+            if (selectedFailureMechanismSection != null)
+            {
+                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection,
+                                                    failureMechanism.ProbabilityAssessmentInput.B);
+            }
         }
     }
 }
