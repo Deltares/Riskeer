@@ -36,9 +36,9 @@ namespace Riskeer.Common.Forms.Controls
     public partial class LengthEffectSettingsControl : UserControl
     {
         private const int lengthEffectNNrOfDecimals = 2;
-        private readonly double b;
 
         private readonly Observer scenarioConfigurationObserver;
+        private double b;
         private ScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection;
 
         private bool isParameterAUpdating;
@@ -46,15 +46,22 @@ namespace Riskeer.Common.Forms.Controls
         /// <summary>
         /// Creates a new instance of <see cref="LengthEffectSettingsControl"/>
         /// </summary>
-        public LengthEffectSettingsControl(double b)
+        public LengthEffectSettingsControl()
         {
-            this.b = b;
-
             InitializeComponent();
             scenarioConfigurationObserver = new Observer(UpdateLengthEffectData);
         }
 
-        public void SetScenarioConfiguration(ScenarioConfigurationPerFailureMechanismSection scenarioConfiguration)
+        /// <summary>
+        /// Sets the data on the control.
+        /// </summary>
+        /// <param name="scenarioConfiguration">The scenario configuration to set on the control.</param>
+        /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
+        /// the maximum tolerated probability of failure.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioConfiguration"/>
+        /// is <c>null</c>.</exception>
+        public void SetData(ScenarioConfigurationPerFailureMechanismSection scenarioConfiguration,
+                            double b)
         {
             if (scenarioConfiguration == null)
             {
@@ -63,6 +70,7 @@ namespace Riskeer.Common.Forms.Controls
 
             ClearLengthEffectErrorMessage();
 
+            this.b = b;
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
             scenarioConfigurationObserver.Observable = scenarioConfiguration;
 
@@ -90,10 +98,11 @@ namespace Riskeer.Common.Forms.Controls
 
         protected override void Dispose(bool disposing)
         {
+            scenarioConfigurationObserver.Dispose();
+
             if (disposing && (components != null))
             {
                 components.Dispose();
-                scenarioConfigurationObserver.Dispose();
             }
 
             base.Dispose(disposing);
@@ -178,18 +187,12 @@ namespace Riskeer.Common.Forms.Controls
         {
             parameterATextBox.Enabled = true;
             parameterATextBox.Refresh();
-
-            lengthEffectNRoundedTextBox.Enabled = true;
-            lengthEffectNRoundedTextBox.Refresh();
         }
 
         private void DisableControl()
         {
             parameterATextBox.Enabled = false;
             parameterATextBox.Refresh();
-
-            lengthEffectNRoundedTextBox.Enabled = false;
-            lengthEffectNRoundedTextBox.Refresh();
         }
     }
 }
