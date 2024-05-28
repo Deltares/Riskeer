@@ -49,22 +49,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.labelCalculations = new System.Windows.Forms.Label();
-            this.lengthEffectTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.parameterALabel = new System.Windows.Forms.Label();
-            this.lengthEffectNRoundedLabel = new System.Windows.Forms.Label();
-            this.parameterATextBox = new System.Windows.Forms.TextBox();
-            this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lengthEffectErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
-            this.lengthEffectTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -128,7 +120,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 3);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 1);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.lengthEffectTableLayoutPanel, 0, 0);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
@@ -137,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(895, 797);
+            this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 797);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
             // 
             // labelTotalScenarioContribution
@@ -153,98 +144,27 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             // 
             this.dataGridViewControl.AutoSize = true;
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 82);
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 26);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(889, 699);
+            this.dataGridViewControl.Size = new System.Drawing.Size(997, 755);
             this.dataGridViewControl.TabIndex = 1;
             // 
             // labelCalculations
             // 
             this.labelCalculations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCalculations.Location = new System.Drawing.Point(3, 56);
+            this.labelCalculations.Location = new System.Drawing.Point(3, 0);
             this.labelCalculations.Name = "labelCalculations";
-            this.labelCalculations.Size = new System.Drawing.Size(889, 23);
+            this.labelCalculations.Size = new System.Drawing.Size(997, 23);
             this.labelCalculations.TabIndex = 2;
             this.labelCalculations.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
             this.labelCalculations.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lengthEffectTableLayoutPanel
-            // 
-            
-            this.lengthEffectTableLayoutPanel.AutoSize = true;
-            this.lengthEffectTableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowOnly;
-            this.lengthEffectTableLayoutPanel.ColumnCount = 2;
-            this.lengthEffectTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.lengthEffectTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.parameterALabel, 0, 0);
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedLabel, 0, 1);
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.parameterATextBox, 1, 0);
-            this.lengthEffectTableLayoutPanel.Controls.Add(this.lengthEffectNRoundedTextBox, 1, 1);
-            this.lengthEffectTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
-            this.lengthEffectTableLayoutPanel.Location = new System.Drawing.Point(0, 3);
-            this.lengthEffectTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.lengthEffectTableLayoutPanel.Name = "lengthEffectTableLayoutPanel";
-            this.lengthEffectTableLayoutPanel.RowCount = 2;
-            this.lengthEffectTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.lengthEffectTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.lengthEffectTableLayoutPanel.Size = new System.Drawing.Size(889, 50);
-            this.lengthEffectTableLayoutPanel.TabIndex = 3;
-            // 
-            // parameterALabel
-            // 
-            this.parameterALabel.AutoSize = true;
-            this.parameterALabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.parameterALabel.Location = new System.Drawing.Point(3, 0);
-            this.parameterALabel.Name = "parameterALabel";
-            this.parameterALabel.Size = new System.Drawing.Size(1, 26);
-            this.parameterALabel.TabIndex = 0;
-            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
-            this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lengthEffectNRoundedLabel
-            // 
-            this.lengthEffectNRoundedLabel.AutoSize = true;
-            this.lengthEffectNRoundedLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectNRoundedLabel.Location = new System.Drawing.Point(3, 26);
-            this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
-            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(1, 26);
-            this.lengthEffectNRoundedLabel.TabIndex = 1;
-            this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
-            this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // parameterATextBox
-            // 
-            this.parameterATextBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.parameterATextBox.Location = new System.Drawing.Point(9, 3);
-            this.parameterATextBox.Name = "parameterATextBox";
-            this.parameterATextBox.Size = new System.Drawing.Size(100, 20);
-            this.parameterATextBox.TabIndex = 2;
-            this.parameterATextBox.Leave += new EventHandler(this.LengthEffectATextBoxLeave);
-            this.parameterATextBox.KeyDown += new KeyEventHandler(this.LengthEffectATextBoxKeyDown);
-            // 
-            // lengthEffectNRoundedTextBox
-            // 
-            this.lengthEffectNRoundedTextBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(9, 29);
-            this.lengthEffectNRoundedTextBox.Name = "lengthEffectNRoundedTextBox";
-            this.lengthEffectNRoundedTextBox.Enabled = false;
-            this.lengthEffectNRoundedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.lengthEffectNRoundedTextBox.TabIndex = 3;
             // 
             // errorProvider
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
-            // 
-            // lengthEffectErrorProvider
-            // 
-            this.lengthEffectErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.lengthEffectErrorProvider.ContainerControl = this;
-            this.lengthEffectErrorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // MacroStabilityInwardsScenariosView
             // 
@@ -260,22 +180,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
-            this.lengthEffectTableLayoutPanel.ResumeLayout(false);
-            this.lengthEffectTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).EndInit();
             this.ResumeLayout(false);
         }
-
-        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
-
-        private System.Windows.Forms.TextBox parameterATextBox;
-        private System.Windows.Forms.TextBox lengthEffectNRoundedTextBox;
-
-        private System.Windows.Forms.Label parameterALabel;
-        private System.Windows.Forms.Label lengthEffectNRoundedLabel;
-
-        private System.Windows.Forms.TableLayoutPanel lengthEffectTableLayoutPanel;
 
         private System.Windows.Forms.ErrorProvider errorProvider;
 
