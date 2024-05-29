@@ -219,7 +219,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Controls.Add(this.radioButtonSemiProbabilistic);
             this.radioButtonsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radioButtonsPanel.Location = new System.Drawing.Point(3, 19);
-            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 19, 0, 0);
+            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.radioButtonsPanel.Name = "radioButtonsPanel";
             this.radioButtonsPanel.Size = new System.Drawing.Size(1000, 30);
             this.radioButtonsPanel.TabIndex = 0;

@@ -95,8 +95,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertClosingStructuresOutput(reader);
                     AssertHeightStructuresOutput(reader);
                     AssertStabilityPointStructuresOutput(reader);
-                    AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
-                    AssertPipingOutput(reader, sourceFilePath);
+                    AssertMacroStabilityInwardsOutput(reader);
+                    AssertPipingOutput(reader);
 
                     AssertIllustrationPointResults(reader);
                 }
@@ -107,6 +107,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
+            const string allCalculatedResultsRemovedMessage = "* Alle berekende resultaten zijn verwijderd.";
             string adjustedAssemblyResultsMigrationMessage =
                 $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
                 $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.{Environment.NewLine}" +
@@ -124,13 +125,13 @@ namespace Riskeer.Migration.Integration.Test
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
-                "* Alle berekende resultaten zijn verwijderd.",
+                allCalculatedResultsRemovedMessage,
                 adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231PipingNoManualAssessmentLevels.risk", new[]
             {
-                "* Alle berekende resultaten zijn verwijderd.",
+                allCalculatedResultsRemovedMessage,
                 adjustedAssemblyResultsMigrationMessage
             });
 
@@ -138,19 +139,19 @@ namespace Riskeer.Migration.Integration.Test
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject231WithOutput.risk", new[]
             {
-                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld.",
+                allCalculatedResultsRemovedMessage,
                 adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231DunesWithOutput.risk", new[]
             {
-                "* Alle berekende resultaten zijn verwijderd.",
+                allCalculatedResultsRemovedMessage,
                 adjustedAssemblyResultsMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsWithOutput.risk", new[]
             {
-                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld.",
+                allCalculatedResultsRemovedMessage,
                 adjustedAssemblyResultsMigrationMessage
             });
 
@@ -522,62 +523,16 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
-        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
         {
-            string validateMacroStabilityInwardsOutput =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.MacroStabilityInwardsCalculationOutputEntity " +
-                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)" +
-                "WHERE UseAssessmentLevelManualInput = 1" +
-                ")" +
-                "FROM MacroStabilityInwardsCalculationOutputEntity NEW " +
-                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationOutputEntity OLD " +
-                "USING (MacroStabilityInwardsCalculationOutputEntityId)" +
-                "WHERE NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
-                "AND NEW.[FactorOfStability] IS OLD.[FactorOfStability] " +
-                "AND NEW.[ForbiddenZonesXEntryMin] IS OLD.[ForbiddenZonesXEntryMin] " +
-                "AND NEW.[ForbiddenZonesXEntryMax] IS OLD.[ForbiddenZonesXEntryMax] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleCenterX] IS OLD.[SlidingCurveLeftSlidingCircleCenterX] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleCenterY] IS OLD.[SlidingCurveLeftSlidingCircleCenterY] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleRadius] IS OLD.[SlidingCurveLeftSlidingCircleRadius] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleIsActive] = OLD.[SlidingCurveLeftSlidingCircleIsActive] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleNonIteratedForce] IS OLD.[SlidingCurveLeftSlidingCircleNonIteratedForce] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleIteratedForce] IS OLD.[SlidingCurveLeftSlidingCircleIteratedForce] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleDrivingMoment] IS OLD.[SlidingCurveLeftSlidingCircleDrivingMoment] " +
-                "AND NEW.[SlidingCurveLeftSlidingCircleResistingMoment] IS OLD.[SlidingCurveLeftSlidingCircleResistingMoment] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleCenterX] IS OLD.[SlidingCurveRightSlidingCircleCenterX] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleCenterY] IS OLD.[SlidingCurveRightSlidingCircleCenterY] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleRadius] IS OLD.[SlidingCurveRightSlidingCircleRadius] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleIsActive] = OLD.[SlidingCurveRightSlidingCircleIsActive] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleNonIteratedForce] IS OLD.[SlidingCurveRightSlidingCircleNonIteratedForce] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleIteratedForce] IS OLD.[SlidingCurveRightSlidingCircleIteratedForce] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleDrivingMoment] IS OLD.[SlidingCurveRightSlidingCircleDrivingMoment] " +
-                "AND NEW.[SlidingCurveRightSlidingCircleResistingMoment] IS OLD.[SlidingCurveRightSlidingCircleResistingMoment] " +
-                "AND NEW.[SlidingCurveNonIteratedHorizontalForce] IS OLD.[SlidingCurveNonIteratedHorizontalForce] " +
-                "AND NEW.[SlidingCurveIteratedHorizontalForce] IS OLD.[SlidingCurveIteratedHorizontalForce] " +
-                "AND NEW.[SlidingCurveSliceXML] = OLD.[SlidingCurveSliceXML] " +
-                "AND NEW.[SlipPlaneLeftGridXLeft] IS OLD.[SlipPlaneLeftGridXLeft] " +
-                "AND NEW.[SlipPlaneLeftGridXRight] IS OLD.[SlipPlaneLeftGridXRight] " +
-                "AND NEW.[SlipPlaneLeftGridNrOfHorizontalPoints] = OLD.[SlipPlaneLeftGridNrOfHorizontalPoints] " +
-                "AND NEW.[SlipPlaneLeftGridZTop] IS OLD.[SlipPlaneLeftGridZTop] " +
-                "AND NEW.[SlipPlaneLeftGridZBottom] IS OLD.[SlipPlaneLeftGridZBottom] " +
-                "AND NEW.[SlipPlaneLeftGridNrOfVerticalPoints] = OLD.[SlipPlaneLeftGridNrOfVerticalPoints] " +
-                "AND NEW.[SlipPlaneRightGridXLeft] IS OLD.[SlipPlaneRightGridXLeft] " +
-                "AND NEW.[SlipPlaneRightGridXRight] IS OLD.[SlipPlaneRightGridXRight] " +
-                "AND NEW.[SlipPlaneRightGridNrOfHorizontalPoints] = OLD.[SlipPlaneRightGridNrOfHorizontalPoints] " +
-                "AND NEW.[SlipPlaneRightGridZTop] IS OLD.[SlipPlaneRightGridZTop] " +
-                "AND NEW.[SlipPlaneRightGridZBottom] IS OLD.[SlipPlaneRightGridZBottom] " +
-                "AND NEW.[SlipPlaneRightGridNrOfVerticalPoints] = OLD.[SlipPlaneRightGridNrOfVerticalPoints] " +
-                "AND NEW.[SlipPlaneTangentLinesXml] = OLD.[SlipPlaneTangentLinesXml]; " +
-                "DETACH SOURCEPROJECT;";
+            const string validateMacroStabilityInwardsOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity; ";
 
             reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsOutput);
         }
 
-        private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertPipingOutput(MigratedDatabaseReader reader)
         {
             const string validateProbabilisticCalculationOutput =
                 "SELECT COUNT() = 0 " +
@@ -585,29 +540,9 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateProbabilisticCalculationOutput);
 
-            string validateSemiProbabilisticOutput =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity " +
-                "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId) " +
-                "WHERE UseAssessmentLevelManualInput = 1" +
-                ") " +
-                "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
-                "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity OLD " +
-                "USING (SemiProbabilisticPipingCalculationOutputEntityId)" +
-                "WHERE NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[SemiProbabilisticPipingCalculationEntityId]" +
-                "AND NEW.\"Order\" = OLD.\"Order\" " +
-                "AND NEW.[HeaveFactorOfSafety] IS OLD.[HeaveFactorOfSafety] " +
-                "AND NEW.[UpliftFactorOfSafety] IS OLD.[UpliftFactorOfSafety] " +
-                "AND NEW.[SellmeijerFactorOfSafety] IS OLD.[SellmeijerFactorOfSafety] " +
-                "AND NEW.[UpliftEffectiveStress] IS OLD.[UpliftEffectiveStress] " +
-                "AND NEW.[HeaveGradient] IS OLD.[HeaveGradient] " +
-                "AND NEW.[SellmeijerCreepCoefficient] IS OLD.[SellmeijerCreepCoefficient] " +
-                "AND NEW.[SellmeijerCriticalFall] IS OLD.[SellmeijerCriticalFall] " +
-                "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
-                "DETACH SOURCEPROJECT;";
+            const string validateSemiProbabilisticOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM SemiProbabilisticPipingCalculationOutputEntity; ";
             reader.AssertReturnedDataIsValid(validateSemiProbabilisticOutput);
         }
 
