@@ -191,7 +191,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
 
             PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
-            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.ProbabilityAssessmentInput);
             metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
             metaEntity.ReadFailureMechanismValues(failureMechanism);
 

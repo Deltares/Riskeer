@@ -1009,7 +1009,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        A = random.NextDouble(),
                         WaterVolumetricWeight = random.NextDouble(),
                         PipingScenarioConfigurationType = Convert.ToByte(pipingScenarioConfigurationType)
                     }
@@ -1033,7 +1032,6 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.ProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.AreEqual(pipingScenarioConfigurationType, failureMechanism.ScenarioConfigurationType);

@@ -42,7 +42,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -579,12 +578,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedComments.Body, actualComments.Body);
         }
 
-        private static void AssertProbabilityAssessmentInput(ProbabilityAssessmentInput expectedModel,
-                                                             ProbabilityAssessmentInput actualModel)
-        {
-            Assert.AreEqual(expectedModel.A, actualModel.A);
-        }
-
         private static void AssertStructureInputBase<T>(StructuresInputBase<T> expectedInput,
                                                         StructuresInputBase<T> actualInput) where T : StructureBase
         {
@@ -1059,7 +1052,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                          PipingFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.ScenarioConfigurationType, actualFailureMechanism.ScenarioConfigurationType);
-            AssertProbabilityAssessmentInput(expectedFailureMechanism.ProbabilityAssessmentInput, actualFailureMechanism.ProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
 

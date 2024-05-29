@@ -87,7 +87,6 @@ namespace Riskeer.Storage.Core.Create.Piping
         {
             var metaEntity = new PipingFailureMechanismMetaEntity
             {
-                A = mechanism.ProbabilityAssessmentInput.A,
                 WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
                 StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
                 SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone(),

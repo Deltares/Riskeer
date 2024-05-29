@@ -36,31 +36,6 @@ namespace Riskeer.Storage.Core.Read.Piping
     {
         /// <summary>
         /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to update the
-        /// <paramref name="probabilityAssessmentInput"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the
-        /// <paramref name="probabilityAssessmentInput"/>.</param>
-        /// <param name="probabilityAssessmentInput">The <see cref="ProbabilityAssessmentInput"/> to be
-        /// updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity,
-                                                            ProbabilityAssessmentInput probabilityAssessmentInput)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (probabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
-            }
-
-            probabilityAssessmentInput.A = entity.A;
-        }
-
-        /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to update the
         /// <paramref name="generalPipingInput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the

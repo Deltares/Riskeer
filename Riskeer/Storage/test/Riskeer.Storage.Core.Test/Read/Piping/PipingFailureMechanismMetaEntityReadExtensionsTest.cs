@@ -22,9 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.Piping;
@@ -34,52 +32,6 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
     [TestFixture]
     public class PipingFailureMechanismMetaEntityReadExtensionsTest
     {
-        [Test]
-        public void ReadProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            ProbabilityAssessmentInput input = ProbabilityAssessmentInputTestFactory.Create();
-
-            // Call
-            void Call() => ((PipingFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("entity", exception.ParamName);
-        }
-
-        [Test]
-        public void ReadProbabilityAssessmentInput_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var entity = new PipingFailureMechanismMetaEntity();
-
-            // Call
-            void Call() => entity.ReadProbabilityAssessmentInput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
-        }
-
-        [Test]
-        public void ReadProbabilityAssessmentInput_ValidParameters_SetProbabilityAssessmentInputProperties()
-        {
-            // Setup
-            var random = new Random(31);
-            ProbabilityAssessmentInput inputToUpdate = ProbabilityAssessmentInputTestFactory.Create();
-            var entity = new PipingFailureMechanismMetaEntity
-            {
-                A = random.NextDouble()
-            };
-
-            // Call
-            entity.ReadProbabilityAssessmentInput(inputToUpdate);
-
-            // Assert
-            Assert.AreEqual(entity.A, inputToUpdate.A);
-        }
-
         [Test]
         public void ReadGeneralPipingInput_EntityNull_ThrowsArgumentNullException()
         {

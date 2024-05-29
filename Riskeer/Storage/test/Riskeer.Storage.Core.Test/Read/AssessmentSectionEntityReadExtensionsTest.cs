@@ -389,7 +389,6 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
-            double parameterA = random.NextDouble() / 10;
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
@@ -406,10 +405,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 PipingFailureMechanismMetaEntities =
                 {
-                    new PipingFailureMechanismMetaEntity
-                    {
-                        A = parameterA
-                    }
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -425,7 +421,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssemblyInputComments, section.Piping.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments, section.Piping.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.Piping.NotInAssemblyComments.Body);
-            Assert.AreEqual(parameterA, section.Piping.ProbabilityAssessmentInput.A);
             Assert.IsNull(section.Piping.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.Piping.StochasticSoilModels.SourcePath);
             Assert.IsNull(section.Piping.SurfaceLines.SourcePath);
@@ -455,10 +450,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = calculationsInputComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity
-                    {
-                        A = parameterA
-                    }
+                    new MacroStabilityInwardsFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
