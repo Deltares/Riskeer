@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using Riskeer.Common.Forms.Controls;
 
@@ -42,22 +43,28 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lengthEffectSettingsControl = new LengthEffectSettingsControl();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
-            this.label = new System.Windows.Forms.Label();
+            this.failureMechanismSectionsGroupBox = new System.Windows.Forms.GroupBox();
             this.listBox = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
+            this.calculationsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.calculationSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.lengthEffectSettingsControl = new Riskeer.Common.Forms.Controls.LengthEffectSettingsControl();
+            this.dataGridViewControlGroupBox = new System.Windows.Forms.GroupBox();
+            this.dataGridViewControlTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.labelCalculations = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
-            this.tableLayoutPanelDataGrid.SuspendLayout();
+            this.failureMechanismSectionsGroupBox.SuspendLayout();
+            this.calculationsTableLayoutPanel.SuspendLayout();
+            this.calculationSettingsGroupBox.SuspendLayout();
+            this.dataGridViewControlGroupBox.SuspendLayout();
+            this.dataGridViewControlTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelDataGrid);
+            this.splitContainer.Panel2.Controls.Add(this.calculationsTableLayoutPanel);
             this.splitContainer.Size = new System.Drawing.Size(1348, 797);
             this.splitContainer.SplitterDistance = 341;
             this.splitContainer.TabIndex = 0;
@@ -85,8 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelListBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanelListBox.ColumnCount = 1;
             this.tableLayoutPanelListBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelListBox.Controls.Add(this.label, 0, 0);
-            this.tableLayoutPanelListBox.Controls.Add(this.listBox, 0, 1);
+            this.tableLayoutPanelListBox.Controls.Add(this.failureMechanismSectionsGroupBox, 0, 1);
             this.tableLayoutPanelListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelListBox.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelListBox.Name = "tableLayoutPanelListBox";
@@ -96,15 +102,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.tableLayoutPanelListBox.Size = new System.Drawing.Size(341, 797);
             this.tableLayoutPanelListBox.TabIndex = 0;
             // 
-            // label
+            // failureMechanismSectionsGroupBox
             // 
-            this.label.AutoSize = true;
-            this.label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label.Location = new System.Drawing.Point(3, 0);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(443, 13);
-            this.label.TabIndex = 0;
-            this.label.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
+            this.failureMechanismSectionsGroupBox.AutoSize = true;
+            this.failureMechanismSectionsGroupBox.Controls.Add(this.listBox);
+            this.failureMechanismSectionsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.failureMechanismSectionsGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.failureMechanismSectionsGroupBox.Name = "failureMechanismSectionsGroupBox";
+            this.failureMechanismSectionsGroupBox.Size = new System.Drawing.Size(335, 791);
+            this.failureMechanismSectionsGroupBox.TabIndex = 0;
+            this.failureMechanismSectionsGroupBox.TabStop = false;
+            this.failureMechanismSectionsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
             // 
             // listBox
             // 
@@ -112,67 +120,95 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.listBox.FormattingEnabled = true;
             this.listBox.Location = new System.Drawing.Point(3, 16);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(443, 778);
-            this.listBox.TabIndex = 1;
+            this.listBox.Size = new System.Drawing.Size(329, 772);
+            this.listBox.TabIndex = 0;
             // 
-            // tableLayoutPanelDataGrid
+            // calculationsTableLayoutPanel
             // 
-            this.tableLayoutPanelDataGrid.ColumnCount = 1;
-            this.tableLayoutPanelDataGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelDataGrid.Controls.Add(this.labelTotalScenarioContribution, 0, 3);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 2);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 1);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.lengthEffectSettingsControl, 0, 0);
-            this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
-            this.tableLayoutPanelDataGrid.RowCount = 4;
-            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(1003, 797);
-            this.tableLayoutPanelDataGrid.TabIndex = 0;
+            this.calculationsTableLayoutPanel.ColumnCount = 1;
+            this.calculationsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.calculationsTableLayoutPanel.Controls.Add(this.calculationSettingsGroupBox, 0, 0);
+            this.calculationsTableLayoutPanel.Controls.Add(this.dataGridViewControlGroupBox, 0, 1);
+            this.calculationsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.calculationsTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.calculationsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.calculationsTableLayoutPanel.Name = "calculationsTableLayoutPanel";
+            this.calculationsTableLayoutPanel.RowCount = 2;
+            this.calculationsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.calculationsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.calculationsTableLayoutPanel.Size = new System.Drawing.Size(1003, 797);
+            this.calculationsTableLayoutPanel.TabIndex = 0;
+            // 
+            // calculationSettingsGroupBox
+            // 
+            this.calculationSettingsGroupBox.AutoSize = true;
+            this.calculationSettingsGroupBox.Controls.Add(this.lengthEffectSettingsControl);
+            this.calculationSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.calculationSettingsGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.calculationSettingsGroupBox.Name = "calculationSettingsGroupBox";
+            this.calculationSettingsGroupBox.Size = new System.Drawing.Size(997, 71);
+            this.calculationSettingsGroupBox.TabIndex = 0;
+            this.calculationSettingsGroupBox.TabStop = false;
+            this.calculationSettingsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculation_settings_per_FailureMechanismSection_DisplayName;
             // 
             // lengthEffectSettingsControl
             // 
             this.lengthEffectSettingsControl.AutoSize = true;
-            this.lengthEffectSettingsControl.Enabled = true;
-            this.lengthEffectSettingsControl.Visible = true;
             this.lengthEffectSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.lengthEffectSettingsControl.Location = new System.Drawing.Point(3, 16);
             this.lengthEffectSettingsControl.Name = "lengthEffectSettingsControl";
-            this.lengthEffectSettingsControl.Size = new System.Drawing.Size(1003, 52);
+            this.lengthEffectSettingsControl.Size = new System.Drawing.Size(991, 52);
+            this.lengthEffectSettingsControl.TabIndex = 0;
+            // 
+            // dataGridViewControlGroupBox
+            // 
+            this.dataGridViewControlGroupBox.AutoSize = true;
+            this.dataGridViewControlGroupBox.Controls.Add(this.dataGridViewControlTableLayoutPanel);
+            this.dataGridViewControlGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControlGroupBox.Location = new System.Drawing.Point(3, 80);
+            this.dataGridViewControlGroupBox.Name = "dataGridViewControlGroupBox";
+            this.dataGridViewControlGroupBox.Size = new System.Drawing.Size(997, 714);
+            this.dataGridViewControlGroupBox.TabIndex = 1;
+            this.dataGridViewControlGroupBox.TabStop = false;
+            this.dataGridViewControlGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
+            // 
+            // dataGridViewControlTableLayoutPanel
+            // 
+            this.dataGridViewControlTableLayoutPanel.AutoSize = true;
+            this.dataGridViewControlTableLayoutPanel.ColumnCount = 1;
+            this.dataGridViewControlTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.dataGridViewControlTableLayoutPanel.Controls.Add(this.labelTotalScenarioContribution, 0, 1);
+            this.dataGridViewControlTableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 0);
+            this.dataGridViewControlTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControlTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewControlTableLayoutPanel.Name = "dataGridViewControlTableLayoutPanel";
+            this.dataGridViewControlTableLayoutPanel.RowCount = 2;
+            this.dataGridViewControlTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.dataGridViewControlTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.dataGridViewControlTableLayoutPanel.Size = new System.Drawing.Size(991, 695);
+            this.dataGridViewControlTableLayoutPanel.TabIndex = 0;
             // 
             // labelTotalScenarioContribution
             // 
             this.labelTotalScenarioContribution.AutoSize = true;
-            this.labelTotalScenarioContribution.Location = new System.Drawing.Point(3, 784);
+            this.labelTotalScenarioContribution.Location = new System.Drawing.Point(3, 682);
             this.labelTotalScenarioContribution.Name = "labelTotalScenarioContribution";
             this.labelTotalScenarioContribution.Size = new System.Drawing.Size(0, 13);
             this.labelTotalScenarioContribution.TabIndex = 0;
-            this.labelTotalScenarioContribution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelTotalScenarioContribution.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dataGridViewControl
             // 
+            this.dataGridViewControl.AutoScroll = true;
             this.dataGridViewControl.AutoSize = true;
+            this.dataGridViewControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 26);
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(997, 755);
+            this.dataGridViewControl.Size = new System.Drawing.Size(985, 676);
             this.dataGridViewControl.TabIndex = 1;
-            // 
-            // labelCalculations
-            // 
-            this.labelCalculations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCalculations.Location = new System.Drawing.Point(3, 0);
-            this.labelCalculations.Name = "labelCalculations";
-            this.labelCalculations.Size = new System.Drawing.Size(997, 23);
-            this.labelCalculations.TabIndex = 2;
-            this.labelCalculations.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
-            this.labelCalculations.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // errorProvider
             // 
@@ -191,20 +227,37 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
-            this.tableLayoutPanelDataGrid.ResumeLayout(false);
-            this.tableLayoutPanelDataGrid.PerformLayout();
+            this.failureMechanismSectionsGroupBox.ResumeLayout(false);
+            this.calculationsTableLayoutPanel.ResumeLayout(false);
+            this.calculationsTableLayoutPanel.PerformLayout();
+            this.calculationSettingsGroupBox.ResumeLayout(false);
+            this.calculationSettingsGroupBox.PerformLayout();
+            this.dataGridViewControlGroupBox.ResumeLayout(false);
+            this.dataGridViewControlGroupBox.PerformLayout();
+            this.dataGridViewControlTableLayoutPanel.ResumeLayout(false);
+            this.dataGridViewControlTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
             this.ResumeLayout(false);
         }
 
-        private Riskeer.Common.Forms.Controls.LengthEffectSettingsControl lengthEffectSettingsControl;
-        private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.Label labelCalculations;
+
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+
+        private System.Windows.Forms.TableLayoutPanel dataGridViewControlTableLayoutPanel;
         private System.Windows.Forms.Label labelTotalScenarioContribution;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
-        private System.Windows.Forms.Label label;
+
+        private Riskeer.Common.Forms.Controls.LengthEffectSettingsControl lengthEffectSettingsControl;
+
+        private System.Windows.Forms.GroupBox calculationSettingsGroupBox;
+        private System.Windows.Forms.GroupBox dataGridViewControlGroupBox;
+
+        private System.Windows.Forms.TableLayoutPanel calculationsTableLayoutPanel;
+
         private System.Windows.Forms.ListBox listBox;
+
+        private System.Windows.Forms.GroupBox failureMechanismSectionsGroupBox;
+
+        private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBox;
 

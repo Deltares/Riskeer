@@ -327,6 +327,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rekeninstellingen voor geselecteerd vak.
+        /// </summary>
+        public static string Calculation_settings_per_FailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("Calculation_settings_per_FailureMechanismSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Riskeer berekeningenconfiguratie.
         /// </summary>
         public static string CalculationConfigurationExporter_DisplayName {

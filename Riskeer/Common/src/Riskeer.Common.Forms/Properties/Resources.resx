@@ -1550,4 +1550,7 @@ faalkans per vak
     <data name="LengthEffect_RoundedNSection_DisplayName" xml:space="preserve">
       <value>Lengte-effect parameter Nvak* [-]</value>
     </data>
+    <data name="Calculation_settings_per_FailureMechanismSection_DisplayName" xml:space="preserve">
+      <value>Rekeninstellingen voor geselecteerd vak</value>
+    </data>
 </root>
