@@ -1258,8 +1258,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism expectedFailureMechanism,
                                                                         MacroStabilityInwardsFailureMechanism actualFailureMechanism)
         {
-            AssertProbabilityAssessmentInput(expectedFailureMechanism.ProbabilityAssessmentInput,
-                                             actualFailureMechanism.ProbabilityAssessmentInput);
             AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels,
                                                             actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);

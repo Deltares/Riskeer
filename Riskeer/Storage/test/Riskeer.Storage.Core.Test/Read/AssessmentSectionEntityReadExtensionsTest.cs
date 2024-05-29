@@ -29,7 +29,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
@@ -478,10 +477,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(section.MacroStabilityInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
             Assert.IsNull(section.MacroStabilityInwards.SurfaceLines.SourcePath);
-
-            ProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
-                                                                           .ProbabilityAssessmentInput;
-            Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
         }
 
         [Test]

@@ -57,8 +57,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            GeneralMacroStabilityInwardsInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.GeneralInput.B, properties.B);
         }
 
         [Test]

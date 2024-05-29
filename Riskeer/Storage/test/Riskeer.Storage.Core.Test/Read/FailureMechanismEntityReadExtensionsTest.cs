@@ -1363,10 +1363,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 MacroStabilityInwardsFailureMechanismMetaEntities = new[]
                 {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity
-                    {
-                        A = random.NextDouble()
-                    }
+                    new MacroStabilityInwardsFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1387,35 +1384,8 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.A, failureMechanism.ProbabilityAssessmentInput.A);
-
             Assert.IsNull(metaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(metaEntity.SurfaceLineCollectionSourcePath);
-        }
-
-        [Test]
-        public void ReadAsMacroStabilityInwardsFailureMechanism_WithNullPropertiesSet_SetsMacroStabilityInwardsFailureMechanismPropertiesToNaN()
-        {
-            // Setup
-            var entity = new FailureMechanismEntity
-            {
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                MacroStabilityInwardsFailureMechanismMetaEntities = new[]
-                {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.IsNotNull(failureMechanism);
-
-            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.A, failureMechanism.ProbabilityAssessmentInput.A);
         }
 
         [Test]

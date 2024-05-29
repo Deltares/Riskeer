@@ -42,7 +42,6 @@ using Riskeer.Storage.Core.Read.DuneErosion;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
-using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -533,7 +532,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
-            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.ProbabilityAssessmentInput);
 
             string stochasticSoilModelCollectionSourcePath = metaEntity.StochasticSoilModelCollectionSourcePath;
             if (stochasticSoilModelCollectionSourcePath != null)
