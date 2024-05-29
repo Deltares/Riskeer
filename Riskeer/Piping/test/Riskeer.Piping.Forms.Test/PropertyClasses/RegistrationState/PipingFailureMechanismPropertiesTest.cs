@@ -21,12 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses.RegistrationState;
@@ -39,8 +36,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int inAssemblyPropertyIndex = 2;
-        private const int aPropertyIndex = 3;
-        private const int bPropertyIndex = 4;
+        private const int bPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,9 +57,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            ProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.ProbabilityAssessmentInput;
-            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.GeneralInput.B, properties.B);
         }
 
         [Test]
@@ -77,7 +71,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -102,12 +96,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
-
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            lengthEffectCategory,
-                                                                            "a [-]",
-                                                                            "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
             PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
@@ -158,62 +146,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new PipingFailureMechanismProperties(failureMechanism);
-
-            // Call
-            void Call() => properties.A = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new PipingFailureMechanismProperties(failureMechanism);
-
-            // Call
-            properties.A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.ProbabilityAssessmentInput.A);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
@@ -231,7 +163,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));

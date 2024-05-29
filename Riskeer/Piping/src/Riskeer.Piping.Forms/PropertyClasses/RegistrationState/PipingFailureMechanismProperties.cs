@@ -35,8 +35,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int inAssemblyPropertyIndex = 3;
-        private const int aPropertyIndex = 4;
-        private const int bPropertyIndex = 5;
+        private const int bPropertyIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
@@ -66,37 +65,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
 
         #endregion
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName);
-        }
-
         #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(aPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
-        {
-            get
-            {
-                return data.ProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.ProbabilityAssessmentInput.A = value;
-                data.NotifyObservers();
-            }
-        }
 
         [DynamicVisible]
         [PropertyOrder(bPropertyIndex)]
@@ -107,10 +76,21 @@ namespace Riskeer.Piping.Forms.PropertyClasses.RegistrationState
         {
             get
             {
-                return data.ProbabilityAssessmentInput.B;
+                return data.GeneralInput.B;
             }
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(B).Equals(propertyName);
+        }
     }
 }
