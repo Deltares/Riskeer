@@ -209,10 +209,10 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
-        public void Constructor_RadioButtonsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool radioButtonsShouldBeVisible)
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
+        public void Constructor_CalculationSettingsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
@@ -224,6 +224,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Assert
+            bool calculationSettingsVisible = scenarioConfigurationType != PipingScenarioConfigurationType.Probabilistic;
+
+            var calculationSettingsGroupBox = (GroupBox) new ControlTester("calculationSettingsGroupBox").TheObject;
+            Assert.AreEqual(calculationSettingsVisible, calculationSettingsGroupBox.Visible);
+
+            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
+            Assert.AreEqual(calculationSettingsVisible, lengthEffectSettingsControl.Visible);
+
+            bool radioButtonsShouldBeVisible = scenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             var radioButtonsPanel = (Panel) new PanelTester("radioButtonsPanel").TheObject;
             Assert.AreEqual(radioButtonsShouldBeVisible, radioButtonsPanel.Visible);
 
@@ -233,26 +242,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
             Assert.AreEqual("Probabilistisch", radioButtonProbabilistic.Text);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
-        }
-
-        [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
-        public void Constructor_LengthEffectSettingsControlCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool controlShouldBeVisible)
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism
-            {
-                ScenarioConfigurationType = scenarioConfigurationType
-            };
-
-            // Call
-            ShowPipingScenariosView(failureMechanism);
-
-            // Assert
-            LengthEffectSettingsControl lengthEffectSettingsControl = GetLengthEffectSettingsControl();
-            Assert.AreEqual(controlShouldBeVisible, lengthEffectSettingsControl.Visible);
         }
 
         [Test]
