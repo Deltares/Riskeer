@@ -52,6 +52,7 @@ namespace Riskeer.Common.Forms.Views
         private RecursiveObserver<CalculationGroup, TCalculationInput> calculationInputObserver;
 
         private IEnumerable<TScenarioRow> scenarioRows;
+        private readonly TFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism}"/>.
@@ -75,7 +76,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             CalculationGroup = calculationGroup;
-            FailureMechanism = failureMechanism;
+            this.failureMechanism = failureMechanism;
 
             InitializeObservers();
 
@@ -87,11 +88,6 @@ namespace Riskeer.Common.Forms.Views
             get => CalculationGroup;
             set => CalculationGroup = (CalculationGroup) value;
         }
-
-        /// <summary>
-        /// Gets the <see cref="TFailureMechanism"/>.
-        /// </summary>
-        protected TFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the <see cref="CalculationGroup"/>.
@@ -147,19 +143,19 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            DataGridViewControl.AddCheckBoxColumn(
+            dataGridViewControl.AddCheckBoxColumn(
                 nameof(ScenarioRow<TCalculationScenario>.IsRelevant),
                 Resources.ScenarioView_InitializeDataGridView_In_final_rating
             );
-            DataGridViewControl.AddTextBoxColumn(
+            dataGridViewControl.AddTextBoxColumn(
                 nameof(ScenarioRow<TCalculationScenario>.Contribution),
                 Resources.ScenarioView_InitializeDataGridView_Contribution
             );
-            DataGridViewControl.AddTextBoxColumn(
+            dataGridViewControl.AddTextBoxColumn(
                 nameof(ScenarioRow<TCalculationScenario>.Name),
                 Resources.ScenarioView_Name_DisplayName
             );
-            DataGridViewControl.AddTextBoxColumn(
+            dataGridViewControl.AddTextBoxColumn(
                 nameof(ScenarioRow<TCalculationScenario>.FailureProbability),
                 Resources.ScenarioView_SectionFailureProbability_DisplayName
             );
@@ -169,7 +165,7 @@ namespace Riskeer.Common.Forms.Views
         {
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
-                Observable = FailureMechanism
+                Observable = failureMechanism
             };
 
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
@@ -206,12 +202,12 @@ namespace Riskeer.Common.Forms.Views
             if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
                 scenarioRows = null;
-                DataGridViewControl.SetDataSource(null);
+                dataGridViewControl.SetDataSource(null);
                 return;
             }
 
             scenarioRows = GetScenarioRows(failureMechanismSection);
-            DataGridViewControl.SetDataSource(scenarioRows);
+            dataGridViewControl.SetDataSource(scenarioRows);
         }
 
         private void InitializeListBox()
@@ -224,10 +220,10 @@ namespace Riskeer.Common.Forms.Views
         {
             listBox.Items.Clear();
 
-            if (FailureMechanism.Sections.Any())
+            if (failureMechanism.Sections.Any())
             {
-                listBox.Items.AddRange(FailureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = FailureMechanism.Sections.First();
+                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = failureMechanism.Sections.First();
             }
         }
 
@@ -239,7 +235,7 @@ namespace Riskeer.Common.Forms.Views
         private void UpdateScenarioRows()
         {
             scenarioRows.ForEachElementDo(row => row.Update());
-            DataGridViewControl.RefreshDataGridView();
+            dataGridViewControl.RefreshDataGridView();
         }
 
         private void UpdateTotalScenarioContributionLabel()
