@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration = 
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(c.Section, sectionResult.Section));
             
-            return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.ProbabilityAssessmentInput.B));
+            return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.GeneralInput.B));
         }
     }
 }
