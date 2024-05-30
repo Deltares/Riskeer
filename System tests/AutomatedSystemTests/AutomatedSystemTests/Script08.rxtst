@@ -16,23 +16,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="02cd3733-484f-4f49-92bb-9dbf78252635"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<description>
-					<![CDATA[Select FM]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathFM"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="08045ee7-a38c-413f-a967-0529d3cf7310"
 			name="OpenCategoriesView">
@@ -59,29 +42,6 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="31f8fa48-8df5-4571-805d-fdd9f7d30d39"
-			name="GetValueParameterInPropertiesPanelGivenPath"
-			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
-			type="UserCode">
-				<description>
-					<![CDATA[Retrieve modified value a]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToParameterInPP"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
-					variablename="valueOfElement">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="36d2d6ea-bfd7-4bff-afd2-7f9493f9164b"
@@ -174,34 +134,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="tableFMsForNewValueParameter_a"
-			errorbehavior="ContinueNextIteration"
-			id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-			name="ValidationParameter_a">
-				<parameters>
-					<param
-					mask="False"
-					name="pathToParameterInPP"
-					value="Lengte-effect>a [-]">
-					</param>
-					<param
-					mask="False"
-					name="originalValueParameter"
-					value="">
-					</param>
-					<param
-					mask="False"
-					name="typeParameter"
-					value="Double">
-					</param>
-					<param
-					mask="False"
-					name="finalValueParameter"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="43f290f5-3f68-46c7-b9f2-50d13d8dd1a7"
 			name="ExpandRowItemsInPropertiesPanel"
@@ -377,26 +309,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="5f54013e-c380-4b22-a591-eb123e11cbd0"
-			name="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
-			ref="3314c841-2400-467a-8ba2-57b55ddfeec2"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToParameterInPP"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="d40bcbfe-ffe8-47cc-969c-7d0fac936b80"
-					variablename="pathToRowInPropertiesPanel">
-					</var>
-					<var
-					dataname="newValue_a"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="0675c45c-e880-46f2-98bd-e4e10289d70f"
-					variablename="expectedValueString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="63483576-888f-4739-b375-5ed22953f933"
 			name="SetValueWithKeyPressParameterForItemInTraject"
 			ref="e550d732-7780-4b40-a989-f787f458a7c7"
@@ -460,66 +372,10 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="75e453f0-f8b3-4939-99d7-8ba2f843583b"
-			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
-			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
-			type="UserCode">
-				<description>
-					<![CDATA[Set new value a]]>
-				</description>
-				<databinding>
-					<var
-					dataname="newValue_a"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-					<var
-					dataname="pathToParameterInPP"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="typeParameter"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-				</databinding>
-			</testmodule>
 			<setup
 			id="7d9745bb-c43c-4f21-8864-1eff4f432867"
 			name="setup">
 			</setup>
-			<smartfoldernode
-			id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3"
-			name="b)LengthEffectParameters">
-			</smartfoldernode>
-			<testmodule
-			id="80c65b50-c2bf-43e5-95c1-a8b5dee75436"
-			name="GetValueParameterInPropertiesPanelGivenPath"
-			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
-			type="UserCode">
-				<description>
-					<![CDATA[Get current value a]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToParameterInPP"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="originalValueParameter"
-					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
-					variablename="valueOfElement">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="81a7521a-fd06-4e60-a3e5-d53488cff505"
 			name="SelectGenericItemInProjectExplorer"
@@ -553,7 +409,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="a232761c-ffe8-4256-854d-c47a253ea9ba"
-			name="a)Determine_Categories_Failure_Prob_per_Section">
+			name="Determine_Categories_Failure_Prob_per_Section">
 				<parameters>
 					<param
 					mask="False"
@@ -868,7 +724,7 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="a232761c-ffe8-4256-854d-c47a253ea9ba"
-						name="a)Determine_Categories_Failure_Prob_per_Section">
+						name="Determine_Categories_Failure_Prob_per_Section">
 							<smartfoldernode
 							id="08045ee7-a38c-413f-a967-0529d3cf7310"
 							name="OpenCategoriesView">
@@ -998,34 +854,6 @@
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
-						<smartfoldernode
-						id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3"
-						name="b)LengthEffectParameters">
-							<smartfoldernode
-							id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
-							name="ValidationParameter_a">
-								<testmodule
-								id="02cd3733-484f-4f49-92bb-9dbf78252635"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="80c65b50-c2bf-43e5-95c1-a8b5dee75436"
-								name="GetValueParameterInPropertiesPanelGivenPath">
-								</testmodule>
-								<testmodule
-								id="75e453f0-f8b3-4939-99d7-8ba2f843583b"
-								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
-								</testmodule>
-								<testmodule
-								id="31f8fa48-8df5-4571-805d-fdd9f7d30d39"
-								name="GetValueParameterInPropertiesPanelGivenPath">
-								</testmodule>
-								<testmodule
-								id="5f54013e-c380-4b22-a591-eb123e11cbd0"
-								name="ValidateDoubleValueparameterInPropertiesPanelGivenPath">
-								</testmodule>
-							</smartfoldernode>
-						</smartfoldernode>
 						<teardown
 						id="e87f41bd-72f5-4337-a46e-fdeb50c9c39e"
 						name="teardown">
@@ -1048,48 +876,6 @@
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
-		<DataSource
-		id="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-		lastknownrowcount="2"
-		name="tableFMsForNewValueParameter_a"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathFM
-				</column>
-				<column>
-					newValue_a
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathFM
-					</th>
-					<th>
-						newValue_a
-					</th>
-				</tr>
-				<tr>
-					<td>
-						@TR&gt;@GF&gt;@STPH
-					</td>
-					<td>
-						0.8
-					</td>
-				</tr>
-				<tr>
-					<td>
-						@TR&gt;@GF&gt;@STBI
-					</td>
-					<td>
-						0.05
-					</td>
-				</tr>
-			</table>
-		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -1099,16 +885,10 @@
 			id="08045ee7-a38c-413f-a967-0529d3cf7310">
 			</testcontainer>
 			<testcontainer
-			id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f">
-			</testcontainer>
-			<testcontainer
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4">
 			</testcontainer>
 			<testcontainer
 			id="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75">
-			</testcontainer>
-			<testcontainer
-			id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3">
 			</testcontainer>
 			<testcontainer
 			id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2">
