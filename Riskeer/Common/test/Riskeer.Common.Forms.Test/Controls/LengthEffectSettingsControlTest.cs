@@ -60,8 +60,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             ShowLengthEffectSettingsControl();
 
             // Assert
-            var lengthEffectALabel = (Label) new LabelTester("parameterALabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter a [-]", lengthEffectALabel.Text);
+            var parameterALabel = (Label) new LabelTester("parameterALabel").TheObject;
+            Assert.AreEqual("Lengte-effect parameter a [-]", parameterALabel.Text);
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
@@ -173,15 +173,15 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
-            var lengthEffectATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             // When
             settingsControl.ClearData();
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
         }
 
@@ -202,8 +202,8 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
-            var lengthEffectATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             parameterATextBoxTester.Enter("0,7");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
@@ -235,8 +235,8 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
-            var lengthEffectATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
 
             // When
@@ -245,7 +245,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             settingsControl.SetData(newConfiguration, random.NextDouble());
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
         }
 
@@ -265,8 +265,8 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Precondition
             ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
-            var lengthEffectATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            string errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
 
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             parameterATextBoxTester.Enter("NotADouble");
 
             // Then
-            errorMessage = errorProvider.GetError(lengthEffectATextBox);
+            errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
