@@ -2288,6 +2288,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;Nvak*&apos; die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets..
+        /// </summary>
+        public static string LengthEffect_RoundedNSection_Description {
+            get {
+                return ResourceManager.GetString("LengthEffect_RoundedNSection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameter Nvak* [-].
         /// </summary>
         public static string LengthEffect_RoundedNSection_DisplayName {
@@ -2560,6 +2569,15 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mechanismegevoelige fractie van het dijkvak..
+        /// </summary>
+        public static string Parameter_A_Description {
+            get {
+                return ResourceManager.GetString("Parameter_A_Description", resourceCulture);
             }
         }
         

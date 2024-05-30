@@ -46,6 +46,8 @@ namespace Riskeer.Common.Forms.Controls
             this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.parameterATextBox = new System.Windows.Forms.TextBox();
             this.lengthEffectErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.parameterAToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.lengthEffectNRoundedToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +78,7 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterALabel.Location = new System.Drawing.Point(0, 3);
             this.parameterALabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.parameterALabel.Name = "parameterALabel";
-            this.parameterALabel.Size = new System.Drawing.Size(165, 20);
+            this.parameterALabel.Size = new System.Drawing.Size(166, 20);
             this.parameterALabel.TabIndex = 0;
             this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.Parameter_A_DisplayName;
             this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -88,7 +90,7 @@ namespace Riskeer.Common.Forms.Controls
             this.lengthEffectNRoundedLabel.Location = new System.Drawing.Point(0, 29);
             this.lengthEffectNRoundedLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
-            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(165, 118);
+            this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(166, 118);
             this.lengthEffectNRoundedLabel.TabIndex = 1;
             this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -97,7 +99,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.lengthEffectNRoundedTextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.lengthEffectNRoundedTextBox.Enabled = false;
-            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(171, 29);
+            this.lengthEffectNRoundedTextBox.Location = new System.Drawing.Point(172, 29);
             this.lengthEffectNRoundedTextBox.Name = "lengthEffectNRoundedTextBox";
             this.lengthEffectNRoundedTextBox.Size = new System.Drawing.Size(69, 20);
             this.lengthEffectNRoundedTextBox.TabIndex = 2;
@@ -106,7 +108,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.parameterATextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.parameterATextBox.Enabled = false;
-            this.parameterATextBox.Location = new System.Drawing.Point(171, 3);
+            this.parameterATextBox.Location = new System.Drawing.Point(172, 3);
             this.parameterATextBox.Name = "parameterATextBox";
             this.parameterATextBox.Size = new System.Drawing.Size(69, 20);
             this.parameterATextBox.TabIndex = 3;
@@ -117,6 +119,18 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.lengthEffectErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.lengthEffectErrorProvider.ContainerControl = this;
+            // 
+            // parameterAToolTip
+            // 
+            this.parameterAToolTip.AutoPopDelay = 5000;
+            this.parameterAToolTip.InitialDelay = 100;
+            this.parameterAToolTip.ReshowDelay = 100;
+            // 
+            // lengthEffectNRoundedToolTip
+            // 
+            this.lengthEffectNRoundedToolTip.AutoPopDelay = 5000;
+            this.lengthEffectNRoundedToolTip.InitialDelay = 100;
+            this.lengthEffectNRoundedToolTip.ReshowDelay = 100;
             // 
             // LengthEffectSettingsControl
             // 
@@ -132,6 +146,9 @@ namespace Riskeer.Common.Forms.Controls
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ToolTip parameterAToolTip;
+        private System.Windows.Forms.ToolTip lengthEffectNRoundedToolTip;
 
         private System.Windows.Forms.Label parameterALabel;
         private System.Windows.Forms.Label lengthEffectNRoundedLabel;

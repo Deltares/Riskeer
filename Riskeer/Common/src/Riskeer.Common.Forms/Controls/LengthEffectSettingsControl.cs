@@ -27,6 +27,7 @@ using Core.Common.Base.Exceptions;
 using Core.Common.Base.Helpers;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Controls
 {
@@ -49,6 +50,8 @@ namespace Riskeer.Common.Forms.Controls
         public LengthEffectSettingsControl()
         {
             InitializeComponent();
+            InitializeToolTips();
+            
             scenarioConfigurationObserver = new Observer(UpdateLengthEffectData);
         }
 
@@ -106,6 +109,12 @@ namespace Riskeer.Common.Forms.Controls
             }
 
             base.Dispose(disposing);
+        }
+
+        private void InitializeToolTips()
+        {
+            parameterAToolTip.SetToolTip(parameterALabel, Resources.Parameter_A_Description);
+            lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffect_RoundedNSection_Description);
         }
 
         private void ParameterATextBoxKeyDown(object sender, KeyEventArgs e)

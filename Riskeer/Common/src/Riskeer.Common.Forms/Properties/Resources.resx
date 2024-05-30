@@ -1553,4 +1553,10 @@ faalkans per vak
     <data name="Calculation_settings_per_FailureMechanismSection_DisplayName" xml:space="preserve">
       <value>Rekeninstellingen voor geselecteerd vak</value>
     </data>
+    <data name="Parameter_A_Description" xml:space="preserve">
+      <value>Mechanismegevoelige fractie van het dijkvak.</value>
+    </data>
+    <data name="LengthEffect_RoundedNSection_Description" xml:space="preserve">
+      <value>De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.</value>
+    </data>
 </root>

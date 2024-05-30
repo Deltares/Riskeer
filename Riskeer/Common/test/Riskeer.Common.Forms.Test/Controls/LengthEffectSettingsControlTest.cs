@@ -60,14 +60,39 @@ namespace Riskeer.Common.Forms.Test.Controls
             ShowLengthEffectSettingsControl();
 
             // Assert
-            var parameterALabel = (Label) new LabelTester("parameterALabel").TheObject;
+            Label parameterALabel = GetParameterALabel();
             Assert.AreEqual("Mechanismegevoelige fractie a [-]", parameterALabel.Text);
 
-            var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
+            Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
+        }
+
+        [Test]
+        public void Constructor_ToolTipsCorrectlyInitialized()
+        {
+            // Call
+            LengthEffectSettingsControl view = ShowLengthEffectSettingsControl();
+
+            // Assert
+            Label parameterALabel = GetParameterALabel();
+            var parameterAToolTip = TypeUtils.GetField<ToolTip>(view, "parameterAToolTip");
+            
+            Assert.AreEqual("Mechanismegevoelige fractie van het dijkvak.",
+                            parameterAToolTip.GetToolTip(parameterALabel));
+            Assert.AreEqual(5000, parameterAToolTip.AutoPopDelay);
+            Assert.AreEqual(100, parameterAToolTip.InitialDelay);
+            Assert.AreEqual(100, parameterAToolTip.ReshowDelay);
+
+            Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
+            var lengthEffectNRoundedToolTip = TypeUtils.GetField<ToolTip>(view, "lengthEffectNRoundedToolTip");
+            Assert.AreEqual("De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.",
+                            lengthEffectNRoundedToolTip.GetToolTip(lengthEffectNRoundedLabel));
+            Assert.AreEqual(5000, lengthEffectNRoundedToolTip.AutoPopDelay);
+            Assert.AreEqual(100, lengthEffectNRoundedToolTip.InitialDelay);
+            Assert.AreEqual(100, lengthEffectNRoundedToolTip.ReshowDelay);
         }
 
         [Test]
@@ -467,6 +492,16 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Then
             Assert.AreEqual("0,700", parameterATextBoxTester.Text);
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
+        }
+
+        private static Label GetParameterALabel()
+        {
+            return (Label) new LabelTester("parameterALabel").TheObject;
+        }
+
+        private static Label GetLengthEffectNRoundedLabel()
+        {
+            return (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
         }
 
         private static TextBoxTester GetParameterATextBoxTester()
