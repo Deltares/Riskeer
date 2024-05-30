@@ -1544,7 +1544,7 @@ faalkans per vak
     <data name="HydraulicBoundaryDatabase_Description" xml:space="preserve">
       <value>Naam van het bijbehorende HRD bestand.</value>
     </data>
-    <data name="LengthEffect_A_DisplayName" xml:space="preserve">
+    <data name="Parameter_A_DisplayName" xml:space="preserve">
       <value>Lengte-effect parameter a [-]</value>
     </data>
     <data name="LengthEffect_RoundedNSection_DisplayName" xml:space="preserve">

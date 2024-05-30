@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterALabel.Name = "parameterALabel";
             this.parameterALabel.Size = new System.Drawing.Size(165, 20);
             this.parameterALabel.TabIndex = 0;
-            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_A_DisplayName;
+            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.Parameter_A_DisplayName;
             this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectNRoundedLabel

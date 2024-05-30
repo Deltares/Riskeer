@@ -2288,15 +2288,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameter a [-].
-        /// </summary>
-        public static string LengthEffect_A_DisplayName {
-            get {
-                return ResourceManager.GetString("LengthEffect_A_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameter Nvak* [-].
         /// </summary>
         public static string LengthEffect_RoundedNSection_DisplayName {
@@ -2569,6 +2560,15 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengte-effect parameter a [-].
+        /// </summary>
+        public static string Parameter_A_DisplayName {
+            get {
+                return ResourceManager.GetString("Parameter_A_DisplayName", resourceCulture);
             }
         }
         
