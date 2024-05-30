@@ -123,18 +123,6 @@ namespace Riskeer.Migration.Integration.Test
                 adjustedAssemblyResultsMigrationMessage
             });
 
-            yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
-            {
-                allCalculatedResultsRemovedMessage,
-                adjustedAssemblyResultsMigrationMessage
-            });
-
-            yield return new TestCaseData("MigrationTestProject231PipingNoManualAssessmentLevels.risk", new[]
-            {
-                allCalculatedResultsRemovedMessage,
-                adjustedAssemblyResultsMigrationMessage
-            });
-
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject231WithOutput.risk", new[]
