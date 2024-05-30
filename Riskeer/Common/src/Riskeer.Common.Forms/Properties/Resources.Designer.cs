@@ -2807,15 +2807,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vak.
-        /// </summary>
-        public static string Section_DisplayName {
-            get {
-                return ResourceManager.GetString("Section_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond)..
         /// </summary>
         public static string SectionEnd_Description {
@@ -2858,6 +2849,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string SectionStart_DisplayName {
             get {
                 return ResourceManager.GetString("SectionStart_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer vak.
+        /// </summary>
+        public static string Select_section_DisplayName {
+            get {
+                return ResourceManager.GetString("Select_section_DisplayName", resourceCulture);
             }
         }
         

@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.failureMechanismSectionsGroupBox.Size = new System.Drawing.Size(335, 791);
             this.failureMechanismSectionsGroupBox.TabIndex = 0;
             this.failureMechanismSectionsGroupBox.TabStop = false;
-            this.failureMechanismSectionsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
+            this.failureMechanismSectionsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Select_section_DisplayName;
             // 
             // listBox
             // 
