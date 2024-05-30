@@ -1370,7 +1370,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
+        ///   Looks up a localized string similar to Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak..
         /// </summary>
         public static string FailureMechanism_GeneralInput_B_Description {
             get {
@@ -1379,7 +1379,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to b [m].
+        ///   Looks up a localized string similar to Equivalente onafhankelijke lengte b [m].
         /// </summary>
         public static string FailureMechanism_GeneralInput_B_DisplayName {
             get {
@@ -2564,7 +2564,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameter a [-].
+        ///   Looks up a localized string similar to Mechanismegevoelige fractie a [-].
         /// </summary>
         public static string Parameter_A_DisplayName {
             get {

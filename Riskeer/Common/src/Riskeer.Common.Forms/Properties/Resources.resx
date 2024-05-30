@@ -1278,11 +1278,11 @@ Betrouwbaarheidsindex = {1}</value>
     <value>Beginpunt</value>
   </data>
     <data name="FailureMechanism_GeneralInput_B_Description" xml:space="preserve">
-    <value>De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
-  </data>
+      <value>Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak.</value>
+    </data>
     <data name="FailureMechanism_GeneralInput_B_DisplayName" xml:space="preserve">
-    <value>b [m]</value>
-  </data>
+      <value>Equivalente onafhankelijke lengte b [m]</value>
+    </data>
     <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>
   </data>
@@ -1545,7 +1545,7 @@ faalkans per vak
       <value>Naam van het bijbehorende HRD bestand.</value>
     </data>
     <data name="Parameter_A_DisplayName" xml:space="preserve">
-      <value>Lengte-effect parameter a [-]</value>
+      <value>Mechanismegevoelige fractie a [-]</value>
     </data>
     <data name="LengthEffect_RoundedNSection_DisplayName" xml:space="preserve">
       <value>Lengte-effect parameter Nvak* [-]</value>

@@ -103,8 +103,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
             PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             lengthEffectCategory,
-                                                                            "b [m]",
-                                                                            "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
+                                                                            "Equivalente onafhankelijke lengte b [m]",
+                                                                            "Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak.",
                                                                             true);
         }
 

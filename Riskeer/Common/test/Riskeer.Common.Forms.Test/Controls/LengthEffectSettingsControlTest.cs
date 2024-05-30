@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Assert
             var parameterALabel = (Label) new LabelTester("parameterALabel").TheObject;
-            Assert.AreEqual("Lengte-effect parameter a [-]", parameterALabel.Text);
+            Assert.AreEqual("Mechanismegevoelige fractie a [-]", parameterALabel.Text);
 
             var lengthEffectNRoundedLabel = (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
