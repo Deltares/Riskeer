@@ -176,8 +176,8 @@ namespace Riskeer.Piping.Data
         #region Length Effect parameters
 
         /// <summary>
-        /// Gets the 'b' parameter used to factor in the 'length effect' when determining
-        /// the maximum tolerated probability of failure.
+        /// Gets the 'b' parameter representing the equivalent independent length to factor
+        /// in the 'length effect'.
         /// </summary>
         public double B { get; }
 

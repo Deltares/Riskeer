@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> the scenario configuration belongs to.</param>
-        /// <param name="a">The 'a' parameter for determining the maximum tolerated probability of failure.</param>
+        /// <param name="a">The 'a' parameter representing the failure mechanism sensitive fraction.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when '<paramref name="a"/> is not in the range [0, 1].</exception>
         protected ScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a)
