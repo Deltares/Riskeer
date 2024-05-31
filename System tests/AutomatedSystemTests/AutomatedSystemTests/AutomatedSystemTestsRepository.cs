@@ -2677,7 +2677,7 @@ namespace AutomatedSystemTests
             /// Creates a new ListSectionsNames  folder.
             /// </summary>
             public ListSectionsNamesFolder(RepoGenBaseFolder parentFolder) :
-                    base("ListSectionsNames", "container/container/?/list/list", parentFolder, 30000, null, false, "f3cd16ba-c2de-4890-b253-71355634e232", "")
+                    base("ListSectionsNames", "container/container/?/?/list/list", parentFolder, 30000, null, false, "f3cd16ba-c2de-4890-b253-71355634e232", "")
             {
                 _genericsectionInfo = new RepoItemInfo(this, "GenericSection", "listitem[@index=$indexSection]", "", 30000, null, "f3f7de84-f41c-4188-9eff-d19414f68a60");
             }
