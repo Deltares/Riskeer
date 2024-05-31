@@ -2677,7 +2677,7 @@ namespace AutomatedSystemTests
             /// Creates a new ListSectionsNames  folder.
             /// </summary>
             public ListSectionsNamesFolder(RepoGenBaseFolder parentFolder) :
-                    base("ListSectionsNames", "container/container/?/?/list/list", parentFolder, 30000, null, false, "f3cd16ba-c2de-4890-b253-71355634e232", "")
+                    base("ListSectionsNames", "container/container/container/?/list/list", parentFolder, 30000, null, false, "f3cd16ba-c2de-4890-b253-71355634e232", "")
             {
                 _genericsectionInfo = new RepoItemInfo(this, "GenericSection", "listitem[@index=$indexSection]", "", 30000, null, "f3f7de84-f41c-4188-9eff-d19414f68a60");
             }
@@ -2743,7 +2743,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder2(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container/container/container/container/table", parentFolder, 30000, null, false, "c392e579-2f5f-4a7d-9900-272745c078bf", "")
+                    base("Table", "container/container/container/container/container/container/table", parentFolder, 30000, null, false, "c392e579-2f5f-4a7d-9900-272745c078bf", "")
             {
                 _genericrowcontributionInfo = new RepoItemInfo(this, "GenericRowContribution", "row[@accessiblename='Row 0']/cell[@accessiblename>'Bijdrage aanscenario[%]']", "", 30000, null, "3476c0a3-36a4-4281-90a3-065844674eb8");
             }

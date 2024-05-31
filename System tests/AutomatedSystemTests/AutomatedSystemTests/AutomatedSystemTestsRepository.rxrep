@@ -471,10 +471,10 @@ TkSuQmCC
 							name="GenericSection"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/?/?/list/list/listitem[@index=$indexSection]
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list/listitem[@index=$indexSection]
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/?/?/list/list
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list
 							</basepath>
 						</folder>
 						<folder
@@ -491,10 +491,10 @@ TkSuQmCC
 							name="GenericRowContribution"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/container/table
 							</basepath>
 						</folder>
 						<basepath>
