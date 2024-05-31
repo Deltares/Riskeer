@@ -22,7 +22,7 @@
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.Data.Test.FailureMechanism
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple configuration that can be used in tests.

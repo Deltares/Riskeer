@@ -30,7 +30,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Test.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 
@@ -372,8 +371,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
             const Keys keyData = Keys.Escape;
 
-            var parameterTextBox = (TextBox) parameterATextBoxTester.TheObject;
-            parameterTextBox.TextChanged += (sender, args) =>
+            var parameterATextBox = (TextBox) parameterATextBoxTester.TheObject;
+            parameterATextBox.TextChanged += (sender, args) =>
             {
                 parameterATextBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
             };
@@ -385,7 +384,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
 
             // When
-            parameterTextBox.Text = "NotAProbability";
+            parameterATextBox.Text = "NotAValue";
 
             // Then
             Assert.AreEqual(initialAValue, parameterATextBoxTester.Text);

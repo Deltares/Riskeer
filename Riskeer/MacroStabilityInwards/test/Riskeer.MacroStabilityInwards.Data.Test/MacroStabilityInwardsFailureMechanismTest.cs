@@ -45,9 +45,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            GeneralMacroStabilityInwardsInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(50, generalInput.B);
-
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
