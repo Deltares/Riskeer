@@ -118,11 +118,6 @@
 					name="LowLimitValue"
 					value="">
 					</param>
-					<param
-					mask="False"
-					name="dummyString"
-					value="">
-					</param>
 				</parameters>
 			</testcase>
 			<teardown
@@ -253,6 +248,7 @@
 			includeimageschecked="False"
 			includerecordingschecked="False"
 			junitreport="False"
+			junitreportshowerrafterstd="True"
 			name="Script07"
 			overwritefilechecked="False"
 			reportcompress="False"
