@@ -21,7 +21,6 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Exceptions;
 using Core.Common.Base.Helpers;
@@ -38,21 +37,18 @@ namespace Riskeer.Common.Forms.Controls
     {
         private const int lengthEffectNNrOfDecimals = 2;
 
-        private readonly Observer scenarioConfigurationObserver;
         private double b;
         private ScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection;
 
         private bool isParameterAUpdating;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LengthEffectSettingsControl"/>
+        /// Creates a new instance of <see cref="LengthEffectSettingsControl"/>.
         /// </summary>
         public LengthEffectSettingsControl()
         {
             InitializeComponent();
             InitializeToolTips();
-            
-            scenarioConfigurationObserver = new Observer(UpdateLengthEffectData);
         }
 
         /// <summary>
@@ -75,7 +71,6 @@ namespace Riskeer.Common.Forms.Controls
 
             this.b = b;
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
-            scenarioConfigurationObserver.Observable = scenarioConfiguration;
 
             UpdateLengthEffectData();
 
@@ -90,7 +85,6 @@ namespace Riskeer.Common.Forms.Controls
             isParameterAUpdating = true;
             scenarioConfigurationPerFailureMechanismSection = null;
 
-            scenarioConfigurationObserver.Observable = scenarioConfigurationPerFailureMechanismSection;
             ClearLengthEffectErrorMessage();
             ClearLengthEffectData();
 
@@ -101,8 +95,6 @@ namespace Riskeer.Common.Forms.Controls
 
         protected override void Dispose(bool disposing)
         {
-            scenarioConfigurationObserver.Dispose();
-
             if (disposing && (components != null))
             {
                 components.Dispose();

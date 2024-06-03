@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Assert
             Label parameterALabel = GetParameterALabel();
             var parameterAToolTip = TypeUtils.GetField<ToolTip>(view, "parameterAToolTip");
-            
+
             Assert.AreEqual("Mechanismegevoelige fractie van het dijkvak.",
                             parameterAToolTip.GetToolTip(parameterALabel));
             Assert.AreEqual(5000, parameterAToolTip.AutoPopDelay);
@@ -390,39 +390,6 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual(initialAValue, parameterATextBoxTester.Text);
             Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenControlWithConfiguration_WhenConfigurationNotifiesObservers_ThenControlsUpdated()
-        {
-            // Given
-            const double a = 0.4;
-            const double b = 300;
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(100, 0)
-            });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
-
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl();
-            settingsControl.SetData(scenarioConfiguration, b);
-
-            // Precondition
-            TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
-            Assert.AreEqual("0,400", parameterATextBoxTester.Text);
-
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
-            Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
-
-            // When
-            scenarioConfiguration.A = (RoundedDouble) 0.7;
-            scenarioConfiguration.NotifyObservers();
-
-            // Then
-            Assert.AreEqual("0,700", parameterATextBoxTester.Text);
-            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
