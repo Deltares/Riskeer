@@ -2743,7 +2743,7 @@ namespace AutomatedSystemTests
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder2(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container/container/container/container/container/container/table", parentFolder, 30000, null, false, "c392e579-2f5f-4a7d-9900-272745c078bf", "")
+                    base("Table", "container/container/container/container/container/?/table", parentFolder, 30000, null, false, "c392e579-2f5f-4a7d-9900-272745c078bf", "")
             {
                 _genericrowcontributionInfo = new RepoItemInfo(this, "GenericRowContribution", "row[@accessiblename='Row 0']/cell[@accessiblename>'Bijdrage aanscenario[%]']", "", 30000, null, "3476c0a3-36a4-4281-90a3-065844674eb8");
             }
