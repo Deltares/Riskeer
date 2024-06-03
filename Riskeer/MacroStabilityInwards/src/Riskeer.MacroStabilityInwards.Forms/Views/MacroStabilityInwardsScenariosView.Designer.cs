@@ -49,7 +49,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.listBox = new System.Windows.Forms.ListBox();
             this.calculationsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.calculationSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.lengthEffectSettingsControl = new Riskeer.Common.Forms.Controls.LengthEffectSettingsControl();
             this.dataGridViewControlGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewControlTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.labelTotalScenarioContribution = new System.Windows.Forms.Label();

@@ -57,7 +57,6 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.calculationSettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthEffectSettingsControl = new Riskeer.Common.Forms.Controls.LengthEffectSettingsControl();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.radioButtonsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();

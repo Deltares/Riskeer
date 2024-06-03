@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Controls
     {
         private const int lengthEffectNNrOfDecimals = 2;
 
-        private double b;
+        private readonly double b;
         private ScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection;
 
         private bool isParameterAUpdating;
@@ -45,8 +45,11 @@ namespace Riskeer.Common.Forms.Controls
         /// <summary>
         /// Creates a new instance of <see cref="LengthEffectSettingsControl"/>.
         /// </summary>
-        public LengthEffectSettingsControl()
+        /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
+        /// the maximum tolerated probability of failure.</param>
+        public LengthEffectSettingsControl(double b)
         {
+            this.b = b;
             InitializeComponent();
             InitializeToolTips();
         }
@@ -55,12 +58,9 @@ namespace Riskeer.Common.Forms.Controls
         /// Sets the data on the control.
         /// </summary>
         /// <param name="scenarioConfiguration">The scenario configuration to set on the control.</param>
-        /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
-        /// the maximum tolerated probability of failure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioConfiguration"/>
         /// is <c>null</c>.</exception>
-        public void SetData(ScenarioConfigurationPerFailureMechanismSection scenarioConfiguration,
-                            double b)
+        public void SetData(ScenarioConfigurationPerFailureMechanismSection scenarioConfiguration)
         {
             if (scenarioConfiguration == null)
             {
@@ -69,7 +69,6 @@ namespace Riskeer.Common.Forms.Controls
 
             ClearLengthEffectErrorMessage();
 
-            this.b = b;
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
 
             UpdateLengthEffectData();

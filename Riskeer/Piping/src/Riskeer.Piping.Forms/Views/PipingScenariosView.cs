@@ -31,6 +31,7 @@ using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Controls;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -101,6 +102,7 @@ namespace Riskeer.Piping.Forms.Views
 
             InitializeObservers();
 
+            lengthEffectSettingsControl = new LengthEffectSettingsControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
             InitializeCombobox();
@@ -442,8 +444,7 @@ namespace Riskeer.Piping.Forms.Views
 
             if (selectedFailureMechanismSection != null)
             {
-                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection,
-                                                    failureMechanism.GeneralInput.B);
+                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
             }
         }
     }

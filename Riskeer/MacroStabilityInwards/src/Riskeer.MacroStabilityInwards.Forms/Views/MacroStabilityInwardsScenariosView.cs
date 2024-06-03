@@ -30,6 +30,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Controls;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -82,6 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             InitializeObservers();
 
+            lengthEffectSettingsControl = new LengthEffectSettingsControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
             InitializeListBox();
@@ -296,8 +298,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             if (selectedFailureMechanismSection != null)
             {
-                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection,
-                                                    failureMechanism.GeneralInput.B);
+                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
             }
         }
     }
