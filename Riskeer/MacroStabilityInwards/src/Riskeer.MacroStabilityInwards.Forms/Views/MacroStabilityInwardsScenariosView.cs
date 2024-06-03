@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             InitializeObservers();
 
-            scenarioConfigurationPerFailureMechanismSectionControl = 
+            scenarioConfigurationPerFailureMechanismSectionControl =
                 new ScenarioConfigurationPerFailureMechanismSectionControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
@@ -175,15 +175,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (failureMechanism.Sections.Any())
             {
                 MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
-                        section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
-                                                 .First(sc => sc.Section == section))).ToArray();
+                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                                      .First(sc => sc.Section == section))).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
-                listBox.SelectedItem = selectedFailureMechanismSection != null
-                                           ? Array.Find(failureMechanismSectionViewModels, vm => vm.Section == selectedFailureMechanismSection.Section)
-                                             ?? failureMechanismSectionViewModels[0]
-                                           : failureMechanismSectionViewModels[0];
+                listBox.SelectedItem =
+                    selectedFailureMechanismSection != null
+                        ? Array.Find(failureMechanismSectionViewModels,
+                                     vm => vm.ScenarioConfigurationPerSection.Section == selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section)
+                          ?? failureMechanismSectionViewModels[0]
+                        : failureMechanismSectionViewModels[0];
             }
             else
             {
@@ -283,7 +284,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<MacroStabilityInwardsScenarioRow> GetScenarioRows()
         {
-            FailureMechanismSection section = selectedFailureMechanismSection.Section;
+            FailureMechanismSection section = selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section;
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(section.Points);
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
                                                                                  .GetCalculations()
@@ -292,7 +293,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
         }
-        
+
         private void UpdateLengthEffectControl()
         {
             scenarioConfigurationPerFailureMechanismSectionControl.ClearData();

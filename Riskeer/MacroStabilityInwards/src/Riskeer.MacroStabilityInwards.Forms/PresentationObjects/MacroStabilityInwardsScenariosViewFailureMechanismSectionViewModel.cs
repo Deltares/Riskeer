@@ -20,53 +20,41 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// ViewModel for a <see cref="Section"/> as shown in the <see cref="MacroStabilityInwardsScenariosView"/>.
+    /// ViewModel for a <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>
+    /// as shown in the <see cref="MacroStabilityInwardsScenariosView"/>.
     /// </summary>
     public class MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel"/>.
         /// </summary>
-        /// <param name="failureMechanismSection">The wrapped <see cref="Section"/>.</param>
         /// <param name="scenarioConfigurationPerSection">The scenario configuration that belongs to the section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(FailureMechanismSection failureMechanismSection,
-                                                                                 MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection)
+        public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
+            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection)
         {
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
             if (scenarioConfigurationPerSection == null)
             {
                 throw new ArgumentNullException(nameof(scenarioConfigurationPerSection));
             }
 
-            Section = failureMechanismSection;
             ScenarioConfigurationPerSection = scenarioConfigurationPerSection;
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="Section"/>.
-        /// </summary>
-        public FailureMechanismSection Section { get; }
-        
-        /// <summary>
-        /// Gets the <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/> that belongs to the section.
+        /// Gets the wrapped <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
         public MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection ScenarioConfigurationPerSection { get; }
 
         public override string ToString()
         {
-            return Section.Name;
+            return ScenarioConfigurationPerSection.Section.Name;
         }
     }
 }
