@@ -327,15 +327,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekeninstellingen voor geselecteerd vak.
-        /// </summary>
-        public static string Calculation_settings_per_FailureMechanismSection_DisplayName {
-            get {
-                return ResourceManager.GetString("Calculation_settings_per_FailureMechanismSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Riskeer berekeningenconfiguratie.
         /// </summary>
         public static string CalculationConfigurationExporter_DisplayName {
@@ -2941,6 +2932,15 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SemiProbabilisticCalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instellingen voor geselecteerd vak.
+        /// </summary>
+        public static string Settings_for_selected_FailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("Settings_for_selected_FailureMechanismSection_DisplayName", resourceCulture);
             }
         }
         

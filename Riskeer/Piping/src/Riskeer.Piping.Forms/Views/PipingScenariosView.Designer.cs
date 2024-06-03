@@ -256,7 +256,7 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationSettingsGroupBox.Size = new System.Drawing.Size(997, 106);
             this.calculationSettingsGroupBox.TabIndex = 1;
             this.calculationSettingsGroupBox.TabStop = false;
-            this.calculationSettingsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculation_settings_per_FailureMechanismSection_DisplayName;
+            this.calculationSettingsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Settings_for_selected_FailureMechanismSection_DisplayName;
             // 
             // calculationSettingsTableLayoutPanel
             // 
