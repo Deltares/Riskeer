@@ -27,17 +27,17 @@ using Riskeer.MacroStabilityInwards.Forms.Views;
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// ViewModel for a <see cref="Section"/> as shown in the <see cref="MacroStabilityInwardsScenariosView"/>
+    /// ViewModel for a <see cref="Section"/> as shown in the <see cref="MacroStabilityInwardsScenariosView"/>.
     /// </summary>
-    public class MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel
+    public class MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The wrapped <see cref="Section"/>.</param>
         /// <param name="scenarioConfigurationPerSection">The scenario configuration that belongs to the section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(FailureMechanismSection failureMechanismSection,
+        public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(FailureMechanismSection failureMechanismSection,
                                                                                  MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection)
         {
             if (failureMechanismSection == null)

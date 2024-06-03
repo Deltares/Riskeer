@@ -29,7 +29,7 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModelTest
+    public class MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModelTest
     {
         [Test]
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            void Call() => new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(
+            void Call() => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
                 null, new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section));
 
             // Assert
@@ -53,13 +53,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            void Call() => new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(section, null);
+            void Call() => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(section, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("scenarioConfigurationPerSection", exception.ParamName);
         }
-
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -69,21 +68,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var scenarioConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            var viewModel = new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(section, scenarioConfiguration);
+            var viewModel = new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(section, scenarioConfiguration);
 
             // Assert
             Assert.AreSame(section, viewModel.Section);
             Assert.AreSame(scenarioConfiguration, viewModel.ScenarioConfigurationPerSection);
         }
-        
+
         [Test]
-        public void ToString_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName()
+        public void ToString_ReturnsExpectedName()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var scenarioConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
 
-            var viewModel = new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(section, scenarioConfiguration);
+            var viewModel = new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(section, scenarioConfiguration);
 
             // Call
             var toString = viewModel.ToString();

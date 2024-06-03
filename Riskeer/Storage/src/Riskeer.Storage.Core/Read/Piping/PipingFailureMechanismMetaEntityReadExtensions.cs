@@ -27,9 +27,8 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for  a <see cref="GeneralPipingInput"/>
-    /// or a <see cref="PipingFailureMechanism"/> based on the
-    /// <see cref="PipingFailureMechanismMetaEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="GeneralPipingInput"/>
+    /// or a <see cref="PipingFailureMechanism"/> based on the <see cref="PipingFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class PipingFailureMechanismMetaEntityReadExtensions
     {

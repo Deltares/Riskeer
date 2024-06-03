@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
 
         private IEnumerable<MacroStabilityInwardsScenarioRow> scenarioRows;
-        private MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
+        private MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
@@ -174,8 +174,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             if (failureMechanism.Sections.Any())
             {
-                MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel(
+                MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
+                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
                         section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
                                                  .First(sc => sc.Section == section))).ToArray();
 
@@ -193,7 +193,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
-            selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenarioViewFailureMechanismSectionViewModel;
+            selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel;
             UpdateScenarioControls();
             UpdateLengthEffectControl();
         }

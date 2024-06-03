@@ -68,12 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(B).Equals(propertyName);
+            return data.InAssembly || !nameof(B).Equals(propertyName);
         }
 
         #region Length effect parameters
