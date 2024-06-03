@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             UpdateSectionsListBox();
             UpdateScenarioControls();
-            UpdateLengthEffectControl();
+            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
         }
 
         public object Data
@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
-                UpdateLengthEffectControl();
+                UpdateScenarioConfigurationPerFailureMechanismSectionControl();
             })
             {
                 Observable = failureMechanism
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             selectedFailureMechanismSection = listBox.SelectedItem as MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel;
             UpdateScenarioControls();
-            UpdateLengthEffectControl();
+            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
         }
 
         private void UpdateScenarioRows()
@@ -294,7 +294,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
         }
 
-        private void UpdateLengthEffectControl()
+        private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
         {
             scenarioConfigurationPerFailureMechanismSectionControl.ClearData();
 

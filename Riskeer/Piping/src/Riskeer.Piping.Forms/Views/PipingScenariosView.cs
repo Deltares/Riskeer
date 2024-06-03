@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Forms.Views
             UpdateScenarioControls();
 
             UpdateVisibility();
-            UpdateLengthEffectControl();
+            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
         }
 
         public object Data
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Forms.Views
             failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
-                UpdateLengthEffectControl();
+                UpdateScenarioConfigurationPerFailureMechanismSectionControl();
             })
             {
                 Observable = failureMechanism
@@ -256,13 +256,14 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateVisibility()
         {
-            bool perFailureMechanismSemiProbabilistic = selectedFailureMechanismSection != null
-                                                            ? selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
-                                                            : radioButtonSemiProbabilistic.Checked;
+            bool perFailureMechanismSectionSemiProbabilistic =
+                selectedFailureMechanismSection != null
+                    ? selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                    : radioButtonSemiProbabilistic.Checked;
 
             bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             bool semiProbabilisticControlsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                                                    || perFailureMechanismSection && perFailureMechanismSemiProbabilistic;
+                                                    || perFailureMechanismSection && perFailureMechanismSectionSemiProbabilistic;
 
             radioButtonsPanel.Visible = perFailureMechanismSection;
             warningIcon.Visible = perFailureMechanismSection;
@@ -316,7 +317,7 @@ namespace Riskeer.Piping.Forms.Views
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
             UpdateScenarioControls();
-            UpdateLengthEffectControl();
+            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
         }
 
         private void UpdateScenarioControls()
@@ -441,7 +442,7 @@ namespace Riskeer.Piping.Forms.Views
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
 
-        private void UpdateLengthEffectControl()
+        private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
         {
             scenarioConfigurationPerFailureMechanismSectionControl.ClearData();
 
