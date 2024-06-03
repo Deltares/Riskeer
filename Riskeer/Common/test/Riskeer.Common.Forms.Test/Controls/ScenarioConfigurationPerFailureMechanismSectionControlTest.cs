@@ -36,7 +36,7 @@ using Riskeer.Common.Forms.Controls;
 namespace Riskeer.Common.Forms.Test.Controls
 {
     [TestFixture]
-    public class LengthEffectSettingsControlTest
+    public class ScenarioConfigurationPerFailureMechanismSectionControlTest
     {
         private Form testForm;
 
@@ -53,10 +53,10 @@ namespace Riskeer.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void Constructor_LengthEffectControlsCorrectlyInitialized()
+        public void Constructor_ControlsCorrectlyInitialized()
         {
             // Call
-            ShowLengthEffectSettingsControl();
+            ShowScenarioConfigurationPerFailureMechanismSectionControl();
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void Constructor_ToolTipsCorrectlyInitialized()
         {
             // Call
-            LengthEffectSettingsControl view = ShowLengthEffectSettingsControl();
+            ScenarioConfigurationPerFailureMechanismSectionControl view = ShowScenarioConfigurationPerFailureMechanismSectionControl();
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void SetScenarioConfiguration_ScenarioConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            LengthEffectSettingsControl control = ShowLengthEffectSettingsControl();
+            ScenarioConfigurationPerFailureMechanismSectionControl control = ShowScenarioConfigurationPerFailureMechanismSectionControl();
 
             // Call
             void Call() => control.SetData(null);
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
 
             // Precondition
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
@@ -158,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -188,14 +188,14 @@ namespace Riskeer.Common.Forms.Test.Controls
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(random.NextDouble());
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
             settingsControl.SetData(scenarioConfiguration);
 
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
             parameterATextBoxTester.Enter("NotADouble");
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
+            ErrorProvider errorProvider = GetErrorProvider(settingsControl);
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
@@ -217,14 +217,14 @@ namespace Riskeer.Common.Forms.Test.Controls
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(random.NextDouble());
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
             settingsControl.SetData(scenarioConfiguration);
 
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
             parameterATextBoxTester.Enter("NotADouble");
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
+            ErrorProvider errorProvider = GetErrorProvider(settingsControl);
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
@@ -250,14 +250,14 @@ namespace Riskeer.Common.Forms.Test.Controls
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(random.NextDouble());
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
             settingsControl.SetData(scenarioConfiguration);
 
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
             parameterATextBoxTester.Enter("NotADouble");
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
+            ErrorProvider errorProvider = GetErrorProvider(settingsControl);
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
@@ -281,13 +281,13 @@ namespace Riskeer.Common.Forms.Test.Controls
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(random.NextDouble());
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
             settingsControl.SetData(scenarioConfiguration);
 
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
 
             // Precondition
-            ErrorProvider errorProvider = GetLengthEffectErrorProvider(settingsControl);
+            ErrorProvider errorProvider = GetErrorProvider(settingsControl);
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsEmpty(errorMessage);
@@ -324,7 +324,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
             scenarioConfiguration.Attach(observer);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -364,7 +364,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
             scenarioConfiguration.Attach(observer);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
@@ -405,7 +405,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -439,7 +439,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var oldConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
 
-            LengthEffectSettingsControl settingsControl = ShowLengthEffectSettingsControl(b);
+            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(oldConfiguration);
 
             // Precondition
@@ -479,20 +479,20 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
         }
 
-        private static ErrorProvider GetLengthEffectErrorProvider(LengthEffectSettingsControl settingsControl)
+        private static ErrorProvider GetErrorProvider(ScenarioConfigurationPerFailureMechanismSectionControl settingsControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(settingsControl, "lengthEffectErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
         }
 
-        private LengthEffectSettingsControl ShowLengthEffectSettingsControl()
+        private ScenarioConfigurationPerFailureMechanismSectionControl ShowScenarioConfigurationPerFailureMechanismSectionControl()
         {
             var random = new Random(21);
-            return ShowLengthEffectSettingsControl(random.NextDouble());
+            return ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
         }
 
-        private LengthEffectSettingsControl ShowLengthEffectSettingsControl(double b)
+        private ScenarioConfigurationPerFailureMechanismSectionControl ShowScenarioConfigurationPerFailureMechanismSectionControl(double b)
         {
-            var control = new LengthEffectSettingsControl(b);
+            var control = new ScenarioConfigurationPerFailureMechanismSectionControl(b);
 
             testForm.Controls.Add(control);
             testForm.Show();

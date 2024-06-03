@@ -80,7 +80,7 @@
     <Compile Update="Views\GeneralResultIllustrationPointView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\LengthEffectSettingsControl.cs">
+    <Compile Update="Controls\ScenarioConfigurationPerFailureMechanismSectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

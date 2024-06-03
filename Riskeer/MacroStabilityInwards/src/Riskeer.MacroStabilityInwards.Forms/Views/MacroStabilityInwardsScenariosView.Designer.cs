@@ -141,7 +141,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             // calculationSettingsGroupBox
             // 
             this.calculationSettingsGroupBox.AutoSize = true;
-            this.calculationSettingsGroupBox.Controls.Add(this.lengthEffectSettingsControl);
+            this.calculationSettingsGroupBox.Controls.Add(this.scenarioConfigurationPerFailureMechanismSectionControl);
             this.calculationSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.calculationSettingsGroupBox.Location = new System.Drawing.Point(3, 3);
             this.calculationSettingsGroupBox.Name = "calculationSettingsGroupBox";
@@ -150,14 +150,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             this.calculationSettingsGroupBox.TabStop = false;
             this.calculationSettingsGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.Calculation_settings_per_FailureMechanismSection_DisplayName;
             // 
-            // lengthEffectSettingsControl
+            // scenarioConfigurationPerFailureMechanismSectionControl
             // 
-            this.lengthEffectSettingsControl.AutoSize = true;
-            this.lengthEffectSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lengthEffectSettingsControl.Location = new System.Drawing.Point(3, 16);
-            this.lengthEffectSettingsControl.Name = "lengthEffectSettingsControl";
-            this.lengthEffectSettingsControl.Size = new System.Drawing.Size(991, 52);
-            this.lengthEffectSettingsControl.TabIndex = 0;
+            this.scenarioConfigurationPerFailureMechanismSectionControl.AutoSize = true;
+            this.scenarioConfigurationPerFailureMechanismSectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scenarioConfigurationPerFailureMechanismSectionControl.Location = new System.Drawing.Point(3, 16);
+            this.scenarioConfigurationPerFailureMechanismSectionControl.Name = "scenarioConfigurationPerFailureMechanismSectionControl";
+            this.scenarioConfigurationPerFailureMechanismSectionControl.Size = new System.Drawing.Size(991, 52);
+            this.scenarioConfigurationPerFailureMechanismSectionControl.TabIndex = 0;
             // 
             // dataGridViewControlGroupBox
             // 
@@ -245,7 +245,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private System.Windows.Forms.TableLayoutPanel dataGridViewControlTableLayoutPanel;
         private System.Windows.Forms.Label labelTotalScenarioContribution;
 
-        private Riskeer.Common.Forms.Controls.LengthEffectSettingsControl lengthEffectSettingsControl;
+        private Riskeer.Common.Forms.Controls.ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationPerFailureMechanismSectionControl;
 
         private System.Windows.Forms.GroupBox calculationSettingsGroupBox;
         private System.Windows.Forms.GroupBox dataGridViewControlGroupBox;

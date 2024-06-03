@@ -31,9 +31,9 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Controls
 {
     /// <summary>
-    /// Control to display length effect properties.
+    /// Control to display properties of the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
     /// </summary>
-    public partial class LengthEffectSettingsControl : UserControl
+    public partial class ScenarioConfigurationPerFailureMechanismSectionControl : UserControl
     {
         private const int lengthEffectNNrOfDecimals = 2;
 
@@ -43,13 +43,14 @@ namespace Riskeer.Common.Forms.Controls
         private bool isParameterAUpdating;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LengthEffectSettingsControl"/>.
+        /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSectionControl"/>.
         /// </summary>
         /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
         /// the maximum tolerated probability of failure.</param>
-        public LengthEffectSettingsControl(double b)
+        public ScenarioConfigurationPerFailureMechanismSectionControl(double b)
         {
             this.b = b;
+
             InitializeComponent();
             InitializeToolTips();
         }
@@ -67,11 +68,11 @@ namespace Riskeer.Common.Forms.Controls
                 throw new ArgumentNullException(nameof(scenarioConfiguration));
             }
 
-            ClearLengthEffectErrorMessage();
+            ClearParameterAErrorMessage();
 
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
 
-            UpdateLengthEffectData();
+            UpdateScenarioConfigurationPerSectionData();
 
             EnableControl();
         }
@@ -84,8 +85,8 @@ namespace Riskeer.Common.Forms.Controls
             isParameterAUpdating = true;
             scenarioConfigurationPerFailureMechanismSection = null;
 
-            ClearLengthEffectErrorMessage();
-            ClearLengthEffectData();
+            ClearParameterAErrorMessage();
+            ClearScenarioConfigurationPerSectionData();
 
             DisableControl();
 
@@ -118,15 +119,15 @@ namespace Riskeer.Common.Forms.Controls
 
             if (e.KeyCode == Keys.Escape)
             {
-                ClearLengthEffectErrorMessage();
-                UpdateLengthEffectData();
+                ClearParameterAErrorMessage();
+                UpdateScenarioConfigurationPerSectionData();
                 e.Handled = true;
             }
         }
 
         private void ParameterATextBoxLeave(object sender, EventArgs e)
         {
-            ClearLengthEffectErrorMessage();
+            ClearParameterAErrorMessage();
             ProcessParameterATextBox();
         }
 
@@ -142,18 +143,18 @@ namespace Riskeer.Common.Forms.Controls
                 scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) DoubleParsingHelper.Parse(parameterATextBox.Text);
                 scenarioConfigurationPerFailureMechanismSection.NotifyObservers();
 
-                UpdateLengthEffectData();
+                UpdateScenarioConfigurationPerSectionData();
             }
             catch (Exception exception) when (exception is ArgumentOutOfRangeException
                                               || exception is DoubleParsingException)
             {
                 ClearNRoundedData();
-                SetLengthEffectErrorMessage(exception.Message);
+                SetParameterAErrorMessage(exception.Message);
                 parameterATextBox.Focus();
             }
         }
 
-        private void ClearLengthEffectData()
+        private void ClearScenarioConfigurationPerSectionData()
         {
             parameterATextBox.Text = string.Empty;
             ClearNRoundedData();
@@ -164,7 +165,7 @@ namespace Riskeer.Common.Forms.Controls
             lengthEffectNRoundedTextBox.Text = string.Empty;
         }
 
-        private void UpdateLengthEffectData()
+        private void UpdateScenarioConfigurationPerSectionData()
         {
             parameterATextBox.Text = scenarioConfigurationPerFailureMechanismSection.A.ToString();
 
@@ -172,15 +173,15 @@ namespace Riskeer.Common.Forms.Controls
             lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNNrOfDecimals, n).ToString();
         }
 
-        private void SetLengthEffectErrorMessage(string errorMessage)
+        private void SetParameterAErrorMessage(string errorMessage)
         {
-            lengthEffectErrorProvider.SetIconPadding(parameterATextBox, 5);
-            lengthEffectErrorProvider.SetError(parameterATextBox, errorMessage);
+            errorProvider.SetIconPadding(parameterATextBox, 5);
+            errorProvider.SetError(parameterATextBox, errorMessage);
         }
 
-        private void ClearLengthEffectErrorMessage()
+        private void ClearParameterAErrorMessage()
         {
-            lengthEffectErrorProvider.SetError(parameterATextBox, string.Empty);
+            errorProvider.SetError(parameterATextBox, string.Empty);
         }
 
         private void EnableControl()

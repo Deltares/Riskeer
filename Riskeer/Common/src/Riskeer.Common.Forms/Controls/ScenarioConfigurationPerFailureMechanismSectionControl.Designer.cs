@@ -24,7 +24,7 @@ using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Controls
 {
-    partial class LengthEffectSettingsControl
+    partial class ScenarioConfigurationPerFailureMechanismSectionControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -45,11 +45,11 @@ namespace Riskeer.Common.Forms.Controls
             this.lengthEffectNRoundedLabel = new System.Windows.Forms.Label();
             this.lengthEffectNRoundedTextBox = new System.Windows.Forms.TextBox();
             this.parameterATextBox = new System.Windows.Forms.TextBox();
-            this.lengthEffectErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.parameterAToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lengthEffectNRoundedToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -115,10 +115,10 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterATextBox.KeyDown += ParameterATextBoxKeyDown;
             this.parameterATextBox.Leave += ParameterATextBoxLeave;
             // 
-            // lengthEffectErrorProvider
+            // errorProvider
             // 
-            this.lengthEffectErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.lengthEffectErrorProvider.ContainerControl = this;
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
             // 
             // parameterAToolTip
             // 
@@ -132,17 +132,17 @@ namespace Riskeer.Common.Forms.Controls
             this.lengthEffectNRoundedToolTip.InitialDelay = 100;
             this.lengthEffectNRoundedToolTip.ReshowDelay = 100;
             // 
-            // LengthEffectSettingsControl
+            // ScenarioConfigurationPerFailureMechanismSectionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "LengthEffectSettingsControl";
+            this.Name = "ScenarioConfigurationPerFailureMechanismSectionControl";
             this.Size = new System.Drawing.Size(496, 150);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.lengthEffectErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.Controls
         private System.Windows.Forms.TextBox parameterATextBox;
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.ErrorProvider lengthEffectErrorProvider;
+        private System.Windows.Forms.ErrorProvider errorProvider;
 
         #endregion
     }

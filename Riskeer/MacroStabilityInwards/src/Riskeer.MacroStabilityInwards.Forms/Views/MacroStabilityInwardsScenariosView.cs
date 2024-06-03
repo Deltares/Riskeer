@@ -83,7 +83,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             InitializeObservers();
 
-            lengthEffectSettingsControl = new LengthEffectSettingsControl(failureMechanism.GeneralInput.B);
+            scenarioConfigurationPerFailureMechanismSectionControl = 
+                new ScenarioConfigurationPerFailureMechanismSectionControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
             InitializeListBox();
@@ -294,11 +295,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         
         private void UpdateLengthEffectControl()
         {
-            lengthEffectSettingsControl.ClearData();
+            scenarioConfigurationPerFailureMechanismSectionControl.ClearData();
 
             if (selectedFailureMechanismSection != null)
             {
-                lengthEffectSettingsControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
+                scenarioConfigurationPerFailureMechanismSectionControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
             }
         }
     }
