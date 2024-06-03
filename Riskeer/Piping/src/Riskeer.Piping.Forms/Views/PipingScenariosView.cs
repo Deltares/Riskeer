@@ -31,6 +31,7 @@ using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -102,7 +103,7 @@ namespace Riskeer.Piping.Forms.Views
 
             InitializeObservers();
 
-            scenarioConfigurationPerFailureMechanismSectionControl = 
+            scenarioConfigurationPerFailureMechanismSectionControl =
                 new ScenarioConfigurationPerFailureMechanismSectionControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
@@ -169,7 +170,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(()=>
+            failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
                 UpdateLengthEffectControl();
@@ -293,16 +294,16 @@ namespace Riskeer.Piping.Forms.Views
             if (failureMechanism.Sections.Any())
             {
                 PipingScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new PipingScenariosViewFailureMechanismSectionViewModel(
-                        section, failureMechanism,
-                        failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
-                                        .First(sc => sc.Section == section))).ToArray();
+                    section => new PipingScenariosViewFailureMechanismSectionViewModel(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                       .First(sc => sc.Section == section), failureMechanism)).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
-                listBox.SelectedItem = selectedFailureMechanismSection != null
-                                           ? Array.Find(failureMechanismSectionViewModels, vm => vm.Section == selectedFailureMechanismSection.Section)
-                                             ?? failureMechanismSectionViewModels[0]
-                                           : failureMechanismSectionViewModels[0];
+                listBox.SelectedItem =
+                    selectedFailureMechanismSection != null
+                        ? Array.Find(failureMechanismSectionViewModels,
+                                     vm => vm.ScenarioConfigurationPerSection.Section == selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section)
+                          ?? failureMechanismSectionViewModels[0]
+                        : failureMechanismSectionViewModels[0];
             }
             else
             {
@@ -339,7 +340,8 @@ namespace Riskeer.Piping.Forms.Views
 
         private IEnumerable<IPipingScenarioRow> GetScenarioRows()
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(selectedFailureMechanismSection.Section.Points);
+            FailureMechanismSection failureMechanismSection = selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section;
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
 
             return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                    || failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection

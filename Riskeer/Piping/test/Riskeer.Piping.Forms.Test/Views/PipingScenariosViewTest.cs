@@ -178,10 +178,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
-            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);
-            Assert.AreSame(failureMechanismSection3, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).Section);
-            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(2),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
         }
 
         [Test]
@@ -814,7 +818,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
 
             // Precondition
-            Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First(),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,400", parameterATextBox.Text);
@@ -991,10 +996,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
-            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);
-            Assert.AreSame(failureMechanismSection3, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).Section);
-            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(2),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
         }
 
         [Test]
@@ -1033,14 +1042,16 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
 
             // When
             failureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
         }
 
         [Test]
@@ -1079,7 +1090,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1), 
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
 
             // When
             var failureMechanismSection4 = new FailureMechanismSection("Section 4", new[]
@@ -1102,7 +1114,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(2, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection4, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First(),
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
         }
 
         [Test]

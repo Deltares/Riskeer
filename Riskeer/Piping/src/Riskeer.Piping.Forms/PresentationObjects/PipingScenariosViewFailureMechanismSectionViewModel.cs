@@ -37,19 +37,12 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosViewFailureMechanismSectionViewModel"/>.
         /// </summary>
-        /// <param name="failureMechanismSection">The wrapped <see cref="FailureMechanismSection"/>.</param>
-        /// <param name="failureMechanism">The failure mechanism the section belongs to.</param>
         /// <param name="scenarioConfigurationPerSection">The scenario configuration that belongs to the section.</param>
+        /// <param name="failureMechanism">The failure mechanism the section belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingScenariosViewFailureMechanismSectionViewModel(FailureMechanismSection failureMechanismSection,
-                                                                   PipingFailureMechanism failureMechanism,
-                                                                   PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection)
+        public PipingScenariosViewFailureMechanismSectionViewModel(PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection,
+                                                                   PipingFailureMechanism failureMechanism)
         {
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -60,24 +53,18 @@ namespace Riskeer.Piping.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(scenarioConfigurationPerSection));
             }
 
-            Section = failureMechanismSection;
             this.failureMechanism = failureMechanism;
             ScenarioConfigurationPerSection = scenarioConfigurationPerSection;
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        public FailureMechanismSection Section { get; }
-
-        /// <summary>
-        /// Gets the <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> that belongs to the section.
+        /// Gets the wrapped <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
         /// </summary>
         public PipingScenarioConfigurationPerFailureMechanismSection ScenarioConfigurationPerSection { get; }
 
         public override string ToString()
         {
-            string name = Section.Name;
+            string name = ScenarioConfigurationPerSection.Section.Name;
 
             if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
             {

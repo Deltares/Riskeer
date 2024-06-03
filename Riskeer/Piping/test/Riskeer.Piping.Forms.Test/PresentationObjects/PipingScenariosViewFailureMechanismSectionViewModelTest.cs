@@ -32,20 +32,16 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
     public class PipingScenariosViewFailureMechanismSectionViewModelTest
     {
         [Test]
-        public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
+        public void Constructor_ScenarioConfigurationPerSectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
             // Call
-            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(
-                null, new PipingFailureMechanism(), new PipingScenarioConfigurationPerFailureMechanismSection(section));
+            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(null, new PipingFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismSection", exception.ParamName);
+            Assert.AreEqual("scenarioConfigurationPerSection", exception.ParamName);
         }
-
+        
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -53,25 +49,11 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(section, null, new PipingScenarioConfigurationPerFailureMechanismSection(section));
+            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(new PipingScenarioConfigurationPerFailureMechanismSection(section), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ScenarioConfigurationPerSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(section, new PipingFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("scenarioConfigurationPerSection", exception.ParamName);
         }
 
         [Test]
@@ -82,10 +64,9 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section);
 
             // Call
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, new PipingFailureMechanism(), scenarioConfiguration);
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, new PipingFailureMechanism());
 
             // Assert
-            Assert.AreSame(section, viewModel.Section);
             Assert.AreSame(scenarioConfiguration, viewModel.ScenarioConfigurationPerSection);
         }
 
@@ -102,7 +83,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             };
             var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section);
 
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, pipingFailureMechanism);
 
             // Call
             var toString = viewModel.ToString();
@@ -128,7 +109,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
                 ScenarioConfigurationType = scenarioConfigurationType
             };
 
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, pipingFailureMechanism);
 
             // Call
             var toString = viewModel.ToString();
