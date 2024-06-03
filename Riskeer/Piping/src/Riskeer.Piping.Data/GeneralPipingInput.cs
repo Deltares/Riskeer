@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Data
 
         #endregion
 
-        #region Length Effect parameters
+        #region Length effect parameters
 
         /// <summary>
         /// Gets the 'b' parameter representing the equivalent independent length to factor
