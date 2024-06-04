@@ -48,8 +48,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>, MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>
-            scenarioConfigurationsPerFailureMechanismSectionObserver;
+        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionConfiguration>, MacroStabilityInwardsFailureMechanismSectionConfiguration>
+            failureMechanismSectionConfigurationsObserver;
 
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
@@ -104,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            scenarioConfigurationsPerFailureMechanismSectionObserver.Dispose();
+            failureMechanismSectionConfigurationsObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
@@ -128,15 +128,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 Observable = failureMechanism
             };
 
-            scenarioConfigurationsPerFailureMechanismSectionObserver = new RecursiveObserver<IObservableEnumerable<
-                MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>, MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>(
+            failureMechanismSectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<
+                MacroStabilityInwardsFailureMechanismSectionConfiguration>, MacroStabilityInwardsFailureMechanismSectionConfiguration>(
                 () =>
                 {
                     UpdateSectionsListBox();
                     UpdateScenarioRows();
                 }, section => section)
             {
-                Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                Observable = failureMechanism.FailureMechanismSectionConfigurations
             };
 
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
@@ -175,14 +175,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (failureMechanism.Sections.Any())
             {
                 MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.FailureMechanismSectionConfigurations
                                                                                                                       .First(sc => sc.Section == section))).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
                 listBox.SelectedItem =
                     selectedFailureMechanismSection != null
                         ? Array.Find(failureMechanismSectionViewModels,
-                                     vm => vm.ScenarioConfigurationPerSection.Section == selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section)
+                                     vm => vm.SectionConfiguration.Section == selectedFailureMechanismSection.SectionConfiguration.Section)
                           ?? failureMechanismSectionViewModels[0]
                         : failureMechanismSectionViewModels[0];
             }
@@ -284,14 +284,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<MacroStabilityInwardsScenarioRow> GetScenarioRows()
         {
-            FailureMechanismSection section = selectedFailureMechanismSection.ScenarioConfigurationPerSection.Section;
+            FailureMechanismSection section = selectedFailureMechanismSection.SectionConfiguration.Section;
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(section.Points);
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
                                                                                  .GetCalculations()
                                                                                  .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.ScenarioConfigurationPerSection)).ToList();
+            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.SectionConfiguration)).ToList();
         }
 
         private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
@@ -300,7 +300,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             if (selectedFailureMechanismSection != null)
             {
-                scenarioConfigurationPerFailureMechanismSectionControl.SetData(selectedFailureMechanismSection.ScenarioConfigurationPerSection);
+                scenarioConfigurationPerFailureMechanismSectionControl.SetData(selectedFailureMechanismSection.SectionConfiguration);
             }
         }
     }

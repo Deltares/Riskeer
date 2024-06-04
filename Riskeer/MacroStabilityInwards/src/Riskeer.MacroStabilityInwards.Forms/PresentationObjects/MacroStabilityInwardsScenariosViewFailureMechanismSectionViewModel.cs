@@ -26,7 +26,7 @@ using Riskeer.MacroStabilityInwards.Forms.Views;
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// ViewModel for a <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>
+    /// ViewModel for a <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>
     /// as shown in the <see cref="MacroStabilityInwardsScenariosView"/>.
     /// </summary>
     public class MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel
@@ -37,24 +37,24 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="scenarioConfigurationPerSection">The wrapped scenario configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioConfigurationPerSection"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
-            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection)
+            MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration)
         {
-            if (scenarioConfigurationPerSection == null)
+            if (sectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(scenarioConfigurationPerSection));
+                throw new ArgumentNullException(nameof(sectionConfiguration));
             }
 
-            ScenarioConfigurationPerSection = scenarioConfigurationPerSection;
+            SectionConfiguration = sectionConfiguration;
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Gets the wrapped <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection ScenarioConfigurationPerSection { get; }
+        public MacroStabilityInwardsFailureMechanismSectionConfiguration SectionConfiguration { get; }
 
         public override string ToString()
         {
-            return ScenarioConfigurationPerSection.Section.Name;
+            return SectionConfiguration.Section.Name;
         }
     }
 }

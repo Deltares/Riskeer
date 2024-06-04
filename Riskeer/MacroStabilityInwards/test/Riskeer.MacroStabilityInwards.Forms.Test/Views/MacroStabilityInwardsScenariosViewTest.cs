@@ -152,25 +152,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(2),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(0),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(1),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(2),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(0),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
-        public void Constructor_ScenarioConfigurationPerFailureMechanismSectionControlCorrectlyInitialized()
+        public void Constructor_SectionConfigurationControlCorrectlyInitialized()
         {
             // Call
             ShowMacroStabilityInwardsScenariosView(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = GetScenarioConfigurationPerFailureMechanismSectionControl();
-            Assert.IsTrue(scenarioConfigurationControl.Visible);
+            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            Assert.IsTrue(sectionConfigurationControl.Visible);
         }
 
         [Test]
@@ -329,8 +329,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             ConfigureFailureMechanism(failureMechanism);
-            MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection lastConfigurationPerSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Last();
-            lastConfigurationPerSection.A = (RoundedDouble) 0.7;
+            MacroStabilityInwardsFailureMechanismSectionConfiguration lastSectionConfiguration = failureMechanism.FailureMechanismSectionConfigurations.Last();
+            lastSectionConfiguration.A = (RoundedDouble) 0.7;
 
             ShowMacroStabilityInwardsScenariosView(failureMechanism);
 
@@ -338,12 +338,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             TextBoxTester parameterATextBox = GetParameterATextBoxTester();
 
-            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = GetScenarioConfigurationPerFailureMechanismSectionControl();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
 
             // Precondition
             var selectedItem = ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem);
-            Assert.AreSame(failureMechanism.Sections.First(), selectedItem.ScenarioConfigurationPerSection.Section);
+            Assert.AreSame(failureMechanism.Sections.First(), selectedItem.SectionConfiguration.Section);
             Assert.AreEqual("0,033", parameterATextBox.Text);
             Assert.AreEqual("1,05", lengthEffectNRoundedTextBox.Text);
 
@@ -392,7 +392,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsScenariosViewWithScenarioConfigurationPerFailureMechanismSectionControlError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
+        public void GivenMacroStabilityInwardsScenariosViewWithSectionConfigurationControlError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
         {
             // Setup
             ShowFullyConfiguredMacroStabilityInwardsScenariosView();
@@ -401,8 +401,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             textBoxTester.Enter("NotADouble");
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = GetScenarioConfigurationPerFailureMechanismSectionControl();
-            ErrorProvider errorProvider = GetParameterAErrorProvider(scenarioConfigurationControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            ErrorProvider errorProvider = GetParameterAErrorProvider(sectionConfigurationControl);
             var parameterATextBox = (TextBox) textBoxTester.TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
@@ -428,8 +428,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = GetScenarioConfigurationPerFailureMechanismSectionControl();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -455,8 +455,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = GetScenarioConfigurationPerFailureMechanismSectionControl();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -516,14 +516,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(2),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfigurationPerSection);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(0),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(0),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(1),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(2),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).SectionConfiguration);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(0),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -562,16 +562,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(1),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
 
             // When
             failureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(1),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -610,8 +610,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.ElementAt(1),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
 
             // When
             var failureMechanismSection4 = new FailureMechanismSection("Section 4", new[]
@@ -634,8 +634,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             Assert.AreEqual(2, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First(),
-                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
+            Assert.AreSame(failureMechanism.FailureMechanismSectionConfigurations.First(),
+                           ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -1159,7 +1159,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
         }
 
-        private static ScenarioConfigurationPerFailureMechanismSectionControl GetScenarioConfigurationPerFailureMechanismSectionControl()
+        private static ScenarioConfigurationPerFailureMechanismSectionControl GetFailureMechanismSectionConfigurationControl()
         {
             return (ScenarioConfigurationPerFailureMechanismSectionControl) new ControlTester("scenarioConfigurationPerFailureMechanismSectionControl").TheObject;
         }

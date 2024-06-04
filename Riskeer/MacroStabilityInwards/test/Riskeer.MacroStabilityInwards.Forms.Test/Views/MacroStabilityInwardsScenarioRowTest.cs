@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             // Call
             void Call() => new MacroStabilityInwardsScenarioRow(calculation, null, sectionConfiguration);
@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
@@ -109,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(0, 0),
                 new Point2D(sectionLength, 0)
             });
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
@@ -129,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
@@ -147,7 +147,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
@@ -177,7 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, sectionConfiguration);
 
