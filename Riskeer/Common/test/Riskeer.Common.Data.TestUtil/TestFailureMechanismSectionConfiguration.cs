@@ -27,14 +27,14 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Simple configuration that can be used in tests.
     /// </summary>
-    public class TestScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
+    public class TestFailureMechanismSectionConfiguration : FailureMechanismSectionConfiguration
     {
         /// <summary>
-        /// Creates a new <see cref="TestScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Creates a new <see cref="TestFailureMechanismSectionConfiguration"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> the configuration belongs to.</param>
         /// <param name="a">The 'a' parameter.</param>
-        public TestScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a) 
+        public TestFailureMechanismSectionConfiguration(FailureMechanismSection section, RoundedDouble a) 
             : base(section, a) {}
     }
 }

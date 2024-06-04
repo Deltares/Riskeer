@@ -28,9 +28,9 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This base class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
+    /// This base class holds the configuration of a <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public abstract class ScenarioConfigurationPerFailureMechanismSection : Observable
+    public abstract class FailureMechanismSectionConfiguration : Observable
     {
         private const int aNrOfDecimals = 3;
 
@@ -40,13 +40,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         private RoundedDouble a;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionConfiguration"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> the scenario configuration belongs to.</param>
         /// <param name="a">The 'a' parameter representing the failure mechanism sensitive fraction.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
-        protected ScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section, RoundedDouble a)
+        protected FailureMechanismSectionConfiguration(FailureMechanismSection section, RoundedDouble a)
         {
             if (section == null)
             {

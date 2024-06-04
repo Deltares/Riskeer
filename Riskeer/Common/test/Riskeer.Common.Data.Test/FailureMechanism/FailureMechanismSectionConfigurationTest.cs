@@ -30,7 +30,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class ScenarioConfigurationPerFailureMechanismSectionTest
+    public class FailureMechanismSectionConfigurationTest
     {
         [Test]
         public void Constructor_SectionNull_ThrowsArgumentNullException()
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             // Call
-            void Call() => new TestScenarioConfigurationPerFailureMechanismSection(null, random.NextRoundedDouble());
+            void Call() => new TestFailureMechanismSectionConfiguration(null, random.NextRoundedDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            void Call() => new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) invalidA);
+            void Call() => new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) invalidA);
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, a);
+            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, a);
 
             // Assert
             Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
+            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
             // Call
             void Call() => scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new TestScenarioConfigurationPerFailureMechanismSection(section, random.NextRoundedDouble());
+            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
             // Call
             scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
