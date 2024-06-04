@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Exceptions;
@@ -50,7 +51,7 @@ namespace Riskeer.Common.Forms.Controls
         public ScenarioConfigurationPerFailureMechanismSectionControl(double b)
         {
             this.b = b;
-
+            
             InitializeComponent();
             InitializeToolTips();
         }
@@ -67,7 +68,9 @@ namespace Riskeer.Common.Forms.Controls
             {
                 throw new ArgumentNullException(nameof(scenarioConfiguration));
             }
-
+            
+            parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
+            
             ClearParameterAErrorMessage();
 
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
@@ -96,6 +99,7 @@ namespace Riskeer.Common.Forms.Controls
         private void InitializeToolTips()
         {
             parameterAToolTip.SetToolTip(parameterALabel, Resources.Parameter_A_Description);
+            parameterBToolTip.SetToolTip(parameterBLabel, Resources.FailureMechanism_GeneralInput_B_Description);
             lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffect_RoundedNSection_Description);
         }
 
@@ -147,6 +151,7 @@ namespace Riskeer.Common.Forms.Controls
         private void ClearScenarioConfigurationPerSectionData()
         {
             parameterATextBox.Text = string.Empty;
+            parameterBTextBox.Text = string.Empty;
             ClearNRoundedData();
         }
 

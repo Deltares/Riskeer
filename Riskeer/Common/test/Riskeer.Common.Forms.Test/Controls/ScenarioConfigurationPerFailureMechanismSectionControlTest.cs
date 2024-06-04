@@ -62,9 +62,15 @@ namespace Riskeer.Common.Forms.Test.Controls
             Label parameterALabel = GetParameterALabel();
             Assert.AreEqual("Mechanismegevoelige fractie a [-]", parameterALabel.Text);
 
+            Label parameterBLabel = GetParameterBLabel();
+            Assert.AreEqual("Equivalente onafhankelijke lengte b [m]", parameterBLabel.Text);
+            
             Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
+            TextBox parameterBTextBox = GetParameterBTextBox();
+            Assert.IsFalse(parameterBTextBox.Enabled);
+            
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
         }
@@ -78,12 +84,19 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Assert
             Label parameterALabel = GetParameterALabel();
             var parameterAToolTip = TypeUtils.GetField<ToolTip>(view, "parameterAToolTip");
-
             Assert.AreEqual("Mechanismegevoelige fractie van het dijkvak.",
                             parameterAToolTip.GetToolTip(parameterALabel));
             Assert.AreEqual(5000, parameterAToolTip.AutoPopDelay);
             Assert.AreEqual(100, parameterAToolTip.InitialDelay);
             Assert.AreEqual(100, parameterAToolTip.ReshowDelay);
+            
+            Label parameterBLabel = GetParameterBLabel();
+            var parameterBToolTip = TypeUtils.GetField<ToolTip>(view, "parameterBToolTip");
+            Assert.AreEqual("Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak.",
+                            parameterBToolTip.GetToolTip(parameterBLabel));
+            Assert.AreEqual(5000, parameterBToolTip.AutoPopDelay);
+            Assert.AreEqual(100, parameterBToolTip.InitialDelay);
+            Assert.AreEqual(100, parameterBToolTip.ReshowDelay);
 
             Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
             var lengthEffectNRoundedToolTip = TypeUtils.GetField<ToolTip>(view, "lengthEffectNRoundedToolTip");
@@ -130,6 +143,9 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.IsEmpty(parameterATextBox.Text);
             Assert.IsFalse(parameterATextBox.Enabled);
 
+            TextBox parameterBTextBox = GetParameterBTextBox();
+            Assert.IsEmpty(parameterBTextBox.Text);
+                
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
@@ -139,7 +155,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Then
             Assert.AreEqual("0,700", parameterATextBox.Text);
             Assert.IsTrue(parameterATextBox.Enabled);
-
+            
+            Assert.AreEqual("300", parameterBTextBox.Text);
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -165,6 +182,9 @@ namespace Riskeer.Common.Forms.Test.Controls
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
             Assert.AreEqual("0,700", parameterATextBox.Text);
             Assert.IsTrue(parameterATextBox.Enabled);
+            
+            TextBox parameterBTextBox = GetParameterBTextBox();
+            Assert.AreEqual("300", parameterBTextBox.Text);
 
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
@@ -176,6 +196,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.IsEmpty(parameterATextBox.Text);
             Assert.IsFalse(parameterATextBox.Enabled);
 
+            Assert.IsEmpty(parameterBTextBox.Text);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -396,6 +417,11 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (Label) new LabelTester("parameterALabel").TheObject;
         }
 
+        private static Label GetParameterBLabel()
+        {
+            return (Label) new LabelTester("parameterBLabel").TheObject;
+        }
+        
         private static Label GetLengthEffectNRoundedLabel()
         {
             return (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
@@ -404,6 +430,11 @@ namespace Riskeer.Common.Forms.Test.Controls
         private static TextBoxTester GetParameterATextBoxTester()
         {
             return new TextBoxTester("parameterATextBox");
+        }
+        
+        private static TextBox GetParameterBTextBox()
+        {
+            return (TextBox) new ControlTester("parameterBTextBox").TheObject;
         }
 
         private static TextBox GetLengthEffectNRoundedTextBox()
