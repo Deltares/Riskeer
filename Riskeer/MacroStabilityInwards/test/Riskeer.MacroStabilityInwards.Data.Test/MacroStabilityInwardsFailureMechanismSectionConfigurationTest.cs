@@ -19,24 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
+using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
-    /// <summary>
-    /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>
-    /// of macro stability inwards.
-    /// </summary>
-    public class MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
+    [TestFixture]
+    public class MacroStabilityInwardsFailureMechanismSectionConfigurationTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>.
-        /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section) 
-            : base(section, (RoundedDouble) 0.033) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            var scenarioConfigurationPerFailureMechanismSection = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(scenarioConfigurationPerFailureMechanismSection);
+
+            Assert.AreEqual(0.033, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+            Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
+        }
     }
 }

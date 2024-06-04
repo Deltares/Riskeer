@@ -19,29 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
+using System;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data
 {
-    [TestFixture]
-    public class MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSectionTest
+    /// <summary>
+    /// This class holds the configuration of the <see cref="FailureMechanismSection"/>
+    /// of macro stability inwards.
+    /// </summary>
+    public class MacroStabilityInwardsFailureMechanismSectionConfiguration : FailureMechanismSectionConfiguration
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            var scenarioConfigurationPerFailureMechanismSection = new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section);
-
-            // Assert
-            Assert.IsInstanceOf<ScenarioConfigurationPerFailureMechanismSection>(scenarioConfigurationPerFailureMechanismSection);
-
-            Assert.AreEqual(0.033, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
-            Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismSectionConfiguration(FailureMechanismSection section) 
+            : base(section, (RoundedDouble) 0.033) {}
     }
 }

@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                          ICalculatableFailureMechanism
     {
-        private readonly ObservableList<MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             };
             CalculationsInputComments = new Comment();
 
-            scenarioConfigurationsPerFailureMechanismSection = new ObservableList<MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection>();
+            scenarioConfigurationsPerFailureMechanismSection = new ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration>();
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace Riskeer.MacroStabilityInwards.Data
         public GeneralMacroStabilityInwardsInput GeneralInput { get; }
         
         /// <summary>
-        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public IObservableEnumerable<MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionConfiguration> ScenarioConfigurationsPerFailureMechanismSection =>
             scenarioConfigurationsPerFailureMechanismSection;
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
@@ -86,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            scenarioConfigurationsPerFailureMechanismSection.Add(new MacroStabilityInwardsScenarioConfigurationPerFailureMechanismSection(section));
+            scenarioConfigurationsPerFailureMechanismSection.Add(new MacroStabilityInwardsFailureMechanismSectionConfiguration(section));
         }
 
         protected override void ClearSectionDependentData()
