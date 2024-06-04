@@ -22,9 +22,8 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Exceptions;
-using Core.Common.Base.Helpers;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Properties;
@@ -36,12 +35,12 @@ namespace Riskeer.Common.Forms.Controls
     /// </summary>
     public partial class ScenarioConfigurationPerFailureMechanismSectionControl : UserControl
     {
-        private const int lengthEffectNNrOfDecimals = 2;
+        private const int roundedNSectionNrOfDecimals = 2;
 
         private readonly double b;
         private ScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection;
 
-        private bool isParameterAUpdating;
+        private readonly Observer scenarioConfigurationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSectionControl"/>.
@@ -54,6 +53,8 @@ namespace Riskeer.Common.Forms.Controls
             
             InitializeComponent();
             InitializeToolTips();
+
+            scenarioConfigurationObserver = new Observer(UpdateScenarioConfigurationPerSectionData);
         }
 
         /// <summary>
@@ -70,14 +71,10 @@ namespace Riskeer.Common.Forms.Controls
             }
             
             parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
-            
-            ClearParameterAErrorMessage();
-
             scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
-
+            scenarioConfigurationObserver.Observable = scenarioConfiguration;
+            
             UpdateScenarioConfigurationPerSectionData();
-
-            EnableControl();
         }
 
         /// <summary>
@@ -85,79 +82,24 @@ namespace Riskeer.Common.Forms.Controls
         /// </summary>
         public void ClearData()
         {
-            isParameterAUpdating = true;
             scenarioConfigurationPerFailureMechanismSection = null;
-
-            ClearParameterAErrorMessage();
-            ClearScenarioConfigurationPerSectionData();
-
-            DisableControl();
-
-            isParameterAUpdating = false;
+            scenarioConfigurationObserver.Observable = null;
+            
+            ClearControls();
         }
 
         private void InitializeToolTips()
         {
             parameterAToolTip.SetToolTip(parameterALabel, Resources.Parameter_A_Description);
             parameterBToolTip.SetToolTip(parameterBLabel, Resources.FailureMechanism_GeneralInput_B_Description);
-            lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffect_RoundedNSection_Description);
+            roundedNSectionToolTip.SetToolTip(roundedNSectionLabel, Resources.RoundedNSection_Description);
         }
-
-        private void ParameterATextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                parameterALabel.Focus(); // Focus on different component to raise a leave event on the text box
-                e.Handled = true;
-            }
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                ClearParameterAErrorMessage();
-                UpdateScenarioConfigurationPerSectionData();
-                e.Handled = true;
-            }
-        }
-
-        private void ParameterATextBoxLeave(object sender, EventArgs e)
-        {
-            ClearParameterAErrorMessage();
-            ProcessParameterATextBox();
-        }
-
-        private void ProcessParameterATextBox()
-        {
-            if (isParameterAUpdating)
-            {
-                return;
-            }
-
-            try
-            {
-                scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) DoubleParsingHelper.Parse(parameterATextBox.Text);
-                scenarioConfigurationPerFailureMechanismSection.NotifyObservers();
-
-                UpdateScenarioConfigurationPerSectionData();
-            }
-            catch (Exception exception) when (exception is ArgumentOutOfRangeException
-                                              || exception is DoubleParsingException)
-            {
-                ClearNRoundedData();
-                SetParameterAErrorMessage(exception.Message);
-                parameterATextBox.Focus();
-            }
-        }
-
-        private void ClearScenarioConfigurationPerSectionData()
+        
+        private void ClearControls()
         {
             parameterATextBox.Text = string.Empty;
             parameterBTextBox.Text = string.Empty;
-            ClearNRoundedData();
-        }
-
-        private void ClearNRoundedData()
-        {
-            lengthEffectNRoundedTextBox.Text = string.Empty;
+            roundedNSectionTextBox.Text = string.Empty;
         }
 
         private void UpdateScenarioConfigurationPerSectionData()
@@ -165,30 +107,7 @@ namespace Riskeer.Common.Forms.Controls
             parameterATextBox.Text = scenarioConfigurationPerFailureMechanismSection.A.ToString();
 
             double n = scenarioConfigurationPerFailureMechanismSection.GetN(b);
-            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNNrOfDecimals, n).ToString();
-        }
-
-        private void SetParameterAErrorMessage(string errorMessage)
-        {
-            errorProvider.SetIconPadding(parameterATextBox, 5);
-            errorProvider.SetError(parameterATextBox, errorMessage);
-        }
-
-        private void ClearParameterAErrorMessage()
-        {
-            errorProvider.SetError(parameterATextBox, string.Empty);
-        }
-
-        private void EnableControl()
-        {
-            parameterATextBox.Enabled = true;
-            parameterATextBox.Refresh();
-        }
-
-        private void DisableControl()
-        {
-            parameterATextBox.Enabled = false;
-            parameterATextBox.Refresh();
+            roundedNSectionTextBox.Text = new RoundedDouble(roundedNSectionNrOfDecimals, n).ToString();
         }
     }
 }
