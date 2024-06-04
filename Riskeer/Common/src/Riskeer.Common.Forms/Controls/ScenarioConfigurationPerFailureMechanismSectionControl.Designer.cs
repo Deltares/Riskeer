@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterALabel.Location = new System.Drawing.Point(0, 3);
             this.parameterALabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.parameterALabel.Name = "parameterALabel";
-            this.parameterALabel.Size = new System.Drawing.Size(196, 20);
+            this.parameterALabel.Size = new System.Drawing.Size(193, 20);
             this.parameterALabel.TabIndex = 0;
             this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.Parameter_A_DisplayName;
             this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -109,7 +109,7 @@ namespace Riskeer.Common.Forms.Controls
             this.roundedNSectionLabel.Location = new System.Drawing.Point(0, 55);
             this.roundedNSectionLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.roundedNSectionLabel.Name = "roundedNSectionLabel";
-            this.roundedNSectionLabel.Size = new System.Drawing.Size(196, 92);
+            this.roundedNSectionLabel.Size = new System.Drawing.Size(193, 92);
             this.roundedNSectionLabel.TabIndex = 1;
             this.roundedNSectionLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffect_RoundedNSection_DisplayName;
             this.roundedNSectionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.roundedNSectionTextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.roundedNSectionTextBox.Enabled = false;
-            this.roundedNSectionTextBox.Location = new System.Drawing.Point(202, 55);
+            this.roundedNSectionTextBox.Location = new System.Drawing.Point(199, 55);
             this.roundedNSectionTextBox.Name = "roundedNSectionTextBox";
             this.roundedNSectionTextBox.Size = new System.Drawing.Size(69, 20);
             this.roundedNSectionTextBox.TabIndex = 2;
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.parameterATextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.parameterATextBox.Enabled = false;
-            this.parameterATextBox.Location = new System.Drawing.Point(202, 3);
+            this.parameterATextBox.Location = new System.Drawing.Point(199, 3);
             this.parameterATextBox.Name = "parameterATextBox";
             this.parameterATextBox.Size = new System.Drawing.Size(69, 20);
             this.parameterATextBox.TabIndex = 3;
@@ -136,9 +136,10 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.parameterBLabel.AutoSize = true;
             this.parameterBLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.parameterBLabel.Location = new System.Drawing.Point(3, 26);
+            this.parameterBLabel.Location = new System.Drawing.Point(0, 29);
+            this.parameterBLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.parameterBLabel.Name = "parameterBLabel";
-            this.parameterBLabel.Size = new System.Drawing.Size(193, 26);
+            this.parameterBLabel.Size = new System.Drawing.Size(193, 20);
             this.parameterBLabel.TabIndex = 4;
             this.parameterBLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.FailureMechanism_GeneralInput_B_DisplayName;
             this.parameterBLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -147,7 +148,7 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.parameterBTextBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.parameterBTextBox.Enabled = false;
-            this.parameterBTextBox.Location = new System.Drawing.Point(202, 29);
+            this.parameterBTextBox.Location = new System.Drawing.Point(199, 29);
             this.parameterBTextBox.Name = "parameterBTextBox";
             this.parameterBTextBox.Size = new System.Drawing.Size(69, 20);
             this.parameterBTextBox.TabIndex = 5;
