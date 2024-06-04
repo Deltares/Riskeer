@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            CollectionAssert.IsEmpty(failureMechanism.FailureMechanismSectionConfigurations);
 
             Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
@@ -135,8 +135,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
-            Assert.AreEqual(1, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
-            Assert.AreSame(section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().Section);
+            Assert.AreEqual(1, failureMechanism.FailureMechanismSectionConfigurations.Count());
+            Assert.AreSame(section, failureMechanism.FailureMechanismSectionConfigurations.First().Section);
         }
 
         [Test]
@@ -159,14 +159,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(2, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
+            Assert.AreEqual(2, failureMechanism.FailureMechanismSectionConfigurations.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            CollectionAssert.IsEmpty(failureMechanism.FailureMechanismSectionConfigurations);
         }
     }
 }

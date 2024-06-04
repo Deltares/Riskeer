@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                          ICalculatableFailureMechanism
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration> scenarioConfigurationsPerFailureMechanismSection;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration> failureMechanismSectionConfigurations;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             };
             CalculationsInputComments = new Comment();
 
-            scenarioConfigurationsPerFailureMechanismSection = new ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration>();
+            failureMechanismSectionConfigurations = new ObservableList<MacroStabilityInwardsFailureMechanismSectionConfiguration>();
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionConfiguration> ScenarioConfigurationsPerFailureMechanismSection =>
-            scenarioConfigurationsPerFailureMechanismSection;
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionConfiguration> FailureMechanismSectionConfigurations =>
+            failureMechanismSectionConfigurations;
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
@@ -86,13 +86,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            scenarioConfigurationsPerFailureMechanismSection.Add(new MacroStabilityInwardsFailureMechanismSectionConfiguration(section));
+            failureMechanismSectionConfigurations.Add(new MacroStabilityInwardsFailureMechanismSectionConfiguration(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             base.ClearSectionDependentData();
-            scenarioConfigurationsPerFailureMechanismSection.Clear();
+            failureMechanismSectionConfigurations.Clear();
         }
     }
 }

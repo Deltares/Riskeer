@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                                                                                            failureMechanism.GeneralInput.ModelFactor);
 
             MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(c => ReferenceEquals(sectionResult.Section, c.Section));
+                failureMechanism.FailureMechanismSectionConfigurations.Single(c => ReferenceEquals(sectionResult.Section, c.Section));
             return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.GeneralInput.B));
         }
     }
