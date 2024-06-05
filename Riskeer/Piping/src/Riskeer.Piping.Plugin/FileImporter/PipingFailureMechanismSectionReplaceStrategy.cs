@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
-            affectedObjects.Add(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            affectedObjects.Add(failureMechanism.SectionConfigurations);
             return affectedObjects;
         }
 

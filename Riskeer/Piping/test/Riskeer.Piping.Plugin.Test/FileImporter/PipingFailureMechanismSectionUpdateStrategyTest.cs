@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 failureMechanism,
                 failureMechanism.SectionResults,
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                failureMechanism.SectionConfigurations
             }, affectedObjects);
         }
 
@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             string sourcePath = TestHelper.GetScratchPadPath();
 
             failureMechanism.SetSections(sections, sourcePath);
-            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
 
             // When
             IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
@@ -109,12 +109,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,
                 PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
-            }, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Select(sc => sc.ScenarioConfigurationType));
+            }, failureMechanism.SectionConfigurations.Select(sc => sc.ScenarioConfigurationType));
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
                 failureMechanism.SectionResults,
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                failureMechanism.SectionConfigurations
             }, affectedObjects);
         }
 

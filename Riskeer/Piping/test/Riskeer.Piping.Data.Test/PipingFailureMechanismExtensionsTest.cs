@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Data.Test
             }, "APath");
 
             PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single();
+                failureMechanism.SectionConfigurations.Single();
             failureMechanismSectionConfiguration.ScenarioConfigurationType = configurationType;
 
             // Call

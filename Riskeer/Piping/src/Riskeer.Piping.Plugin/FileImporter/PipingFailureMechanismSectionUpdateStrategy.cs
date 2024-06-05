@@ -57,13 +57,13 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            PipingScenarioConfigurationPerFailureMechanismSection[] oldScenarioConfigurationsPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ToArray();
+            PipingFailureMechanismSectionConfiguration[] oldSectionConfigurations = failureMechanism.SectionConfigurations.ToArray();
 
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
 
-            UpdateScenarioConfigurations(oldScenarioConfigurationsPerFailureMechanismSection);
+            UpdateScenarioConfigurations(oldSectionConfigurations);
 
-            affectedObjects.Add(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            affectedObjects.Add(failureMechanism.SectionConfigurations);
             return affectedObjects;
         }
 
@@ -72,17 +72,17 @@ namespace Riskeer.Piping.Plugin.FileImporter
             return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
         }
 
-        private void UpdateScenarioConfigurations(PipingScenarioConfigurationPerFailureMechanismSection[] oldScenarioConfigurationsPerFailureMechanismSection)
+        private void UpdateScenarioConfigurations(PipingFailureMechanismSectionConfiguration[] oldSectionConfiguration)
         {
-            foreach (PipingScenarioConfigurationPerFailureMechanismSection newScenarioConfiguration in failureMechanism.ScenarioConfigurationsPerFailureMechanismSection)
+            foreach (PipingFailureMechanismSectionConfiguration newSectionConfiguration in failureMechanism.SectionConfigurations)
             {
-                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationToCopy = oldScenarioConfigurationsPerFailureMechanismSection.FirstOrDefault(
-                    oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newScenarioConfiguration.Section.StartPoint)
-                                                && oldScenarioConfiguration.Section.EndPoint.Equals(newScenarioConfiguration.Section.EndPoint));
+                PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
+                    oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
+                                                && oldScenarioConfiguration.Section.EndPoint.Equals(newSectionConfiguration.Section.EndPoint));
 
-                if (scenarioConfigurationToCopy != null)
+                if (failureMechanismSectionConfigurationToCopy != null)
                 {
-                    newScenarioConfiguration.ScenarioConfigurationType = scenarioConfigurationToCopy.ScenarioConfigurationType;
+                    newSectionConfiguration.ScenarioConfigurationType = failureMechanismSectionConfigurationToCopy.ScenarioConfigurationType;
                 }
             }
         }

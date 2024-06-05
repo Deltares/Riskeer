@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Data
             }
 
             bool scenarioConfigurationTypeIsSemiProbabilistic = failureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(
-                failureMechanism.GetScenarioConfigurationForSection(sectionResult));
+                failureMechanism.GetSectionConfiguration(sectionResult));
 
             return scenarioConfigurationTypeIsSemiProbabilistic
                        ? (IFailureMechanismSectionResultCalculateProbabilityStrategy) CreateSemiProbabilisticCalculateStrategy(failureMechanism, sectionResult, assessmentSection)

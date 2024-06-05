@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            return failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+            return failureMechanism.SectionConfigurations
                                    .Single(sc => sc.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                  && sc.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
         }

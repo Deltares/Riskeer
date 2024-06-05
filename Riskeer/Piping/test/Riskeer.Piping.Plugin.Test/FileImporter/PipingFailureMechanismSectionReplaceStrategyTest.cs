@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 failureMechanism,
                 failureMechanism.SectionResults,
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                failureMechanism.SectionConfigurations
             }, affectedObjects);
         }
 

@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
-        private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
+        private readonly ObservableList<PipingFailureMechanismSectionConfiguration> sectionConfigurations;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanism"/>.
@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Data
             };
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
-            scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
+            sectionConfigurations = new ObservableList<PipingFailureMechanismSectionConfiguration>();
             CalculationsInputComments = new Comment();
         }
 
@@ -77,10 +77,10 @@ namespace Riskeer.Piping.Data
         public PipingScenarioConfigurationType ScenarioConfigurationType { get; set; }
 
         /// <summary>
-        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
-            scenarioConfigurationsPerFailureMechanismSection;
+        public IObservableEnumerable<PipingFailureMechanismSectionConfiguration> SectionConfigurations =>
+            sectionConfigurations;
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
@@ -91,13 +91,13 @@ namespace Riskeer.Piping.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
+            sectionConfigurations.Add(new PipingFailureMechanismSectionConfiguration(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             base.ClearSectionDependentData();
-            scenarioConfigurationsPerFailureMechanismSection.Clear();
+            sectionConfigurations.Clear();
         }
     }
 }

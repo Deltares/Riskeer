@@ -112,9 +112,9 @@ namespace Riskeer.Piping.Data.Test
                 section
             }, "APath");
 
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single();
-            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType = configurationType;
+            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration =
+                failureMechanism.SectionConfigurations.Single();
+            failureMechanismSectionConfiguration.ScenarioConfigurationType = configurationType;
 
             // Call
             IFailureMechanismSectionResultCalculateProbabilityStrategy strategy =
@@ -141,9 +141,9 @@ namespace Riskeer.Piping.Data.Test
                 section
             }, "APath");
 
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection =
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single();
-            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType = configurationType;
+            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration =
+                failureMechanism.SectionConfigurations.Single();
+            failureMechanismSectionConfiguration.ScenarioConfigurationType = configurationType;
 
             // Call
             IFailureMechanismSectionResultCalculateProbabilityStrategy strategy =
