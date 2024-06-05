@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             // Call
             void Call() => new SemiProbabilisticPipingScenarioRow(new SemiProbabilisticPipingCalculationScenario(),
@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             // Call
             void Call() => new SemiProbabilisticPipingScenarioRow(new SemiProbabilisticPipingCalculationScenario(),
@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             // Call
             var row = new SemiProbabilisticPipingScenarioRow(calculation, failureMechanism, sectionConfiguration, assessmentSection);
@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 new Point2D(0, 0),
                 new Point2D(sectionLength, 0)
             });
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             // Call
             var row = new SemiProbabilisticPipingScenarioRow(calculation, failureMechanism, sectionConfiguration, assessmentSection);
@@ -172,7 +172,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             // Call
             var row = new SemiProbabilisticPipingScenarioRow(calculation, new PipingFailureMechanism(), sectionConfiguration, assessmentSection);
@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             var row = new SemiProbabilisticPipingScenarioRow(calculation, failureMechanism, sectionConfiguration, assessmentSection);
 
@@ -240,7 +240,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             var row = new SemiProbabilisticPipingScenarioRow(calculation, failureMechanism, sectionConfiguration, assessmentSection);
 
@@ -282,7 +282,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
             var row = new SemiProbabilisticPipingScenarioRow(calculation, failureMechanism, sectionConfiguration, assessmentSection);
 

@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Forms.Views
     public class SemiProbabilisticPipingScenarioRow : PipingScenarioRow<SemiProbabilisticPipingCalculationScenario>
     {
         private readonly PipingFailureMechanism failureMechanism;
-        private readonly PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration;
+        private readonly PipingFailureMechanismSectionConfiguration sectionConfiguration;
         private readonly IAssessmentSection assessmentSection;
         private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal SemiProbabilisticPipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario,
                                                     PipingFailureMechanism failureMechanism,
-                                                    PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration,
+                                                    PipingFailureMechanismSectionConfiguration sectionConfiguration,
                                                     IAssessmentSection assessmentSection)
             : base(calculationScenario)
         {

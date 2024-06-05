@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismResultView : AdoptableFailureMechanismResultView<PipingFailureMechanism, IPipingCalculationScenario<PipingInput>, PipingInput>
     {
-        private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionConfiguration>, PipingFailureMechanismSectionConfiguration> sectionConfigurationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -54,17 +54,17 @@ namespace Riskeer.Piping.Forms.Views
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism, PipingFailureMechanismAssemblyFactory.AssembleSection)
         {
-            scenarioConfigurationsPerSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
+            sectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionConfiguration>, PipingFailureMechanismSectionConfiguration>(
                 UpdateInternalViewData,
                 sc => sc)
             {
-                Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                Observable = failureMechanism.SectionConfigurations
             };
         }
 
         protected override void Dispose(bool disposing)
         {
-            scenarioConfigurationsPerSectionObserver.Dispose();
+            sectionConfigurationsObserver.Dispose();
 
             base.Dispose(disposing);
         }
@@ -85,8 +85,8 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationScenarios(AdoptableFailureMechanismSectionResult sectionResult)
         {
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
-            return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
+            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationForSection = FailureMechanism.GetSectionConfiguration(sectionResult);
+            return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(failureMechanismSectionConfigurationForSection)
                        ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray()
                        : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
         }

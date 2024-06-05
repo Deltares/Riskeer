@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 section
             });
 
-            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType;
+            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType;
 
             failureMechanism.CalculationsGroup.Children.Add(
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section));
@@ -351,7 +351,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsFalse(rowsChanged);
 
                 // When
-                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+                failureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);

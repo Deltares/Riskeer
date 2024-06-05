@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <param name="scenarioConfigurationPerSection">The wrapped scenario configuration.</param>
         /// <param name="failureMechanism">The failure mechanism the scenario configuration belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingScenariosViewFailureMechanismSectionViewModel(PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection,
+        public PipingScenariosViewFailureMechanismSectionViewModel(PipingFailureMechanismSectionConfiguration scenarioConfiguration,
                                                                    PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -48,23 +48,23 @@ namespace Riskeer.Piping.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (scenarioConfigurationPerSection == null)
+            if (scenarioConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(scenarioConfigurationPerSection));
+                throw new ArgumentNullException(nameof(scenarioConfiguration));
             }
 
             this.failureMechanism = failureMechanism;
-            ScenarioConfigurationPerSection = scenarioConfigurationPerSection;
+            ScenarioConfiguration = scenarioConfiguration;
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Gets the wrapped <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public PipingScenarioConfigurationPerFailureMechanismSection ScenarioConfigurationPerSection { get; }
+        public PipingFailureMechanismSectionConfiguration ScenarioConfiguration { get; }
 
         public override string ToString()
         {
-            string name = ScenarioConfigurationPerSection.Section.Name;
+            string name = ScenarioConfiguration.Section.Name;
 
             if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
             {
@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
 
         private string GetScenarioConfigurationTypeDisplayName()
         {
-            return ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+            return ScenarioConfiguration.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
                        ? Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_SemiProbabilistic
                        : Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic;
         }

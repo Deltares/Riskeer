@@ -32,14 +32,14 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
     public class PipingScenariosViewFailureMechanismSectionViewModelTest
     {
         [Test]
-        public void Constructor_ScenarioConfigurationPerSectionNull_ThrowsArgumentNullException()
+        public void Constructor_SectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(null, new PipingFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("scenarioConfigurationPerSection", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionConfigurationPerSection", exception.ParamName);
         }
         
         [Test]
@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(new PipingScenarioConfigurationPerFailureMechanismSection(section), null);
+            void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(new PipingFailureMechanismSectionConfiguration(section), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,13 +61,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
             // Call
             var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, new PipingFailureMechanism());
 
             // Assert
-            Assert.AreSame(scenarioConfiguration, viewModel.ScenarioConfigurationPerSection);
+            Assert.AreSame(scenarioConfiguration, viewModel.ScenarioConfiguration);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 ScenarioConfigurationType = scenarioConfigurationType
             };
-            var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
             var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, pipingFailureMechanism);
 
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             };
-            var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section)
+            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section)
             {
                 ScenarioConfigurationType = scenarioConfigurationType
             };
