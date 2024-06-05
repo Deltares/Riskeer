@@ -34,38 +34,38 @@ namespace Riskeer.Piping.Data
         /// Determines whether the scenario configuration is semi-probabilistic based on the input arguments.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to determine the scenario configuration for.</param>
-        /// <param name="scenarioConfigurationForSection">The <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>
+        /// <param name="sectionConfiguration">The <see cref="PipingFailureMechanismSectionConfiguration"/>
         /// to determine the scenario configuration with.</param>
         /// <returns><c>true</c> if the scenario configuration is semi-probabilistic, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public static bool ScenarioConfigurationTypeIsSemiProbabilistic(
-            this PipingFailureMechanism failureMechanism, PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
+            this PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionConfiguration sectionConfiguration)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (scenarioConfigurationForSection == null)
+            if (sectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(scenarioConfigurationForSection));
+                throw new ArgumentNullException(nameof(sectionConfiguration));
             }
 
             return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                    || failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
-                   && scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+                   && sectionConfiguration.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
         }
 
         /// <summary>
-        /// Gets the <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> for a given <see cref="FailureMechanismSectionResult"/>.
+        /// Gets the <see cref="PipingFailureMechanismSectionConfiguration"/> for a given <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> that contains
-        /// the <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.</param>
+        /// the <see cref="PipingFailureMechanismSectionConfiguration"/>.</param>
         /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> to retrieve the
-        /// <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> for.</param>
-        /// <returns>The <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> belonging to the <paramref name="sectionResult"/>.</returns>
+        /// <see cref="PipingFailureMechanismSectionConfiguration"/> for.</param>
+        /// <returns>The <see cref="PipingFailureMechanismSectionConfiguration"/> belonging to the <paramref name="sectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        public static PipingScenarioConfigurationPerFailureMechanismSection GetScenarioConfigurationForSection(
+        public static PipingFailureMechanismSectionConfiguration GetSectionConfiguration(
             this PipingFailureMechanism failureMechanism,
             FailureMechanismSectionResult sectionResult)
         {
