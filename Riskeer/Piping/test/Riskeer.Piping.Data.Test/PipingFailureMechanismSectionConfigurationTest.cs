@@ -26,7 +26,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingScenarioConfigurationPerFailureMechanismSectionTest
+    public class PipingFailureMechanismSectionConfigurationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -35,10 +35,10 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new PipingScenarioConfigurationPerFailureMechanismSection(section);
+            var scenarioConfigurationPerFailureMechanismSection = new PipingFailureMechanismSectionConfiguration(section);
 
             // Assert
-            Assert.IsInstanceOf<ScenarioConfigurationPerFailureMechanismSection>(scenarioConfigurationPerFailureMechanismSection);
+            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(scenarioConfigurationPerFailureMechanismSection);
 
             Assert.AreEqual(0.4, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
             Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);

@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the configuration from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionConfiguration(FailureMechanismSection section) 
             : base(section, (RoundedDouble) 0.033) {}

@@ -26,16 +26,16 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/> of piping.
+    /// This class holds the configuration of the <see cref="FailureMechanismSection"/> of piping.
     /// </summary>
-    public class PipingScenarioConfigurationPerFailureMechanismSection : ScenarioConfigurationPerFailureMechanismSection
+    public class PipingFailureMechanismSectionConfiguration : FailureMechanismSectionConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the scenario configuration from.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the configuration from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSection section) : base(section, (RoundedDouble) 0.4)
+        public PipingFailureMechanismSectionConfiguration(FailureMechanismSection section) : base(section, (RoundedDouble) 0.4)
         {
             ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
         }
