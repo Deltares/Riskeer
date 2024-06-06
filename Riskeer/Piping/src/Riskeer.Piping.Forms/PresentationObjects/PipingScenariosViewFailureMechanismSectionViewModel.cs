@@ -37,8 +37,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosViewFailureMechanismSectionViewModel"/>.
         /// </summary>
-        /// <param name="scenarioConfigurationPerSection">The scenario configuration that belongs to the section.</param>
-        /// <param name="failureMechanism">The failure mechanism the section belongs to.</param>
+        /// <param name="scenarioConfigurationPerSection">The wrapped scenario configuration.</param>
+        /// <param name="failureMechanism">The failure mechanism the scenario configuration belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingScenariosViewFailureMechanismSectionViewModel(PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerSection,
                                                                    PipingFailureMechanism failureMechanism)
