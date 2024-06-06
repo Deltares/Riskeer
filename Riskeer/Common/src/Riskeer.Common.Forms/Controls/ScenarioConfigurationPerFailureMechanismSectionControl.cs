@@ -45,8 +45,8 @@ namespace Riskeer.Common.Forms.Controls
         /// <summary>
         /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSectionControl"/>.
         /// </summary>
-        /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
-        /// the maximum tolerated probability of failure.</param>
+        /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
+        /// 'length effect'.</param>
         public ScenarioConfigurationPerFailureMechanismSectionControl(double b)
         {
             this.b = b;
@@ -91,16 +91,6 @@ namespace Riskeer.Common.Forms.Controls
             DisableControl();
 
             isParameterAUpdating = false;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
 
         private void InitializeToolTips()

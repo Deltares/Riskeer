@@ -31,12 +31,11 @@ namespace Riskeer.Common.Data.Probability
     {
         /// <summary>
         /// Calculates the 'N' based on the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>
-        /// and the 'b' parameter to factor in the 'length effect' when determining
-        /// the maximum tolerated probability of failure.
+        /// and the 'b' parameter representing the equivalent independent length to factor in the 'length effect'.
         /// </summary>
         /// <param name="configuration">The scenario configuration for the failure mechanism section.</param>
-        /// <param name="b">The 'b' parameter used to factor in the 'length effect' when determining
-        /// the maximum tolerated probability of failure.</param>
+        /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
+        /// 'length effect'.</param>
         /// <returns>The 'N' parameter used to factor in the 'length effect'.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
