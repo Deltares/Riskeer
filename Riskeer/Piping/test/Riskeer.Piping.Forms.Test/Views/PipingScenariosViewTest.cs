@@ -233,8 +233,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculationSettingsGroupBox = (GroupBox) new ControlTester("calculationSettingsGroupBox").TheObject;
             Assert.AreEqual(calculationSettingsVisible, calculationSettingsGroupBox.Visible);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
-            Assert.AreEqual(calculationSettingsVisible, lengthEffectSettingsControl.Visible);
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            Assert.AreEqual(calculationSettingsVisible, scenarioConfigurationControl.Visible);
 
             bool radioButtonsShouldBeVisible = scenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             var radioButtonsPanel = (Panel) new PanelTester("radioButtonsPanel").TheObject;
@@ -700,8 +700,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenLengthEffectSettingsControlsUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
-                                                                                                             PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
+        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenScenarioConfigurationPerFailureMechanismSectionControlUpdated(
+            PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
+            PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
@@ -714,9 +715,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
             bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, lengthEffectSettingsControl.Visible);
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, scenarioConfigurationControl.Visible);
 
             // When
             if (newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
@@ -732,7 +733,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             bool updatedSemiProbabilisticControlsShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, lengthEffectSettingsControl.Visible);
+            Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, scenarioConfigurationControl.Visible);
         }
 
         [Test]
@@ -813,9 +814,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
 
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
             TextBoxTester parameterATextBox = GetParameterATextBoxTester();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
 
             // Precondition
             Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First(),
@@ -881,8 +882,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             textBoxTester.Enter("NotADouble");
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
-            ErrorProvider errorProvider = GetParameterAErrorProvider(lengthEffectSettingsControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            ErrorProvider errorProvider = GetParameterAErrorProvider(scenarioConfigurationControl);
             var parameterATextBox = (TextBox) textBoxTester.TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
             Assert.IsNotEmpty(errorMessage);
@@ -897,7 +898,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenLengthEffectSettingsControlUpdated()
+        public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenScenarioConfigurationPerFailureMechanismSectionControlUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -908,8 +909,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -924,7 +925,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenLengthEffectSettingsControlUpdated()
+        public void GivenPipingScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenScenarioConfigurationPerFailureMechanismSectionControlUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -935,8 +936,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl lengthEffectSettingsControl = ScenarioConfigurationPerFailureMechanismSectionControl();
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(lengthEffectSettingsControl);
+            ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl = ScenarioConfigurationPerFailureMechanismSectionControl();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(scenarioConfigurationControl);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
@@ -1090,7 +1091,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1), 
+            Assert.AreSame(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1),
                            ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfigurationPerSection);
 
             // When
