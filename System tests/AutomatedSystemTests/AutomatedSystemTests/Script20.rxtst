@@ -1473,29 +1473,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="a6b013e9-dadf-43b5-8bd3-3a3c5edef9ce"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<description>
-					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-					<var
-					dataname="folderRiskeerProjectsPreviousRelease"
-					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="a795e298-d855-4933-aa46-f34b8767b21f"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -2346,10 +2323,6 @@
 							<testmodule
 							id="2c0a0f74-1b0e-4681-8f8a-de3bea4dd5e3"
 							name="DeleteAllSearchFilteredFiles">
-							</testmodule>
-							<testmodule
-							id="a6b013e9-dadf-43b5-8bd3-3a3c5edef9ce"
-							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
