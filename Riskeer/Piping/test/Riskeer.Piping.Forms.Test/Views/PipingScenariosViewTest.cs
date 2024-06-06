@@ -1859,9 +1859,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private static ErrorProvider GetParameterAErrorProvider(ScenarioConfigurationPerFailureMechanismSectionControl settingsControl)
+        private static ErrorProvider GetParameterAErrorProvider(ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
+            return TypeUtils.GetField<ErrorProvider>(scenarioConfigurationControl, "errorProvider");
         }
 
         private static TextBoxTester GetParameterATextBoxTester()
@@ -1869,9 +1869,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             return new TextBoxTester("parameterATextBox");
         }
 
-        private static TextBox GetLengthEffectNRoundedTextBox(ScenarioConfigurationPerFailureMechanismSectionControl settingsControl)
+        private static TextBox GetLengthEffectNRoundedTextBox(ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl)
         {
-            var tableLayoutPanel = (TableLayoutPanel) settingsControl.Controls["tableLayoutPanel"];
+            var tableLayoutPanel = (TableLayoutPanel) scenarioConfigurationControl.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
         }
 
