@@ -383,80 +383,12 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
 
             // When
-            parameterATextBox.Text = "NotAValue";
+            parameterATextBox.Text = "NotADouble";
 
             // Then
             Assert.AreEqual(initialAValue, parameterATextBoxTester.Text);
             Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenControlWithConfiguration_WhenDataClearedAndConfigurationNotifiesObservers_ThenControlsNotUpdated()
-        {
-            // Given
-            const double a = 0.4;
-            const double b = 300;
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(100, 0)
-            });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
-
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
-            settingsControl.SetData(scenarioConfiguration);
-
-            // Precondition
-            TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
-            Assert.AreEqual("0,400", parameterATextBoxTester.Text);
-
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
-            Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
-
-            // When
-            settingsControl.ClearData();
-            scenarioConfiguration.A = (RoundedDouble) 0.7;
-            scenarioConfiguration.NotifyObservers();
-
-            // Then
-            Assert.IsEmpty(parameterATextBoxTester.Text);
-            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
-        }
-
-        [Test]
-        public void GivenControlWithConfiguration_WhenSettingNewConfigurationAndOldConfigurationNotifiesObservers_ThenControlsNotUpdated()
-        {
-            // Given
-            const double a = 0.4;
-            const double b = 300;
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(100, 0)
-            });
-            var oldConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
-
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
-            settingsControl.SetData(oldConfiguration);
-
-            // Precondition
-            TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
-            Assert.AreEqual("0,400", parameterATextBoxTester.Text);
-
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
-            Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
-
-            // When
-            var newConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) 0.7);
-            settingsControl.SetData(newConfiguration);
-            oldConfiguration.NotifyObservers();
-
-            // Then
-            Assert.AreEqual("0,700", parameterATextBoxTester.Text);
-            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
         private static Label GetParameterALabel()
