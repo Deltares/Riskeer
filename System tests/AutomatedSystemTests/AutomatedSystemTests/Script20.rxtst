@@ -1139,7 +1139,7 @@
 					<param
 					mask="False"
 					name="fileToOpen"
-					value="inputScript20b_STPH.risk">
+					value="X:\script20\currentRelease\inputScript20b_STPH.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
