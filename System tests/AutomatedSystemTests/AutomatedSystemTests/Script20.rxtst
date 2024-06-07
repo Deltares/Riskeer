@@ -2288,8 +2288,8 @@
 					</param>
 					<param
 					mask="False"
-					name="folderRiskeerProjectsCurrentRelease"
-					value="X:\script20\currentRelease">
+					name="folderRiskeerProjectsPreviousRelease"
+					value="X:\script20\previousRelease">
 					</param>
 					<param
 					mask="False"
