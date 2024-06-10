@@ -1145,7 +1145,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(scenarioConfigurationControl, "errorProvider");
+            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
         }
 
         private static TextBoxTester GetParameterATextBoxTester()
@@ -1155,7 +1155,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl settingsControl)
         {
-            var tableLayoutPanel = (TableLayoutPanel) scenarioConfigurationControl.Controls["tableLayoutPanel"];
+            var tableLayoutPanel = (TableLayoutPanel) settingsControl.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
         }
 

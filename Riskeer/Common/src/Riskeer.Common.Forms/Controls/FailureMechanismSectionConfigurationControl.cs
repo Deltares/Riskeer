@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Controls
         /// </summary>
         /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
         /// 'length effect'.</param>
-        public ScenarioConfigurationPerFailureMechanismSectionControl(double b)
+        public FailureMechanismSectionConfigurationControl(double b)
         {
             this.b = b;
             

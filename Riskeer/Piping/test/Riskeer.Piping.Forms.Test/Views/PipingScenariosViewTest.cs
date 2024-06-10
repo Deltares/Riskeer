@@ -1860,7 +1860,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(scenarioConfigurationControl, "errorProvider");
+            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
         }
 
         private static TextBoxTester GetParameterATextBoxTester()

@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -65,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Label roundedNSectionLabel = GetRoundedNSectionLabel();
             Assert.AreEqual("Lengte-effect parameter Nvak* [-]", roundedNSectionLabel.Text);
 
-            TextBox parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsFalse(parameterATextBox.Enabled);
 
             TextBox parameterBTextBox = GetParameterBTextBox();
@@ -139,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
 
             // Precondition
-            TextBox parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
 
             TextBox parameterBTextBox = GetParameterBTextBox();
@@ -176,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
-            TextBox parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
 
             TextBox parameterBTextBox = GetParameterBTextBox();
@@ -214,7 +215,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             settingsControl.SetData(oldConfiguration);
 
             // Precondition
-            TextBox parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
 
             TextBox parameterBTextBox = GetParameterBTextBox();
@@ -253,7 +254,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
-            TextBox parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
 
             TextBox parameterBTextBox = GetParameterBTextBox();
@@ -276,48 +277,31 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void GivenControlWithConfigurationSet_WhenClearingDataAndOldConfigurationNotifiesObservers_ThenControlNotUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            const double a = 0.4;
-            const string initialAValue = "0,400";
-            const double b = 300;
-            const string lengthEffectNRoundedValue = "1,13";
+            var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
-            scenarioConfiguration.Attach(observer);
+            var configuration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
-            settingsControl.SetData(scenarioConfiguration);
-
-            TextBoxTester parameterATextBoxTester = GetParameterATextBoxTester();
-            const Keys keyData = Keys.Escape;
-
-            var parameterATextBox = (TextBox) parameterATextBoxTester.TheObject;
-            parameterATextBox.TextChanged += (sender, args) =>
-            {
-                parameterATextBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
-            };
-
-            // Precondition
-            Assert.AreEqual(initialAValue, parameterATextBoxTester.Text);
-
-            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
-            Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
+            settingsControl.SetData(configuration);
 
             // When
-            parameterATextBox.Text = "NotADouble";
+            settingsControl.ClearData();
+            configuration.NotifyObservers();
 
             // Then
-            Assert.AreEqual(initialAValue, parameterATextBoxTester.Text);
-            Assert.AreEqual(lengthEffectNRoundedValue, lengthEffectNRoundedTextBox.Text);
-            mocks.VerifyAll();
+            TextBox parameterATextBox = GetParameterATextBox();
+            Assert.IsEmpty(parameterATextBox.Text);
+
+            TextBox parameterBTextBox = GetParameterBTextBox();
+            Assert.IsEmpty(parameterBTextBox.Text);
+
+            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
+            Assert.IsEmpty(roundedNSectionTextBox.Text);
         }
 
         private static Label GetParameterALabel()
@@ -335,7 +319,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (Label) new LabelTester("roundedNSectionLabel").TheObject;
         }
 
-        private static TextBox GetParameterATextBoxTester()
+        private static TextBox GetParameterATextBox()
         {
             return (TextBox) new TextBoxTester("parameterATextBox").TheObject;
         }
