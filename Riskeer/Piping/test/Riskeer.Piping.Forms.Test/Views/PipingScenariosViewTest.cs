@@ -814,8 +814,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
-            TextBoxTester parameterATextBox = GetParameterATextBoxTester();
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
+            TextBox parameterATextBox = GetParameterATextBox();
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
 
             // Precondition
             Assert.AreSame(failureMechanism.SectionConfigurations.First(),
@@ -823,7 +823,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,400", parameterATextBox.Text);
-            Assert.AreEqual("1,01", roundedNSectionTextBox.Text);
+            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                  .Select(r => r.DataBoundItem)
@@ -837,7 +837,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,700", parameterATextBox.Text);
-            Assert.AreEqual("1,22", roundedNSectionTextBox.Text);
+            Assert.AreEqual("1,22", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
@@ -855,12 +855,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsNotEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
-            Assert.IsNotEmpty(roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
+            Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
             failureMechanism.ClearAllSections();
@@ -868,7 +868,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.IsEmpty(parameterATextBox.Text);
-            Assert.IsEmpty(roundedNSectionTextBox.Text);
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -879,13 +879,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            Assert.IsFalse(parameterATextBox.Enabled);
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
-            Assert.IsEmpty(roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
             failureMechanism.SetSections(new[]
@@ -900,7 +899,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.IsNotEmpty(parameterATextBox.Text);
-            Assert.IsNotEmpty(roundedNSectionTextBox.Text);
+            Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -1804,17 +1803,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
+        private static TextBox GetParameterATextBox()
         {
-            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
+            return (TextBox) new TextBoxTester("parameterATextBox").TheObject;
         }
 
-        private static TextBoxTester GetParameterATextBoxTester()
-        {
-            return new TextBoxTester("parameterATextBox");
-        }
-
-        private static TextBox GetRoundedNSectionTextBox(FailureMechanismSectionConfigurationControl control)
+        private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl control)
         {
             var tableLayoutPanel = (TableLayoutPanel) control.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 2);

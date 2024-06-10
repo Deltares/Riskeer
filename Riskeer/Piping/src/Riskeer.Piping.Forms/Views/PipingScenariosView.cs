@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Forms.Views
             UpdateScenarioControls();
 
             UpdateVisibility();
-            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
+            UpdateFailureMechanismSectionConfigurationControl();
         }
 
         public object Data
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Forms.Views
             failureMechanismObserver = new Observer(() =>
             {
                 UpdateSectionsListBox();
-                UpdateScenarioConfigurationPerFailureMechanismSectionControl();
+                UpdateFailureMechanismSectionConfigurationControl();
             })
             {
                 Observable = failureMechanism
@@ -317,7 +317,7 @@ namespace Riskeer.Piping.Forms.Views
             selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
             UpdateScenarioControls();
-            UpdateScenarioConfigurationPerFailureMechanismSectionControl();
+            UpdateFailureMechanismSectionConfigurationControl();
         }
 
         private void UpdateScenarioControls()
@@ -442,7 +442,7 @@ namespace Riskeer.Piping.Forms.Views
             errorProvider.SetError(labelTotalScenarioContribution, string.Empty);
         }
 
-        private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
+        private void UpdateFailureMechanismSectionConfigurationControl()
         {
             failureMechanismSectionConfigurationControl.ClearData();
 

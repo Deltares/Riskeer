@@ -61,13 +61,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
             // Call
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, new PipingFailureMechanism());
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(sectionConfiguration, new PipingFailureMechanism());
 
             // Assert
-            Assert.AreSame(scenarioConfiguration, viewModel.SectionConfiguration);
+            Assert.AreSame(sectionConfiguration, viewModel.SectionConfiguration);
         }
 
         [Test]
@@ -81,9 +81,9 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 ScenarioConfigurationType = scenarioConfigurationType
             };
-            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, pipingFailureMechanism);
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(sectionConfiguration, pipingFailureMechanism);
 
             // Call
             var toString = viewModel.ToString();
@@ -104,12 +104,12 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             };
-            var scenarioConfiguration = new PipingFailureMechanismSectionConfiguration(section)
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section)
             {
                 ScenarioConfigurationType = scenarioConfigurationType
             };
 
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, pipingFailureMechanism);
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(sectionConfiguration, pipingFailureMechanism);
 
             // Call
             var toString = viewModel.ToString();
