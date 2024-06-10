@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Controls;
 namespace Riskeer.Common.Forms.Test.Controls
 {
     [TestFixture]
-    public class ScenarioConfigurationPerFailureMechanismSectionControlTest
+    public class FailureMechanismSectionConfigurationControlTest
     {
         private Form testForm;
 
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void Constructor_ToolTipsCorrectlyInitialized()
         {
             // Call
-            ScenarioConfigurationPerFailureMechanismSectionControl view = ShowScenarioConfigurationPerFailureMechanismSectionControl();
+            FailureMechanismSectionConfigurationControl view = ShowScenarioConfigurationPerFailureMechanismSectionControl();
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -108,17 +108,17 @@ namespace Riskeer.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetScenarioConfiguration_ScenarioConfigurationNull_ThrowsArgumentNullException()
+        public void SetData_SectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            ScenarioConfigurationPerFailureMechanismSectionControl control = ShowScenarioConfigurationPerFailureMechanismSectionControl();
+            FailureMechanismSectionConfigurationControl control = ShowScenarioConfigurationPerFailureMechanismSectionControl();
 
             // Call
             void Call() => control.SetData(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("scenarioConfiguration", exception.ParamName);
+            Assert.AreEqual("sectionConfiguration", exception.ParamName);
         }
 
         [Test]
@@ -134,9 +134,9 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
+            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBoxTester();
@@ -170,9 +170,9 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
+            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -208,9 +208,9 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var oldConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
+            var oldConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(oldConfiguration);
 
             // Precondition
@@ -224,7 +224,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual("1,23", roundedNSectionTextBox.Text);
 
             // When
-            var newConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) 0.4);
+            var newConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) 0.4);
             settingsControl.SetData(newConfiguration);
             oldConfiguration.NotifyObservers();
 
@@ -247,9 +247,9 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
+            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -350,15 +350,15 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (TextBox) new ControlTester("roundedNSectionTextBox").TheObject;
         }
 
-        private ScenarioConfigurationPerFailureMechanismSectionControl ShowScenarioConfigurationPerFailureMechanismSectionControl()
+        private FailureMechanismSectionConfigurationControl ShowScenarioConfigurationPerFailureMechanismSectionControl()
         {
             var random = new Random(21);
             return ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
         }
 
-        private ScenarioConfigurationPerFailureMechanismSectionControl ShowScenarioConfigurationPerFailureMechanismSectionControl(double b)
+        private FailureMechanismSectionConfigurationControl ShowScenarioConfigurationPerFailureMechanismSectionControl(double b)
         {
-            var control = new ScenarioConfigurationPerFailureMechanismSectionControl(b);
+            var control = new FailureMechanismSectionConfigurationControl(b);
 
             testForm.Controls.Add(control);
             testForm.Show();

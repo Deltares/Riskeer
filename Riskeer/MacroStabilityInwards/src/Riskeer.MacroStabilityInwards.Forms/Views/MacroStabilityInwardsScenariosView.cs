@@ -83,8 +83,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             InitializeObservers();
 
-            scenarioConfigurationPerFailureMechanismSectionControl =
-                new ScenarioConfigurationPerFailureMechanismSectionControl(failureMechanism.GeneralInput.B);
+            failureMechanismSectionConfigurationControl =
+                new FailureMechanismSectionConfigurationControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
             InitializeListBox();
@@ -296,11 +296,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
         {
-            scenarioConfigurationPerFailureMechanismSectionControl.ClearData();
+            failureMechanismSectionConfigurationControl.ClearData();
 
             if (selectedFailureMechanismSection != null)
             {
-                scenarioConfigurationPerFailureMechanismSectionControl.SetData(selectedFailureMechanismSection.SectionConfiguration);
+                failureMechanismSectionConfigurationControl.SetData(selectedFailureMechanismSection.SectionConfiguration);
             }
         }
     }

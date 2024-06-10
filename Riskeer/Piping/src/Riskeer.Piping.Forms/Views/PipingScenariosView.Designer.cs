@@ -264,7 +264,7 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationSettingsTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.calculationSettingsTableLayoutPanel.ColumnCount = 1;
             this.calculationSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.calculationSettingsTableLayoutPanel.Controls.Add(this.scenarioConfigurationPerFailureMechanismSectionControl, 0, 1);
+            this.calculationSettingsTableLayoutPanel.Controls.Add(this.failureMechanismSectionConfigurationControl, 0, 1);
             this.calculationSettingsTableLayoutPanel.Controls.Add(this.radioButtonsPanel, 0, 0);
             this.calculationSettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.calculationSettingsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
@@ -275,15 +275,15 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationSettingsTableLayoutPanel.Size = new System.Drawing.Size(991, 87);
             this.calculationSettingsTableLayoutPanel.TabIndex = 0;
             // 
-            // scenarioConfigurationPerFailureMechanismSectionControl
+            // failureMechanismSectionConfigurationControl
             // 
-            this.scenarioConfigurationPerFailureMechanismSectionControl.AutoSize = true;
-            this.scenarioConfigurationPerFailureMechanismSectionControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.scenarioConfigurationPerFailureMechanismSectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenarioConfigurationPerFailureMechanismSectionControl.Location = new System.Drawing.Point(3, 32);
-            this.scenarioConfigurationPerFailureMechanismSectionControl.Name = "scenarioConfigurationPerFailureMechanismSectionControl";
-            this.scenarioConfigurationPerFailureMechanismSectionControl.Size = new System.Drawing.Size(985, 52);
-            this.scenarioConfigurationPerFailureMechanismSectionControl.TabIndex = 1;
+            this.failureMechanismSectionConfigurationControl.AutoSize = true;
+            this.failureMechanismSectionConfigurationControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.failureMechanismSectionConfigurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.failureMechanismSectionConfigurationControl.Location = new System.Drawing.Point(3, 32);
+            this.failureMechanismSectionConfigurationControl.Name = "failureMechanismSectionConfigurationControl";
+            this.failureMechanismSectionConfigurationControl.Size = new System.Drawing.Size(985, 52);
+            this.failureMechanismSectionConfigurationControl.TabIndex = 1;
             // 
             // errorProvider
             // 
@@ -370,7 +370,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private System.Windows.Forms.TableLayoutPanel dataGridViewControlTableLayoutPanel;
 
-        private Riskeer.Common.Forms.Controls.ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationPerFailureMechanismSectionControl;
+        private Riskeer.Common.Forms.Controls.FailureMechanismSectionConfigurationControl failureMechanismSectionConfigurationControl;
 
         private System.Windows.Forms.TableLayoutPanel calculationSettingsTableLayoutPanel;
 

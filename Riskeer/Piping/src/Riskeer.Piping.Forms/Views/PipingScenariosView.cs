@@ -103,8 +103,8 @@ namespace Riskeer.Piping.Forms.Views
 
             InitializeObservers();
 
-            scenarioConfigurationPerFailureMechanismSectionControl =
-                new ScenarioConfigurationPerFailureMechanismSectionControl(failureMechanism.GeneralInput.B);
+            failureMechanismSectionConfigurationControl =
+                new FailureMechanismSectionConfigurationControl(failureMechanism.GeneralInput.B);
             InitializeComponent();
 
             InitializeCombobox();
@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Forms.Views
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticControlsVisible;
 
             calculationSettingsGroupBox.Visible = failureMechanism.ScenarioConfigurationType != PipingScenarioConfigurationType.Probabilistic;
-            scenarioConfigurationPerFailureMechanismSectionControl.Visible = semiProbabilisticControlsVisible;
+            failureMechanismSectionConfigurationControl.Visible = semiProbabilisticControlsVisible;
         }
 
         private void UpdateDataGridViewDataSource()
@@ -444,11 +444,11 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateScenarioConfigurationPerFailureMechanismSectionControl()
         {
-            scenarioConfigurationPerFailureMechanismSectionControl.ClearData();
+            failureMechanismSectionConfigurationControl.ClearData();
 
             if (selectedFailureMechanismSection != null)
             {
-                scenarioConfigurationPerFailureMechanismSectionControl.SetData(selectedFailureMechanismSection.ScenarioConfiguration);
+                failureMechanismSectionConfigurationControl.SetData(selectedFailureMechanismSection.ScenarioConfiguration);
             }
         }
     }

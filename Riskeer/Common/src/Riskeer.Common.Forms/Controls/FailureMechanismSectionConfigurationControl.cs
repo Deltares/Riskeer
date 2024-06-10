@@ -31,19 +31,19 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Controls
 {
     /// <summary>
-    /// Control to display properties of the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
+    /// Control to display properties of the <see cref="FailureMechanismSectionConfiguration"/>.
     /// </summary>
-    public partial class ScenarioConfigurationPerFailureMechanismSectionControl : UserControl
+    public partial class FailureMechanismSectionConfigurationControl : UserControl
     {
         private const int roundedNSectionNrOfDecimals = 2;
 
         private readonly double b;
-        private ScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection;
+        private FailureMechanismSectionConfiguration failureMechanismSectionConfiguration;
 
-        private readonly Observer scenarioConfigurationObserver;
+        private readonly Observer sectionConfigurationObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenarioConfigurationPerFailureMechanismSectionControl"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationControl"/>.
         /// </summary>
         /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
         /// 'length effect'.</param>
@@ -54,25 +54,25 @@ namespace Riskeer.Common.Forms.Controls
             InitializeComponent();
             InitializeToolTips();
 
-            scenarioConfigurationObserver = new Observer(UpdateScenarioConfigurationPerSectionData);
+            sectionConfigurationObserver = new Observer(UpdateScenarioConfigurationPerSectionData);
         }
 
         /// <summary>
         /// Sets the data on the control.
         /// </summary>
-        /// <param name="scenarioConfiguration">The scenario configuration to set on the control.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioConfiguration"/>
+        /// <param name="sectionConfiguration">The configuration to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/>
         /// is <c>null</c>.</exception>
-        public void SetData(ScenarioConfigurationPerFailureMechanismSection scenarioConfiguration)
+        public void SetData(FailureMechanismSectionConfiguration sectionConfiguration)
         {
-            if (scenarioConfiguration == null)
+            if (sectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(scenarioConfiguration));
+                throw new ArgumentNullException(nameof(sectionConfiguration));
             }
             
             parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
-            scenarioConfigurationPerFailureMechanismSection = scenarioConfiguration;
-            scenarioConfigurationObserver.Observable = scenarioConfiguration;
+            failureMechanismSectionConfiguration = sectionConfiguration;
+            sectionConfigurationObserver.Observable = sectionConfiguration;
             
             UpdateScenarioConfigurationPerSectionData();
         }
@@ -82,8 +82,8 @@ namespace Riskeer.Common.Forms.Controls
         /// </summary>
         public void ClearData()
         {
-            scenarioConfigurationPerFailureMechanismSection = null;
-            scenarioConfigurationObserver.Observable = null;
+            failureMechanismSectionConfiguration = null;
+            sectionConfigurationObserver.Observable = null;
             
             ClearControls();
         }
@@ -104,9 +104,9 @@ namespace Riskeer.Common.Forms.Controls
 
         private void UpdateScenarioConfigurationPerSectionData()
         {
-            parameterATextBox.Text = scenarioConfigurationPerFailureMechanismSection.A.ToString();
+            parameterATextBox.Text = failureMechanismSectionConfiguration.A.ToString();
 
-            double n = scenarioConfigurationPerFailureMechanismSection.GetN(b);
+            double n = failureMechanismSectionConfiguration.GetN(b);
             roundedNSectionTextBox.Text = new RoundedDouble(roundedNSectionNrOfDecimals, n).ToString();
         }
     }

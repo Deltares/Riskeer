@@ -24,7 +24,7 @@ using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Controls
 {
-    partial class ScenarioConfigurationPerFailureMechanismSectionControl
+    partial class FailureMechanismSectionConfigurationControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -176,13 +176,13 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterBToolTip.InitialDelay = 100;
             this.parameterBToolTip.ReshowDelay = 100;
             // 
-            // ScenarioConfigurationPerFailureMechanismSectionControl
+            // FailureMechanismSectionConfigurationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "ScenarioConfigurationPerFailureMechanismSectionControl";
+            this.Name = "FailureMechanismSectionConfigurationControl";
             this.Size = new System.Drawing.Size(496, 150);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();

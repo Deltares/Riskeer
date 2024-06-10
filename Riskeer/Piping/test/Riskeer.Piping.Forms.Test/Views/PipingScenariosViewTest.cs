@@ -233,7 +233,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculationSettingsGroupBox = (GroupBox) new ControlTester("calculationSettingsGroupBox").TheObject;
             Assert.AreEqual(calculationSettingsVisible, calculationSettingsGroupBox.Visible);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             Assert.AreEqual(calculationSettingsVisible, sectionConfigurationControl.Visible);
 
             bool radioButtonsShouldBeVisible = scenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
@@ -714,7 +714,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, sectionConfigurationControl.Visible);
 
@@ -813,7 +813,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             TextBoxTester parameterATextBox = GetParameterATextBoxTester();
             TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
 
@@ -881,7 +881,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             textBoxTester.Enter("NotADouble");
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             ErrorProvider errorProvider = GetParameterAErrorProvider(sectionConfigurationControl);
             var parameterATextBox = (TextBox) textBoxTester.TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
@@ -908,7 +908,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
             Assert.IsNotEmpty(roundedNSectionTextBox.Text);
 
@@ -935,7 +935,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox(sectionConfigurationControl);
             Assert.IsEmpty(roundedNSectionTextBox.Text);
 
@@ -1858,7 +1858,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private static ErrorProvider GetParameterAErrorProvider(ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl)
+        private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
         {
             return TypeUtils.GetField<ErrorProvider>(scenarioConfigurationControl, "errorProvider");
         }
@@ -1868,15 +1868,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             return new TextBoxTester("parameterATextBox");
         }
 
-        private static TextBox GetRoundedNSectionTextBox(ScenarioConfigurationPerFailureMechanismSectionControl control)
+        private static TextBox GetRoundedNSectionTextBox(FailureMechanismSectionConfigurationControl control)
         {
             var tableLayoutPanel = (TableLayoutPanel) control.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
         }
 
-        private static ScenarioConfigurationPerFailureMechanismSectionControl GetSectionConfigurationControl()
+        private static FailureMechanismSectionConfigurationControl GetSectionConfigurationControl()
         {
-            return (ScenarioConfigurationPerFailureMechanismSectionControl) new ControlTester("scenarioConfigurationPerFailureMechanismSectionControl").TheObject;
+            return (FailureMechanismSectionConfigurationControl) new ControlTester("failureMechanismSectionConfigurationControl").TheObject;
         }
 
         #endregion

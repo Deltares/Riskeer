@@ -169,7 +169,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ShowMacroStabilityInwardsScenariosView(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             Assert.IsTrue(sectionConfigurationControl.Visible);
         }
 
@@ -338,7 +338,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             TextBoxTester parameterATextBox = GetParameterATextBoxTester();
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
 
             // Precondition
@@ -401,7 +401,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             textBoxTester.Enter("NotADouble");
 
             // Precondition
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             ErrorProvider errorProvider = GetParameterAErrorProvider(sectionConfigurationControl);
             var parameterATextBox = (TextBox) textBoxTester.TheObject;
             string errorMessage = errorProvider.GetError(parameterATextBox);
@@ -428,7 +428,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
 
@@ -455,7 +455,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
 
-            ScenarioConfigurationPerFailureMechanismSectionControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
+            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
@@ -1143,7 +1143,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private static ErrorProvider GetParameterAErrorProvider(ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl)
+        private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
         {
             return TypeUtils.GetField<ErrorProvider>(scenarioConfigurationControl, "errorProvider");
         }
@@ -1153,15 +1153,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             return new TextBoxTester("parameterATextBox");
         }
 
-        private static TextBox GetLengthEffectNRoundedTextBox(ScenarioConfigurationPerFailureMechanismSectionControl scenarioConfigurationControl)
+        private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl settingsControl)
         {
             var tableLayoutPanel = (TableLayoutPanel) scenarioConfigurationControl.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
         }
 
-        private static ScenarioConfigurationPerFailureMechanismSectionControl GetFailureMechanismSectionConfigurationControl()
+        private static FailureMechanismSectionConfigurationControl GetFailureMechanismSectionConfigurationControl()
         {
-            return (ScenarioConfigurationPerFailureMechanismSectionControl) new ControlTester("scenarioConfigurationPerFailureMechanismSectionControl").TheObject;
+            return (FailureMechanismSectionConfigurationControl) new ControlTester("failureMechanismSectionConfigurationControl").TheObject;
         }
 
         #endregion
