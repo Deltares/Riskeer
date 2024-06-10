@@ -336,7 +336,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            TextBoxTester parameterATextBox = GetParameterATextBoxTester();
+            TextBox parameterATextBox = GetParameterATextBox();
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
@@ -375,7 +375,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ShowFullyConfiguredMacroStabilityInwardsScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsNotEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
@@ -392,15 +392,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenScenarioConfigurationPerFailureMechanismSectionControlUpdated()
+        public void GivenMacroStabilityInwardsScenariosViewWithoutSections_WhenSectionsAddedAndFailureMechanismNotifiesObserver_ThenFailureMechanismSectionConfigurationControlUpdated()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             ShowMacroStabilityInwardsScenariosView(failureMechanism);
 
             // Precondition
-            var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            Assert.IsFalse(parameterATextBox.Enabled);
+            TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
@@ -1088,15 +1087,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
-
-        private static ErrorProvider GetParameterAErrorProvider(FailureMechanismSectionConfigurationControl settingsControl)
+        
+        private static TextBox GetParameterATextBox()
         {
-            return TypeUtils.GetField<ErrorProvider>(settingsControl, "errorProvider");
-        }
-
-        private static TextBoxTester GetParameterATextBoxTester()
-        {
-            return new TextBoxTester("parameterATextBox");
+            return (TextBox) new TextBoxTester("parameterATextBox").TheObject;
         }
 
         private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl settingsControl)

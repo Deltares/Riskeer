@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel"/>.
         /// </summary>
-        /// <param name="sectionConfiguration">The wrapped scenario configuration.</param>
+        /// <param name="sectionConfiguration">The wrapped section configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
             MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration)

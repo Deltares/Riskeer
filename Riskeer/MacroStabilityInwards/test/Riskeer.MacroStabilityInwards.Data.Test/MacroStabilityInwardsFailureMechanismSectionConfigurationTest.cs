@@ -35,13 +35,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
+            var sectionConfiguration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(scenarioConfigurationPerFailureMechanismSection);
+            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(sectionConfiguration);
 
-            Assert.AreEqual(0.033, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
-            Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
+            Assert.AreEqual(0.033, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
+            Assert.AreSame(section, sectionConfiguration.Section);
         }
     }
 }
