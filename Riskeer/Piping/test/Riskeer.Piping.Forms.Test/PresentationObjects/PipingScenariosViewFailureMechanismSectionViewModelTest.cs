@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismSectionConfigurationPerSection", exception.ParamName);
+            Assert.AreEqual("sectionConfiguration", exception.ParamName);
         }
         
         [Test]
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(scenarioConfiguration, new PipingFailureMechanism());
 
             // Assert
-            Assert.AreSame(scenarioConfiguration, viewModel.ScenarioConfiguration);
+            Assert.AreSame(scenarioConfiguration, viewModel.SectionConfiguration);
         }
 
         [Test]

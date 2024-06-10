@@ -179,13 +179,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(0),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(2),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(0),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -819,7 +819,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             Assert.AreSame(failureMechanism.SectionConfigurations.First(),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
             Assert.AreEqual("0,400", parameterATextBox.Text);
@@ -848,55 +848,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosView_WhenSettingNewParameterA_ThenDataGridViewUpdated()
-        {
-            // Given
-            ShowFullyConfiguredPipingScenariosView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                 .Select(r => r.DataBoundItem)
-                                                                 .Cast<IPipingScenarioRow>()
-                                                                 .ToArray();
-
-            // When
-            TextBoxTester textBoxTester = GetParameterATextBoxTester();
-            textBoxTester.Enter("0,7");
-
-            // Then
-            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                           .Select(r => r.DataBoundItem)
-                                                           .Cast<IPipingScenarioRow>()
-                                                           .ToArray();
-            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
-        }
-
-        [Test]
-        public void GivenPipingScenariosViewWithSectionConfigurationControlError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
-        {
-            // Setup
-            ShowFullyConfiguredPipingScenariosView();
-
-            TextBoxTester textBoxTester = GetParameterATextBoxTester();
-            textBoxTester.Enter("NotADouble");
-
-            // Precondition
-            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
-            ErrorProvider errorProvider = GetParameterAErrorProvider(sectionConfigurationControl);
-            var parameterATextBox = (TextBox) textBoxTester.TheObject;
-            string errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsNotEmpty(errorMessage);
-
-            // When
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
-
-            // Then
-            errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsEmpty(errorMessage);
-        }
-
-        [Test]
         public void GivenPipingScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenSectionConfigurationControlUpdated()
         {
             // Given
@@ -905,7 +856,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
@@ -917,9 +867,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
-
             Assert.IsEmpty(roundedNSectionTextBox.Text);
         }
 
@@ -951,9 +899,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
-
             Assert.IsNotEmpty(roundedNSectionTextBox.Text);
         }
 
@@ -997,13 +943,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(0),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(2),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).SectionConfiguration);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(0),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -1043,7 +989,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
 
             // When
             failureMechanism.NotifyObservers();
@@ -1051,7 +997,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -1091,7 +1037,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1), 
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
 
             // When
             var failureMechanismSection4 = new FailureMechanismSection("Section 4", new[]
@@ -1115,7 +1061,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.AreEqual(2, listBox.Items.Count);
             Assert.AreSame(failureMechanism.SectionConfigurations.First(),
-                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).ScenarioConfiguration);
+                           ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
         }
 
         [Test]
@@ -1871,7 +1817,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         private static TextBox GetRoundedNSectionTextBox(FailureMechanismSectionConfigurationControl control)
         {
             var tableLayoutPanel = (TableLayoutPanel) control.Controls["tableLayoutPanel"];
-            return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
+            return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 2);
         }
 
         private static FailureMechanismSectionConfigurationControl GetSectionConfigurationControl()

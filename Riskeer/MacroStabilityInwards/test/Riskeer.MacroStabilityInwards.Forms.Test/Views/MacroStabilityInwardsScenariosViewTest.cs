@@ -368,56 +368,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsScenariosView_WhenSettingNewParameterA_ThenDataGridViewUpdated()
-        {
-            // Given
-            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            MacroStabilityInwardsScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                               .Select(r => r.DataBoundItem)
-                                                                               .Cast<MacroStabilityInwardsScenarioRow>()
-                                                                               .ToArray();
-
-            // When
-            var textBoxTester = new TextBoxTester("parameterATextBox");
-            textBoxTester.Enter("0,7");
-
-            // Then
-            MacroStabilityInwardsScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                         .Select(r => r.DataBoundItem)
-                                                                         .Cast<MacroStabilityInwardsScenarioRow>()
-                                                                         .ToArray();
-            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
-        }
-
-        [Test]
-        public void GivenMacroStabilityInwardsScenariosViewWithSectionConfigurationControlError_WhenSelectingDifferentItemInSectionsListBox_ThenErrorCleared()
-        {
-            // Setup
-            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
-
-            TextBoxTester textBoxTester = GetParameterATextBoxTester();
-            textBoxTester.Enter("NotADouble");
-
-            // Precondition
-            FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
-            ErrorProvider errorProvider = GetParameterAErrorProvider(sectionConfigurationControl);
-            var parameterATextBox = (TextBox) textBoxTester.TheObject;
-            string errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsNotEmpty(errorMessage);
-
-            // When
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
-
-            // Then
-            errorMessage = errorProvider.GetError(parameterATextBox);
-            Assert.IsEmpty(errorMessage);
-        }
-
-        [Test]
-        public void GivenMacroStabilityInwardsScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenScenarioConfigurationPerFailureMechanismSectionControlUpdated()
+        public void GivenMacroStabilityInwardsScenariosViewWithSections_WhenSectionsClearedAndFailureMechanismNotifiesObserver_ThenFailureMechanismSectionConfigurationControlUpdated()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -425,7 +376,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Precondition
             var parameterATextBox = (TextBox) GetParameterATextBoxTester().TheObject;
-            Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
 
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetFailureMechanismSectionConfigurationControl();
@@ -437,9 +387,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsFalse(parameterATextBox.Enabled);
             Assert.IsEmpty(parameterATextBox.Text);
-
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -471,9 +419,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.IsTrue(parameterATextBox.Enabled);
             Assert.IsNotEmpty(parameterATextBox.Text);
-
             Assert.IsNotEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -1156,7 +1102,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl settingsControl)
         {
             var tableLayoutPanel = (TableLayoutPanel) settingsControl.Controls["tableLayoutPanel"];
-            return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 1);
+            return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 2);
         }
 
         private static FailureMechanismSectionConfigurationControl GetFailureMechanismSectionConfigurationControl()
