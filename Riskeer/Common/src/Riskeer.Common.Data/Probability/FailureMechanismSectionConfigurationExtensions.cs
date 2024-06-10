@@ -48,5 +48,21 @@ namespace Riskeer.Common.Data.Probability
 
             return 1 + ((double) configuration.A * configuration.Section.Length) / b;
         }
+
+        /// <summary>
+        /// Calculates the failure mechanism sensitive section length based on the <see cref="FailureMechanismSectionConfiguration"/>.
+        /// </summary>
+        /// <param name="configuration">The <see cref="FailureMechanismSectionConfiguration"/> to calculate with.</param>
+        /// <returns>The failure mechanism sensitive section length.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        public static double GetFailureMechanismSensitiveSectionLength(this FailureMechanismSectionConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            return (double) configuration.A * configuration.Section.Length;
+        }
     }
 }

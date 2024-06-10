@@ -65,5 +65,40 @@ namespace Riskeer.Common.Data.Test.Probability
             // Assert
             Assert.AreEqual(expectedN, actualN);
         }
+        
+        [Test]
+        public void GetFailureMechanismSensitiveSectionLength_ConfigurationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismSectionConfiguration) null).GetFailureMechanismSensitiveSectionLength();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("configuration", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(0.2, 100, 20)]
+        [TestCase(0.5, 300, 150)]
+        [TestCase(0.9, 750, 675)]
+        [TestCase(0.8, -100, 80)]
+        public void GetFailureMechanismSensitiveSectionLength_WithValues_ReturnsExpectedResult(double a, double length, double expectedFailureMechanismSensitiveSectionLength)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(length, 0)
+            });
+
+            var configuration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+
+            // Call
+            double actualFailureMechanismSensitiveSectionLength = configuration.GetFailureMechanismSensitiveSectionLength();
+
+            // Assert
+            Assert.AreEqual(expectedFailureMechanismSensitiveSectionLength, 
+                            actualFailureMechanismSensitiveSectionLength);
+        }
     }
 }
