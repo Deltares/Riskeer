@@ -25,9 +25,9 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
-    /// Extension methods for the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>.
+    /// Extension methods for the <see cref="FailureMechanismSectionConfiguration"/>.
     /// </summary>
-    public static class ScenarioConfigurationPerFailureMechanismSectionExtensions
+    public static class FailureMechanismSectionConfigurationExtensions
     {
         /// <summary>
         /// Calculates the 'N' based on the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.Probability
         /// <returns>The 'N' parameter used to factor in the 'length effect'.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
-        public static double GetN(this ScenarioConfigurationPerFailureMechanismSection configuration, double b)
+        public static double GetN(this FailureMechanismSectionConfiguration configuration, double b)
         {
             if (configuration == null)
             {

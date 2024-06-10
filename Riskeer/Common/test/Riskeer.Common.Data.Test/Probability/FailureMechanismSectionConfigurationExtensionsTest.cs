@@ -30,13 +30,13 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Common.Data.Test.Probability
 {
     [TestFixture]
-    public class ScenarioConfigurationPerFailureMechanismSectionExtensionsTest
+    public class FailureMechanismSectionConfigurationExtensionsTest
     {
         [Test]
         public void GetN_ConfigurationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ScenarioConfigurationPerFailureMechanismSection) null).GetN(new Random(39).NextDouble());
+            void Call() => ((FailureMechanismSectionConfiguration) null).GetN(new Random(39).NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.Probability
                 new Point2D(length, 0)
             });
 
-            var configuration = new TestScenarioConfigurationPerFailureMechanismSection(section, (RoundedDouble) a);
+            var configuration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
             // Call
             double actualN = configuration.GetN(b);
