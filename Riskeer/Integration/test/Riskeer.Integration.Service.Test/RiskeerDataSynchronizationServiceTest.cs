@@ -1636,7 +1636,7 @@ namespace Riskeer.Integration.Service.Test
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResults);
-            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionConfigurations);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SurfaceLines);
@@ -1751,9 +1751,9 @@ namespace Riskeer.Integration.Service.Test
                 yield return failureMechanismObject;
             }
 
-            foreach (PipingScenarioConfigurationPerFailureMechanismSection scenarioConfiguration in failureMechanism.ScenarioConfigurationsPerFailureMechanismSection)
+            foreach (PipingFailureMechanismSectionConfiguration sectionConfiguration in failureMechanism.SectionConfigurations)
             {
-                yield return scenarioConfiguration;
+                yield return sectionConfiguration;
             }
 
             foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())

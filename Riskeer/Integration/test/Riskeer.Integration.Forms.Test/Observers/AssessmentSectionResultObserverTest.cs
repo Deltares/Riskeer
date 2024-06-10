@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenOldPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenOldPipingSectionConfigurationNotified_ThenAssessmentSectionResultObserverNotNotified()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -309,7 +309,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                oldFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+                oldFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenNewPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenNewPipingSectionConfigurationNotified_ThenAssessmentSectionResultObserverNotified()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                newFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+                newFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
@@ -521,7 +521,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAttachedObserverNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingSectionConfigurationNotified_ThenAttachedObserverNotified()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -542,7 +542,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                assessmentSection.Piping.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+                assessmentSection.Piping.SectionConfigurations.First().NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();

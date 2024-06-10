@@ -212,10 +212,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionConfigurations);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            CollectionAssert.Contains(observables, pipingFailureMechanism.SectionConfigurations);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(pipingFailureMechanism.StochasticSoilModels);
