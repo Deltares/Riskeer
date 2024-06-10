@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> related to creating a 
+    /// Extension methods for <see cref="PipingFailureMechanismSectionConfiguration"/> related to creating a 
     /// <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.
     /// </summary>
-    internal static class PipingScenarioConfigurationPerFailureMechanismSectionCreateExtensions
+    internal static class PipingFailureMechanismSectionConfigurationCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> based on the information of the
-        /// <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
         /// <param name="section">The section to create a database entity for.</param>
         /// <returns>A new <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        internal static PipingScenarioConfigurationPerFailureMechanismSectionEntity Create(this PipingScenarioConfigurationPerFailureMechanismSection section)
+        internal static PipingScenarioConfigurationPerFailureMechanismSectionEntity Create(this PipingFailureMechanismSectionConfiguration section)
         {
             if (section == null)
             {

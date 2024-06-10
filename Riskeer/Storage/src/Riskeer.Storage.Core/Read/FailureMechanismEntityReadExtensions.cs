@@ -215,7 +215,7 @@ namespace Riskeer.Storage.Core.Read
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
-            entity.ReadPipingScenarioConfigurationPerFailureMechanismSection(failureMechanism, collector);
+            entity.ReadPipingFailureMechanismSectionConfigurations(failureMechanism, collector);
 
             ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -236,15 +236,16 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadPipingScenarioConfigurationPerFailureMechanismSection(this FailureMechanismEntity entity,
-                                                                                      PipingFailureMechanism failureMechanism,
-                                                                                      ReadConversionCollector collector)
+        private static void ReadPipingFailureMechanismSectionConfigurations(this FailureMechanismEntity entity,
+                                                                            PipingFailureMechanism failureMechanism,
+                                                                            ReadConversionCollector collector)
         {
-            IEnumerable<PipingScenarioConfigurationPerFailureMechanismSectionEntity> pipingScenarioConfigurationPerFailureMechanismSectionEntities = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities);
+            IEnumerable<PipingScenarioConfigurationPerFailureMechanismSectionEntity> pipingScenarioConfigurationPerFailureMechanismSectionEntities = 
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities);
             foreach (PipingScenarioConfigurationPerFailureMechanismSectionEntity sectionConfigurationEntity in pipingScenarioConfigurationPerFailureMechanismSectionEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
-                PipingScenarioConfigurationPerFailureMechanismSection configuration = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                PipingFailureMechanismSectionConfiguration configuration = failureMechanism.SectionConfigurations.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionConfigurationEntity.Read(configuration);
             }

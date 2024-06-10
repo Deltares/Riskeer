@@ -31,13 +31,13 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
-    public class PipingScenarioConfigurationPerFailureMechanismSectionCreateExtensionsTest
+    public class PipingFailureMechanismSectionConfigurationCreateExtensionsTest
     {
         [Test]
         public void Create_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingScenarioConfigurationPerFailureMechanismSectionCreateExtensions.Create(null);
+            void Call() => PipingFailureMechanismSectionConfigurationCreateExtensions.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -45,12 +45,12 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithScenarioConfiguration_ReturnsExpectedEntity()
+        public void Create_WithSectionConfiguration_ReturnsExpectedEntity()
         {
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var configuration = new PipingScenarioConfigurationPerFailureMechanismSection(failureMechanismSection)
+            var configuration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection)
             {
                 ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>()
             };

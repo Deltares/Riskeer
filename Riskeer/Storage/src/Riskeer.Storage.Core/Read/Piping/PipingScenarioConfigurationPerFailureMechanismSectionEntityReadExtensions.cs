@@ -26,33 +26,33 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionConfiguration"/> based on the
     /// <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.
     /// </summary>
     internal static class PipingScenarioConfigurationPerFailureMechanismSectionEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> and use the information to construct a 
-        /// <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> used to update 
-        /// the <paramref name="scenarioConfigurationsPerFailureMechanismSection"/>.</param>
-        /// <param name="scenarioConfigurationsPerFailureMechanismSection">The target of the read operation.</param>
+        /// the <paramref name="failureMechanismSectionConfiguration"/>.</param>
+        /// <param name="failureMechanismSectionConfiguration">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this PipingScenarioConfigurationPerFailureMechanismSectionEntity entity,
-                                  PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationsPerFailureMechanismSection)
+                                  PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (scenarioConfigurationsPerFailureMechanismSection == null)
+            if (failureMechanismSectionConfiguration == null)
             {
-                throw new ArgumentNullException(nameof(scenarioConfigurationsPerFailureMechanismSection));
+                throw new ArgumentNullException(nameof(failureMechanismSectionConfiguration));
             }
 
-            scenarioConfigurationsPerFailureMechanismSection.ScenarioConfigurationType =
+            failureMechanismSectionConfiguration.ScenarioConfigurationType =
                 (PipingScenarioConfigurationPerFailureMechanismSectionType) entity.PipingScenarioConfigurationPerFailureMechanismSectionType;
         }
     }

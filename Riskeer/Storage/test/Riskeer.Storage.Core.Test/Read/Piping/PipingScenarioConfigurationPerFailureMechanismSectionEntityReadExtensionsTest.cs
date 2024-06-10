@@ -36,26 +36,26 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingScenarioConfigurationPerFailureMechanismSectionEntity) null).Read(
-                new PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((PipingScenarioConfigurationPerFailureMechanismSectionEntity) null).Read(
+                new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
-        public void Read_ScenarioConfigurationsPerFailureMechanismSectionNull_ThrowsArgumentNullException()
+        public void Read_FailureMechanismSectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("scenarioConfigurationsPerFailureMechanismSection", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanismSectionConfiguration", paramName);
         }
 
         [Test]
@@ -70,14 +70,14 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
                 PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configurationType)
             };
 
-            var configurationPerSection =
-                new PipingScenarioConfigurationPerFailureMechanismSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionConfiguration =
+                new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            entity.Read(configurationPerSection);
+            entity.Read(sectionConfiguration);
 
             // Assert
-            Assert.AreEqual(configurationType, configurationPerSection.ScenarioConfigurationType);
+            Assert.AreEqual(configurationType, sectionConfiguration.ScenarioConfigurationType);
         }
     }
 }

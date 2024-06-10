@@ -1059,9 +1059,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertPipingSurfaceLine);
-            AssertCollectionAndItems(expectedFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
-                                     actualFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
-                                     AssertPipingScenarioConfigurationPerFailureMechanismSection);
+            AssertCollectionAndItems(expectedFailureMechanism.SectionConfigurations,
+                                     actualFailureMechanism.SectionConfigurations,
+                                     AssertPipingFailureMechanismSectionConfiguration);
         }
 
         private static void AssertSemiProbabilisticPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedPipingCalculation,
@@ -1091,9 +1091,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
         }
 
-        private static void AssertPipingScenarioConfigurationPerFailureMechanismSection(
-            PipingScenarioConfigurationPerFailureMechanismSection expectedConfiguration,
-            PipingScenarioConfigurationPerFailureMechanismSection actualConfiguration)
+        private static void AssertPipingFailureMechanismSectionConfiguration(
+            PipingFailureMechanismSectionConfiguration expectedConfiguration,
+            PipingFailureMechanismSectionConfiguration actualConfiguration)
         {
             AssertFailureMechanismSections(new[]
             {
