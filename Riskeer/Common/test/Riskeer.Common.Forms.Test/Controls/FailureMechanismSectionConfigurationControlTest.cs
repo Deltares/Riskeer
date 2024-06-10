@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
-            settingsControl.SetData(scenarioConfiguration);
+            control.SetData(scenarioConfiguration);
 
             // Then
             Assert.AreEqual("0,700", parameterATextBox.Text);
@@ -173,8 +173,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
-            settingsControl.SetData(sectionConfiguration);
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
+            control.SetData(sectionConfiguration);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -211,8 +211,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var oldConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
-            settingsControl.SetData(oldConfiguration);
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
+            control.SetData(oldConfiguration);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -226,7 +226,7 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // When
             var newConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) 0.4);
-            settingsControl.SetData(newConfiguration);
+            control.SetData(newConfiguration);
             oldConfiguration.NotifyObservers();
 
             // Then
@@ -250,8 +250,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
-            settingsControl.SetData(scenarioConfiguration);
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
+            control.SetData(scenarioConfiguration);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
             // When
-            settingsControl.ClearData();
+            control.ClearData();
 
             // Then
             Assert.IsEmpty(parameterATextBox.Text);
@@ -286,11 +286,11 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var configuration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
-            settingsControl.SetData(configuration);
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
+            control.SetData(configuration);
 
             // When
-            settingsControl.ClearData();
+            control.ClearData();
             configuration.NotifyObservers();
 
             // Then

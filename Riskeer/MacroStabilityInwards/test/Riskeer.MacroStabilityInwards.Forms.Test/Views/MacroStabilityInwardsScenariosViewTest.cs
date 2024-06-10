@@ -1093,9 +1093,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             return (TextBox) new TextBoxTester("parameterATextBox").TheObject;
         }
 
-        private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl settingsControl)
+        private static TextBox GetLengthEffectNRoundedTextBox(FailureMechanismSectionConfigurationControl control)
         {
-            var tableLayoutPanel = (TableLayoutPanel) settingsControl.Controls["tableLayoutPanel"];
+            var tableLayoutPanel = (TableLayoutPanel) control.Controls["tableLayoutPanel"];
             return (TextBox) tableLayoutPanel.GetControlFromPosition(1, 2);
         }
 

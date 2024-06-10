@@ -1779,13 +1779,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
         }
 
-        private void ShowFullyConfiguredPipingScenariosView()
-        {
-            var failureMechanism = new PipingFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            ShowPipingScenariosView(failureMechanism);
-        }
-
         private PipingScenariosView ShowPipingScenariosView(PipingFailureMechanism failureMechanism)
         {
             var pipingScenarioView = new PipingScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
