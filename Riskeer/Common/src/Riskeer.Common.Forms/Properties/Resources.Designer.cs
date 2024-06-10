@@ -2279,11 +2279,20 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;Nvak*&apos; die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets..
+        /// </summary>
+        public static string LengthEffectNRounded_Description {
+            get {
+                return ResourceManager.GetString("LengthEffectNRounded_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameter Nvak* [-].
         /// </summary>
-        public static string LengthEffect_RoundedNSection_DisplayName {
+        public static string LengthEffectNRounded_DisplayName {
             get {
-                return ResourceManager.GetString("LengthEffect_RoundedNSection_DisplayName", resourceCulture);
+                return ResourceManager.GetString("LengthEffectNRounded_DisplayName", resourceCulture);
             }
         }
         
@@ -2725,15 +2734,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string RoundedDouble_No_result_dash {
             get {
                 return ResourceManager.GetString("RoundedDouble_No_result_dash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;Nvak*&apos; die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets..
-        /// </summary>
-        public static string RoundedNSection_Description {
-            get {
-                return ResourceManager.GetString("RoundedNSection_Description", resourceCulture);
             }
         }
         

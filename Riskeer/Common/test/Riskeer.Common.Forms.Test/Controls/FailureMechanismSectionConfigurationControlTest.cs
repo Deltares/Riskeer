@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void Constructor_ControlsCorrectlyInitialized()
         {
             // Call
-            ShowScenarioConfigurationPerFailureMechanismSectionControl();
+            ShowFailureMechanismSectionConfigurationControl();
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -63,8 +63,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             Label parameterBLabel = GetParameterBLabel();
             Assert.AreEqual("Equivalente onafhankelijke lengte b [m]", parameterBLabel.Text);
 
-            Label roundedNSectionLabel = GetRoundedNSectionLabel();
-            Assert.AreEqual("Lengte-effect parameter Nvak* [-]", roundedNSectionLabel.Text);
+            Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
+            Assert.AreEqual("Lengte-effect parameter Nvak* [-]", lengthEffectNRoundedLabel.Text);
 
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsFalse(parameterATextBox.Enabled);
@@ -72,15 +72,15 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.IsFalse(parameterBTextBox.Enabled);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.IsFalse(roundedNSectionTextBox.Enabled);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
         }
 
         [Test]
         public void Constructor_ToolTipsCorrectlyInitialized()
         {
             // Call
-            FailureMechanismSectionConfigurationControl view = ShowScenarioConfigurationPerFailureMechanismSectionControl();
+            FailureMechanismSectionConfigurationControl view = ShowFailureMechanismSectionConfigurationControl();
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -99,20 +99,20 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual(100, parameterBToolTip.InitialDelay);
             Assert.AreEqual(100, parameterBToolTip.ReshowDelay);
 
-            Label roundedNSectionLabel = GetRoundedNSectionLabel();
-            var roundedNSectionToolTip = TypeUtils.GetField<ToolTip>(view, "roundedNSectionToolTip");
+            Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
+            var lengthEffectNRoundedToolTip = TypeUtils.GetField<ToolTip>(view, "lengthEffectNRoundedToolTip");
             Assert.AreEqual("De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.",
-                            roundedNSectionToolTip.GetToolTip(roundedNSectionLabel));
-            Assert.AreEqual(5000, roundedNSectionToolTip.AutoPopDelay);
-            Assert.AreEqual(100, roundedNSectionToolTip.InitialDelay);
-            Assert.AreEqual(100, roundedNSectionToolTip.ReshowDelay);
+                            lengthEffectNRoundedToolTip.GetToolTip(lengthEffectNRoundedLabel));
+            Assert.AreEqual(5000, lengthEffectNRoundedToolTip.AutoPopDelay);
+            Assert.AreEqual(100, lengthEffectNRoundedToolTip.InitialDelay);
+            Assert.AreEqual(100, lengthEffectNRoundedToolTip.ReshowDelay);
         }
 
         [Test]
         public void SetData_SectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismSectionConfigurationControl control = ShowScenarioConfigurationPerFailureMechanismSectionControl();
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl();
 
             // Call
             void Call() => control.SetData(null);
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -146,8 +146,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.IsEmpty(parameterBTextBox.Text);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.IsEmpty(roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
             // When
             settingsControl.SetData(scenarioConfiguration);
@@ -155,7 +155,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Then
             Assert.AreEqual("0,700", parameterATextBox.Text);
             Assert.AreEqual("300", parameterBTextBox.Text);
-            Assert.AreEqual("1,23", roundedNSectionTextBox.Text);
+            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -171,10 +171,10 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
-            settingsControl.SetData(scenarioConfiguration);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
+            settingsControl.SetData(sectionConfiguration);
 
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
@@ -183,17 +183,17 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.AreEqual("300", parameterBTextBox.Text);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.AreEqual("1,23", roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
             // When
-            scenarioConfiguration.A = (RoundedDouble) 0.4;
-            scenarioConfiguration.NotifyObservers();
+            sectionConfiguration.A = (RoundedDouble) 0.4;
+            sectionConfiguration.NotifyObservers();
 
             // Then
             Assert.AreEqual("0,400", parameterATextBox.Text);
             Assert.AreEqual("300", parameterBTextBox.Text);
-            Assert.AreEqual("1,13", roundedNSectionTextBox.Text);
+            Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -211,7 +211,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var oldConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
             settingsControl.SetData(oldConfiguration);
 
             // Precondition
@@ -221,8 +221,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.AreEqual("300", parameterBTextBox.Text);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.AreEqual("1,23", roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
             // When
             var newConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) 0.4);
@@ -232,7 +232,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Then
             Assert.AreEqual("0,400", parameterATextBox.Text);
             Assert.AreEqual("300", parameterBTextBox.Text);
-            Assert.AreEqual("1,13", roundedNSectionTextBox.Text);
+            Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(b);
+            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(b);
             settingsControl.SetData(scenarioConfiguration);
 
             // Precondition
@@ -260,8 +260,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.AreEqual("300", parameterBTextBox.Text);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.AreEqual("1,23", roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
             // When
             settingsControl.ClearData();
@@ -269,7 +269,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Then
             Assert.IsEmpty(parameterATextBox.Text);
             Assert.IsEmpty(parameterBTextBox.Text);
-            Assert.IsEmpty(roundedNSectionTextBox.Text);
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
@@ -286,7 +286,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var configuration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
-            FailureMechanismSectionConfigurationControl settingsControl = ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
+            FailureMechanismSectionConfigurationControl settingsControl = ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
             settingsControl.SetData(configuration);
 
             // When
@@ -300,8 +300,8 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.IsEmpty(parameterBTextBox.Text);
 
-            TextBox roundedNSectionTextBox = GetRoundedNSectionTextBox();
-            Assert.IsEmpty(roundedNSectionTextBox.Text);
+            TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
+            Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
         private static Label GetParameterALabel()
@@ -314,9 +314,9 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (Label) new LabelTester("parameterBLabel").TheObject;
         }
 
-        private static Label GetRoundedNSectionLabel()
+        private static Label GetLengthEffectNRoundedLabel()
         {
-            return (Label) new LabelTester("roundedNSectionLabel").TheObject;
+            return (Label) new LabelTester("lengthEffectNRoundedLabel").TheObject;
         }
 
         private static TextBox GetParameterATextBox()
@@ -329,18 +329,18 @@ namespace Riskeer.Common.Forms.Test.Controls
             return (TextBox) new ControlTester("parameterBTextBox").TheObject;
         }
 
-        private static TextBox GetRoundedNSectionTextBox()
+        private static TextBox GetLengthEffectNRoundedTextBox()
         {
-            return (TextBox) new ControlTester("roundedNSectionTextBox").TheObject;
+            return (TextBox) new ControlTester("lengthEffectNRoundedTextBox").TheObject;
         }
 
-        private FailureMechanismSectionConfigurationControl ShowScenarioConfigurationPerFailureMechanismSectionControl()
+        private FailureMechanismSectionConfigurationControl ShowFailureMechanismSectionConfigurationControl()
         {
             var random = new Random(21);
-            return ShowScenarioConfigurationPerFailureMechanismSectionControl(random.NextDouble());
+            return ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
         }
 
-        private FailureMechanismSectionConfigurationControl ShowScenarioConfigurationPerFailureMechanismSectionControl(double b)
+        private FailureMechanismSectionConfigurationControl ShowFailureMechanismSectionConfigurationControl(double b)
         {
             var control = new FailureMechanismSectionConfigurationControl(b);
 

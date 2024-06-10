@@ -72,13 +72,13 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, a);
+            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, a);
 
             // Assert
-            Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
-            Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+            Assert.AreEqual(3, sectionConfiguration.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
 
-            Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
+            Assert.AreSame(section, sectionConfiguration.Section);
         }
 
         [Test]
@@ -90,10 +90,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
             // Call
-            void Call() => scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
+            void Call() => sectionConfiguration.A = (RoundedDouble) a;
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
@@ -112,14 +112,14 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
 
             // Call
-            scenarioConfigurationPerFailureMechanismSection.A = (RoundedDouble) a;
+            sectionConfiguration.A = (RoundedDouble) a;
 
             // Assert
-            Assert.AreEqual(3, scenarioConfigurationPerFailureMechanismSection.A.NumberOfDecimalPlaces);
-            Assert.AreEqual(a, scenarioConfigurationPerFailureMechanismSection.A, scenarioConfigurationPerFailureMechanismSection.A.GetAccuracy());
+            Assert.AreEqual(3, sectionConfiguration.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
         }
 
         private static IEnumerable<TestCaseData> GetInvalidAValues()

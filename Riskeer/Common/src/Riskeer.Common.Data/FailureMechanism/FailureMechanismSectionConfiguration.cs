@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> the scenario configuration belongs to.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> the configuration belongs to.</param>
         /// <param name="a">The 'a' parameter representing the failure mechanism sensitive fraction.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Data.FailureMechanism
                 if (!validityRangeA.InRange(newA))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
-                                                          string.Format(Resources.ScenarioConfigurationPerFailureMechanismSection_A_Value_must_be_in_Range_0_,
+                                                          string.Format(Resources.FailureMechanismSectionConfiguration_A_Value_must_be_in_Range_0_,
                                                                         validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
 

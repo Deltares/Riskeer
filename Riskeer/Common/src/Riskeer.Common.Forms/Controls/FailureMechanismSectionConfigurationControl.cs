@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Controls
     /// </summary>
     public partial class FailureMechanismSectionConfigurationControl : UserControl
     {
-        private const int roundedNSectionNrOfDecimals = 2;
+        private const int lengthEffectNRoundedNrOfDecimals = 2;
 
         private readonly double b;
         private FailureMechanismSectionConfiguration failureMechanismSectionConfiguration;
@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Controls
             InitializeComponent();
             InitializeToolTips();
 
-            sectionConfigurationObserver = new Observer(UpdateScenarioConfigurationPerSectionData);
+            sectionConfigurationObserver = new Observer(UpdateFailureMechanismSectionConfigurationData);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Controls
             failureMechanismSectionConfiguration = sectionConfiguration;
             sectionConfigurationObserver.Observable = sectionConfiguration;
             
-            UpdateScenarioConfigurationPerSectionData();
+            UpdateFailureMechanismSectionConfigurationData();
         }
 
         /// <summary>
@@ -92,22 +92,22 @@ namespace Riskeer.Common.Forms.Controls
         {
             parameterAToolTip.SetToolTip(parameterALabel, Resources.Parameter_A_Description);
             parameterBToolTip.SetToolTip(parameterBLabel, Resources.FailureMechanism_GeneralInput_B_Description);
-            roundedNSectionToolTip.SetToolTip(roundedNSectionLabel, Resources.RoundedNSection_Description);
+            lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffectNRounded_Description);
         }
         
         private void ClearControls()
         {
             parameterATextBox.Text = string.Empty;
             parameterBTextBox.Text = string.Empty;
-            roundedNSectionTextBox.Text = string.Empty;
+            lengthEffectNRoundedTextBox.Text = string.Empty;
         }
 
-        private void UpdateScenarioConfigurationPerSectionData()
+        private void UpdateFailureMechanismSectionConfigurationData()
         {
             parameterATextBox.Text = failureMechanismSectionConfiguration.A.ToString();
 
             double n = failureMechanismSectionConfiguration.GetN(b);
-            roundedNSectionTextBox.Text = new RoundedDouble(roundedNSectionNrOfDecimals, n).ToString();
+            lengthEffectNRoundedTextBox.Text = new RoundedDouble(lengthEffectNRoundedNrOfDecimals, n).ToString();
         }
     }
 }

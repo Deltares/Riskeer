@@ -30,10 +30,10 @@ namespace Riskeer.Common.Data.Probability
     public static class FailureMechanismSectionConfigurationExtensions
     {
         /// <summary>
-        /// Calculates the 'N' based on the <see cref="ScenarioConfigurationPerFailureMechanismSection"/>
+        /// Calculates the 'N' based on the <see cref="FailureMechanismSectionConfiguration"/>
         /// and the 'b' parameter representing the equivalent independent length to factor in the 'length effect'.
         /// </summary>
-        /// <param name="configuration">The scenario configuration for the failure mechanism section.</param>
+        /// <param name="configuration">The <see cref="FailureMechanismSectionConfiguration"/> to calculate with.</param>
         /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
         /// 'length effect'.</param>
         /// <returns>The 'N' parameter used to factor in the 'length effect'.</returns>

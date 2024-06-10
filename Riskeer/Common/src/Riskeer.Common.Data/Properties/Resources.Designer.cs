@@ -473,6 +473,15 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor &apos;a&apos; moet in het bereik {0} liggen..
+        /// </summary>
+        public static string FailureMechanismSectionConfiguration_A_Value_must_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionConfiguration_A_Value_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik {0} liggen..
         /// </summary>
         public static string FailureProbability_Value_needs_to_be_in_Range_0_ {
@@ -787,15 +796,6 @@ namespace Riskeer.Common.Data.Properties {
         public static string RiskeerWellKnownTileSource_OpenStreetMap_DisplayName {
             get {
                 return ResourceManager.GetString("RiskeerWellKnownTileSource_OpenStreetMap_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;a&apos; moet in het bereik {0} liggen..
-        /// </summary>
-        public static string ScenarioConfigurationPerFailureMechanismSection_A_Value_must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("ScenarioConfigurationPerFailureMechanismSection_A_Value_must_be_in_Range_0_", resourceCulture);
             }
         }
         
