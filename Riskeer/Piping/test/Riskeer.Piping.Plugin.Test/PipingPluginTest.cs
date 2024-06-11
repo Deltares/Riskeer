@@ -35,7 +35,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
@@ -251,7 +250,7 @@ namespace Riskeer.Piping.Plugin.Test
                     viewInfos,
                     typeof(PipingFailureMechanismSectionsContext),
                     typeof(IEnumerable<FailureMechanismSection>),
-                    typeof(FailureMechanismSectionsView));
+                    typeof(PipingFailureMechanismSectionConfigurationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

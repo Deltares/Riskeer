@@ -42,7 +42,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
@@ -307,12 +306,16 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new RiskeerViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
+            yield return new RiskeerViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, PipingFailureMechanismSectionConfigurationsView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData)
+                CreateInstance = context =>
+                {
+                    var failureMechanism = (PipingFailureMechanism) context.WrappedData;
+                    return new PipingFailureMechanismSectionConfigurationsView(failureMechanism.SectionConfigurations, failureMechanism);
+                }
             };
 
             yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)
