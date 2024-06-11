@@ -1559,4 +1559,10 @@ faalkans per vak
     <data name="LengthEffectNRounded_Description" xml:space="preserve">
       <value>De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.</value>
     </data>
+    <data name="FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName" xml:space="preserve">
+      <value>a [-]</value>
+    </data>
+    <data name="FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName" xml:space="preserve">
+      <value>Nvak* [-]</value>
+    </data>
 </root>

@@ -1625,6 +1625,24 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nvak* [-].
+        /// </summary>
+        public static string FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a [-].
+        /// </summary>
+        public static string FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismSectionResultIcon {
