@@ -21,21 +21,19 @@
 
 using System;
 using Core.Common.Base.Data;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Data;
 
-namespace Riskeer.Common.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="FailureMechanismSectionConfiguration"/>.
+    /// This class represents a row of <see cref="PipingFailureMechanismSectionConfiguration"/>
     /// </summary>
-    public class FailureMechanismSectionConfigurationRow : FailureMechanismSectionRow
+    public class PipingFailureMechanismSectionConfigurationRow : FailureMechanismSectionConfigurationRow
     {
-        protected readonly FailureMechanismSectionConfiguration SectionConfiguration;
-        private readonly double b;
-
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationRow"/>.
+        /// Creates a new 
         /// </summary>
         /// <param name="sectionConfiguration">The  section configuration to use.</param>
         /// <param name="sectionStart">The start of the section from the beginning
@@ -45,36 +43,13 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
         /// 'length effect'.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionConfigurationRow(FailureMechanismSectionConfiguration sectionConfiguration,
-                                                       double sectionStart, double sectionEnd, double b)
-            : base(sectionConfiguration?.Section, sectionStart, sectionEnd)
-        {
-            this.SectionConfiguration = sectionConfiguration;
-            this.b = b;
-        }
-
-        /// <summary>
-        /// Gets or sets the 'a' parameter.
-        /// [-]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
-        public RoundedDouble A
-        {
-            get
-            {
-                return SectionConfiguration.A;
-            }
-            set
-            {
-                SectionConfiguration.A = value;
-                SectionConfiguration.NotifyObservers();
-            }
-        }
+        public PipingFailureMechanismSectionConfigurationRow(PipingFailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b) 
+            : base(sectionConfiguration, sectionStart, sectionEnd, b) {}
         
         /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
-        /// [-]
+        /// Gets the failure mechanism sensitive section length.
+        /// [m]
         /// </summary>
-        public RoundedDouble N => new RoundedDouble(2, SectionConfiguration.GetN(b));
+        public RoundedDouble FailureMechanismSensitiveSectionLength => new RoundedDouble(2, SectionConfiguration.GetFailureMechanismSensitiveSectionLength());
     }
 }

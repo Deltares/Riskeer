@@ -28,7 +28,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    internal class FailureMechanismSectionRow
+    public class FailureMechanismSectionRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionRow"/>.
