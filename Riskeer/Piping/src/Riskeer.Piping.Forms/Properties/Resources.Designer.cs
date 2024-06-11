@@ -377,6 +377,16 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mechanismegevoelige vaklengte [m].
+        /// </summary>
+        public static string PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionLength_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionL" +
+                        "ength_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
         public static string PipingInput_DampingFactorExit_Description {

@@ -525,4 +525,7 @@ een te onveilig rekenresultaat op het trajectniveau.</value>
   <data name="PipingScenariosView_ScenarioConfigurationType_DisplayName" xml:space="preserve">
     <value>Type toets</value>
   </data>
+  <data name="PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionLength_DisplayName" xml:space="preserve">
+    <value>Mechanismegevoelige vaklengte [m]</value>
+  </data>
 </root>
