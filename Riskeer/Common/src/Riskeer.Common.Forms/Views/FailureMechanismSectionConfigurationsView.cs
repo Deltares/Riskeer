@@ -29,12 +29,12 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// View for a collection of <see cref="FailureMechanismSection"/> that have a section specific N.
+    /// View for a collection of <see cref="FailureMechanismSectionConfiguration"/>.
     /// </summary>
     public class FailureMechanismSectionConfigurationsView : FailureMechanismSectionsView
     {
         private readonly IEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations;
-        private readonly double b;
+        protected readonly double B;
 
         private readonly RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration> sectionConfigurationsObserver;
 
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Views
             : base(sectionConfigurations?.Select(sc => sc.Section), failureMechanism)
         {
             this.sectionConfigurations = sectionConfigurations;
-            this.b = b;
+            this.B = b;
 
             sectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>(
                 UpdateDataGridViewControl, c => c)
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 double end = start + sectionConfiguration.Section.Length;
 
-                presentableFailureMechanismSections.Add(new FailureMechanismSectionConfigurationRow(sectionConfiguration, start, end, b));
+                presentableFailureMechanismSections.Add(new FailureMechanismSectionConfigurationRow(sectionConfiguration, start, end, B));
 
                 start = end;
             }
