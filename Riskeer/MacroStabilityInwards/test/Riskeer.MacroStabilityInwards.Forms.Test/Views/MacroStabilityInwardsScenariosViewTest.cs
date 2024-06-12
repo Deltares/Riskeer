@@ -208,7 +208,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(new RoundedDouble(2, 37.50).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 3", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("1/93", cells[failureProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual("1/88", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("1/36", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -344,8 +344,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             var selectedItem = ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem);
             Assert.AreSame(failureMechanism.Sections.First(), selectedItem.SectionConfiguration.Section);
-            Assert.AreEqual("0,033", parameterATextBox.Text);
-            Assert.AreEqual("1,05", lengthEffectNRoundedTextBox.Text);
+            Assert.AreEqual("1,000", parameterATextBox.Text);
+            Assert.AreEqual("2,60", lengthEffectNRoundedTextBox.Text);
 
             MacroStabilityInwardsScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                                .Select(r => r.DataBoundItem)

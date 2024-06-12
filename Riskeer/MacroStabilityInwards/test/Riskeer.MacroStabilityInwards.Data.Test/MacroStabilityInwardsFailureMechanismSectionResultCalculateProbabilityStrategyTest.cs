@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.AreEqual(0.99078184, sectionProbability, 1e-8);
+            Assert.AreEqual(1.0, sectionProbability, 1e-8);
         }
 
         [Test]

@@ -148,7 +148,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.AreEqual(0.98862377, sectionProbability, 1e-8);
+            Assert.AreEqual(0.99059838, sectionProbability, 1e-8);
         }
 
         [Test]

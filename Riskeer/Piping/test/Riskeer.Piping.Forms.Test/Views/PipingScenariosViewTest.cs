@@ -476,7 +476,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.038461838), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(2.44140625e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(2.46609124e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -822,8 +822,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                            ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
-            Assert.AreEqual("0,400", parameterATextBox.Text);
-            Assert.AreEqual("1,01", lengthEffectNRoundedTextBox.Text);
+            Assert.AreEqual("1,000", parameterATextBox.Text);
+            Assert.AreEqual("1,02", lengthEffectNRoundedTextBox.Text);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                  .Select(r => r.DataBoundItem)
