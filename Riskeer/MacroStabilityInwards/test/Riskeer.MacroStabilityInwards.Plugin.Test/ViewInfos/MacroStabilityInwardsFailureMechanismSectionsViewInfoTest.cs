@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -28,9 +29,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
@@ -44,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         {
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
+                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>));
             }
         }
 
@@ -85,18 +86,175 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        [TestFixture]
-        public class ShouldCloseMacroStabilityInwardsSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
+        [Test]
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
-            protected override bool ShouldCloseMethod(IView view, object o)
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (IView view = GetView(failureMechanism))
             {
-                return info.CloseForData(view, o);
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
             }
 
-            protected override IView GetView(IFailureMechanism failureMechanism)
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+                failureMechanism
+            });
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
+            mocks.ReplayAll();
+
+            using (IView view = GetView(failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSectionAndFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var otherFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
+            mocks.ReplayAll();
+
+            using (IView view = GetView(otherFailureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            using (IView view = GetView(failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var otherFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            using (IView view = GetView(otherFailureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanismContext =  new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+
+            using (IView view = GetView(failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            using (IView view = GetView(failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        private FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> GetView(
+            MacroStabilityInwardsFailureMechanism failureMechanism)
+        {
+            return new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
+                failureMechanism.FailureMechanismSectionConfigurations,
+                failureMechanism,
+                (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B));
         }
     }
 }

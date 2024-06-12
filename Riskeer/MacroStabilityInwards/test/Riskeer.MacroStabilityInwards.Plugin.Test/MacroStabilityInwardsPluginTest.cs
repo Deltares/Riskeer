@@ -222,7 +222,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                     viewInfos,
                     typeof(MacroStabilityInwardsFailureMechanismSectionsContext),
                     typeof(IEnumerable<FailureMechanismSection>),
-                    typeof(FailureMechanismSectionConfigurationsView));
+                    typeof(FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>));
 
                 viewInfos.ForEachElementDo(vi =>
                 {
