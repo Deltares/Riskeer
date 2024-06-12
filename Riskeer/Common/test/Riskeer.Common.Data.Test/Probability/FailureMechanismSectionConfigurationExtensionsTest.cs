@@ -57,7 +57,10 @@ namespace Riskeer.Common.Data.Test.Probability
                 new Point2D(length, 0)
             });
 
-            var configuration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var configuration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             // Call
             double actualN = configuration.GetN(b);
@@ -91,7 +94,10 @@ namespace Riskeer.Common.Data.Test.Probability
                 new Point2D(length, 0)
             });
 
-            var configuration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var configuration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             // Call
             double actualFailureMechanismSensitiveSectionLength = configuration.GetFailureMechanismSensitiveSectionLength();

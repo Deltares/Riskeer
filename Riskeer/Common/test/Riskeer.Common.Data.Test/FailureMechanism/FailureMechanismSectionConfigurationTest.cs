@@ -35,11 +35,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         [Test]
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(21);
-
             // Call
-            void Call() => new TestFailureMechanismSectionConfiguration(null, random.NextRoundedDouble());
+            void Call() => new FailureMechanismSectionConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,36 +44,17 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidAValues))]
-        public void Constructor_WithInvalidAValue_ThrowsArgumentOutOfRangeException(double invalidA)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            void Call() => new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) invalidA);
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var random = new Random(21);
-            RoundedDouble a = random.NextRoundedDouble();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, a);
+            var sectionConfiguration = new FailureMechanismSectionConfiguration(section);
 
             // Assert
             Assert.AreEqual(3, sectionConfiguration.A.NumberOfDecimalPlaces);
-            Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
+            Assert.AreEqual(1, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
 
             Assert.AreSame(section, sectionConfiguration.Section);
         }
@@ -87,10 +65,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void A_InvalidValue_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
-            var random = new Random(21);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            var sectionConfiguration = new FailureMechanismSectionConfiguration(section);
 
             // Call
             void Call() => sectionConfiguration.A = (RoundedDouble) a;
@@ -112,7 +88,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var random = new Random(21);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            var sectionConfiguration = new FailureMechanismSectionConfiguration(section);
 
             // Call
             sectionConfiguration.A = (RoundedDouble) a;
