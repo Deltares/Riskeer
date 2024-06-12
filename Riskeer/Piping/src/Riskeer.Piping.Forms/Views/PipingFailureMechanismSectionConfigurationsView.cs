@@ -17,7 +17,6 @@
 // Deltares and remain full property of Stichting Deltares at all times. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -29,9 +28,8 @@ namespace Riskeer.Piping.Forms.Views
     /// View for a collection of <see cref="PipingFailureMechanismSectionConfiguration"/>.
     /// </summary>
     public class PipingFailureMechanismSectionConfigurationsView : FailureMechanismSectionConfigurationsView
+        <PipingFailureMechanismSectionConfiguration, PipingFailureMechanismSectionConfigurationRow>
     {
-        private readonly IObservableEnumerable<PipingFailureMechanismSectionConfiguration> sectionConfigurations;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfigurationsView"/>.
         /// </summary>
@@ -41,34 +39,12 @@ namespace Riskeer.Piping.Forms.Views
         public PipingFailureMechanismSectionConfigurationsView(
             IObservableEnumerable<PipingFailureMechanismSectionConfiguration> sectionConfigurations,
             PipingFailureMechanism failureMechanism)
-            : base(sectionConfigurations, failureMechanism, failureMechanism.GeneralInput.B)
+            : base(sectionConfigurations, failureMechanism,
+                   (configuration, start, end) => new PipingFailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B))
         {
-            this.sectionConfigurations = sectionConfigurations;
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(PipingFailureMechanismSectionConfigurationRow.FailureMechanismSensitiveSectionLength),
                                                                          Resources.PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionLength_DisplayName,
                                                                          true);
-        }
-
-        protected override void SetDataGridViewControlData()
-        {
-            failureMechanismSectionsDataGridViewControl.SetDataSource(CreateRows());
-        }
-        private IEnumerable<PipingFailureMechanismSectionConfigurationRow> CreateRows()
-        {
-            double start = 0;
-
-            var presentableFailureMechanismSections = new List<PipingFailureMechanismSectionConfigurationRow>();
-
-            foreach (PipingFailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
-            {
-                double end = start + sectionConfiguration.Section.Length;
-
-                presentableFailureMechanismSections.Add(new PipingFailureMechanismSectionConfigurationRow(sectionConfiguration, start, end, B));
-
-                start = end;
-            }
-
-            return presentableFailureMechanismSections.ToArray();
         }
     }
 }

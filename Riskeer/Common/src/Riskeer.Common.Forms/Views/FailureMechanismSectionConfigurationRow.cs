@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Views
                                                        double sectionStart, double sectionEnd, double b)
             : base(sectionConfiguration?.Section, sectionStart, sectionEnd)
         {
-            this.SectionConfiguration = sectionConfiguration;
+            SectionConfiguration = sectionConfiguration;
             this.b = b;
         }
 
@@ -60,10 +60,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
         public RoundedDouble A
         {
-            get
-            {
-                return SectionConfiguration.A;
-            }
+            get => SectionConfiguration.A;
             set
             {
                 SectionConfiguration.A = value;

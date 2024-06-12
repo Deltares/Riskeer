@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismSectionsView : CloseForFailureMechanismView
     {
-        protected readonly IEnumerable<FailureMechanismSection> Sections;
+        private readonly IEnumerable<FailureMechanismSection> sections;
 
         private readonly Observer failureMechanismObserver;
 
@@ -74,14 +74,14 @@ namespace Riskeer.Common.Forms.Views
                 Observable = failureMechanism
             };
 
-            Sections = sections;
+            this.sections = sections;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            currentSections = Sections.ToArray();
+            currentSections = sections.ToArray();
 
             SetDataGridViewControlData();
         }
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Views
         {
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
-                    Sections,
+                    sections,
                     CreateFailureMechanismSectionRow));
         }
 
@@ -118,12 +118,12 @@ namespace Riskeer.Common.Forms.Views
 
         private void HandleFailureMechanismSectionsChange()
         {
-            if (currentSections.SequenceEqual(Sections))
+            if (currentSections.SequenceEqual(sections))
             {
                 return;
             }
 
-            currentSections = Sections.ToArray();
+            currentSections = sections.ToArray();
 
             SetDataGridViewControlData();
         }

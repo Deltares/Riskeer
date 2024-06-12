@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
@@ -71,10 +69,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            using (PipingFailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
+            using (PipingFailureMechanismSectionConfigurationsView view = ShowPipingFailureMechanismSectionConfigurationsView(failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionConfigurationsView>(view);
+                Assert.IsInstanceOf<FailureMechanismSectionConfigurationsView<PipingFailureMechanismSectionConfiguration, PipingFailureMechanismSectionConfigurationRow>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
@@ -97,20 +95,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithoutSectionConfigurations_CreatesViewWithDataGridViewEmpty()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            // Call
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
-            {
-                // Assert
-                CollectionAssert.IsEmpty(GetSectionsDataGridViewControl(view).Rows);
-            }
-        }
-
-        [Test]
         public void Constructor_WithSectionConfigurations_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
@@ -123,7 +107,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             });
 
             // Call
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
+            using (PipingFailureMechanismSectionConfigurationsView view = ShowPipingFailureMechanismSectionConfigurationsView(failureMechanism))
             {
                 // Assert
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
@@ -132,100 +116,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void GivenViewWithSectionConfigurations_WhenFailureMechanismNotifiesChange_ThenDataGridViewUpdated()
-        {
-            // Given
-            var failureMechanism = new PipingFailureMechanism();
-            double b = failureMechanism.GeneralInput.B;
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
-            });
-
-            using (PipingFailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
-            {
-                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
-
-                // Precondition
-                AssertSectionsDataGridViewControl(failureMechanism.SectionConfigurations, b, sectionsDataGridViewControl);
-
-                // When
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0)
-                });
-                failureMechanism.NotifyObservers();
-
-                // Then
-                AssertSectionsDataGridViewControl(failureMechanism.SectionConfigurations, b, sectionsDataGridViewControl);
-            }
-        }
-
-        [Test]
-        public void GivenViewWithSectionConfigurations_WhenSectionConfigurationNotifiesChange_ThenDataGridViewUpdated()
-        {
-            // Given
-            var failureMechanism = new PipingFailureMechanism();
-            double b = failureMechanism.GeneralInput.B;
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
-            });
-
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
-            {
-                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
-
-                // Precondition
-                AssertSectionsDataGridViewControl(failureMechanism.SectionConfigurations, b, sectionsDataGridViewControl);
-
-                // When
-                var random = new Random(21);
-                FailureMechanismSectionConfiguration affectedConfiguration = failureMechanism.SectionConfigurations.First();
-                affectedConfiguration.A = random.NextRoundedDouble();
-                affectedConfiguration.NotifyObservers();
-
-                // Then
-                AssertSectionsDataGridViewControl(failureMechanism.SectionConfigurations, b, sectionsDataGridViewControl);
-            }
-        }
-
-        [Test]
-        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeButNothingRelevantChanged_ThenDataGridViewNotUpdated()
-        {
-            // Given
-            var failureMechanism = new PipingFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
-            });
-
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(failureMechanism))
-            {
-                DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
-
-                var invalidated = false;
-
-                sectionsDataGridView.Invalidated += (s, e) =>
-                {
-                    invalidated = true;
-                };
-
-                // When
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsFalse(invalidated);
-            }
-        }
-
-        private static DataGridViewControl GetSectionsDataGridViewControl(FailureMechanismSectionConfigurationsView view)
+        private static DataGridViewControl GetSectionsDataGridViewControl(PipingFailureMechanismSectionConfigurationsView view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
 
-        private static DataGridView GetSectionsDataGridView(FailureMechanismSectionsView view)
+        private static DataGridView GetSectionsDataGridView(PipingFailureMechanismSectionConfigurationsView view)
         {
             return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
         }
@@ -277,7 +173,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
         }
 
-        private PipingFailureMechanismSectionConfigurationsView ShowFailureMechanismSectionConfigurationsView(
+        private PipingFailureMechanismSectionConfigurationsView ShowPipingFailureMechanismSectionConfigurationsView(
             PipingFailureMechanism failureMechanism)
         {
             var view = new PipingFailureMechanismSectionConfigurationsView(failureMechanism.SectionConfigurations, failureMechanism);

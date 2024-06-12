@@ -64,6 +64,25 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_CreateRowFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
+
+            // Call
+            void Call() => new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
+                sectionConfigurations, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("createRowFunc", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ValidParameters_InitializesViewCorrectly()
         {
             // Setup
@@ -74,7 +93,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
 
             // Call
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism))
+            using (FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> view =
+                   ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsView>(view);
@@ -101,26 +121,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithoutSectionConfigurations_CreatesViewWithDataGridViewEmpty()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
-
-            // Call
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism))
-            {
-                // Assert
-                CollectionAssert.IsEmpty(GetSectionsDataGridViewControl(view).Rows);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_WithSectionConfigurations_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
@@ -141,9 +141,8 @@ namespace Riskeer.Common.Forms.Test.Views
             double b = random.NextDouble();
 
             // Call
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations,
-                                                                                                                  failureMechanism,
-                                                                                                                  b))
+            using (FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> view =
+                   ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism, b))
             {
                 // Assert
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
@@ -152,41 +151,6 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenViewWithSectionConfigurations_WhenFailureMechanismNotifiesChange_ThenDataGridViewUpdated()
-        {
-            // Given
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismSection[] sections =
-            {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
-            };
-            var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
-            sectionConfigurations.AddRange(CreateSectionConfigurations(sections));
-
-            var random = new Random(21);
-            double b = random.NextDouble();
-
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations,
-                                                                                                                  failureMechanism,
-                                                                                                                  b))
-            {
-                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
-
-                // Precondition
-                AssertSectionsDataGridViewControl(sectionConfigurations, b, sectionsDataGridViewControl);
-
-                // When
-                sectionConfigurations.Clear();
-                sectionConfigurations.Add(new TestFailureMechanismSectionConfiguration(CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0),
-                                                                                       random.NextRoundedDouble()));
-                failureMechanism.NotifyObservers();
-
-                // Then
-                AssertSectionsDataGridViewControl(sectionConfigurations, b, sectionsDataGridViewControl);
-            }
         }
 
         [Test]
@@ -204,9 +168,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var random = new Random(21);
             double b = random.NextDouble();
 
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations,
-                                                                                                                  failureMechanism,
-                                                                                                                  b))
+            using (FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> view =
+                   ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism, b))
             {
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
@@ -223,40 +186,8 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeButNothingRelevantChanged_ThenDataGridViewNotUpdated()
-        {
-            // Given
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismSection[] sections =
-            {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
-            };
-            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
-            var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
-            sectionConfigurations.AddRange(CreateSectionConfigurations(sections));
-
-            using (FailureMechanismSectionConfigurationsView view = ShowFailureMechanismSectionConfigurationsView(sectionConfigurations,
-                                                                                                                  failureMechanism))
-            {
-                DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
-
-                var invalidated = false;
-
-                sectionsDataGridView.Invalidated += (s, e) =>
-                {
-                    invalidated = true;
-                };
-
-                // When
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsFalse(invalidated);
-            }
-        }
-
-        private static DataGridViewControl GetSectionsDataGridViewControl(FailureMechanismSectionConfigurationsView view)
+        private static DataGridViewControl GetSectionsDataGridViewControl(
+            FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
@@ -323,7 +254,7 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        private FailureMechanismSectionConfigurationsView ShowFailureMechanismSectionConfigurationsView(
+        private FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> ShowFailureMechanismSectionConfigurationsView(
             IObservableEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations,
             IFailureMechanism failureMechanism)
         {
@@ -331,12 +262,13 @@ namespace Riskeer.Common.Forms.Test.Views
             return ShowFailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism, random.NextDouble());
         }
 
-        private FailureMechanismSectionConfigurationsView ShowFailureMechanismSectionConfigurationsView(
+        private FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> ShowFailureMechanismSectionConfigurationsView(
             IObservableEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations,
             IFailureMechanism failureMechanism,
             double b)
         {
-            var view = new FailureMechanismSectionConfigurationsView(sectionConfigurations, failureMechanism, b);
+            var view = new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
+                sectionConfigurations, failureMechanism, (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, b));
 
             testForm.Controls.Add(view);
             testForm.Show();

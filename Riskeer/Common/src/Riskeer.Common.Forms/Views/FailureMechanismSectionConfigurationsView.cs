@@ -31,29 +31,36 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// View for a collection of <see cref="FailureMechanismSectionConfiguration"/>.
     /// </summary>
-    public class FailureMechanismSectionConfigurationsView : FailureMechanismSectionsView
+    /// <typeparam name="TFailureMechanismSectionConfiguration">The type of failure mechanism section configuration.</typeparam>
+    /// <typeparam name="TFailureMechanismSectionConfigurationRow">The type of failure mechanism section configuration row.</typeparam>
+    public class FailureMechanismSectionConfigurationsView<TFailureMechanismSectionConfiguration, TFailureMechanismSectionConfigurationRow> : FailureMechanismSectionsView
+        where TFailureMechanismSectionConfiguration : FailureMechanismSectionConfiguration
+        where TFailureMechanismSectionConfigurationRow : FailureMechanismSectionConfigurationRow
     {
-        private readonly IEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations;
-        protected readonly double B;
+        private readonly IEnumerable<TFailureMechanismSectionConfiguration> sectionConfigurations;
+        private readonly Func<TFailureMechanismSectionConfiguration, double, double, TFailureMechanismSectionConfigurationRow> createRowFunc;
 
         private readonly RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration> sectionConfigurationsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationsView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
         /// <param name="sectionConfigurations">The collection of section configurations to be displayed in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
-        /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
-        /// 'length effect'.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfigurations"/> or
-        /// <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionConfigurationsView(IObservableEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations,
+        /// <param name="createRowFunc">The function to create the rows with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public FailureMechanismSectionConfigurationsView(IObservableEnumerable<TFailureMechanismSectionConfiguration> sectionConfigurations,
                                                          IFailureMechanism failureMechanism,
-                                                         double b)
+                                                         Func<TFailureMechanismSectionConfiguration, double, double, TFailureMechanismSectionConfigurationRow> createRowFunc)
             : base(sectionConfigurations?.Select(sc => sc.Section), failureMechanism)
         {
+            if (createRowFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createRowFunc));
+            }
+
             this.sectionConfigurations = sectionConfigurations;
-            this.B = b;
+            this.createRowFunc = createRowFunc;
 
             sectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>(
                 UpdateDataGridViewControl, c => c)
@@ -85,17 +92,18 @@ namespace Riskeer.Common.Forms.Views
             failureMechanismSectionsDataGridViewControl.Refresh();
         }
 
-        private IEnumerable<FailureMechanismSectionConfigurationRow> CreateRows()
+        private IEnumerable<TFailureMechanismSectionConfigurationRow> CreateRows()
         {
             double start = 0;
 
-            var presentableFailureMechanismSections = new List<FailureMechanismSectionConfigurationRow>();
+            var presentableFailureMechanismSections = new List<TFailureMechanismSectionConfigurationRow>();
 
-            foreach (FailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
+            foreach (TFailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
             {
                 double end = start + sectionConfiguration.Section.Length;
 
-                presentableFailureMechanismSections.Add(new FailureMechanismSectionConfigurationRow(sectionConfiguration, start, end, B));
+                TFailureMechanismSectionConfigurationRow failureMechanismSectionConfigurationRow = createRowFunc(sectionConfiguration, start, end);
+                presentableFailureMechanismSections.Add(failureMechanismSectionConfigurationRow);
 
                 start = end;
             }
