@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Forms.Views
     public class PipingFailureMechanismSectionConfigurationRow : FailureMechanismSectionConfigurationRow
     {
         /// <summary>
-        /// Creates a new 
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
         /// <param name="sectionConfiguration">The  section configuration to use.</param>
         /// <param name="sectionStart">The start of the section from the beginning
