@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
@@ -78,7 +79,9 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void SetDataGridViewControlData()
         {
-            failureMechanismSectionsDataGridViewControl.SetDataSource(CreateRows());
+            failureMechanismSectionsDataGridViewControl.SetDataSource(FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations(
+                                                                          sectionConfigurations,
+                                                                          createRowFunc));
         }
 
         protected override void Dispose(bool disposing)
@@ -90,25 +93,6 @@ namespace Riskeer.Common.Forms.Views
         private void UpdateDataGridViewControl()
         {
             failureMechanismSectionsDataGridViewControl.Refresh();
-        }
-
-        private IEnumerable<TFailureMechanismSectionConfigurationRow> CreateRows()
-        {
-            double start = 0;
-
-            var presentableFailureMechanismSections = new List<TFailureMechanismSectionConfigurationRow>();
-
-            foreach (TFailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
-            {
-                double end = start + sectionConfiguration.Section.Length;
-
-                TFailureMechanismSectionConfigurationRow failureMechanismSectionConfigurationRow = createRowFunc(sectionConfiguration, start, end);
-                presentableFailureMechanismSections.Add(failureMechanismSectionConfigurationRow);
-
-                start = end;
-            }
-
-            return presentableFailureMechanismSections.ToArray();
         }
     }
 }

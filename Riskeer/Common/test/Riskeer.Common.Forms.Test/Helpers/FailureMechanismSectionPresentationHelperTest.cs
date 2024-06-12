@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -36,10 +38,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void CreatePresentableFailureMechanismSections_FailureMechanismSectionsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(null, (section, start, end) => new object());
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(null, (section, start, end) => new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSections", exception.ParamName);
         }
 
@@ -47,10 +49,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void CreatePresentableFailureMechanismSections_CreatePresentableFailureMechanismSectionFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections<object>(Enumerable.Empty<FailureMechanismSection>(), null);
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections<object>(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("createPresentableFailureMechanismSectionFunc", exception.ParamName);
         }
 
@@ -69,6 +71,64 @@ namespace Riskeer.Common.Forms.Test.Helpers
             TestPresentableFailureMechanismSection[] presentationObjects = FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
                 failureMechanismSections,
                 (section, start, end) => new TestPresentableFailureMechanismSection(section, start, end));
+
+            // Assert
+            Assert.AreEqual(failureMechanismSections.Length, presentationObjects.Length);
+
+            double sectionOffset = 0;
+
+            for (var i = 0; i < presentationObjects.Length; i++)
+            {
+                Assert.AreSame(failureMechanismSections[i], presentationObjects[i].Section);
+                Assert.AreEqual(sectionOffset, presentationObjects[i].SectionStart);
+                sectionOffset += failureMechanismSections[i].Length;
+                Assert.AreEqual(sectionOffset, presentationObjects[i].SectionEnd);
+            }
+        }
+        
+         [Test]
+        public void CreatePresentableFailureMechanismSectionConfigurations_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, TestFailureMechanismSectionConfiguration>(
+                null, (section, start, end) => new object());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismSectionConfigurations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreatePresentableFailureMechanismSectionConfigurations_CreatePresentableFailureMechanismSectionConfigurationFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, TestFailureMechanismSectionConfiguration>(
+                Enumerable.Empty<TestFailureMechanismSectionConfiguration>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("createPresentableFailureMechanismSectionConfigurationFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void CreatePresentableFailureMechanismSectionConfigurations_ValidInputParameters_ReturnsExpectedPresentationObjects()
+        {
+            // Setup
+            FailureMechanismSection[] failureMechanismSections =
+            {
+                CreateFailureMechanismSection(0.0, 0.0, 1.0, 1.0),
+                CreateFailureMechanismSection(1.0, 1.0, 2.0, 2.0),
+                CreateFailureMechanismSection(2.0, 2.0, 5.0, 5.0)
+            };
+
+            var random = new Random(21);
+            IEnumerable<TestFailureMechanismSectionConfiguration> failureMechanismSectionConfigurations = 
+                failureMechanismSections.Select(s => new TestFailureMechanismSectionConfiguration(s, random.NextRoundedDouble()));
+
+            // Call
+            TestPresentableFailureMechanismSection[] presentationObjects = FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations(
+                failureMechanismSectionConfigurations,
+                (configuration, start, end) => new TestPresentableFailureMechanismSection(configuration.Section, start, end));
 
             // Assert
             Assert.AreEqual(failureMechanismSections.Length, presentationObjects.Length);

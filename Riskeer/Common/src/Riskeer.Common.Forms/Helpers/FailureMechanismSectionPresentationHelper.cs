@@ -26,7 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for displaying <see cref="FailureMechanismSection"/>.
+    /// Helper class for displaying failure mechanism sections.
     /// </summary>
     public static class FailureMechanismSectionPresentationHelper
     {
@@ -47,8 +47,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// </list>
         /// </param>
         /// <returns>The created presentation objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSections"/> or
-        /// <paramref name="createPresentableFailureMechanismSectionFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static T[] CreatePresentableFailureMechanismSections<T>(IEnumerable<FailureMechanismSection> failureMechanismSections,
                                                                        Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSectionFunc)
         {
@@ -62,15 +61,59 @@ namespace Riskeer.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(createPresentableFailureMechanismSectionFunc));
             }
 
+            return CreatePresentableFailureMechanismSections(failureMechanismSections, section => section.Length, createPresentableFailureMechanismSectionFunc);
+        }
+
+        /// <summary>
+        /// Creates presentation objects for the provided <paramref name="failureMechanismSectionConfigurations"/>,
+        /// taking into account the start and the end of the sections in relation to the beginning of
+        /// the reference line.
+        /// </summary>
+        /// <typeparam name="T">The type of the presentation objects.</typeparam>
+        /// <typeparam name="TFailureMechanismSectionConfiguration">The type of failure mechanism section configuration.</typeparam>
+        /// <param name="failureMechanismSectionConfigurations">The failure mechanism section configurations to create presentation
+        /// objects for.</param>
+        /// <param name="createPresentableFailureMechanismSectionConfigurationFunc"><see cref="Func{T1,T2,T3,TResult}"/>
+        /// for creating the presentation objects of type <typeparamref name="T"/>, in which:
+        /// <list type="bullet">
+        /// <item>T1 represents the failure mechanism section configuration at stake;</item>
+        /// <item>T2 represents the start of the section in relation to the beginning of the reference line;</item>
+        /// <item>T3 represents the end of the section in relation to the beginning of the reference line.</item>
+        /// </list>
+        /// </param>
+        /// <returns>The created presentation objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static T[] CreatePresentableFailureMechanismSectionConfigurations<T, TFailureMechanismSectionConfiguration>(
+            IEnumerable<TFailureMechanismSectionConfiguration> failureMechanismSectionConfigurations,
+            Func<TFailureMechanismSectionConfiguration, double, double, T> createPresentableFailureMechanismSectionConfigurationFunc)
+            where TFailureMechanismSectionConfiguration : FailureMechanismSectionConfiguration
+        {
+            if (failureMechanismSectionConfigurations == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionConfigurations));
+            }
+
+            if (createPresentableFailureMechanismSectionConfigurationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createPresentableFailureMechanismSectionConfigurationFunc));
+            }
+
+            return CreatePresentableFailureMechanismSections(failureMechanismSectionConfigurations, configuration => configuration.Section.Length, createPresentableFailureMechanismSectionConfigurationFunc);
+        }
+
+        private static T[] CreatePresentableFailureMechanismSections<T, TSection>(IEnumerable<TSection> sections,
+                                                                                  Func<TSection, double> getSectionLengthFunc,
+                                                                                  Func<TSection, double, double, T> createPresentableFailureMechanismSectionFunc)
+        {
             double start = 0;
 
             var presentableFailureMechanismSections = new List<T>();
 
-            foreach (FailureMechanismSection failureMechanismSection in failureMechanismSections)
+            foreach (TSection section in sections)
             {
-                double end = start + failureMechanismSection.Length;
+                double end = start + getSectionLengthFunc(section);
 
-                presentableFailureMechanismSections.Add(createPresentableFailureMechanismSectionFunc(failureMechanismSection, start, end));
+                presentableFailureMechanismSections.Add(createPresentableFailureMechanismSectionFunc(section, start, end));
 
                 start = end;
             }
