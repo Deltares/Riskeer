@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Views
                    (configuration, start, end) => new PipingFailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B))
         {
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(PipingFailureMechanismSectionConfigurationRow.FailureMechanismSensitiveSectionLength),
-                                                                         Resources.PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionLength_DisplayName,
+                                                                         Resources.FailureMechanismSensitiveSectionLength_DisplayName,
                                                                          true);
         }
     }

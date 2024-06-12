@@ -145,6 +145,24 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De mechanismegevoelige lengte van het vak in meters (afgerond)..
+        /// </summary>
+        public static string FailureMechanismSensitiveSectionLength_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSensitiveSectionLength_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mechanismegevoelige vaklengte* [m].
+        /// </summary>
+        public static string FailureMechanismSensitiveSectionLength_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSensitiveSectionLength_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd..
         /// </summary>
         public static string GeneralPipingInput_BeddingAngle_Description {
@@ -373,16 +391,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mechanismegevoelige vaklengte [m].
-        /// </summary>
-        public static string PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionLength_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanismSectionConfigurationsView_FailureMechanismSensitiveSectionL" +
-                        "ength_DisplayName", resourceCulture);
             }
         }
         

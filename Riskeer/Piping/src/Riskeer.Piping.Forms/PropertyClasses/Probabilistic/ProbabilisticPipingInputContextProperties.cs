@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
         private const int sectionNamePropertyIndex = 15;
-        private const int sectionLengthPropertyIndex = 16;
+        private const int mechanismSensitiveSectionLengthPropertyIndex = 16;
 
         private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 17;
         private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 18;
@@ -180,13 +180,14 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return data.AvailablePipingSurfaceLines;
         }
 
-        private FailureMechanismSection GetSection()
+        private PipingFailureMechanismSectionConfiguration GetSectionConfiguration()
         {
-            FailureMechanismSection[] sections = data.FailureMechanism
-                                                     .Sections
-                                                     .Where(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                                                                Math2D.ConvertPointsToLineSegments(section.Points)))
-                                                     .ToArray();
+            PipingFailureMechanismSectionConfiguration[] sections =
+                data.FailureMechanism
+                    .SectionConfigurations
+                    .Where(configuration => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                               Math2D.ConvertPointsToLineSegments(configuration.Section.Points)))
+                    .ToArray();
 
             return sections.Length == 1
                        ? sections[0]
@@ -484,21 +485,21 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetSection();
-                return failureMechanismSection == null ? "-" : failureMechanismSection.Name;
+                PipingFailureMechanismSectionConfiguration sectionConfiguration = GetSectionConfiguration();
+                return sectionConfiguration == null ? "-" : sectionConfiguration.Section.Name;
             }
         }
 
-        [PropertyOrder(sectionLengthPropertyIndex)]
+        [PropertyOrder(mechanismSensitiveSectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, numberOfCategories)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_Description))]
+        public RoundedDouble MechanismSensitiveSectionLength
         {
             get
             {
-                FailureMechanismSection failureMechanismSection = GetSection();
-                return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
+                PipingFailureMechanismSectionConfiguration sectionConfiguration = GetSectionConfiguration();
+                return sectionConfiguration == null ? new RoundedDouble(2) : new RoundedDouble(2, sectionConfiguration.GetFailureMechanismSensitiveSectionLength());
             }
         }
 

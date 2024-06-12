@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("Lengte* [m]", dataGridView.Columns[lengthColumnIndex].HeaderText);
                 Assert.AreEqual("a [-]", dataGridView.Columns[parameterAColumnIndex].HeaderText);
                 Assert.AreEqual("Nvak* [-]", dataGridView.Columns[lengthEffectNRoundedColumnIndex].HeaderText);
-                Assert.AreEqual("Mechanismegevoelige vaklengte [m]", dataGridView.Columns[mechanismSensitiveSectionLengthColumnIndex].HeaderText);
+                Assert.AreEqual("Mechanismegevoelige vaklengte* [m]", dataGridView.Columns[mechanismSensitiveSectionLengthColumnIndex].HeaderText);
             }
         }
 
