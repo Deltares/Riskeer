@@ -23,8 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -88,16 +88,17 @@ namespace Riskeer.Piping.Service.Probabilistic
         {
             calculation.ClearOutput();
 
-            FailureMechanismSection section = failureMechanism.Sections.Single(
-                s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                    Math2D.ConvertPointsToLineSegments(s.Points)));
+            PipingFailureMechanismSectionConfiguration sectionConfiguration =
+                failureMechanism.SectionConfigurations.Single(
+                    configuration => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                        Math2D.ConvertPointsToLineSegments(configuration.Section.Points)));
 
             service.Calculate(calculation,
                               failureMechanism.GeneralInput,
                               HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                   assessmentSection.HydraulicBoundaryData,
                                   calculation.InputParameters.HydraulicBoundaryLocation),
-                              section.Length);
+                              sectionConfiguration.GetFailureMechanismSensitiveSectionLength());
         }
 
         protected override bool Validate()

@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the calculation.</param>
         /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
-        /// <param name="sectionLength">The length of the section the calculation belongs to.</param>
+        /// <param name="mechanismSensitiveSectionLength">The mechanism sensitive length of the section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="generalInput"/>
         /// or <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                HydraulicBoundaryCalculationSettings calculationSettings, double sectionLength)
+                                HydraulicBoundaryCalculationSettings calculationSettings, double mechanismSensitiveSectionLength)
         {
             if (calculation == null)
             {
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                     return;
                 }
 
-                IPartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(calculation, generalInput, sectionLength, hrdFilePath);
+                IPartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(calculation, generalInput, mechanismSensitiveSectionLength, hrdFilePath);
 
                 if (canceled)
                 {
@@ -252,18 +252,18 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// </summary>
         /// <param name="calculation">The calculation containing the input for the section specific calculation.</param>
         /// <param name="generalInput">The general piping calculation input parameters.</param>
-        /// <param name="sectionLength">The length of the section.</param>
+        /// <param name="mechanismSensitiveSectionLength">The mechanism sensitive length of the section.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>A <see cref="PartialProbabilisticFaultTreePipingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private IPartialProbabilisticPipingOutput CalculateSectionSpecific(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                                           double sectionLength, string hrdFilePath)
+                                                                           double mechanismSensitiveSectionLength, string hrdFilePath)
         {
             NotifyProgress(string.Format(Resources.ProbabilisticPipingCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.ProbabilisticPipingCalculationService_SectionSpecific),
                            2, numberOfCalculators);
 
-            PipingCalculationInput sectionSpecificCalculationInput = CreateInput(calculation, generalInput, sectionLength, hrdFilePath);
+            PipingCalculationInput sectionSpecificCalculationInput = CreateInput(calculation, generalInput, mechanismSensitiveSectionLength, hrdFilePath);
 
             PerformCalculation(() => sectionSpecificCalculator.Calculate(sectionSpecificCalculationInput),
                                () => sectionSpecificCalculator.LastErrorFileContent,
@@ -380,7 +380,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         }
 
         private static PipingCalculationInput CreateInput(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
-                                                          double sectionLength, string hrdFilePath)
+                                                          double mechanismSensitiveSectionLength, string hrdFilePath)
         {
             ProbabilisticPipingInput pipingInput = calculation.InputParameters;
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(pipingInput);
@@ -395,7 +395,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             {
                 input = new PipingCalculationInput(
                     pipingInput.HydraulicBoundaryLocation.Id,
-                    sectionLength,
+                    mechanismSensitiveSectionLength,
                     pipingInput.PhreaticLevelExit.Mean, pipingInput.PhreaticLevelExit.StandardDeviation,
                     generalInput.WaterVolumetricWeight,
                     generalInput.UpliftModelFactor.Mean, generalInput.UpliftModelFactor.StandardDeviation,
@@ -419,7 +419,7 @@ namespace Riskeer.Piping.Service.Probabilistic
 
                 input = new PipingCalculationInput(
                     pipingInput.HydraulicBoundaryLocation.Id,
-                    sectionLength,
+                    mechanismSensitiveSectionLength,
                     pipingInput.PhreaticLevelExit.Mean, pipingInput.PhreaticLevelExit.StandardDeviation,
                     generalInput.WaterVolumetricWeight,
                     effectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.StandardDeviation,

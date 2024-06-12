@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -395,12 +396,13 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(1, profileSpecificInputs.Length);
                 Assert.AreEqual(1, sectionSpecificInputs.Length);
 
-                double sectionLength = failureMechanism.Sections.Single(
-                    s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                        Math2D.ConvertPointsToLineSegments(s.Points))).Length;
+                PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single(
+                    c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                        Math2D.ConvertPointsToLineSegments(c.Section.Points)));
+                double mechanismSensitiveSectionLength = sectionConfiguration.GetFailureMechanismSensitiveSectionLength();
 
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
-                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, sectionLength, sectionSpecificInputs[0]);
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, mechanismSensitiveSectionLength, sectionSpecificInputs[0]);
             }
 
             mocks.VerifyAll();
