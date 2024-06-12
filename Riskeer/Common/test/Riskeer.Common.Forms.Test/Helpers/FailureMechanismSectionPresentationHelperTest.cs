@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -85,12 +84,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 Assert.AreEqual(sectionOffset, presentationObjects[i].SectionEnd);
             }
         }
-        
-         [Test]
+
+        [Test]
         public void CreatePresentableFailureMechanismSectionConfigurations_FailureMechanismSectionsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, TestFailureMechanismSectionConfiguration>(
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, FailureMechanismSectionConfiguration>(
                 null, (section, start, end) => new object());
 
             // Assert
@@ -102,8 +101,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void CreatePresentableFailureMechanismSectionConfigurations_CreatePresentableFailureMechanismSectionConfigurationFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, TestFailureMechanismSectionConfiguration>(
-                Enumerable.Empty<TestFailureMechanismSectionConfiguration>(), null);
+            void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, FailureMechanismSectionConfiguration>(
+                Enumerable.Empty<FailureMechanismSectionConfiguration>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -122,8 +121,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             var random = new Random(21);
-            IEnumerable<TestFailureMechanismSectionConfiguration> failureMechanismSectionConfigurations = 
-                failureMechanismSections.Select(s => new TestFailureMechanismSectionConfiguration(s, random.NextRoundedDouble()));
+            IEnumerable<FailureMechanismSectionConfiguration> failureMechanismSectionConfigurations =
+                failureMechanismSections.Select(c => new FailureMechanismSectionConfiguration(c));
 
             // Call
             TestPresentableFailureMechanismSection[] presentationObjects = FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations(

@@ -200,11 +200,10 @@ namespace Riskeer.Common.Forms.Test.Views
         private static IEnumerable<FailureMechanismSectionConfiguration> CreateSectionConfigurations(
             IReadOnlyList<FailureMechanismSection> sections)
         {
-            var random = new Random(21);
             var sectionConfigurations = new FailureMechanismSectionConfiguration[sections.Count];
             for (var i = 0; i < sections.Count; i++)
             {
-                sectionConfigurations[i] = new TestFailureMechanismSectionConfiguration(sections[i], random.NextRoundedDouble());
+                sectionConfigurations[i] = new FailureMechanismSectionConfiguration(sections[i]);
             }
 
             return sectionConfigurations;

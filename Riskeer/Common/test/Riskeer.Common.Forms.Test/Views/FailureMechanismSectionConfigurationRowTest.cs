@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
-            return new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            return new FailureMechanismSectionConfiguration(section);
         }
 
         private static void AssertLengthEffectN(FailureMechanismSectionConfiguration sectionConfiguration,

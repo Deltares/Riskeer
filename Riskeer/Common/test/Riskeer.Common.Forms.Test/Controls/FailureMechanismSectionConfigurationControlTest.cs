@@ -23,7 +23,6 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -135,7 +134,10 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var scenarioConfiguration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
 
@@ -171,7 +173,10 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var sectionConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var sectionConfiguration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
             control.SetData(sectionConfiguration);
@@ -209,7 +214,10 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var oldConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var oldConfiguration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
             control.SetData(oldConfiguration);
@@ -225,7 +233,10 @@ namespace Riskeer.Common.Forms.Test.Controls
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
             // When
-            var newConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) 0.4);
+            var newConfiguration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) 0.4
+            };
             control.SetData(newConfiguration);
             oldConfiguration.NotifyObservers();
 
@@ -248,7 +259,10 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var scenarioConfiguration = new TestFailureMechanismSectionConfiguration(section, (RoundedDouble) a);
+            var scenarioConfiguration = new FailureMechanismSectionConfiguration(section)
+            {
+                A = (RoundedDouble) a
+            };
 
             FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(b);
             control.SetData(scenarioConfiguration);
@@ -284,7 +298,7 @@ namespace Riskeer.Common.Forms.Test.Controls
                 new Point2D(0, 0),
                 new Point2D(100, 0)
             });
-            var configuration = new TestFailureMechanismSectionConfiguration(section, random.NextRoundedDouble());
+            var configuration = new FailureMechanismSectionConfiguration(section);
 
             FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
             control.SetData(configuration);
