@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// ViewModel for a <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>
+    /// ViewModel for a <see cref="FailureMechanismSectionConfiguration"/>
     /// as shown in the <see cref="MacroStabilityInwardsScenariosView"/>.
     /// </summary>
     public class MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel
@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="sectionConfiguration">The wrapped section configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(
-            MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration)
+            FailureMechanismSectionConfiguration sectionConfiguration)
         {
             if (sectionConfiguration == null)
             {
@@ -48,9 +48,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="MacroStabilityInwardsFailureMechanismSectionConfiguration"/>.
+        /// Gets the wrapped <see cref="FailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanismSectionConfiguration SectionConfiguration { get; }
+        public FailureMechanismSectionConfiguration SectionConfiguration { get; }
 
         public override string ToString()
         {

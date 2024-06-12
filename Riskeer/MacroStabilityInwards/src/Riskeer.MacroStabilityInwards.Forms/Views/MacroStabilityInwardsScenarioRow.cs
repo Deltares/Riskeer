@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -34,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsScenarioRow : ScenarioRow<MacroStabilityInwardsCalculationScenario>
     {
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
-        private readonly MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration;
+        private readonly FailureMechanismSectionConfiguration sectionConfiguration;
         private DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                   MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                  MacroStabilityInwardsFailureMechanismSectionConfiguration sectionConfiguration)
+                                                  FailureMechanismSectionConfiguration sectionConfiguration)
             : base(calculationScenario)
         {
             if (failureMechanism == null)

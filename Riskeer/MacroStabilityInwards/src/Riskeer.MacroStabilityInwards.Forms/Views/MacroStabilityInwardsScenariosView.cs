@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionConfiguration>, MacroStabilityInwardsFailureMechanismSectionConfiguration>
+        private RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>
             failureMechanismSectionConfigurationsObserver;
 
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -129,14 +129,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             };
 
             failureMechanismSectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<
-                MacroStabilityInwardsFailureMechanismSectionConfiguration>, MacroStabilityInwardsFailureMechanismSectionConfiguration>(
+                FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>(
                 () =>
                 {
                     UpdateSectionsListBox();
                     UpdateScenarioRows();
                 }, section => section)
             {
-                Observable = failureMechanism.FailureMechanismSectionConfigurations
+                Observable = failureMechanism.SectionConfigurations
             };
 
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateScenarioControls, pcg => pcg.Children)
@@ -175,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (failureMechanism.Sections.Any())
             {
                 MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.FailureMechanismSectionConfigurations
+                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.SectionConfigurations
                                                                                                                       .First(sc => sc.Section == section))).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());

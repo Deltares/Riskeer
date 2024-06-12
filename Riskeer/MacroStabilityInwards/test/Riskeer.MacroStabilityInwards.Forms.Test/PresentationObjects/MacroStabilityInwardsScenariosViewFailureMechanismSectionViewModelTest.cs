@@ -23,7 +23,6 @@ using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
@@ -47,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var configuration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
+            var configuration = new FailureMechanismSectionConfiguration(section);
 
             // Call
             var viewModel = new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(configuration);
@@ -61,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var configuration = new MacroStabilityInwardsFailureMechanismSectionConfiguration(section);
+            var configuration = new FailureMechanismSectionConfiguration(section);
 
             var viewModel = new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(configuration);
 

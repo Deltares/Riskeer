@@ -321,7 +321,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 {
                     var failureMechanism = (MacroStabilityInwardsFailureMechanism) context.WrappedData;
                     return new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
-                        failureMechanism.FailureMechanismSectionConfigurations, failureMechanism, (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B));
+                        failureMechanism.SectionConfigurations, failureMechanism, (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B));
                 },
                 GetViewData = context => context.WrappedData.Sections
             };

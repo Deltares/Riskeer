@@ -252,7 +252,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             return new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
-                failureMechanism.FailureMechanismSectionConfigurations,
+                failureMechanism.SectionConfigurations,
                 failureMechanism,
                 (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B));
         }

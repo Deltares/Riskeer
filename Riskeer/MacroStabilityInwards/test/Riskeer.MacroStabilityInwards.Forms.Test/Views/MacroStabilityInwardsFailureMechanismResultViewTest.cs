@@ -108,8 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(1.1, section));
 
-            MacroStabilityInwardsFailureMechanismSectionConfiguration failureMechanismSectionConfiguration = 
-                failureMechanism.FailureMechanismSectionConfigurations.Single();
+            FailureMechanismSectionConfiguration failureMechanismSectionConfiguration = failureMechanism.SectionConfigurations.Single();
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
