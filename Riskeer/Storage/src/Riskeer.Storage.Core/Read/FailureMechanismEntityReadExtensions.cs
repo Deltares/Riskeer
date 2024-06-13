@@ -240,9 +240,9 @@ namespace Riskeer.Storage.Core.Read
                                                                             PipingFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
         {
-            IEnumerable<PipingScenarioConfigurationPerFailureMechanismSectionEntity> pipingScenarioConfigurationPerFailureMechanismSectionEntities = 
-                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities);
-            foreach (PipingScenarioConfigurationPerFailureMechanismSectionEntity sectionConfigurationEntity in pipingScenarioConfigurationPerFailureMechanismSectionEntities)
+            IEnumerable<PipingFailureMechanismSectionConfigurationEntity> pipingFailureMechanismSectionConfigurationEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingFailureMechanismSectionConfigurationEntities);
+            foreach (PipingFailureMechanismSectionConfigurationEntity sectionConfigurationEntity in pipingFailureMechanismSectionConfigurationEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
                 PipingFailureMechanismSectionConfiguration configuration = failureMechanism.SectionConfigurations.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));

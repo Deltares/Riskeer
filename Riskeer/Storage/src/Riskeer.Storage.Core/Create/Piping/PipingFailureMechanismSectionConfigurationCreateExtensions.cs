@@ -27,27 +27,28 @@ namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingFailureMechanismSectionConfiguration"/> related to creating a 
-    /// <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.
+    /// <see cref="PipingFailureMechanismSectionConfigurationEntity"/>.
     /// </summary>
     internal static class PipingFailureMechanismSectionConfigurationCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> based on the information of the
+        /// Creates a <see cref="PipingFailureMechanismSectionConfigurationEntity"/> based on the information of the
         /// <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="section">The section to create a database entity for.</param>
-        /// <returns>A new <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        internal static PipingScenarioConfigurationPerFailureMechanismSectionEntity Create(this PipingFailureMechanismSectionConfiguration section)
+        /// <param name="configuration">The configuration to create a database entity for.</param>
+        /// <returns>A new <see cref="PipingFailureMechanismSectionConfigurationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        internal static PipingFailureMechanismSectionConfigurationEntity Create(this PipingFailureMechanismSectionConfiguration configuration)
         {
-            if (section == null)
+            if (configuration == null)
             {
-                throw new ArgumentNullException(nameof(section));
+                throw new ArgumentNullException(nameof(configuration));
             }
 
-            return new PipingScenarioConfigurationPerFailureMechanismSectionEntity
+            return new PipingFailureMechanismSectionConfigurationEntity
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(section.ScenarioConfigurationType)
+                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configuration.ScenarioConfigurationType),
+                A = configuration.A
             };
         }
     }

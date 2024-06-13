@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -27,19 +28,19 @@ namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionConfiguration"/> based on the
-    /// <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/>.
+    /// <see cref="PipingFailureMechanismSectionConfigurationEntity"/>.
     /// </summary>
-    internal static class PipingScenarioConfigurationPerFailureMechanismSectionEntityReadExtensions
+    internal static class PipingFailureMechanismSectionConfigurationEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> and use the information to construct a 
+        /// Reads the <see cref="PipingFailureMechanismSectionConfigurationEntity"/> and use the information to construct a 
         /// <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingScenarioConfigurationPerFailureMechanismSectionEntity"/> used to update 
+        /// <param name="entity">The <see cref="PipingFailureMechanismSectionConfigurationEntity"/> used to update 
         /// the <paramref name="failureMechanismSectionConfiguration"/>.</param>
         /// <param name="failureMechanismSectionConfiguration">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this PipingScenarioConfigurationPerFailureMechanismSectionEntity entity,
+        internal static void Read(this PipingFailureMechanismSectionConfigurationEntity entity,
                                   PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration)
         {
             if (entity == null)
@@ -54,6 +55,7 @@ namespace Riskeer.Storage.Core.Read.Piping
 
             failureMechanismSectionConfiguration.ScenarioConfigurationType =
                 (PipingScenarioConfigurationPerFailureMechanismSectionType) entity.PipingScenarioConfigurationPerFailureMechanismSectionType;
+            failureMechanismSectionConfiguration.A = (RoundedDouble) entity.A;
         }
     }
 }

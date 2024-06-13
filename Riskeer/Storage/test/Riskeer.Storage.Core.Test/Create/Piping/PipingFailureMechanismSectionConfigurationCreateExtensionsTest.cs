@@ -34,14 +34,14 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
     public class PipingFailureMechanismSectionConfigurationCreateExtensionsTest
     {
         [Test]
-        public void Create_SectionNull_ThrowsArgumentNullException()
+        public void Create_ConfigurationNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => PipingFailureMechanismSectionConfigurationCreateExtensions.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("section", exception.ParamName);
+            Assert.AreEqual("configuration", exception.ParamName);
         }
 
         [Test]
@@ -52,14 +52,16 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var configuration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection)
             {
-                ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>()
+                ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>(),
+                A = random.NextRoundedDouble()
             };
 
             // Call
-            PipingScenarioConfigurationPerFailureMechanismSectionEntity entity = configuration.Create();
+            PipingFailureMechanismSectionConfigurationEntity entity = configuration.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(configuration.ScenarioConfigurationType), entity.PipingScenarioConfigurationPerFailureMechanismSectionType);
+            Assert.AreEqual(configuration.A, entity.A, configuration.A.GetAccuracy());
         }
     }
 }

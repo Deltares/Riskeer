@@ -76,9 +76,9 @@ namespace Riskeer.Storage.Core.Create.Piping
         {
             foreach (PipingFailureMechanismSectionConfiguration configuration in sectionConfigurations)
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionEntity configurationPerFailureMechanismSectionEntity = configuration.Create();
+                PipingFailureMechanismSectionConfigurationEntity failureMechanismSectionConfigurationEntity = configuration.Create();
                 FailureMechanismSectionEntity section = registry.Get(configuration.Section);
-                section.PipingScenarioConfigurationPerFailureMechanismSectionEntities.Add(configurationPerFailureMechanismSectionEntity);
+                section.PipingFailureMechanismSectionConfigurationEntities.Add(failureMechanismSectionConfigurationEntity);
             }
         }
 

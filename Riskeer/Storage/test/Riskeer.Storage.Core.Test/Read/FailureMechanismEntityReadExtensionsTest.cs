@@ -1218,12 +1218,12 @@ namespace Riskeer.Storage.Core.Test.Read
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity
+            var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingFailureMechanismSectionConfigurationEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
-            failureMechanismSectionEntity.PipingScenarioConfigurationPerFailureMechanismSectionEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
+            failureMechanismSectionEntity.PipingFailureMechanismSectionConfigurationEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,

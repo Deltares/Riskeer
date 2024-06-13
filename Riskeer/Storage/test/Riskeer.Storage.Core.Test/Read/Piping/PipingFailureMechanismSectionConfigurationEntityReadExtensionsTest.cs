@@ -30,13 +30,13 @@ using Riskeer.Storage.Core.Read.Piping;
 namespace Riskeer.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
-    public class PipingScenarioConfigurationPerFailureMechanismSectionEntityReadExtensionsTest
+    public class PipingFailureMechanismSectionConfigurationEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((PipingScenarioConfigurationPerFailureMechanismSectionEntity) null).Read(
+            void Call() => ((PipingFailureMechanismSectionConfigurationEntity) null).Read(
                 new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void Read_FailureMechanismSectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity();
+            var entity = new PipingFailureMechanismSectionConfigurationEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -65,9 +65,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var random = new Random(21);
             var configurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
 
-            var entity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity
+            var entity = new PipingFailureMechanismSectionConfigurationEntity
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configurationType)
+                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configurationType),
+                A = random.NextRoundedDouble()
             };
 
             var sectionConfiguration =
@@ -78,6 +79,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(configurationType, sectionConfiguration.ScenarioConfigurationType);
+            Assert.AreEqual(entity.A, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
         }
     }
 }

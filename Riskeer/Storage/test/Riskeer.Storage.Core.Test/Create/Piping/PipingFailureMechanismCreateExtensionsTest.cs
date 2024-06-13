@@ -213,7 +213,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(1, failureMechanismSectionEntities.Count);
             Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
                                                               .Count());
-            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities)
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingFailureMechanismSectionConfigurationEntities)
                                                               .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
