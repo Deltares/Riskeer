@@ -95,6 +95,7 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
+            MacroStabilityInwardsFailureMechanismSectionConfigurationEntities.Load();
             NonAdoptableFailureMechanismSectionResultEntities.Load();
             ProjectEntities.Load();
             SemiProbabilisticPipingCalculationEntities.Load();

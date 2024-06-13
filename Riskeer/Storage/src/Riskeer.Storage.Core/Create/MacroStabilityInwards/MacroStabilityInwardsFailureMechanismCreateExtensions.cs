@@ -52,6 +52,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForFailureMechanismSectionConfiguration(mechanism.SectionConfigurations, registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
@@ -101,6 +102,18 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
                 AdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+        
+        private static void AddEntitiesForFailureMechanismSectionConfiguration(
+            IEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations,
+            PersistenceRegistry registry)
+        {
+            foreach (FailureMechanismSectionConfiguration configuration in sectionConfigurations)
+            {
+                MacroStabilityInwardsFailureMechanismSectionConfigurationEntity failureMechanismSectionConfigurationEntity = configuration.Create();
+                FailureMechanismSectionEntity section = registry.Get(configuration.Section);
+                section.MacroStabilityInwardsFailureMechanismSectionConfigurationEntities.Add(failureMechanismSectionConfigurationEntity);
             }
         }
     }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -259,10 +260,12 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities
-                                     .SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
-                                     .Count());
+            ICollection<FailureMechanismSectionEntity> failureMechanismSectionEntities = entity.FailureMechanismSectionEntities;
+            Assert.AreEqual(1, failureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
+                                                              .Count());
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsFailureMechanismSectionConfigurationEntities)
+                                                              .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 

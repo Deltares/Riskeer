@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -1209,6 +1210,10 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsPipingFailureMechanism_WithSectionsSet_SetsPipingFailureMechanismWithFailureMechanismSections()
         {
             // Setup
+            var random = new Random(21);
+            RoundedDouble a = random.NextRoundedDouble();
+            var scenarioConfigurationPerFailureMechanismSectionType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
+
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
@@ -1220,7 +1225,9 @@ namespace Riskeer.Storage.Core.Test.Read
 
             var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingFailureMechanismSectionConfigurationEntity
             {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                FailureMechanismSectionEntity = failureMechanismSectionEntity,
+                A = a,
+                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(scenarioConfigurationPerFailureMechanismSectionType)
             };
             failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             failureMechanismSectionEntity.PipingFailureMechanismSectionConfigurationEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
@@ -1248,6 +1255,10 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single();
+            Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
+            Assert.AreEqual(scenarioConfigurationPerFailureMechanismSectionType, sectionConfiguration.ScenarioConfigurationType);
 
             SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
@@ -1555,6 +1566,9 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithSectionsSet_MacroStabilityInwardsFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
+            var random = new Random(21);
+            RoundedDouble a = random.NextRoundedDouble();
+
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
@@ -1564,6 +1578,13 @@ namespace Riskeer.Storage.Core.Test.Read
             };
             SectionResultTestHelper.SetSectionResult(sectionResultEntity);
             failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+
+            var scenarioConfigurationPerFailureMechanismSectionEntity = new MacroStabilityInwardsFailureMechanismSectionConfigurationEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity,
+                A = a
+            };
+            failureMechanismSectionEntity.MacroStabilityInwardsFailureMechanismSectionConfigurationEntities.Add(scenarioConfigurationPerFailureMechanismSectionEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -1589,6 +1610,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            FailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single();
+            Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
 
             SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }

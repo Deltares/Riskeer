@@ -42,6 +42,7 @@ using Riskeer.Storage.Core.Read.DuneErosion;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
+using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -240,9 +241,9 @@ namespace Riskeer.Storage.Core.Read
                                                                             PipingFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
         {
-            IEnumerable<PipingFailureMechanismSectionConfigurationEntity> pipingFailureMechanismSectionConfigurationEntities =
+            IEnumerable<PipingFailureMechanismSectionConfigurationEntity> failureMechanismSectionConfigurationEntities =
                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingFailureMechanismSectionConfigurationEntities);
-            foreach (PipingFailureMechanismSectionConfigurationEntity sectionConfigurationEntity in pipingFailureMechanismSectionConfigurationEntities)
+            foreach (PipingFailureMechanismSectionConfigurationEntity sectionConfigurationEntity in failureMechanismSectionConfigurationEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
                 PipingFailureMechanismSectionConfiguration configuration = failureMechanism.SectionConfigurations.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -554,6 +555,7 @@ namespace Riskeer.Storage.Core.Read
             }
 
             entity.ReadMacroStabilityInwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadMacroStabilityInwardsFailureMechanismSectionConfigurations(failureMechanism, collector);
             ReadMacroStabilityInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
@@ -569,6 +571,21 @@ namespace Riskeer.Storage.Core.Read
                 AdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
+            }
+        }
+
+        private static void ReadMacroStabilityInwardsFailureMechanismSectionConfigurations(this FailureMechanismEntity entity,
+                                                                                           MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                                           ReadConversionCollector collector)
+        {
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionConfigurationEntity> failureMechanismSectionConfigurationEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsFailureMechanismSectionConfigurationEntities);
+            foreach (MacroStabilityInwardsFailureMechanismSectionConfigurationEntity sectionConfigurationEntity in failureMechanismSectionConfigurationEntities)
+            {
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
+                FailureMechanismSectionConfiguration configuration = failureMechanism.SectionConfigurations.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionConfigurationEntity.Read(configuration);
             }
         }
 
