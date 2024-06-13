@@ -80,6 +80,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<MacroStabilityInwardsCalculationOutputEntity> MacroStabilityInwardsCalculationOutputEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsCharacteristicPointEntity> MacroStabilityInwardsCharacteristicPointEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsFailureMechanismMetaEntity> MacroStabilityInwardsFailureMechanismMetaEntities { get; set; }
+        public virtual DbSet<MacroStabilityInwardsFailureMechanismSectionConfigurationEntity> MacroStabilityInwardsFailureMechanismSectionConfigurationEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsPreconsolidationStressEntity> MacroStabilityInwardsPreconsolidationStressEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilLayerOneDEntity> MacroStabilityInwardsSoilLayerOneDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntities { get; set; }
@@ -89,7 +90,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<NonAdoptableFailureMechanismSectionResultEntity> NonAdoptableFailureMechanismSectionResultEntities { get; set; }
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
-        public virtual DbSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }
+        public virtual DbSet<PipingFailureMechanismSectionConfigurationEntity> PipingFailureMechanismSectionConfigurationEntities { get; set; }
         public virtual DbSet<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
         public virtual DbSet<PipingSoilProfileEntity> PipingSoilProfileEntities { get; set; }
         public virtual DbSet<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }

@@ -39,8 +39,9 @@ namespace Riskeer.Storage.Core.DbContext
         public FailureMechanismSectionEntity()
         {
             AdoptableFailureMechanismSectionResultEntities = new HashSet<AdoptableFailureMechanismSectionResultEntity>();
+            MacroStabilityInwardsFailureMechanismSectionConfigurationEntities = new HashSet<MacroStabilityInwardsFailureMechanismSectionConfigurationEntity>();
             NonAdoptableFailureMechanismSectionResultEntities = new HashSet<NonAdoptableFailureMechanismSectionResultEntity>();
-            PipingScenarioConfigurationPerFailureMechanismSectionEntities = new HashSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity>();
+            PipingFailureMechanismSectionConfigurationEntities = new HashSet<PipingFailureMechanismSectionConfigurationEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             SpecificFailureMechanismEntities = new HashSet<SpecificFailureMechanismEntity>();
         }
@@ -53,10 +54,13 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<AdoptableFailureMechanismSectionResultEntity> AdoptableFailureMechanismSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacroStabilityInwardsFailureMechanismSectionConfigurationEntity> MacroStabilityInwardsFailureMechanismSectionConfigurationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NonAdoptableFailureMechanismSectionResultEntity> NonAdoptableFailureMechanismSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }
+        public virtual ICollection<PipingFailureMechanismSectionConfigurationEntity> PipingFailureMechanismSectionConfigurationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }

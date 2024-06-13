@@ -30,13 +30,12 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class MacroStabilityInwardsFailureMechanismMetaEntity
+    public class MacroStabilityInwardsFailureMechanismSectionConfigurationEntity
     {
-        public long MacroStabilityInwardsFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public string StochasticSoilModelCollectionSourcePath { get; set; }
-        public string SurfaceLineCollectionSourcePath { get; set; }
+        public long MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId { get; set; }
+        public long? FailureMechanismSectionEntityId { get; set; }
+        public double A { get; set; }
 
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }
