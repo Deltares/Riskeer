@@ -131,6 +131,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureMacroStabilityInwardsFailureMechanism(macroStabilityInwardsFailureMechanism, assessmentSection);
             SetSections(macroStabilityInwardsFailureMechanism);
             SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResults);
+            SetSectionConfigurations(macroStabilityInwardsFailureMechanism.SectionConfigurations);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
@@ -485,6 +486,15 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
                 sectionResult.RefinedSectionProbability = random.NextDouble();
+            }
+        }
+
+        private static void SetSectionConfigurations(IEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations)
+        {
+            var random = new Random(21);
+            foreach (FailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
+            {
+                sectionConfiguration.A = random.NextRoundedDouble();
             }
         }
 
@@ -1596,6 +1606,7 @@ namespace Riskeer.Storage.Core.TestUtil
             var random = new Random(21);
             foreach (PipingFailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
             {
+                sectionConfiguration.A = random.NextRoundedDouble();
                 sectionConfiguration.ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
             }
         }

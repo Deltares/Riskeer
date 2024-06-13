@@ -599,6 +599,20 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
         }
+        
+        private static void AssertFailureMechanismSectionConfiguration(
+            FailureMechanismSectionConfiguration expectedConfiguration,
+            FailureMechanismSectionConfiguration actualConfiguration)
+        {
+            AssertFailureMechanismSections(new[]
+            {
+                expectedConfiguration.Section
+            }, new[]
+            {
+                actualConfiguration.Section
+            });
+            Assert.AreEqual(expectedConfiguration.A, actualConfiguration.A);
+        }
 
         /// <summary>
         /// Asserts two collections with items of <typeparamref name="T"/> on the
@@ -1102,6 +1116,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             {
                 actualConfiguration.Section
             });
+            Assert.AreEqual(expectedConfiguration.A, actualConfiguration.A);
             Assert.AreEqual(expectedConfiguration.ScenarioConfigurationType, actualConfiguration.ScenarioConfigurationType);
         }
 
@@ -1258,6 +1273,10 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertMacroStabilityInwardsSurfaceLine);
+            
+            AssertCollectionAndItems(expectedFailureMechanism.SectionConfigurations,
+                                     actualFailureMechanism.SectionConfigurations,
+                                     AssertFailureMechanismSectionConfiguration);
         }
 
         private static void AssertMacroStabilityInwardsStochasticSoilModels(MacroStabilityInwardsStochasticSoilModelCollection expectedModels,
