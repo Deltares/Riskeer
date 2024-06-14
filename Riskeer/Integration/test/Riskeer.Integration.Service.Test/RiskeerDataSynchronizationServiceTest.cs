@@ -1779,6 +1779,11 @@ namespace Riskeer.Integration.Service.Test
                 yield return failureMechanismObject;
             }
 
+            foreach (FailureMechanismSectionConfiguration sectionConfiguration in failureMechanism.SectionConfigurations)
+            {
+                yield return sectionConfiguration;
+            }
+
             foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
             {
                 yield return calculationBase;

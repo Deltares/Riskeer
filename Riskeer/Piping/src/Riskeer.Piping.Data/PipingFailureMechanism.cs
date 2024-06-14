@@ -79,8 +79,7 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        public IObservableEnumerable<PipingFailureMechanismSectionConfiguration> SectionConfigurations =>
-            sectionConfigurations;
+        public IObservableEnumerable<PipingFailureMechanismSectionConfiguration> SectionConfigurations => sectionConfigurations;
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 

@@ -35,14 +35,14 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var scenarioConfigurationPerFailureMechanismSection = new PipingFailureMechanismSectionConfiguration(section);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(scenarioConfigurationPerFailureMechanismSection);
+            Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(sectionConfiguration);
 
-            Assert.AreSame(section, scenarioConfigurationPerFailureMechanismSection.Section);
+            Assert.AreSame(section, sectionConfiguration.Section);
             Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
-                            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType);
+                            sectionConfiguration.ScenarioConfigurationType);
         }
     }
 }

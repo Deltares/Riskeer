@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -61,13 +61,13 @@ namespace Riskeer.Common.Forms.Test.Views
 
             Assert.AreEqual(sectionConfiguration.A.NumberOfDecimalPlaces, sectionRow.A.NumberOfDecimalPlaces);
             Assert.AreEqual(sectionConfiguration.A, sectionRow.A);
-            
+
             Assert.AreEqual(2, sectionRow.N.NumberOfDecimalPlaces);
             AssertLengthEffectN(sectionConfiguration, b, sectionRow);
         }
 
         [Test]
-        public void GivenRow_WhenParameterAChanged_ThenObserversNotified()
+        public void GivenRow_WhenParameterAChanged_ThenValueSetAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -82,20 +82,17 @@ namespace Riskeer.Common.Forms.Test.Views
             var sectionRow = new FailureMechanismSectionConfigurationRow(sectionConfiguration, double.NaN, double.NaN, double.NaN);
 
             // When
-            sectionRow.A = random.NextRoundedDouble();
+            RoundedDouble newValue = random.NextRoundedDouble();
+            sectionRow.A = newValue;
 
             // Then
+            Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
             mocks.VerifyAll();
         }
 
         private static FailureMechanismSectionConfiguration GetTestFailureMechanismSectionConfiguration()
         {
-            var random = new Random();
-            var section = new FailureMechanismSection("test", new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             return new FailureMechanismSectionConfiguration(section);
         }
 

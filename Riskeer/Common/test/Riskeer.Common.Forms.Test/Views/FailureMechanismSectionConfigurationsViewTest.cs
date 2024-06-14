@@ -197,16 +197,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
         }
 
-        private static IEnumerable<FailureMechanismSectionConfiguration> CreateSectionConfigurations(
-            IReadOnlyList<FailureMechanismSection> sections)
+        private static IEnumerable<FailureMechanismSectionConfiguration> CreateSectionConfigurations(IEnumerable<FailureMechanismSection> sections)
         {
-            var sectionConfigurations = new FailureMechanismSectionConfiguration[sections.Count];
-            for (var i = 0; i < sections.Count; i++)
-            {
-                sectionConfigurations[i] = new FailureMechanismSectionConfiguration(sections[i]);
-            }
-
-            return sectionConfigurations;
+            return sections.Select(s => new FailureMechanismSectionConfiguration(s));
         }
 
         private static FailureMechanismSection CreateFailureMechanismSection(string name, double x1, double y1, double x2, double y2)

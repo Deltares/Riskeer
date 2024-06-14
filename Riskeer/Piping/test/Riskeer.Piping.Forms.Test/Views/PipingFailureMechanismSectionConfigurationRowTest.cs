@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.Views;
 
@@ -39,10 +37,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var random = new Random(39);
-            PipingFailureMechanismSectionConfiguration sectionConfiguration = GetFailureMechanismSectionConfiguration();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             double b = random.NextDouble();
+
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             var sectionRow = new PipingFailureMechanismSectionConfigurationRow(sectionConfiguration, sectionStart, sectionEnd, b);
@@ -62,35 +61,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(sectionConfiguration.A, sectionRow.A);
 
             Assert.AreEqual(2, sectionRow.N.NumberOfDecimalPlaces);
-            AssertLengthEffectN(sectionConfiguration, b, sectionRow);
+            Assert.AreEqual(sectionConfiguration.GetN(b), sectionRow.N, sectionRow.N.GetAccuracy());
 
             Assert.AreEqual(2, sectionRow.FailureMechanismSensitiveSectionLength.NumberOfDecimalPlaces);
-            AssertFailureMechanismSensitiveSectionLength(sectionConfiguration, sectionRow);
-        }
-
-        private static PipingFailureMechanismSectionConfiguration GetFailureMechanismSectionConfiguration()
-        {
-            var random = new Random();
-            var section = new FailureMechanismSection("test", new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-            return new PipingFailureMechanismSectionConfiguration(section);
-        }
-
-        private static void AssertLengthEffectN(FailureMechanismSectionConfiguration sectionConfiguration,
-                                                double b,
-                                                FailureMechanismSectionConfigurationRow sectionRow)
-        {
-            Assert.AreEqual(sectionConfiguration.GetN(b), sectionRow.N, sectionRow.N.GetAccuracy());
-        }
-
-        private static void AssertFailureMechanismSensitiveSectionLength(FailureMechanismSectionConfiguration sectionConfiguration,
-                                                                         PipingFailureMechanismSectionConfigurationRow sectionRow)
-        {
-            Assert.AreEqual(sectionConfiguration.GetFailureMechanismSensitiveSectionLength(), 
-                            sectionRow.FailureMechanismSensitiveSectionLength, 
+            Assert.AreEqual(sectionConfiguration.GetFailureMechanismSensitiveSectionLength(), sectionRow.FailureMechanismSensitiveSectionLength,
                             sectionRow.FailureMechanismSensitiveSectionLength.GetAccuracy());
         }
     }

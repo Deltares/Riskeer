@@ -38,10 +38,10 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var scenarioConfigurationPerFailureMechanismSection = new PipingFailureMechanismSectionConfiguration(section);
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
             // Call
-            void Call() => PipingFailureMechanismExtensions.ScenarioConfigurationTypeIsSemiProbabilistic(null, scenarioConfigurationPerFailureMechanismSection);
+            void Call() => PipingFailureMechanismExtensions.ScenarioConfigurationTypeIsSemiProbabilistic(null, sectionConfiguration);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -72,12 +72,11 @@ namespace Riskeer.Piping.Data.Test
                 section
             }, "APath");
 
-            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration =
-                failureMechanism.SectionConfigurations.Single();
-            failureMechanismSectionConfiguration.ScenarioConfigurationType = configurationType;
+            PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single();
+            sectionConfiguration.ScenarioConfigurationType = configurationType;
 
             // Call
-            bool isSemiProbabilistic = failureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(failureMechanismSectionConfiguration);
+            bool isSemiProbabilistic = failureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(sectionConfiguration);
 
             // Assert
             Assert.AreEqual(expectedResult, isSemiProbabilistic);
@@ -140,11 +139,11 @@ namespace Riskeer.Piping.Data.Test
             var sectionResult = new TestFailureMechanismSectionResult(sections[1]);
 
             // Call
-            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationForSection =
+            PipingFailureMechanismSectionConfiguration sectionConfiguration =
                 failureMechanism.GetSectionConfiguration(sectionResult);
 
             // Assert
-            Assert.AreSame(failureMechanismSectionConfigurationForSection.Section, sectionResult.Section);
+            Assert.AreSame(sectionConfiguration.Section, sectionResult.Section);
         }
 
         private static IEnumerable<TestCaseData> GetScenarioConfigurations()

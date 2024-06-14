@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
         private const int expectedSectionNamePropertyIndex = 15;
-        private const int expectedSectionLengthPropertyIndex = 16;
+        private const int expectedFailureMechanismSensitiveSectionLengthPropertyIndex = 16;
 
         private const int expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex = 17;
         private const int expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex = 18;
@@ -372,9 +372,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "De naam van het vak.",
                 true);
 
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[expectedSectionLengthPropertyIndex];
+            PropertyDescriptor failureMechanismSensitiveSectionLength = dynamicProperties[expectedFailureMechanismSensitiveSectionLengthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                sectionLengthProperty,
+                failureMechanismSensitiveSectionLength,
                 sectionInformationCategory,
                 "Mechanismegevoelige vaklengte* [m]",
                 "De mechanismegevoelige lengte van het vak in meters (afgerond).",
@@ -540,8 +540,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     Math2D.ConvertPointsToLineSegments(c.Section.Points)));
 
             Assert.AreEqual(expectedSectionConfiguration.Section.Name, properties.SectionName);
-            Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.MechanismSensitiveSectionLength, 
-                            properties.MechanismSensitiveSectionLength.GetAccuracy());
+            Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength, 
+                            properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
 
@@ -575,7 +575,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Assert
             Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.MechanismSensitiveSectionLength, properties.MechanismSensitiveSectionLength.GetAccuracy());
+            Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }
@@ -632,7 +632,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Assert
             Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.MechanismSensitiveSectionLength, properties.MechanismSensitiveSectionLength.GetAccuracy());
+            Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }

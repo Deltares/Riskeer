@@ -85,8 +85,8 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationScenarios(AdoptableFailureMechanismSectionResult sectionResult)
         {
-            PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationForSection = FailureMechanism.GetSectionConfiguration(sectionResult);
-            return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(failureMechanismSectionConfigurationForSection)
+            PipingFailureMechanismSectionConfiguration sectionConfiguration = FailureMechanism.GetSectionConfiguration(sectionResult);
+            return FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(sectionConfiguration)
                        ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray()
                        : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
         }

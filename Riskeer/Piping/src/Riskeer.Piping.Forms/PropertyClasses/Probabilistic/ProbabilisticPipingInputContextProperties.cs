@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
         private const int sectionNamePropertyIndex = 15;
-        private const int mechanismSensitiveSectionLengthPropertyIndex = 16;
+        private const int failureMechanismSensitiveSectionLengthPropertyIndex = 16;
 
         private const int shouldProfileSpecificIllustrationPointsBeCalculatedPropertyIndex = 17;
         private const int shouldSectionSpecificIllustrationPointsBeCalculatedPropertyIndex = 18;
@@ -490,11 +490,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
-        [PropertyOrder(mechanismSensitiveSectionLengthPropertyIndex)]
+        [PropertyOrder(failureMechanismSensitiveSectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, numberOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_Description))]
-        public RoundedDouble MechanismSensitiveSectionLength
+        public RoundedDouble FailureMechanismSensitiveSectionLength
         {
             get
             {
