@@ -399,10 +399,10 @@ namespace Riskeer.Piping.Integration.Test
                 PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single(
                     c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                         Math2D.ConvertPointsToLineSegments(c.Section.Points)));
-                double mechanismSensitiveSectionLength = sectionConfiguration.GetFailureMechanismSensitiveSectionLength();
+                double failureMechanismSensitiveSectionLength = sectionConfiguration.GetFailureMechanismSensitiveSectionLength();
 
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
-                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, mechanismSensitiveSectionLength, sectionSpecificInputs[0]);
+                AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, failureMechanismSensitiveSectionLength, sectionSpecificInputs[0]);
             }
 
             mocks.VerifyAll();

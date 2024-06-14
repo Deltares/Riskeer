@@ -1631,7 +1631,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(56, changedObjects.Length);
+            Assert.AreEqual(57, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);

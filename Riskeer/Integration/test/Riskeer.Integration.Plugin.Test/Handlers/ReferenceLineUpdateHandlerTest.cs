@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 189;
+        private const int expectedNumberOfRemovedInstances = 191;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -207,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(56, observables.Length);
+            Assert.AreEqual(57, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -308,6 +308,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionConfigurations);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
