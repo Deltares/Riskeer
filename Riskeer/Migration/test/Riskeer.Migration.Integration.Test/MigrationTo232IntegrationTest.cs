@@ -95,7 +95,13 @@ namespace Riskeer.Migration.Integration.Test
                     AssertClosingStructuresOutput(reader);
                     AssertHeightStructuresOutput(reader);
                     AssertStabilityPointStructuresOutput(reader);
+
+                    AssertMacroStabilityInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertMacroStabilityInwardsFailureMechanismSectionConfiguration(reader, sourceFilePath);
                     AssertMacroStabilityInwardsOutput(reader);
+
+                    AssertPipingFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertPipingFailureMechanismSectionConfiguration(reader, sourceFilePath);
                     AssertPipingOutput(reader);
 
                     AssertIllustrationPointResults(reader);
@@ -224,7 +230,6 @@ namespace Riskeer.Migration.Integration.Test
                 "MacroStabilityInwardsStochasticSoilProfileEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
-                "PipingScenarioConfigurationPerFailureMechanismSectionEntity",
                 "PipingSoilLayerEntity",
                 "PipingSoilProfileEntity",
                 "PipingStochasticSoilProfileEntity",
@@ -892,6 +897,91 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedSectionProbability] IS OLD.[RefinedSectionProbability]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMigratedNonAdoptableWithProfileProbabilityFailureMechanismSectionResults);
+        }
+
+        #endregion
+
+        #region Piping
+
+        private static void AssertPipingFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingFailureMechanismMetaEntity " +
+                ") " +
+                "FROM PipingFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingFailureMechanismMetaEntity OLD USING(PipingFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[WaterVolumetricWeight] = OLD.[WaterVolumetricWeight] " +
+                "AND NEW.[StochasticSoilModelCollectionSourcePath] IS OLD.[StochasticSoilModelCollectionSourcePath] " +
+                "AND NEW.[SurfaceLineCollectionSourcePath] IS OLD.[SurfaceLineCollectionSourcePath] " +
+                "AND NEW.[PipingScenarioConfigurationType] = OLD.[PipingScenarioConfigurationType]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertPipingFailureMechanismSectionConfiguration(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingScenarioConfigurationPerFailureMechanismSectionEntity " +
+                ") " +
+                "FROM PipingFailureMechanismSectionConfigurationEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingScenarioConfigurationPerFailureMechanismSectionEntity OLD " +
+                "WHERE NEW.[PipingFailureMechanismSectionConfigurationEntityId] = OLD.[PipingScenarioConfigurationPerFailureMechanismSectionEntityId] " +
+                "AND NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[PipingScenarioConfigurationPerFailureMechanismSectionType] = OLD.[PipingScenarioConfigurationPerFailureMechanismSectionType] " +
+                "AND NEW.[A] = 1; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards
+
+        private static void AssertMacroStabilityInwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.MacroStabilityInwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM MacroStabilityInwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityInwardsFailureMechanismMetaEntity OLD USING(MacroStabilityInwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[StochasticSoilModelCollectionSourcePath] IS OLD.[StochasticSoilModelCollectionSourcePath] " +
+                "AND NEW.[SurfaceLineCollectionSourcePath] IS OLD.[SurfaceLineCollectionSourcePath]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertMacroStabilityInwardsFailureMechanismSectionConfiguration(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "JOIN SOURCEPROJECT.FailureMechanismFailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
+                "WHERE FailureMechanismType = 2 " +
+                ") " +
+                "FROM FailureMechanismEntity " +
+                "JOIN FailureMechanismFailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
+                "JOIN MacroStabilityInwardsFailureMechanismSectionConfigurationEntity NEW USING(FailureMechanismSectionEntityId) " +
+                "WHERE FailureMechanismType = 2 " +
+                "AND NEW.[A] = 1; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
         #endregion
