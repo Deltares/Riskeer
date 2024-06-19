@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
 
         private string GetScenarioConfigurationTypeDisplayName()
         {
-            return SectionConfiguration.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+            return SectionConfiguration.ScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
                        ? Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_SemiProbabilistic
                        : Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic;
         }

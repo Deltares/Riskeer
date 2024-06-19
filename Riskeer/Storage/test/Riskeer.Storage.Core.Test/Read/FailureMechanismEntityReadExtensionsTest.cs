@@ -997,7 +997,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(31);
             bool inAssembly = random.NextBoolean();
-            PipingScenarioConfigurationType pipingScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
+            var mechanismScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
@@ -1011,7 +1011,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         WaterVolumetricWeight = random.NextDouble(),
-                        PipingScenarioConfigurationType = Convert.ToByte(pipingScenarioConfigurationType)
+                        PipingScenarioConfigurationType = Convert.ToByte(mechanismScenarioConfigurationType)
                     }
                 }
             };
@@ -1035,7 +1035,7 @@ namespace Riskeer.Storage.Core.Test.Read
             PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
-            Assert.AreEqual(pipingScenarioConfigurationType, failureMechanism.ScenarioConfigurationType);
+            Assert.AreEqual(mechanismScenarioConfigurationType, failureMechanism.ScenarioConfigurationType);
 
             Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
@@ -1212,7 +1212,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(21);
             RoundedDouble a = random.NextRoundedDouble();
-            var scenarioConfigurationPerFailureMechanismSectionType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
+            var sectionScenarioConfigurationType = random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>();
 
             const string filePath = "failureMechanismSections/File/Path";
 
@@ -1227,7 +1227,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
                 A = a,
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(scenarioConfigurationPerFailureMechanismSectionType)
+                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(sectionScenarioConfigurationType)
             };
             failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             failureMechanismSectionEntity.PipingFailureMechanismSectionConfigurationEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
@@ -1258,7 +1258,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single();
             Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-            Assert.AreEqual(scenarioConfigurationPerFailureMechanismSectionType, sectionConfiguration.ScenarioConfigurationType);
+            Assert.AreEqual(sectionScenarioConfigurationType, sectionConfiguration.ScenarioConfigurationType);
 
             SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }

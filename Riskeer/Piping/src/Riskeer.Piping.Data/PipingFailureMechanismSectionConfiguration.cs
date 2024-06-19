@@ -32,16 +32,16 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the configuration from.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> to configuration belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionConfiguration(FailureMechanismSection section) : base(section)
         {
-            ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            ScenarioConfigurationType = PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
         }
 
         /// <summary>
         /// Gets or sets the scenario configuration type.
         /// </summary>
-        public PipingScenarioConfigurationPerFailureMechanismSectionType ScenarioConfigurationType { get; set; }
+        public PipingFailureMechanismSectionScenarioConfigurationType ScenarioConfigurationType { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Data
 
             return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                    || failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
-                   && sectionConfiguration.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+                   && sectionConfiguration.ScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
         }
 
         /// <summary>

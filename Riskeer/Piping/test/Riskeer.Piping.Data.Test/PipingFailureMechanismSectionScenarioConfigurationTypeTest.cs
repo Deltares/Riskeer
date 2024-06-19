@@ -26,17 +26,17 @@ using NUnit.Framework;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingScenarioConfigurationPerFailureMechanismSectionTypeTest
-        : EnumValuesTestFixture<PipingScenarioConfigurationPerFailureMechanismSectionType, int>
+    public class PipingFailureMechanismSectionScenarioConfigurationTypeTest
+        : EnumValuesTestFixture<PipingFailureMechanismSectionScenarioConfigurationType, int>
     {
-        protected override IDictionary<PipingScenarioConfigurationPerFailureMechanismSectionType, int> ExpectedValueForEnumValues =>
-            new Dictionary<PipingScenarioConfigurationPerFailureMechanismSectionType, int>
+        protected override IDictionary<PipingFailureMechanismSectionScenarioConfigurationType, int> ExpectedValueForEnumValues =>
+            new Dictionary<PipingFailureMechanismSectionScenarioConfigurationType, int>
             {
                 {
-                    PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, 1
+                    PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, 1
                 },
                 {
-                    PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, 2
+                    PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, 2
                 }
             };
     }

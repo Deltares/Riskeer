@@ -93,10 +93,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "semi-probabilistisch")]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "probabilistisch")]
-        public void ToString_FailureMechanismScenarioConfigurationTypePerSection_ReturnsExpectedName(
-            PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationType, string displayNameSuffix)
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "semi-probabilistisch")]
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "probabilistisch")]
+        public void ToString_FailureMechanismSectionScenarioConfigurationType_ReturnsExpectedName(
+            PipingFailureMechanismSectionScenarioConfigurationType scenarioConfigurationType, string displayNameSuffix)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

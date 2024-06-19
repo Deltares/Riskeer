@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         [TestCaseSource(nameof(GetSemiProbabilisticConfigurations))]
         public void CreateCalculateStrategy_WithSemiProbabilisticConfigurations_ReturnsExpectedStrategy(
-            PipingFailureMechanism failureMechanism, PipingScenarioConfigurationPerFailureMechanismSectionType configurationType)
+            PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionScenarioConfigurationType configurationType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -128,7 +128,7 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         [TestCaseSource(nameof(GetProbabilisticConfigurations))]
         public void CreateCalculateStrategy_WithProbabilisticConfigurations_ReturnsExpectedStrategy(
-            PipingFailureMechanism failureMechanism, PipingScenarioConfigurationPerFailureMechanismSectionType configurationType)
+            PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionScenarioConfigurationType configurationType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -160,12 +160,12 @@ namespace Riskeer.Piping.Data.Test
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic
-            }, random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>());
+            }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>());
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
-            }, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic);
+            }, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic);
         }
 
         private static IEnumerable<TestCaseData> GetProbabilisticConfigurations()
@@ -174,12 +174,12 @@ namespace Riskeer.Piping.Data.Test
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.Probabilistic
-            }, random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>());
+            }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>());
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
-            }, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic);
+            }, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic);
         }
     }
 }

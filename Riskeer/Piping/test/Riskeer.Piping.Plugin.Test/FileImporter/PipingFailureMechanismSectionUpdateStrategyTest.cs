@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             string sourcePath = TestHelper.GetScratchPadPath();
 
             failureMechanism.SetSections(sections, sourcePath);
-            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic;
             failureMechanism.SectionConfigurations.First().A = firstSectionA;
             failureMechanism.SectionConfigurations.ElementAt(1).A = secondSectionA;
 
@@ -118,8 +118,8 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             }, failureMechanism.SectionConfigurations.Select(sc => sc.A));
             CollectionAssert.AreEqual(new[]
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,
-                PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic,
+                PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
             }, failureMechanism.SectionConfigurations.Select(sc => sc.ScenarioConfigurationType));
             CollectionAssert.AreEqual(new IObservable[]
             {

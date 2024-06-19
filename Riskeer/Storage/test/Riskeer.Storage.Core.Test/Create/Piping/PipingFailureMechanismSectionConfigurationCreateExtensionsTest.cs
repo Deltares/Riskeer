@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var configuration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection)
             {
-                ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>(),
+                ScenarioConfigurationType = random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>(),
                 A = random.NextRoundedDouble()
             };
 

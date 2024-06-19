@@ -282,14 +282,14 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
         public void Constructor_FailureMechanismWithSections_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
-                                                                                              PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType,
+                                                                                              PipingFailureMechanismSectionScenarioConfigurationType sectionScenarioConfigurationType,
                                                                                               bool semiProbabilisticColumnsShouldBeVisible)
         {
             // Setup
@@ -298,7 +298,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 ScenarioConfigurationType = scenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
-            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType);
+            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = sectionScenarioConfigurationType);
 
             // Call
             ShowPipingScenariosView(failureMechanism);
@@ -355,14 +355,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
         public void Constructor_FailureMechanismWithSectionsAndWithVariousRelevantScenarios_TotalContributionScenariosCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
-                                                                                                                                           PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType)
+                                                                                                                                           PipingFailureMechanismSectionScenarioConfigurationType failureMechanismSectionScenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
@@ -370,7 +370,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 ScenarioConfigurationType = scenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
-            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType);
+            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = failureMechanismSectionScenarioConfigurationType);
 
             // Call
             ShowPipingScenariosView(failureMechanism);
@@ -625,7 +625,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             sectionConfiguration.Attach(observer);
 
             // Precondition
-            Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
+            Assert.AreEqual(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic,
                             sectionConfiguration.ScenarioConfigurationType);
 
             // When
@@ -633,16 +633,16 @@ namespace Riskeer.Piping.Forms.Test.Views
             radioButtonProbabilistic.Checked = true;
 
             // Then
-            Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,
+            Assert.AreEqual(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic,
                             sectionConfiguration.ScenarioConfigurationType);
             mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenDataGridViewUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
-                                                                                             PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenDataGridViewUpdated(PipingFailureMechanismSectionScenarioConfigurationType initialSectionScenarioConfigurationType,
+                                                                                             PipingFailureMechanismSectionScenarioConfigurationType newSectionScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
@@ -650,14 +650,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             };
             ConfigureFailureMechanism(failureMechanism);
-            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialScenarioConfigurationType);
+            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialSectionScenarioConfigurationType);
 
             ShowPipingScenariosView(failureMechanism);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
-            Type initialRowType = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+            Type initialRowType = initialSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
                                       ? typeof(SemiProbabilisticPipingScenarioRow)
                                       : typeof(ProbabilisticPipingScenarioRow);
             foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
@@ -665,13 +665,13 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf(initialRowType, row);
             }
 
-            bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            bool initialSemiProbabilisticColumnShouldBeVisible = initialSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
 
             // When
-            if (newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
+            if (newSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)
             {
                 var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
                 radioButtonSemiProbabilistic.Checked = true;
@@ -683,7 +683,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
 
             // Then
-            Type updatedRowType = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+            Type updatedRowType = newSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
                                       ? typeof(SemiProbabilisticPipingScenarioRow)
                                       : typeof(ProbabilisticPipingScenarioRow);
             foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
@@ -691,17 +691,17 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf(updatedRowType, row);
             }
 
-            bool updatedSemiProbabilisticColumnShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            bool updatedSemiProbabilisticColumnShouldBeVisible = newSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)]
-        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenSectionConfigurationControlUpdated(PipingScenarioConfigurationPerFailureMechanismSectionType initialScenarioConfigurationType,
-                                                                                                             PipingScenarioConfigurationPerFailureMechanismSectionType newScenarioConfigurationType)
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenSectionConfigurationControlUpdated(PipingFailureMechanismSectionScenarioConfigurationType initialSectionScenarioConfigurationType,
+                                                                                                             PipingFailureMechanismSectionScenarioConfigurationType newSectionScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
@@ -709,17 +709,17 @@ namespace Riskeer.Piping.Forms.Test.Views
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             };
             ConfigureFailureMechanism(failureMechanism);
-            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialScenarioConfigurationType);
+            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialSectionScenarioConfigurationType);
 
             ShowPipingScenariosView(failureMechanism);
 
             // Precondition
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
-            bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            bool initialSemiProbabilisticColumnShouldBeVisible = initialSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, sectionConfigurationControl.Visible);
 
             // When
-            if (newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
+            if (newSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)
             {
                 var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
                 radioButtonSemiProbabilistic.Checked = true;
@@ -731,7 +731,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
 
             // Then
-            bool updatedSemiProbabilisticControlsShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            bool updatedSemiProbabilisticControlsShouldBeVisible = newSectionScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(updatedSemiProbabilisticControlsShouldBeVisible, sectionConfigurationControl.Visible);
         }
 
@@ -803,7 +803,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             ConfigureFailureMechanism(failureMechanism);
             PipingFailureMechanismSectionConfiguration lastSectionConfiguration = failureMechanism.SectionConfigurations.Last();
-            lastSectionConfiguration.ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            lastSectionConfiguration.ScenarioConfigurationType = PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic;
             lastSectionConfiguration.A = (RoundedDouble) 0.7;
 
             ShowPipingScenariosView(failureMechanism);
@@ -1129,7 +1129,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // When
             PipingFailureMechanismSectionConfiguration failureMechanismSectionConfiguration = failureMechanism.SectionConfigurations.ElementAt(1);
-            failureMechanismSectionConfiguration.ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            failureMechanismSectionConfiguration.ScenarioConfigurationType = PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic;
             failureMechanismSectionConfiguration.NotifyObservers();
 
             // Then

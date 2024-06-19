@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Read.Piping
             }
 
             failureMechanismSectionConfiguration.ScenarioConfigurationType =
-                (PipingScenarioConfigurationPerFailureMechanismSectionType) entity.PipingScenarioConfigurationPerFailureMechanismSectionType;
+                (PipingFailureMechanismSectionScenarioConfigurationType) entity.PipingScenarioConfigurationPerFailureMechanismSectionType;
             failureMechanismSectionConfiguration.A = (RoundedDouble) entity.A;
         }
     }

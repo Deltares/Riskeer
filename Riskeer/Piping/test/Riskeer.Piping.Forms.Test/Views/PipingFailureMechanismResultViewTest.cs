@@ -97,13 +97,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "1/31")]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/4")]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/31")]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "1/4")]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/31")]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/4")]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/31")]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/4")]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized(
             PipingScenarioConfigurationType scenarioConfigurationType,
-            PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType,
+            PipingFailureMechanismSectionScenarioConfigurationType scenarioConfigurationPerFailureMechanismSectionType,
             string probability)
         {
             // Setup

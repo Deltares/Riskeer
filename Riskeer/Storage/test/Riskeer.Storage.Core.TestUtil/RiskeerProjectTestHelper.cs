@@ -1607,7 +1607,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (PipingFailureMechanismSectionConfiguration sectionConfiguration in sectionConfigurations)
             {
                 sectionConfiguration.A = random.NextRoundedDouble();
-                sectionConfiguration.ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
+                sectionConfiguration.ScenarioConfigurationType = random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>();
             }
         }
 

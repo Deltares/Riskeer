@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         [TestCaseSource(nameof(GetScenarioConfigurations))]
         public void ScenarioConfigurationTypeIsSemiProbabilistic_VariousConfigurations_ReturnsExpectedResult(
-            PipingFailureMechanism failureMechanism, PipingScenarioConfigurationPerFailureMechanismSectionType configurationType,
+            PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionScenarioConfigurationType configurationType,
             bool expectedResult)
         {
             // Setup
@@ -152,22 +152,22 @@ namespace Riskeer.Piping.Data.Test
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic
-            }, random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>(), true);
+            }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>(), true);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
-            }, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, true);
+            }, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.Probabilistic
-            }, random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>(), false);
+            }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>(), false);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
-            }, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, false);
+            }, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false);
         }
     }
 }

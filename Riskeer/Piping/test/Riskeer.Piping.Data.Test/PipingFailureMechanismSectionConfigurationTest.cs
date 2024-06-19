@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionConfiguration>(sectionConfiguration);
 
             Assert.AreSame(section, sectionConfiguration.Section);
-            Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
+            Assert.AreEqual(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic,
                             sectionConfiguration.ScenarioConfigurationType);
         }
     }

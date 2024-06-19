@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Specifies the type of the scenario configurations per <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public enum PipingScenarioConfigurationPerFailureMechanismSectionType
+    public enum PipingFailureMechanismSectionScenarioConfigurationType
     {
         /// <summary>
         /// The semi probabilistic scenario configuration type.
