@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
     public static class RiskeerUpdateInfoFactory
     {
         /// <summary>
-        /// Creates a <see cref="UpdateInfo"/> object for a <see cref="TSectionContext"/>.
+        /// Creates an <see cref="UpdateInfo"/> object for a <see cref="TSectionContext"/>.
         /// </summary>
         /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
         /// to create the <see cref="UpdateInfo"/> for.</typeparam>
@@ -76,6 +76,49 @@ namespace Riskeer.Common.Forms.UpdateInfos
                     filePath,
                     new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData,
                                                                               sectionResultUpdateStrategy),
+                    new UpdateMessageProvider())
+            };
+        }
+
+        /// <summary>
+        /// Creates an <see cref="UpdateInfo"/> object for a <see cref="TSectionContext"/>.
+        /// </summary>
+        /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
+        /// to create the <see cref="UpdateInfo"/> for.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the failure mechanism to create
+        /// the <see cref="UpdateInfo"/> for.</typeparam>
+        /// <typeparam name="TSectionResult">The type of the failure mechanism section result
+        /// to create the <see cref="UpdateInfo"/> for.</typeparam>
+        /// <param name="createSectionUpdateStrategyFunc">The function to get the <see cref="FailureMechanismSectionUpdateStrategy{T}"/>
+        /// for the created <see cref="UpdateInfo"/>.</param>
+        /// <returns>An <see cref="UpdateInfo"/> object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createSectionUpdateStrategyFunc"/>
+        /// is <c>null</c>.</exception>
+        public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
+            Func<TSectionContext, FailureMechanismSectionUpdateStrategy<TSectionResult>> createSectionUpdateStrategyFunc)
+            where TSectionContext : FailureMechanismSectionsContext
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            if (createSectionUpdateStrategyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createSectionUpdateStrategyFunc));
+            }
+
+            return new UpdateInfo<TSectionContext>
+            {
+                Name = Resources.FailureMechanismSections_DisplayName,
+                Category = Resources.Riskeer_Category,
+                Image = Resources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
+                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null,
+                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
+                    context.WrappedData,
+                    context.AssessmentSection.ReferenceLine,
+                    filePath,
+                    createSectionUpdateStrategyFunc(context),
                     new UpdateMessageProvider())
             };
         }

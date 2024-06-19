@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Util;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using Riskeer.Common.IO.FileImporters;
-using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
@@ -56,31 +55,21 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
-            return new UpdateInfo<PipingFailureMechanismSectionsContext>
+            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                PipingFailureMechanismSectionsContext, PipingFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                context => new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
+                                                                           new AdoptableFailureMechanismSectionResultUpdateStrategy()));
+
+            updateInfo.VerifyUpdates = context =>
             {
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null,
-                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
-                    context.WrappedData,
-                    context.AssessmentSection.ReferenceLine,
-                    filePath,
-                    new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
-                                                                    new AdoptableFailureMechanismSectionResultUpdateStrategy()),
-                    new UpdateMessageProvider()),
-                VerifyUpdates = context =>
-                {
-                    var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
-                        (PipingFailureMechanism) context.WrappedData,
-                        Resources.PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm,
-                        inquiryHelper);
-                    return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
-                }
+                var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
+                    (PipingFailureMechanism) context.WrappedData,
+                    Resources.PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm,
+                    inquiryHelper);
+                return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
             };
+
+            return updateInfo;
         }
     }
 }

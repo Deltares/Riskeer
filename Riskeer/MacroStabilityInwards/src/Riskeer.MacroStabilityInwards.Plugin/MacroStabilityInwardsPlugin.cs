@@ -243,8 +243,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
-                new AdoptableFailureMechanismSectionResultUpdateStrategy());
+                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(c =>
+            {
+                var failureMechanism = (MacroStabilityInwardsFailureMechanism) c.WrappedData;
+                return new MacroStabilityInwardsFailureMechanismSectionUpdateStrategy(failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
+            });
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
