@@ -107,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Setup
             var random = new Random(31);
-            var configurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
+            var configurationType = random.NextEnumValue<PipingFailureMechanismScenarioConfigurationType>();
 
             var failureMechanismToUpdate = new PipingFailureMechanism();
             var entity = new PipingFailureMechanismMetaEntity

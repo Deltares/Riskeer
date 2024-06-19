@@ -151,22 +151,22 @@ namespace Riskeer.Piping.Data.Test
             var random = new Random(21);
             yield return new TestCaseData(new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
             }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>(), true);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             }, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.Probabilistic
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.Probabilistic
             }, random.NextEnumValue<PipingFailureMechanismSectionScenarioConfigurationType>(), false);
 
             yield return new TestCaseData(new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             }, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false);
         }
     }

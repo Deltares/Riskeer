@@ -26,33 +26,33 @@ using NUnit.Framework;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingScenarioConfigurationTypeTest : EnumWithResourcesDisplayNameTestFixture<PipingScenarioConfigurationType>
+    public class PipingFailureMechanismScenarioConfigurationTypeTest : EnumWithResourcesDisplayNameTestFixture<PipingFailureMechanismScenarioConfigurationType>
     {
-        protected override IDictionary<PipingScenarioConfigurationType, string> ExpectedDisplayNameForEnumValues =>
-            new Dictionary<PipingScenarioConfigurationType, string>
+        protected override IDictionary<PipingFailureMechanismScenarioConfigurationType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<PipingFailureMechanismScenarioConfigurationType, string>
             {
                 {
-                    PipingScenarioConfigurationType.SemiProbabilistic, "Semi-probabilistisch"
+                    PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, "Semi-probabilistisch"
                 },
                 {
-                    PipingScenarioConfigurationType.Probabilistic, "Probabilistisch"
+                    PipingFailureMechanismScenarioConfigurationType.Probabilistic, "Probabilistisch"
                 },
                 {
-                    PipingScenarioConfigurationType.PerFailureMechanismSection, "Per vak instelbaar"
+                    PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, "Per vak instelbaar"
                 }
             };
 
-        protected override IDictionary<PipingScenarioConfigurationType, int> ExpectedValueForEnumValues =>
-            new Dictionary<PipingScenarioConfigurationType, int>
+        protected override IDictionary<PipingFailureMechanismScenarioConfigurationType, int> ExpectedValueForEnumValues =>
+            new Dictionary<PipingFailureMechanismScenarioConfigurationType, int>
             {
                 {
-                    PipingScenarioConfigurationType.SemiProbabilistic, 1
+                    PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, 1
                 },
                 {
-                    PipingScenarioConfigurationType.Probabilistic, 2
+                    PipingFailureMechanismScenarioConfigurationType.Probabilistic, 2
                 },
                 {
-                    PipingScenarioConfigurationType.PerFailureMechanismSection, 3
+                    PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, 3
                 }
             };
     }

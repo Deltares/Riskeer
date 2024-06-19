@@ -51,8 +51,8 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(sectionConfiguration));
             }
 
-            return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                   || failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
+            return failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
+                   || failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
                    && sectionConfiguration.ScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic;
         }
 

@@ -141,7 +141,7 @@
   <data name="Probabilistic_DisplayName" xml:space="preserve">
     <value>Probabilistisch</value>
   </data>
-  <data name="PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName" xml:space="preserve">
+  <data name="PipingFailureMechanismScenarioConfigurationType_PerFailureMechanismSection_DisplayName" xml:space="preserve">
     <value>Per vak instelbaar</value>
   </data>
 </root>

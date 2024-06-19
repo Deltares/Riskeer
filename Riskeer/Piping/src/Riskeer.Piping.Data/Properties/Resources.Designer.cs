@@ -109,6 +109,16 @@ namespace Riskeer.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Per vak instelbaar.
+        /// </summary>
+        public static string PipingFailureMechanismScenarioConfigurationType_PerFailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismScenarioConfigurationType_PerFailureMechanismSection_Displa" +
+                        "yName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het uittredepunt moet landwaarts van het intredepunt liggen..
         /// </summary>
         public static string PipingInput_EntryPointL_greater_or_equal_to_ExitPointL {
@@ -123,15 +133,6 @@ namespace Riskeer.Piping.Data.Properties {
         public static string PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Per vak instelbaar.
-        /// </summary>
-        public static string PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName", resourceCulture);
             }
         }
         

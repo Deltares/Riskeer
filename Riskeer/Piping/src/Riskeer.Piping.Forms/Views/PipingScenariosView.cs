@@ -147,16 +147,17 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeCombobox()
         {
-            EnumDisplayWrapper<PipingScenarioConfigurationType>[] enumDisplayWrappers = Enum.GetValues(typeof(PipingScenarioConfigurationType))
-                                                                                            .OfType<PipingScenarioConfigurationType>()
-                                                                                            .Select(ev => new EnumDisplayWrapper<PipingScenarioConfigurationType>(ev))
-                                                                                            .ToArray();
+            EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>[] enumDisplayWrappers =
+                Enum.GetValues(typeof(PipingFailureMechanismScenarioConfigurationType))
+                    .OfType<PipingFailureMechanismScenarioConfigurationType>()
+                    .Select(ev => new EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>(ev))
+                    .ToArray();
 
             selectConfigurationTypeComboBox.BeginUpdate();
             selectConfigurationTypeComboBoxUpdating = true;
             selectConfigurationTypeComboBox.DataSource = enumDisplayWrappers;
-            selectConfigurationTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.Value);
-            selectConfigurationTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.DisplayName);
+            selectConfigurationTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>.Value);
+            selectConfigurationTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>.DisplayName);
             selectConfigurationTypeComboBox.SelectedValue = failureMechanism.ScenarioConfigurationType;
             selectConfigurationTypeComboBoxUpdating = false;
             selectConfigurationTypeComboBox.EndUpdate();
@@ -261,8 +262,8 @@ namespace Riskeer.Piping.Forms.Views
                     ? selectedFailureMechanismSection.SectionConfiguration.ScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
                     : radioButtonSemiProbabilistic.Checked;
 
-            bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
-            bool semiProbabilisticControlsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+            bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection;
+            bool semiProbabilisticControlsVisible = failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
                                                     || perFailureMechanismSection && perFailureMechanismSectionSemiProbabilistic;
 
             radioButtonsPanel.Visible = perFailureMechanismSection;
@@ -271,7 +272,7 @@ namespace Riskeer.Piping.Forms.Views
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticControlsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticControlsVisible;
 
-            calculationSettingsGroupBox.Visible = failureMechanism.ScenarioConfigurationType != PipingScenarioConfigurationType.Probabilistic;
+            calculationSettingsGroupBox.Visible = failureMechanism.ScenarioConfigurationType != PipingFailureMechanismScenarioConfigurationType.Probabilistic;
             failureMechanismSectionConfigurationControl.Visible = semiProbabilisticControlsVisible;
         }
 
@@ -344,8 +345,8 @@ namespace Riskeer.Piping.Forms.Views
             FailureMechanismSection failureMechanismSection = selectedFailureMechanismSection.SectionConfiguration.Section;
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
 
-            return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                   || failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
+            return failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
+                   || failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
                    && selectedFailureMechanismSection.SectionConfiguration.ScenarioConfigurationType == PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
                        ? GetSemiProbabilisticPipingScenarioRows(lineSegments)
                        : GetProbabilisticPipingScenarioRows(lineSegments);
@@ -380,7 +381,7 @@ namespace Riskeer.Piping.Forms.Views
                 return;
             }
 
-            failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
+            failureMechanism.ScenarioConfigurationType = (PipingFailureMechanismScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
             failureMechanism.NotifyObservers();
 
             UpdateVisibility();
@@ -398,8 +399,8 @@ namespace Riskeer.Piping.Forms.Views
             if (selectedFailureMechanismSection?.SectionConfiguration != null)
             {
                 selectedFailureMechanismSection.SectionConfiguration.ScenarioConfigurationType = newCheckedRadioButton == radioButtonSemiProbabilistic
-                                                                                                      ? PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
-                                                                                                      : PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic;
+                                                                                                     ? PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic
+                                                                                                     : PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic;
                 selectedFailureMechanismSection.SectionConfiguration.NotifyObservers();
             }
 

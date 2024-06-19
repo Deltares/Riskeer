@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
+            ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic;
             sectionConfigurations = new ObservableList<PipingFailureMechanismSectionConfiguration>();
             CalculationsInputComments = new Comment();
         }
@@ -72,9 +72,9 @@ namespace Riskeer.Piping.Data
         public GeneralPipingInput GeneralInput { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="PipingScenarioConfigurationType"/>.
+        /// Gets or sets the <see cref="PipingFailureMechanismScenarioConfigurationType"/>.
         /// </summary>
-        public PipingScenarioConfigurationType ScenarioConfigurationType { get; set; }
+        public PipingFailureMechanismScenarioConfigurationType ScenarioConfigurationType { get; set; }
 
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionConfiguration"/>.

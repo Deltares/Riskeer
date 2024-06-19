@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Read.Piping
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) entity.PipingScenarioConfigurationType;
+            failureMechanism.ScenarioConfigurationType = (PipingFailureMechanismScenarioConfigurationType) entity.PipingScenarioConfigurationType;
         }
     }
 }

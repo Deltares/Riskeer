@@ -199,36 +199,36 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
-            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.DisplayName), comboBox.DisplayMember);
-            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.Value), comboBox.ValueMember);
-            Assert.IsInstanceOf<EnumDisplayWrapper<PipingScenarioConfigurationType>>(comboBox.SelectedItem);
+            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>.DisplayName), comboBox.DisplayMember);
+            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>.Value), comboBox.ValueMember);
+            Assert.IsInstanceOf<EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>>(comboBox.SelectedItem);
 
-            var configurationTypes = (EnumDisplayWrapper<PipingScenarioConfigurationType>[]) comboBox.DataSource;
+            var configurationTypes = (EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>[]) comboBox.DataSource;
             Assert.AreEqual(3, configurationTypes.Length);
-            Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, configurationTypes[0].Value);
-            Assert.AreEqual(PipingScenarioConfigurationType.Probabilistic, configurationTypes[1].Value);
-            Assert.AreEqual(PipingScenarioConfigurationType.PerFailureMechanismSection, configurationTypes[2].Value);
+            Assert.AreEqual(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, configurationTypes[0].Value);
+            Assert.AreEqual(PipingFailureMechanismScenarioConfigurationType.Probabilistic, configurationTypes[1].Value);
+            Assert.AreEqual(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, configurationTypes[2].Value);
             Assert.AreEqual(failureMechanism.ScenarioConfigurationType,
-                            ((EnumDisplayWrapper<PipingScenarioConfigurationType>) comboBox.SelectedItem).Value);
+                            ((EnumDisplayWrapper<PipingFailureMechanismScenarioConfigurationType>) comboBox.SelectedItem).Value);
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
-        public void Constructor_CalculationSettingsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType)
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection)]
+        public void Constructor_CalculationSettingsCorrectlyInitialized(PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
 
             // Call
             ShowPipingScenariosView(failureMechanism);
 
             // Assert
-            bool calculationSettingsVisible = scenarioConfigurationType != PipingScenarioConfigurationType.Probabilistic;
+            bool calculationSettingsVisible = mechanismScenarioConfigurationType != PipingFailureMechanismScenarioConfigurationType.Probabilistic;
 
             var calculationSettingsGroupBox = (GroupBox) new ControlTester("calculationSettingsGroupBox").TheObject;
             Assert.AreEqual(calculationSettingsVisible, calculationSettingsGroupBox.Visible);
@@ -236,7 +236,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSectionConfigurationControl sectionConfigurationControl = GetSectionConfigurationControl();
             Assert.AreEqual(calculationSettingsVisible, sectionConfigurationControl.Visible);
 
-            bool radioButtonsShouldBeVisible = scenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
+            bool radioButtonsShouldBeVisible = mechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection;
             var radioButtonsPanel = (Panel) new PanelTester("radioButtonsPanel").TheObject;
             Assert.AreEqual(radioButtonsShouldBeVisible, radioButtonsPanel.Visible);
 
@@ -249,15 +249,16 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
-        public void Constructor_WarningIconAndTooltipCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool warningIconShouldBeVisible)
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, false)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_WarningIconAndTooltipCorrectlyInitialized(PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType,
+                                                                          bool warningIconShouldBeVisible)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
 
             // Call
@@ -282,20 +283,20 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
-        public void Constructor_FailureMechanismWithSections_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, true)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, false)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, false)]
+        public void Constructor_FailureMechanismWithSections_DataGridViewCorrectlyInitialized(PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType,
                                                                                               PipingFailureMechanismSectionScenarioConfigurationType sectionScenarioConfigurationType,
                                                                                               bool semiProbabilisticColumnsShouldBeVisible)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
             failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = sectionScenarioConfigurationType);
@@ -321,16 +322,16 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
-        public void Constructor_FailureMechanismWithoutSections_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_FailureMechanismWithoutSections_DataGridViewCorrectlyInitialized(PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType,
                                                                                                  bool semiProbabilisticColumnsShouldBeVisible)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
 
             // Call
@@ -355,22 +356,22 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
-        public void Constructor_FailureMechanismWithSectionsAndWithVariousRelevantScenarios_TotalContributionScenariosCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
-                                                                                                                                           PipingFailureMechanismSectionScenarioConfigurationType failureMechanismSectionScenarioConfigurationType)
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
+        public void Constructor_FailureMechanismWithSectionsAndWithVariousRelevantScenarios_TotalContributionScenariosCorrectlyInitialized(PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType,
+                                                                                                                                           PipingFailureMechanismSectionScenarioConfigurationType sectionScenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
-            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = failureMechanismSectionScenarioConfigurationType);
+            failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = sectionScenarioConfigurationType);
 
             // Call
             ShowPipingScenariosView(failureMechanism);
@@ -384,11 +385,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection)]
         public void Constructor_FailureMechanismWithoutSectionsAndCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized(
-            PipingScenarioConfigurationType scenarioConfigurationType)
+            PipingFailureMechanismScenarioConfigurationType scenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
@@ -405,16 +406,16 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection)]
         public void Constructor_FailureMechanismWithSectionsAndWithoutCalculationScenarios_TotalContributionScenariosLabelCorrectlyInitialized(
-            PipingScenarioConfigurationType scenarioConfigurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -485,7 +486,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.Probabilistic
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.Probabilistic
             };
 
             // Call
@@ -546,10 +547,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.Attach(observer);
 
             // Precondition
-            Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
+            Assert.AreEqual(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
 
             // When
-            var newValue = new Random(21).NextEnumValue<PipingScenarioConfigurationType>();
+            var newValue = new Random(21).NextEnumValue<PipingFailureMechanismScenarioConfigurationType>();
             var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
             comboBox.SelectedValue = newValue;
 
@@ -559,15 +560,15 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationType.Probabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationType.SemiProbabilistic)]
-        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataGridViewUpdated(PipingScenarioConfigurationType initialScenarioConfigurationType,
-                                                                                                PipingScenarioConfigurationType newScenarioConfigurationType)
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataGridViewUpdated(PipingFailureMechanismScenarioConfigurationType initialMechanismScenarioConfigurationType,
+                                                                                                PipingFailureMechanismScenarioConfigurationType newMechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = initialScenarioConfigurationType
+                ScenarioConfigurationType = initialMechanismScenarioConfigurationType
             };
             ShowPipingScenariosView(failureMechanism);
 
@@ -575,7 +576,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
-            Type initialRowType = initialScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+            Type initialRowType = initialMechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
                                       ? typeof(SemiProbabilisticPipingScenarioRow)
                                       : typeof(ProbabilisticPipingScenarioRow);
             foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
@@ -583,16 +584,16 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf(initialRowType, row);
             }
 
-            bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
+            bool initialSemiProbabilisticColumnShouldBeVisible = initialMechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
             Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
 
             // When
-            comboBox.SelectedValue = newScenarioConfigurationType;
+            comboBox.SelectedValue = newMechanismScenarioConfigurationType;
 
             // Then
-            Type updatedRowType = newScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+            Type updatedRowType = newMechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
                                       ? typeof(SemiProbabilisticPipingScenarioRow)
                                       : typeof(ProbabilisticPipingScenarioRow);
             foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
@@ -600,7 +601,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf(updatedRowType, row);
             }
 
-            bool updatedSemiProbabilisticColumnShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
+            bool updatedSemiProbabilisticColumnShouldBeVisible = newMechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic;
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
             Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
@@ -617,7 +618,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             };
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
@@ -647,7 +648,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             };
             ConfigureFailureMechanism(failureMechanism);
             failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialSectionScenarioConfigurationType);
@@ -701,12 +702,12 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic)]
         [TestCase(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic)]
         public void GivenPipingScenarioView_WhenSelectingRadioButton_ThenSectionConfigurationControlUpdated(PipingFailureMechanismSectionScenarioConfigurationType initialSectionScenarioConfigurationType,
-                                                                                                             PipingFailureMechanismSectionScenarioConfigurationType newSectionScenarioConfigurationType)
+                                                                                                            PipingFailureMechanismSectionScenarioConfigurationType newSectionScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             };
             ConfigureFailureMechanism(failureMechanism);
             failureMechanism.SectionConfigurations.ForEachElementDo(sc => sc.ScenarioConfigurationType = initialSectionScenarioConfigurationType);
@@ -1035,7 +1036,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1), 
+            Assert.AreSame(failureMechanism.SectionConfigurations.ElementAt(1),
                            ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).SectionConfiguration);
 
             // When
@@ -1095,7 +1096,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             };
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
             {
@@ -1216,15 +1217,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithTotalContributionsNotValid_WhenEditingScenarioContributionToValidValue_ThenTotalContributionLabelUpdatedAndErrorNotShown(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 
@@ -1292,13 +1293,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Combinatorial]
         public void GivenPipingScenariosViewWithTotalContributionsValid_WhenEditingScenarioContributionsToInvalidValue_ThenTotalContributionLabelUpdatedAndErrorShown(
             [Values(25.01, 24.99, 50)] double newContribution,
-            [Values(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationType.Probabilistic)]
-            PipingScenarioConfigurationType configurationType)
+            [Values(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 
@@ -1364,15 +1365,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithoutContributingScenarios_WhenMakingScenarioRelevant_ThenTotalContributionLabelUpdatedAndShown(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 
@@ -1416,15 +1417,15 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithContributingScenarios_WhenMakingContributingScenarioIrrelevant_ThenTotalContributionLabelNotVisible(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 
@@ -1464,15 +1465,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithoutScenarios_WhenAddingRelevantScenarioAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelUpdatedAndShown(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
             failureMechanism.CalculationsGroup.Children.Clear();
@@ -1485,7 +1486,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // When
             IPipingCalculationScenario<PipingInput> calculationToAdd =
-                configurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                mechanismScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic
                     ? (IPipingCalculationScenario<PipingInput>) new SemiProbabilisticPipingCalculationScenario
                     {
                         InputParameters =
@@ -1513,15 +1514,15 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithScenarios_WhenCalculationsGroupClearedAndCalculationGroupNotifiesObservers_ThenTotalContributionLabelNotVisible(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 
@@ -1560,15 +1561,15 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
         public void GivenPipingScenariosViewWithScenarios_WhenScenariosClearedAndFailureMechanismNotifiesObserver_ThenTotalContributionLabelNotVisible(
-            PipingScenarioConfigurationType configurationType)
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType)
         {
             // Given
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = configurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             ConfigureFailureMechanism(failureMechanism);
 

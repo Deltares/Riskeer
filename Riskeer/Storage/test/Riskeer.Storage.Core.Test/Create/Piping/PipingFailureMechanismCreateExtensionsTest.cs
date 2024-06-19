@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
                 {
                     WaterVolumetricWeight = random.NextRoundedDouble(0, 20)
                 },
-                ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>()
+                ScenarioConfigurationType = random.NextEnumValue<PipingFailureMechanismScenarioConfigurationType>()
             };
             var registry = new PersistenceRegistry();
 

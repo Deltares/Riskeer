@@ -71,9 +71,9 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
-        public void ToString_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName(PipingScenarioConfigurationType scenarioConfigurationType)
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic)]
+        public void ToString_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName(PipingFailureMechanismScenarioConfigurationType scenarioConfigurationType)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -102,7 +102,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var pipingFailureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+                ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
             };
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section)
             {

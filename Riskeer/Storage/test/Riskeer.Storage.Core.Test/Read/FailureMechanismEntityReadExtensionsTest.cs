@@ -997,7 +997,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(31);
             bool inAssembly = random.NextBoolean();
-            var mechanismScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
+            var mechanismScenarioConfigurationType = random.NextEnumValue<PipingFailureMechanismScenarioConfigurationType>();
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),

@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         {
             string name = SectionConfiguration.Section.Name;
 
-            if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
+            if (failureMechanism.ScenarioConfigurationType == PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection)
             {
                 name += $" ({GetScenarioConfigurationTypeDisplayName()})";
             }

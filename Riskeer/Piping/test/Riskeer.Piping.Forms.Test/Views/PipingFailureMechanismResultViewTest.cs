@@ -97,13 +97,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/31")]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/4")]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/31")]
-        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/4")]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/31")]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.Probabilistic, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/4")]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.SemiProbabilistic, "1/31")]
+        [TestCase(PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/4")]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized(
-            PipingScenarioConfigurationType scenarioConfigurationType,
-            PipingFailureMechanismSectionScenarioConfigurationType scenarioConfigurationPerFailureMechanismSectionType,
+            PipingFailureMechanismScenarioConfigurationType mechanismScenarioConfigurationType,
+            PipingFailureMechanismSectionScenarioConfigurationType sectionScenarioConfigurationType,
             string probability)
         {
             // Setup
@@ -111,14 +111,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var failureMechanism = new PipingFailureMechanism
             {
-                ScenarioConfigurationType = scenarioConfigurationType
+                ScenarioConfigurationType = mechanismScenarioConfigurationType
             };
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
             });
 
-            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType;
+            failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = sectionScenarioConfigurationType;
 
             failureMechanism.CalculationsGroup.Children.Add(
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section));
