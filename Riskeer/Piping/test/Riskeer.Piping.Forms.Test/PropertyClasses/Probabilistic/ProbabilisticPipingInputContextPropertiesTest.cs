@@ -372,9 +372,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "De naam van het vak.",
                 true);
 
-            PropertyDescriptor failureMechanismSensitiveSectionLength = dynamicProperties[expectedFailureMechanismSensitiveSectionLengthPropertyIndex];
+            PropertyDescriptor failureMechanismSensitiveSectionLengthProperty = dynamicProperties[expectedFailureMechanismSensitiveSectionLengthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                failureMechanismSensitiveSectionLength,
+                failureMechanismSensitiveSectionLengthProperty,
                 sectionInformationCategory,
                 "Mechanismegevoelige vaklengte* [m]",
                 "De mechanismegevoelige lengte van het vak in meters (afgerond).",

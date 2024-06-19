@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetScenarioConfigurationForSection_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetSectionConfiguration_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

@@ -185,7 +185,7 @@ namespace Riskeer.Piping.Forms.Views
                 {
                     UpdateSectionsListBox();
                     UpdateScenarioRows();
-                }, section => section)
+                }, sectionConfiguration => sectionConfiguration)
             {
                 Observable = failureMechanism.SectionConfigurations
             };

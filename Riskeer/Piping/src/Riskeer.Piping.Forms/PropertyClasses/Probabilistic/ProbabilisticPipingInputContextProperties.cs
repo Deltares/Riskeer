@@ -182,15 +182,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         private PipingFailureMechanismSectionConfiguration GetSectionConfiguration()
         {
-            PipingFailureMechanismSectionConfiguration[] sections =
+            PipingFailureMechanismSectionConfiguration[] sectionConfigurations =
                 data.FailureMechanism
                     .SectionConfigurations
                     .Where(configuration => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                                Math2D.ConvertPointsToLineSegments(configuration.Section.Points)))
                     .ToArray();
 
-            return sections.Length == 1
-                       ? sections[0]
+            return sectionConfigurations.Length == 1
+                       ? sectionConfigurations[0]
                        : null;
         }
 
