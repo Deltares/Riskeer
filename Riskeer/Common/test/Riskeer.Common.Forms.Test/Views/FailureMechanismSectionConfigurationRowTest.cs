@@ -36,6 +36,20 @@ namespace Riskeer.Common.Forms.Test.Views
     public class FailureMechanismSectionConfigurationRowTest
     {
         [Test]
+        public void Constructor_SectionConfigurationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            void Call() => new FailureMechanismSectionConfigurationRow(null, random.NextDouble(), random.NextDouble(), random.NextDouble());
+            
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionConfiguration", exception.ParamName);
+        }
+        
+        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup

@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration> sectionConfigurationsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationsView{TFailureMechanismSectionConfiguration,TFailureMechanismSectionConfigurationRow}"/>.
         /// </summary>
         /// <param name="sectionConfigurations">The collection of section configurations to be displayed in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Views
         public FailureMechanismSectionConfigurationsView(IObservableEnumerable<TFailureMechanismSectionConfiguration> sectionConfigurations,
                                                          IFailureMechanism failureMechanism,
                                                          Func<TFailureMechanismSectionConfiguration, double, double, TFailureMechanismSectionConfigurationRow> createRowFunc)
-            : base(sectionConfigurations?.Select(sc => sc.Section), failureMechanism)
+            : base(sectionConfigurations?.Select(sc => sc.Section) ?? throw new ArgumentNullException(nameof(sectionConfigurations)), failureMechanism)
         {
             if (createRowFunc == null)
             {
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.Views
                                                                          Resources.FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName);
 
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionConfigurationRow.N),
-                                                                         Resources.FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName,
+                                                                         Resources.FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName,
                                                                          true);
         }
 
@@ -86,7 +86,7 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            sectionConfigurationsObserver?.Dispose();
+            sectionConfigurationsObserver.Dispose();
             base.Dispose(disposing);
         }
 

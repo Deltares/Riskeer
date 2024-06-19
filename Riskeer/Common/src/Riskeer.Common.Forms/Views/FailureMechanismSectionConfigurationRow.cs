@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> is <c>null</c>.</exception>
         public FailureMechanismSectionConfigurationRow(FailureMechanismSectionConfiguration sectionConfiguration,
                                                        double sectionStart, double sectionEnd, double b)
-            : base(sectionConfiguration?.Section, sectionStart, sectionEnd)
+            : base(sectionConfiguration?.Section ?? throw new ArgumentNullException(nameof(sectionConfiguration)), sectionStart, sectionEnd)
         {
             SectionConfiguration = sectionConfiguration;
             this.b = b;
@@ -57,7 +57,6 @@ namespace Riskeer.Common.Forms.Views
         /// Gets or sets the 'a' parameter.
         /// [-]
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
         public RoundedDouble A
         {
             get => SectionConfiguration.A;

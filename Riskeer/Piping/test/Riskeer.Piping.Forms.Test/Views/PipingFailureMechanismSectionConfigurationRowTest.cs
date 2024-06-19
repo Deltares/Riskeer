@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.Views;
 
@@ -47,7 +48,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var sectionRow = new PipingFailureMechanismSectionConfigurationRow(sectionConfiguration, sectionStart, sectionEnd, b);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismSectionConfigurationRow>(sectionRow);
+            Assert.IsInstanceOf<FailureMechanismSectionConfigurationRow>(sectionRow);
 
             FailureMechanismSection section = sectionConfiguration.Section;
             Assert.AreEqual(section.Name, sectionRow.Name);

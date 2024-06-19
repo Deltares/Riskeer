@@ -116,12 +116,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
         }
 
-        private static DataGridViewControl GetSectionsDataGridViewControl(PipingFailureMechanismSectionConfigurationsView view)
+        private static DataGridViewControl GetSectionsDataGridViewControl(Control view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
 
-        private static DataGridView GetSectionsDataGridView(PipingFailureMechanismSectionConfigurationsView view)
+        private static DataGridView GetSectionsDataGridView(Control view)
         {
             return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
         }
@@ -163,8 +163,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var parameterA = (RoundedDouble) rowCells[parameterAColumnIndex].Value;
                 Assert.AreEqual(sectionConfiguration.A, parameterA);
 
-                var lengthEffect = (RoundedDouble) rowCells[lengthEffectNRoundedColumnIndex].Value;
-                Assert.AreEqual(sectionConfiguration.GetN(b), lengthEffect, lengthEffect.GetAccuracy());
+                var lengthEffectNRounded = (RoundedDouble) rowCells[lengthEffectNRoundedColumnIndex].Value;
+                Assert.AreEqual(sectionConfiguration.GetN(b), lengthEffectNRounded, lengthEffectNRounded.GetAccuracy());
 
                 var mechanismSensitiveSectionLength = (RoundedDouble) rowCells[mechanismSensitiveSectionLengthColumnIndex].Value;
                 Assert.AreEqual(sectionConfiguration.GetFailureMechanismSensitiveSectionLength(), mechanismSensitiveSectionLength, mechanismSensitiveSectionLength.GetAccuracy());

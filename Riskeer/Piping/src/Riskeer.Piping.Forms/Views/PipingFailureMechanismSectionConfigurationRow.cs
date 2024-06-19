@@ -28,14 +28,14 @@ using Riskeer.Piping.Data;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingFailureMechanismSectionConfiguration"/>
+    /// This class represents a row of <see cref="PipingFailureMechanismSectionConfiguration"/>.
     /// </summary>
     public class PipingFailureMechanismSectionConfigurationRow : FailureMechanismSectionConfigurationRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
-        /// <param name="sectionConfiguration">The  section configuration to use.</param>
+        /// <param name="sectionConfiguration">The section configuration to use.</param>
         /// <param name="sectionStart">The start of the section from the beginning
         /// of the reference line in meters.</param>
         /// <param name="sectionEnd">The end of the section from the beginning of

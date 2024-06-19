@@ -1627,9 +1627,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Nvak* [-].
         /// </summary>
-        public static string FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName {
+        public static string FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName", resourceCulture);
             }
         }
         

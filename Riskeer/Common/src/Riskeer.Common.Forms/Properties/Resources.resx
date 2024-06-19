@@ -1562,7 +1562,7 @@ faalkans per vak
     <data name="FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName" xml:space="preserve">
       <value>a [-]</value>
     </data>
-    <data name="FailureMechanismSectionConfigurationsView_NRoundedSection_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName" xml:space="preserve">
       <value>Nvak* [-]</value>
     </data>
 </root>

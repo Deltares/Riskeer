@@ -49,12 +49,27 @@ namespace Riskeer.Common.Forms.Controls
         /// 'length effect'.</param>
         public FailureMechanismSectionConfigurationControl(double b)
         {
-            this.b = b;
-            
             InitializeComponent();
             InitializeToolTips();
+            
+            this.b = b;
 
             sectionConfigurationObserver = new Observer(UpdateFailureMechanismSectionConfigurationData);
+            parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
+        }
+        
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            sectionConfigurationObserver.Dispose();
+            if (disposing && components != null)
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -70,7 +85,6 @@ namespace Riskeer.Common.Forms.Controls
                 throw new ArgumentNullException(nameof(sectionConfiguration));
             }
             
-            parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
             failureMechanismSectionConfiguration = sectionConfiguration;
             sectionConfigurationObserver.Observable = sectionConfiguration;
             
@@ -98,7 +112,6 @@ namespace Riskeer.Common.Forms.Controls
         private void ClearControls()
         {
             parameterATextBox.Text = string.Empty;
-            parameterBTextBox.Text = string.Empty;
             lengthEffectNRoundedTextBox.Text = string.Empty;
         }
 

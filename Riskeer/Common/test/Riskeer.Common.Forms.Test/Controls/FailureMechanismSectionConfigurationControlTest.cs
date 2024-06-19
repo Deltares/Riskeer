@@ -50,10 +50,14 @@ namespace Riskeer.Common.Forms.Test.Controls
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Constructor_ControlsCorrectlyInitialized()
         {
+            // Setup
+            const double b = 0.4;
+
             // Call
-            ShowFailureMechanismSectionConfigurationControl();
+            ShowFailureMechanismSectionConfigurationControl(b);
 
             // Assert
             Label parameterALabel = GetParameterALabel();
@@ -70,6 +74,7 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             TextBox parameterBTextBox = GetParameterBTextBox();
             Assert.IsFalse(parameterBTextBox.Enabled);
+            Assert.AreEqual("0,4", parameterBTextBox.Text);
 
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsFalse(lengthEffectNRoundedTextBox.Enabled);
@@ -84,27 +89,21 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Assert
             Label parameterALabel = GetParameterALabel();
             var parameterAToolTip = TypeUtils.GetField<ToolTip>(view, "parameterAToolTip");
-            Assert.AreEqual("Mechanismegevoelige fractie van het dijkvak.",
-                            parameterAToolTip.GetToolTip(parameterALabel));
-            Assert.AreEqual(5000, parameterAToolTip.AutoPopDelay);
-            Assert.AreEqual(100, parameterAToolTip.InitialDelay);
-            Assert.AreEqual(100, parameterAToolTip.ReshowDelay);
+            AssertToolTip("Mechanismegevoelige fractie van het dijkvak.",
+                          parameterAToolTip,
+                          parameterALabel);
 
             Label parameterBLabel = GetParameterBLabel();
             var parameterBToolTip = TypeUtils.GetField<ToolTip>(view, "parameterBToolTip");
-            Assert.AreEqual("Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak.",
-                            parameterBToolTip.GetToolTip(parameterBLabel));
-            Assert.AreEqual(5000, parameterBToolTip.AutoPopDelay);
-            Assert.AreEqual(100, parameterBToolTip.InitialDelay);
-            Assert.AreEqual(100, parameterBToolTip.ReshowDelay);
+            AssertToolTip("Lengtemaat van de intensiteit van het lengte-effect binnen het mechanismegevoelige gedeelte van het dijkvak.",
+                          parameterBToolTip,
+                          parameterBLabel);
 
             Label lengthEffectNRoundedLabel = GetLengthEffectNRoundedLabel();
             var lengthEffectNRoundedToolTip = TypeUtils.GetField<ToolTip>(view, "lengthEffectNRoundedToolTip");
-            Assert.AreEqual("De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.",
-                            lengthEffectNRoundedToolTip.GetToolTip(lengthEffectNRoundedLabel));
-            Assert.AreEqual(5000, lengthEffectNRoundedToolTip.AutoPopDelay);
-            Assert.AreEqual(100, lengthEffectNRoundedToolTip.InitialDelay);
-            Assert.AreEqual(100, lengthEffectNRoundedToolTip.ReshowDelay);
+            AssertToolTip("De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.",
+                          lengthEffectNRoundedToolTip,
+                          lengthEffectNRoundedLabel);
         }
 
         [Test]
@@ -144,10 +143,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
-
-            TextBox parameterBTextBox = GetParameterBTextBox();
-            Assert.IsEmpty(parameterBTextBox.Text);
-
+            
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
@@ -156,7 +152,6 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Then
             Assert.AreEqual("0,700", parameterATextBox.Text);
-            Assert.AreEqual("300", parameterBTextBox.Text);
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -184,10 +179,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
-
-            TextBox parameterBTextBox = GetParameterBTextBox();
-            Assert.AreEqual("300", parameterBTextBox.Text);
-
+            
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
@@ -197,7 +189,6 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Then
             Assert.AreEqual("0,400", parameterATextBox.Text);
-            Assert.AreEqual("300", parameterBTextBox.Text);
             Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
         }
 
@@ -226,9 +217,6 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
 
-            TextBox parameterBTextBox = GetParameterBTextBox();
-            Assert.AreEqual("300", parameterBTextBox.Text);
-
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
@@ -242,13 +230,12 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Then
             Assert.AreEqual("0,400", parameterATextBox.Text);
-            Assert.AreEqual("300", parameterBTextBox.Text);
             Assert.AreEqual("1,13", lengthEffectNRoundedTextBox.Text);
         }
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenControlWithConfiguration_WhenClearingData_ThenControlUpdated()
+        public void GivenControlWithConfigurationSet_WhenClearingData_ThenControlUpdated()
         {
             // Given
             const double a = 0.7;
@@ -270,10 +257,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
-
-            TextBox parameterBTextBox = GetParameterBTextBox();
-            Assert.AreEqual("300", parameterBTextBox.Text);
-
+            
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
@@ -282,7 +266,6 @@ namespace Riskeer.Common.Forms.Test.Controls
 
             // Then
             Assert.IsEmpty(parameterATextBox.Text);
-            Assert.IsEmpty(parameterBTextBox.Text);
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
         }
 
@@ -291,8 +274,6 @@ namespace Riskeer.Common.Forms.Test.Controls
         public void GivenControlWithConfigurationSet_WhenClearingDataAndOldConfigurationNotifiesObservers_ThenControlNotUpdated()
         {
             // Given
-            var random = new Random(21);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0, 0),
@@ -300,7 +281,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             });
             var configuration = new FailureMechanismSectionConfiguration(section);
 
-            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl(random.NextDouble());
+            FailureMechanismSectionConfigurationControl control = ShowFailureMechanismSectionConfigurationControl();
             control.SetData(configuration);
 
             // When
@@ -311,11 +292,16 @@ namespace Riskeer.Common.Forms.Test.Controls
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
 
-            TextBox parameterBTextBox = GetParameterBTextBox();
-            Assert.IsEmpty(parameterBTextBox.Text);
-
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
+        }
+
+        private static void AssertToolTip(string toolTipText, ToolTip toolTip, Control label)
+        {
+            Assert.AreEqual(toolTipText, toolTip.GetToolTip(label));
+            Assert.AreEqual(5000, toolTip.AutoPopDelay);
+            Assert.AreEqual(100, toolTip.InitialDelay);
+            Assert.AreEqual(100, toolTip.ReshowDelay);
         }
 
         private static Label GetParameterALabel()

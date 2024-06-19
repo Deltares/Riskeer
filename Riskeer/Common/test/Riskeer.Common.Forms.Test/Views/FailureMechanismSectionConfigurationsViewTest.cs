@@ -64,6 +64,24 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_SectionConfigurationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+            
+            
+            // Call
+            void Call() => new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
+                null, failureMechanism, (configuration, start, end) => null);
+            
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionConfigurations", exception.ParamName);
+        }
+        
+        [Test]
         public void Constructor_CreateRowFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -186,13 +204,12 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        private static DataGridViewControl GetSectionsDataGridViewControl(
-            FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow> view)
+        private static DataGridViewControl GetSectionsDataGridViewControl(Control view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
 
-        private static DataGridView GetSectionsDataGridView(FailureMechanismSectionsView view)
+        private static DataGridView GetSectionsDataGridView(Control view)
         {
             return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
         }
@@ -239,8 +256,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 var parameterA = (RoundedDouble) rowCells[parameterAColumnIndex].Value;
                 Assert.AreEqual(sectionConfiguration.A, parameterA);
 
-                var lengthEffect = (RoundedDouble) rowCells[lengthEffectNRoundedColumnIndex].Value;
-                Assert.AreEqual(sectionConfiguration.GetN(b), lengthEffect, lengthEffect.GetAccuracy());
+                var lengthEffectNRounded = (RoundedDouble) rowCells[lengthEffectNRoundedColumnIndex].Value;
+                Assert.AreEqual(sectionConfiguration.GetN(b), lengthEffectNRounded, lengthEffectNRounded.GetAccuracy());
 
                 sectionStart = sectionEnd;
             }

@@ -86,7 +86,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void CreatePresentableFailureMechanismSectionConfigurations_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        public void CreatePresentableFailureMechanismSectionConfigurations_FailureMechanismSectionConfigurationsNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSectionConfigurations<object, FailureMechanismSectionConfiguration>(
