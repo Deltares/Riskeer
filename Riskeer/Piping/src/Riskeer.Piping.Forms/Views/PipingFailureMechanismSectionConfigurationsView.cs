@@ -18,8 +18,8 @@
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
+
 using System;
-using Core.Common.Base;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.Properties;
@@ -35,13 +35,10 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfigurationsView"/>.
         /// </summary>
-        /// <param name="sectionConfigurations">The collection of section configurations to be displayed in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionConfigurationsView(
-            IObservableEnumerable<PipingFailureMechanismSectionConfiguration> sectionConfigurations,
-            PipingFailureMechanism failureMechanism)
-            : base(sectionConfigurations, failureMechanism,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public PipingFailureMechanismSectionConfigurationsView(PipingFailureMechanism failureMechanism)
+            : base(failureMechanism.SectionConfigurations, failureMechanism,
                    (configuration, start, end) => new PipingFailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B))
         {
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(PipingFailureMechanismSectionConfigurationRow.FailureMechanismSensitiveSectionLength),

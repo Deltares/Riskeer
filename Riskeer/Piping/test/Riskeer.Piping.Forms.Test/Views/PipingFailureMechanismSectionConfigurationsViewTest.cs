@@ -176,7 +176,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         private PipingFailureMechanismSectionConfigurationsView ShowPipingFailureMechanismSectionConfigurationsView(
             PipingFailureMechanism failureMechanism)
         {
-            var view = new PipingFailureMechanismSectionConfigurationsView(failureMechanism.SectionConfigurations, failureMechanism);
+            var view = new PipingFailureMechanismSectionConfigurationsView(failureMechanism);
 
             testForm.Controls.Add(view);
             testForm.Show();

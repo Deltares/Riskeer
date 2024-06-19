@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -95,11 +94,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             if (failureMechanism is PipingFailureMechanism pipingFailureMechanism)
             {
-                return new PipingFailureMechanismSectionConfigurationsView(pipingFailureMechanism.SectionConfigurations, pipingFailureMechanism);
+                return new PipingFailureMechanismSectionConfigurationsView(pipingFailureMechanism);
             }
 
-            return new PipingFailureMechanismSectionConfigurationsView(new ObservableList<PipingFailureMechanismSectionConfiguration>(),
-                                                                       new PipingFailureMechanism());
+            return new PipingFailureMechanismSectionConfigurationsView(new PipingFailureMechanism());
         }
 
         protected override IFailureMechanism GetFailureMechanism()
