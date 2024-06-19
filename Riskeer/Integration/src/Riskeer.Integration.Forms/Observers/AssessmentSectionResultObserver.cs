@@ -74,6 +74,9 @@ namespace Riskeer.Integration.Forms.Observers
 
         private readonly RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionConfiguration>,
             PipingFailureMechanismSectionConfiguration> pipingSectionConfigurationsObserver;
+        
+        private readonly RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>,
+            FailureMechanismSectionConfiguration> macroStabilityInwardsSectionConfigurationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
@@ -160,6 +163,7 @@ namespace Riskeer.Integration.Forms.Observers
             CreateSpecificFailureMechanismObservers();
 
             pipingSectionConfigurationsObserver = CreatePipingSectionConfigurationsObserver(assessmentSection.Piping);
+            macroStabilityInwardsSectionConfigurationsObserver = CreateMacroStabilityInwardsSectionConfigurationsObserver(assessmentSection.MacroStabilityInwards);
         }
 
         public void Dispose()
@@ -197,6 +201,7 @@ namespace Riskeer.Integration.Forms.Observers
             ClearSpecificFailureMechanismObservers();
 
             pipingSectionConfigurationsObserver.Dispose();
+            macroStabilityInwardsSectionConfigurationsObserver.Dispose();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
@@ -217,6 +222,7 @@ namespace Riskeer.Integration.Forms.Observers
             pipingStructureObserver.Observable = assessmentSection.PipingStructure;
             waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
             pipingSectionConfigurationsObserver.Observable = assessmentSection.Piping.SectionConfigurations;
+            macroStabilityInwardsSectionConfigurationsObserver.Observable = assessmentSection.MacroStabilityInwards.SectionConfigurations;
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
@@ -265,6 +271,17 @@ namespace Riskeer.Integration.Forms.Observers
                 sc => sc)
             {
                 Observable = pipingFailureMechanism.SectionConfigurations
+            };
+        }
+        
+        private RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration> CreateMacroStabilityInwardsSectionConfigurationsObserver(
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism)
+        {
+            return new RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>(
+                NotifyObservers,
+                sc => sc)
+            {
+                Observable = macroStabilityInwardsFailureMechanism.SectionConfigurations
             };
         }
     }

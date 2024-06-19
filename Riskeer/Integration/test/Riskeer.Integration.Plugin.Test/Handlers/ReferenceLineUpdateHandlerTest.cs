@@ -311,6 +311,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionConfigurations);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionConfigurations);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);

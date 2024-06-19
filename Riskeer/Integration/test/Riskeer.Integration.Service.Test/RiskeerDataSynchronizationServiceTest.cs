@@ -1693,6 +1693,7 @@ namespace Riskeer.Integration.Service.Test
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SectionConfigurations);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);

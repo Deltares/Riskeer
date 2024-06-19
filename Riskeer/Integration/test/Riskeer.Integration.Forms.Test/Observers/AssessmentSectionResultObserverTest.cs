@@ -347,6 +347,68 @@ namespace Riskeer.Integration.Forms.Test.Observers
             }
         }
 
+        
+        [Test]
+        public void GivenAssessmentSectionWithMacroStabilityInwardsFailureMechanismReplaced_WhenOldMacroStabilityInwardsSectionConfigurationNotified_ThenAssessmentSectionResultObserverNotNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                MacroStabilityInwardsFailureMechanism oldFailureMechanism = assessmentSection.MacroStabilityInwards;
+                FailureMechanismTestHelper.SetSections(oldFailureMechanism, new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+                });
+
+                assessmentSection.MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
+                assessmentSection.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                // When
+                oldFailureMechanism.SectionConfigurations.First().NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithMacroStabilityInwardsFailureMechanismReplaced_WhenNewMacroStabilityInwardsSectionConfigurationNotified_ThenAssessmentSectionResultObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                var newFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+                FailureMechanismTestHelper.SetSections(newFailureMechanism, new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+                });
+
+                assessmentSection.MacroStabilityInwards = newFailureMechanism;
+                assessmentSection.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                // When
+                newFailureMechanism.SectionConfigurations.First().NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+        
         [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenClosingStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
@@ -494,6 +556,35 @@ namespace Riskeer.Integration.Forms.Test.Observers
             }
         }
 
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMacroStabilityInwardsSectionConfigurationNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            assessmentSection.MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(assessmentSection.MacroStabilityInwards, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.MacroStabilityInwards.SectionConfigurations.First().NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+        
         [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingCalculationScenarioNotified_ThenAttachedObserverNotified()
         {
