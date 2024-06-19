@@ -35,7 +35,7 @@ using Riskeer.Common.Plugin.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest : ShouldCloseViewWithFailureMechanismTester
+    public class FailureMechanismSectionsViewInfoTest
     {
         private static ViewInfo info;
 
@@ -84,15 +84,43 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             Assert.AreSame(failureMechanism.Sections, viewData);
             mocks.VerifyAll();
         }
-
-        protected override bool ShouldCloseMethod(IView view, object o)
+        
+        [TestFixture]
+        public class FailureMechanismSectionsShouldCloseViewTest : ShouldCloseViewWithFailureMechanismTester
         {
-            return info.CloseForData(view, o);
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                return info.CloseForData(view, o);
+            }
+
+            protected override IView GetView(IFailureMechanism failureMechanism)
+            {
+                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+            }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new TestFailureMechanism();
+            }
         }
 
-        protected override IView GetView(IFailureMechanism failureMechanism)
+        [TestFixture]
+        public class SpecificFailureMechanismSectionsShouldCloseViewTest : ShouldCloseViewWithFailureMechanismTester
         {
-            return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                return info.CloseForData(view, o);
+            }
+
+            protected override IView GetView(IFailureMechanism failureMechanism)
+            {
+                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+            }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new SpecificFailureMechanism();
+            }
         }
     }
 }

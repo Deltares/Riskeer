@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Plugin.TestUtil
@@ -68,11 +67,7 @@ namespace Riskeer.Common.Plugin.TestUtil
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
+            ConfigureAssessmentSection(assessmentSection, failureMechanism);
             mocks.ReplayAll();
 
             using (IView view = GetView(failureMechanism))
@@ -154,33 +149,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndSpecificFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var specificFailureMechanism = new SpecificFailureMechanism();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>
-            {
-                specificFailureMechanism
-            });
-            mocks.ReplayAll();
-
-            using (IView view = GetView(specificFailureMechanism))
-            {
-                // Call
-                bool closeForData = ShouldCloseMethod(view, assessmentSection);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
@@ -242,9 +210,30 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <returns>A view object.</returns>
         protected abstract IView GetView(IFailureMechanism failureMechanism);
 
-        protected virtual IFailureMechanism GetFailureMechanism()
+        /// <summary>
+        /// Gets the failure mechanism for testing purposes.
+        /// </summary>
+        /// <returns>A failure mechanism.</returns>
+        protected abstract IFailureMechanism GetFailureMechanism();
+
+        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
-            return new TestFailureMechanism();
+            if (failureMechanism is SpecificFailureMechanism specificFailureMechanism)
+            {
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+                assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>
+                {
+                    specificFailureMechanism
+                });
+            }
+            else
+            {
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+                {
+                    failureMechanism
+                });
+                assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
+            }
         }
 
         private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
