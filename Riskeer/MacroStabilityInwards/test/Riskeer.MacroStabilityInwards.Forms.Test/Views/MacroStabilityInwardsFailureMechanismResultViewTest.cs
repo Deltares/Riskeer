@@ -305,6 +305,48 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
+        
+          [Test]
+        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                    new FailureMechanismSectionAssemblyResult(1, FailureMechanismSectionAssemblyGroup.III),
+                    AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
+
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
+
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+
+                // When
+                failureMechanism.SectionConfigurations.First().NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
+                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
+            }
+        }
 
         private static DataGridView GetDataGridView()
         {

@@ -38,6 +38,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsFailureMechanismResultView : AdoptableFailureMechanismResultView<MacroStabilityInwardsFailureMechanism,
         MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>
     {
+        private readonly RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration> sectionConfigurationsObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
@@ -51,7 +53,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection,
                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection) {}
+                   MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection)
+        {
+            sectionConfigurationsObserver = new RecursiveObserver<IObservableEnumerable<FailureMechanismSectionConfiguration>, FailureMechanismSectionConfiguration>(
+                UpdateInternalViewData,
+                sc => sc)
+            {
+                Observable = failureMechanism.SectionConfigurations
+            };
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            sectionConfigurationsObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
 
         protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                                               IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
