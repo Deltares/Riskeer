@@ -120,7 +120,6 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 CreateFailureMechanismSection(2.0, 2.0, 5.0, 5.0)
             };
 
-            var random = new Random(21);
             IEnumerable<FailureMechanismSectionConfiguration> failureMechanismSectionConfigurations =
                 failureMechanismSections.Select(c => new FailureMechanismSectionConfiguration(c));
 

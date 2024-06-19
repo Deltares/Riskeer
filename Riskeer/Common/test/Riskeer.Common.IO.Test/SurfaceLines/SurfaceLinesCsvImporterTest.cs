@@ -1098,7 +1098,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints";
             string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1141,7 +1140,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
-            string characteristicPointsFilePath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1206,7 +1204,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var importResult = false;
 
             // Call
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -1218,7 +1216,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"{internalErrorMessage} \r\nDeze locatie met karakteristieke punten wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1Invalid'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedLogMessagesAndLevel, 3);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1263,7 +1261,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_WithOneCharacteristicPointsLocation";
             string surfaceLinesPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var progressCallCount = 0;
             var surfaceLines = new TestSurfaceLineCollection();
@@ -1327,7 +1324,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_WithThreeCharacteristicPointsLocations";
             string surfaceLinesPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var progressCallCount = 0;
             var surfaceLines = new TestSurfaceLineCollection();
@@ -1339,14 +1335,14 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var importResult = false;
 
             // Call
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create("Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie \'Extra\'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedLogMessagesAndLevel, 2);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);

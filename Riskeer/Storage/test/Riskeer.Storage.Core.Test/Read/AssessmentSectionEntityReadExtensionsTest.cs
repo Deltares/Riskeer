@@ -433,7 +433,6 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
-            double parameterA = random.NextDouble();
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";

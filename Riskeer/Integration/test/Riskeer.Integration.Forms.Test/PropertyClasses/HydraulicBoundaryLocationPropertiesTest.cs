@@ -65,7 +65,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnsExpectedValues()
         {
             // Setup
-            var random = new Random();
             var hydraulicBoundaryDatabaseLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call

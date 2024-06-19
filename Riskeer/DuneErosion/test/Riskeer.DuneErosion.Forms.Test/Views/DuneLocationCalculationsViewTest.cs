@@ -212,7 +212,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            DuneLocationCalculationsView view = ShowDuneLocationCalculationsView();
+            ShowDuneLocationCalculationsView();
 
             // Assert
             Button button = GetCalculateForSelectedButton().Properties;

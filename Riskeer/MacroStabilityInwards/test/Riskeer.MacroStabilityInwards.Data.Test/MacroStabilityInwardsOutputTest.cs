@@ -120,7 +120,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
-            double zValue = random.NextDouble();
             double xEntryMin = random.NextDouble();
             double xEntryMax = random.NextDouble();
 

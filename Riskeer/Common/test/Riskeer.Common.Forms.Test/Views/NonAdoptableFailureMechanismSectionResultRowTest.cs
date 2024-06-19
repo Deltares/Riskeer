@@ -476,8 +476,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
 
-            var random = new Random(39);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 

@@ -40,7 +40,6 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var random = new Random(21);
             var failureMechanism = new TestCalculatableFailureMechanism();
             failureMechanism.SetSections(new[]
             {

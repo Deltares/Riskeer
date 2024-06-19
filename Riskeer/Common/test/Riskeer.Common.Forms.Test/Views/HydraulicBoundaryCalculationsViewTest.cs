@@ -163,7 +163,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView();
+            ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
             Button button = GetCalculateForSelectedButton().Properties;

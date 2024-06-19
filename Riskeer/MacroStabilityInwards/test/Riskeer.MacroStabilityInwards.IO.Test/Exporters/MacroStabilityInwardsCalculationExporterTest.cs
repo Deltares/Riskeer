@@ -409,7 +409,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Export_SoilProfileWithPOPAndPreconsolidationStressOnOneLayer_LogsWarningAndReturnsTrue()
         {
             // Setup
-            var random = new Random(21);
             string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_SoilProfileWithPOPAndPreconsolidationStressOnOneLayer_LogsWarningAndReturnsTrue)}.ValidFile.stix");
 
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
