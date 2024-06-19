@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -61,7 +60,13 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidAValues))]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(-1)]
+        [TestCase(-0.0005)]
+        [TestCase(1.0005)]
+        [TestCase(2)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NaN)]
         public void A_InvalidValue_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
@@ -85,8 +90,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void A_ValidValue_SetsValue(double a)
         {
             // Setup
-            var random = new Random(21);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new FailureMechanismSectionConfiguration(section);
 
@@ -96,17 +99,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(3, sectionConfiguration.A.NumberOfDecimalPlaces);
             Assert.AreEqual(a, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-        }
-
-        private static IEnumerable<TestCaseData> GetInvalidAValues()
-        {
-            yield return new TestCaseData(double.NegativeInfinity);
-            yield return new TestCaseData(-1);
-            yield return new TestCaseData(-0.0005);
-            yield return new TestCaseData(1.0005);
-            yield return new TestCaseData(2);
-            yield return new TestCaseData(double.PositiveInfinity);
-            yield return new TestCaseData(double.NaN);
         }
     }
 }

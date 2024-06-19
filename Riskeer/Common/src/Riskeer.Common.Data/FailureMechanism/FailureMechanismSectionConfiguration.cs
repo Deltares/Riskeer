@@ -28,7 +28,7 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This holds the configuration of a <see cref="FailureMechanismSection"/>.
+    /// This class holds the configuration of a <see cref="FailureMechanismSection"/>.
     /// </summary>
     public class FailureMechanismSectionConfiguration : Observable
     {
