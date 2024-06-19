@@ -31,7 +31,7 @@ using Riskeer.Piping.Service;
 namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to replace
+    /// A <see cref="FailureMechanismSectionReplaceStrategy"/> that can be used to replace
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
     public class PipingFailureMechanismSectionReplaceStrategy : FailureMechanismSectionReplaceStrategy

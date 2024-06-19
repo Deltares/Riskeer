@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var replaceStrategy = new PipingFailureMechanismSectionReplaceStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(replaceStrategy);
+            Assert.IsInstanceOf<FailureMechanismSectionReplaceStrategy>(replaceStrategy);
         }
 
         [Test]

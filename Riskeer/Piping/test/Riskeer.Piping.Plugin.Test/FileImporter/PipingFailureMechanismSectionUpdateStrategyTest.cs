@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -83,6 +84,9 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void GivenFailureMechanismWithSections_WhenUpdateSectionsWithImportedData_ThenDataUpdatedAndReturnsAffectedObjects()
         {
             // Given
+            var firstSectionA = (RoundedDouble) 0.13;
+            var secondSectionA = (RoundedDouble) 0.37;
+            
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
                 failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
@@ -100,11 +104,18 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
 
             failureMechanism.SetSections(sections, sourcePath);
             failureMechanism.SectionConfigurations.First().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            failureMechanism.SectionConfigurations.First().A = firstSectionA;
+            failureMechanism.SectionConfigurations.ElementAt(1).A = secondSectionA;
 
             // When
             IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
 
             // Then
+            CollectionAssert.AreEqual(new[]
+            {
+                firstSectionA,
+                secondSectionA
+            }, failureMechanism.SectionConfigurations.Select(sc => sc.A));
             CollectionAssert.AreEqual(new[]
             {
                 PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,

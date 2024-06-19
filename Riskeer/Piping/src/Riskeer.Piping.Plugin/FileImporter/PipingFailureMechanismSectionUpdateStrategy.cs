@@ -32,7 +32,7 @@ using Riskeer.Piping.Service;
 namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update
+    /// A <see cref="FailureMechanismSectionUpdateStrategy{T}"/> that can be used to update
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
     public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<
@@ -82,6 +82,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
                 if (failureMechanismSectionConfigurationToCopy != null)
                 {
+                    newSectionConfiguration.A = failureMechanismSectionConfigurationToCopy.A;
                     newSectionConfiguration.ScenarioConfigurationType = failureMechanismSectionConfigurationToCopy.ScenarioConfigurationType;
                 }
             }
