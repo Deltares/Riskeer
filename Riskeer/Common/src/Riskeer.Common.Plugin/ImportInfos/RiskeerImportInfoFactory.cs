@@ -81,7 +81,7 @@ namespace Riskeer.Common.Plugin.ImportInfos
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="createSectionReplaceStrategyFunc"/>
         /// is <c>null</c>.</exception>
-        public static ImportInfo<TSectionContext> CreateFailureMechanismSectionsImportInfo<TSectionContext, TFailureMechanism>(
+        public static ImportInfo<TSectionContext> CreateFailureMechanismSectionsImportInfo<TSectionContext>(
             Func<TSectionContext, FailureMechanismSectionReplaceStrategy> createSectionReplaceStrategyFunc)
             where TSectionContext : FailureMechanismSectionsContext
         {

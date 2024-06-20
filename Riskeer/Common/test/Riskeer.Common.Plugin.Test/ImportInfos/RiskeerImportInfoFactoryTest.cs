@@ -83,7 +83,7 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
         public void CreateFailureMechanismSectionsImportInfo_CreateSectionReplaceStrategyFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(null);
+            void Call() => RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
 
             // Call
             ImportInfo<FailureMechanismSectionsContext> importInfo =
-                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(c => replaceStrategy);
 
             // Assert
             Assert.AreEqual("Vakindeling", importInfo.Name);
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
             var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
 
             ImportInfo<FailureMechanismSectionsContext> importInfo =
-                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(c => replaceStrategy);
 
             // When
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
             var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
 
             ImportInfo<FailureMechanismSectionsContext> importInfo =
-                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(c => replaceStrategy);
 
             // When
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -182,7 +182,7 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
             var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
 
             ImportInfo<FailureMechanismSectionsContext> importInfo =
-                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(c => replaceStrategy);
 
             // When
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);

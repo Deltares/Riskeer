@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Plugin.ImportInfos
             }
 
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo =
-                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<PipingFailureMechanismSectionsContext, PipingFailureMechanism>(
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<PipingFailureMechanismSectionsContext>(
                     c => new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) c.WrappedData));
 
             importInfo.VerifyUpdates = context =>

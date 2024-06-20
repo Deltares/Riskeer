@@ -66,6 +66,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Plugin.FileImporters;
+using Riskeer.Common.Plugin.ImportInfos;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -521,18 +522,8 @@ namespace Riskeer.Integration.Plugin
                                                                                       filePath)
             };
 
-            yield return new ImportInfo<FailureMechanismSectionsContext>
-            {
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
-                    context.WrappedData, context.AssessmentSection.ReferenceLine, filePath,
-                    new FailureMechanismSectionReplaceStrategy(context.WrappedData), new ImportMessageProvider())
-            };
+            yield return RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext>(
+                c => new FailureMechanismSectionReplaceStrategy(c.WrappedData));
 
             yield return new ImportInfo<ForeshoreProfilesContext>
             {
