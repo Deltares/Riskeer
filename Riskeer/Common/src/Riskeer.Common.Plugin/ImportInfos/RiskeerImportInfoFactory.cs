@@ -26,9 +26,10 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
-namespace Riskeer.Common.Forms.ImportInfos
+namespace Riskeer.Common.Plugin.ImportInfos
 {
     /// <summary>
     /// Factory for creating standard <see cref="ImportInfo"/> objects. 
@@ -55,11 +56,11 @@ namespace Riskeer.Common.Forms.ImportInfos
 
             return new ImportInfo<TCalculationGroupContext>
             {
-                Name = Resources.DataTypeDisplayName_xml_file_filter_Description,
-                Category = Resources.Riskeer_Category,
-                Image = Resources.GeneralFolderIcon,
-                FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                              Resources.DataTypeDisplayName_xml_file_filter_Description),
+                Name = RiskeerCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
                 IsEnabled = context => true,
                 CreateFileImporter = createFileImporter
             };
