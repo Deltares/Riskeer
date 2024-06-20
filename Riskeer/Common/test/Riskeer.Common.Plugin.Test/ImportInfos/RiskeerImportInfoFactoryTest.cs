@@ -20,16 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.Plugin.ImportInfos;
 
 namespace Riskeer.Common.Plugin.Test.ImportInfos
@@ -38,14 +42,14 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
     public class RiskeerImportInfoFactoryTest
     {
         [Test]
-        public void CreateCalculationConfigurationImportInfo_CreateFileImporter_ThrowsArgumentNullException()
+        public void CreateCalculationConfigurationImportInfo_CreateFileImporterFuncNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("createFileImporter", exception.ParamName);
+            Assert.AreEqual("createFileImporterFunc", exception.ParamName);
         }
 
         [Test]
@@ -72,6 +76,120 @@ namespace Riskeer.Common.Plugin.Test.ImportInfos
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
             Assert.IsTrue(importInfo.IsEnabled(null));
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsImportInfo_CreateSectionReplaceStrategyFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("createSectionReplaceStrategyFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsImportInfo_WithArgument_ExpectedPropertiesSet()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
+            mocks.ReplayAll();
+
+            var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            // Call
+            ImportInfo<FailureMechanismSectionsContext> importInfo =
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+
+            // Assert
+            Assert.AreEqual("Vakindeling", importInfo.Name);
+            Assert.AreEqual("Algemeen", importInfo.Category);
+
+            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
+
+            TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, importInfo.Image);
+            Assert.IsNull(importInfo.VerifyUpdates);
+        }
+
+        [Test]
+        public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithGeometry_ThenReturnsFalse()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
+
+            var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            ImportInfo<FailureMechanismSectionsContext> importInfo =
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+
+            // When
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            bool isEnabled = importInfo.IsEnabled(context);
+
+            // Then
+            Assert.IsFalse(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithGeometry_ThenReturnsTrue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
+
+            var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            ImportInfo<FailureMechanismSectionsContext> importInfo =
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+
+            // When
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            bool isEnabled = importInfo.IsEnabled(context);
+
+            // Then
+            Assert.IsTrue(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCreatedImportInfo_WhenCreatingFileImporter_ThenReturnFileImporter()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
+
+            var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            ImportInfo<FailureMechanismSectionsContext> importInfo =
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<FailureMechanismSectionsContext, TestFailureMechanism>(c => replaceStrategy);
+
+            // When
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            IFileImporter importer = importInfo.CreateFileImporter(context, "");
+
+            // Then
+            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
             mocks.VerifyAll();
         }
     }

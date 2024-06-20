@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -42,16 +45,16 @@ namespace Riskeer.Common.Plugin.ImportInfos
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context
         /// to create the <see cref="ImportInfo"/> for.</typeparam>
-        /// <param name="createFileImporter">The function to create the relevant importer.</param>
+        /// <param name="createFileImporterFunc">The function to create the relevant importer.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createFileImporter"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createFileImporterFunc"/> is <c>null</c>.</exception>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
-            Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
+            Func<TCalculationGroupContext, string, IFileImporter> createFileImporterFunc)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
-            if (createFileImporter == null)
+            if (createFileImporterFunc == null)
             {
-                throw new ArgumentNullException(nameof(createFileImporter));
+                throw new ArgumentNullException(nameof(createFileImporterFunc));
             }
 
             return new ImportInfo<TCalculationGroupContext>
@@ -62,7 +65,44 @@ namespace Riskeer.Common.Plugin.ImportInfos
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RiskeerCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
                 IsEnabled = context => true,
-                CreateFileImporter = createFileImporter
+                CreateFileImporter = createFileImporterFunc
+            };
+        }
+
+        /// <summary>
+        /// Creates an <see cref="ImportInfo"/> object for a <see cref="TSectionContext"/>.
+        /// </summary>
+        /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
+        /// to create the <see cref="ImportInfo"/> for.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the failure mechanism to create
+        /// the <see cref="ImportInfo"/> for.</typeparam>
+        /// <param name="createSectionReplaceStrategyFunc">The function to get the <see cref="FailureMechanismSectionReplaceStrategy"/>
+        /// for the created <see cref="ImportInfo"/>.</param>
+        /// <returns>An <see cref="ImportInfo"/> object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createSectionReplaceStrategyFunc"/>
+        /// is <c>null</c>.</exception>
+        public static ImportInfo<TSectionContext> CreateFailureMechanismSectionsImportInfo<TSectionContext, TFailureMechanism>(
+            Func<TSectionContext, FailureMechanismSectionReplaceStrategy> createSectionReplaceStrategyFunc)
+            where TSectionContext : FailureMechanismSectionsContext
+        {
+            if (createSectionReplaceStrategyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createSectionReplaceStrategyFunc));
+            }
+
+            return new ImportInfo<TSectionContext>
+            {
+                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
+                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
+                    context.WrappedData, context.AssessmentSection.ReferenceLine,
+                    filePath,
+                    createSectionReplaceStrategyFunc(context),
+                    new ImportMessageProvider())
             };
         }
     }
