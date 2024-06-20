@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Util;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using Riskeer.Common.IO.FileImporters;
-using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Plugin.ImportInfos;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -56,27 +53,20 @@ namespace Riskeer.Piping.Plugin.ImportInfos
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
-            return new ImportInfo<PipingFailureMechanismSectionsContext>
+            ImportInfo<PipingFailureMechanismSectionsContext> importInfo =
+                RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<PipingFailureMechanismSectionsContext, PipingFailureMechanism>(
+                    c => new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) c.WrappedData));
+
+            importInfo.VerifyUpdates = context =>
             {
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
-                    context.WrappedData, context.AssessmentSection.ReferenceLine,
-                    filePath, new PipingFailureMechanismSectionReplaceStrategy((PipingFailureMechanism) context.WrappedData),
-                    new ImportMessageProvider()),
-                VerifyUpdates = context =>
-                {
-                    var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
-                        (PipingFailureMechanism) context.WrappedData,
-                        Resources.PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_sections_probabilistic_calculation_output_will_be_cleared_confirm,
-                        inquiryHelper);
-                    return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
-                }
+                var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
+                    (PipingFailureMechanism) context.WrappedData,
+                    Resources.PipingImportInfoFactory_CreateFailureMechanismSectionsImportInfo_When_importing_sections_probabilistic_calculation_output_will_be_cleared_confirm,
+                    inquiryHelper);
+                return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
             };
+
+            return importInfo;
         }
     }
 }
