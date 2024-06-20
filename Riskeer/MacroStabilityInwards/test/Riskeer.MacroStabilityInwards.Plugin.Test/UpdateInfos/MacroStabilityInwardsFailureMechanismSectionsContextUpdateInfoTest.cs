@@ -45,10 +45,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
             // Setup
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                string name = importInfo.Name;
+                string name = updateInfo.Name;
 
                 // Assert
                 Assert.AreEqual("Vakindeling", name);
@@ -61,10 +61,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
             // Setup
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                string category = importInfo.Category;
+                string category = updateInfo.Category;
 
                 // Assert
                 Assert.AreEqual("Algemeen", category);
@@ -77,10 +77,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
             // Setup
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                Image image = importInfo.Image;
+                Image image = updateInfo.Image;
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
@@ -103,10 +103,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                bool isEnabled = importInfo.IsEnabled(context);
+                bool isEnabled = updateInfo.IsEnabled(context);
 
                 // Assert
                 Assert.IsTrue(isEnabled);
@@ -128,10 +128,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                bool isEnabled = importInfo.IsEnabled(context);
+                bool isEnabled = updateInfo.IsEnabled(context);
 
                 // Assert
                 Assert.IsFalse(isEnabled);
@@ -146,10 +146,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
             // Setup
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                UpdateInfo importInfo = GetUpdateInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
 
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
