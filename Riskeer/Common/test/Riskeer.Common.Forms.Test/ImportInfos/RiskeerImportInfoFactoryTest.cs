@@ -38,6 +38,17 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
     public class RiskeerImportInfoFactoryTest
     {
         [Test]
+        public void CreateCalculationConfigurationImportInfo_CreateFileImporter_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("createFileImporter", exception.ParamName);
+        }
+
+        [Test]
         public void CreateCalculationConfigurationImportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup

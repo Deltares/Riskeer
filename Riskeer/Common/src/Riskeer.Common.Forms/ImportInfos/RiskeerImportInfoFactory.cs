@@ -36,17 +36,23 @@ namespace Riskeer.Common.Forms.ImportInfos
     public static class RiskeerImportInfoFactory
     {
         /// <summary>
-        /// Creates a <see cref="ImportInfo"/> object for a calculation configuration 
+        /// Creates an <see cref="ImportInfo"/> object for a calculation configuration 
         /// of the type <typeparamref name="TCalculationGroupContext"/>.
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context
         /// to create the <see cref="ImportInfo"/> for.</typeparam>
         /// <param name="createFileImporter">The function to create the relevant importer.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createFileImporter"/> is <c>null</c>.</exception>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
+            if (createFileImporter == null)
+            {
+                throw new ArgumentNullException(nameof(createFileImporter));
+            }
+
             return new ImportInfo<TCalculationGroupContext>
             {
                 Name = Resources.DataTypeDisplayName_xml_file_filter_Description,
