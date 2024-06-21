@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -80,8 +81,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void GivenFailureMechanismWithSections_WhenUpdateSectionsWithImportedData_ThenDataUpdatedAndReturnsAffectedObjects()
         {
             // Given
-            var firstSectionA = (RoundedDouble) 0.13;
-            var secondSectionA = (RoundedDouble) 0.37;
+            var random = new Random(21);
+            RoundedDouble firstSectionA = random.NextRoundedDouble();
+            RoundedDouble secondSectionA = random.NextRoundedDouble();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new MacroStabilityInwardsFailureMechanismSectionUpdateStrategy(
@@ -106,11 +108,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
 
             // Then
-            CollectionAssert.AreEqual(new[]
-            {
-                firstSectionA,
-                secondSectionA
-            }, failureMechanism.SectionConfigurations.Select(sc => sc.A));
+            FailureMechanismSectionConfiguration firstSectionConfiguration = failureMechanism.SectionConfigurations.ElementAt(0);
+            Assert.AreEqual(firstSectionA, firstSectionConfiguration.A, firstSectionConfiguration.A.GetAccuracy());
+            
+            FailureMechanismSectionConfiguration secondSectionConfiguration = failureMechanism.SectionConfigurations.ElementAt(1);
+            Assert.AreEqual(secondSectionA, secondSectionConfiguration.A, secondSectionConfiguration.A.GetAccuracy());
+            
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,

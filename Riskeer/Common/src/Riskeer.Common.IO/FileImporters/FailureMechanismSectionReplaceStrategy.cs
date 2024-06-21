@@ -33,7 +33,7 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
     {
-        private readonly IFailureMechanism<FailureMechanismSectionResult> failureMechanism;
+        protected readonly IFailureMechanism<FailureMechanismSectionResult> FailureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
@@ -48,7 +48,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
         }
 
         public virtual IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
@@ -68,9 +68,9 @@ namespace Riskeer.Common.IO.FileImporters
 
             try
             {
-                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
-                affectedObjects.Add(failureMechanism);
-                affectedObjects.Add(failureMechanism.SectionResults);
+                FailureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+                affectedObjects.Add(FailureMechanism);
+                affectedObjects.Add(FailureMechanism.SectionResults);
             }
             catch (ArgumentException e)
             {

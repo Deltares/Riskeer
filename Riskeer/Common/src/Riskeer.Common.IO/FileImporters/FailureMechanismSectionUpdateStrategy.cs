@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.FileImporters
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
         where T : FailureMechanismSectionResult
     {
-        private readonly IFailureMechanism<T> failureMechanism;
+        protected readonly IFailureMechanism<T> FailureMechanism;
         private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
             }
 
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
             this.sectionResultUpdateStrategy = sectionResultUpdateStrategy;
         }
 
@@ -76,18 +76,18 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            T[] oldSectionResults = failureMechanism.SectionResults.ToArray();
+            T[] oldSectionResults = FailureMechanism.SectionResults.ToArray();
 
             try
             {
-                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+                FailureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
             }
             catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
             }
 
-            foreach (T sectionResult in failureMechanism.SectionResults)
+            foreach (T sectionResult in FailureMechanism.SectionResults)
             {
                 T equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                                           && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
@@ -100,8 +100,8 @@ namespace Riskeer.Common.IO.FileImporters
 
             return new IObservable[]
             {
-                failureMechanism,
-                failureMechanism.SectionResults
+                FailureMechanism,
+                FailureMechanism.SectionResults
             };
         }
 

@@ -30,29 +30,26 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to replace
+    /// An <see cref="FailureMechanismSectionReplaceStrategy"/> that can be used to replace
     /// macro stability inwards failure mechanism sections with imported failure mechanism sections.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionReplaceStrategy : FailureMechanismSectionReplaceStrategy
     {
-        private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
-
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> to set the sections to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionReplaceStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
-            : base(failureMechanism)
-        {
-            this.failureMechanism = failureMechanism;
-        }
+            : base(failureMechanism) {}
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
-            affectedObjects.Add(failureMechanism.SectionConfigurations);
+
+            var macroStabilityInwardsFailureMechanism = (MacroStabilityInwardsFailureMechanism) FailureMechanism;
+            affectedObjects.Add(macroStabilityInwardsFailureMechanism.SectionConfigurations);
 
             return affectedObjects;
         }

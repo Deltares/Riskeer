@@ -36,8 +36,6 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingFailureMechanismSectionReplaceStrategy : FailureMechanismSectionReplaceStrategy
     {
-        private readonly PipingFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
@@ -45,21 +43,26 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public PipingFailureMechanismSectionReplaceStrategy(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism)
-        {
-            this.failureMechanism = failureMechanism;
-        }
+            : base(failureMechanism) {}
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
-            affectedObjects.Add(failureMechanism.SectionConfigurations);
+
+            PipingFailureMechanism pipingFailureMechanism = GetPipingFailureMechanism();
+            affectedObjects.Add(pipingFailureMechanism.SectionConfigurations);
+
             return affectedObjects;
         }
 
         public override IEnumerable<IObservable> DoPostUpdateActions()
         {
-            return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+            return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(GetPipingFailureMechanism());
+        }
+        
+        private PipingFailureMechanism GetPipingFailureMechanism()
+        {
+            return (PipingFailureMechanism) FailureMechanism;
         }
     }
 }

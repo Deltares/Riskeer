@@ -38,8 +38,6 @@ namespace Riskeer.Piping.Plugin.FileImporter
     public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<
         AdoptableFailureMechanismSectionResult>
     {
-        private readonly PipingFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionUpdateStrategy"/>.
         /// </summary>
@@ -50,31 +48,30 @@ namespace Riskeer.Piping.Plugin.FileImporter
         public PipingFailureMechanismSectionUpdateStrategy(
             PipingFailureMechanism failureMechanism,
             AdoptableFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
-            : base(failureMechanism, sectionResultUpdateStrategy)
-        {
-            this.failureMechanism = failureMechanism;
-        }
+            : base(failureMechanism, sectionResultUpdateStrategy) {}
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            PipingFailureMechanismSectionConfiguration[] oldSectionConfigurations = failureMechanism.SectionConfigurations.ToArray();
+            PipingFailureMechanism pipingFailureMechanism = GetPipingFailureMechanism();
+            PipingFailureMechanismSectionConfiguration[] oldSectionConfigurations = pipingFailureMechanism.SectionConfigurations.ToArray();
 
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
 
             UpdateScenarioConfigurations(oldSectionConfigurations);
 
-            affectedObjects.Add(failureMechanism.SectionConfigurations);
+            affectedObjects.Add(pipingFailureMechanism.SectionConfigurations);
             return affectedObjects;
         }
 
         public override IEnumerable<IObservable> DoPostUpdateActions()
         {
-            return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+            return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(GetPipingFailureMechanism());
         }
 
         private void UpdateScenarioConfigurations(PipingFailureMechanismSectionConfiguration[] oldSectionConfiguration)
         {
-            foreach (PipingFailureMechanismSectionConfiguration newSectionConfiguration in failureMechanism.SectionConfigurations)
+            PipingFailureMechanism pipingFailureMechanism = GetPipingFailureMechanism();
+            foreach (PipingFailureMechanismSectionConfiguration newSectionConfiguration in pipingFailureMechanism.SectionConfigurations)
             {
                 PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
                     oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
@@ -86,6 +83,11 @@ namespace Riskeer.Piping.Plugin.FileImporter
                     newSectionConfiguration.ScenarioConfigurationType = failureMechanismSectionConfigurationToCopy.ScenarioConfigurationType;
                 }
             }
+        }
+
+        private PipingFailureMechanism GetPipingFailureMechanism()
+        {
+            return (PipingFailureMechanism) FailureMechanism;
         }
     }
 }

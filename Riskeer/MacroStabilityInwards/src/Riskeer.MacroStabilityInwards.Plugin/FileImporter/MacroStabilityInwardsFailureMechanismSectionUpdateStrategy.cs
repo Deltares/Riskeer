@@ -37,8 +37,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
     public class MacroStabilityInwardsFailureMechanismSectionUpdateStrategy :
         FailureMechanismSectionUpdateStrategy<AdoptableFailureMechanismSectionResult>
     {
-        private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionUpdateStrategy"/>.
         /// </summary>
@@ -49,26 +47,25 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
         public MacroStabilityInwardsFailureMechanismSectionUpdateStrategy(
             MacroStabilityInwardsFailureMechanism failureMechanism,
             AdoptableFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
-            : base(failureMechanism, sectionResultUpdateStrategy)
-        {
-            this.failureMechanism = failureMechanism;
-        }
+            : base(failureMechanism, sectionResultUpdateStrategy) {}
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            FailureMechanismSectionConfiguration[] oldSectionConfigurations = failureMechanism.SectionConfigurations.ToArray();
+            var macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            FailureMechanismSectionConfiguration[] oldSectionConfigurations = macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations.ToArray();
 
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
 
             UpdateScenarioConfigurations(oldSectionConfigurations);
 
-            affectedObjects.Add(failureMechanism.SectionConfigurations);
+            affectedObjects.Add(macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations);
             return affectedObjects;
         }
 
         private void UpdateScenarioConfigurations(FailureMechanismSectionConfiguration[] oldSectionConfiguration)
         {
-            foreach (FailureMechanismSectionConfiguration newSectionConfiguration in failureMechanism.SectionConfigurations)
+            var macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            foreach (FailureMechanismSectionConfiguration newSectionConfiguration in macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations)
             {
                 FailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
                     oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
@@ -79,6 +76,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
                     newSectionConfiguration.A = failureMechanismSectionConfigurationToCopy.A;
                 }
             }
+        }
+
+        private MacroStabilityInwardsFailureMechanism GetMacroStabilityInwardsFailureMechanism()
+        {
+            return (MacroStabilityInwardsFailureMechanism) FailureMechanism;
         }
     }
 }
