@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
@@ -97,7 +98,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 return new PipingFailureMechanismSectionConfigurationsView(pipingFailureMechanism);
             }
 
-            return new PipingFailureMechanismSectionConfigurationsView(new PipingFailureMechanism());
+            throw new NotImplementedException();
         }
 
         protected override IFailureMechanism GetFailureMechanism()

@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -101,10 +101,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                     (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, macroStabilityInwardsFailureMechanism.GeneralInput.B));
             }
 
-            return new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
-                new ObservableList<FailureMechanismSectionConfiguration>(),
-                failureMechanism,
-                (configuration, start, end) => new FailureMechanismSectionConfigurationRow(configuration, start, end, 0));
+            throw new NotImplementedException();
         }
 
         protected override IFailureMechanism GetFailureMechanism()
