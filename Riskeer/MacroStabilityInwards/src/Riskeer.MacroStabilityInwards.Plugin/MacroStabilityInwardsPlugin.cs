@@ -447,6 +447,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+            
+            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionsContext>
+            {
+                Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = context => RiskeerCommonFormsResources.SectionsIcon,
+                ForeColor = context => context.WrappedData.Sections.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
+            };
         }
 
         private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, MacroStabilityInwardsCalculation calculation)
@@ -575,6 +585,26 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region TreeNodeInfos
 
+        #region PipingFailureMechanismSectionsContext TreeNodeInfo
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddImportItem(new ImportInfo[]
+                      {
+                          RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<MacroStabilityInwardsFailureMechanismSectionsContext>(
+                              c => new MacroStabilityInwardsFailureMechanismSectionReplaceStrategy((MacroStabilityInwardsFailureMechanism) c.WrappedData))
+                      })
+                      .AddUpdateItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+        
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
