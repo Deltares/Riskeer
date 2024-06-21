@@ -1109,14 +1109,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             PipingFailureMechanismSectionConfiguration expectedConfiguration,
             PipingFailureMechanismSectionConfiguration actualConfiguration)
         {
-            AssertFailureMechanismSections(new[]
-            {
-                expectedConfiguration.Section
-            }, new[]
-            {
-                actualConfiguration.Section
-            });
-            Assert.AreEqual(expectedConfiguration.A, actualConfiguration.A);
+            AssertFailureMechanismSectionConfiguration(expectedConfiguration, actualConfiguration);
             Assert.AreEqual(expectedConfiguration.ScenarioConfigurationType, actualConfiguration.ScenarioConfigurationType);
         }
 
