@@ -31,12 +31,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.IO.FileImporters;
-using Riskeer.Common.Plugin.ImportInfos;
 
-namespace Riskeer.Common.Plugin.Test.ImportInfos
+namespace Riskeer.Common.Forms.Test.ImportInfos
 {
     [TestFixture]
     public class RiskeerImportInfoFactoryTest

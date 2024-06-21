@@ -32,7 +32,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
-namespace Riskeer.Common.Plugin.ImportInfos
+namespace Riskeer.Common.Forms.ImportInfos
 {
     /// <summary>
     /// Factory for creating standard <see cref="ImportInfo"/> objects. 

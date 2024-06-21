@@ -22,7 +22,7 @@
 using System;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using Riskeer.Common.Plugin.ImportInfos;
+using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
