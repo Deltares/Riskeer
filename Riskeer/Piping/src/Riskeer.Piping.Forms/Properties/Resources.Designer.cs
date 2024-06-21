@@ -395,6 +395,18 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle probabilistische berekeningen in dit vak verwijderd worden.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingFailureMechanismSectionConfigurationChangeHandler_Confirm_section_configuration_property_change_and_clear_dependent_data {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismSectionConfigurationChangeHandler_Confirm_section_configura" +
+                        "tion_property_change_and_clear_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
         public static string PipingInput_DampingFactorExit_Description {

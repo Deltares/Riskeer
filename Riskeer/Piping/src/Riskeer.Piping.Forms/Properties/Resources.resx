@@ -531,4 +531,9 @@ een te onveilig rekenresultaat op het trajectniveau.</value>
   <data name="FailureMechanismSensitiveSectionLength_Description" xml:space="preserve">
     <value>De mechanismegevoelige lengte van het vak in meters (afgerond).</value>
   </data>
+  <data name="PipingFailureMechanismSectionConfigurationChangeHandler_Confirm_section_configuration_property_change_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u deze parameter wijzigt, zal de uitvoer van alle probabilistische berekeningen in dit vak verwijderd worden.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>
