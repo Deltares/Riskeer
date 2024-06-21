@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 
@@ -32,6 +34,8 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismSectionConfigurationRow : FailureMechanismSectionConfigurationRow
     {
+        private readonly IObservablePropertyChangeHandler handler;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionConfiguration"/>.
         /// </summary>
@@ -42,14 +46,35 @@ namespace Riskeer.Piping.Forms.Views
         /// the reference line in meters.</param>
         /// <param name="b">The 'b' parameter representing the equivalent independent length to factor in the
         /// 'length effect'.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionConfigurationRow(PipingFailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b) 
-            : base(sectionConfiguration, sectionStart, sectionEnd, b) {}
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> or <paramref name="handler"/> is <c>null</c>.</exception>
+        public PipingFailureMechanismSectionConfigurationRow(PipingFailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b, IObservablePropertyChangeHandler handler) 
+            : base(sectionConfiguration, sectionStart, sectionEnd, b)
+        {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            this.handler = handler;
+        }
         
         /// <summary>
         /// Gets the failure mechanism sensitive section length.
         /// [m]
         /// </summary>
         public RoundedDouble FailureMechanismSensitiveSectionLength => new RoundedDouble(2, SectionConfiguration.GetFailureMechanismSensitiveSectionLength());
+
+        public override RoundedDouble A
+        {
+            get => base.A;
+            set
+            {
+                if (!SectionConfiguration.A.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => SectionConfiguration.A = value, handler);
+                }
+            }
+        }
     }
 }

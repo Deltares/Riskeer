@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -60,6 +61,17 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void TearDown()
         {
             testForm.Dispose();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new PipingFailureMechanismSectionConfigurationsView(null);
+            
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]

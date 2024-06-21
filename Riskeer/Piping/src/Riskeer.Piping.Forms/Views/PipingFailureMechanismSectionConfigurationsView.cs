@@ -22,6 +22,7 @@
 using System;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.Views
@@ -38,8 +39,12 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionConfigurationsView(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism.SectionConfigurations, failureMechanism,
-                   (configuration, start, end) => new PipingFailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B))
+            : base(failureMechanism?.SectionConfigurations ?? throw new ArgumentNullException(nameof(failureMechanism)), failureMechanism,
+                   (configuration, start, end) =>
+                   {
+                       var changeHandler = new PipingFailureMechanismSectionConfigurationChangeHandler(configuration, failureMechanism);
+                       return new PipingFailureMechanismSectionConfigurationRow(configuration, start, end, failureMechanism.GeneralInput.B, changeHandler);
+                   })
         {
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(PipingFailureMechanismSectionConfigurationRow.FailureMechanismSensitiveSectionLength),
                                                                          Resources.FailureMechanismSensitiveSectionLength_DisplayName,

@@ -104,6 +104,28 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenRow_WhenParameterAChangedToSameValue_ThenObserversNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            FailureMechanismSectionConfiguration sectionConfiguration = GetTestFailureMechanismSectionConfiguration();
+            sectionConfiguration.Attach(observer);
+
+            RoundedDouble initialA = sectionConfiguration.A;
+            
+            var sectionRow = new FailureMechanismSectionConfigurationRow(sectionConfiguration, double.NaN, double.NaN, double.NaN);
+
+            // When
+            sectionRow.A = initialA;
+
+            // Then
+            mocks.VerifyAll();
+        }
+
         private static FailureMechanismSectionConfiguration GetTestFailureMechanismSectionConfiguration()
         {
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

@@ -57,16 +57,19 @@ namespace Riskeer.Common.Forms.Views
         /// Gets or sets the 'a' parameter.
         /// [-]
         /// </summary>
-        public RoundedDouble A
+        public virtual RoundedDouble A
         {
             get => SectionConfiguration.A;
             set
             {
-                SectionConfiguration.A = value;
-                SectionConfiguration.NotifyObservers();
+                if (!SectionConfiguration.A.Equals(value))
+                {
+                    SectionConfiguration.A = value;
+                    SectionConfiguration.NotifyObservers();
+                }
             }
         }
-        
+
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// [-]
