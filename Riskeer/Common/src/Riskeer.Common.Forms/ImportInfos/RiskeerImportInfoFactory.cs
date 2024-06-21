@@ -74,8 +74,6 @@ namespace Riskeer.Common.Forms.ImportInfos
         /// </summary>
         /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
         /// to create the <see cref="ImportInfo"/> for.</typeparam>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism to create
-        /// the <see cref="ImportInfo"/> for.</typeparam>
         /// <param name="createSectionReplaceStrategyFunc">The function to get the <see cref="FailureMechanismSectionReplaceStrategy"/>
         /// for the created <see cref="ImportInfo"/>.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>

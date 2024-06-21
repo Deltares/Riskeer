@@ -243,11 +243,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(c =>
-            {
-                var failureMechanism = (MacroStabilityInwardsFailureMechanism) c.WrappedData;
-                return new MacroStabilityInwardsFailureMechanismSectionUpdateStrategy(failureMechanism, new AdoptableFailureMechanismSectionResultUpdateStrategy());
-            });
+                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                c => new MacroStabilityInwardsFailureMechanismSectionUpdateStrategy((MacroStabilityInwardsFailureMechanism) c.WrappedData, new AdoptableFailureMechanismSectionResultUpdateStrategy()));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -585,7 +582,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region TreeNodeInfos
 
-        #region PipingFailureMechanismSectionsContext TreeNodeInfo
+        #region MacroStabilityInwardsFailureMechanismSectionsContext TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {

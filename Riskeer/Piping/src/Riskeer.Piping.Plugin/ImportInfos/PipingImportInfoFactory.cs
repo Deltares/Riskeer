@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Plugin.ImportInfos
     public static class PipingImportInfoFactory
     {
         /// <summary>
-        /// Creates a <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
+        /// Creates an <see cref="ImportInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring required data.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>

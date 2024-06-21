@@ -61,23 +61,8 @@ namespace Riskeer.Common.Forms.UpdateInfos
                 throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
             }
 
-            return new UpdateInfo<TSectionContext>
-            {
-                Name = Resources.FailureMechanismSections_DisplayName,
-                Category = Resources.Riskeer_Category,
-                Image = Resources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null,
-                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
-                    context.WrappedData,
-                    context.AssessmentSection.ReferenceLine,
-                    filePath,
-                    new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData,
-                                                                              sectionResultUpdateStrategy),
-                    new UpdateMessageProvider())
-            };
+            return CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
+                context => new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData, sectionResultUpdateStrategy));
         }
 
         /// <summary>

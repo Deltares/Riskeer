@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.ExportInfos
     public static class RiskeerExportInfoFactory
     {
         /// <summary>
-        /// Creates a <see cref="ExportInfo"/> object for a calculation group configuration
+        /// Creates an <see cref="ExportInfo"/> object for a calculation group configuration
         /// of the type <typeparamref name="TCalculationGroupContext"/>.
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.ExportInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="ExportInfo"/> object for a calculation configuration
+        /// Creates an <see cref="ExportInfo"/> object for a calculation configuration
         /// of the type <typeparamref name="TCalculationContext"/>.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of calculation context

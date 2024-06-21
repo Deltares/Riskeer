@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionsContextTreeNodeInfoTest
     {
-                [Test]
+        [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup

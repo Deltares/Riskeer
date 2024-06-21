@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
     public static class PipingUpdateInfoFactory
     {
         /// <summary>
-        /// Creates a <see cref="UpdateInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
+        /// Creates an <see cref="UpdateInfo"/> object for a <see cref="PipingFailureMechanismSectionsContext"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring required data.</param>
         /// <returns>An <see cref="UpdateInfo"/> object.</returns>

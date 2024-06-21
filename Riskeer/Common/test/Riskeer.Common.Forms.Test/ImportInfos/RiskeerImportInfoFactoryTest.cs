@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsImportInfo_WithArgument_ExpectedPropertiesSet()
+        public void CreateFailureMechanismSectionsImportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
             var mocks = new MockRepository();
@@ -113,10 +113,11 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, importInfo.Image);
             Assert.IsNull(importInfo.VerifyUpdates);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithGeometry_ThenReturnsFalse()
+        public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithoutGeometry_ThenReturnsFalse()
         {
             // Given
             var mocks = new MockRepository();
