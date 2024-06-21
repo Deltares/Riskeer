@@ -39,6 +39,12 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         private readonly ICalculation calculation;
         private readonly ICalculationInput calculationInput;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ObservablePropertyChangeHandler"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation the calculation input belongs to.</param>
+        /// <param name="calculationInput">The calculation input for which to handle the changes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ObservablePropertyChangeHandler(ICalculation calculation, ICalculationInput calculationInput)
         {
             if (calculation == null)
