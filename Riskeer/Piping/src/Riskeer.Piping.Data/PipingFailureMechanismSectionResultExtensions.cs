@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Data
         /// Gets the value for the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
-        /// <param name="calculationScenarios">All semi probabilistic calculation scenarios in the failure mechanism.</param>
+        /// <param name="calculationScenarios">All semi-probabilistic calculation scenarios in the failure mechanism.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the

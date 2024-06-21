@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Data
     public enum PipingFailureMechanismSectionScenarioConfigurationType
     {
         /// <summary>
-        /// The semi probabilistic scenario configuration type.
+        /// The semi-probabilistic scenario configuration type.
         /// </summary>
         SemiProbabilistic = 1,
 

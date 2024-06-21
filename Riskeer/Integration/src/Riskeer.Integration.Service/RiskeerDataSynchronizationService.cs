@@ -185,7 +185,7 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of all semi probabilistic calculations in the <see cref="IAssessmentSection"/>.
+        /// Clears the output of all semi-probabilistic calculations in the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
