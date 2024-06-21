@@ -70,17 +70,16 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
-            
-            
+
             // Call
             void Call() => new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
                 null, failureMechanism, (configuration, start, end) => null);
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionConfigurations", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_CreateRowFuncNull_ThrowsArgumentNullException()
         {

@@ -1091,7 +1091,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosView_WhenScenarioConfigurationTypeChangedToPipingScenarioConfigurationPerFailureMechanismSection_ThenSectionsListBoxCorrectlyUpdated()
+        public void GivenPipingScenariosView_WhenScenarioConfigurationTypeChangedToPerFailureMechanismSection_ThenSectionsListBoxCorrectlyUpdated ()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism

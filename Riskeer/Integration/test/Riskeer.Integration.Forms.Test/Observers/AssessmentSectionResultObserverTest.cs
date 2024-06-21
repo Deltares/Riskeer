@@ -347,7 +347,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
             }
         }
 
-        
         [Test]
         public void GivenAssessmentSectionWithMacroStabilityInwardsFailureMechanismReplaced_WhenOldMacroStabilityInwardsSectionConfigurationNotified_ThenAssessmentSectionResultObserverNotNotified()
         {
@@ -408,7 +407,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 mocks.VerifyAll();
             }
         }
-        
+
         [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenClosingStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
@@ -584,7 +583,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 mocks.VerifyAll();
             }
         }
-        
+
         [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingCalculationScenarioNotified_ThenAttachedObserverNotified()
         {

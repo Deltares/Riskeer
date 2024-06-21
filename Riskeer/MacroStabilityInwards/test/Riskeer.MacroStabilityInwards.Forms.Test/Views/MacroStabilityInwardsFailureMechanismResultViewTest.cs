@@ -305,9 +305,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
-        
-          [Test]
-        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
+
+        [Test]
+        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
