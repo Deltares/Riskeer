@@ -120,6 +120,25 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsIsEnabledFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
+
+            // Assert
+            var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
+            Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithSourcePath_ReturnsSourcePath()
         {
             // Setup
@@ -138,25 +157,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath,
                             updateInfo.CurrentPath(failureMechanismSectionsContext));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsIsEnabledFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
-            // Call
-            UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
-
-            // Assert
-            var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
-            Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
             mocks.VerifyAll();
         }
 
@@ -216,7 +216,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
-            
+
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
             // When
@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             Assert.IsTrue(updatesVerified);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -237,7 +237,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             // Given
             string expectedInquiryMessage = "Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd." +
                                             $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-            
+
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation(expectedInquiryMessage))
@@ -251,7 +251,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            
+
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
             // When
