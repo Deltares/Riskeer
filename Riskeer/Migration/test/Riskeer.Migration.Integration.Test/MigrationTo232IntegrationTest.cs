@@ -918,7 +918,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[WaterVolumetricWeight] = OLD.[WaterVolumetricWeight] " +
                 "AND NEW.[StochasticSoilModelCollectionSourcePath] IS OLD.[StochasticSoilModelCollectionSourcePath] " +
                 "AND NEW.[SurfaceLineCollectionSourcePath] IS OLD.[SurfaceLineCollectionSourcePath] " +
-                "AND NEW.[PipingScenarioConfigurationType] = OLD.[PipingScenarioConfigurationType]; " +
+                "AND NEW.[ScenarioConfigurationType] = OLD.[PipingScenarioConfigurationType]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
@@ -936,7 +936,7 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.PipingScenarioConfigurationPerFailureMechanismSectionEntity OLD " +
                 "WHERE NEW.[PipingFailureMechanismSectionConfigurationEntityId] = OLD.[PipingScenarioConfigurationPerFailureMechanismSectionEntityId] " +
                 "AND NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
-                "AND NEW.[PipingScenarioConfigurationPerFailureMechanismSectionType] = OLD.[PipingScenarioConfigurationPerFailureMechanismSectionType] " +
+                "AND NEW.[ScenarioConfigurationType] = OLD.[PipingScenarioConfigurationPerFailureMechanismSectionType] " +
                 "AND NEW.[A] = 1; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMetaEntity);
