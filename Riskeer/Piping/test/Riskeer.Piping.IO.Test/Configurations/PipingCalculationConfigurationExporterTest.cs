@@ -81,6 +81,18 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
         private class SemiProbabilisticPipingCalculationConfigurationExporterTest : PipingCalculationConfigurationExporterTestFixture
         {
+            [Test]
+            [TestCaseSource(nameof(Calculations))]
+            public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
+            {
+                PerformTest(expectedFileName, calculation);
+            }
+
+            protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
+            {
+                return new SemiProbabilisticPipingCalculationScenario();
+            }
+
             private static IEnumerable<TestCaseData> Calculations
             {
                 get
@@ -122,7 +134,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     );
                 }
             }
+        }
 
+        private class ProbabilisticPipingCalculationConfigurationExporterTest : PipingCalculationConfigurationExporterTestFixture
+        {
             [Test]
             [TestCaseSource(nameof(Calculations))]
             public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
@@ -132,12 +147,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
             {
-                return new SemiProbabilisticPipingCalculationScenario();
+                return new ProbabilisticPipingCalculationScenario();
             }
-        }
 
-        private class ProbabilisticPipingCalculationConfigurationExporterTest : PipingCalculationConfigurationExporterTestFixture
-        {
             private static IEnumerable<TestCaseData> Calculations
             {
                 get
@@ -181,18 +193,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                         }
                     );
                 }
-            }
-
-            [Test]
-            [TestCaseSource(nameof(Calculations))]
-            public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
-            {
-                PerformTest(expectedFileName, calculation);
-            }
-
-            protected override IPipingCalculationScenario<PipingInput> CreateCalculation()
-            {
-                return new ProbabilisticPipingCalculationScenario();
             }
         }
     }
