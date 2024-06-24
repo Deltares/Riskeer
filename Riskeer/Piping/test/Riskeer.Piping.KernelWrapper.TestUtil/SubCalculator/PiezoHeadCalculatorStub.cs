@@ -36,7 +36,7 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         public double PhiPolder { get; private set; }
         public double RExit { get; private set; }
         public double HRiver { get; private set; }
-        public double PhiExit { get; private set; }
+        public double PhiExit { get; }
 
         public void SetPhiPolder(double phiPolder)
         {

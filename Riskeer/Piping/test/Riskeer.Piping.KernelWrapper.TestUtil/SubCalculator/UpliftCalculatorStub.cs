@@ -53,10 +53,9 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         public double PhiPolder { get; private set; }
         public double RExit { get; private set; }
         public double VolumetricWeightOfWater { get; private set; }
-        public double Zu { get; private set; }
 
         public double EffectiveStress { get; set; }
-        public double FoSu { get; private set; }
+        public double FoSu { get; }
 
         public void SetHExit(double hExit)
         {

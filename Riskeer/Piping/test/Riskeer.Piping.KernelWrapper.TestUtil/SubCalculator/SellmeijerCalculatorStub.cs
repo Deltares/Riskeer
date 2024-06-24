@@ -56,11 +56,10 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         public double VolumetricWeightOfWater { get; private set; }
         public double WhitesDragCoefficient { get; private set; }
         public double BottomLevelAquitardAboveExitPointZ { get; private set; }
-        public double Zp { get; private set; }
-        public double CreepCoefficient { get; private set; }
-        public double CriticalFall { get; private set; }
-        public double ReducedFall { get; private set; }
-        public double FoSp { get; private set; }
+        public double CreepCoefficient { get; }
+        public double CriticalFall { get; }
+        public double ReducedFall { get; }
+        public double FoSp { get; }
 
         public void SetBeddingAngle(double beddingAngle)
         {
