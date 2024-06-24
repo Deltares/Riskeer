@@ -540,7 +540,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     Math2D.ConvertPointsToLineSegments(c.Section.Points)));
 
             Assert.AreEqual(expectedSectionConfiguration.Section.Name, properties.SectionName);
-            Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength, 
+            Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength,
                             properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
             Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
             Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);

@@ -66,7 +66,7 @@ namespace Riskeer.ClosingStructures.Data
         public RoundedDouble GravitationalAcceleration { get; }
 
         #endregion
-        
+
         #region Model factors
 
         /// <summary>

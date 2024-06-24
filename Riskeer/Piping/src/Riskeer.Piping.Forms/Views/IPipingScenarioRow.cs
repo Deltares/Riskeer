@@ -33,12 +33,12 @@ namespace Riskeer.Piping.Forms.Views
         /// Gets whether the <see cref="IPipingCalculationScenario{TPipingInput}"/> is relevant.
         /// </summary>
         bool IsRelevant { get; }
-        
+
         /// <summary>
         /// Gets the contribution of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>
         RoundedDouble Contribution { get; }
-        
+
         /// <summary>
         /// Gets the section failure probability of the <see cref="IPipingCalculationScenario{TPipingInput}"/>.
         /// </summary>

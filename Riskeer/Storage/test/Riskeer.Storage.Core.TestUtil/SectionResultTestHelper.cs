@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.TestUtil
             Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
             Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
         }
-        
+
         /// <summary>
         /// Asserts whether the data of the <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> and
         /// <see cref="NonAdoptableFailureMechanismSectionResult"/> have equal values.

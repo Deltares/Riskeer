@@ -1087,7 +1087,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
-        
+
         private static TextBox GetParameterATextBox()
         {
             return (TextBox) new TextBoxTester("parameterATextBox").TheObject;

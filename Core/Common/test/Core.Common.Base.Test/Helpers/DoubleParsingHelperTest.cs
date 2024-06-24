@@ -53,7 +53,7 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [SetCulture("en-US")]        
+        [SetCulture("en-US")]
         [TestCase(null, 0)]
         [TestCase("13,137.371446", 13137.371446)]
         [TestCase("13.3701231", 13.3701231)]

@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Assert
             Assert.IsNaN(parsedValue);
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("1/25     ", 0.04)]

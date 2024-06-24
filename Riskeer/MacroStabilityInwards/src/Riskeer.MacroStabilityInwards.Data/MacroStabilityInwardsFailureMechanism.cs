@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the general calculation input parameters that apply to each macro stability inwards calculation.
         /// </summary>
         public GeneralMacroStabilityInwardsInput GeneralInput { get; }
-        
+
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionConfiguration"/>.
         /// </summary>

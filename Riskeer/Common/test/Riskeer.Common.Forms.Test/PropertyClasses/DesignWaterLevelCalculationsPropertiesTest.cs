@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             var properties = new TestDesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection);
 
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestDesignWaterLevelCalculationsProperties : DesignWaterLevelCalculationsProperties
         {
-            public TestDesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations, 
+            public TestDesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
                                                               IAssessmentSection assessmentSection)
                 : base(hydraulicBoundaryLocationCalculations, assessmentSection) {}
         }

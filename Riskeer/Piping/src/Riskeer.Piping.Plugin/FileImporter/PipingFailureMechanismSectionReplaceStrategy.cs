@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
         {
             return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(GetPipingFailureMechanism());
         }
-        
+
         private PipingFailureMechanism GetPipingFailureMechanism()
         {
             return (PipingFailureMechanism) FailureMechanism;

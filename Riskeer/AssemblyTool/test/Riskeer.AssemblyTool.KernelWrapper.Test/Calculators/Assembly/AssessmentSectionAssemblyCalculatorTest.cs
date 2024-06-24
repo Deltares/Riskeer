@@ -430,7 +430,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
-        
+
         [Test]
         public void AssembleAssessmentSectionWithCorrelatedFailureMechanismProbabilities_KernelThrowsAssemblyException_ThrowsAssessmentSectionAssemblyCalculatorException()
         {

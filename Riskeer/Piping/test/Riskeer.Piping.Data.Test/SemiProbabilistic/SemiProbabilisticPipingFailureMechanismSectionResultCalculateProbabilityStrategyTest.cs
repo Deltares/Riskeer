@@ -200,7 +200,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             {
                 section
             }, string.Empty);
-            
+
             AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
             var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);

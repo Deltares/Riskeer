@@ -182,7 +182,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 section
             });
             AdoptableFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            
+
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())

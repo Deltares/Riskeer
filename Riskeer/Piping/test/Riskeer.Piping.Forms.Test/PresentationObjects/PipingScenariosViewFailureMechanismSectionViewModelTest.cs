@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionConfiguration", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {

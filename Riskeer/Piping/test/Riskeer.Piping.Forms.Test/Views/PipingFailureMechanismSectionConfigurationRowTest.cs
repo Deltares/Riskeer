@@ -89,8 +89,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Call & Assert
             SetPropertyAndVerifyNotifications(row => row.A = random.NextRoundedDouble(), sectionConfiguration);
         }
-        
-        
+
         [Test]
         public void A_ChangeToEqualValue_NoNotificationsAndChangeHandlerNotCalled()
         {
@@ -98,20 +97,20 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var changeHandler = mocks.StrictMock<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
-            
+
             var random = new Random(21);
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             double b = random.NextDouble();
-            
+
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            
+
             var sectionRow = new PipingFailureMechanismSectionConfigurationRow(sectionConfiguration, sectionStart, sectionEnd, b, changeHandler);
             RoundedDouble originalValue = sectionRow.A;
-            
+
             // Call
             sectionRow.A = originalValue;
-            
+
             // Assert
             mocks.VerifyAll();
         }

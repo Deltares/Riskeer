@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.IsEmpty(parameterATextBox.Text);
-            
+
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.IsEmpty(lengthEffectNRoundedTextBox.Text);
 
@@ -179,7 +179,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
-            
+
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 
@@ -257,7 +257,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             // Precondition
             TextBox parameterATextBox = GetParameterATextBox();
             Assert.AreEqual("0,700", parameterATextBox.Text);
-            
+
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox();
             Assert.AreEqual("1,23", lengthEffectNRoundedTextBox.Text);
 

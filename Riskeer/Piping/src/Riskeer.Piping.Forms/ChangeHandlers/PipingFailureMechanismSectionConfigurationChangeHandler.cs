@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
 
             return changedObjects;
         }
-        
+
         private IEnumerable<ProbabilisticPipingCalculationScenario> GetProbabilisticPipingCalculationScenarios()
         {
             FailureMechanismSection failureMechanismSection = sectionConfiguration.Section;
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
         private static bool ConfirmPropertyChange()
         {
             DialogResult result = MessageBox.Show(
-                Resources.PipingFailureMechanismSectionConfigurationChangeHandler_Confirm_section_configuration_property_change_and_clear_dependent_data, 
+                Resources.PipingFailureMechanismSectionConfigurationChangeHandler_Confirm_section_configuration_property_change_and_clear_dependent_data,
                 CoreCommonBaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 

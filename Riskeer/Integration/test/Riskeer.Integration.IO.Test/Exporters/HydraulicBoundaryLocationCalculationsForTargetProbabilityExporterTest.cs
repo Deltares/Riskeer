@@ -200,7 +200,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WriterThrowsCriticalFileWriteException_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
-            
+
             var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             var mocks = new MockRepository();
@@ -245,7 +245,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 DirectoryHelper.TryDelete(directoryPath);
             }
-            
+
             mocks.VerifyAll();
         }
     }

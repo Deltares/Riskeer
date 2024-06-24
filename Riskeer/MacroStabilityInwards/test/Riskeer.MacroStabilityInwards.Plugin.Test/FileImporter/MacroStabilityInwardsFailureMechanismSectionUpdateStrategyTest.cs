@@ -110,10 +110,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             // Then
             FailureMechanismSectionConfiguration firstSectionConfiguration = failureMechanism.SectionConfigurations.ElementAt(0);
             Assert.AreEqual(firstSectionA, firstSectionConfiguration.A, firstSectionConfiguration.A.GetAccuracy());
-            
+
             FailureMechanismSectionConfiguration secondSectionConfiguration = failureMechanism.SectionConfigurations.ElementAt(1);
             Assert.AreEqual(secondSectionA, secondSectionConfiguration.A, secondSectionConfiguration.A.GetAccuracy());
-            
+
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,

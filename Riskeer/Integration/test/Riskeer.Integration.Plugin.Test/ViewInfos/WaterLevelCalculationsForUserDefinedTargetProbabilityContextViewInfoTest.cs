@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var random = new Random();
-            
+
             var location1 = new TestHydraulicBoundaryLocation();
             var location2 = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSectionStub();
@@ -232,7 +232,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             });
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 

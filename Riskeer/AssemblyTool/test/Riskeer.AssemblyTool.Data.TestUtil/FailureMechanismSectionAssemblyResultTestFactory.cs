@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.Data.TestUtil
             var random = new Random(21);
             return CreateFailureMechanismSectionAssemblyResult(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
-        
+
         /// <summary>
         /// Creates a configured <see cref="FailureMechanismSectionAssemblyResult"/> with an user defined <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>

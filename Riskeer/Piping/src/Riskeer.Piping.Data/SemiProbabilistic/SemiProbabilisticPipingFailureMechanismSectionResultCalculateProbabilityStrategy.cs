@@ -82,9 +82,9 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             double probability = sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios,
                                                                                            assessmentSection.FailureMechanismContribution.NormativeProbability);
 
-            PipingFailureMechanismSectionConfiguration sectionConfiguration = 
+            PipingFailureMechanismSectionConfiguration sectionConfiguration =
                 failureMechanism.SectionConfigurations.Single(c => ReferenceEquals(c.Section, sectionResult.Section));
-            
+
             return Math.Min(1.0, probability * sectionConfiguration.GetN(failureMechanism.GeneralInput.B));
         }
     }

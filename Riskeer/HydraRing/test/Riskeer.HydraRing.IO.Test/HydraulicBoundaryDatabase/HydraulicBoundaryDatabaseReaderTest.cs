@@ -36,7 +36,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
     public class HydraulicBoundaryDatabaseReaderTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO, "HydraulicBoundaryDatabaseReader");
-        
+
         private readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]

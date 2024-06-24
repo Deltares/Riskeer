@@ -53,7 +53,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                    GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                    GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection) {}
 
-        protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult, 
+        protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
                                                                                                               IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios);

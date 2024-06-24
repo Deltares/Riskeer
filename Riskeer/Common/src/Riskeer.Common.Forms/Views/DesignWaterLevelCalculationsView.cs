@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Views
 
             if (currentRow != null)
             {
-                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject, 
+                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject,
                                                               AssessmentSection);
             }
 

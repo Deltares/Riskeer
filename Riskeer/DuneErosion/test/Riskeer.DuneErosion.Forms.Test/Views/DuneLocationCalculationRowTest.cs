@@ -42,7 +42,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             const string fileName = "HRD FileName";
-            
+
             var duneLocation = new DuneLocation("test location", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,

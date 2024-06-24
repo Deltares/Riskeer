@@ -195,7 +195,7 @@ namespace Riskeer.Common.Forms.Builders
         #endregion
 
         #region Assembly
-        
+
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the probability per section.
         /// </summary>

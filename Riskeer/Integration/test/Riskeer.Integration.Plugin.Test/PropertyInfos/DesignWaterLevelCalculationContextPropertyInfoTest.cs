@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             var context = new DesignWaterLevelCalculationContext(hydraulicBoundaryLocationCalculation, assessmentSection);

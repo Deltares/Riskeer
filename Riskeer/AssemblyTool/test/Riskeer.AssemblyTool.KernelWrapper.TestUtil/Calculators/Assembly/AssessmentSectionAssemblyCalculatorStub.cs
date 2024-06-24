@@ -45,12 +45,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets the correlated failure mechanism probabilities input.
         /// </summary>
         public IEnumerable<double> CorrelatedFailureMechanismProbabilitiesInput { get; private set; }
-        
+
         /// <summary>
         /// Gets the uncorrelated failure mechanism probabilities input.
         /// </summary>
         public IEnumerable<double> UncorrelatedFailureMechanismProbabilitiesInput { get; private set; }
-        
+
         /// <summary>
         /// Gets the maximum allowable flooding probability input.
         /// </summary>
@@ -83,8 +83,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                                                                AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1));
         }
 
-        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> correlatedFailureMechanismProbabilities, 
-                                                                                IEnumerable<double> uncorrelatedFailureMechanismProbabilities, 
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> correlatedFailureMechanismProbabilities,
+                                                                                IEnumerable<double> uncorrelatedFailureMechanismProbabilities,
                                                                                 double maximumAllowableFloodingProbability,
                                                                                 double signalFloodingProbability)
         {

@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Helpers
                 {
                     return Convert.ToDouble(value);
                 }
-                
+
                 string returnPeriodValue = trimmedString.Substring(2).ToLower();
                 return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
                            ? 1 / Convert.ToDouble(returnPeriodValue)

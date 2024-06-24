@@ -68,7 +68,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Call
             void Call() => new PipingFailureMechanismSectionConfigurationsView(null);
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);

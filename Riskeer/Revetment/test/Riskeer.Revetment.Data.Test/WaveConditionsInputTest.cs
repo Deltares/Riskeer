@@ -376,7 +376,7 @@ namespace Riskeer.Revetment.Data.Test
             const string message = "De waarde voor de stapgrootte moet in het bereik [0,01, 2,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
-        
+
         [Test]
         public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {

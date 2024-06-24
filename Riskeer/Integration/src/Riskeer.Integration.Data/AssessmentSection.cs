@@ -114,7 +114,7 @@ namespace Riskeer.Integration.Data
             FailureMechanismContribution = new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability);
             ChangeComposition(composition);
         }
-        
+
         /// <summary>
         /// Gets or sets the indicator whether failure mechanisms are correlated.
         /// </summary>

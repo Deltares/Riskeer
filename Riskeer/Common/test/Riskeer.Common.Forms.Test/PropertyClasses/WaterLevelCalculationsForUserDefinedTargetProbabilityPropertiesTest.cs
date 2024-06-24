@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection, null);

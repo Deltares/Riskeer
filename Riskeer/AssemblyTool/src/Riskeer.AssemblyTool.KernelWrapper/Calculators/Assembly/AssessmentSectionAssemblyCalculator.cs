@@ -120,8 +120,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IEnumerable<Probability> uncorrelatedProbabilities = uncorrelatedFailureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
                                                                                                               .ToArray();
 
-                Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A2(correlatedProbabilities, 
-                                                                                                                                     uncorrelatedProbabilities, 
+                Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A2(correlatedProbabilities,
+                                                                                                                                     uncorrelatedProbabilities,
                                                                                                                                      false);
                 EAssessmentGrade assemblyCategory = assessmentSectionAssemblyKernel.DetermineAssessmentGradeBoi2B1(assemblyProbability, assessmentSectionCategories);
 

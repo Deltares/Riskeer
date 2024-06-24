@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Data.Test
 
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
-            
+
             Assert.IsFalse(assessmentSection.AreFailureMechanismsCorrelated);
 
             Assert.NotNull(assessmentSection.Piping);

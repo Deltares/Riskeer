@@ -83,7 +83,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            
+
             mocks.VerifyAll();
         }
 
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(furtherAnalysisType, calculatorInput.FurtherAnalysisType);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
-            
+
             mocks.VerifyAll();
         }
 
@@ -188,7 +188,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
             }
-            
+
             mocks.VerifyAll();
         }
 
@@ -218,7 +218,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
-            
+
             mocks.VerifyAll();
         }
 

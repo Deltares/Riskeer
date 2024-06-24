@@ -104,7 +104,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
                 section.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
-        
+
         private static void AddEntitiesForFailureMechanismSectionConfiguration(
             IEnumerable<FailureMechanismSectionConfiguration> sectionConfigurations,
             PersistenceRegistry registry)

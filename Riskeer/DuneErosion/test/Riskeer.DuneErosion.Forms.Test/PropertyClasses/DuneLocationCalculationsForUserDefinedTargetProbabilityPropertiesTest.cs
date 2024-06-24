@@ -78,7 +78,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_TargetProbabilityChangeHandlerNull_ThrowsArgumentNullException()
         {
@@ -86,7 +86,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
                 new DuneLocationCalculationsForTargetProbability(0.1), assessmentSection, null);

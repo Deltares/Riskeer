@@ -87,7 +87,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
-            
+
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -165,7 +165,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
-
 
             // Call
             var row = new AdoptableFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider,

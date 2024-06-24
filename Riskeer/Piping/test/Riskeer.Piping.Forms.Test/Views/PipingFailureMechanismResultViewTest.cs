@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(PipingFailureMechanismScenarioConfigurationType.SemiProbabilistic, PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic, "1/31")]

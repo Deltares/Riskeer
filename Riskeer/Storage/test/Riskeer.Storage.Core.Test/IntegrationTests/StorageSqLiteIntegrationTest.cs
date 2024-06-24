@@ -599,7 +599,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
         }
-        
+
         private static void AssertFailureMechanismSectionConfiguration(
             FailureMechanismSectionConfiguration expectedConfiguration,
             FailureMechanismSectionConfiguration actualConfiguration)
@@ -1266,7 +1266,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertMacroStabilityInwardsSurfaceLine);
-            
+
             AssertCollectionAndItems(expectedFailureMechanism.SectionConfigurations,
                                      actualFailureMechanism.SectionConfigurations,
                                      AssertFailureMechanismSectionConfiguration);

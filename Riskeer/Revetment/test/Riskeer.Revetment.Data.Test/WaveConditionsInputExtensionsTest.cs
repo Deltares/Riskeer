@@ -188,7 +188,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, -4),
                 new RoundedDouble(2, -4.29)
             });
-            
+
             yield return new TestCaseData(0.28, -0.6, 2.90, -0.5, 2.80, 2.0, new[]
             {
                 new RoundedDouble(2, 1.99),
@@ -203,7 +203,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, -0.28),
                 new RoundedDouble(2, -0.5)
             });
-            
+
             yield return new TestCaseData(0.45, 0, 2.37, 0.18, 2.80, 2.5, new[]
             {
                 new RoundedDouble(2, 2.37),
@@ -214,7 +214,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, 0.45),
                 new RoundedDouble(2, 0.18)
             });
-            
+
             yield return new TestCaseData(0.33, -4, -1.3, -3.89, -1.54, -1.4, new[]
             {
                 new RoundedDouble(2, -1.54),
@@ -227,7 +227,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, -3.63),
                 new RoundedDouble(2, -3.89)
             });
-            
+
             yield return new TestCaseData(1.9, 6, 14, 5, 15, 10, new[]
             {
                 new RoundedDouble(2, 9.99),
@@ -235,7 +235,7 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, 7.6),
                 new RoundedDouble(2, 6)
             });
-            
+
             yield return new TestCaseData(0.01, 1, 1.13, double.NaN, double.NaN, 1.15, new[]
             {
                 new RoundedDouble(2, 1.13),
@@ -252,7 +252,6 @@ namespace Riskeer.Revetment.Data.Test
                 new RoundedDouble(2, 1.02),
                 new RoundedDouble(2, 1.01),
                 new RoundedDouble(2, 1)
-
             });
         }
     }

@@ -43,12 +43,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             void Call() => new FailureMechanismSectionConfigurationRow(null, random.NextDouble(), random.NextDouble(), random.NextDouble());
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionConfiguration", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Test.Views
             sectionConfiguration.Attach(observer);
 
             RoundedDouble initialA = sectionConfiguration.A;
-            
+
             var sectionRow = new FailureMechanismSectionConfigurationRow(sectionConfiguration, double.NaN, double.NaN, double.NaN);
 
             // When

@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.Probability
             // Assert
             Assert.AreEqual(expectedN, actualN);
         }
-        
+
         [Test]
         public void GetFailureMechanismSensitiveSectionLength_ConfigurationNull_ThrowsArgumentNullException()
         {
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Data.Test.Probability
             double actualFailureMechanismSensitiveSectionLength = configuration.GetFailureMechanismSensitiveSectionLength();
 
             // Assert
-            Assert.AreEqual(expectedFailureMechanismSensitiveSectionLength, 
+            Assert.AreEqual(expectedFailureMechanismSensitiveSectionLength,
                             actualFailureMechanismSensitiveSectionLength);
         }
     }

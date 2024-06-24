@@ -52,7 +52,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreSame(section, sectionResult.Section);
         }
-        
+
         [Test]
         public void Create_TypeNonAdoptableFailureMechanismSectionResultAndWithSection_ReturnsExpectedFailureMechanismSectionResult()
         {

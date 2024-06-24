@@ -57,7 +57,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabaseFileName", exception.ParamName);
         }
-        
+
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationFeature_MetaDataHeaderNull_ThrowsArgumentNullException()
         {
@@ -93,10 +93,10 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(location.Location, feature.MapGeometries.Single().PointCollections.Single().Single());
-            
+
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
-            
+
             RoundedDouble expectedMetaDataValue = calculationHasOutput
                                                       ? calculation.Output.Result
                                                       : RoundedDouble.NaN;

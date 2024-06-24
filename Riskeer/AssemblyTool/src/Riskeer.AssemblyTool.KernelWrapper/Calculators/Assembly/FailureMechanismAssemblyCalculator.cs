@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
-                
+
                 Probability result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A2(
                     sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)).ToArray(),
                     1, false);

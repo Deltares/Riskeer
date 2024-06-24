@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             Assert.AreSame(failureMechanism.Sections, viewData);
             mocks.VerifyAll();
         }
-        
+
         [TestFixture]
         public class FailureMechanismSectionsShouldCloseViewTest : ShouldCloseViewWithFailureMechanismTester
         {

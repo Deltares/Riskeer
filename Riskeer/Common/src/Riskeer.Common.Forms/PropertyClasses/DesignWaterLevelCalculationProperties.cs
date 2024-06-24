@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation, 
+        public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                      IAssessmentSection assessmentSection)
             : base(hydraulicBoundaryLocationCalculation, assessmentSection) {}
 
