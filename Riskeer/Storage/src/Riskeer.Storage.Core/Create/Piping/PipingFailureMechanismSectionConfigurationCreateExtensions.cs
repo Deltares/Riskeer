@@ -47,7 +47,7 @@ namespace Riskeer.Storage.Core.Create.Piping
 
             return new PipingFailureMechanismSectionConfigurationEntity
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configuration.ScenarioConfigurationType),
+                ScenarioConfigurationType = Convert.ToByte(configuration.ScenarioConfigurationType),
                 A = configuration.A
             };
         }

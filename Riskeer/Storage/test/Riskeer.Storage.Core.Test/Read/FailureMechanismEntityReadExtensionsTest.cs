@@ -1011,7 +1011,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         WaterVolumetricWeight = random.NextDouble(),
-                        PipingScenarioConfigurationType = Convert.ToByte(mechanismScenarioConfigurationType)
+                        ScenarioConfigurationType = Convert.ToByte(mechanismScenarioConfigurationType)
                     }
                 }
             };
@@ -1227,7 +1227,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
                 A = a,
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(sectionScenarioConfigurationType)
+                ScenarioConfigurationType = Convert.ToByte(sectionScenarioConfigurationType)
             };
             failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             failureMechanismSectionEntity.PipingFailureMechanismSectionConfigurationEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);

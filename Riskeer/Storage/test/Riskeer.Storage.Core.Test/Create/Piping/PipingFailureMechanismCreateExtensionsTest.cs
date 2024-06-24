@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.ScenarioConfigurationType), failureMechanismMetaEntity.PipingScenarioConfigurationType);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.ScenarioConfigurationType), failureMechanismMetaEntity.ScenarioConfigurationType);
         }
 
         [Test]

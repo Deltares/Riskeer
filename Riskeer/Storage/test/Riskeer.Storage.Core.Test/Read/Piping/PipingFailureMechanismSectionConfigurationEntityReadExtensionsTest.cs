@@ -67,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
 
             var entity = new PipingFailureMechanismSectionConfigurationEntity
             {
-                PipingScenarioConfigurationPerFailureMechanismSectionType = Convert.ToByte(configurationType),
+                ScenarioConfigurationType = Convert.ToByte(configurationType),
                 A = random.NextRoundedDouble()
             };
 

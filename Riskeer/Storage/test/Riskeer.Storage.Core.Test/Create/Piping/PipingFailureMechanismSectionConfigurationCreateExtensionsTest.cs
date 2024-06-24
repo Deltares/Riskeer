@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             PipingFailureMechanismSectionConfigurationEntity entity = configuration.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(configuration.ScenarioConfigurationType), entity.PipingScenarioConfigurationPerFailureMechanismSectionType);
+            Assert.AreEqual(Convert.ToByte(configuration.ScenarioConfigurationType), entity.ScenarioConfigurationType);
             Assert.AreEqual(configuration.A, entity.A, configuration.A.GetAccuracy());
         }
     }

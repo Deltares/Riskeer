@@ -112,7 +112,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var failureMechanismToUpdate = new PipingFailureMechanism();
             var entity = new PipingFailureMechanismMetaEntity
             {
-                PipingScenarioConfigurationType = Convert.ToByte(configurationType)
+                ScenarioConfigurationType = Convert.ToByte(configurationType)
             };
 
             // Call

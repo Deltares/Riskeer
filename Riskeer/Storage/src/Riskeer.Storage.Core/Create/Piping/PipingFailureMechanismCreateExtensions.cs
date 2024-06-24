@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Create.Piping
                 WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
                 StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
                 SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone(),
-                PipingScenarioConfigurationType = Convert.ToByte(mechanism.ScenarioConfigurationType)
+                ScenarioConfigurationType = Convert.ToByte(mechanism.ScenarioConfigurationType)
             };
 
             entity.PipingFailureMechanismMetaEntities.Add(metaEntity);
