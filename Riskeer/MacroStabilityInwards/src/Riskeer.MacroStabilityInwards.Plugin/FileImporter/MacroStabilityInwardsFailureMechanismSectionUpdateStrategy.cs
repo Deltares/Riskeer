@@ -51,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            var macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
             FailureMechanismSectionConfiguration[] oldSectionConfigurations = macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations.ToArray();
 
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         private void UpdateScenarioConfigurations(FailureMechanismSectionConfiguration[] oldSectionConfiguration)
         {
-            var macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
             foreach (FailureMechanismSectionConfiguration newSectionConfiguration in macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations)
             {
                 FailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
