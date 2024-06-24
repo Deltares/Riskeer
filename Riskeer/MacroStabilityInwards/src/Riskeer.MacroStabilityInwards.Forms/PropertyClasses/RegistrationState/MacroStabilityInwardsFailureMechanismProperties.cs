@@ -65,12 +65,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
 
         #endregion
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !nameof(B).Equals(propertyName);
-        }
-
         #region Length effect parameters
 
         [DynamicVisible]
@@ -87,5 +81,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !nameof(B).Equals(propertyName);
+        }
     }
 }

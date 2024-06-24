@@ -38,9 +38,9 @@ namespace Riskeer.Common.Forms.Controls
         private const int lengthEffectNRoundedNrOfDecimals = 2;
 
         private readonly double b;
-        private FailureMechanismSectionConfiguration failureMechanismSectionConfiguration;
-
         private readonly Observer sectionConfigurationObserver;
+
+        private FailureMechanismSectionConfiguration failureMechanismSectionConfiguration;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationControl"/>.
@@ -51,25 +51,11 @@ namespace Riskeer.Common.Forms.Controls
         {
             InitializeComponent();
             InitializeToolTips();
-            
+
             this.b = b;
 
             sectionConfigurationObserver = new Observer(UpdateFailureMechanismSectionConfigurationData);
             parameterBTextBox.Text = b.ToString(CultureInfo.CurrentCulture);
-        }
-        
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            sectionConfigurationObserver.Dispose();
-            if (disposing && components != null)
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -84,10 +70,10 @@ namespace Riskeer.Common.Forms.Controls
             {
                 throw new ArgumentNullException(nameof(sectionConfiguration));
             }
-            
+
             failureMechanismSectionConfiguration = sectionConfiguration;
             sectionConfigurationObserver.Observable = sectionConfiguration;
-            
+
             UpdateFailureMechanismSectionConfigurationData();
         }
 
@@ -98,8 +84,23 @@ namespace Riskeer.Common.Forms.Controls
         {
             failureMechanismSectionConfiguration = null;
             sectionConfigurationObserver.Observable = null;
-            
+
             ClearControls();
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            sectionConfigurationObserver.Dispose();
+            if (disposing && components != null)
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         private void InitializeToolTips()
@@ -108,7 +109,7 @@ namespace Riskeer.Common.Forms.Controls
             parameterBToolTip.SetToolTip(parameterBLabel, Resources.FailureMechanism_GeneralInput_B_Description);
             lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffectNRounded_Description);
         }
-        
+
         private void ClearControls()
         {
             parameterATextBox.Text = string.Empty;

@@ -73,6 +73,16 @@ namespace Riskeer.Piping.Data
 
         #endregion
 
+        #region Length effect parameters
+
+        /// <summary>
+        /// Gets the 'b' parameter representing the equivalent independent length to factor
+        /// in the 'length effect'.
+        /// </summary>
+        public double B { get; }
+
+        #endregion
+
         #region General parameters (used by multiple calculations)
 
         private static readonly Range<RoundedDouble> waterVolumetricWeightValidityRange = new Range<RoundedDouble>(new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces),
@@ -170,16 +180,6 @@ namespace Riskeer.Piping.Data
         /// Gets the reduction factor Sellmeijer.
         /// </summary>
         public double SellmeijerReductionFactor { get; }
-
-        #endregion
-
-        #region Length effect parameters
-
-        /// <summary>
-        /// Gets the 'b' parameter representing the equivalent independent length to factor
-        /// in the 'length effect'.
-        /// </summary>
-        public double B { get; }
 
         #endregion
     }

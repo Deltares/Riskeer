@@ -46,11 +46,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
-        /// <summary>
-        /// Gets the name of the view.
-        /// </summary>
-        protected abstract string ViewName { get; }
-
         [SetUp]
         public void SetUp()
         {
@@ -109,6 +104,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.IsInstanceOf<TView>(view);
         }
+
+        /// <summary>
+        /// Gets the name of the view.
+        /// </summary>
+        protected abstract string ViewName { get; }
 
         /// <summary>
         /// Returns an output context object.

@@ -45,14 +45,14 @@ namespace Riskeer.MacroStabilityInwards.Data
         public double ModelFactor { get; }
 
         /// <summary>
-        /// Gets the volumetric weight of water.
-        /// </summary>
-        public double WaterVolumetricWeight { get; }
-        
-        /// <summary>
         /// Gets the 'b' parameter representing the equivalent independent length to factor
         /// in the 'length effect'.
         /// </summary>
         public double B { get; }
+
+        /// <summary>
+        /// Gets the volumetric weight of water.
+        /// </summary>
+        public double WaterVolumetricWeight { get; }
     }
 }

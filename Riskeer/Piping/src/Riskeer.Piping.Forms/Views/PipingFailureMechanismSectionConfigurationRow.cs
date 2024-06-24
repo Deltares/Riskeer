@@ -48,7 +48,7 @@ namespace Riskeer.Piping.Forms.Views
         /// 'length effect'.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionConfiguration"/> or <paramref name="handler"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionConfigurationRow(PipingFailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b, IObservablePropertyChangeHandler handler) 
+        public PipingFailureMechanismSectionConfigurationRow(PipingFailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b, IObservablePropertyChangeHandler handler)
             : base(sectionConfiguration, sectionStart, sectionEnd, b)
         {
             if (handler == null)
@@ -58,12 +58,6 @@ namespace Riskeer.Piping.Forms.Views
 
             this.handler = handler;
         }
-        
-        /// <summary>
-        /// Gets the failure mechanism sensitive section length.
-        /// [m]
-        /// </summary>
-        public RoundedDouble FailureMechanismSensitiveSectionLength => new RoundedDouble(2, SectionConfiguration.GetFailureMechanismSensitiveSectionLength());
 
         public override RoundedDouble A
         {
@@ -76,5 +70,11 @@ namespace Riskeer.Piping.Forms.Views
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the failure mechanism sensitive section length.
+        /// [m]
+        /// </summary>
+        public RoundedDouble FailureMechanismSensitiveSectionLength => new RoundedDouble(2, SectionConfiguration.GetFailureMechanismSensitiveSectionLength());
     }
 }

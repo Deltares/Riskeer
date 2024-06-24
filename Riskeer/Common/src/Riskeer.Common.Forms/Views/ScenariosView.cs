@@ -46,13 +46,14 @@ namespace Riskeer.Common.Forms.Views
         where TScenarioRow : ScenarioRow<TCalculationScenario>
         where TFailureMechanism : ICalculatableFailureMechanism
     {
+        private readonly TFailureMechanism failureMechanism;
+
         private Observer failureMechanismObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
         private RecursiveObserver<CalculationGroup, TCalculationInput> calculationInputObserver;
 
         private IEnumerable<TScenarioRow> scenarioRows;
-        private readonly TFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism}"/>.
