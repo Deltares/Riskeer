@@ -107,7 +107,7 @@ namespace Core.Gui.Forms.Backstage
                 }
 
                 selectedViewModel = value;
-                OnPropertyChanged(nameof(SelectedViewModel));
+                OnPropertyChanged();
 
                 SetButtonStates();
             }
@@ -123,7 +123,7 @@ namespace Core.Gui.Forms.Backstage
             private set
             {
                 infoSelected = value;
-                OnPropertyChanged(nameof(InfoSelected));
+                OnPropertyChanged();
             }
         }
 
@@ -137,7 +137,7 @@ namespace Core.Gui.Forms.Backstage
             private set
             {
                 aboutSelected = value;
-                OnPropertyChanged(nameof(AboutSelected));
+                OnPropertyChanged();
             }
         }
 
@@ -151,7 +151,7 @@ namespace Core.Gui.Forms.Backstage
             private set
             {
                 supportSelected = value;
-                OnPropertyChanged(nameof(SupportSelected));
+                OnPropertyChanged();
             }
         }
 

@@ -53,7 +53,7 @@ namespace Core.Gui.Forms.Backstage
                 }
 
                 project.Description = value;
-                OnPropertyChanged(nameof(ProjectDescription));
+                OnPropertyChanged();
             }
         }
 
