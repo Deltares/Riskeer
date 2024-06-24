@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
                 throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
             }
 
-            return CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
+            return CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TSectionResult>(
                 context => new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData, sectionResultUpdateStrategy));
         }
 
@@ -70,8 +70,6 @@ namespace Riskeer.Common.Forms.UpdateInfos
         /// </summary>
         /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
         /// to create the <see cref="UpdateInfo"/> for.</typeparam>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism to create
-        /// the <see cref="UpdateInfo"/> for.</typeparam>
         /// <typeparam name="TSectionResult">The type of the failure mechanism section result
         /// to create the <see cref="UpdateInfo"/> for.</typeparam>
         /// <param name="createSectionUpdateStrategyFunc">The function to get the <see cref="FailureMechanismSectionUpdateStrategy{T}"/>
@@ -79,10 +77,9 @@ namespace Riskeer.Common.Forms.UpdateInfos
         /// <returns>An <see cref="UpdateInfo"/> object.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="createSectionUpdateStrategyFunc"/>
         /// is <c>null</c>.</exception>
-        public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
+        public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TSectionResult>(
             Func<TSectionContext, FailureMechanismSectionUpdateStrategy<TSectionResult>> createSectionUpdateStrategyFunc)
             where TSectionContext : FailureMechanismSectionsContext
-            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (createSectionUpdateStrategyFunc == null)

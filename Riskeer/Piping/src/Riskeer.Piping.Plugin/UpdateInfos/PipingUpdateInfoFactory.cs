@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
             }
 
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                PipingFailureMechanismSectionsContext, PipingFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                PipingFailureMechanismSectionsContext, AdoptableFailureMechanismSectionResult>(
                 context => new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
                                                                            new AdoptableFailureMechanismSectionResultUpdateStrategy()));
 

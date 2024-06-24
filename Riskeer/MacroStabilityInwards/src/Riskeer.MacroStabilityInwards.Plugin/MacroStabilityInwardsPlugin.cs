@@ -243,7 +243,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                MacroStabilityInwardsFailureMechanismSectionsContext, AdoptableFailureMechanismSectionResult>(
                 c => new MacroStabilityInwardsFailureMechanismSectionUpdateStrategy((MacroStabilityInwardsFailureMechanism) c.WrappedData, new AdoptableFailureMechanismSectionResultUpdateStrategy()));
         }
 
@@ -444,7 +444,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
-            
+
             yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionsContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -601,7 +601,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         }
 
         #endregion
-        
+
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)

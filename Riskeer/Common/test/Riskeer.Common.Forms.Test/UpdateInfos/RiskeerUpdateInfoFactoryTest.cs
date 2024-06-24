@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Call
             void Call() => RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>((IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>) null);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -188,8 +188,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         public void CreateFailureMechanismSectionsUpdateInfoWithCreateSectionUpdateStrategy_CreateSectionUpdateStrategyFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>((Func<FailureMechanismSectionsContext, FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>>) null);
+            void Call() => RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<FailureMechanismSectionsContext, FailureMechanismSectionResult>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -209,7 +208,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
@@ -238,7 +237,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
@@ -262,7 +261,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
@@ -286,7 +285,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
@@ -311,7 +310,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
@@ -334,7 +333,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
                 c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
