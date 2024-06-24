@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
+using Core.Gui.Properties;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -204,7 +205,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(new Size(536, 85), view.AutoScrollMinSize);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TestHelper.AssertImagesAreEqual(Core.Gui.Properties.Resources.warning.ToBitmap(), errorProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(Resources.warning.ToBitmap(), errorProvider.Icon.ToBitmap());
             }
         }
 
@@ -971,7 +972,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             return ControlTestHelper.GetDataGridView(testForm, "dataGridView");
         }
-        
+
         private ButtonTester GetCalculateForSelectedButton()
         {
             return new ButtonTester("calculateForSelectedButton", testForm);

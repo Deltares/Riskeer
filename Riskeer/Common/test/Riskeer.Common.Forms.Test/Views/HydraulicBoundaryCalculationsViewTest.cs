@@ -29,6 +29,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
+using Core.Gui.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -122,9 +123,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 Control.ControlCollection verticalSplitContainerPanel2Controls = splitContainer.Panel2.Controls;
                 Assert.AreEqual(1, verticalSplitContainerPanel2Controls.Count);
                 Assert.IsInstanceOf<IllustrationPointsControl>(verticalSplitContainerPanel2Controls[0]);
-                
+
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TestHelper.AssertImagesAreEqual(Core.Gui.Properties.Resources.warning.ToBitmap(), errorProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(Resources.warning.ToBitmap(), errorProvider.Icon.ToBitmap());
             }
         }
 
@@ -548,7 +549,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             return new ButtonTester("calculateForSelectedButton", testForm);
         }
-        
+
         private IllustrationPointsControl GetIllustrationPointsControl()
         {
             return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
