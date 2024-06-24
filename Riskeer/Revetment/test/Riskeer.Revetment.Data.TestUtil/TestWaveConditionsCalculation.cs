@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Revetment.Data.TestUtil
 {

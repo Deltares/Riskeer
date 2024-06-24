@@ -28,7 +28,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.MacroStabilityInwards.Data;
-using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState
 {

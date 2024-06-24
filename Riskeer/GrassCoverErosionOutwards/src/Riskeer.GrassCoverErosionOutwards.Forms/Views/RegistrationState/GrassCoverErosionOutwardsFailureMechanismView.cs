@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState
 {

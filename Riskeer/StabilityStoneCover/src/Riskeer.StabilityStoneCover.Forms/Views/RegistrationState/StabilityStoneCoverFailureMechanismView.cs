@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityStoneCover.Data;
-using StabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Forms.Views.RegistrationState
 {

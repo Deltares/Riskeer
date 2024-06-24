@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using WaveImpactAsphaltCoverDataResources = Riskeer.WaveImpactAsphaltCover.Data.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState
 {

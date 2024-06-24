@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
-using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
 {

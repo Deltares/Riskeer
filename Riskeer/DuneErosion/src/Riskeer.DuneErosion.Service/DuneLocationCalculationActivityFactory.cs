@@ -27,7 +27,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Service
 {

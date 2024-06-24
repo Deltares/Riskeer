@@ -58,7 +58,6 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using CoreGuiResources = Core.Gui.Properties.Resources;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -186,7 +185,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsFalse(checkBox.Visible);
             }
         }
-        
+
         [Test]
         public void GivenFormWithAssemblyResultTotalViewAndFailureMechanismsCorrelatedTrueWithAllCorrelatedFailureMechanismsInAssemblyTrue_ThenRefreshButtonCorrectlyInitialized()
         {

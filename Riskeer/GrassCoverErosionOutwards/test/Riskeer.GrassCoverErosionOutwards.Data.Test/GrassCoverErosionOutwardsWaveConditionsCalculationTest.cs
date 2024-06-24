@@ -24,7 +24,6 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {

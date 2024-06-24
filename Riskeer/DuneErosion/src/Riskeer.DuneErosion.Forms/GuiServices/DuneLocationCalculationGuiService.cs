@@ -26,7 +26,6 @@ using Core.Gui.Forms.ProgressDialog;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Service;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.GuiServices
 {

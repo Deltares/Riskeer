@@ -36,7 +36,6 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
-using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views

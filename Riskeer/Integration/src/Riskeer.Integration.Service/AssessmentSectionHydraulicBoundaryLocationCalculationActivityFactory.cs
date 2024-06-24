@@ -25,7 +25,6 @@ using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Service;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Service
 {

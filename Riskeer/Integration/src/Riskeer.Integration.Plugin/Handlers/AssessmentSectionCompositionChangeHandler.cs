@@ -28,7 +28,6 @@ using Core.Gui.Commands;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Forms.PropertyClasses;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers
 {

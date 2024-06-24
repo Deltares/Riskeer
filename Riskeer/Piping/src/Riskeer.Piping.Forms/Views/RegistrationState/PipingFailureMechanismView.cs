@@ -24,7 +24,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Piping.Data;
-using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views.RegistrationState
 {

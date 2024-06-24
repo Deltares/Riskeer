@@ -34,8 +34,6 @@ using Riskeer.Common.IO.Helpers;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
-using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
-using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {

@@ -59,7 +59,6 @@ using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.Views;
-using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test
 {

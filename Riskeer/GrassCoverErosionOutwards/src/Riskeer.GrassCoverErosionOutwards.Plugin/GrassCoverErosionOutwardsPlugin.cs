@@ -68,7 +68,6 @@ using HydraulicLoadsStateFailureMechanismView = Riskeer.GrassCoverErosionOutward
 using RegistrationStateFailureMechanismView = Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState.GrassCoverErosionOutwardsFailureMechanismView;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using RiskeerCommonIoResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin
 {

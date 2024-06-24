@@ -27,7 +27,6 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.IO.Properties;
-using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {

@@ -111,8 +111,6 @@ using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
-using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
-using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerIOResources = Riskeer.Integration.IO.Properties.Resources;
 using StabilityPointStructuresCalculationsStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
@@ -1111,9 +1109,9 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> 
+        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>>
             CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
-            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> getFailureMechanismAssemblyResultFunc)
+                Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> getFailureMechanismAssemblyResultFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
             where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {

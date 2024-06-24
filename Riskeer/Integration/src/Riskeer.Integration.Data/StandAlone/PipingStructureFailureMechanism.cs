@@ -21,7 +21,6 @@
 
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Data.StandAlone
 {

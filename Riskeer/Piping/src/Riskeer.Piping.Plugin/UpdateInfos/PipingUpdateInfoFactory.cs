@@ -30,8 +30,6 @@ using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.UpdateInfos
 {

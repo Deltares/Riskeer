@@ -26,7 +26,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service
 {

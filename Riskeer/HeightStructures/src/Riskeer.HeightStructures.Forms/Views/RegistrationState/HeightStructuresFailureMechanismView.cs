@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.HeightStructures.Data;
-using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.Views.RegistrationState
 {

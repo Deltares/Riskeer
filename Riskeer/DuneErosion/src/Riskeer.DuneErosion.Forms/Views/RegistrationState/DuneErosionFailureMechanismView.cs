@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.DuneErosion.Data;
-using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views.RegistrationState
 {

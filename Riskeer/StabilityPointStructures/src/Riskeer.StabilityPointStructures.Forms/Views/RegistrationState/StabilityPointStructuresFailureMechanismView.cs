@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityPointStructures.Data;
-using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views.RegistrationState
 {

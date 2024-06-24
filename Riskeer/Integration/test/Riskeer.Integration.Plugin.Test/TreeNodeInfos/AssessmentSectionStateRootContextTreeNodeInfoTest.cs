@@ -38,7 +38,6 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
