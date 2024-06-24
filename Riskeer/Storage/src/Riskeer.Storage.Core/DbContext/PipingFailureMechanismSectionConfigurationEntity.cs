@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long PipingFailureMechanismSectionConfigurationEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte PipingScenarioConfigurationPerFailureMechanismSectionType { get; set; }
+        public byte ScenarioConfigurationType { get; set; }
         public double A { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }

@@ -33,7 +33,7 @@ namespace Riskeer.Storage.Core.DbContext
     public class MacroStabilityInwardsFailureMechanismSectionConfigurationEntity
     {
         public long MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId { get; set; }
-        public long? FailureMechanismSectionEntityId { get; set; }
+        public long FailureMechanismSectionEntityId { get; set; }
         public double A { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }

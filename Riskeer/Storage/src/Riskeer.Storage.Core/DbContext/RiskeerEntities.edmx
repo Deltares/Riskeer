@@ -803,7 +803,7 @@
             <PropertyRef Name="MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId" />
           </Key>
           <Property Name="MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismSectionEntityId" Type="integer" />
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsPreconsolidationStressEntity">
@@ -944,7 +944,7 @@
           <Property Name="WaterVolumetricWeight" Type="real" Nullable="false" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="PipingScenarioConfigurationType" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioConfigurationType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="PipingFailureMechanismSectionConfigurationEntity">
           <Key>
@@ -952,7 +952,7 @@
           </Key>
           <Property Name="PipingFailureMechanismSectionConfigurationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="PipingScenarioConfigurationPerFailureMechanismSectionType" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioConfigurationType" Type="tinyint" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="PipingSoilLayerEntity">
@@ -2396,7 +2396,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MacroStabilityInwardsFailureMechanismSectionConfigurationEntity_0_0">
-          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="0..1" />
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="MacroStabilityInwardsFailureMechanismSectionConfigurationEntity" Type="Self.MacroStabilityInwardsFailureMechanismSectionConfigurationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
@@ -5296,7 +5296,7 @@
             <PropertyRef Name="MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId" />
           </Key>
           <Property Name="MacroStabilityInwardsFailureMechanismSectionConfigurationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismSectionEntityId" Type="Int64" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_MacroStabilityInwardsFailureMechanismSectionConfigurationEntity_0_0" FromRole="MacroStabilityInwardsFailureMechanismSectionConfigurationEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -5446,7 +5446,7 @@
           <Property Name="WaterVolumetricWeight" Type="Double" Nullable="false" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="PipingScenarioConfigurationType" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioConfigurationType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingFailureMechanismSectionConfigurationEntity">
@@ -5455,7 +5455,7 @@
           </Key>
           <Property Name="PipingFailureMechanismSectionConfigurationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="PipingScenarioConfigurationPerFailureMechanismSectionType" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioConfigurationType" Type="Byte" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_PipingFailureMechanismSectionConfigurationEntity_0_0" FromRole="PipingFailureMechanismSectionConfigurationEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -6615,7 +6615,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MacroStabilityInwardsFailureMechanismSectionConfigurationEntity_0_0">
-          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="0..1" />
+          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.MacroStabilityInwardsFailureMechanismSectionConfigurationEntity" Role="MacroStabilityInwardsFailureMechanismSectionConfigurationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
@@ -8431,7 +8431,7 @@
           <EntitySetMapping Name="PipingFailureMechanismMetaEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.PipingFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="PipingFailureMechanismMetaEntity">
-                <ScalarProperty Name="PipingScenarioConfigurationType" ColumnName="PipingScenarioConfigurationType" />
+                <ScalarProperty Name="ScenarioConfigurationType" ColumnName="ScenarioConfigurationType" />
                 <ScalarProperty Name="SurfaceLineCollectionSourcePath" ColumnName="SurfaceLineCollectionSourcePath" />
                 <ScalarProperty Name="StochasticSoilModelCollectionSourcePath" ColumnName="StochasticSoilModelCollectionSourcePath" />
                 <ScalarProperty Name="WaterVolumetricWeight" ColumnName="WaterVolumetricWeight" />
@@ -8444,7 +8444,7 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.PipingFailureMechanismSectionConfigurationEntity">
               <MappingFragment StoreEntitySet="PipingFailureMechanismSectionConfigurationEntity">
                 <ScalarProperty Name="A" ColumnName="A" />
-                <ScalarProperty Name="PipingScenarioConfigurationPerFailureMechanismSectionType" ColumnName="PipingScenarioConfigurationPerFailureMechanismSectionType" />
+                <ScalarProperty Name="ScenarioConfigurationType" ColumnName="ScenarioConfigurationType" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="PipingFailureMechanismSectionConfigurationEntityId" ColumnName="PipingFailureMechanismSectionConfigurationEntityId" />
               </MappingFragment>

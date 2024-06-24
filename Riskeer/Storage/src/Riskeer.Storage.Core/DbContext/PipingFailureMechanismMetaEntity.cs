@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double WaterVolumetricWeight { get; set; }
         public string StochasticSoilModelCollectionSourcePath { get; set; }
         public string SurfaceLineCollectionSourcePath { get; set; }
-        public byte PipingScenarioConfigurationType { get; set; }
+        public byte ScenarioConfigurationType { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
