@@ -84,6 +84,7 @@ namespace Riskeer.Piping.Forms.ChangeHandlers
                     PropertyChanged(affectedCalculations);
                     changedObjects.Add(sectionConfiguration);
                     changedObjects.AddRange(affectedCalculations);
+                    changedObjects.AddRange(affectedCalculations.Select(c => c.InputParameters));
                 }
             }
             else
