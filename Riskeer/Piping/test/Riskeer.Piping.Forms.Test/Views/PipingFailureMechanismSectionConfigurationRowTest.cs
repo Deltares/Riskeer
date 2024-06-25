@@ -40,6 +40,25 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingFailureMechanismSectionConfigurationRowTest
     {
         [Test]
+        public void Constructor_HandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+            double b = random.NextDouble();
+
+            var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            void Call() => new PipingFailureMechanismSectionConfigurationRow(sectionConfiguration, sectionStart, sectionEnd, b, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup

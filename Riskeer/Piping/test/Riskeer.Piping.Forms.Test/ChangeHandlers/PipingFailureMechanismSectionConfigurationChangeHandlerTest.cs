@@ -121,10 +121,9 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var changeHandler = new PipingFailureMechanismSectionConfigurationChangeHandler(sectionConfiguration, failureMechanism);
-            var nrOfPropertyChanges = 0;
 
             // Call
-            changeHandler.SetPropertyValueAfterConfirmation(() => nrOfPropertyChanges++);
+            changeHandler.SetPropertyValueAfterConfirmation(() => new object());
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
@@ -305,8 +304,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 new Point2D(10.0, 0),
                 new Point2D(120.0, 0)
             });
-            yield return new TestCaseData(new Func<FailureMechanismSection, IPipingCalculationScenario<PipingInput>>(s => ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(otherSection)))
-                .SetName("Probabilistic calculation not intersecting");
+            yield return new TestCaseData(new Func<FailureMechanismSection, IPipingCalculationScenario<PipingInput>>(s => ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(otherSection)))
+                .SetName("Probabilistic calculation with output not intersecting");
         }
     }
 }

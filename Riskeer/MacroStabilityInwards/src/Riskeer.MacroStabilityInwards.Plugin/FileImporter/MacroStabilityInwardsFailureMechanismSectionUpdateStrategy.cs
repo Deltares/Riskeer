@@ -51,21 +51,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
-            FailureMechanismSectionConfiguration[] oldSectionConfigurations = macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations.ToArray();
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            FailureMechanismSectionConfiguration[] oldSectionConfigurations = macroStabilityInwardsFailureMechanism.SectionConfigurations.ToArray();
 
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
 
             UpdateScenarioConfigurations(oldSectionConfigurations);
 
-            affectedObjects.Add(macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations);
+            affectedObjects.Add(macroStabilityInwardsFailureMechanism.SectionConfigurations);
             return affectedObjects;
         }
 
         private void UpdateScenarioConfigurations(FailureMechanismSectionConfiguration[] oldSectionConfiguration)
         {
-            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanismFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
-            foreach (FailureMechanismSectionConfiguration newSectionConfiguration in macroStabilityInwardsFailureMechanismFailureMechanism.SectionConfigurations)
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
+            foreach (FailureMechanismSectionConfiguration newSectionConfiguration in macroStabilityInwardsFailureMechanism.SectionConfigurations)
             {
                 FailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
                     oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)

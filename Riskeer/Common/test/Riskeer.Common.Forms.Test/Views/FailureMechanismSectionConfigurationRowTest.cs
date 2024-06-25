@@ -115,12 +115,10 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSectionConfiguration sectionConfiguration = GetTestFailureMechanismSectionConfiguration();
             sectionConfiguration.Attach(observer);
 
-            RoundedDouble initialA = sectionConfiguration.A;
-
             var sectionRow = new FailureMechanismSectionConfigurationRow(sectionConfiguration, double.NaN, double.NaN, double.NaN);
 
             // When
-            sectionRow.A = initialA;
+            sectionRow.A = sectionConfiguration.A;
 
             // Then
             mocks.VerifyAll();

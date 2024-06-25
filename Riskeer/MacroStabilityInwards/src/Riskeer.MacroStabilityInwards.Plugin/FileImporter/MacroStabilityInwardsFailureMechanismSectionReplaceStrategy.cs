@@ -30,7 +30,7 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="FailureMechanismSectionReplaceStrategy"/> that can be used to replace
+    /// A <see cref="FailureMechanismSectionReplaceStrategy"/> that can be used to replace
     /// macro stability inwards failure mechanism sections with imported failure mechanism sections.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionReplaceStrategy : FailureMechanismSectionReplaceStrategy
