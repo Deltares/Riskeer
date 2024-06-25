@@ -884,7 +884,7 @@ namespace AutomatedSystemTests
             /// Creates a new ProjectExplorerPanel  folder.
             /// </summary>
             public ProjectExplorerPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("ProjectExplorerPanel", "*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
+                    base("ProjectExplorerPanel", ".//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _trajectnode = new AutomatedSystemTestsRepositoryFolders.TrajectNodeFolder(this);
             }
@@ -1307,7 +1307,7 @@ namespace AutomatedSystemTests
             /// Creates a new MessagesDataGridView  folder.
             /// </summary>
             public MessagesDataGridViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("MessagesDataGridView", "container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, false, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
+                    base("MessagesDataGridView", "container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']", parentFolder, 30000, null, false, "ebb0b0be-617b-4c07-a1f1-dd02286813f8", "")
             {
                 _genericrowmessage = new AutomatedSystemTestsRepositoryFolders.GenericRowMessageFolder(this);
                 _lastrowmessage = new AutomatedSystemTestsRepositoryFolders.LastRowMessageFolder(this);
@@ -1500,7 +1500,7 @@ namespace AutomatedSystemTests
             /// Creates a new PropertiesPanelContainer  folder.
             /// </summary>
             public PropertiesPanelContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("PropertiesPanelContainer", "container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, false, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
+                    base("PropertiesPanelContainer", "tabpagelist//container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, false, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder(this);
             }
@@ -1627,7 +1627,7 @@ namespace AutomatedSystemTests
             /// Creates a new DocumentViewContainer  folder.
             /// </summary>
             public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewContainer", "container/container[@instance='1' and @controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
+                    base("DocumentViewContainer", "container//container[@instance='1' and @controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
             {
                 _fm_resultview = new AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder(this);
                 _assessmentsectionassemblycategoriesview = new AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder(this);
@@ -3456,7 +3456,7 @@ namespace AutomatedSystemTests
             /// Creates a new MapLegendPanel  folder.
             /// </summary>
             public MapLegendPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("MapLegendPanel", "*/*/container[@controlname='MapLegendView']/container", parentFolder, 30000, null, false, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
+                    base("MapLegendPanel", "tabpagelist//container[@controlname='MapLegendView']/container", parentFolder, 30000, null, false, "b84d06d6-645e-4e5d-9705-593afd9b9f18", "")
             {
                 _rootnode = new AutomatedSystemTestsRepositoryFolders.RootNodeFolder(this);
             }

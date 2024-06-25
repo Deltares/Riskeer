@@ -44,7 +44,7 @@ name="AutomatedSystemTestsRepository">
 					refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename=$substringNameItemInTraject]
+						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename=$substringNameItemInTraject]
 					</item>
 					<item
 					capname="treeitem"
@@ -52,14 +52,14 @@ name="AutomatedSystemTestsRepository">
 					name="CurrentFocusInPE"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
+						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
 					</item>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
 				</folder>
 				<basepath>
-					/form[@name='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+					/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</basepath>
 			</folder>
 			<folder
@@ -155,10 +155,10 @@ name="AutomatedSystemTestsRepository">
 						refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 						</item>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]
 						</basepath>
 					</folder>
 					<folder
@@ -176,14 +176,14 @@ name="AutomatedSystemTestsRepository">
 						refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']/cell[@accessiblename&gt;'Bericht']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']/cell[@accessiblename&gt;'Bericht']
 						</item>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' 0']
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
+						/form[@name='RiskeerMainWindow']/container/container[4]/container/tabpagelist/container/container[@controltypename='WinFormsAdapter']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
 					</basepath>
 				</folder>
 				<folder
@@ -208,14 +208,14 @@ name="AutomatedSystemTestsRepository">
 						refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+							/form[@name='RiskeerMainWindow']/container/container[4]/tabpagelist//container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 						</item>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table
+							/form[@name='RiskeerMainWindow']/container/container[4]/tabpagelist//container[@controlname='PropertiesPanelGridView']//table
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']
+						/form[@name='RiskeerMainWindow']/container/container[4]/tabpagelist//container[@controlname='PropertiesPanelGridView']
 					</basepath>
 				</folder>
 				<folder
@@ -255,7 +255,7 @@ name="AutomatedSystemTestsRepository">
 								name="IsRelevant"
 								robustPath=""
 								searchtimeout="30000ms">
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
 								</item>
 								<item
 								capname="cell"
@@ -277,14 +277,14 @@ AAAOxAAADsQBlSsOGwAAABBJREFUKFNjWIkERiRn5UoAepSecUDvM7wAAAAASUVORK5CYII=
 AAAOxAAADsQBlSsOGwAAABpJREFUKFNjWIkE/iOBUQkwgIqBwfCQ+P8fAGPSjZDfAro7AAAAAElF
 TkSuQmCC
 									</image>
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 								</item>
 								<basepath>
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']
 							</basepath>
 						</folder>
 						<item
@@ -295,7 +295,7 @@ TkSuQmCC
 						refimgid="25125f59-3167-4e83-964d-f177d497aa21"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/text/text
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/text/text
 						</item>
 						<item
 						addcaps="button,accessible"
@@ -305,7 +305,7 @@ TkSuQmCC
 						refimgid="dea0a4fb-3797-4b3d-b25c-a6c5305bcf98"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
 						</item>
 						<item
 						addcaps="text,control,nativewindow"
@@ -315,10 +315,10 @@ TkSuQmCC
 						refimgid="5f1048c5-6ba3-4d22-adaf-7a50cf07dd08"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/text[@controlname='failureMechanismAssemblyProbabilityTextBox']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/text[@controlname='failureMechanismAssemblyProbabilityTextBox']
 						</item>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']
 						</basepath>
 					</folder>
 					<folder
@@ -343,14 +343,14 @@ TkSuQmCC
 							refimgid="38fb642d-8c44-4bc4-a95e-ac1550e74f82"
 							robustPath=""
 							searchtimeout="10000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$categoryName+';']/cell[@accessiblename&gt;$boundaryTypeSubstring]
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$categoryName+';']/cell[@accessiblename&gt;$boundaryTypeSubstring]
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']
 						</basepath>
 					</folder>
 					<folder
@@ -367,10 +367,10 @@ TkSuQmCC
 						name="TableDuidingsklassen"
 						robustPath=""
 						searchtimeout="30000ms">
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']//table
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']//table
 						</item>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']
 						</basepath>
 					</folder>
 					<folder
@@ -410,14 +410,14 @@ TkSuQmCC
 									name="WaterLevelOrWaveHeightNthRow"
 									robustPath=""
 									searchtimeout="30000ms">
-										/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+										/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
 									</item>
 									<basepath>
-										/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]
+										/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container/table
 								</basepath>
 							</folder>
 							<folder
@@ -435,18 +435,18 @@ TkSuQmCC
 								refimgid="ba5af28f-bcce-4282-b479-4b08a62225bd"
 								robustPath=""
 								searchtimeout="30000ms">
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
 								</item>
 								<basepath>
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container[@controlname&gt;'button']
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/container[@controlname&gt;'button']
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container
 						</basepath>
 					</folder>
 					<folder
@@ -471,10 +471,10 @@ TkSuQmCC
 							name="GenericSection"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list/listitem[@index=$indexSection]
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list/listitem[@index=$indexSection]
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/?/list/list
 							</basepath>
 						</folder>
 						<folder
@@ -491,14 +491,14 @@ TkSuQmCC
 							name="GenericRowContribution"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/?/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/?/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/?/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']/container/container/container/container/container/?/table
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'ScenariosView']
 						</basepath>
 					</folder>
 					<folder
@@ -522,7 +522,7 @@ TkSuQmCC
 							name="GenericRowHydraulicBCDunes"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$indexRow]
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$indexRow]
 							</item>
 							<item
 							capname="cell"
@@ -530,10 +530,10 @@ TkSuQmCC
 							name="CellCalculatedWaterLevelDA"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container/table
 							</basepath>
 						</folder>
 						<folder
@@ -551,14 +551,14 @@ TkSuQmCC
 							refimgid="d609c052-4854-4151-bece-1434d8df9ce5"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']/button[@controlname='calculateForSelectedButton']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/container[@controlname&gt;'button']
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container
 						</basepath>
 					</folder>
 					<item
@@ -569,7 +569,7 @@ TkSuQmCC
 					refimgid="0c3dda7b-fc8d-4d81-90cb-b69e67b32fc5"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'SectionsView']/?/table
+						/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'SectionsView']/?/table
 					</item>
 					<folder
 					capname="container"
@@ -595,10 +595,10 @@ TkSuQmCC
 							refimgid="73e8e71a-615c-40ab-a491-def024b12128"
 							robustPath=""
 							searchtimeout="30000ms">
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/container/text[@controlname='groupLabel']
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/container/text[@controlname='groupLabel']
 							</item>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/container
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/container
 							</basepath>
 						</folder>
 						<folder
@@ -609,11 +609,11 @@ TkSuQmCC
 						searchtimeout="30000ms"
 						usecache="False">
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/table
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']
 						</basepath>
 					</folder>
 					<folder
@@ -632,11 +632,11 @@ TkSuQmCC
 						searchtimeout="30000ms"
 						usecache="False">
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']/container/table
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultPerSectionView']
 						</basepath>
 					</folder>
 					<folder
@@ -671,18 +671,18 @@ TkSuQmCC
 								refimgid="e6f04d45-5018-46d5-ab95-911e5c9e48ce"
 								robustPath=""
 								searchtimeout="30000ms">
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 								</item>
 								<basepath>
-									/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
+									/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table
+								/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']//table
 							</basepath>
 						</folder>
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']
 						</basepath>
 					</folder>
 					<item
@@ -691,10 +691,10 @@ TkSuQmCC
 					name="SecurityCategoriesViewTable"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table
+						/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table
 					</item>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']
+						/form[@name='RiskeerMainWindow']/container/container[4]/container//container[@instance='1' and @controltypename='WinFormsAdapter']
 					</basepath>
 				</folder>
 				<folder
@@ -714,11 +714,11 @@ TkSuQmCC
 					searchtimeout="30000ms"
 					usecache="False">
 						<basepath>
-							/form[@name='RiskeerMainWindow']/container/container[4]/*/*/container[@controlname='MapLegendView']/container/tree/tree/treeitem
+							/form[@name='RiskeerMainWindow']/container/container[4]/tabpagelist//container[@controlname='MapLegendView']/container/tree/tree/treeitem
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@name='RiskeerMainWindow']/container/container[4]/*/*/container[@controlname='MapLegendView']/container
+						/form[@name='RiskeerMainWindow']/container/container[4]/tabpagelist//container[@controlname='MapLegendView']/container
 					</basepath>
 				</folder>
 				<basepath>
