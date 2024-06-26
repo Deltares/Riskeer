@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismSectionsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismSectionConfigurationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismSectionsContext), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismSectionsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(FailureMechanismSectionConfigurationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -64,16 +64,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismSectionsContext = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(),
-                                                                                                           assessmentSection);
             mocks.ReplayAll();
+            
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanismSectionsContext = new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism,
+                                                                                                           assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(failureMechanismSectionsContext);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionsProperties>(objectProperties);
-            Assert.AreSame(failureMechanismSectionsContext.WrappedData, objectProperties.Data);
+            Assert.IsInstanceOf<FailureMechanismSectionConfigurationsProperties>(objectProperties);
+            Assert.AreSame(failureMechanism.SectionConfigurations, objectProperties.Data);
             mocks.VerifyAll();
         }
     }
