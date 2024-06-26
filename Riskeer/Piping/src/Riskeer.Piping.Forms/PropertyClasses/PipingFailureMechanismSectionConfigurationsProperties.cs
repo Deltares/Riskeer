@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="failureMechanism">The failure mechanism to show the section configurations for.</param>
         /// <param name="getPropertyChangeHandlerFunc"></param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionConfigurationsProperties(PipingFailureMechanism failureMechanism, 
+        public PipingFailureMechanismSectionConfigurationsProperties(PipingFailureMechanism failureMechanism,
                                                                      Func<PipingFailureMechanismSectionConfiguration, IObservablePropertyChangeHandler> getPropertyChangeHandlerFunc)
         {
             if (failureMechanism == null)
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             double sectionStart,
             double sectionEnd)
         {
-            return new PipingFailureMechanismSectionConfigurationProperties(sectionConfiguration, sectionStart, sectionEnd, 
+            return new PipingFailureMechanismSectionConfigurationProperties(sectionConfiguration, sectionStart, sectionEnd,
                                                                             data.GeneralInput.B, getPropertyChangeHandlerFunc(sectionConfiguration));
         }
     }

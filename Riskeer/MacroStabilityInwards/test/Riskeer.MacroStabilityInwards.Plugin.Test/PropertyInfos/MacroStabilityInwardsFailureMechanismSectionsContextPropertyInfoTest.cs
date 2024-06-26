@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismSectionsContext = new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism,
                                                                                                            assessmentSection);

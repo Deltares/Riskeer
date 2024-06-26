@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context =>
                 {
                     var failureMechanism = (PipingFailureMechanism) context.WrappedData;
-                    return new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, 
+                    return new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism,
                                                                                      configuration => new PipingFailureMechanismSectionConfigurationChangeHandler(configuration, failureMechanism));
                 }
             };

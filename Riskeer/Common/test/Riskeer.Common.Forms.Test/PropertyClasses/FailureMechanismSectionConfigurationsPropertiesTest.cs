@@ -152,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 mocks.VerifyAll();
             }
         }
-        
+
         [Test]
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Assert.AreEqual(1, refreshRequiredRaised);
             }
         }
-        
+
         [Test]
         public void GivenPropertyControlWithData_WhenFailureMechanismSectionConfigurationUpdated_RefreshRequiredEventRaised()
         {
@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 sectionConfiguration
             };
-            
+
             var failureMechanism = new TestFailureMechanism();
 
             using (var properties = new FailureMechanismSectionConfigurationsProperties(sectionConfigurations, failureMechanism, double.NaN))
