@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_Description))]
-        public RoundedDouble ParameterA
+        public virtual RoundedDouble ParameterA
         {
             get
             {
