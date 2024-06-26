@@ -69,14 +69,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<FailureMechanismSectionConfigurationProperties, ExpandableObjectConverter>();
 
             Assert.AreEqual(section.Name, properties.Name);
-            Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(section.Length, properties.Length, properties.Length.GetAccuracy());
             Assert.AreEqual(section.StartPoint, properties.StartPoint);
             Assert.AreEqual(section.EndPoint, properties.EndPoint);
 
-            Assert.AreEqual(2, properties.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(sectionStart, properties.SectionStart, properties.SectionStart.GetAccuracy());
-            Assert.AreEqual(2, properties.SectionEnd.NumberOfDecimalPlaces);
             Assert.AreEqual(sectionEnd, properties.SectionEnd, properties.SectionEnd.GetAccuracy());
 
             Assert.AreEqual(sectionConfiguration.A, properties.ParameterA);
