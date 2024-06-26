@@ -1625,20 +1625,38 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nvak* [-].
+        ///   Looks up a localized string similar to Mechanismegevoelige fractie van het dijkvak..
         /// </summary>
-        public static string FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName {
+        public static string FailureMechanismSectionConfiguration_Parameter_A_Description {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionConfiguration_Parameter_A_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to a [-].
         /// </summary>
-        public static string FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName {
+        public static string FailureMechanismSectionConfiguration_Parameter_A_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionConfiguration_Parameter_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengte-effect parameter Nvak* [-].
+        /// </summary>
+        public static string FailureMechanismSectionConfigurationControl_LengthEffectNRounded_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionConfigurationControl_LengthEffectNRounded_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mechanismegevoelige fractie a [-].
+        /// </summary>
+        public static string FailureMechanismSectionConfigurationControl_Parameter_A_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionConfigurationControl_Parameter_A_DisplayName", resourceCulture);
             }
         }
         
@@ -2306,7 +2324,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameter Nvak* [-].
+        ///   Looks up a localized string similar to Nvak* [-].
         /// </summary>
         public static string LengthEffectNRounded_DisplayName {
             get {
@@ -2578,24 +2596,6 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mechanismegevoelige fractie van het dijkvak..
-        /// </summary>
-        public static string Parameter_A_Description {
-            get {
-                return ResourceManager.GetString("Parameter_A_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mechanismegevoelige fractie a [-].
-        /// </summary>
-        public static string Parameter_A_DisplayName {
-            get {
-                return ResourceManager.GetString("Parameter_A_DisplayName", resourceCulture);
             }
         }
         

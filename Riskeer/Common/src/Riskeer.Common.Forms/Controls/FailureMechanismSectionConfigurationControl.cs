@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Controls
 
         private void InitializeToolTips()
         {
-            parameterAToolTip.SetToolTip(parameterALabel, Resources.Parameter_A_Description);
+            parameterAToolTip.SetToolTip(parameterALabel, Resources.FailureMechanismSectionConfiguration_Parameter_A_Description);
             parameterBToolTip.SetToolTip(parameterBLabel, Resources.FailureMechanism_GeneralInput_B_Description);
             lengthEffectNRoundedToolTip.SetToolTip(lengthEffectNRoundedLabel, Resources.LengthEffectNRounded_Description);
         }

@@ -70,10 +70,10 @@ namespace Riskeer.Common.Forms.Views
             };
 
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionConfigurationRow.A),
-                                                                         Resources.FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName);
+                                                                         Resources.FailureMechanismSectionConfiguration_Parameter_A_DisplayName);
 
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionConfigurationRow.N),
-                                                                         Resources.FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName,
+                                                                         Resources.LengthEffectNRounded_DisplayName,
                                                                          true);
         }
 

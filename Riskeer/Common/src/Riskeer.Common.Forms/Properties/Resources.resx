@@ -1544,25 +1544,25 @@ faalkans per vak
     <data name="HydraulicBoundaryDatabase_Description" xml:space="preserve">
       <value>Naam van het bijbehorende HRD bestand.</value>
     </data>
-    <data name="Parameter_A_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismSectionConfigurationControl_Parameter_A_DisplayName" xml:space="preserve">
       <value>Mechanismegevoelige fractie a [-]</value>
     </data>
-    <data name="LengthEffectNRounded_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismSectionConfigurationControl_LengthEffectNRounded_DisplayName" xml:space="preserve">
       <value>Lengte-effect parameter Nvak* [-]</value>
     </data>
     <data name="Settings_for_selected_FailureMechanismSection_DisplayName" xml:space="preserve">
       <value>Instellingen voor geselecteerd vak</value>
     </data>
-    <data name="Parameter_A_Description" xml:space="preserve">
+    <data name="FailureMechanismSectionConfiguration_Parameter_A_Description" xml:space="preserve">
       <value>Mechanismegevoelige fractie van het dijkvak.</value>
     </data>
     <data name="LengthEffectNRounded_Description" xml:space="preserve">
       <value>De parameter 'Nvak*' die het lengte-effect beschrijft in de berekening van de faalkans per vak in de semi-probabilistische toets.</value>
     </data>
-    <data name="FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismSectionConfiguration_Parameter_A_DisplayName" xml:space="preserve">
       <value>a [-]</value>
     </data>
-    <data name="FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName" xml:space="preserve">
+    <data name="LengthEffectNRounded_DisplayName" xml:space="preserve">
       <value>Nvak* [-]</value>
     </data>
 </root>

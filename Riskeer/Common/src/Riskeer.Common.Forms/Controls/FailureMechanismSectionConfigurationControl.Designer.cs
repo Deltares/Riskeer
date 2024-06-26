@@ -86,7 +86,7 @@ namespace Riskeer.Common.Forms.Controls
             this.parameterALabel.Name = "parameterALabel";
             this.parameterALabel.Size = new System.Drawing.Size(193, 20);
             this.parameterALabel.TabIndex = 0;
-            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.Parameter_A_DisplayName;
+            this.parameterALabel.Text = global::Riskeer.Common.Forms.Properties.Resources.FailureMechanismSectionConfigurationControl_Parameter_A_DisplayName;
             this.parameterALabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectNRoundedLabel
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Controls
             this.lengthEffectNRoundedLabel.Name = "lengthEffectNRoundedLabel";
             this.lengthEffectNRoundedLabel.Size = new System.Drawing.Size(193, 92);
             this.lengthEffectNRoundedLabel.TabIndex = 1;
-            this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.LengthEffectNRounded_DisplayName;
+            this.lengthEffectNRoundedLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.FailureMechanismSectionConfigurationControl_LengthEffectNRounded_DisplayName;
             this.lengthEffectNRoundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lengthEffectNRoundedTextBox

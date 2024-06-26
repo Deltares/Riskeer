@@ -65,8 +65,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionConfigurationsView_Parameter_A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Parameter_A_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_Description))]
         public RoundedDouble ParameterA
         {
             get
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(9)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionConfigurationsView_LengthEffectNRounded_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LengthEffectNRounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LengthEffectNRounded_Description))]
         public RoundedDouble LengthEffectNRounded { get; }
     }
