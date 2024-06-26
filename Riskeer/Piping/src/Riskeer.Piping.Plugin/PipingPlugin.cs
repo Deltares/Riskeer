@@ -40,7 +40,6 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
@@ -129,9 +128,14 @@ namespace Riskeer.Piping.Plugin
             {
                 CreateInstance = stochasticSoilProfile => new PipingStochasticSoilProfileProperties(stochasticSoilProfile)
             };
-            yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProperties>
+            yield return new PropertyInfo<PipingFailureMechanismSectionsContext, PipingFailureMechanismSectionConfigurationsProperties>
             {
-                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData)
+                CreateInstance = context =>
+                {
+                    var failureMechanism = (PipingFailureMechanism) context.WrappedData;
+                    return new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, 
+                                                                                     configuration => new PipingFailureMechanismSectionConfigurationChangeHandler(configuration, failureMechanism));
+                }
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
