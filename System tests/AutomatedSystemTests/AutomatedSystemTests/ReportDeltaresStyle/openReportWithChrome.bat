@@ -5,4 +5,4 @@ IF %running%==1 ECHO Chrome is running! Please close it before opening the repor
 IF %running%==1 PAUSE
 
 IF %running%==0 ECHO Opening report...
-IF %running%==0 FOR /F %%g IN ('dir /b *.html') DO START "" "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"  --allow-file-access-from-files %~dps0%%g
+IF %running%==0 FOR /F %%g IN ('dir /b *.html') DO START "" "%ProgramFiles%\Google\Chrome\Application\chrome.exe"  --allow-file-access-from-files %~dps0%%g
