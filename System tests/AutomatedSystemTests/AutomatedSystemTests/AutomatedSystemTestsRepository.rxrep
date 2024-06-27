@@ -1793,7 +1793,7 @@ gg==
 			refimgid="8e14b8b6-d6b8-473f-9a59-4ff87f2bbf41"
 			robustPath=""
 			searchtimeout="30000ms">
-				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']/?/combobox/text
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']/?/?/text[@controlid='1148']
 			</item>
 			<basepath>
 				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']

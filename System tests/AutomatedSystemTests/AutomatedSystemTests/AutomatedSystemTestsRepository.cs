@@ -5745,7 +5745,7 @@ namespace AutomatedSystemTests
                     base("OpenFileDialog", "/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']", parentFolder, 30000, null, false, "b4994c0d-5167-43e4-8cf7-09a41072ae61", "")
             {
                 _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "1003af8e-9e10-4fa3-9036-19f31d7713b9");
-                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/combobox/text", "", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", "", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");
             }
 
             /// <summary>
