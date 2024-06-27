@@ -109,8 +109,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         public void Dispose()
         {
-            failureMechanismObserver.Dispose();
-            sectionConfigurationsObserver.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                failureMechanismObserver.Dispose();
+                sectionConfigurationsObserver.Dispose();
+            }
         }
 
         private PipingFailureMechanismSectionConfigurationProperties CreateFailureMechanismSectionConfigurationProperties(
