@@ -206,8 +206,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 sectionConfiguration,
-                affectedCalculation,
-                affectedCalculation.InputParameters
+                affectedCalculation
             }, affectedObjects);
 
             Assert.IsFalse(affectedCalculation.HasOutput);
