@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -38,7 +37,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismSectionConfigurationProperties : FailureMechanismSectionConfigurationProperties
     {
-        private readonly FailureMechanismSectionConfiguration sectionConfiguration;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
@@ -63,11 +61,10 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
             }
 
-            this.sectionConfiguration = sectionConfiguration;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
-        [PropertyOrder(8)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSectionConfiguration_Parameter_A_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSectionConfiguration_Parameter_A_Description))]
@@ -79,11 +76,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => sectionConfiguration.A = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SectionConfiguration.A = value, propertyChangeHandler);
             }
         }
 
-        [PropertyOrder(10)]
+        [PropertyOrder(9)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSensitiveSectionLength_Description))]
@@ -91,7 +88,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, sectionConfiguration.GetFailureMechanismSensitiveSectionLength());
+                return new RoundedDouble(2, SectionConfiguration.GetFailureMechanismSensitiveSectionLength());
             }
         }
     }

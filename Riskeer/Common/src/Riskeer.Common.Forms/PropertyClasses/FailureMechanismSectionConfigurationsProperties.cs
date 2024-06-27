@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         private readonly double b;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationsProperties"/>.
         /// </summary>
         /// <param name="sectionConfigurations">The collection of failure mechanism section configurations
         /// to show the properties for.</param>

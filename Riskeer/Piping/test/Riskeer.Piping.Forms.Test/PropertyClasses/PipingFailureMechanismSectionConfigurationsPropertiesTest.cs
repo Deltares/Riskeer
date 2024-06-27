@@ -35,7 +35,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PropertyClasses;
 
-namespace Riskeer.Piping.Forms.Test
+namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingFailureMechanismSectionConfigurationsPropertiesTest
@@ -163,8 +163,6 @@ namespace Riskeer.Piping.Forms.Test
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-
-            // Call
             using (var properties = new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, configuration => changeHandler))
             {
                 var refreshRequiredRaised = 0;
@@ -179,7 +177,7 @@ namespace Riskeer.Piping.Forms.Test
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailureMechanismSectionConfigurationUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailureMechanismSectionConfigurationUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
             var mocks = new MockRepository();
@@ -193,9 +191,7 @@ namespace Riskeer.Piping.Forms.Test
                 section
             });
 
-            var sectionConfiguration = failureMechanism.SectionConfigurations.First();
-
-            // Call
+            PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.First();
             using (var properties = new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, configuration => changeHandler))
             {
                 var refreshRequiredRaised = 0;

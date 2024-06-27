@@ -36,10 +36,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FailureMechanismSectionConfigurationProperties : FailureMechanismSectionProperties
     {
-        private readonly FailureMechanismSectionConfiguration sectionConfiguration;
+        protected readonly FailureMechanismSectionConfiguration SectionConfiguration;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionConfiguration"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionConfigurationProperties"/>.
         /// </summary>
         /// <param name="sectionConfiguration">The section configuration to show the properties for.</param>
         /// <param name="sectionStart">The start of the section from the beginning
@@ -53,11 +53,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         public FailureMechanismSectionConfigurationProperties(FailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b)
             : base(sectionConfiguration?.Section ?? throw new ArgumentNullException(nameof(sectionConfiguration)), sectionStart, sectionEnd)
         {
-            this.sectionConfiguration = sectionConfiguration;
-            LengthEffectNRounded = new RoundedDouble(2, this.sectionConfiguration.GetN(b));
+            this.SectionConfiguration = sectionConfiguration;
+            LengthEffectNRounded = new RoundedDouble(2, this.SectionConfiguration.GetN(b));
         }
 
-        [PropertyOrder(8)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionConfiguration_Parameter_A_Description))]
@@ -65,16 +65,16 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return sectionConfiguration.A;
+                return SectionConfiguration.A;
             }
             set
             {
-                sectionConfiguration.A = value;
-                sectionConfiguration.NotifyObservers();
+                SectionConfiguration.A = value;
+                SectionConfiguration.NotifyObservers();
             }
         }
 
-        [PropertyOrder(9)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LengthEffectNRounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LengthEffectNRounded_Description))]

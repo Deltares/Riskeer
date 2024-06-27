@@ -196,6 +196,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
+            Assert.IsTrue(customHandler.Called);
 
             mockRepository.VerifyAll();
         }
