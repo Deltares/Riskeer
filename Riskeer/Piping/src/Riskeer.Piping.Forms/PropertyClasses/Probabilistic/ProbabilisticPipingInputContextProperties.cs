@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
@@ -54,7 +55,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                                                              IHasHydraulicBoundaryLocationProperty,
                                                              IHasSurfaceLineProperty,
                                                              IHasStochasticSoilModel,
-                                                             IHasStochasticSoilProfile
+                                                             IHasStochasticSoilProfile,
+                                                             IDisposable
     {
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 0;
         private const int dampingFactorExitPropertyIndex = 1;
@@ -83,6 +85,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
+        private readonly Observer sectionConfigurationObserver;
+        private readonly Observer inputObserver;
+
+        private PipingFailureMechanismSectionConfiguration sectionConfiguration;
+
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingInputContextProperties"/>.
         /// </summary>
@@ -104,7 +111,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
             Data = data;
 
+            sectionConfigurationObserver = new Observer(OnRefreshRequired);
+            inputObserver = new Observer(UpdateSectionConfiguration)
+            {
+                Observable = data
+            };
+
             this.propertyChangeHandler = propertyChangeHandler;
+
+            UpdateSectionConfiguration();
         }
 
         [DynamicReadOnlyValidationMethod]
@@ -136,6 +151,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
 
             return false;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -178,6 +199,21 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailablePipingSurfaceLines;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                sectionConfigurationObserver.Dispose();
+                inputObserver.Dispose();
+            }
+        }
+
+        private void UpdateSectionConfiguration()
+        {
+            sectionConfiguration = GetSectionConfiguration();
+            sectionConfigurationObserver.Observable = sectionConfiguration;
         }
 
         private PipingFailureMechanismSectionConfiguration GetSectionConfiguration()
@@ -485,7 +521,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                PipingFailureMechanismSectionConfiguration sectionConfiguration = GetSectionConfiguration();
                 return sectionConfiguration == null ? "-" : sectionConfiguration.Section.Name;
             }
         }
@@ -498,7 +533,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                PipingFailureMechanismSectionConfiguration sectionConfiguration = GetSectionConfiguration();
                 return sectionConfiguration == null ? new RoundedDouble(2) : new RoundedDouble(2, sectionConfiguration.GetFailureMechanismSensitiveSectionLength());
             }
         }
