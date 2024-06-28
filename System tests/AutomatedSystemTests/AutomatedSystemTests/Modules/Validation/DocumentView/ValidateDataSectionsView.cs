@@ -50,6 +50,13 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             valueColumnOffsetTo = "";
             indexColumnLength = "";
             valueColumnLength = "";
+            labelFM = "";
+            indexColumnA = "";
+            valueColumnA = "";
+            indexColumnN = "";
+            valueColumnN = "";
+            indexColumnFailureMechanismSensitiveSectionLength = "";
+            valueColumnFailureMechanismSensitiveSectionLength = "";
         }
 
         /// <summary>
@@ -158,6 +165,78 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             set { _valueColumnLength = value; }
         }
 
+        string _indexColumnA;
+
+        /// <summary>
+        /// Gets or sets the value of variable indexColumnA.
+        /// </summary>
+        [TestVariable("c62ef76c-6770-4156-b919-3c584c5173aa")]
+        public string indexColumnA
+        {
+            get { return _indexColumnA; }
+            set { _indexColumnA = value; }
+        }
+
+        string _valueColumnA;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueColumnA.
+        /// </summary>
+        [TestVariable("1a2e0683-ae6d-4fec-9851-0ebd9207fadf")]
+        public string valueColumnA
+        {
+            get { return _valueColumnA; }
+            set { _valueColumnA = value; }
+        }
+
+        string _indexColumnN;
+
+        /// <summary>
+        /// Gets or sets the value of variable indexColumnN.
+        /// </summary>
+        [TestVariable("5402eeec-3fb2-47fd-91bd-51e45ef78ba3")]
+        public string indexColumnN
+        {
+            get { return _indexColumnN; }
+            set { _indexColumnN = value; }
+        }
+
+        string _valueColumnN;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueColumnN.
+        /// </summary>
+        [TestVariable("21a7b188-3752-4b26-8473-fab4525f4649")]
+        public string valueColumnN
+        {
+            get { return _valueColumnN; }
+            set { _valueColumnN = value; }
+        }
+
+        string _indexColumnFailureMechanismSensitiveSectionLength;
+
+        /// <summary>
+        /// Gets or sets the value of variable indexColumnFailureMechanismSensitiveSectionLength.
+        /// </summary>
+        [TestVariable("1d0c5b2b-0f31-4ce8-bc5a-fdc74dcdbf15")]
+        public string indexColumnFailureMechanismSensitiveSectionLength
+        {
+            get { return _indexColumnFailureMechanismSensitiveSectionLength; }
+            set { _indexColumnFailureMechanismSensitiveSectionLength = value; }
+        }
+
+        string _valueColumnFailureMechanismSensitiveSectionLength;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueColumnFailureMechanismSensitiveSectionLength.
+        /// </summary>
+        [TestVariable("d02d9fed-fac5-4b95-9d60-5996506ed730")]
+        public string valueColumnFailureMechanismSensitiveSectionLength
+        {
+            get { return _valueColumnFailureMechanismSensitiveSectionLength; }
+            set { _valueColumnFailureMechanismSensitiveSectionLength = value; }
+        }
+
         /// <summary>
         /// Gets or sets the value of variable indexRow.
         /// </summary>
@@ -166,6 +245,16 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         {
             get { return repo.indexRow; }
             set { repo.indexRow = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable labelFM.
+        /// </summary>
+        [TestVariable("f9e53713-5879-4c2b-ac0a-237962723bf4")]
+        public string labelFM
+        {
+            get { return repo.labelFM; }
+            set { repo.labelFM = value; }
         }
 
 #endregion

@@ -59,6 +59,34 @@ mode="Global">
 		id="036da4e5-60a6-4f75-a02a-e9463ec7d825"
 		name="valueColumnLength">
 		</var>
+		<var
+		id="f9e53713-5879-4c2b-ac0a-237962723bf4"
+		name="labelFM">
+		</var>
+		<var
+		id="c62ef76c-6770-4156-b919-3c584c5173aa"
+		name="indexColumnA">
+		</var>
+		<var
+		id="1a2e0683-ae6d-4fec-9851-0ebd9207fadf"
+		name="valueColumnA">
+		</var>
+		<var
+		id="5402eeec-3fb2-47fd-91bd-51e45ef78ba3"
+		name="indexColumnN">
+		</var>
+		<var
+		id="21a7b188-3752-4b26-8473-fab4525f4649"
+		name="valueColumnN">
+		</var>
+		<var
+		id="1d0c5b2b-0f31-4ce8-bc5a-fdc74dcdbf15"
+		name="indexColumnFailureMechanismSensitiveSectionLength">
+		</var>
+		<var
+		id="d02d9fed-fac5-4b95-9d60-5996506ed730"
+		name="valueColumnFailureMechanismSensitiveSectionLength">
+		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem

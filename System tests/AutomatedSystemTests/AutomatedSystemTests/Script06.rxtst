@@ -687,6 +687,48 @@
 					variableid="036da4e5-60a6-4f75-a02a-e9463ec7d825"
 					variablename="valueColumnLength">
 					</var>
+					<var
+					dataname="indexColumnA"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c62ef76c-6770-4156-b919-3c584c5173aa"
+					variablename="indexColumnA">
+					</var>
+					<var
+					dataname="valueColumnA"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="1a2e0683-ae6d-4fec-9851-0ebd9207fadf"
+					variablename="valueColumnA">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="f9e53713-5879-4c2b-ac0a-237962723bf4"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="indexColumnN"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="5402eeec-3fb2-47fd-91bd-51e45ef78ba3"
+					variablename="indexColumnN">
+					</var>
+					<var
+					dataname="valueColumnN"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="21a7b188-3752-4b26-8473-fab4525f4649"
+					variablename="valueColumnN">
+					</var>
+					<var
+					dataname="indexColumnFailureMechanismSensitiveSectionLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="1d0c5b2b-0f31-4ce8-bc5a-fdc74dcdbf15"
+					variablename="indexColumnFailureMechanismSensitiveSectionLength">
+					</var>
+					<var
+					dataname="valueColumnFailureMechanismSensitiveSectionLength"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="d02d9fed-fac5-4b95-9d60-5996506ed730"
+					variablename="valueColumnFailureMechanismSensitiveSectionLength">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -2529,6 +2571,48 @@
 					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
 					variableid="036da4e5-60a6-4f75-a02a-e9463ec7d825"
 					variablename="valueColumnLength">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="f9e53713-5879-4c2b-ac0a-237962723bf4"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="indexColumnA"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="c62ef76c-6770-4156-b919-3c584c5173aa"
+					variablename="indexColumnA">
+					</var>
+					<var
+					dataname="valueColumnA"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="1a2e0683-ae6d-4fec-9851-0ebd9207fadf"
+					variablename="valueColumnA">
+					</var>
+					<var
+					dataname="indexColumnN"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="5402eeec-3fb2-47fd-91bd-51e45ef78ba3"
+					variablename="indexColumnN">
+					</var>
+					<var
+					dataname="valueColumnN"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="21a7b188-3752-4b26-8473-fab4525f4649"
+					variablename="valueColumnN">
+					</var>
+					<var
+					dataname="indexColumnFailureMechanismSensitiveSectionLength"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="1d0c5b2b-0f31-4ce8-bc5a-fdc74dcdbf15"
+					variablename="indexColumnFailureMechanismSensitiveSectionLength">
+					</var>
+					<var
+					dataname="valueColumnFailureMechanismSensitiveSectionLength"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="d02d9fed-fac5-4b95-9d60-5996506ed730"
+					variablename="valueColumnFailureMechanismSensitiveSectionLength">
 					</var>
 				</databinding>
 			</testmodule>
@@ -4519,6 +4603,24 @@
 				<column>
 					valueColumnLength
 				</column>
+				<column>
+					indexColumnA
+				</column>
+				<column>
+					valueColumnA
+				</column>
+				<column>
+					indexColumnN
+				</column>
+				<column>
+					valueColumnN
+				</column>
+				<column>
+					indexColumnFailureMechanismSensitiveSectionLength
+				</column>
+				<column>
+					valueColumnFailureMechanismSensitiveSectionLength
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -4554,6 +4656,24 @@
 					<th>
 						valueColumnLength
 					</th>
+					<th>
+						indexColumnA
+					</th>
+					<th>
+						valueColumnA
+					</th>
+					<th>
+						indexColumnN
+					</th>
+					<th>
+						valueColumnN
+					</th>
+					<th>
+						indexColumnFailureMechanismSensitiveSectionLength
+					</th>
+					<th>
+						valueColumnFailureMechanismSensitiveSectionLength
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -4586,6 +4706,24 @@
 					<td>
 						Lengte* [m]
 					</td>
+					<td>
+						5
+					</td>
+					<td>
+						a [-]
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						Mechanismegevoelige vaklengte* [m]
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4614,6 +4752,24 @@
 					</td>
 					<td>
 						4
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						19.03
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 						5410.14
@@ -4650,6 +4806,24 @@
 					<td>
 						9403.50
 					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						32.34
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						9403.50
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4678,6 +4852,24 @@
 					</td>
 					<td>
 						4
+					</td>
+					<td>
+						6034.23
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						21.11
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 						6034.23
@@ -4721,6 +4913,24 @@
 				<column>
 					valueColumnLength
 				</column>
+				<column>
+					indexColumnA
+				</column>
+				<column>
+					valueColumnA
+				</column>
+				<column>
+					indexColumnN
+				</column>
+				<column>
+					valueColumnN
+				</column>
+				<column>
+					indexColumnFailureMechanismSensitiveSectionLength
+				</column>
+				<column>
+					valueColumnFailureMechanismSensitiveSectionLength
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -4756,6 +4966,24 @@
 					<th>
 						valueColumnLength
 					</th>
+					<th>
+						indexColumnA
+					</th>
+					<th>
+						valueColumnA
+					</th>
+					<th>
+						indexColumnN
+					</th>
+					<th>
+						valueColumnN
+					</th>
+					<th>
+						indexColumnFailureMechanismSensitiveSectionLength
+					</th>
+					<th>
+						valueColumnFailureMechanismSensitiveSectionLength
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -4788,6 +5016,24 @@
 					<td>
 						Lengte* [m]
 					</td>
+					<td>
+						5
+					</td>
+					<td>
+						a [-]
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						Nvak* [-]
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						Mechanismegevoelige vaklengte* [m]
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4816,6 +5062,24 @@
 					</td>
 					<td>
 						4
+					</td>
+					<td>
+						5410.14
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						19.03
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 						5410.14
@@ -4852,6 +5116,24 @@
 					<td>
 						2358.15
 					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						8.86
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						2358.15
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4880,6 +5162,24 @@
 					</td>
 					<td>
 						4
+					</td>
+					<td>
+						7045.34
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						24.48
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 						7045.34
@@ -4916,6 +5216,24 @@
 					<td>
 						4686.60
 					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						16.62
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						4686.60
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4944,6 +5262,24 @@
 					</td>
 					<td>
 						4
+					</td>
+					<td>
+						1347.63
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1.000
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						5.49
+					</td>
+					<td>
+						7
 					</td>
 					<td>
 						1347.63
