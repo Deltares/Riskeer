@@ -745,6 +745,65 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }
         }
 
+        [Test]
+        public void GivenPropertyControlWithData_WhenSectionChangedAndNewFailureMechanismSectionConfigurationUpdated_ThenNoRefreshRequiredEventRaised()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var oldSection = new FailureMechanismSection("Section1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(0.5, 0.0)
+            });
+            var newSection = new FailureMechanismSection("Section1", new[]
+            {
+                new Point2D(0.5, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+
+            var newSurfaceLine = new PipingSurfaceLine(string.Empty)
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+            newSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(2.5, 0.0, 0.0),
+                new Point3D(4.5, 0.0, 0.0)
+            });
+
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                oldSection,
+                newSection
+            });
+            var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(oldSection);
+
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
+                                                              Enumerable.Empty<PipingSurfaceLine>(),
+                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                              failureMechanism, assessmentSection);
+
+            using(var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // When
+                calculation.InputParameters.SurfaceLine = newSurfaceLine;
+                calculation.InputParameters.NotifyObservers();
+
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+                PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Last();
+                sectionConfiguration.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
+        }
 
         [Test]
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
