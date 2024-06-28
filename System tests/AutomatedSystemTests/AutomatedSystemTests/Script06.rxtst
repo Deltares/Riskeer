@@ -712,10 +712,10 @@
 					variablename="indexColumnN">
 					</var>
 					<var
-					dataname="valueColumnN"
+					dataname="valueColumnNForSTPH"
 					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
 					variableid="21a7b188-3752-4b26-8473-fab4525f4649"
-					variablename="valueColumnN">
+					variablename="valueColumnNForSTPH">
 					</var>
 					<var
 					dataname="indexColumnFailureMechanismSensitiveSectionLength"
@@ -728,6 +728,12 @@
 					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
 					variableid="d02d9fed-fac5-4b95-9d60-5996506ed730"
 					variablename="valueColumnFailureMechanismSensitiveSectionLength">
+					</var>
+					<var
+					dataname="valueColumnNForSTBI"
+					datasourceid="4964f3d5-6dc7-439e-906e-19684153dbda"
+					variableid="c27fba64-c9d8-423b-bf46-45fb0972703d"
+					variablename="valueColumnNForSTBI">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2500,6 +2506,7 @@
 			includeimageschecked="False"
 			includerecordingschecked="False"
 			junitreport="False"
+			junitreportaddtestid="False"
 			junitreportshowerrafterstd="True"
 			name="Script06"
 			overwritefilechecked="False"
@@ -2597,10 +2604,10 @@
 					variablename="indexColumnN">
 					</var>
 					<var
-					dataname="valueColumnN"
+					dataname="valueColumnNForSTPH"
 					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
 					variableid="21a7b188-3752-4b26-8473-fab4525f4649"
-					variablename="valueColumnN">
+					variablename="valueColumnNForSTPH">
 					</var>
 					<var
 					dataname="indexColumnFailureMechanismSensitiveSectionLength"
@@ -2613,6 +2620,12 @@
 					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
 					variableid="d02d9fed-fac5-4b95-9d60-5996506ed730"
 					variablename="valueColumnFailureMechanismSensitiveSectionLength">
+					</var>
+					<var
+					dataname="valueColumnNForSTBI"
+					datasourceid="3ac686ce-7fcd-46be-8f63-726115a85ca9"
+					variableid="c27fba64-c9d8-423b-bf46-45fb0972703d"
+					variablename="valueColumnNForSTBI">
 					</var>
 				</databinding>
 			</testmodule>
@@ -4613,7 +4626,10 @@
 					indexColumnN
 				</column>
 				<column>
-					valueColumnN
+					valueColumnNForSTPH
+				</column>
+				<column>
+					valueColumnNForSTBI
 				</column>
 				<column>
 					indexColumnFailureMechanismSensitiveSectionLength
@@ -4666,7 +4682,10 @@
 						indexColumnN
 					</th>
 					<th>
-						valueColumnN
+						valueColumnNForSTPH
+					</th>
+					<th>
+						valueColumnNForSTBI
 					</th>
 					<th>
 						indexColumnFailureMechanismSensitiveSectionLength
@@ -4714,6 +4733,9 @@
 					</td>
 					<td>
 						6
+					</td>
+					<td>
+						Nvak* [-]
 					</td>
 					<td>
 						Nvak* [-]
@@ -4769,6 +4791,9 @@
 						19.03
 					</td>
 					<td>
+						109.20
+					</td>
+					<td>
 						7
 					</td>
 					<td>
@@ -4819,6 +4844,9 @@
 						32.34
 					</td>
 					<td>
+						189.07
+					</td>
+					<td>
 						7
 					</td>
 					<td>
@@ -4867,6 +4895,9 @@
 					</td>
 					<td>
 						21.11
+					</td>
+					<td>
+						121.68
 					</td>
 					<td>
 						7
@@ -4923,7 +4954,10 @@
 					indexColumnN
 				</column>
 				<column>
-					valueColumnN
+					valueColumnNForSTPH
+				</column>
+				<column>
+					valueColumnNForSTBI
 				</column>
 				<column>
 					indexColumnFailureMechanismSensitiveSectionLength
@@ -4976,7 +5010,10 @@
 						indexColumnN
 					</th>
 					<th>
-						valueColumnN
+						valueColumnNForSTPH
+					</th>
+					<th>
+						valueColumnNForSTBI
 					</th>
 					<th>
 						indexColumnFailureMechanismSensitiveSectionLength
@@ -5024,6 +5061,9 @@
 					</td>
 					<td>
 						6
+					</td>
+					<td>
+						Nvak* [-]
 					</td>
 					<td>
 						Nvak* [-]
@@ -5079,6 +5119,9 @@
 						19.03
 					</td>
 					<td>
+						109.20
+					</td>
+					<td>
 						7
 					</td>
 					<td>
@@ -5127,6 +5170,9 @@
 					</td>
 					<td>
 						8.86
+					</td>
+					<td>
+						48.16
 					</td>
 					<td>
 						7
@@ -5179,6 +5225,9 @@
 						24.48
 					</td>
 					<td>
+						141.91
+					</td>
+					<td>
 						7
 					</td>
 					<td>
@@ -5229,6 +5278,9 @@
 						16.62
 					</td>
 					<td>
+						94.73
+					</td>
+					<td>
 						7
 					</td>
 					<td>
@@ -5277,6 +5329,9 @@
 					</td>
 					<td>
 						5.49
+					</td>
+					<td>
+						27.95
 					</td>
 					<td>
 						7

@@ -52,15 +52,16 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             ValidateSingleCell(row, "Validating 3rd column", indexColumnOffsetTo, valueColumnOffsetTo);
             ValidateSingleCell(row, "Validating 4th column", indexColumnLength, valueColumnLength);
             
-            if (labelFM == "STPH" || labelFM == "STBI")
-            {
-            	ValidateSingleCell(row, "Validating 5th column", indexColumnA, valueColumnA);
-            	ValidateSingleCell(row, "Validating 6th column", indexColumnN, valueColumnN);
-            }
-            
             if (labelFM == "STPH")
             {
+            	ValidateSingleCell(row, "Validating 5th column", indexColumnA, valueColumnA);
+            	ValidateSingleCell(row, "Validating 6th column", indexColumnN, valueColumnNForSTPH);
             	ValidateSingleCell(row, "Validating 7th column", indexColumnFailureMechanismSensitiveSectionLength, valueColumnFailureMechanismSensitiveSectionLength);            	
+            }            
+            else if (labelFM == "STBI")
+            {
+            	ValidateSingleCell(row, "Validating 5th column", indexColumnA, valueColumnA);
+            	ValidateSingleCell(row, "Validating 6th column", indexColumnN, valueColumnNForSTBI);
             }
         }
         

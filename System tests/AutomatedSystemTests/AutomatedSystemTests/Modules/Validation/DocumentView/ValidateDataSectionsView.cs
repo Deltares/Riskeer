@@ -54,9 +54,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             indexColumnA = "";
             valueColumnA = "";
             indexColumnN = "";
-            valueColumnN = "";
+            valueColumnNForSTPH = "";
             indexColumnFailureMechanismSensitiveSectionLength = "";
             valueColumnFailureMechanismSensitiveSectionLength = "";
+            valueColumnNForSTBI = "";
         }
 
         /// <summary>
@@ -201,16 +202,16 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             set { _indexColumnN = value; }
         }
 
-        string _valueColumnN;
+        string _valueColumnNForSTPH;
 
         /// <summary>
-        /// Gets or sets the value of variable valueColumnN.
+        /// Gets or sets the value of variable valueColumnNForSTPH.
         /// </summary>
         [TestVariable("21a7b188-3752-4b26-8473-fab4525f4649")]
-        public string valueColumnN
+        public string valueColumnNForSTPH
         {
-            get { return _valueColumnN; }
-            set { _valueColumnN = value; }
+            get { return _valueColumnNForSTPH; }
+            set { _valueColumnNForSTPH = value; }
         }
 
         string _indexColumnFailureMechanismSensitiveSectionLength;
@@ -235,6 +236,18 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         {
             get { return _valueColumnFailureMechanismSensitiveSectionLength; }
             set { _valueColumnFailureMechanismSensitiveSectionLength = value; }
+        }
+
+        string _valueColumnNForSTBI;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueColumnNForSTBI.
+        /// </summary>
+        [TestVariable("c27fba64-c9d8-423b-bf46-45fb0972703d")]
+        public string valueColumnNForSTBI
+        {
+            get { return _valueColumnNForSTBI; }
+            set { _valueColumnNForSTBI = value; }
         }
 
         /// <summary>

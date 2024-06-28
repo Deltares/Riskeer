@@ -77,7 +77,7 @@ mode="Global">
 		</var>
 		<var
 		id="21a7b188-3752-4b26-8473-fab4525f4649"
-		name="valueColumnN">
+		name="valueColumnNForSTPH">
 		</var>
 		<var
 		id="1d0c5b2b-0f31-4ce8-bc5a-fdc74dcdbf15"
@@ -86,6 +86,10 @@ mode="Global">
 		<var
 		id="d02d9fed-fac5-4b95-9d60-5996506ed730"
 		name="valueColumnFailureMechanismSensitiveSectionLength">
+		</var>
+		<var
+		id="c27fba64-c9d8-423b-bf46-45fb0972703d"
+		name="valueColumnNForSTBI">
 		</var>
 	</variables>
 	<recorditems>
