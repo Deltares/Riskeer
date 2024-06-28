@@ -144,52 +144,53 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<ProbabilisticPipingInputContext>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
+                Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
+                Assert.IsInstanceOf<IHasSurfaceLineProperty>(properties);
+                Assert.IsInstanceOf<IHasStochasticSoilModel>(properties);
+                Assert.IsInstanceOf<IHasStochasticSoilProfile>(properties);
+                Assert.AreSame(context, properties.Data);
 
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<ProbabilisticPipingInputContext>>(properties);
-            Assert.IsInstanceOf<IDisposable>(properties);
-            Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
-            Assert.IsInstanceOf<IHasSurfaceLineProperty>(properties);
-            Assert.IsInstanceOf<IHasStochasticSoilModel>(properties);
-            Assert.IsInstanceOf<IHasStochasticSoilProfile>(properties);
-            Assert.AreSame(context, properties.Data);
+                Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.DampingFactorExit);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.DampingFactorExit));
 
-            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.DampingFactorExit);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.DampingFactorExit));
+                Assert.IsInstanceOf<NormalDistributionProperties>(properties.PhreaticLevelExit);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.PhreaticLevelExit));
 
-            Assert.IsInstanceOf<NormalDistributionProperties>(properties.PhreaticLevelExit);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.PhreaticLevelExit));
+                Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.SeepageLength);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.SeepageLength));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.SeepageLength);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.SeepageLength));
+                Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessCoverageLayerDistribution);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.ThicknessCoverageLayerDistribution));
 
-            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessCoverageLayerDistribution);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.ThicknessCoverageLayerDistribution));
+                Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.EffectiveThicknessCoverageLayerDistribution);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.EffectiveThicknessCoverageLayerDistribution));
 
-            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.EffectiveThicknessCoverageLayerDistribution);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.EffectiveThicknessCoverageLayerDistribution));
+                Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessAquiferLayer);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.ThicknessAquiferLayer));
 
-            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessAquiferLayer);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.ThicknessAquiferLayer));
+                Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.DarcyPermeability);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.DarcyPermeability));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.DarcyPermeability);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.DarcyPermeability));
+                Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.Diameter70);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.Diameter70));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.Diameter70);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.Diameter70));
-
-            Assert.IsInstanceOf<ShiftedLogNormalDistributionProperties>(properties.SaturatedVolumicWeightOfCoverageLayerDistribution);
-            TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(ProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayerDistribution));
+                Assert.IsInstanceOf<ShiftedLogNormalDistributionProperties>(properties.SaturatedVolumicWeightOfCoverageLayerDistribution);
+                TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                    nameof(ProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayerDistribution));
+            }
 
             mocks.VerifyAll();
         }
@@ -219,181 +220,182 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-
-            Assert.AreEqual(19, dynamicProperties.Count);
-
-            const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
-            const string schematizationCategory = "\t\t\tSchematisatie";
-            const string sectionInformationCategory = "\t\tVakinformatie";
-            const string profileSpecificCategory = "\tSterkte berekening doorsnede";
-            const string sectionSpecificCategory = "Sterkte berekening vak";
-
-            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                hydraulicBoundaryLocationProperty,
-                hydraulicDataCategory,
-                "Hydraulische belastingenlocatie",
-                "De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.");
-
-            PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dampingsFactorExitProperty,
-                hydraulicDataCategory,
-                "Dempingsfactor bij uittredepunt [-]",
-                "Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(dampingsFactorExitProperty.Converter);
-
-            PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[expectedPhreaticLevelExitPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                phreaticLevelExitProperty,
-                hydraulicDataCategory,
-                "Binnendijkse waterstand [m+NAP]",
-                "Binnendijkse waterstand ter plaatse van het uittredepunt.",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
-
-            PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                surfaceLineProperty,
-                schematizationCategory,
-                "Profielschematisatie",
-                "De schematisatie van de hoogte van het dwarsprofiel.");
-
-            PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[expectedStochasticSoilModelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stochasticSoilModelProperty,
-                schematizationCategory,
-                "Stochastisch ondergrondmodel",
-                "De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.");
-
-            PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stochasticSoilProfileProperty,
-                schematizationCategory,
-                "Ondergrondschematisatie",
-                "De opbouw van de ondergrond.");
-
-            PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                seepageLengthProperty,
-                schematizationCategory,
-                "Kwelweglengte [m]",
-                "De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
-
-            PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thicknessCoverageLayerProperty,
-                schematizationCategory,
-                "Totale deklaagdikte bij uittredepunt [m]",
-                "Totale deklaagdikte bij uittredepunt.",
-                true);
-
-            if (withCoverageLayer)
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
-                Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
+                // Assert
+                PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+                Assert.AreEqual(19, dynamicProperties.Count);
+
+                const string hydraulicDataCategory = "\t\t\t\tHydraulische gegevens";
+                const string schematizationCategory = "\t\t\tSchematisatie";
+                const string sectionInformationCategory = "\t\tVakinformatie";
+                const string profileSpecificCategory = "\tSterkte berekening doorsnede";
+                const string sectionSpecificCategory = "Sterkte berekening vak";
+
+                PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    hydraulicBoundaryLocationProperty,
+                    hydraulicDataCategory,
+                    "Hydraulische belastingenlocatie",
+                    "De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.");
+
+                PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    dampingsFactorExitProperty,
+                    hydraulicDataCategory,
+                    "Dempingsfactor bij uittredepunt [-]",
+                    "Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(dampingsFactorExitProperty.Converter);
+
+                PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[expectedPhreaticLevelExitPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    phreaticLevelExitProperty,
+                    hydraulicDataCategory,
+                    "Binnendijkse waterstand [m+NAP]",
+                    "Binnendijkse waterstand ter plaatse van het uittredepunt.",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
+
+                PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    surfaceLineProperty,
+                    schematizationCategory,
+                    "Profielschematisatie",
+                    "De schematisatie van de hoogte van het dwarsprofiel.");
+
+                PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[expectedStochasticSoilModelPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    stochasticSoilModelProperty,
+                    schematizationCategory,
+                    "Stochastisch ondergrondmodel",
+                    "De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.");
+
+                PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    stochasticSoilProfileProperty,
+                    schematizationCategory,
+                    "Ondergrondschematisatie",
+                    "De opbouw van de ondergrond.");
+
+                PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    seepageLengthProperty,
+                    schematizationCategory,
+                    "Kwelweglengte [m]",
+                    "De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
+
+                PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    thicknessCoverageLayerProperty,
+                    schematizationCategory,
+                    "Totale deklaagdikte bij uittredepunt [m]",
+                    "Totale deklaagdikte bij uittredepunt.",
+                    true);
+
+                if (withCoverageLayer)
+                {
+                    Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
+                }
+                else
+                {
+                    Assert.IsNotInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
+                }
+
+                PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    effectiveThicknessCoverageLayerProperty,
+                    schematizationCategory,
+                    "Effectieve deklaagdikte bij uittredepunt [m]",
+                    "Effectieve deklaagdikte bij uittredepunt.",
+                    true);
+
+                if (withCoverageLayer)
+                {
+                    Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
+                }
+                else
+                {
+                    Assert.IsNotInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
+                }
+
+                PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    thicknessAquiferLayerProperty,
+                    schematizationCategory,
+                    "Dikte watervoerend pakket [m]",
+                    "De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessAquiferLayerProperty.Converter);
+
+                PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[expectedDarcyPermeabilityPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    darcyPermeabilityProperty,
+                    schematizationCategory,
+                    "Doorlatendheid aquifer [m/s]",
+                    "Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(darcyPermeabilityProperty.Converter);
+
+                PropertyDescriptor diameter70Property = dynamicProperties[expectedDiameter70PropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    diameter70Property,
+                    schematizationCategory,
+                    "De d70 in de bovenste zandlaag [m]",
+                    "Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (< 63µm).",
+                    true);
+                Assert.IsInstanceOf<ExpandableObjectConverter>(diameter70Property.Converter);
+
+                PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    saturatedVolumicWeightOfCoverageLayerProperty,
+                    schematizationCategory,
+                    "Verzadigd gewicht deklaag [kN/m³]",
+                    "Verzadigd gewicht deklaag.",
+                    true);
+
+                if (withCoverageLayer)
+                {
+                    Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
+                }
+                else
+                {
+                    Assert.IsNotInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
+                }
+
+                PropertyDescriptor sectionNameProperty = dynamicProperties[expectedSectionNamePropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    sectionNameProperty,
+                    sectionInformationCategory,
+                    "Vaknaam",
+                    "De naam van het vak.",
+                    true);
+
+                PropertyDescriptor failureMechanismSensitiveSectionLengthProperty = dynamicProperties[expectedFailureMechanismSensitiveSectionLengthPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    failureMechanismSensitiveSectionLengthProperty,
+                    sectionInformationCategory,
+                    "Mechanismegevoelige vaklengte* [m]",
+                    "De mechanismegevoelige lengte van het vak in meters (afgerond).",
+                    true);
+
+                PropertyDescriptor shouldProfileSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    shouldProfileSpecificCalculateIllustrationPointsProperty,
+                    profileSpecificCategory,
+                    "Illustratiepunten inlezen",
+                    "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+
+                PropertyDescriptor shouldSectionSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    shouldSectionSpecificCalculateIllustrationPointsProperty,
+                    sectionSpecificCategory,
+                    "Illustratiepunten inlezen ",
+                    "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
             }
-            else
-            {
-                Assert.IsNotInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
-            }
-
-            PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                effectiveThicknessCoverageLayerProperty,
-                schematizationCategory,
-                "Effectieve deklaagdikte bij uittredepunt [m]",
-                "Effectieve deklaagdikte bij uittredepunt.",
-                true);
-
-            if (withCoverageLayer)
-            {
-                Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
-            }
-            else
-            {
-                Assert.IsNotInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
-            }
-
-            PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thicknessAquiferLayerProperty,
-                schematizationCategory,
-                "Dikte watervoerend pakket [m]",
-                "De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessAquiferLayerProperty.Converter);
-
-            PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[expectedDarcyPermeabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                darcyPermeabilityProperty,
-                schematizationCategory,
-                "Doorlatendheid aquifer [m/s]",
-                "Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(darcyPermeabilityProperty.Converter);
-
-            PropertyDescriptor diameter70Property = dynamicProperties[expectedDiameter70PropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                diameter70Property,
-                schematizationCategory,
-                "De d70 in de bovenste zandlaag [m]",
-                "Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (< 63µm).",
-                true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(diameter70Property.Converter);
-
-            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                saturatedVolumicWeightOfCoverageLayerProperty,
-                schematizationCategory,
-                "Verzadigd gewicht deklaag [kN/m³]",
-                "Verzadigd gewicht deklaag.",
-                true);
-
-            if (withCoverageLayer)
-            {
-                Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
-            }
-            else
-            {
-                Assert.IsNotInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
-            }
-
-            PropertyDescriptor sectionNameProperty = dynamicProperties[expectedSectionNamePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                sectionNameProperty,
-                sectionInformationCategory,
-                "Vaknaam",
-                "De naam van het vak.",
-                true);
-
-            PropertyDescriptor failureMechanismSensitiveSectionLengthProperty = dynamicProperties[expectedFailureMechanismSensitiveSectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                failureMechanismSensitiveSectionLengthProperty,
-                sectionInformationCategory,
-                "Mechanismegevoelige vaklengte* [m]",
-                "De mechanismegevoelige lengte van het vak in meters (afgerond).",
-                true);
-
-            PropertyDescriptor shouldProfileSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldProfileSpecificCalculateIllustrationPointsPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                shouldProfileSpecificCalculateIllustrationPointsProperty,
-                profileSpecificCategory,
-                "Illustratiepunten inlezen",
-                "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
-
-            PropertyDescriptor shouldSectionSpecificCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldSectionSpecificCalculateIllustrationPointsPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                shouldSectionSpecificCalculateIllustrationPointsProperty,
-                sectionSpecificCategory,
-                "Illustratiepunten inlezen ",
-                "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
             mocks.VerifyAll();
         }
@@ -431,29 +433,30 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context,
+                                                                                  handler))
+            {
+                // Assert
+                PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+                const string schematizationCategory = "\t\t\tSchematisatie";
 
-            const string schematizationCategory = "\t\t\tSchematisatie";
+                PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    entryPointLProperty,
+                    schematizationCategory,
+                    "Intredepunt",
+                    "De positie in het dwarsprofiel van het intredepunt.",
+                    !withSurfaceLine);
 
-            PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                entryPointLProperty,
-                schematizationCategory,
-                "Intredepunt",
-                "De positie in het dwarsprofiel van het intredepunt.",
-                !withSurfaceLine);
-
-            PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                exitPointLProperty,
-                schematizationCategory,
-                "Uittredepunt",
-                "De positie in het dwarsprofiel van het uittredepunt.",
-                !withSurfaceLine);
+                PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    exitPointLProperty,
+                    schematizationCategory,
+                    "Uittredepunt",
+                    "De positie in het dwarsprofiel van het uittredepunt.",
+                    !withSurfaceLine);
+            }
 
             mocks.VerifyAll();
         }
@@ -482,69 +485,70 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Assert
+                Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
+                Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
+                Assert.AreEqual(inputParameters.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
+                Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
 
-            // Assert
-            Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
-            Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(inputParameters.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
-            Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
+                LogNormalDistribution thicknessCoverageLayerDistribution = DerivedPipingInput.GetThicknessCoverageLayer(inputParameters);
+                Assert.AreEqual(thicknessCoverageLayerDistribution.Mean, properties.ThicknessCoverageLayerDistribution.Mean);
+                Assert.AreEqual(thicknessCoverageLayerDistribution.StandardDeviation, properties.ThicknessCoverageLayerDistribution.StandardDeviation);
 
-            LogNormalDistribution thicknessCoverageLayerDistribution = DerivedPipingInput.GetThicknessCoverageLayer(inputParameters);
-            Assert.AreEqual(thicknessCoverageLayerDistribution.Mean, properties.ThicknessCoverageLayerDistribution.Mean);
-            Assert.AreEqual(thicknessCoverageLayerDistribution.StandardDeviation, properties.ThicknessCoverageLayerDistribution.StandardDeviation);
+                Assert.AreEqual(0, properties.ThicknessCoverageLayerDeterminist, properties.ThicknessCoverageLayerDeterminist.GetAccuracy());
 
-            Assert.AreEqual(0, properties.ThicknessCoverageLayerDeterminist, properties.ThicknessCoverageLayerDeterminist.GetAccuracy());
+                LogNormalDistribution effectiveThicknessCoverageLayerDistribution = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, new GeneralPipingInput());
+                Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.Mean, properties.EffectiveThicknessCoverageLayerDistribution.Mean);
+                Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.StandardDeviation, properties.EffectiveThicknessCoverageLayerDistribution.StandardDeviation);
 
-            LogNormalDistribution effectiveThicknessCoverageLayerDistribution = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(inputParameters, new GeneralPipingInput());
-            Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.Mean, properties.EffectiveThicknessCoverageLayerDistribution.Mean);
-            Assert.AreEqual(effectiveThicknessCoverageLayerDistribution.StandardDeviation, properties.EffectiveThicknessCoverageLayerDistribution.StandardDeviation);
+                Assert.AreEqual(0, properties.EffectiveThicknessCoverageLayerDeterminist, properties.EffectiveThicknessCoverageLayerDeterminist.GetAccuracy());
 
-            Assert.AreEqual(0, properties.EffectiveThicknessCoverageLayerDeterminist, properties.EffectiveThicknessCoverageLayerDeterminist.GetAccuracy());
+                VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(inputParameters);
+                Assert.AreEqual(diameterD70.Mean, properties.Diameter70.Mean);
+                Assert.AreEqual(diameterD70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
 
-            VariationCoefficientLogNormalDistribution diameterD70 = DerivedPipingInput.GetDiameterD70(inputParameters);
-            Assert.AreEqual(diameterD70.Mean, properties.Diameter70.Mean);
-            Assert.AreEqual(diameterD70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
+                VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(inputParameters);
+                Assert.AreEqual(darcyPermeability.Mean, properties.DarcyPermeability.Mean);
+                Assert.AreEqual(darcyPermeability.CoefficientOfVariation, properties.DarcyPermeability.CoefficientOfVariation);
 
-            VariationCoefficientLogNormalDistribution darcyPermeability = DerivedPipingInput.GetDarcyPermeability(inputParameters);
-            Assert.AreEqual(darcyPermeability.Mean, properties.DarcyPermeability.Mean);
-            Assert.AreEqual(darcyPermeability.CoefficientOfVariation, properties.DarcyPermeability.CoefficientOfVariation);
+                LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(inputParameters);
+                Assert.AreEqual(thicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
+                Assert.AreEqual(thicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
 
-            LogNormalDistribution thicknessAquiferLayer = DerivedPipingInput.GetThicknessAquiferLayer(inputParameters);
-            Assert.AreEqual(thicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(thicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
+                LogNormalDistribution saturatedVolumicWeightOfCoverageLayerDistribution = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+                Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.Mean,
+                                properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Mean);
+                Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.StandardDeviation,
+                                properties.SaturatedVolumicWeightOfCoverageLayerDistribution.StandardDeviation);
+                Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.Shift,
+                                properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Shift);
 
-            LogNormalDistribution saturatedVolumicWeightOfCoverageLayerDistribution = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.Mean,
-                            properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Mean);
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.StandardDeviation,
-                            properties.SaturatedVolumicWeightOfCoverageLayerDistribution.StandardDeviation);
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLayerDistribution.Shift,
-                            properties.SaturatedVolumicWeightOfCoverageLayerDistribution.Shift);
+                Assert.AreEqual(0, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist.GetAccuracy());
 
-            Assert.AreEqual(0, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist, properties.SaturatedVolumicWeightOfCoverageLayerDeterminist.GetAccuracy());
+                VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
+                Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
+                Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
+                Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
+                Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
-            VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
-            Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
-            Assert.AreEqual(inputParameters.EntryPointL, properties.EntryPointL);
-            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+                Assert.AreSame(inputParameters.SurfaceLine, properties.SurfaceLine);
+                Assert.AreSame(inputParameters.StochasticSoilProfile, properties.StochasticSoilProfile);
+                Assert.AreSame(inputParameters.StochasticSoilModel, properties.StochasticSoilModel);
 
-            Assert.AreSame(inputParameters.SurfaceLine, properties.SurfaceLine);
-            Assert.AreSame(inputParameters.StochasticSoilProfile, properties.StochasticSoilProfile);
-            Assert.AreSame(inputParameters.StochasticSoilModel, properties.StochasticSoilModel);
+                Assert.AreSame(inputParameters.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
-            Assert.AreSame(inputParameters.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+                PipingFailureMechanismSectionConfiguration expectedSectionConfiguration = failureMechanism.SectionConfigurations.First(
+                    c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                        Math2D.ConvertPointsToLineSegments(c.Section.Points)));
 
-            PipingFailureMechanismSectionConfiguration expectedSectionConfiguration = failureMechanism.SectionConfigurations.First(
-                c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                    Math2D.ConvertPointsToLineSegments(c.Section.Points)));
-
-            Assert.AreEqual(expectedSectionConfiguration.Section.Name, properties.SectionName);
-            Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength,
-                            properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
-            Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
-            Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
+                Assert.AreEqual(expectedSectionConfiguration.Section.Name, properties.SectionName);
+                Assert.AreEqual(expectedSectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength,
+                                properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
+                Assert.AreEqual(inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated, properties.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                Assert.AreEqual(inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated, properties.ShouldSectionSpecificIllustrationPointsBeCalculated);
+            }
 
             mocks.VerifyAll();
         }
@@ -572,11 +576,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Assert
-            Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Assert
+                Assert.AreEqual("-", properties.SectionName);
+                Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
+            }
 
             mocks.VerifyAll();
         }
@@ -629,11 +634,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism, assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Assert
-            Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Assert
+                Assert.AreEqual("-", properties.SectionName);
+                Assert.AreEqual(0, properties.FailureMechanismSensitiveSectionLength, properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
+            }
 
             mocks.VerifyAll();
         }
@@ -665,7 +671,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -722,7 +728,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // When
                 calculation.InputParameters.SurfaceLine = newSurfaceLine;
@@ -738,6 +744,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 Assert.AreEqual(0, refreshRequiredRaised);
             }
         }
+
 
         [Test]
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
@@ -768,56 +775,57 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }, "path/to/sections");
 
             var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                const double entryPointL = 0.12;
+                const double exitPointL = 0.44;
+                PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+                PipingStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
+                PipingStochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
+                var dampingFactorExit = new LogNormalDistributionDesignVariable(
+                    new LogNormalDistribution(3)
+                    {
+                        Mean = (RoundedDouble) 1.55,
+                        StandardDeviation = (RoundedDouble) 0.22
+                    });
+                var phreaticLevelExit = new NormalDistributionDesignVariable(
+                    new NormalDistribution(3)
+                    {
+                        Mean = (RoundedDouble) 1.55,
+                        StandardDeviation = (RoundedDouble) 0.22
+                    });
 
-            const double entryPointL = 0.12;
-            const double exitPointL = 0.44;
-            PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            PipingStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
-            PipingStochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
-            var dampingFactorExit = new LogNormalDistributionDesignVariable(
-                new LogNormalDistribution(3)
-                {
-                    Mean = (RoundedDouble) 1.55,
-                    StandardDeviation = (RoundedDouble) 0.22
-                });
-            var phreaticLevelExit = new NormalDistributionDesignVariable(
-                new NormalDistribution(3)
-                {
-                    Mean = (RoundedDouble) 1.55,
-                    StandardDeviation = (RoundedDouble) 0.22
-                });
+                var random = new Random(21);
+                var shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+                var shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
 
-            var random = new Random(21);
-            var shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
-            var shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
+                // When
+                properties.SurfaceLine = surfaceLine;
+                properties.EntryPointL = (RoundedDouble) entryPointL;
+                properties.ExitPointL = (RoundedDouble) exitPointL;
+                properties.StochasticSoilModel = soilModel;
+                properties.StochasticSoilProfile = soilProfile;
+                properties.DampingFactorExit.Mean = dampingFactorExit.Distribution.Mean;
+                properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
+                properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
+                properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
+                properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+                properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
 
-            // When
-            properties.SurfaceLine = surfaceLine;
-            properties.EntryPointL = (RoundedDouble) entryPointL;
-            properties.ExitPointL = (RoundedDouble) exitPointL;
-            properties.StochasticSoilModel = soilModel;
-            properties.StochasticSoilProfile = soilProfile;
-            properties.DampingFactorExit.Mean = dampingFactorExit.Distribution.Mean;
-            properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
-            properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
-            properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
-            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
-            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
+                // Then
+                Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
+                                inputParameters.EntryPointL.GetAccuracy());
+                Assert.AreEqual(exitPointL, inputParameters.ExitPointL,
+                                inputParameters.ExitPointL.GetAccuracy());
+                Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
+                Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
+                Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
+                DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
+                DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
 
-            // Then
-            Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
-                            inputParameters.EntryPointL.GetAccuracy());
-            Assert.AreEqual(exitPointL, inputParameters.ExitPointL,
-                            inputParameters.ExitPointL.GetAccuracy());
-            Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
-            Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
-            Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
-            DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
-            DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
-
-            Assert.AreEqual(shouldProfileSpecificIllustrationPointsBeCalculated, inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
-            Assert.AreEqual(shouldSectionSpecificIllustrationPointsBeCalculated, inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
+                Assert.AreEqual(shouldProfileSpecificIllustrationPointsBeCalculated, inputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated);
+                Assert.AreEqual(shouldSectionSpecificIllustrationPointsBeCalculated, inputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated);
+            }
 
             mocks.VerifyAll();
         }
@@ -949,13 +957,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               new PipingFailureMechanism(), assessmentSection);
             context.Attach(observer);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                var random = new Random(21);
+                bool shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
 
-            var random = new Random(21);
-            bool shouldProfileSpecificIllustrationPointsBeCalculated = random.NextBoolean();
-
-            // Call
-            properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+                // Call
+                properties.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -977,13 +986,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               new PipingFailureMechanism(), assessmentSection);
             context.Attach(observer);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                var random = new Random(21);
+                bool shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
 
-            var random = new Random(21);
-            bool shouldSectionSpecificIllustrationPointsBeCalculated = random.NextBoolean();
-
-            // Call
-            properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
+                // Call
+                properties.ShouldSectionSpecificIllustrationPointsBeCalculated = shouldSectionSpecificIllustrationPointsBeCalculated;
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -1023,15 +1033,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler)
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler)
             {
                 ExitPointL = (RoundedDouble) exitPoint,
                 EntryPointL = (RoundedDouble) entryPoint
-            };
-
-            // Assert
-            Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
-            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+            })
+            {
+                // Assert
+                Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
+                Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+            }
 
             mocks.VerifyAll();
         }
@@ -1065,15 +1076,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler)
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler)
             {
                 EntryPointL = (RoundedDouble) 0.5,
                 ExitPointL = (RoundedDouble) 2
-            };
-
-            // Assert
-            Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
-            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+            })
+            {
+                // Assert
+                Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
+                Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+            }
 
             mocks.VerifyAll();
         }
@@ -1113,14 +1125,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                void Call() => properties.ExitPointL = newExitPointL;
 
-            // Call
-            void Call() => properties.ExitPointL = newExitPointL;
+                // Assert
+                const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            }
 
-            // Assert
-            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1160,15 +1174,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                void Call() => properties.EntryPointL = entryPoint;
 
-            // Call
-            void Call() => properties.EntryPointL = entryPoint;
+                // Assert
+                const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+                Assert.IsTrue(handler.Called);
+            }
 
-            // Assert
-            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(handler.Called);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1207,14 +1223,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                void Call() => properties.EntryPointL = entryPointL;
 
-            // Call
-            void Call() => properties.EntryPointL = entryPointL;
+                // Assert
+                const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            }
 
-            // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1252,14 +1270,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                void Call() => properties.ExitPointL = exitPointL;
 
-            // Call
-            void Call() => properties.ExitPointL = exitPointL;
+                // Assert
+                const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            }
 
-            // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1293,16 +1313,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+                // Call
+                properties.SurfaceLine = newSurfaceLine;
 
-            // Call
-            properties.SurfaceLine = newSurfaceLine;
+                // Assert
+                Assert.IsNull(inputParameters.StochasticSoilModel);
+                Assert.IsNull(inputParameters.StochasticSoilProfile);
+            }
 
-            // Assert
-            Assert.IsNull(inputParameters.StochasticSoilModel);
-            Assert.IsNull(inputParameters.StochasticSoilProfile);
             mocks.VerifyAll();
         }
 
@@ -1345,14 +1367,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                properties.SurfaceLine = testSurfaceLine;
 
-            // Call
-            properties.SurfaceLine = testSurfaceLine;
+                // Assert
+                Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
+                Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
+            }
 
-            // Assert
-            Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
-            Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
             mocks.VerifyAll();
         }
 
@@ -1396,14 +1420,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                properties.SurfaceLine = newSurfaceLine;
 
-            // Call
-            properties.SurfaceLine = newSurfaceLine;
+                // Assert
+                Assert.IsNull(inputParameters.StochasticSoilModel);
+                Assert.IsNull(inputParameters.StochasticSoilProfile);
+            }
 
-            // Assert
-            Assert.IsNull(inputParameters.StochasticSoilModel);
-            Assert.IsNull(inputParameters.StochasticSoilProfile);
             mocks.VerifyAll();
         }
 
@@ -1421,13 +1447,15 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                IEnumerable<PipingSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
 
-            // Call
-            IEnumerable<PipingSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
+                // Assert
+                Assert.AreSame(context.AvailablePipingSurfaceLines, surfaceLines);
+            }
 
-            // Assert
-            Assert.AreSame(context.AvailablePipingSurfaceLines, surfaceLines);
             mocks.VerifyAll();
         }
 
@@ -1445,16 +1473,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Precondition:
+                Assert.IsNull(calculation.InputParameters.SurfaceLine);
 
-            // Precondition:
-            Assert.IsNull(calculation.InputParameters.SurfaceLine);
+                // Call
+                IEnumerable<PipingStochasticSoilModel> soilModels = properties.GetAvailableStochasticSoilModels();
 
-            // Call
-            IEnumerable<PipingStochasticSoilModel> soilModels = properties.GetAvailableStochasticSoilModels();
+                // Assert
+                Assert.AreSame(context.AvailableStochasticSoilModels, soilModels);
+            }
 
-            // Assert
-            Assert.AreSame(context.AvailableStochasticSoilModels, soilModels);
             mocks.VerifyAll();
         }
 
@@ -1512,20 +1542,22 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Precondition:
-            Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
-
-            // Call
-            IEnumerable<PipingStochasticSoilModel> availableStochasticSoilModels = properties.GetAvailableStochasticSoilModels();
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
-                failureMechanism.StochasticSoilModels[0],
-                failureMechanism.StochasticSoilModels[2]
-            }, availableStochasticSoilModels);
+                // Precondition:
+                Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
+
+                // Call
+                IEnumerable<PipingStochasticSoilModel> availableStochasticSoilModels = properties.GetAvailableStochasticSoilModels();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    failureMechanism.StochasticSoilModels[0],
+                    failureMechanism.StochasticSoilModels[2]
+                }, availableStochasticSoilModels);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -1543,16 +1575,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Precondition
+                Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
 
-            // Precondition
-            Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
+                // Call
+                IEnumerable<PipingStochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
 
-            // Call
-            IEnumerable<PipingStochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
+                // Assert
+                CollectionAssert.IsEmpty(profiles);
+            }
 
-            // Assert
-            CollectionAssert.IsEmpty(profiles);
             mocks.VerifyAll();
         }
 
@@ -1581,16 +1615,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Precondition
+                Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
 
-            // Precondition
-            Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
+                // Call
+                IEnumerable<PipingStochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
 
-            // Call
-            IEnumerable<PipingStochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
+                // Assert
+                CollectionAssert.AreEqual(model.StochasticSoilProfiles, profiles);
+            }
 
-            // Assert
-            CollectionAssert.AreEqual(model.StochasticSoilProfiles, profiles);
             mocks.VerifyAll();
         }
 
@@ -1608,16 +1644,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
-            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
+                // Call
+                void Call() => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
-            // Call
-            void Call() => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+                // Assert
+                Assert.DoesNotThrow(Call);
+                Assert.IsNull(selectedHydraulicBoundaryLocation);
+            }
 
-            // Assert
-            Assert.DoesNotThrow(Call);
-            Assert.IsNull(selectedHydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
 
@@ -1664,17 +1702,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // When
+                IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                    properties.GetSelectableHydraulicBoundaryLocations();
+                SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
 
-            // When
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations();
-            SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
-
-            // Then
-            SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
-            Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
-                            hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+                // Then
+                SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+                Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
+                                hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+            }
 
             mockRepository.VerifyAll();
         }
@@ -1712,18 +1751,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
+                    properties.GetSelectableHydraulicBoundaryLocations();
 
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations();
+                // Assert
+                IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                    hydraulicBoundaryData.GetLocations()
+                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
+            }
 
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.GetLocations()
-                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
-                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
-            CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
@@ -1771,20 +1812,22 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
+                    properties.GetSelectableHydraulicBoundaryLocations();
 
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations();
+                // Assert
+                IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                    hydraulicBoundaryData.GetLocations()
+                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                     hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                                         .OrderBy(hbl => hbl.Distance)
+                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
+            }
 
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.GetLocations()
-                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                 hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
-                                     .OrderBy(hbl => hbl.Distance)
-                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
-            CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
@@ -1843,27 +1886,29 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
+                                                                                          .ToList();
 
-            IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
-                                                                                      .ToList();
+                // When
+                properties.SurfaceLine = newSurfaceLine;
 
-            // When
-            properties.SurfaceLine = newSurfaceLine;
+                // Then
+                IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                    properties.GetSelectableHydraulicBoundaryLocations().ToList();
+                CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
-            // Then
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations().ToList();
-            CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
+                IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                    hydraulicBoundaryData.GetLocations()
+                                         .Select(hbl =>
+                                                     new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                             properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
+                                         .OrderBy(hbl => hbl.Distance)
+                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+            }
 
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.GetLocations()
-                                     .Select(hbl =>
-                                                 new SelectableHydraulicBoundaryLocation(hbl,
-                                                                                         properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
-                                     .OrderBy(hbl => hbl.Distance)
-                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
@@ -1885,13 +1930,15 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                bool result = properties.DynamicReadOnlyValidationMethod("prop");
 
-            // Call
-            bool result = properties.DynamicReadOnlyValidationMethod("prop");
+                // Assert
+                Assert.IsTrue(result);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
             mocks.VerifyAll();
         }
 
@@ -1919,15 +1966,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Call & Assert
-            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDistribution)));
-            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDeterminist)));
-            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDistribution)));
-            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDeterminist)));
-            Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDistribution)));
-            Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDeterminist)));
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call & Assert
+                Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDistribution)));
+                Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.ThicknessCoverageLayerDeterminist)));
+                Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDistribution)));
+                Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.EffectiveThicknessCoverageLayerDeterminist)));
+                Assert.AreEqual(withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDistribution)));
+                Assert.AreEqual(!withCoverageLayer, properties.DynamicVisibleValidationMethod(nameof(properties.SaturatedVolumicWeightOfCoverageLayerDeterminist)));
+            }
         }
 
         [Test]
@@ -1950,13 +1998,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                bool result = properties.DynamicVisibleValidationMethod("prop");
 
-            // Call
-            bool result = properties.DynamicVisibleValidationMethod("prop");
-
-            // Assert
-            Assert.IsFalse(result);
+                // Assert
+                Assert.IsFalse(result);
+            }
         }
 
         private static void SetPropertyAndVerifyNotificationsForCalculation(
@@ -1986,13 +2035,15 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            {
+                // Call
+                setProperty(properties);
 
-            // Call
-            setProperty(properties);
+                // Assert
+                Assert.IsTrue(handler.Called);
+            }
 
-            // Assert
-            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
 
