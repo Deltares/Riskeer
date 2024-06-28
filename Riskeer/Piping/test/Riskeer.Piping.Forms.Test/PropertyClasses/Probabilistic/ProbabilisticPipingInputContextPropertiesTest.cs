@@ -746,7 +746,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenSectionChangedAndNewFailureMechanismSectionConfigurationUpdated_ThenNoRefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenSectionChangedAndNewFailureMechanismSectionConfigurationUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
             var mocks = new MockRepository();
@@ -788,7 +788,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism, assessmentSection);
 
-            using(var properties = new ProbabilisticPipingInputContextProperties(context, handler))
+            using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // When
                 calculation.InputParameters.SurfaceLine = newSurfaceLine;
