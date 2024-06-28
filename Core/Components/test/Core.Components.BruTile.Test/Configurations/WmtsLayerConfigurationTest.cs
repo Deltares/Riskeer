@@ -274,7 +274,7 @@ namespace Core.Components.BruTile.Test.Configurations
         }
 
         [Test]
-        public void GivenFullyInitializedConfiguration_WhenClonedAndInitialized_ConfigurationAreEqual()
+        public void GivenFullyInitializedConfiguration_WhenClonedAndInitialized_ThenConfigurationAreEqual()
         {
             // Given
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();

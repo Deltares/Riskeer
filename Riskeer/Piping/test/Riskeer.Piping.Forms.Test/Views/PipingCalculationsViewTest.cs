@@ -906,7 +906,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_ThenCalculationsNotUpdatedAndCalculationGroupNotNotified()
         {
             // Given
             var mocks = new MockRepository();

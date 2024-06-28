@@ -162,11 +162,11 @@ namespace Application.Riskeer.Migration.Console.Test
         }
 
         [Test]
-        public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
+        public void GivenConsole_WhenMigrateCalledWithArguments_ThenMigratesToNewVersion()
         {
             // Given
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_ThenMigratesToNewVersion)}");
             var console = new RiskeerMigrationConsole();
             string expectedVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 

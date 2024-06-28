@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
             var mocks = new MockRepository();

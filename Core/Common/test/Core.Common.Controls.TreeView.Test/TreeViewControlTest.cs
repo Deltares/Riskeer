@@ -1956,7 +1956,7 @@ namespace Core.Common.Controls.TreeView.Test
         [TestCase(MouseButtons.Middle, false)]
         [TestCase(MouseButtons.XButton1, false)]
         [TestCase(MouseButtons.XButton2, false)]
-        public void GivenTreeViewControl_WhenMouseClickOnNode_SelectThatNodeForRightMouseButtons(
+        public void GivenTreeViewControl_WhenMouseClickOnNode_ThenSelectThatNodeForRightMouseButtons(
             MouseButtons mouseButtonDown, bool changeSelectionToTarget)
         {
             // Given
@@ -2012,7 +2012,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(bool canRenameNode)
+        public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_ThenSelectThatNode(bool canRenameNode)
         {
             // Given
             using (var treeViewControl = new TreeViewControl())

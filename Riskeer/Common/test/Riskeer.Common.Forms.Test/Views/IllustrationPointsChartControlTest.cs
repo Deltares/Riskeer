@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenIllustrationPointsChartControlWithData_WhenClosingSituationsAreDifferent_StackChartControlDisplaysClosingSituation()
+        public void GivenIllustrationPointsChartControlWithData_WhenClosingSituationsAreDifferent_ThenStackChartControlDisplaysClosingSituation()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl();

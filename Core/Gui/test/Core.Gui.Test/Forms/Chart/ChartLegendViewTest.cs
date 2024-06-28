@@ -207,7 +207,7 @@ namespace Core.Gui.Test.Forms.Chart
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenChartLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
+        public void GivenChartLegendView_WhenSelectedNodeChanged_ThenSelectionChangedFired()
         {
             // Given
             ChartData chartData = CreateChartData();
@@ -243,7 +243,7 @@ namespace Core.Gui.Test.Forms.Chart
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenChartLegendView_WhenSettingData_SelectionChangedFired()
+        public void GivenChartLegendView_WhenSettingData_ThenSelectionChangedFired()
         {
             // Given
             var mocks = new MockRepository();

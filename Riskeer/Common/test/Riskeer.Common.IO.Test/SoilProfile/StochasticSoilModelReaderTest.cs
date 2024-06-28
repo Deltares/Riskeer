@@ -390,7 +390,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GivenDatabaseWithStochasticSoilModelWithAndWithoutSoilProfiles_WhenReading_ReturnsAllModels()
+        public void GivenDatabaseWithStochasticSoilModelWithAndWithoutSoilProfiles_WhenReading_ThenReturnsAllModels()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "modelsWithAndWithoutStochasticSoilProfiles.soil");

@@ -634,7 +634,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_ThenCalculationsNotUpdatedAndCalculationGroupNotNotified()
         {
             // Given
             var mocks = new MockRepository();

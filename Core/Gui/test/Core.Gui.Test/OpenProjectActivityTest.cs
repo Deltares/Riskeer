@@ -1017,7 +1017,7 @@ namespace Core.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenActivityMigratingAndOpeningProject_WhenCancellingDuringMigration_DoNotLoadProject(bool migrationSuccessful)
+        public void GivenActivityMigratingAndOpeningProject_WhenCancellingDuringMigration_ThenDoNotLoadProject(bool migrationSuccessful)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1056,7 +1056,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void GivenActivityMigrationProject_WhenCancellingAndMigrationThrowsException_DoNotLoadProject()
+        public void GivenActivityMigrationProject_WhenCancellingAndMigrationThrowsException_ThenDoNotLoadProject()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1097,7 +1097,7 @@ namespace Core.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_DoNotSetProject(bool loadProjectSuccessful)
+        public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_ThenDoNotSetProject(bool loadProjectSuccessful)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1130,7 +1130,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void GivenActivityOpeningProject_WhenCancellingWhileLoadProjectThrowsStorageException_DoNotSetProject()
+        public void GivenActivityOpeningProject_WhenCancellingWhileLoadProjectThrowsStorageException_ThenDoNotSetProject()
         {
             // Setup
             var mocks = new MockRepository();

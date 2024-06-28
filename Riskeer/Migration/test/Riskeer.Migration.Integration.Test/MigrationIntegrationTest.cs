@@ -39,7 +39,7 @@ namespace Riskeer.Migration.Integration.Test
 
         [Test]
         [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
-        public void GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException(string sourceFile,
+        public void GivenProject_WhenSpecialCharacterInPath_ThenDoesNotThrowException(string sourceFile,
                                                                                   string newVersion)
         {
             // Given
@@ -51,7 +51,7 @@ namespace Riskeer.Migration.Integration.Test
             Assert.IsTrue(File.Exists(sourceFilePath));
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} \'[]!`~@#$%^€&()-_=+;,";
+            string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_ThenDoesNotThrowException)} \'[]!`~@#$%^€&()-_=+;,";
             string targetFilePath = TestHelper.GetScratchPadPath(name);
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(name, sourceFile, ".log"));
             var migrator = new ProjectFileMigrator

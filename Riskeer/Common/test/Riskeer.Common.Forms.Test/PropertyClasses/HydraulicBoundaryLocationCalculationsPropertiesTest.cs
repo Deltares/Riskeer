@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenSingleCalculationUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
             var mocks = new MockRepository();
@@ -114,7 +114,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventNotRaised()
+        public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_ThenRefreshRequiredEventNotRaised()
         {
             // Given
             var mocks = new MockRepository();

@@ -105,7 +105,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapPointDataLayer_WhenUpdatedAfterMapPointDataFeaturesChanged_MapPointDataLayerFeaturesChanged()
+        public void GivenMapPointDataLayer_WhenUpdatedAfterMapPointDataFeaturesChanged_ThenMapPointDataLayerFeaturesChanged()
         {
             // Given
             var mapPointData = new MapPointData("Test name")
@@ -131,7 +131,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapPointDataLayer_WhenUpdatedAndMapPointDataFeaturesNotChanged_PreviousMapPointDataLayerFeaturesPreserved()
+        public void GivenMapPointDataLayer_WhenUpdatedAndMapPointDataFeaturesNotChanged_ThenPreviousMapPointDataLayerFeaturesPreserved()
         {
             // Given
             var mapPointData = new MapPointData("Test name")

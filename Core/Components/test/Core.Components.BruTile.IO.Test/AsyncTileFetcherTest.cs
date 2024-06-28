@@ -305,7 +305,7 @@ namespace Core.Components.BruTile.IO.Test
         }
 
         [Test]
-        public void GivenTileFetcherWithoutCachedTile_WhenGettingSameTimeMultipleTimes_IgnoreDuplicateRequests()
+        public void GivenTileFetcherWithoutCachedTile_WhenGettingSameTimeMultipleTimes_ThenIgnoreDuplicateRequests()
         {
             // Given
             var info = new TileInfo();

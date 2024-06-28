@@ -96,7 +96,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartMultipleAreaDataSeries_WhenUpdatedAfterChartMultipleAreaDataAreasChanged_ChartMultipleAreaDataSeriesAreasChanged()
+        public void GivenChartMultipleAreaDataSeries_WhenUpdatedAfterChartMultipleAreaDataAreasChanged_ThenChartMultipleAreaDataSeriesAreasChanged()
         {
             // Given
             var chartMultipleAreaData = new ChartMultipleAreaData("Test name")
@@ -128,7 +128,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartMultipleAreaDataSeries_WhenUpdatedAndChartMultipleAreaDataAreasNotChanged_PreviousChartMultipleAreaDataSeriesAreasPreserved()
+        public void GivenChartMultipleAreaDataSeries_WhenUpdatedAndChartMultipleAreaDataAreasNotChanged_ThenPreviousChartMultipleAreaDataSeriesAreasPreserved()
         {
             // Given
             var chartMultipleAreaData = new ChartMultipleAreaData("Test name")

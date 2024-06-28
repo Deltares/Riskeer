@@ -98,7 +98,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapPolygonDataLayer_WhenUpdatedAfterMapPolygonDataFeaturesChanged_MapPolygonDataLayerFeaturesChanged()
+        public void GivenMapPolygonDataLayer_WhenUpdatedAfterMapPolygonDataFeaturesChanged_ThenMapPolygonDataLayerFeaturesChanged()
         {
             // Given
             var mapPolygonData = new MapPolygonData("Test name")
@@ -124,7 +124,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapPolygonDataLayer_WhenUpdatedAndMapPolygonDataFeaturesNotChanged_PreviousMapPolygonDataLayerFeaturesPreserved()
+        public void GivenMapPolygonDataLayer_WhenUpdatedAndMapPolygonDataFeaturesNotChanged_ThenPreviousMapPolygonDataLayerFeaturesPreserved()
         {
             // Given
             var mapPolygonData = new MapPolygonData("Test name")

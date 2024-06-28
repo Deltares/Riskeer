@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
+        public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ThenProjectSet()
         {
             // Given
             string projectFilePath = GetRandomProjectFilePath();

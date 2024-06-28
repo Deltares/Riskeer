@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();

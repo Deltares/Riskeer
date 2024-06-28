@@ -48,9 +48,9 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string sourceFilePath)
+        public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_ThenMigratedProjectSet(string sourceFilePath)
         {
-            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_ThenMigratedProjectSet));
             MigrateFile(sourceFilePath, targetFilePath);
 
             // Given
@@ -85,10 +85,10 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string sourceFilePath)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_ThenMigratedProjectSet(string sourceFilePath)
         {
             // Given
-            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_ThenMigratedProjectSet));
 
             var projectStore = new StorageSqLite();
             var mocks = new MockRepository();
@@ -126,7 +126,7 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string sourceFilePath)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_ThenMigratedProjectNotSet(string sourceFilePath)
         {
             // Given
             var projectStore = new StorageSqLite();

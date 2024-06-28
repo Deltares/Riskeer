@@ -574,7 +574,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         #region BackgroundMapData
 
         [Test]
-        public void GivenMapControlWithBackgroundData_WhenProjectionChanged_MapLayersItemChangedFired()
+        public void GivenMapControlWithBackgroundData_WhenProjectionChanged_ThenMapLayersItemChangedFired()
         {
             // Given
             var itemChangedCount = 0;
@@ -873,7 +873,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithoutBackgroundMapData_WhenUnconfiguredBackgroundMapDataSet_NoChangedToMap()
+        public void GivenMapControlWithoutBackgroundMapData_WhenUnconfiguredBackgroundMapDataSet_ThenNoChangedToMap()
         {
             // Given
             using (var mapControl = new MapControl())
@@ -1185,7 +1185,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenUnconfiguredWmtsBackgroundMapDataSet_NoChangesToLayerConfiguration()
+        public void GivenMapControlWithData_WhenUnconfiguredWmtsBackgroundMapDataSet_ThenNoChangesToLayerConfiguration()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
@@ -1240,7 +1240,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_LayersAndViewExtentsReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_ThenLayersAndViewExtentsReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
@@ -1302,7 +1302,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_LayersAndViewExtentsReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_ThenLayersAndViewExtentsReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
@@ -1364,7 +1364,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithBackground_WhenDataSetToMapDataCollection_FeatureLayersAreReprojected()
+        public void GivenMapControlWithBackground_WhenDataSetToMapDataCollection_ThenFeatureLayersAreReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
@@ -1404,7 +1404,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             "SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed"
         })]
-        public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
+        public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_ThenMapControlUpdated(ITileSourceFactory problematicFactory)
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
@@ -1456,7 +1456,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControl_WhenBackgroundAndThenMapDataSetAndFailingToCreateCache_MapControlUpdated()
+        public void GivenMapControl_WhenBackgroundAndThenMapDataSetAndFailingToCreateCache_ThenMapControlUpdated()
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
@@ -1960,7 +1960,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             "SettingBothBackgroundAndRegularMapDataWhileWellKnownBackgroundFailed"
         })]
-        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
+        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_ThenMapControlUpdated(ITileSourceFactory problematicFactory)
         {
             // Given
             var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
@@ -2014,7 +2014,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetAndFailingToCreateCache_MapControlUpdated()
+        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetAndFailingToCreateCache_ThenMapControlUpdated()
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();

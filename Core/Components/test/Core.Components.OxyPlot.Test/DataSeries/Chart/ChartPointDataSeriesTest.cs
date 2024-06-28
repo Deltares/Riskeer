@@ -101,7 +101,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartPointDataSeries_WhenUpdatedAfterChartPointDataPointsChanged_ChartPointDataSeriesPointsChanged()
+        public void GivenChartPointDataSeries_WhenUpdatedAfterChartPointDataPointsChanged_ThenChartPointDataSeriesPointsChanged()
         {
             // Given
             var chartPointData = new ChartPointData("Test name")
@@ -127,7 +127,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartPointDataSeries_WhenUpdatedAndChartPointDataPointsNotChanged_PreviousChartPointDataSeriesPointsPreserved()
+        public void GivenChartPointDataSeries_WhenUpdatedAndChartPointDataPointsNotChanged_ThenPreviousChartPointDataSeriesPointsPreserved()
         {
             // Given
             var chartPointData = new ChartPointData("Test name")

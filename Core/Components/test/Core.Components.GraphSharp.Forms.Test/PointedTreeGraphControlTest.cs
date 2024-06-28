@@ -163,7 +163,7 @@ namespace Core.Components.GraphSharp.Forms.Test
         }
 
         [Test]
-        public void GivenControlWithData_WhenVertexSelected_SelectionSetToGraphNodeAndSelectionChangedFired()
+        public void GivenControlWithData_WhenVertexSelected_ThenSelectionSetToGraphNodeAndSelectionChangedFired()
         {
             // Given
             using (var graphControl = new PointedTreeGraphControl())
@@ -195,7 +195,7 @@ namespace Core.Components.GraphSharp.Forms.Test
         }
 
         [Test]
-        public void GivenControlWithSelectedVertex_WhenOtherVertexSelected_FirstSelectedVertexUnselected()
+        public void GivenControlWithSelectedVertex_WhenOtherVertexSelected_ThenFirstSelectedVertexUnselected()
         {
             // Given
             using (var graphControl = new PointedTreeGraphControl())

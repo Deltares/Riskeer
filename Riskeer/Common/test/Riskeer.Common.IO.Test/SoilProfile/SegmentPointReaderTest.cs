@@ -240,7 +240,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GivenReadStochasticSoilModelThrowsException_WhenReadSegmentPoints_ReturnsNextStochasticSoilModel()
+        public void GivenReadStochasticSoilModelThrowsException_WhenReadSegmentPoints_ThenReturnsNextStochasticSoilModel()
         {
             // Given
             string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");

@@ -144,7 +144,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenControlWithData_WhenVertexSelected_SelectionSetToCorrespondingIllustrationPointNodeSelectionChangedFired()
+        public void GivenControlWithData_WhenVertexSelected_ThenSelectionSetToCorrespondingIllustrationPointNodeSelectionChangedFired()
         {
             // Given
             using (var control = new IllustrationPointsFaultTreeControl())

@@ -749,7 +749,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GivenReadSoilProfileThrowsException_WhenReadingNextProfile_ReturnsNextProfile()
+        public void GivenReadSoilProfileThrowsException_WhenReadingNextProfile_ThenReturnsNextProfile()
         {
             // Given
             string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");

@@ -99,7 +99,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapLineDataLayer_WhenUpdatedAfterMapLineDataFeaturesChanged_MapLineDataLayerFeaturesChanged()
+        public void GivenMapLineDataLayer_WhenUpdatedAfterMapLineDataFeaturesChanged_ThenMapLineDataLayerFeaturesChanged()
         {
             // Given
             var mapLineData = new MapLineData("Test name")
@@ -125,7 +125,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void GivenMapLineDataLayer_WhenUpdatedAndMapLineDataFeaturesNotChanged_PreviousMapLineDataLayerFeaturesPreserved()
+        public void GivenMapLineDataLayer_WhenUpdatedAndMapLineDataFeaturesNotChanged_ThenPreviousMapLineDataLayerFeaturesPreserved()
         {
             // Given
             var mapLineData = new MapLineData("Test name")

@@ -95,7 +95,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartMultipleLineDataSeries_WhenUpdatedAfterChartMultipleLineDataLinesChanged_ChartMultipleLineDataSeriesLinesChanged()
+        public void GivenChartMultipleLineDataSeries_WhenUpdatedAfterChartMultipleLineDataLinesChanged_ThenChartMultipleLineDataSeriesLinesChanged()
         {
             // Given
             var chartMultipleLineData = new ChartMultipleLineData("Test name")
@@ -127,7 +127,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         }
 
         [Test]
-        public void GivenChartMultipleLineDataSeries_WhenUpdatedAndChartMultipleLineDataLinesNotChanged_PreviousChartMultipleLineDataSeriesLinesPreserved()
+        public void GivenChartMultipleLineDataSeries_WhenUpdatedAndChartMultipleLineDataLinesNotChanged_ThenPreviousChartMultipleLineDataSeriesLinesPreserved()
         {
             // Given
             var chartMultipleLineData = new ChartMultipleLineData("Test name")

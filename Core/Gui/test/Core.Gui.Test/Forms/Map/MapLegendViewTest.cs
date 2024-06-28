@@ -208,7 +208,7 @@ namespace Core.Gui.Test.Forms.Map
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenMapLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
+        public void GivenMapLegendView_WhenSelectedNodeChanged_ThenSelectionChangedFired()
         {
             // Given
             var mapData = new MapPointData("test");
@@ -239,7 +239,7 @@ namespace Core.Gui.Test.Forms.Map
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenMapLegendView_WhenSettingData_SelectionChangedFired()
+        public void GivenMapLegendView_WhenSettingData_ThenSelectionChangedFired()
         {
             // Given
             using (var view = new MapLegendView(contextMenuBuilderProvider))
