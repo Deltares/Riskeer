@@ -30,7 +30,7 @@ For each library the version and used license is shown. For the full license tex
 | FontAwesome.Sharp                 | 5.15.3      | Apache-2.0   | https://github.com/awesome-inc/FontAwesome.Sharp                                |
 | GeoAPI                            | 1.7.4       | LGPL-2.1     | https://github.com/NetTopologySuite/GeoAPI                                      |
 | GraphSharp                        | 1.1.0       | Apache-2.0   | https://www.nuget.org/packages/GraphSharp/                                      |
-| Hydra-Ring                        | 23.1.1      | AGPL-3.0     | https://github.com/Deltares/Hydra-Ring                                          |
+| Hydra-Ring                        | 24.1.1      | AGPL-3.0     | https://github.com/Deltares/Hydra-Ring                                          |
 | log4net                           | 2.0.12      | Apache-2.0   | https://github.com/apache/logging-log4net                                       |
 | MacroStability                    | 22.1.1      | AGPL-3.0     | https://github.com/Deltares/D-GEO-Suite-Stability-Kernel-Wrapper                |
 | MahApps.Metro                     | 2.4.4       | MIT          | https://github.com/MahApps/MahApps.Metro                                        |
