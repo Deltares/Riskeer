@@ -40,7 +40,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\HydraRing\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\HydraRing-24.1.1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\HydraRing\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\HydraRing-24.1.2\*&quot;" />
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\*&quot;" />
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x64\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x64\*&quot;" />
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;" />
