@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
 
 This file is part of Riskeer.
 

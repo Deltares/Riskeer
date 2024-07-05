@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -378,7 +378,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -897,7 +897,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -917,7 +917,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -937,7 +937,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1119,7 +1119,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1139,7 +1139,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1168,7 +1168,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1503,7 +1503,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1523,7 +1523,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1850,7 +1850,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1870,7 +1870,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1890,7 +1890,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2562,7 +2562,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2582,7 +2582,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2602,7 +2602,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares and State of the Netherlands 2023. All rights reserved.
+        ///Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
