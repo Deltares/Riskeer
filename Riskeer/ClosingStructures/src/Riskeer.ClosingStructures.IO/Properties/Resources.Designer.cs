@@ -94,8 +94,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        /// [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenBetrouwbaarheidSluitenConfiguratieSchema0To1 {
             get {
@@ -135,8 +134,7 @@ namespace Riskeer.ClosingStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenBetrouwbaarheidSluitenSchema_0 {
             get {
