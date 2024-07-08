@@ -149,8 +149,7 @@ namespace Riskeer.StabilityPointStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        /// [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenConstructiefFalenConfiguratieSchema0To1 {
             get {
@@ -170,8 +169,7 @@ namespace Riskeer.StabilityPointStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenConstructiefFalenSchema {
             get {
@@ -191,8 +189,7 @@ namespace Riskeer.StabilityPointStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenConstructiefFalenSchema_0 {
             get {
