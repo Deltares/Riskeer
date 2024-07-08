@@ -1,7 +1,7 @@
 /*
 Migration script for migrating Riskeer databases.
 SourceProject version: 23.1
-TargetProject version: 23.2
+TargetProject version: 24.1
 */
 PRAGMA foreign_keys = OFF;
  
@@ -423,7 +423,7 @@ INSERT INTO VersionEntity (
     [Timestamp],
     [FingerPrint])
 SELECT [VersionId],
-    "23.2",
+    "24.1",
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -486,8 +486,8 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [LogMessage])
 VALUES (
     "23.1",
-    "23.2",
-    "Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
+    "24.1",
+    "Gevolgen van de migratie van versie 23.1 naar versie 24.1:");
 
 CREATE TEMP TABLE TempLogOutputDeleted
 (
@@ -515,7 +515,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [LogMessage])
 SELECT
     "23.1",
-    "23.2",
+    "24.1",
     "* Alle berekende resultaten zijn verwijderd."
 FROM TempLogOutputDeleted
 WHERE [NrDeleted] > 0
@@ -526,7 +526,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [ToVersion],
 [LogMessage])
 VALUES ("23.1",
-    "23.2",
+    "24.1",
     "* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:
   + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.
   + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.
@@ -661,7 +661,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     )
 SELECT
     "23.1",
-    "23.2",
+    "24.1",
     CASE
         WHEN [AssessmentSectionName] IS NOT NULL
     THEN 
@@ -694,7 +694,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [ToVersion],
     [LogMessage])
 SELECT "23.1",
-       "23.2",
+       "24.1",
        "* Geen aanpassingen."
 WHERE (
     SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity

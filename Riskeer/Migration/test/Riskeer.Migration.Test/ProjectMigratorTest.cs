@@ -605,7 +605,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("    - De automatisch berekende faalkans van het faalmechanisme is verwijderd.");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Technische innovaties'");
                 migrationLog.AppendLine("    - De automatisch berekende faalkans van het faalmechanisme is verwijderd.");
-                migrationLog.AppendLine("Gevolgen van de migratie van versie 23.1 naar versie 23.2:");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 23.1 naar versie 24.1:");
                 migrationLog.AppendLine("* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:");
                 migrationLog.AppendLine("  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.");
                 migrationLog.AppendLine("  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.");

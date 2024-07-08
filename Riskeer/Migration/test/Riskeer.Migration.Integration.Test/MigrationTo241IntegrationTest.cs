@@ -30,9 +30,9 @@ using Riskeer.Migration.Core.TestUtil;
 
 namespace Riskeer.Migration.Integration.Test
 {
-    public class MigrationTo232IntegrationTest
+    public class MigrationTo241IntegrationTest
     {
-        private const string newVersion = "23.2";
+        private const string newVersion = "24.1";
 
         [Test]
         [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
@@ -288,7 +288,7 @@ namespace Riskeer.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"23.2\";";
+                "WHERE [Version] = \"24.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
 
