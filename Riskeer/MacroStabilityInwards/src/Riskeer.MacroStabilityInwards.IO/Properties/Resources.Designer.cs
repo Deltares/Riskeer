@@ -93,8 +93,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsConfiguratieSchema {
             get {
@@ -114,8 +113,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsConfiguratieSchema_0 {
             get {
@@ -135,8 +133,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsConfiguratieSchema0To1 {
             get {
@@ -156,8 +153,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsGridsSchema {
             get {
@@ -177,8 +173,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsWaterspanningenSchema {
             get {
@@ -198,8 +193,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsZonesSchema {
             get {
