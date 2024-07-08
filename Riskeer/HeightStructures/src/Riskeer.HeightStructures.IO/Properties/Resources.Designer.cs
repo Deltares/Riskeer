@@ -94,8 +94,7 @@ namespace Riskeer.HeightStructures.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        /// [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KunstwerkenHoogteConfiguratieSchema0To1 {
             get {
