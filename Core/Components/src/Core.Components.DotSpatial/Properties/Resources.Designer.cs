@@ -80,7 +80,7 @@ namespace Core.Components.DotSpatial.Properties {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transparantie moet in het bereik {0} liggen..
         /// </summary>
@@ -89,7 +89,7 @@ namespace Core.Components.DotSpatial.Properties {
                 return ResourceManager.GetString("BruTileLayer_Transparency_Value_out_of_Range_0_", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn..
         /// </summary>

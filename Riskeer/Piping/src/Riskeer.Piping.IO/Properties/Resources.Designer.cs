@@ -230,8 +230,7 @@ namespace Riskeer.Piping.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///ME [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without eve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string PipingConfiguratieSchema0To1 {
             get {
