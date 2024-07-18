@@ -15,7 +15,7 @@ For each library the version and used license is shown. For the full license tex
 | DotSpatial.Data                           | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Extensions                     | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.GeoAPI                         | 1.7.4.3     | MIT          | https://github.com/DotSpatial/GeoAPI                                            |
-| DotSpatial.Modelings.Forms                | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
+| DotSpatial.Modeling.Forms                 | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.Mono                           | 1.9.0       | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
 | DotSpatial.NetTopologySuite               | 1.14.4      | BSD-3-Clause | https://github.com/DotSpatial/NetTopologySuiteV1                                |
 | DotSpatial.NTSExtension                   | 2.0.0-rc1   | MIT          | https://github.com/DotSpatial/DotSpatial                                        |
