@@ -40,7 +40,7 @@ namespace Riskeer.Migration.Integration.Test
         [Test]
         [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
         public void GivenProject_WhenSpecialCharacterInPath_ThenDoesNotThrowException(string sourceFile,
-                                                                                  string newVersion)
+                                                                                      string newVersion)
         {
             // Given
             string fileToCopy = Path.Combine(testDataPath, sourceFile);

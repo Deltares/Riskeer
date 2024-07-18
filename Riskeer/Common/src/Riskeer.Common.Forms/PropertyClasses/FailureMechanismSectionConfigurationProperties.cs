@@ -53,8 +53,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
         public FailureMechanismSectionConfigurationProperties(FailureMechanismSectionConfiguration sectionConfiguration, double sectionStart, double sectionEnd, double b)
             : base(sectionConfiguration?.Section ?? throw new ArgumentNullException(nameof(sectionConfiguration)), sectionStart, sectionEnd)
         {
-            this.SectionConfiguration = sectionConfiguration;
-            LengthEffectNRounded = new RoundedDouble(2, this.SectionConfiguration.GetN(b));
+            SectionConfiguration = sectionConfiguration;
+            LengthEffectNRounded = new RoundedDouble(2, SectionConfiguration.GetN(b));
         }
 
         [PropertyOrder(7)]
