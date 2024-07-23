@@ -579,10 +579,10 @@
           </Key>
           <Property Name="HydraulicBoundaryDataEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseScenarioName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseYear" Type="int" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseScope" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="HydraulicLocationConfigurationDatabaseFilePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="HydraulicLocationConfigurationDatabaseScenarioName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="HydraulicLocationConfigurationDatabaseYear" Type="int" />
+          <Property Name="HydraulicLocationConfigurationDatabaseScope" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationDatabaseSeaLevel" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationDatabaseRiverDischarge" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationDatabaseLakeLevel" Type="nvarchar" MaxLength="2147483647" />
@@ -5050,10 +5050,10 @@
           </Key>
           <Property Name="HydraulicBoundaryDataEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseFilePath" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="HydraulicLocationConfigurationDatabaseScenarioName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="HydraulicLocationConfigurationDatabaseYear" Type="Int32" Nullable="false" />
-          <Property Name="HydraulicLocationConfigurationDatabaseScope" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HydraulicLocationConfigurationDatabaseFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HydraulicLocationConfigurationDatabaseScenarioName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HydraulicLocationConfigurationDatabaseYear" Type="Int32" />
+          <Property Name="HydraulicLocationConfigurationDatabaseScope" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationDatabaseSeaLevel" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationDatabaseRiverDischarge" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationDatabaseLakeLevel" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
