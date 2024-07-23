@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_ValidHydraulicBoundaryData_ReturnsHydraulicBoundaryDataEntity(bool withScenarioConfiguration)
+        public void Create_ValidHydraulicBoundaryData_ReturnsHydraulicBoundaryDataEntity(bool withScenarioInformation)
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 }
             };
 
-            if (withScenarioConfiguration)
+            if (withScenarioInformation)
             {
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.ScenarioName = "ScenarioName";
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.Year = new Random(21).Next();

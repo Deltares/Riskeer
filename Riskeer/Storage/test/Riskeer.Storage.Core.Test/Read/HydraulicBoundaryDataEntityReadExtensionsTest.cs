@@ -72,7 +72,7 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithValidEntity_UpdatesHydraulicBoundaryData(bool withScenarioConfiguration)
+        public void Read_WithValidEntity_UpdatesHydraulicBoundaryData(bool withScenarioInformation)
         {
             // Setup
             var entity = new HydraulicBoundaryDataEntity
@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            if (withScenarioConfiguration)
+            if (withScenarioInformation)
             {
                 entity.HydraulicLocationConfigurationDatabaseScenarioName = "ScenarioName";
                 entity.HydraulicLocationConfigurationDatabaseYear = new Random(21).Next();
