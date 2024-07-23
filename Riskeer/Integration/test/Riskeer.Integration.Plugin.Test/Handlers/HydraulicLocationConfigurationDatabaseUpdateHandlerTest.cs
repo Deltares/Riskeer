@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutSettings_SetsDefaultValuesAndLogsWarning()
+        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutSettings_SetsExpectedValuesAndLogsWarning()
         {
             // Setup
             const string hlcdFilePath = "some/file/path";

@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         }
 
         [Test]
-        public void UpdateHydraulicLocationConfigurationDatabase_ReadHydraulicLocationConfigurationDatabaseNull_SetDefaultValuesAndLogsWarning()
+        public void UpdateHydraulicLocationConfigurationDatabase_ReadHydraulicLocationConfigurationDatabaseNull_SetsExpectedValuesAndLogsWarning()
         {
             // Setup
             const string filePath = "some/file/path";
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         }
 
         [Test]
-        public void UpdateHydraulicLocationConfigurationDatabase_ReadHydraulicLocationConfigurationDatabaseNotNull_SetExpectedValuesAndDoesNotLog()
+        public void UpdateHydraulicLocationConfigurationDatabase_ReadHydraulicLocationConfigurationDatabaseNotNull_SetsExpectedValuesAndDoesNotLog()
         {
             // Setup
             const string filePath = "some/file/path";
