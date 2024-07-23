@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.ScenarioName ?? string.Empty;
+                return ShowPossibleEmptyValue(data.ScenarioName);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Year?.ToString() ?? string.Empty;
+                return ShowPossibleEmptyValue(data.Year?.ToString());
             }
         }
 
@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Scope ?? string.Empty;
+                return ShowPossibleEmptyValue(data.Scope);
             }
         }
 
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.SeaLevel ?? string.Empty;
+                return ShowPossibleEmptyValue(data.SeaLevel);
             }
         }
 
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.RiverDischarge ?? string.Empty;
+                return ShowPossibleEmptyValue(data.RiverDischarge);
             }
         }
 
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.LakeLevel ?? string.Empty;
+                return ShowPossibleEmptyValue(data.LakeLevel);
             }
         }
 
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WindDirection ?? string.Empty;
+                return ShowPossibleEmptyValue(data.WindDirection);
             }
         }
 
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WindSpeed ?? string.Empty;
+                return ShowPossibleEmptyValue(data.WindSpeed);
             }
         }
 
@@ -163,8 +163,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Comment ?? string.Empty;
+                return ShowPossibleEmptyValue(data.Comment);
             }
+        }
+
+        private static string ShowPossibleEmptyValue(string possibleEmptyValue)
+        {
+            return possibleEmptyValue ?? "-";
         }
     }
 }

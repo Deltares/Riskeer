@@ -77,15 +77,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.IsEmpty(properties.ScenarioName);
-            Assert.IsEmpty(properties.Year);
-            Assert.IsEmpty(properties.Scope);
-            Assert.IsEmpty(properties.SeaLevel);
-            Assert.IsEmpty(properties.RiverDischarge);
-            Assert.IsEmpty(properties.LakeLevel);
-            Assert.IsEmpty(properties.WindDirection);
-            Assert.IsEmpty(properties.WindSpeed);
-            Assert.IsEmpty(properties.Comment);
+            Assert.AreEqual("-", properties.ScenarioName);
+            Assert.AreEqual("-", properties.Year);
+            Assert.AreEqual("-", properties.Scope);
+            Assert.AreEqual("-", properties.SeaLevel);
+            Assert.AreEqual("-", properties.RiverDischarge);
+            Assert.AreEqual("-", properties.LakeLevel);
+            Assert.AreEqual("-", properties.WindDirection);
+            Assert.AreEqual("-", properties.WindSpeed);
+            Assert.AreEqual("-", properties.Comment);
         }
 
         [Test]
