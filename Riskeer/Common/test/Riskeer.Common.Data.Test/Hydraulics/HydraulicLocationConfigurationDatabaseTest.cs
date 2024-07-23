@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsInstanceOf<Observable>(hydraulicLocationConfigurationDatabase);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
-            Assert.AreEqual(0, hydraulicLocationConfigurationDatabase.Year);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Year);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.Scope);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.SeaLevel);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.RiverDischarge);

@@ -41,7 +41,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Gets or sets the year.
         /// </summary>
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         /// <summary>
         /// Gets or sets the scope.
