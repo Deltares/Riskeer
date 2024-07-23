@@ -45,7 +45,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public string HydraulicLocationConfigurationDatabaseFilePath { get; set; }
         public string HydraulicLocationConfigurationDatabaseScenarioName { get; set; }
-        public int HydraulicLocationConfigurationDatabaseYear { get; set; }
+        public int? HydraulicLocationConfigurationDatabaseYear { get; set; }
         public string HydraulicLocationConfigurationDatabaseScope { get; set; }
         public string HydraulicLocationConfigurationDatabaseSeaLevel { get; set; }
         public string HydraulicLocationConfigurationDatabaseRiverDischarge { get; set; }

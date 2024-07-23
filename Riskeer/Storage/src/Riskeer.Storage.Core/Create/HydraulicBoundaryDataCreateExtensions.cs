@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 HydraulicLocationConfigurationDatabaseFilePath = hydraulicLocationConfigurationDatabase.FilePath.DeepClone(),
                 HydraulicLocationConfigurationDatabaseScenarioName = hydraulicLocationConfigurationDatabase.ScenarioName.DeepClone(),
-                HydraulicLocationConfigurationDatabaseYear = (int) hydraulicLocationConfigurationDatabase.Year,
+                HydraulicLocationConfigurationDatabaseYear = hydraulicLocationConfigurationDatabase.Year,
                 HydraulicLocationConfigurationDatabaseScope = hydraulicLocationConfigurationDatabase.Scope.DeepClone(),
                 HydraulicLocationConfigurationDatabaseSeaLevel = hydraulicLocationConfigurationDatabase.SeaLevel.DeepClone(),
                 HydraulicLocationConfigurationDatabaseRiverDischarge = hydraulicLocationConfigurationDatabase.RiverDischarge.DeepClone(),
