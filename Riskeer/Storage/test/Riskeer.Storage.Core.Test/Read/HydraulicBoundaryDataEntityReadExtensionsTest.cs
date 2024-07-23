@@ -70,27 +70,32 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithValidEntity_UpdatesHydraulicBoundaryData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithValidEntity_UpdatesHydraulicBoundaryData(bool withScenarioConfiguration)
         {
             // Setup
-            var random = new Random(21);
             var entity = new HydraulicBoundaryDataEntity
             {
                 HydraulicLocationConfigurationDatabaseFilePath = "hlcdFilePath",
-                HydraulicLocationConfigurationDatabaseScenarioName = "ScenarioName",
-                HydraulicLocationConfigurationDatabaseYear = random.Next(),
-                HydraulicLocationConfigurationDatabaseScope = "Scope",
-                HydraulicLocationConfigurationDatabaseSeaLevel = "SeaLevel",
-                HydraulicLocationConfigurationDatabaseRiverDischarge = "RiverDischarge",
-                HydraulicLocationConfigurationDatabaseLakeLevel = "LakeLevel",
-                HydraulicLocationConfigurationDatabaseWindDirection = "WindDirection",
-                HydraulicLocationConfigurationDatabaseWindSpeed = "WindSpeed",
-                HydraulicLocationConfigurationDatabaseComment = "Comment",
                 HydraulicBoundaryDatabaseEntities =
                 {
                     new HydraulicBoundaryDatabaseEntity()
                 }
             };
+
+            if (withScenarioConfiguration)
+            {
+                entity.HydraulicLocationConfigurationDatabaseScenarioName = "ScenarioName";
+                entity.HydraulicLocationConfigurationDatabaseYear = new Random(21).Next();
+                entity.HydraulicLocationConfigurationDatabaseScope = "Scope";
+                entity.HydraulicLocationConfigurationDatabaseSeaLevel = "SeaLevel";
+                entity.HydraulicLocationConfigurationDatabaseRiverDischarge = "RiverDischarge";
+                entity.HydraulicLocationConfigurationDatabaseLakeLevel = "LakeLevel";
+                entity.HydraulicLocationConfigurationDatabaseWindDirection = "WindDirection";
+                entity.HydraulicLocationConfigurationDatabaseWindSpeed = "WindSpeed";
+                entity.HydraulicLocationConfigurationDatabaseComment = "Comment";
+            }
 
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
