@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Year.ToString();
+                return data.Year?.ToString() ?? string.Empty;
             }
         }
 

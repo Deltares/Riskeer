@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsEmpty(properties.ScenarioName);
-            Assert.AreEqual("0", properties.Year);
+            Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
             Assert.IsEmpty(properties.SeaLevel);
             Assert.IsEmpty(properties.RiverDischarge);
