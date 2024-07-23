@@ -181,15 +181,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hlcdFilePath, hydraulicLocationConfigurationDatabase.FilePath);
-            Assert.AreEqual("WBI2017", hydraulicLocationConfigurationDatabase.ScenarioName);
-            Assert.AreEqual(2023, hydraulicLocationConfigurationDatabase.Year);
-            Assert.AreEqual("WBI2017", hydraulicLocationConfigurationDatabase.Scope);
-            Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.SeaLevel);
-            Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.RiverDischarge);
-            Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.LakeLevel);
-            Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.WindDirection);
-            Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.WindSpeed);
-            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", hydraulicLocationConfigurationDatabase.Comment);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Year);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Scope);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.SeaLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.RiverDischarge);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.LakeLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindDirection);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindSpeed);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Comment);
         }
 
         [Test]

@@ -74,15 +74,15 @@ namespace Riskeer.Integration.Plugin.Helpers
                 log.Warn(Resources.HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigurationDatabase_No_ScenarioInformation_entries_present);
 
                 hydraulicLocationConfigurationDatabase.FilePath = hlcdFilePath;
-                hydraulicLocationConfigurationDatabase.ScenarioName = HydraulicLocationConfigurationDatabaseConstants.MandatoryConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.Year = HydraulicLocationConfigurationDatabaseConstants.YearDefaultValue;
-                hydraulicLocationConfigurationDatabase.Scope = HydraulicLocationConfigurationDatabaseConstants.MandatoryConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.SeaLevel = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.RiverDischarge = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.LakeLevel = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.WindDirection = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.WindSpeed = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
-                hydraulicLocationConfigurationDatabase.Comment = HydraulicLocationConfigurationDatabaseConstants.AdditionalInformationConfigurationPropertyValue;
+                hydraulicLocationConfigurationDatabase.ScenarioName = null;
+                hydraulicLocationConfigurationDatabase.Year = null;
+                hydraulicLocationConfigurationDatabase.Scope = null;
+                hydraulicLocationConfigurationDatabase.SeaLevel = null;
+                hydraulicLocationConfigurationDatabase.RiverDischarge = null;
+                hydraulicLocationConfigurationDatabase.LakeLevel = null;
+                hydraulicLocationConfigurationDatabase.WindDirection = null;
+                hydraulicLocationConfigurationDatabase.WindSpeed = null;
+                hydraulicLocationConfigurationDatabase.Comment = null;
             }
         }
     }
