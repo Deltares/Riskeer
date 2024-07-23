@@ -228,7 +228,7 @@ Wilt u doorgaan?</value>
   </data>
     <data name="HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigurationDatabase_No_ScenarioInformation_entries_present"
           xml:space="preserve">
-    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.</value>
+    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig.</value>
   </data>
     <data name="RiskeerPlugin_GetStateInfos_AssessmentSection" xml:space="preserve">
     <value>Traject</value>

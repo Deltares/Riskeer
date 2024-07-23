@@ -175,8 +175,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             void Call() => handler.Update(readHydraulicLocationConfigurationDatabase, lookup, hlcdFilePath);
 
             // Assert
-            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
-                                           "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
