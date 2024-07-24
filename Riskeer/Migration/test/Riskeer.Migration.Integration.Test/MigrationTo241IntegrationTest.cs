@@ -63,6 +63,8 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertAssessmentSection(reader, sourceFilePath);
 
+                    AssertHydraulicBoundaryData(reader, sourceFilePath);
+
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculation(reader, sourceFilePath);
                     AssertStabilityStoneCoverWaveConditionsCalculation(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverWaveConditionsCalculation(reader, sourceFilePath);
@@ -183,6 +185,24 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateAssessmentSection);
+        }
+
+        private static void AssertHydraulicBoundaryData(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string validateHydraulicBoundaryData =
+                "SELECT COUNT() = 0 " +
+                "FROM HydraulicBoundaryDataEntity " +
+                "WHERE [HydraulicLocationConfigurationDatabaseScenarioName] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseYear] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseScope] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseSeaLevel] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseRiverDischarge] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseLakeLevel] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseWindDirection] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseWindSpeed] NOT NULL " +
+                "OR [HydraulicLocationConfigurationDatabaseComment] NOT NULL;";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicBoundaryData);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
