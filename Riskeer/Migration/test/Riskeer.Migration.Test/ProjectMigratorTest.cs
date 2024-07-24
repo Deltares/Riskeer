@@ -610,6 +610,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.");
                 migrationLog.AppendLine("  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.");
                 migrationLog.AppendLine("  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.");
+                migrationLog.AppendLine("* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {

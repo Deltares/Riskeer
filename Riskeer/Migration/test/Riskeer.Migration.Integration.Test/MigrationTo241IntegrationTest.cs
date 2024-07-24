@@ -114,19 +114,21 @@ namespace Riskeer.Migration.Integration.Test
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
             const string allCalculatedResultsRemovedMessage = "* Alle berekende resultaten zijn verwijderd.";
-            string adjustedAssemblyResultsMigrationMessage =
+            string fixedMigrationMessage =
                 $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
                 $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.{Environment.NewLine}" +
                 $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.{Environment.NewLine}" +
-                "  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.";
+                $"  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.{Environment.NewLine}" +
+                "* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
+
             yield return new TestCaseData("MigrationTestProject231NoOutput.risk", new[]
             {
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231VariousFailureMechanismSectionResultConfigurations.risk", new[]
             {
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
 
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
@@ -134,24 +136,24 @@ namespace Riskeer.Migration.Integration.Test
             yield return new TestCaseData("MigrationTestProject231WithOutput.risk", new[]
             {
                 allCalculatedResultsRemovedMessage,
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231DunesWithOutput.risk", new[]
             {
                 allCalculatedResultsRemovedMessage,
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsWithOutput.risk", new[]
             {
                 allCalculatedResultsRemovedMessage,
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
 
             yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
             {
-                adjustedAssemblyResultsMigrationMessage
+                fixedMigrationMessage
             });
         }
 
