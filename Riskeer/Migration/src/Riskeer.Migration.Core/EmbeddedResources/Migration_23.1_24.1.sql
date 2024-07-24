@@ -469,6 +469,21 @@ Tables that only have length effect columns are not migrated:
 -- WaterPressureAsphaltCoverFailureMechanismMetaEntity
 
 /*
+Update specific data
+*/
+UPDATE HydraulicBoundaryDataEntity
+SET [HydraulicLocationConfigurationDatabaseScenarioName] = NULL,
+    [HydraulicLocationConfigurationDatabaseYear] = NULL,
+    [HydraulicLocationConfigurationDatabaseScope] = NULL,
+    [HydraulicLocationConfigurationDatabaseSeaLevel] = NULL,
+    [HydraulicLocationConfigurationDatabaseRiverDischarge] = NULL,
+    [HydraulicLocationConfigurationDatabaseLakeLevel] = NULL,
+    [HydraulicLocationConfigurationDatabaseWindDirection] = NULL,
+    [HydraulicLocationConfigurationDatabaseWindSpeed] = NULL,
+    [HydraulicLocationConfigurationDatabaseComment] = NULL
+WHERE [HydraulicLocationConfigurationDatabaseComment] = "Gegenereerd door Riskeer (conform WBI2017)";
+
+/*
 Write migration logging
 */
 ATTACH DATABASE "{1}" AS LOGDATABASE;
