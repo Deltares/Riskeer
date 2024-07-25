@@ -78,7 +78,7 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         [Test]
-        public void GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
+        public void GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsExpectedMessages()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
@@ -86,9 +86,9 @@ namespace Riskeer.Migration.Integration.Test
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(
-                nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
+                nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsExpectedMessages));
             string logFilePath = TestHelper.GetScratchPadPath(
-                string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
+                string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsExpectedMessages), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
@@ -103,7 +103,7 @@ namespace Riskeer.Migration.Integration.Test
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(18, messages.Count);
+                    Assert.AreEqual(20, messages.Count);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                         messages[0]);
@@ -153,16 +153,22 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("22.1", "23.1", "* Geen aanpassingen."),
                         messages[15]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("23.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 23.1 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("23.1", "24.1", "Gevolgen van de migratie van versie 23.1 naar versie 24.1:"),
                         messages[16]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("23.1", $"{latestVersion}",
+                        new MigrationLogMessage("23.1", "24.1",
                                                 $"* Omdat alleen faalkansen op vakniveau een rol spelen in de assemblage, zijn de assemblageresultaten voor de faalmechanismen aangepast:{Environment.NewLine}" +
                                                 $"  + De initiële faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Handmatig invullen'.{Environment.NewLine}" +
                                                 $"  + De aangescherpte faalkansen per doorsnede zijn verwijderd in het geval van de optie 'Per doorsnede' of 'Beide'.{Environment.NewLine}" +
                                                 $"  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.{Environment.NewLine}" +
                                                 "* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                         messages[17]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("24.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 24.1 naar versie {latestVersion}:"),
+                        messages[18]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("24.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        messages[19]);
                 }
             }
         }
