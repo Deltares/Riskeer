@@ -50,6 +50,8 @@
         <EmbeddedResource Include="EmbeddedResources\Migration_22.1_23.1.sql" />
         <EmbeddedResource Include="EmbeddedResources\DatabaseStructure24.1.sql" />
         <EmbeddedResource Include="EmbeddedResources\Migration_23.1_24.1.sql" />
+        <EmbeddedResource Include="EmbeddedResources\DatabaseStructure24.2.sql" />
+        <EmbeddedResource Include="EmbeddedResources\Migration_24.1_24.2.sql" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework">
