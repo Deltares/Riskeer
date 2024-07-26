@@ -94,10 +94,10 @@ namespace Riskeer.Migration.Integration.Test
                 fixedMigrationMessage
             });
 
-            // yield return new TestCaseData("MigrationTestProject231MacroStabilityInwardsWithOutput.risk", new[]
-            // {
-            //     fixedMigrationMessage
-            // });
+            yield return new TestCaseData("MigrationTestProject241MacroStabilityInwardsWithOutput.risk", new[]
+            {
+                fixedMigrationMessage
+            });
 
             // yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
             // {
