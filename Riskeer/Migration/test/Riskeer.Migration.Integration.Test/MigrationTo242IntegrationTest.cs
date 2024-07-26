@@ -72,10 +72,10 @@ namespace Riskeer.Migration.Integration.Test
         {
             const string fixedMigrationMessage = "* Geen aanpassingen.";
 
-            // yield return new TestCaseData("MigrationTestProject231NoOutput.risk", new[]
-            // {
-            //     fixedMigrationMessage
-            // });
+            yield return new TestCaseData("MigrationTestProject241NoOutput.risk", new[]
+            {
+                fixedMigrationMessage
+            });
 
             // yield return new TestCaseData("MigrationTestProject231VariousFailureMechanismSectionResultConfigurations.risk", new[]
             // {
