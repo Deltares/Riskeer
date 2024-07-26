@@ -77,10 +77,10 @@ namespace Riskeer.Migration.Integration.Test
                 fixedMigrationMessage
             });
 
-            // yield return new TestCaseData("MigrationTestProject231VariousFailureMechanismSectionResultConfigurations.risk", new[]
-            // {
-            //     fixedMigrationMessage
-            // });
+            yield return new TestCaseData("MigrationTestProject241VariousFailureMechanismSectionResultConfigurations.risk", new[]
+            {
+                fixedMigrationMessage
+            });
 
             // // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
@@ -98,11 +98,6 @@ namespace Riskeer.Migration.Integration.Test
             {
                 fixedMigrationMessage
             });
-
-            // yield return new TestCaseData("MigrationTestProject231RevetmentCalculations.risk", new[]
-            // {
-            //     fixedMigrationMessage
-            // });
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
