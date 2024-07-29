@@ -189,18 +189,36 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertHydraulicBoundaryData(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string validateHydraulicBoundaryData =
-                "SELECT COUNT() = 0 " +
-                "FROM HydraulicBoundaryDataEntity " +
-                "WHERE [HydraulicLocationConfigurationDatabaseScenarioName] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseYear] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseScope] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseSeaLevel] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseRiverDischarge] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseLakeLevel] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseWindDirection] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseWindSpeed] NOT NULL " +
-                "OR [HydraulicLocationConfigurationDatabaseComment] NOT NULL;";
+            string validateHydraulicBoundaryData =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicBoundaryDataEntity " +
+                ") " +
+                "FROM HydraulicBoundaryDataEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicBoundaryDataEntity OLD USING(HydraulicBoundaryDataEntityId) " +
+                "WHERE OLD.[HydraulicLocationConfigurationDatabaseComment] = 'Gegenereerd door Riskeer (Conform WBI2017)' " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScenarioName] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseYear] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScope] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseSeaLevel] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseRiverDischarge] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseLakeLevel] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindDirection] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindSpeed] IS NULL " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseComment] IS NULL " +
+                "OR OLD.[HydraulicLocationConfigurationDatabaseComment] != 'Gegenereerd door Riskeer (Conform WBI2017)' " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScenarioName] = OLD.[HydraulicLocationConfigurationDatabaseScenarioName] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseYear] = OLD.[HydraulicLocationConfigurationDatabaseYear] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScope] = OLD.[HydraulicLocationConfigurationDatabaseScope] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseSeaLevel] = OLD.[HydraulicLocationConfigurationDatabaseSeaLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseRiverDischarge] = OLD.[HydraulicLocationConfigurationDatabaseRiverDischarge] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseLakeLevel] = OLD.[HydraulicLocationConfigurationDatabaseLakeLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindDirection] = OLD.[HydraulicLocationConfigurationDatabaseWindDirection] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindSpeed] = OLD.[HydraulicLocationConfigurationDatabaseWindSpeed] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseComment] = OLD.[HydraulicLocationConfigurationDatabaseComment];" +
+                "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateHydraulicBoundaryData);
         }
