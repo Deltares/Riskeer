@@ -157,6 +157,11 @@ namespace Riskeer.Migration.Integration.Test
             {
                 fixedMigrationMessage
             });
+
+            yield return new TestCaseData("MigrationTestProject231HlcdWithScenarioInformation.risk", new[]
+            {
+                fixedMigrationMessage
+            });
         }
 
         private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
