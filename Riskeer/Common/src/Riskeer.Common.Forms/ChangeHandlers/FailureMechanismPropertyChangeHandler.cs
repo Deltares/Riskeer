@@ -48,11 +48,6 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
             if (setValue == null)
             {
                 throw new ArgumentNullException(nameof(setValue));
