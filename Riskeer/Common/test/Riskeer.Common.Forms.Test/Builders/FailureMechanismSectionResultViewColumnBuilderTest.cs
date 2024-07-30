@@ -142,10 +142,12 @@ namespace Riskeer.Common.Forms.Test.Builders
         /// </summary>
         /// <param name="expected">The expected object.</param>
         /// <param name="actual">The actual object.</param>
+        /// <typeparam name="T">The type of enum.</typeparam>
         /// <exception cref="AssertionException">Thrown when <paramref name="expected"/> and
         /// <paramref name="actual"/> are not equal.</exception>
         private static void AssertEnumDisplayWrappersAreEqual<T>(IEnumerable<EnumDisplayWrapper<T>> expected,
                                                                  IEnumerable<EnumDisplayWrapper<T>> actual)
+            where T : Enum
         {
             Assert.AreEqual(expected.Count(), actual.Count());
             for (var i = 0; i < expected.Count(); i++)
