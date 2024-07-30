@@ -52,7 +52,7 @@ namespace Riskeer.Revetment.Service
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, NormativeProbabilityType normativeProbabilityType)
-            where TFailureMechanism : ICalculatableFailureMechanism
+            where TFailureMechanism : class, ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -86,7 +86,7 @@ namespace Riskeer.Revetment.Service
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : ICalculatableFailureMechanism
+            where TFailureMechanism : class, ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -124,7 +124,7 @@ namespace Riskeer.Revetment.Service
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : ICalculatableFailureMechanism
+            where TFailureMechanism : class, ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
