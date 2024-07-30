@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Read
         internal static void ReadCommonFailureMechanismProperties<T>(this T entity,
                                                                      IFailureMechanism failureMechanism,
                                                                      ReadConversionCollector collector)
-            where T : IFailureMechanismEntity
+            where T : class, IFailureMechanismEntity
         {
             if (entity == null)
             {
