@@ -34,7 +34,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
     /// to configure and create related calculation objects.
     /// </summary>
     /// <typeparam name="T">The observable object type of the wrapped instance.</typeparam>
-    public abstract class StabilityStoneCoverContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class StabilityStoneCoverContext<T> : ObservableWrappedObjectContextBase<T> where T : class, IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverContext{T}"/> class.

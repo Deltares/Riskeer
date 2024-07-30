@@ -33,7 +33,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// Presentation object representing all required wave impact asphalt cover input knowledge to configure and create
     /// related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class WaveImpactAsphaltCoverContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class WaveImpactAsphaltCoverContext<T> : ObservableWrappedObjectContextBase<T> where T : class, IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverContext{T}"/> class.

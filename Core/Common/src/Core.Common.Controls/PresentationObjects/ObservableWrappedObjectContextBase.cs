@@ -31,7 +31,7 @@ namespace Core.Common.Controls.PresentationObjects
     /// dependencies or behavior for the UI layer of the application.
     /// </summary>
     /// <typeparam name="T">The observable object type of the wrapped instance.</typeparam>
-    public abstract class ObservableWrappedObjectContextBase<T> : WrappedObjectContextBase<T>, IObservable where T : IObservable
+    public abstract class ObservableWrappedObjectContextBase<T> : WrappedObjectContextBase<T>, IObservable where T : class, IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservableWrappedObjectContextBase{T}"/> class.

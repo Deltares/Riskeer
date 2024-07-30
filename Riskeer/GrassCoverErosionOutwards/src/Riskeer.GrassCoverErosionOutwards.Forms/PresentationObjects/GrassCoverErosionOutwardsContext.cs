@@ -35,7 +35,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// to configure and create related calculation objects.
     /// </summary>
     /// <typeparam name="T">The observable object type of the wrapped instance.</typeparam>
-    public abstract class GrassCoverErosionOutwardsContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class GrassCoverErosionOutwardsContext<T> : ObservableWrappedObjectContextBase<T> where T : class, IObservable
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsContext{T}"/>.

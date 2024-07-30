@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
-        private class SimpleMacroStabilityInwardsContext<T> : MacroStabilityInwardsContext<T> where T : IObservable
+        private class SimpleMacroStabilityInwardsContext<T> : MacroStabilityInwardsContext<T> where T : class, IObservable
         {
             public SimpleMacroStabilityInwardsContext(T target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism, IAssessmentSection assessmentSection)
                 : base(target, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}

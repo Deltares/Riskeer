@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name ="TCalculation">The type of the calculation containing the calculation input.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
     public abstract class InputContextBase<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
-        where TInput : ICalculationInput
+        where TInput : class, ICalculationInput
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
     {

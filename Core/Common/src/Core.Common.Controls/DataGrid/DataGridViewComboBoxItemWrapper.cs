@@ -29,7 +29,7 @@ namespace Core.Common.Controls.DataGrid
     /// Wrapper for presenting <typeparamref name="T"/> items in a <see cref="DataGridViewComboBoxColumn"/>.
     /// </summary>
     /// <typeparam name="T">The type of the object to present in the <see cref="DataGridViewComboBoxColumn"/>.</typeparam>
-    public sealed class DataGridViewComboBoxItemWrapper<T>
+    public sealed class DataGridViewComboBoxItemWrapper<T> where T : class
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DataGridViewComboBoxItemWrapper{T}"/>.

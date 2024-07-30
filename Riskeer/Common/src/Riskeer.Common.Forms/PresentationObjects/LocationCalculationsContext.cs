@@ -34,6 +34,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TWrappedData">The object type of the wrapped instance.</typeparam>
     /// <typeparam name="TObservable">The object type of the instances that effect the unique identification.</typeparam>
     public abstract class LocationCalculationsContext<TWrappedData, TObservable> : WrappedObjectContextBase<TWrappedData>, IObservable
+        where TWrappedData : class
         where TObservable : class, IObservable
     {
         private readonly Collection<IObserver> observers = new Collection<IObserver>();

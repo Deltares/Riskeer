@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TData">The type of the data wrapped by the context object.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
     public abstract class FailureMechanismItemContextBase<TData, TFailureMechanism> : ObservableWrappedObjectContextBase<TData>
-        where TData : IObservable
+        where TData : class, IObservable
         where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
