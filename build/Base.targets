@@ -6,7 +6,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <TargetFramework>net461</TargetFramework>
-    <LangVersion>7.0</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
     <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2024</Copyright>
