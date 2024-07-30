@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// </summary>
     /// <typeparam name="T">The type of the underlying distribution from which a design value is 
     /// derived.</typeparam>
-    public abstract class DesignVariable<T> where T : IDistribution
+    public abstract class DesignVariable<T> where T : class, IDistribution
     {
         private T distribution;
 

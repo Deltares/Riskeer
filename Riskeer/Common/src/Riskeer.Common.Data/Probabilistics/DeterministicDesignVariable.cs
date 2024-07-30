@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// This class defines a design variable for a deterministic distribution.
     /// </summary>
     /// <typeparam name="T">The type of the distribution.</typeparam>
-    public class DeterministicDesignVariable<T> : DesignVariable<T> where T : IDistribution
+    public class DeterministicDesignVariable<T> : DesignVariable<T> where T : class, IDistribution
     {
         private readonly double deterministicValue;
 

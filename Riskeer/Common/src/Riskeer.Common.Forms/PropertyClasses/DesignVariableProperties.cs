@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class DesignVariableProperties<TDistribution>
         : DistributionPropertiesBase<TDistribution>
-        where TDistribution : IDistribution
+        where TDistribution : class, IDistribution
     {
         /// <summary>
         /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>.

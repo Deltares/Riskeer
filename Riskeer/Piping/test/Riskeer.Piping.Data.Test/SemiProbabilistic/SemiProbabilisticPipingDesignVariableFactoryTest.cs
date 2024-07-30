@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
     [TestFixture]
     public class SemiProbabilisticPipingDesignVariableFactoryTest
     {
-        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
+        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : class, IDistribution
         {
             Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
             var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;

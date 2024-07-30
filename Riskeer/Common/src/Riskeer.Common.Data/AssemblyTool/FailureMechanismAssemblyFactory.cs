@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be assembled.</exception>
         public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
                                                                                                         IAssessmentSection assessmentSection)
-            where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             if (failureMechanism == null)
             {
