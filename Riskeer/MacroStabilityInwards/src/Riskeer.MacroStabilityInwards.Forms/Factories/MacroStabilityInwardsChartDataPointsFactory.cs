@@ -478,17 +478,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 yield break;
             }
 
-            int nrofInterPolatedPoints = nrOfPoints - 1;
+            int nrOfInterpolatedPoints = nrOfPoints - 1;
+            
             RoundedDouble deltaZ = endPoint - startPoint;
-            RoundedDouble deltaZBetweenPoints = nrOfPoints < 2
-                                                    ? (RoundedDouble) 0.0
-                                                    : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
+            var deltaZBetweenPoints = (RoundedDouble) (deltaZ / nrOfInterpolatedPoints);
 
             RoundedDouble z = startPoint;
-            int nrOfRepetitions = nrofInterPolatedPoints < 0
-                                      ? 0
-                                      : nrofInterPolatedPoints;
-            for (var i = 0; i < nrOfRepetitions + 1; i++)
+
+            for (var i = 0; i < nrOfInterpolatedPoints + 1; i++)
             {
                 yield return z;
                 z += deltaZBetweenPoints;
