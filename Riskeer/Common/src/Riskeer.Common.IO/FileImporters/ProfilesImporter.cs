@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.FileImporters
     /// containing dike profile locations and text files containing dike schematizations.
     /// </summary>
     /// <seealso cref="FileImporterBase{T}"/>
-    public abstract class ProfilesImporter<T> : FileImporterBase<T>
+    public abstract class ProfilesImporter<T> : FileImporterBase<T> where T : class
     {
         private readonly ReferenceLine referenceLine;
         private readonly string typeDescriptor;

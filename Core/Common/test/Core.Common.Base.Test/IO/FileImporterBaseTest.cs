@@ -206,7 +206,7 @@ namespace Core.Common.Base.Test.IO
                                                                 LogLevelConstant.Info));
         }
 
-        private class SimpleFileImporter<T> : FileImporterBase<T>
+        private class SimpleFileImporter<T> : FileImporterBase<T> where T : class
         {
             public SimpleFileImporter(T importTarget) : this("", importTarget) {}
 

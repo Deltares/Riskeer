@@ -242,7 +242,7 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
-        private class SimpleFileImporter<T> : FileImporterBase<T>
+        private class SimpleFileImporter<T> : FileImporterBase<T> where T : class
         {
             public SimpleFileImporter(T importTarget) : base("", importTarget) {}
 
