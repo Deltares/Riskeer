@@ -670,7 +670,7 @@ namespace Core.Gui.Forms.Main
         private static void MapViewVisibleChanged(object sender, EventArgs e)
         {
             var control = (UserControl) sender;
-            if (control.Width != 0.0 && control.Height != 0.0)
+            if (control.Width > 0.0 && control.Height > 0.0)
             {
                 IMapControl mapControl = ((IMapView) control).Map;
                 mapControl.ZoomToVisibleLayers();
