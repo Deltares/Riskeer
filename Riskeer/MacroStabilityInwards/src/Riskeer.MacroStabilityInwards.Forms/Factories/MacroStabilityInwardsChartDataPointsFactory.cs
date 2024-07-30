@@ -327,12 +327,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
             }
 
             var points = new List<Point2D>();
-            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
+            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterpolatedVerticalPositions(grid.ZBottom,
                                                                                                         grid.ZTop,
                                                                                                         grid.NumberOfVerticalPoints);
             foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
             {
-                points.AddRange(GetInterPolatedHorizontalPoints(grid.XLeft,
+                points.AddRange(GetInterpolatedHorizontalPoints(grid.XLeft,
                                                                 grid.XRight,
                                                                 interPolatedVerticalPosition,
                                                                 grid.NumberOfHorizontalPoints));
@@ -462,13 +462,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 return Enumerable.Empty<IEnumerable<Point2D>>();
             }
 
-            return CreateTangentLines(GetInterPolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
+            return CreateTangentLines(GetInterpolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
                                       surfaceLine);
         }
 
         #region General Helpers
 
-        private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
+        private static IEnumerable<RoundedDouble> GetInterpolatedVerticalPositions(RoundedDouble startPoint,
                                                                                    RoundedDouble endPoint,
                                                                                    int nrOfPoints)
         {
@@ -478,17 +478,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 yield break;
             }
 
-            int nrofInterPolatedPoints = nrOfPoints - 1;
+            int nrOfInterpolatedPoints = nrOfPoints - 1;
+
             RoundedDouble deltaZ = endPoint - startPoint;
-            RoundedDouble deltaZBetweenPoints = nrOfPoints < 2
-                                                    ? (RoundedDouble) 0.0
-                                                    : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
+            var deltaZBetweenPoints = (RoundedDouble) (deltaZ / nrOfInterpolatedPoints);
 
             RoundedDouble z = startPoint;
-            int nrOfRepetitions = nrofInterPolatedPoints < 0
-                                      ? 0
-                                      : nrofInterPolatedPoints;
-            for (var i = 0; i < nrOfRepetitions + 1; i++)
+
+            for (var i = 0; i < nrOfInterpolatedPoints + 1; i++)
             {
                 yield return z;
                 z += deltaZBetweenPoints;
@@ -525,7 +522,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                    && !double.IsNaN(grid.ZBottom);
         }
 
-        private static IEnumerable<Point2D> GetInterPolatedHorizontalPoints(RoundedDouble startPoint,
+        private static IEnumerable<Point2D> GetInterpolatedHorizontalPoints(RoundedDouble startPoint,
                                                                             RoundedDouble endPoint,
                                                                             RoundedDouble zPoint,
                                                                             int nrOfPoints)
@@ -536,17 +533,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 yield break;
             }
 
-            int nrofInterPolatedPoints = nrOfPoints - 1;
+            int nrOfInterpolatedPoints = nrOfPoints - 1;
+
             RoundedDouble deltaX = endPoint - startPoint;
-            RoundedDouble deltaXBetweenPoints = nrOfPoints < 2
-                                                    ? (RoundedDouble) 0
-                                                    : (RoundedDouble) (deltaX / nrofInterPolatedPoints);
+            var deltaXBetweenPoints = (RoundedDouble) (deltaX / nrOfInterpolatedPoints);
 
             RoundedDouble x = startPoint;
-            int nrOfRepetitions = nrofInterPolatedPoints < 0
-                                      ? 0
-                                      : nrofInterPolatedPoints;
-            for (var i = 0; i < nrOfRepetitions + 1; i++)
+
+            for (var i = 0; i < nrOfInterpolatedPoints + 1; i++)
             {
                 yield return new Point2D(x, zPoint);
                 x += deltaXBetweenPoints;

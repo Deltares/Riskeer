@@ -164,7 +164,7 @@ namespace Riskeer.Common.Forms.Factories
         {
             double probability = StatisticsConverter.ReliabilityToProbability(beta);
 
-            if (probability == 0)
+            if (probability <= 0)
             {
                 return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1, probability, beta);
             }

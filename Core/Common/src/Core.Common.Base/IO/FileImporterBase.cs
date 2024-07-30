@@ -31,7 +31,7 @@ namespace Core.Common.Base.IO
     /// during the import.
     /// </summary>
     /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
-    public abstract class FileImporterBase<T> : IFileImporter
+    public abstract class FileImporterBase<T> : IFileImporter where T : class
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FileImporterBase{T}"/> class.
