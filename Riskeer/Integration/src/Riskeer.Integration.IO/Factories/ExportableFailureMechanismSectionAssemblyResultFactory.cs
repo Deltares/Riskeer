@@ -57,7 +57,7 @@ namespace Riskeer.Integration.IO.Factories
             IdentifierGenerator idGenerator, ExportableModelRegistry registry,
             TSectionResult sectionResult, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assemblyFunc)
-            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (idGenerator == null)

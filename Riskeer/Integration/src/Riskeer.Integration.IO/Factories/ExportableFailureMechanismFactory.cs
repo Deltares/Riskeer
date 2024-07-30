@@ -63,7 +63,7 @@ namespace Riskeer.Integration.IO.Factories
             IdentifierGenerator idGenerator, ExportableModelRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
-            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (idGenerator == null)
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Factories
         private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults<TFailureMechanism, TSectionResult>(
             IdentifierGenerator idGenerator, ExportableModelRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
-            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             return failureMechanism.SectionResults.Select(
