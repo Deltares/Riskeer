@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// failure mechanism property.
     /// </summary>
     /// <typeparam name="T">The type of the calculatable failure mechanism.</typeparam>
-    public interface IFailureMechanismPropertyChangeHandler<T> where T : ICalculatableFailureMechanism
+    public interface IFailureMechanismPropertyChangeHandler<T> where T : class, ICalculatableFailureMechanism
     {
         /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required, 
