@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class VariationCoefficientDesignVariableProperties<TDistribution>
         : VariationCoefficientDistributionPropertiesBase<TDistribution>
-        where TDistribution : IVariationCoefficientDistribution
+        where TDistribution : class, IVariationCoefficientDistribution
     {
         private readonly VariationCoefficientDesignVariable<TDistribution> designVariable;
 

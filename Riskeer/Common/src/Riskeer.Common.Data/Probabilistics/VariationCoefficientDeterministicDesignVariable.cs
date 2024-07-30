@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// </summary>
     /// <typeparam name="T">The type of the variation coefficient distribution.</typeparam>
     public class VariationCoefficientDeterministicDesignVariable<T> : VariationCoefficientDesignVariable<T>
-        where T : IVariationCoefficientDistribution
+        where T : class, IVariationCoefficientDistribution
     {
         private readonly double deterministicValue;
 
