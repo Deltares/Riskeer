@@ -34,8 +34,8 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
     public abstract class InputContextBase<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
         where TInput : class, ICalculationInput
-        where TCalculation : ICalculation
-        where TFailureMechanism : IFailureMechanism
+        where TCalculation : class, ICalculation
+        where TFailureMechanism : class, IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InputContextBase{TData,TCalculation,TFailureMechanism}"/> class.

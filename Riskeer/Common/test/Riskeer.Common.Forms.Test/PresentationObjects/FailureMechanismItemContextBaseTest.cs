@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
         private class SimpleFailureMechanismItemContext<TData, TFailureMechanism> : FailureMechanismItemContextBase<TData, TFailureMechanism>
             where TData : class, IObservable
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : class, IFailureMechanism
         {
             public SimpleFailureMechanismItemContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

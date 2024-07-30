@@ -57,8 +57,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
         IHasForeshoreProfileProperty
         where TStructure : StructureBase
         where TStructureInput : StructuresInputBase<TStructure>
-        where TCalculation : ICalculation
-        where TFailureMechanism : IFailureMechanism
+        where TCalculation : class, ICalculation
+        where TFailureMechanism : class, IFailureMechanism
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 

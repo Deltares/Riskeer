@@ -91,6 +91,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of <paramref name="allCalculations"/>.</exception>
         public static string GetUniqueDisplayNameForCalculations<T>(T calculations, IEnumerable<T> allCalculations, Func<T, double> getTargetProbabilityFunc)
+            where T : class
         {
             if (calculations == null)
             {

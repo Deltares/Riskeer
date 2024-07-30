@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     public class StructuresCalculationScenarioContext<TInput, TFailureMechanism> : FailureMechanismItemContextBase<StructuresCalculationScenario<TInput>, TFailureMechanism>,
                                                                                    ICalculationContext<StructuresCalculationScenario<TInput>, TFailureMechanism>
         where TInput : IStructuresCalculationInput, new()
-        where TFailureMechanism : ICalculatableFailureMechanism
+        where TFailureMechanism : class, ICalculatableFailureMechanism
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationScenarioContext{TInput, TFailureMechanism}"/>.
