@@ -62,20 +62,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_WithoutValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
-
-            // Call
-            void Call() => changeHandler.SetPropertyValueAfterConfirmation<int?>(new TestCalculatableFailureMechanism(), null, (f, v) => {});
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
         public void SetPropertyValueAfterConfirmation_WithoutSetProperty_ThrowsArgumentNullException()
         {
             // Setup

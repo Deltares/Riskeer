@@ -91,8 +91,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         private class SimpleFailureMechanismItemContext<TData, TFailureMechanism> : FailureMechanismItemContextBase<TData, TFailureMechanism>
-            where TData : IObservable
-            where TFailureMechanism : IFailureMechanism
+            where TData : class, IObservable
+            where TFailureMechanism : class, IFailureMechanism
         {
             public SimpleFailureMechanismItemContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

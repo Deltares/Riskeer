@@ -34,7 +34,7 @@ namespace Core.Common.Util.Enums
         /// </summary>
         /// <typeparam name="T">The type of enum.</typeparam>
         /// <returns>A collection of <see cref="EnumDisplayWrapper{T}"/>.</returns>
-        public static EnumDisplayWrapper<T>[] GetEnumTypes<T>()
+        public static EnumDisplayWrapper<T>[] GetEnumTypes<T>() where T : Enum
         {
             return Enum.GetValues(typeof(T))
                        .OfType<T>()

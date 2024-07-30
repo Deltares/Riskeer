@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public static void AssertPropertiesAreReadOnly<T>(
             DistributionPropertiesBase<T> properties,
             bool meanReadOnly,
-            bool deviationReadOnly) where T : IDistribution
+            bool deviationReadOnly) where T : class, IDistribution
         {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public static void AssertPropertiesAreReadOnly<T>(
             VariationCoefficientDistributionPropertiesBase<T> properties,
             bool meanReadOnly,
-            bool variationCoefficientReadOnly) where T : IVariationCoefficientDistribution
+            bool variationCoefficientReadOnly) where T : class, IVariationCoefficientDistribution
         {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

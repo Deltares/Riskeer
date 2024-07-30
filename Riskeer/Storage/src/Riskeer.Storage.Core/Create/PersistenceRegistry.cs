@@ -107,6 +107,7 @@ namespace Riskeer.Storage.Core.Create
         }
 
         private bool ContainsValue<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
+            where TModel : class
         {
             if (model == null)
             {
@@ -117,6 +118,8 @@ namespace Riskeer.Storage.Core.Create
         }
 
         private void Register<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TEntity entity, TModel model)
+            where TEntity : class
+            where TModel : class
         {
             if (entity == null)
             {
@@ -132,6 +135,7 @@ namespace Riskeer.Storage.Core.Create
         }
 
         private TEntity Get<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
+            where TModel : class
         {
             if (model == null)
             {

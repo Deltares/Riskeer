@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
-        private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
+        private class SimplePipingContext<T> : PipingContext<T> where T : class, IObservable
         {
             public SimplePipingContext(T target,
                                        IEnumerable<PipingSurfaceLine> surfaceLines,

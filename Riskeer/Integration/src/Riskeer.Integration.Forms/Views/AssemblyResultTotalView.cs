@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         private FailureMechanismAssemblyResultRow CreateNonAdoptableFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
                 failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));

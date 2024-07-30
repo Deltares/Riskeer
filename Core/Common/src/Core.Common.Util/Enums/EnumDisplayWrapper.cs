@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Util.Attributes;
-using Core.Common.Util.Exceptions;
 
 namespace Core.Common.Util.Enums
 {
@@ -30,28 +29,14 @@ namespace Core.Common.Util.Enums
     /// obtained for that value.
     /// </summary>
     /// <typeparam name="T">The enum type to wrap.</typeparam>
-    public class EnumDisplayWrapper<T>
+    public class EnumDisplayWrapper<T> where T : Enum
     {
         /// <summary>
         /// Creates a new instance of <see cref="EnumDisplayWrapper{T}"/>.
         /// </summary>
         /// <param name="value">The enum value to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/>
-        /// is not an Enum type.</exception>
         public EnumDisplayWrapper(T value)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value), @"An Enum type value is required.");
-            }
-
-            if (!typeof(Enum).IsAssignableFrom(typeof(T)))
-            {
-                throw new InvalidTypeParameterException(@"The type parameter has to be an Enum type.", nameof(T));
-            }
-
             Value = value;
             SetDisplayName(value);
         }

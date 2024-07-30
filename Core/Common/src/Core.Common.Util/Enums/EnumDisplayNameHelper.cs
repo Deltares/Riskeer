@@ -38,7 +38,7 @@ namespace Core.Common.Util.Enums
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value"/> is an
         /// invalid <typeparamref name="TEnum"/>.</exception>
         public static string GetDisplayName<TEnum>(TEnum value)
-            where TEnum : struct
+            where TEnum : Enum
         {
             if (!Enum.IsDefined(typeof(TEnum), value))
             {

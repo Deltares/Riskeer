@@ -78,12 +78,12 @@ namespace Core.Common.Controls.Test.PresentationObjects
             }
         }
 
-        private class SimpleWrappedObjectContext<T> : WrappedObjectContextBase<T>
+        private class SimpleWrappedObjectContext<T> : WrappedObjectContextBase<T> where T : class
         {
             public SimpleWrappedObjectContext(T wrappedData) : base(wrappedData) {}
         }
 
-        private class AnotherSimpleWrappedObjectContext<T> : WrappedObjectContextBase<T>
+        private class AnotherSimpleWrappedObjectContext<T> : WrappedObjectContextBase<T> where T : class
         {
             public AnotherSimpleWrappedObjectContext(T wrappedData) : base(wrappedData) {}
         }

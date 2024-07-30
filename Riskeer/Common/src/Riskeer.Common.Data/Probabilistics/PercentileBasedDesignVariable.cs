@@ -33,7 +33,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// </summary>
     /// <typeparam name="T">The type of the underlying distribution from which a value is 
     /// derived.</typeparam>
-    public abstract class PercentileBasedDesignVariable<T> : DesignVariable<T> where T : IDistribution
+    public abstract class PercentileBasedDesignVariable<T> : DesignVariable<T> where T : class, IDistribution
     {
         private readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;

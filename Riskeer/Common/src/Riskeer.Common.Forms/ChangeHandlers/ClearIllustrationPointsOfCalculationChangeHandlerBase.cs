@@ -31,7 +31,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// </summary>
     /// <typeparam name="TCalculation">The type of calculation.</typeparam>
     public abstract class ClearIllustrationPointsOfCalculationChangeHandlerBase<TCalculation> : IClearIllustrationPointsOfCalculationChangeHandler
-        where TCalculation : ICalculation
+        where TCalculation : class, ICalculation
     {
         private readonly IInquiryHelper inquiryHelper;
         protected TCalculation Calculation;

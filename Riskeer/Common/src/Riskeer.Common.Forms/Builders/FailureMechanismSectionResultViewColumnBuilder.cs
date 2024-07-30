@@ -92,6 +92,7 @@ namespace Riskeer.Common.Forms.Builders
         /// <typeparam name="T">The initial failure mechanism result type enum.</typeparam>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void AddInitialFailureMechanismResultTypeColumn<T>(DataGridViewControl dataGridViewControl, string dataPropertyName)
+            where T : Enum
         {
             if (dataGridViewControl == null)
             {

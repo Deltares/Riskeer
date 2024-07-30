@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
         private class ObservableObject : Observable {}
 
-        private class SimpleGrassCoverErosionInwardsContext<T> : GrassCoverErosionInwardsContext<T> where T : IObservable
+        private class SimpleGrassCoverErosionInwardsContext<T> : GrassCoverErosionInwardsContext<T> where T : class, IObservable
         {
             public SimpleGrassCoverErosionInwardsContext(T target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

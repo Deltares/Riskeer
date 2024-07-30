@@ -275,7 +275,7 @@ namespace Riskeer.Integration.IO.Factories
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
-            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanism.InAssembly)

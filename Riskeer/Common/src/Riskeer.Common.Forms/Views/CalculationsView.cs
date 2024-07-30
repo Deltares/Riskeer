@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Views
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
-        where TFailureMechanism : ICalculatableFailureMechanism
+        where TFailureMechanism : class, ICalculatableFailureMechanism
     {
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;

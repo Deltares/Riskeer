@@ -29,7 +29,7 @@ namespace Core.Common.Controls.PresentationObjects
     /// for the UI layer of the application.
     /// </summary>
     /// <typeparam name="T">The object type of the wrapped instance.</typeparam>
-    public abstract class WrappedObjectContextBase<T> : IEquatable<WrappedObjectContextBase<T>>
+    public abstract class WrappedObjectContextBase<T> : IEquatable<WrappedObjectContextBase<T>> where T : class
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WrappedObjectContextBase{T}"/> class.

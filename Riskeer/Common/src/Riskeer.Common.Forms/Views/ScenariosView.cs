@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Views
         where TCalculationScenario : class, ICalculationScenario
         where TCalculationInput : class, ICalculationInput
         where TScenarioRow : ScenarioRow<TCalculationScenario>
-        where TFailureMechanism : ICalculatableFailureMechanism
+        where TFailureMechanism : class, ICalculatableFailureMechanism
     {
         private readonly TFailureMechanism failureMechanism;
 

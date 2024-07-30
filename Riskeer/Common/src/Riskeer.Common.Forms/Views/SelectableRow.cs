@@ -26,7 +26,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="T"/> that can be selected.
     /// </summary>
-    public class SelectableRow<T>
+    public class SelectableRow<T> where T : class
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableRow{T}"/>.

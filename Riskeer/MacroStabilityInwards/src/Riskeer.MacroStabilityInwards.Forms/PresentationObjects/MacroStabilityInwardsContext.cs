@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
     /// Presentation object representing all required macro stability inwards knowledge to configure and create
     /// macro stability inwards related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class MacroStabilityInwardsContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class MacroStabilityInwardsContext<T> : ObservableWrappedObjectContextBase<T> where T : class, IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsContext{T}"/> class.

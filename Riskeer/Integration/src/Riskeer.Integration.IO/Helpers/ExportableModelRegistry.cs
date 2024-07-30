@@ -52,6 +52,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <typeparam name="TExportableModel">The type of exportable model that is registered with <typeparamref name="TModel"/>.</typeparam>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         private static bool ContainsValue<TModel, TExportableModel>(IReadOnlyDictionary<TModel, TExportableModel> collection, TModel model)
+            where TModel : class
         {
             if (model == null)
             {
@@ -72,6 +73,8 @@ namespace Riskeer.Integration.IO.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> or <paramref name="exportableModel"/> is <c>null</c>.</exception>
         private static void Register<TModel, TExportableModel>(IDictionary<TModel, TExportableModel> collection, TModel model,
                                                                TExportableModel exportableModel)
+            where TModel : class
+            where TExportableModel : class
         {
             if (model == null)
             {
@@ -98,6 +101,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no item was registered for <paramref name="model"/>.</exception>
         private static TExportableModel Get<TModel, TExportableModel>(IReadOnlyDictionary<TModel, TExportableModel> collection, TModel model)
+            where TModel : class
         {
             if (model == null)
             {

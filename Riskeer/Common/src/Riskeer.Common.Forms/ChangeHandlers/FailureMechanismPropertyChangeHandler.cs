@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// failure mechanism property.
     /// </summary>
     public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T>
-        where T : ICalculatableFailureMechanism
+        where T : class, ICalculatableFailureMechanism
     {
         public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
             T failureMechanism,
@@ -46,11 +46,6 @@ namespace Riskeer.Common.Forms.ChangeHandlers
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
             }
 
             if (setValue == null)

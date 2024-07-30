@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Data.Test
             AssertPercentile(0.05, phreaticLevelExit);
         }
 
-        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
+        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : class, IDistribution
         {
             Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
             var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;

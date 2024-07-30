@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
-using Core.Common.Util.Exceptions;
 using NUnit.Framework;
 
 namespace Core.Common.Util.Test.Enums
@@ -30,28 +28,6 @@ namespace Core.Common.Util.Test.Enums
     [TestFixture]
     public class EnumDisplayWrapperTest
     {
-        [Test]
-        public void Constructor_WithoutValue_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new EnumDisplayWrapper<object>(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("value", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithTypeParameterNotOfEnumType_ThrowsArgumentException()
-        {
-            // Call
-            void Call() => new EnumDisplayWrapper<object>(TestEnum.DisplayName);
-
-            // Assert
-            var exception = Assert.Throws<InvalidTypeParameterException>(Call);
-            Assert.AreEqual("T", exception.TypeParamName);
-        }
-
         [Test]
         public void DisplayName_ConstructedWithEnumTypeValueWithoutResourceDisplayNameAttribute_EqualsToDefaultStringRepresentation()
         {

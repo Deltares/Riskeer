@@ -97,7 +97,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        private class SimpleWaveImpactAsphaltCoverContext<T> : WaveImpactAsphaltCoverContext<T> where T : IObservable
+        private class SimpleWaveImpactAsphaltCoverContext<T> : WaveImpactAsphaltCoverContext<T> where T : class, IObservable
         {
             public SimpleWaveImpactAsphaltCoverContext(T target, WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

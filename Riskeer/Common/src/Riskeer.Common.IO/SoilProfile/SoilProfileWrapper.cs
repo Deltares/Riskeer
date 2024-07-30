@@ -29,7 +29,7 @@ namespace Riskeer.Common.IO.SoilProfile
     /// </summary>
     /// <typeparam name="TSoilProfile">The type of soil profile to wrap.</typeparam>
     public class SoilProfileWrapper<TSoilProfile>
-        where TSoilProfile : ISoilProfile
+        where TSoilProfile : class, ISoilProfile
     {
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfileWrapper{T}"/>.

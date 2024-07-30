@@ -75,9 +75,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         private class SimpleInputContext<TInput, TCalculation, TFailureMechanism> : InputContextBase<TInput, TCalculation, TFailureMechanism>
-            where TInput : ICalculationInput
-            where TCalculation : ICalculation
-            where TFailureMechanism : IFailureMechanism
+            where TInput : class, ICalculationInput
+            where TCalculation : class, ICalculation
+            where TFailureMechanism : class, IFailureMechanism
         {
             public SimpleInputContext(TInput input, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(input, calculation, failureMechanism, assessmentSection) {}
