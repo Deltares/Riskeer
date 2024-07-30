@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
     public abstract class VariationCoefficientDistributionPropertiesBase<TDistribution> : ObjectProperties<TDistribution>
-        where TDistribution : IVariationCoefficientDistribution
+        where TDistribution : class, IVariationCoefficientDistribution
     {
         private const string meanPropertyName = nameof(Mean);
         private const string variationCoefficientPropertyName = nameof(CoefficientOfVariation);
