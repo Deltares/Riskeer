@@ -327,7 +327,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
             }
 
             var points = new List<Point2D>();
-            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
+            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterpolatedVerticalPositions(grid.ZBottom,
                                                                                                         grid.ZTop,
                                                                                                         grid.NumberOfVerticalPoints);
             foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
@@ -462,13 +462,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 return Enumerable.Empty<IEnumerable<Point2D>>();
             }
 
-            return CreateTangentLines(GetInterPolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
+            return CreateTangentLines(GetInterpolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
                                       surfaceLine);
         }
 
         #region General Helpers
 
-        private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
+        private static IEnumerable<RoundedDouble> GetInterpolatedVerticalPositions(RoundedDouble startPoint,
                                                                                    RoundedDouble endPoint,
                                                                                    int nrOfPoints)
         {
