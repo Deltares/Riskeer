@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     public class NonAdoptableFailureMechanismResultView<TFailureMechanism> : FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult, NonAdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
+        where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;

@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     public abstract class AdoptableFailureMechanismResultView<TFailureMechanism, TCalculationScenario, TCalculationInput>
         : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : class, IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         where TCalculationScenario : ICalculationScenario, ICalculation<TCalculationInput>
         where TCalculationInput : ICalculationInput
     {
