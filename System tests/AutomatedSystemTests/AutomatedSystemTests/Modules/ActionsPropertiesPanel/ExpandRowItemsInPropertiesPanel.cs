@@ -59,15 +59,18 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            IEnumerable<Row> rowsList;
-            IEnumerable<Row> rowsMustBeExpanded;
-            
             for (int i = 0; i < Int32.Parse(numberOfIterationsExpand); i++) {
-                rowsList = propertiesPanelAdapter.As<Table>().Rows;
-                rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+            	var rowsList = propertiesPanelAdapter.As<Table>().Children;
+                var rowsMustBeExpanded = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
                 foreach (var rw in rowsMustBeExpanded) {
                     rw.Focus();
-                    rw.Select();
+                    
+                    var cell = rw.As<Cell>();
+                    if (cell != null)
+                    {
+                       cell.Select();                    	
+                    }
+                    
                     rw.PressKeys("{Right}");
                 }
             }

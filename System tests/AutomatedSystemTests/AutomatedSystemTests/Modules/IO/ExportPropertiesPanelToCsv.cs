@@ -69,11 +69,11 @@ namespace AutomatedSystemTests.Modules.IO
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
+            var allRows = propertiesPanelAdapter.As<Table>().Children.ToList();
             var myExport = new CsvExport(separationCharacter, false,true);
             
             int index = 0;
-            foreach (Ranorex.Row row in allRows) {
+            foreach (var row in allRows) {
                 myExport.AddRow();
                 myExport["indexRow"] = index.ToString();
                 myExport["AccessibleName"] = row.Element.GetAttributeValueText("AccessibleName");
