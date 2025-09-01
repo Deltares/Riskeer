@@ -96,7 +96,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
-            var filePath = new string('a', 249);
+            var filePath = new string('a', 256);
             TWriter writerInstance = CreateWriterInstance(filePath);
 
             // Call

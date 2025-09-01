@@ -78,7 +78,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void WriteWaveConditions_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
-            var filePath = new string('a', 249);
+            var filePath = new string('a', 256);
 
             // Call
             void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
