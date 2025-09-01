@@ -1553,7 +1553,7 @@ namespace AutomatedSystemTests
             public TableFolder(RepoGenBaseFolder parentFolder) :
                     base("Table", ".//table", parentFolder, 30000, null, false, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
-                _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", "", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
+                _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "cell[@accessiblename>$nameOfParameterInPropertiesPanel]", "", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
             }
 
             /// <summary>
@@ -1584,11 +1584,11 @@ namespace AutomatedSystemTests
             /// The GenericParameterVisibleInPropertiesPanel item.
             /// </summary>
             [RepositoryItem("fa26997c-4865-408a-9bd8-120810ae0e7a")]
-            public virtual Ranorex.Row GenericParameterVisibleInPropertiesPanel
+            public virtual Ranorex.Cell GenericParameterVisibleInPropertiesPanel
             {
                 get
                 {
-                    return _genericparametervisibleinpropertiespanelInfo.CreateAdapter<Ranorex.Row>(true);
+                    return _genericparametervisibleinpropertiespanelInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 

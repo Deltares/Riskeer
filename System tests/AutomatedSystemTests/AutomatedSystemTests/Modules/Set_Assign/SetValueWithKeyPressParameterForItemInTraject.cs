@@ -127,7 +127,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(4));
-            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Select();
+            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.As<Row>().Select();
             Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$valueToSetParameterForItemInTraject' with focus on 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(5));
