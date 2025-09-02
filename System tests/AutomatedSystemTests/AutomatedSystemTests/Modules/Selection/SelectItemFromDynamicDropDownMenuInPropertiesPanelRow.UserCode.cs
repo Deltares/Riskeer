@@ -34,15 +34,15 @@ namespace AutomatedSystemTests.Modules.Selection
         }
 
         
-        public Ranorex.Row GetRowInPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
+        public Ranorex.Adapter GetRowInPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
         	{
         	int minimumIndex = 0;
         	var stepsPathItem = pathItem.Split('>').ToList();
-        	Ranorex.Row stepRow = argumentAdapter.As<Table>().Rows.ToList()[1];
+        	var stepRow = argumentAdapter.As<Table>().Children.ToList()[1];
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];
-        			var completeList = argumentAdapter.As<Table>().Rows.ToList();
+        			var completeList = argumentAdapter.As<Table>().Children.ToList();
         			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
         			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
         			stepRow = searchList[indexStepRow];
@@ -55,25 +55,36 @@ namespace AutomatedSystemTests.Modules.Selection
         			             // Select and expand the intermediate item
         			             Report.Log(ReportLevel.Info, "was collapsed");
         			             stepRow.Focus();
-        			             stepRow.Select();
+        			             
+        			             var cell = stepRow.As<Cell>();
+        			             if (cell != null)
+        			             {
+        			                 cell.Select();
+        			             }
+        			             
         			             stepRow.PressKeys("{Right}");
         			             }
         			     } else {
         			    // Select the final item
         			    stepRow.Focus();
-        			    stepRow.Select();
-        			     }
+        			    
+        			    var cell = stepRow.As<Cell>();
+        			    if (cell != null)
+        			    {
+        			        cell.Select();
+        			    }
+        			}
         			// Update the minimum index administration (only search forward)
         			minimumIndex += 1 + indexStepRow;
-        			}
-        	return stepRow;
         	}
+        	return stepRow;
+        }
         
         public void SelectItemFromDynamicDropDownMenuInRowPropertiesPanel(RepoItemInfo listitemInfo, string pathToRowItemInPropertiesPanel)
         {
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
-            Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToRowItemInPropertiesPanel);
+            Ranorex.Adapter row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToRowItemInPropertiesPanel);
             row.Click();
             row.Click(".98;.5");
             listitemInfo.FindAdapter<ListItem>().Focus();
