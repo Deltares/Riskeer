@@ -114,9 +114,9 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
+            var allRows = propertiesPanelAdapter.As<Table>().Children.ToList();
             string allResults = "";
-            foreach (Ranorex.Row row in allRows) {
+            foreach (var row in allRows) {
                 string parameterName = row.Element.GetAttributeValueText("AccessibleName");
                 if (parameterName.Contains("grens [1/jaar]")) {
                     allResults += row.Element.GetAttributeValueText("AccessibleValue") + ";";
