@@ -50,14 +50,20 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            IEnumerable<Row> rowsList = propertiesPanelAdapter.As<Table>().Rows;
-            IEnumerable<Row> rowsMustBeCollapsed = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded"));
+            var rowsList = propertiesPanelAdapter.As<Table>().Children;
+            var rowsMustBeCollapsed = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded"));
             
-            foreach (var rw in rowsMustBeCollapsed.Reverse()) {
-                rw.Focus();
-                rw.Select();
-                rw.PressKeys("{Left}");
+            foreach (var row in rowsMustBeCollapsed.Reverse()) {            	
+                row.Focus();
+                    
+                var cell = row.As<Cell>();
+                if (cell != null)
+                {
+                   cell.Select();                    	
                 }
+                
+                row.PressKeys("{Left}");
+            }
         }
     }
 }

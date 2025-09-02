@@ -62,16 +62,16 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             for (int i = 0; i < Int32.Parse(numberOfIterationsExpand); i++) {
             	var rowsList = propertiesPanelAdapter.As<Table>().Children;
                 var rowsMustBeExpanded = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-                foreach (var rw in rowsMustBeExpanded) {
-                    rw.Focus();
+                foreach (var row in rowsMustBeExpanded) {
+                    row.Focus();
                     
-                    var cell = rw.As<Cell>();
+                    var cell = row.As<Cell>();
                     if (cell != null)
                     {
                        cell.Select();                    	
                     }
                     
-                    rw.PressKeys("{Right}");
+                    row.PressKeys("{Right}");
                 }
             }
         }
