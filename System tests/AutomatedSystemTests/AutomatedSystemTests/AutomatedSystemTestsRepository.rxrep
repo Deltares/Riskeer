@@ -201,7 +201,7 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms"
 					usecache="False">
 						<item
-						addcaps="row,accessible"
+						addcaps="cell,accessible"
 						capname="cell"
 						id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 						name="GenericParameterVisibleInPropertiesPanel"
