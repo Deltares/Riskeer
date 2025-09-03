@@ -34,17 +34,17 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
-        public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo rowInfo)
+        public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo cellInfo)
         {
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValue) on item 'rowInfo'.", rowInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValue) on item 'cellInfo'.", cellInfo);
             
             System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
 			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
 			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
 			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
 			
-			Report.Log(ReportLevel.Info, "", rowInfo.FindAdapter<Row>().GetAttributeValue<String>("AccessibleName"));
-			string currentValue = rowInfo.FindAdapter<Row>().GetAttributeValue<String>("Text");
+			Report.Log(ReportLevel.Info, "", cellInfo.FindAdapter<Cell>().GetAttributeValue<String>("AccessibleName"));
+			string currentValue = cellInfo.FindAdapter<Cell>().GetAttributeValue<String>("Text");
 			
 			if (expectedValue=="-") {
 				Validate.AreEqual(currentValue, expectedValue);

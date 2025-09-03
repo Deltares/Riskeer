@@ -36,7 +36,7 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
         public void ExpandDamInPropertiesPanelMethod(RepoItemInfo rowInfo)
         {
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'rowInfo' at CenterLeft.", rowInfo);
-            var row = rowInfo.FindAdapter<Row>();
+            var row = rowInfo.FindAdapter<Cell>();
             var collapsedState =row.Element.GetAttributeValueText("AccessibleState");
             if (collapsedState.Contains("Collapsed")) {
             	row.Focus();

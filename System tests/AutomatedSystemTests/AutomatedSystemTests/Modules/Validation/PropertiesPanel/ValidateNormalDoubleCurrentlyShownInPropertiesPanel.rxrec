@@ -43,7 +43,7 @@ mode="Global">
 			<arguments
 			id="9e8e3c97-3954-483d-92c3-98259eeea161">
 				<argument
-				argname="rowInfo"
+				argname="cellInfo"
 				id="662bfc9f-ccba-44f0-bce5-799119b4b801">
 					<argvaluetype>
 						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
