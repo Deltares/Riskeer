@@ -33,16 +33,16 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
-        public void ExpandDamInPropertiesPanelMethod(RepoItemInfo rowInfo)
+        public void ExpandDamInPropertiesPanelMethod(RepoItemInfo cellInfo)
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'rowInfo' at CenterLeft.", rowInfo);
-            var row = rowInfo.FindAdapter<Cell>();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at CenterLeft.", cellInfo);
+            var row = cellInfo.FindAdapter<Cell>();
             var collapsedState =row.Element.GetAttributeValueText("AccessibleState");
             if (collapsedState.Contains("Collapsed")) {
             	row.Focus();
             	row.Select();
             	row.PressKeys("{Right}");
-				Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}' with focus on 'rowInfo'.", rowInfo);
+				Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}' with focus on 'cellInfo'.", cellInfo);
             }
         }
     }
