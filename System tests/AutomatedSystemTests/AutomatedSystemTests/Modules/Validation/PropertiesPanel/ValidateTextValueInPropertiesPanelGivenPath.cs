@@ -65,7 +65,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
         {
             var repo = AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             var table = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.SelfInfo.CreateAdapter<Table>(true);
-            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToRowInPP, table);
+            var row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToRowInPP, table);
             string currentValue = row.Element.GetAttributeValueText("AccessibleValue");
             Validate.AreEqual(currentValue, expectedText);
         }

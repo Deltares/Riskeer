@@ -76,7 +76,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
 
-            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToElementInPropertiesPanel, propertiesPanelAdapter);
+            var row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToElementInPropertiesPanel, propertiesPanelAdapter);
             row.SetValue(newValueForParameter, typeParameter);
         }
     }

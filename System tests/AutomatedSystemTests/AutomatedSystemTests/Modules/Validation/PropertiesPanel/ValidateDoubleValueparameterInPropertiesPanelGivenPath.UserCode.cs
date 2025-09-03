@@ -42,7 +42,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
             fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToRowInPropertiesPanel, propertiesPanelAdapter);
+            var row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToRowInPropertiesPanel, propertiesPanelAdapter);
             string currentValueString = row.Element.GetAttributeValueText("AccessibleValue");
             double currentValueDouble = Double.Parse(currentValueString, currentCulture);
             double expectedValueDouble = Double.Parse(expectedValueString, fixedDataSourceCulture);

@@ -35,30 +35,35 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         /// This static method returns a Row object given the path in the properties panel.
         /// </summary>
         [UserCodeMethod]
-        public static Ranorex.Row GetRowInPropertiesPanelGivenPath(string pathItem, Adapter argumentAdapter)
+        public static Ranorex.Adapter GetRowInPropertiesPanelGivenPath(string pathItem, Adapter argumentAdapter)
         {
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             int minimumIndex = 0;
             var stepsPathItem = pathItem.Split('>').ToList();
-            Ranorex.Row stepRow = argumentAdapter.As<Table>().Rows.ToList()[1];
+            var stepRow = argumentAdapter.As<Table>().Children.ToList()[1];
             for (int i=0; i < stepsPathItem.Count; i++)
             {
                 // Find the item corresponding to the step
                 var step = stepsPathItem[i];
-                var completeList = argumentAdapter.As<Table>().Rows.ToList();
+                var completeList = argumentAdapter.As<Table>().Children.ToList();
                 var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
-                var kk = searchList.Where(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
-                var kk2 = searchList.Select(rw => rw.GetAttributeValue<string>("AccessibleName"));
-                var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
+                var indexStepRow = searchList.FindIndex(row => row.GetAttributeValue<string>("AccessibleName").Contains(step));
                 stepRow = searchList[indexStepRow];
                 stepRow.Focus();
-                stepRow.Select();
+                
+                var cell = stepRow.As<Cell>();
+                if (cell != null)
+                {
+                    cell.Select();
+                }
+                
                 if (i != stepsPathItem.Count - 1 && stepRow.Element.GetAttributeValueText("AccessibleState").Contains("Collapsed"))
                 {
                     stepRow.PressKeys("{Right}");
                 }
+                
                 minimumIndex += 1 + indexStepRow;
             }
             return stepRow;
@@ -69,7 +74,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         /// This method sets a new value to a parameter in a field in properties panel given its path.
         /// </summary>
         [UserCodeMethod]
-        public static void SetValue(this Ranorex.Row row, string newValue, string parameterType)
+        public static void SetValue(this Ranorex.Adapter row, string newValue, string parameterType)
         {
             switch (parameterType) {
                 case "Text":
@@ -88,17 +93,17 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             }
         }
         
-        private static void SetDoubleParameterInPropertiesPanel(Ranorex.Row row, string newValue)
+        private static void SetDoubleParameterInPropertiesPanel(Ranorex.Adapter row, string newValue)
         {
             row.Element.SetAttributeValue("AccessibleValue", newValue.ToCurrentCulture());
         }
         
-        private static void SetTextParameterInPropertiesPanel(Ranorex.Row row, string newValue)
+        private static void SetTextParameterInPropertiesPanel(Ranorex.Adapter row, string newValue)
         {
             row.Element.SetAttributeValue("AccessibleValue", newValue);
         }
         
-        private static void SetDynamicDropDownParameterInPropertiesPanel(Ranorex.Row row, string newValueForParameter, RepoItemInfo listItemInfo)
+        private static void SetDynamicDropDownParameterInPropertiesPanel(Ranorex.Adapter row, string newValueForParameter, RepoItemInfo listItemInfo)
         {
             row.Click();
             row.Click(".98;.5");
