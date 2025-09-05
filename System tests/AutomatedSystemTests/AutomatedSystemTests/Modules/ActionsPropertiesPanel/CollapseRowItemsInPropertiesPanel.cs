@@ -53,16 +53,20 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
             var rowsList = propertiesPanelAdapter.As<Table>().Children;
             var rowsMustBeCollapsed = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded"));
             
-            foreach (var row in rowsMustBeCollapsed.Reverse()) {            	
-                row.Focus();
-                    
+            foreach (var row in rowsMustBeCollapsed.Reverse()) {            	                   
+                var button = row.As<Button>();
+                if (button != null)
+                {
+                   button.Press();
+                }
+                
                 var cell = row.As<Cell>();
                 if (cell != null)
                 {
-                   cell.Select();                    	
-                }
-                
-                row.PressKeys("{Left}");
+                   cell.Focus();
+                   cell.Select();
+                   cell.PressKeys("{Left}");
+                }                
             }
         }
     }
