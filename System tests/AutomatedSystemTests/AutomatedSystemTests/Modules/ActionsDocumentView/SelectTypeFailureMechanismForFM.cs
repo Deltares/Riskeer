@@ -89,10 +89,13 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking EnsureVisible() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenuInfo, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenuInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu.Focus();
+            
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking EnsureVisible() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenuInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu.EnsureVisible();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(2));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();
             
         }

@@ -26,6 +26,22 @@ mode="Global">
 	</variables>
 	<recorditems>
 		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="f700350c-a803-498e-974f-393f97151107">
+			<info
+			id="8a65568d-140f-4c4f-b21d-a105a8285816"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
+				</path>
+			</info>
+			<arguments
+			id="3fc13304-792d-417f-8cbd-07567fb54ac7">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
 		action="EnsureVisible"
 		enabled="True"
 		optional="False"
