@@ -26,7 +26,7 @@ mode="Global">
 	</variables>
 	<recorditems>
 		<invokeactionrecorditem
-		action="Press"
+		action="EnsureVisible"
 		enabled="True"
 		optional="False"
 		searchpropertyid="f700350c-a803-498e-974f-393f97151107">
