@@ -61,7 +61,7 @@ namespace AutomatedSystemTests.Modules.Selection
         			             {
         			                 cell.Select();
         			             }
-        			             
+
         			             stepRow.PressKeys("{Right}");
         			             }
         			     } else {
