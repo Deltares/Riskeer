@@ -61,7 +61,7 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             
             for (int i = 0; i < Int32.Parse(numberOfIterationsExpand); i++) {
             	var rowsList = propertiesPanelAdapter.As<Table>().Children;
-                var rowsMustBeExpanded = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+                var rowsMustBeExpanded = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed")).ToList();
 
                 foreach (var row in rowsMustBeExpanded) {
                     var button = row.As<Button>();

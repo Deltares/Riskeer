@@ -51,7 +51,7 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var rowsList = propertiesPanelAdapter.As<Table>().Children;
-            var rowsMustBeCollapsed = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded"));
+            var rowsMustBeCollapsed = rowsList.Where(row => row.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded")).ToList();
             
             foreach (var row in rowsMustBeCollapsed.Reverse()) {            	                   
                 var button = row.As<Button>();
