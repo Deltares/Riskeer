@@ -80,6 +80,8 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
                         cell.PressKeys("{Right}");
                     }
                 }
+                
+                Delay.Duration(Duration.Parse("500"), false);
             }
         }
     }
