@@ -67,15 +67,17 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
                     var button = row.As<Button>();
                     if (button != null)
                     {
-                       button.Press();
+                        button.Focus();
+                        button.EnsureVisible();
+                        button.Press();
                     }
                 
                     var cell = row.As<Cell>();
                     if (cell != null)
                     {
-                       cell.Focus();
-                       cell.Select();
-                       cell.PressKeys("{Right}");
+                        cell.Focus();
+                        cell.Select();
+                        cell.PressKeys("{Right}");
                     }
                 }
             }
