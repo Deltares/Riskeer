@@ -21,10 +21,10 @@
     <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.jpg" />
     <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg" />
 
-    <!-- Requirement: .Net framework 4.6.1 installed on machine -->
-    <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
-    <Condition Message="!(loc.NetFramework461Required)">
-      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
+    <!-- Requirement: .Net framework 4.8.1 installed on machine -->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED" />
+    <Condition Message="!(loc.NetFramework481Required)">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED]]>
     </Condition>
 
     <!-- Request the common documents folder path -->
