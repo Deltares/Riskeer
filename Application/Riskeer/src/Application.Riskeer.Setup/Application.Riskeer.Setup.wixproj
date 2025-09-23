@@ -1,11 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="WixToolset.Sdk/6.0.2">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>3ccb05db-c7b3-4ef7-b41d-22b6d2a3774e</ProjectGuid>
-    <SchemaVersion>2.0</SchemaVersion>
     <!-- 
 		Custom Field: ReleaseVersion
 		Field is injected into WiX with the same name to make it available there as well.
@@ -16,11 +10,8 @@
 		Field could be set by BuildServer. If not present, it will be skipped.
 	-->
     <OutputName>Riskeer Setup ($(ReleaseVersion))</OutputName>
-    <OutputType>Package</OutputType>
     <Name>RiskeerSetup</Name>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DefineConstants>Debug</DefineConstants>
@@ -32,38 +23,8 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CalculationConfiguration.wxs" />
-    <Compile Include="Examples.wxs" />
-    <Compile Include="InstallationVerification.wxs" />
-    <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
-    <Compile Include="Installer UI\CancelDlgDeltares.wxs" />
-    <Compile Include="Installer UI\DiskCostDlgDeltares.wxs" />
-    <Compile Include="Installer UI\ErrorDlgDeltares.wxs" />
-    <Compile Include="Installer UI\ExitDialogDeltares.wxs" />
-    <Compile Include="Installer UI\FatalErrorDeltares.wxs" />
-    <Compile Include="Installer UI\FilesInUseDeltares.wxs" />
-    <Compile Include="Installer UI\InstallDirDlgDeltares.wxs" />
-    <Compile Include="Installer UI\InvalidDirDlgDeltares.wxs" />
-    <Compile Include="Installer UI\MaintenanceTypeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\MaintenanceWelcomeDlg.wxs" />
-    <Compile Include="Installer UI\MsiRMFilesInUseDeltares.wxs" />
-    <Compile Include="Installer UI\OutOfDiskDlgDeltares.wxs" />
-    <Compile Include="Installer UI\OutOfRbDiskDlgDeltares.wxs" />
-    <Compile Include="Installer UI\PrepareDlgDeltares.wxs" />
-    <Compile Include="Installer UI\ProgressDlgDeltares.wxs" />
-    <Compile Include="Installer UI\ResumeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\UserExitDeltares.wxs" />
-    <Compile Include="Installer UI\VerifyReadyDlgDeltares.wxs" />
-    <Compile Include="Installer UI\WelcomeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\wixUI_Deltares.wxs" />
-    <Compile Include="Product.wxs" />
-    <Compile Include="RiskeerPayload.wxs" />
-    <Compile Include="RiskeerExecutablePayload.wxs" />
-    <Compile Include="RiskeerExecutableConfigPayload.wxs" />
-    <Compile Include="MigrationExecutablePayload.wxs" />
-    <Compile Include="MigrationExecutableConfigPayload.wxs" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Installer UI\WixUIVariables.wxl" />
+    <Content Include="Localization_nl-NL.wxl" />
     <Content Include="Banner_493x77.jpg" />
     <Content Include="CalculationConfigurations\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.dbf" />
@@ -262,22 +223,9 @@
     <Content Include="Variables.wxi" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="WixUtilExtension">
-      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
-      <Name>WixUtilExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
-      <Name>WixUIExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixNetFxExtension">
-      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
-      <Name>WixNetFxExtension</Name>
-    </WixExtension>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Installer UI\WixUIVariables.wxl" />
-    <EmbeddedResource Include="Localization_nl-NL.wxl" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.NetFx.wixext" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CalculationConfigurations\" />
@@ -304,8 +252,6 @@
     <Folder Include="Installer UI" />
     <Folder Include="IHW" />
   </ItemGroup>
-  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);
       ReleaseVersion=$(ReleaseVersion);
