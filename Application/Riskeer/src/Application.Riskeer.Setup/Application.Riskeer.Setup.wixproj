@@ -1,4 +1,4 @@
-﻿<Project Sdk="WixToolset.Sdk/6.0.2">
+﻿<Project Sdk="WixToolset.Sdk/5.0.2">
   <PropertyGroup>
     <!-- 
 		Custom Field: ReleaseVersion
@@ -224,10 +224,10 @@
     <Content Include="Variables.wxi" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
-    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
-    <PackageReference Include="WixToolset.NetFx.wixext" Version="6.0.2" />
-    <PackageReference Include="WixToolset.Heat" Version="6.0.2" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="5.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2" />
+    <PackageReference Include="WixToolset.NetFx.wixext" Version="5.0.2" />
+    <PackageReference Include="WixToolset.Heat" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CalculationConfigurations\" />
@@ -284,6 +284,7 @@
       <ComponentGroupName>RiskeerApplicationComponents</ComponentGroupName>
       <DirectoryRefId>INSTALLDIR</DirectoryRefId>
       <SuppressRootDirectory>true</SuppressRootDirectory>
+      <SuppressRegistry>true</SuppressRegistry>
     </HarvestDirectory>
     <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application" />
   </ItemGroup>
