@@ -254,11 +254,7 @@
     <Folder Include="IHW" />
   </ItemGroup>
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);
-      ReleaseVersion=$(ReleaseVersion);
-      ApplicationBinFolder=..\..\..\..\bin\$(Configuration);
-      ApplicationNestedBinFolder=..\..\..\..\bin\$(Configuration)\Application;
-      ExamplesFolder=Examples\;</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe">
