@@ -20,8 +20,8 @@
     <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg" />
 
     <!-- Requirement: .Net framework 4.8.1 installed on machine -->
-    <PropertyRef Id="WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" />
-    <Launch Condition="Installed OR WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" Message="!(loc.NetFramework481Required)" />
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED" />
+    <Launch Condition="Installed OR WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED" Message="!(loc.NetFramework481Required)" />
 
     <!-- Request the common documents folder path -->
     <util:QueryWindowsDirectories />
