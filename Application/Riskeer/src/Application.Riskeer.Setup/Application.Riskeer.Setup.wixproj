@@ -1,4 +1,4 @@
-<Project Sdk="WixToolset.Sdk/6.0.2">
+﻿<Project Sdk="WixToolset.Sdk/6.0.2">
   <PropertyGroup>
     <!-- 
 		Custom Field: ReleaseVersion
@@ -259,20 +259,43 @@
       ApplicationNestedBinFolder=..\..\..\..\bin\$(Configuration)\Application;
       ExamplesFolder=Examples\;</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe -cg RiskeerExecutable -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutablePayload.wxs" 
-      "$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config -cg RiskeerExecutableConfig -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutableConfigPayload.wxs"
-      "$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe -cg MigrationExecutable -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)MigrationExecutablePayload.wxs"
-      "$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe.config -cg MigrationExecutableConfig -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)MigrationExecutableConfigPayload.wxs"
-      "$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration)\Application -cg RiskeerApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationNestedBinFolder -sfrag -sreg -o "$(ProjectDir)RiskeerPayload.wxs"
-      "$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"</PreBuildEvent>
-  </PropertyGroup>
-  <!--
-	To modify your build process, add your task inside one of the targets below and uncomment it.
-	Other similar extension points exist, see Wix.targets.
-	<Target Name="BeforeBuild">
-	</Target>
-	<Target Name="AfterBuild">
-	</Target>
-	-->
+  <ItemGroup>
+    <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe">
+      <ComponentGroupName>RiskeerExecutable</ComponentGroupName>
+      <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestFile>
+    <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config">
+      <ComponentGroupName>RiskeerExecutableConfig</ComponentGroupName>
+      <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestFile>
+    <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe">
+      <ComponentGroupName>MigrationExecutable</ComponentGroupName>
+      <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestFile>
+    <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe.config">
+      <ComponentGroupName>MigrationExecutableConfig</ComponentGroupName>
+      <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestFile>
+    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)"/>
+  </ItemGroup>
+  <ItemGroup>
+    <HarvestDirectory Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application">
+      <ComponentGroupName>RiskeerApplicationComponents</ComponentGroupName>
+      <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestDirectory>
+    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application"/>
+  </ItemGroup>
+  <ItemGroup>
+    <HarvestDirectory Include="$(ProjectDir)Examples">
+      <ComponentGroupName>Examples</ComponentGroupName>
+      <DirectoryRefId>CommonDocumentsExamples</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestDirectory>
+    <BindPath Include="$(ProjectDir)Examples"/>
+  </ItemGroup>
 </Project>
