@@ -1,14 +1,6 @@
 ﻿<WixLocalization Culture="nl-NL" xmlns="http://wixtoolset.org/schemas/v4/wxl">
 
   <String Id="Language" Value="1043" />
-  <!--Set X to 40 when only Deltares logo is displayed, set to 24 when also Rijkswaterstaat logo is displayed-->
-  <!--set X to 25 when no logos are displayed-->
-  <String Id="DescriptionBeforeLogosX" Value="25" />
-  <!--Set Width to 220 when only Deltares logo is displayed, set to 136 when also Rijkswaterstaat logo is displayed-->
-  <!--Set Width to 320 when no logos are displayed-->
-  <String Id="DescriptionBeforeLogosWidth" Value="320" />
-
-  <String Id="TitleDescriptionX" Value="25" />
 
   <String Id="PrepareDlgTitle" />
 

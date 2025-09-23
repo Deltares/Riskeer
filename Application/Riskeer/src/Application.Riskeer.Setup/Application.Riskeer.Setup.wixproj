@@ -23,6 +23,7 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Installer UI\UIVariables.wxi" />
     <Content Include="Installer UI\WixUIVariables.wxl" />
     <Content Include="Localization_nl-NL.wxl" />
     <Content Include="Banner_493x77.jpg" />
@@ -249,7 +250,6 @@
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\" />
     <Folder Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\" />
     <Folder Include="InstallationVerification\" />
-    <Folder Include="Installer UI" />
     <Folder Include="IHW" />
   </ItemGroup>
   <PropertyGroup>
@@ -280,7 +280,7 @@
       <DirectoryRefId>INSTALLDIR</DirectoryRefId>
       <SuppressRootDirectory>true</SuppressRootDirectory>
     </HarvestFile>
-    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)"/>
+    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)" />
   </ItemGroup>
   <ItemGroup>
     <HarvestDirectory Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application">
@@ -288,7 +288,7 @@
       <DirectoryRefId>INSTALLDIR</DirectoryRefId>
       <SuppressRootDirectory>true</SuppressRootDirectory>
     </HarvestDirectory>
-    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application"/>
+    <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application" />
   </ItemGroup>
   <ItemGroup>
     <HarvestDirectory Include="$(ProjectDir)Examples">
@@ -296,6 +296,6 @@
       <DirectoryRefId>CommonDocumentsExamples</DirectoryRefId>
       <SuppressRootDirectory>true</SuppressRootDirectory>
     </HarvestDirectory>
-    <BindPath Include="$(ProjectDir)Examples"/>
+    <BindPath Include="$(ProjectDir)Examples" />
   </ItemGroup>
 </Project>
