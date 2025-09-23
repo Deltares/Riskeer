@@ -10,10 +10,10 @@
     You must not remove this notice, or any other, from this software.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?include UIVariables.wxi ?>
-  <Fragment>
-        <UI>
-	     <Dialog Id="MaintenanceTypeDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
+    <?include UIVariables.wxi ?>
+    <Fragment>
+       <UI>
+	         <Dialog Id="MaintenanceTypeDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
                 <Control Id="RepairButton" Type="PushButton" X="40" Y="65" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRepairButtonTooltip)" Text="!(loc.MaintenanceTypeRepairButtonText)" DisableCondition="ARPNOREPAIR">
                     <Publish Property="WixUI_InstallMode" Value="Repair" />
                     

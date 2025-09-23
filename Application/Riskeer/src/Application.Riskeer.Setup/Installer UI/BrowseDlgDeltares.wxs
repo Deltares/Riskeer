@@ -10,7 +10,7 @@
     You must not remove this notice, or any other, from this software.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?include UIVariables.wxi ?>
+    <?include UIVariables.wxi ?>
     <Fragment>
         <UI>
             <Dialog Id="BrowseDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">

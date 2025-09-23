@@ -25,10 +25,7 @@
 
     <!-- Request the common documents folder path -->
     <util:QueryWindowsDirectories />
-
-    <!-- File System hierarchy -->
-    
-    
+   
     <Feature Id="CompleteInstallation" Title="$(var.ApplicationFullName)" Level="1" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no" AllowAbsent="no">
       <ComponentGroupRef Id="RiskeerExecutable" />
       <ComponentGroupRef Id="RiskeerExecutableConfig" />
@@ -53,17 +50,6 @@
       <StandardDirectory Id="ProgramFilesFolder">
         <Directory Id="BOIDIR" Name="!(loc.ApplicationGroupShortName)">
           <Directory Id="INSTALLDIR" Name="$(var.ApplicationFullName)">
-            
-              <!--
-              RiskeerExecutablePayload.wxs defines the executable going into this folder.
-              RiskeerExecutableConfigPayload.wxs defines the executable config going into this folder.
-              MigrationExecutablePayload.wxs defines the 'Migratiehulpprogramma' executable going into this folder.
-              MigrationExecutableConfigPayload.wxs defines the 'Migratiehulpprogramma' executable config going into this folder.
-              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder.
-              
-              All the stated .wxs files will be generated on pre-build. Ensure you have build the solution before building the installer!
-              -->
-
             
             <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
               <File Id="Riskeer.ico" Source="Riskeer.ico" KeyPath="yes" />
@@ -138,22 +124,13 @@
             </Directory>
             
             <!-- Examples folder -->
-            <Directory Id="CommonDocumentsExamples" Name="!(loc.Examples)">
-              <!-- 
-              Examples.wxs defines all files going into this folder.
-              Examples.wxs will be generated on pre-build. Ensure you clean first before building the installer!
-              -->
-            </Directory>
+            <Directory Id="CommonDocumentsExamples" Name="!(loc.Examples)" />
           
             <!-- Installation verification -->
-            <Directory Id="CommonDocumentsInstallationVerification" Name="!(loc.InstallationVerification)">
-              <!-- InstallationVerification.wxs defines all files going into this folder. -->
-            </Directory>
+            <Directory Id="CommonDocumentsInstallationVerification" Name="!(loc.InstallationVerification)" />
             
             <!-- Calculation configuration -->
-            <Directory Id="CommonDocumentsCalculationConfiguration" Name="!(loc.CalculationConfigurationXSD)">
-              <!-- CalculationConfiguration.wxs defines all files going into this folder. -->
-            </Directory>
+            <Directory Id="CommonDocumentsCalculationConfiguration" Name="!(loc.CalculationConfigurationXSD)" />
           
           </Directory>
         </Directory>
