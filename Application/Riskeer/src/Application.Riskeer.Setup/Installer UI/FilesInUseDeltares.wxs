@@ -10,6 +10,7 @@
     You must not remove this notice, or any other, from this software.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <?include UIVariables.wxi ?>
     <Fragment>
         <UI>
             <Dialog Id="FilesInUseDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" KeepModeless="yes">
@@ -26,8 +27,8 @@
 		            <Control Id="Text" Type="Text" X="20" Y="61" Width="330" Height="30" Text="!(loc.FilesInUseText)" />
 		            <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-                <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="20" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseDescription)" />
-                <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseTitle)" />
+                <Control Id="Description" Type="Text" X="$(var.TitleDescriptionX)" Y="29" Width="325" Height="20" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseDescription)" />
+                <Control Id="Title" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseTitle)" />
                 <Control Id="List" Type="ListBox" X="20" Y="87" Width="330" Height="130" Property="FileInUseProcess" Sunken="yes" TabSkip="yes" />
             </Dialog>
         </UI>

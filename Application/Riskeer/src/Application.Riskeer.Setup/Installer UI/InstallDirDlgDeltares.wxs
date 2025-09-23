@@ -10,6 +10,7 @@ the terms of this license.
 You must not remove this notice, or any other, from this software.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?include UIVariables.wxi ?>
   <Fragment>
     <UI>
       <Dialog Id="InstallDirDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
@@ -23,8 +24,8 @@ You must not remove this notice, or any other, from this software.
         <Control Id="Text" Type="Text" X="25" Y="210" Width="320" Height="20" Text="!(loc.InstallDirDlgText)" />
         <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-        <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgDescription)" />
-        <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
+        <Control Id="Description" Type="Text" X="$(var.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgDescription)" />
+        <Control Id="Title" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
 
         <Control Id="FolderLabel" Type="Text" X="25" Y="70" Width="290" Height="30" NoPrefix="yes" Text="!(loc.InstallDirDlgFolderLabel)" />
         <Control Id="Folder" Type="PathEdit" X="25" Y="100" Width="320" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />

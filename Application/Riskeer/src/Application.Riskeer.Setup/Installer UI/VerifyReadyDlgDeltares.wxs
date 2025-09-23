@@ -10,6 +10,7 @@
     You must not remove this notice, or any other, from this software.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <?include UIVariables.wxi ?>
     <Fragment>
         <UI>
             <Dialog Id="VerifyReadyDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" TrackDiskSpace="yes">
@@ -83,13 +84,13 @@
                     <Publish Event="EnableRollback" Value="False" Condition="OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST=&quot;D&quot;" />
                     <Publish Event="SpawnDialog" Value="OutOfDiskDlgDeltares" Condition="(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST=&quot;F&quot;)" />
                 </Control>
-                <Control Id="InstallTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallTitle)" ShowCondition="NOT Installed" />
+                <Control Id="InstallTitle" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallTitle)" ShowCondition="NOT Installed" />
                 <Control Id="InstallText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallText)" ShowCondition="NOT Installed" />
-                <Control Id="RepairTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRepairTitle)" ShowCondition="WixUI_InstallMode = &quot;Repair&quot;" />
+                <Control Id="RepairTitle" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRepairTitle)" ShowCondition="WixUI_InstallMode = &quot;Repair&quot;" />
                 <Control Id="RepairText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRepairText)" ShowCondition="WixUI_InstallMode = &quot;Repair&quot;" />
-                <Control Id="RemoveTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRemoveTitle)" ShowCondition="WixUI_InstallMode = &quot;Remove&quot;" />
+                <Control Id="RemoveTitle" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRemoveTitle)" ShowCondition="WixUI_InstallMode = &quot;Remove&quot;" />
                 <Control Id="RemoveText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRemoveText)" ShowCondition="WixUI_InstallMode = &quot;Remove&quot;" />
-                <Control Id="UpdateTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgUpdateTitle)" ShowCondition="WixUI_InstallMode = &quot;Update&quot;" />
+                <Control Id="UpdateTitle" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgUpdateTitle)" ShowCondition="WixUI_InstallMode = &quot;Update&quot;" />
                 <Control Id="UpdateText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgUpdateText)" ShowCondition="WixUI_InstallMode = &quot;Update&quot;" />
 		            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.CancelButtonText)">
                     <Publish Event="SpawnDialog" Value="CancelDlgDeltares" />
