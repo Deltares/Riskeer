@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+﻿<!--
     Copyright (c) Microsoft Corporation.  All rights reserved.
     
     The use and distribution terms for this software are covered by the
@@ -10,17 +9,17 @@
     
     You must not remove this notice, or any other, from this software.
 -->
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Fragment>
         <UI>
             <Property Id="WixUIRMOptionDeltares" Value="UseRM" />
             <Dialog Id="MsiRMFilesInUseDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" KeepModeless="yes">
                 <Control Id="OK" Type="PushButton" X="240" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUIOK)">
-                    <Publish Event="EndDialog" Value="Return">1</Publish>
-                    <Publish Event="RMShutdownAndRestart" Value="0">WixUIRMOptionDeltares~="UseRM"</Publish>
+                    <Publish Event="EndDialog" Value="Return" />
+                    <Publish Event="RMShutdownAndRestart" Value="0" Condition="WixUIRMOptionDeltares~=&quot;UseRM&quot;" />
                 </Control>
                 <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
-                    <Publish Event="EndDialog" Value="Exit">1</Publish>
+                    <Publish Event="EndDialog" Value="Exit" />
                 </Control>
 
                 <Control Id="ShutdownOption" Type="RadioButtonGroup" X="26" Y="190" Width="305" Height="45" Property="WixUIRMOptionDeltares">

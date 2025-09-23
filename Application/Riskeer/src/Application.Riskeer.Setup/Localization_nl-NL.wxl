@@ -1,51 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<WixLocalization Culture="nl-NL" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="ApplicationLongName">Riskeer</String>
-  <String Id="ApplicationShortName">Riskeer</String>
-  <String Id="ApplicationGroupShortName">BOI</String>
-  <String Id="Manufacturer">Deltares</String>
-  <String Id="NetFramework481Required">De installatie vereist dat Microsoft .NET Framework 4.8.1 geïnstalleerd is om verder te gaan.</String>
-  <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
-  <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
+﻿<WixLocalization Culture="nl-NL" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+  <String Id="ApplicationLongName" Value="Riskeer" />
+  <String Id="ApplicationShortName" Value="Riskeer" />
+  <String Id="ApplicationGroupShortName" Value="BOI" />
+  <String Id="Manufacturer" Value="Deltares" />
+  <String Id="NetFramework481Required" Value="De installatie vereist dat Microsoft .NET Framework 4.8.1 geïnstalleerd is om verder te gaan." />
+  <String Id="DowngradeErrorMessage" Value="Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd." />
+  <String Id="StartApplicationDescription" Value="Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName)." />
 
-  <String Id="UserManualName">Gebruikershandleiding Riskeer 24.1.1</String>
-  <String Id="UserManualDescription">Open de gebruikershandleiding van Riskeer.</String>
+  <String Id="UserManualName" Value="Gebruikershandleiding Riskeer 24.1.1" />
+  <String Id="UserManualDescription" Value="Open de gebruikershandleiding van Riskeer." />
 
-  <String Id="LicenseName">Licentie.rtf</String>
+  <String Id="LicenseName" Value="Licentie.rtf" />
 
-  <String Id="Examples">Voorbeelden</String>
-  <String Id="InstallationVerification">Installatie verificatie</String>
-  <String Id="CalculationConfigurationXSD">Berekeningen importeren of exporteren - xsd</String>
+  <String Id="Examples" Value="Voorbeelden" />
+  <String Id="InstallationVerification" Value="Installatie verificatie" />
+  <String Id="CalculationConfigurationXSD" Value="Berekeningen importeren of exporteren - xsd" />
 
-  <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
+  <String Id="Dlg_Title" Value="[ProductName] Installatiehulpprogramma" />
   
-  <String Id="RiskDescription">!(loc.ApplicationShortName)-databasebestand</String>
+  <String Id="RiskDescription" Value="!(loc.ApplicationShortName)-databasebestand" />
 
-  <String Id="WelcomeDlgDescription">[ProductName] wordt geïnstalleerd op uw computer. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
-  <String Id="MaintenanceWelcomeDlgDescription">Met het installatiehulpprogramma kunt u de manier wijzigen waarop onderdelen van [ProductName] op uw computer worden geïnstalleerd of kunt u dit helemaal van uw computer verwijderen. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
-  <String Id="VerifyReadyDlgRemoveText">Klik op Verwijderen om [ProductName] van uw computer te verwijderen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
-  <String Id="VerifyReadyDlgInstallText">Klik op Installeren om de installatie te starten. Klik op Vorige om de gekozen installatiemap te bekijken of te wijzigen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten. </String>
-  <String Id="VerifyReadyDlgRepairText">Klik op Herstellen om de installatie van [ProductName] te herstellen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
-  <String Id="CancelDlgText">Weet u zeker dat u het installatiehulpprogramma van [ProductName] wilt afsluiten?</String>
-  <String Id="FatalErrorDlgDescriptionCustom">Het installatiehulpprogramma van [ProductName] is voortijdig beëindigd vanwege een fout. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
-  <String Id="UserExitDescriptionCustom">De installatie van [ProductName] is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
-  <String Id="ExitDialogDescription">Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
+  <String Id="WelcomeDlgDescription" Value="[ProductName] wordt geïnstalleerd op uw computer. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten." />
+  <String Id="MaintenanceWelcomeDlgDescription" Value="Met het installatiehulpprogramma kunt u de manier wijzigen waarop onderdelen van [ProductName] op uw computer worden geïnstalleerd of kunt u dit helemaal van uw computer verwijderen. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten." />
+  <String Id="VerifyReadyDlgRemoveText" Value="Klik op Verwijderen om [ProductName] van uw computer te verwijderen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten." />
+  <String Id="VerifyReadyDlgInstallText" Value="Klik op Installeren om de installatie te starten. Klik op Vorige om de gekozen installatiemap te bekijken of te wijzigen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten." />
+  <String Id="VerifyReadyDlgRepairText" Value="Klik op Herstellen om de installatie van [ProductName] te herstellen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten." />
+  <String Id="CancelDlgText" Value="Weet u zeker dat u het installatiehulpprogramma van [ProductName] wilt afsluiten?" />
+  <String Id="FatalErrorDlgDescriptionCustom" Value="Het installatiehulpprogramma van [ProductName] is voortijdig beëindigd vanwege een fout. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten." />
+  <String Id="UserExitDescriptionCustom" Value="De installatie van [ProductName] is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten." />
+  <String Id="ExitDialogDescription" Value="Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten." />
   
-  <String Id="MaintenanceTypeDlgTitle">{\WixUI_Font_Title}Installatie herstellen of verwijderen</String>
-  <String Id="InstallDirDlgTitle">{\WixUI_Font_Title}Installatiemap</String>
-  <String Id="InstallDirDlgFolderLabel">[ProductName] installeren in:</String>
-  <String Id="InstallDirDlgDescription">{\WixUI_Font_Banner_Description}Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben.</String>
-  <String Id="InstallDirDlgText">Klik op Volgende om in de bovenstaande map te installeren of klik op Wijzigen om een andere map te kiezen.</String>
+  <String Id="MaintenanceTypeDlgTitle" Value="{\WixUI_Font_Title}Installatie herstellen of verwijderen" />
+  <String Id="InstallDirDlgTitle" Value="{\WixUI_Font_Title}Installatiemap" />
+  <String Id="InstallDirDlgFolderLabel" Value="[ProductName] installeren in:" />
+  <String Id="InstallDirDlgDescription" Value="{\WixUI_Font_Banner_Description}Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben." />
+  <String Id="InstallDirDlgText" Value="Klik op Volgende om in de bovenstaande map te installeren of klik op Wijzigen om een andere map te kiezen." />
   
-  <String Id="BackButtonText">&amp;Vorige</String>
-  <String Id="NextButtonText">V&amp;olgende</String>
-  <String Id="CancelButtonText">A&amp;nnuleren</String>
-  <String Id="CompleetInstallationButtonText">Vo&amp;lledig</String>
-  <String Id="InstallButtonText">&amp;Installeren</String>
-  <String Id="MaintenanceTypeRepairButtonText">&amp;Herstellen</String>
-  <String Id="MaintenanceTypeRemoveButtonText">V&amp;erwijderen</String>
-  <String Id="DiskUsageButtonText">&amp;Schijfgebruik</String>
-  <String Id="NoButtonText">&amp;Nee</String>
-  <String Id="YesButtonText">&amp;Ja</String>
-  <String Id="FinishButtonText">&amp;Voltooien</String>
+  <String Id="BackButtonText" Value="&amp;Vorige" />
+  <String Id="NextButtonText" Value="V&amp;olgende" />
+  <String Id="CancelButtonText" Value="A&amp;nnuleren" />
+  <String Id="CompleetInstallationButtonText" Value="Vo&amp;lledig" />
+  <String Id="InstallButtonText" Value="&amp;Installeren" />
+  <String Id="MaintenanceTypeRepairButtonText" Value="&amp;Herstellen" />
+  <String Id="MaintenanceTypeRemoveButtonText" Value="V&amp;erwijderen" />
+  <String Id="DiskUsageButtonText" Value="&amp;Schijfgebruik" />
+  <String Id="NoButtonText" Value="&amp;Nee" />
+  <String Id="YesButtonText" Value="&amp;Ja" />
+  <String Id="FinishButtonText" Value="&amp;Voltooien" />
 </WixLocalization>

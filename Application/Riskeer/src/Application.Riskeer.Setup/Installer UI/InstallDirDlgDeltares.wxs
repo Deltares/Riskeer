@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+﻿<!--
 Copyright (c) Microsoft Corporation.  All rights reserved.
 
 The use and distribution terms for this software are covered by the
@@ -10,14 +9,14 @@ the terms of this license.
 
 You must not remove this notice, or any other, from this software.
 -->
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
     <UI>
       <Dialog Id="InstallDirDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.NextButtonText)" />
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.BackButtonText)" />
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.CancelButtonText)">
-          <Publish Event="SpawnDialog" Value="CancelDlgDeltares">1</Publish>
+          <Publish Event="SpawnDialog" Value="CancelDlgDeltares" />
         </Control>
 
         <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="58" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
