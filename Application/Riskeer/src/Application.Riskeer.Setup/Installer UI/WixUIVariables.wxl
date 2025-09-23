@@ -2,17 +2,17 @@
 
   <String Id="Language" Value="1043" />
 
-  <String Id="PrepareDlgTitle" />
+  <String Id="PrepareDlgTitle" Value="" />
 
-  <String Id="WelcomeUpdateDlgDescriptionUpdate" />
-  <String Id="WelcomeDlgTitle" />
-  <String Id="WixUICostingPopupOptOut" />
+  <String Id="WelcomeUpdateDlgDescriptionUpdate" Value="" />
+  <String Id="WelcomeDlgTitle" Value="" />
+  <String Id="WixUICostingPopupOptOut" Value="" />
 
-  <String Id="VerifyReadyDlgUpdate" />
-  <String Id="VerifyReadyDlgUpdateTitle" />
-  <String Id="VerifyReadyDlgUpdateText" />
-  <String Id="ProgressDlgTextUpdating" />
-  <String Id="ProgressDlgTitleUpdating" />
+  <String Id="VerifyReadyDlgUpdate" Value="" />
+  <String Id="VerifyReadyDlgUpdateTitle" Value="" />
+  <String Id="VerifyReadyDlgUpdateText" Value="" />
+  <String Id="ProgressDlgTextUpdating" Value="" />
+  <String Id="ProgressDlgTitleUpdating" Value="" />
 
   <!-- Change the color of the description texts in the banners to white -->
   <String Id="BrowseDlgDescription" Value="{\WixUI_Font_Banner_Description}Configureer de installatie locatie." />
