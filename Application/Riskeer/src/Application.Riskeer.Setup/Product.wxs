@@ -71,7 +71,7 @@
               <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Riskeer.risk" Name="FriendlyTypeName" Value="!(loc.RiskDescription)" Type="string" />
               <ProgId Id="Riskeer.risk" Description="!(loc.RiskDescription)" Icon="Riskeer.ico">
                 <Extension Id="risk" ContentType="application/risk">
-                  <Verb Id="open" TargetFile="filCAE939C4E7E14EA47DA59FCBAD2F0F57" Command="Open" Argument="&quot;%1&quot;" />
+                  <Verb Id="open" TargetFile="filoS7FVbpcrS_SqnbA_Uu4wgUndO4" Command="Open" Argument="&quot;%1&quot;" />
                   <MIME ContentType="application/risk" Default="yes" />
                 </Extension>
                 <Extension Id="rtd" ContentType="application/rtd">
