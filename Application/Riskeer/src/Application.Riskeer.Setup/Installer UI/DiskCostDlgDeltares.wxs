@@ -22,7 +22,7 @@
                 <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
                 <Control Id="Description" Type="Text" X="$(var.TitleDescriptionX)" Y="29" Width="325" Height="20" Transparent="yes" NoPrefix="yes" Text="!(loc.DiskCostDlgDescription)" />
-		            <Control Id="Title" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.DiskCostDlgTitle)" />
+                <Control Id="Title" Type="Text" X="$(var.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.DiskCostDlgTitle)" />
                 <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="100" Width="330" Height="120" Sunken="yes" Fixed="yes" Remote="yes" Text="!(loc.DiskCostDlgVolumeList)" />
             </Dialog>
         </UI>

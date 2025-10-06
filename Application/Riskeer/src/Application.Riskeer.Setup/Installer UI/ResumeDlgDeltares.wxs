@@ -21,7 +21,6 @@
                     <Publish Event="EndDialog" Value="Return" Condition="OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST=&quot;D&quot;" />
                     <Publish Event="EnableRollback" Value="False" Condition="OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST=&quot;D&quot;" />
                     <Publish Event="SpawnDialog" Value="OutOfDiskDlg" Condition="(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST=&quot;F&quot;)" />
-                    
                 </Control>
                 <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Default="yes" Text="!(loc.ResumeDlgInstall)" Hidden="yes" ShowCondition="NOT ALLUSERS">
                     <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg" Condition="!(wix.WixUICostingPopupOptOut) OR CostingComplete = 1" />
@@ -30,7 +29,6 @@
                     <Publish Event="EndDialog" Value="Return" Condition="OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST=&quot;D&quot;" />
                     <Publish Event="EnableRollback" Value="False" Condition="OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST=&quot;D&quot;" />
                     <Publish Event="SpawnDialog" Value="OutOfDiskDlg" Condition="(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST=&quot;F&quot;)" />
-                    
                 </Control>
                 <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
                     <Publish Event="SpawnDialog" Value="CancelDlg" />
@@ -41,9 +39,8 @@
                 <Control Id="Description" Type="Text" X="$(var.DescriptionBeforeLogosX)" Y="160" Width="$(var.DescriptionBeforeLogosWidth)" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ResumeDlgDescription)" />
                 <Control Id="Title" Type="Text" X="39" Y="160" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ResumeDlgTitle)" />
             </Dialog>
-
             <InstallUISequence>
-		<Show Dialog="ResumeDlgDeltares" Before="ProgressDlg" Overridable="yes" Condition="Installed AND (RESUME OR Preselected)" />
+                <Show Dialog="ResumeDlgDeltares" Before="ProgressDlg" Overridable="yes" Condition="Installed AND (RESUME OR Preselected)" />
             </InstallUISequence>
         </UI>
     </Fragment>

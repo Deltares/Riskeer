@@ -24,7 +24,6 @@
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
                 <Control Id="Description" Type="Text" X="$(var.DescriptionBeforeLogosX)" Y="160" Width="$(var.DescriptionBeforeLogosWidth)" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.MaintenanceWelcomeDlgDescription)" />
             </Dialog>
-
             <InstallUISequence>
                 <Show Dialog="MaintenanceWelcomeDlgDeltares" Before="ProgressDlgDeltares" Overridable="yes" Condition="Installed AND NOT RESUME AND NOT Preselected AND NOT PATCH" />
             </InstallUISequence>

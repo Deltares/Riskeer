@@ -1,13 +1,5 @@
 ﻿<Include xmlns="http://wixtoolset.org/schemas/v4/wxs">
-
-  <!--Set X to 40 when only Deltares logo is displayed, set to 24 when also Rijkswaterstaat logo is displayed-->
-  <!--set X to 25 when no logos are displayed-->
-  <?define  DescriptionBeforeLogosX="25" ?>
-
-  <!--Set Width to 220 when only Deltares logo is displayed, set to 136 when also Rijkswaterstaat logo is displayed-->
-  <!--Set Width to 320 when no logos are displayed-->
-  <?define  DescriptionBeforeLogosWidth="320" ?>
-
+  <?define  DescriptionBeforeLogosX="25" ?> <!--Set to 40 when only Deltares logo is displayed / set to 24 when also Rijkswaterstaat logo is displayed / set to 25 when no logos are displayed-->
+  <?define  DescriptionBeforeLogosWidth="320" ?> <!--Set to 220 when only Deltares logo is displayed / set to 136 when also Rijkswaterstaat logo is displayed / set to 320 when no logos are displayed-->
   <?define  TitleDescriptionX="25" ?>
-
 </Include>

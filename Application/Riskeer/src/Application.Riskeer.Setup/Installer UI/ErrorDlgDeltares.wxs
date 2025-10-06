@@ -37,7 +37,6 @@
                     <Publish Event="EndDialog" Value="ErrorRetry" />
                 </Control>
             </Dialog>
-
             <Property Id="ErrorDialog" Value="ErrorDlgDeltares" />
         </UI>
     </Fragment>

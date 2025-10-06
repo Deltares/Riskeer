@@ -39,7 +39,6 @@
                 </Control>
                 <Control Id="StatusLabel" Type="Text" X="20" Y="100" Width="50" Height="10" Text="!(loc.ProgressDlgStatusLabel)" />
             </Dialog>
-
             <InstallUISequence>
                 <Show Dialog="ProgressDlgDeltares" Before="ExecuteAction" Overridable="yes" />
             </InstallUISequence>
