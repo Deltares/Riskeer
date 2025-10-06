@@ -283,7 +283,7 @@
     <HarvestDirectory Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application">
       <ComponentGroupName>RiskeerApplicationComponents</ComponentGroupName>
       <DirectoryRefId>INSTALLDIR</DirectoryRefId>
-      <SuppressRootDirectory>true</SuppressRootDirectory>
+      <SuppressRootDirectory>false</SuppressRootDirectory>
       <SuppressRegistry>true</SuppressRegistry>
     </HarvestDirectory>
     <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application" />
