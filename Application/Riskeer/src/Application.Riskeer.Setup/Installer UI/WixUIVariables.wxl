@@ -1,19 +1,24 @@
 ﻿<WixLocalization Culture="nl-NL" xmlns="http://wixtoolset.org/schemas/v4/wxl">
-  <String Id="Language" Value="1043" />
-  <String Id="PrepareDlgTitle" Value="" />
-  <String Id="WelcomeUpdateDlgDescriptionUpdate" Value="" />
-  <String Id="WelcomeDlgTitle" Value="" />
-  <String Id="WixUICostingPopupOptOut" Value="" />
-  <String Id="VerifyReadyDlgUpdate" Value="" />
-  <String Id="VerifyReadyDlgUpdateTitle" Value="" />
-  <String Id="VerifyReadyDlgUpdateText" Value="" />
-  <String Id="ProgressDlgTextUpdating" Value="" />
-  <String Id="ProgressDlgTitleUpdating" Value="" />
-  <!-- Change the color of the description texts in the banners to white -->
-  <String Id="BrowseDlgDescription" Value="{\WixUI_Font_Banner_Description}Configureer de installatie locatie." />
-  <String Id="DiskCostDlgDescription" Value="{\WixUI_Font_Banner_Description}De hoeveelheid geheugen nodig voor de geconfigureerde installatie." />
-  <String Id="MaintenanceTypeDlgDescription" Value="{\WixUI_Font_Banner_Description}Selecteer de operatie die u wenst uit te voeren." />
-  <String Id="FilesInUseDescription" Value="{\WixUI_Font_Banner_Description}De bestanden die moeten worden bijgewerkt zijn in gebruik." />
-  <String Id="OutOfDiskDlgDescription" Value="{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte." />
-  <String Id="OutOfRbDiskDlgDescription" Value="{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte." />
+    <String Id="Language" Value="1043"/>
+    <String Id="PrepareDlgTitle" Value=""/>
+    <String Id="WelcomeUpdateDlgDescriptionUpdate" Value=""/>
+    <String Id="WelcomeDlgTitle" Value=""/>
+    <String Id="WixUICostingPopupOptOut" Value=""/>
+    <String Id="VerifyReadyDlgUpdate" Value=""/>
+    <String Id="VerifyReadyDlgUpdateTitle" Value=""/>
+    <String Id="VerifyReadyDlgUpdateText" Value=""/>
+    <String Id="ProgressDlgTextUpdating" Value=""/>
+    <String Id="ProgressDlgTitleUpdating" Value=""/>
+    <!-- Change the color of the description texts in the banners to white -->
+    <String Id="BrowseDlgDescription" Value="{\WixUI_Font_Banner_Description}Configureer de installatie locatie."/>
+    <String Id="DiskCostDlgDescription"
+            Value="{\WixUI_Font_Banner_Description}De hoeveelheid geheugen nodig voor de geconfigureerde installatie."/>
+    <String Id="MaintenanceTypeDlgDescription"
+            Value="{\WixUI_Font_Banner_Description}Selecteer de operatie die u wenst uit te voeren."/>
+    <String Id="FilesInUseDescription"
+            Value="{\WixUI_Font_Banner_Description}De bestanden die moeten worden bijgewerkt zijn in gebruik."/>
+    <String Id="OutOfDiskDlgDescription"
+            Value="{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte."/>
+    <String Id="OutOfRbDiskDlgDescription"
+            Value="{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte."/>
 </WixLocalization>
