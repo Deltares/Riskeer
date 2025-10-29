@@ -68,7 +68,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
@@ -149,7 +149,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 11, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 11, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
@@ -282,7 +282,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 1, 1, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
@@ -429,7 +429,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 9, 1, 0, 0, 0, 0, 16.16, 17.17, 3.09023230616781);" + Environment.NewLine +
@@ -575,7 +575,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 2, 17, 0, 0, 0, 0, 15.15, 16.16, 3.09023230616781);" + Environment.NewLine +
@@ -729,7 +729,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                "INSERT INTO [SectionCalculationSchemes] VALUES (1, 110, 1);" + Environment.NewLine +
+                "INSERT INTO [SectionCalculationSchemes] VALUES (1, 110, 1, 3, 1);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [DesignTables];" + Environment.NewLine +
                 "INSERT INTO [DesignTables] VALUES (1, 110, 1, 1, 1, 60, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -846,7 +846,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 56.23, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545571);" + Environment.NewLine +
@@ -953,7 +953,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 86.48, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545571);" + Environment.NewLine +
@@ -1055,7 +1055,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1174,7 +1174,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1294,7 +1294,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 111, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1424,7 +1424,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1576,7 +1576,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1727,7 +1727,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -1877,7 +1877,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 112, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -2007,7 +2007,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 2, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
@@ -2138,7 +2138,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 103, 1, 1, 1, 58, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
@@ -2280,7 +2280,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 103, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 103, 1, 1, 1, 58, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +

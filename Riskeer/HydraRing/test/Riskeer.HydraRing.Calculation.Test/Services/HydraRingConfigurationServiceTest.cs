@@ -125,7 +125,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 3);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 3, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 6.6, 7.7, 1.1);" + Environment.NewLine +
@@ -250,9 +250,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Sections] VALUES (3, 1, 1, 3, 3, 0, 0, 0, 0, 700006, 700006, 100, 3.3, 2.2);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 2);" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (2, 1, 3);" + Environment.NewLine +
-                                            "INSERT INTO [SectionCalculationSchemes] VALUES (3, 1, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 2, 3, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (2, 1, 3, 3, 1);" + Environment.NewLine +
+                                            "INSERT INTO [SectionCalculationSchemes] VALUES (3, 1, 1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 6.6, 7.7, 1.1);" + Environment.NewLine +
