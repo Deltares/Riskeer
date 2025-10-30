@@ -146,17 +146,17 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// Selects the beta values for each sub mechanism illustration point.
         /// </summary>
         public static readonly string SubMechanismBetaValues =
-            "SELECT " +
-            $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
-            $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
-            $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            "PeriodId, " +
-            $"{IllustrationPointsDatabaseConstants.BetaValue} " +
-            "FROM SubMechanisms " +
-            "JOIN DesignBeta USING(SubMechanismId) " +
-            "WHERE DesignBeta.LevelTypeId = 7 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            DecorateWithIterationAndPeriodFilter(
+                "SELECT " +
+                $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
+                $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
+                $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+                "PeriodId, " +
+                $"{IllustrationPointsDatabaseConstants.BetaValue} " +
+                "FROM SubMechanisms " +
+                "JOIN DesignBeta USING(SubMechanismId) " +
+                "WHERE DesignBeta.LevelTypeId = 7",
+                "DesignBeta");
 
         /// <summary>
         /// Selects the output variables for each sub mechanism illustration point.
@@ -230,10 +230,14 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private static string DecorateWithIterationAndPeriodFilter(string resultsQuery, string resultsTableName)
         {
+            string resultQueryConcatenator = resultsQuery.Contains("WHERE")
+                                                 ? "AND"
+                                                 : "WHERE";
+
             return "SELECT results.* " +
                    "FROM " +
                    $"({resultsQuery} " +
-                   $"WHERE {lastIteration}) results " +
+                   $"{resultQueryConcatenator} {lastIteration}) results " +
                    "JOIN " +
                    "((SELECT * " +
                    "FROM " +
