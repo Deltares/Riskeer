@@ -94,6 +94,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
             $"{IllustrationPointsDatabaseConstants.StochastName}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
             $"{IllustrationPointsDatabaseConstants.Duration} " +
@@ -112,6 +113,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
             $"{IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM FaultTrees " +
             "JOIN DesignBeta USING(FaultTreeId) " +
@@ -127,6 +129,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
             $"{IllustrationPointsDatabaseConstants.StochastName}, " +
             $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
@@ -147,6 +150,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
             $"{IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM SubMechanisms " +
             "JOIN DesignBeta USING(SubMechanismId) " +
@@ -162,6 +166,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
             $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
             $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
             $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
