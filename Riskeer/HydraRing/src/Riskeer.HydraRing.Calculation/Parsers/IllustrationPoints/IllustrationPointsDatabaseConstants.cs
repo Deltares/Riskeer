@@ -32,8 +32,6 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         public const string SubMechanismId = "SubMechanismId";
         public const string SubMechanismName = "SubMechanismName";
 
-        public const string PeriodId = "PeriodId";
-
         public const string ClosingSituationId = "ClosingSituationId";
         public const string ClosingSituationName = "ClosingSituationName";
 

@@ -94,7 +94,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
+            "PeriodId, " +
             $"{IllustrationPointsDatabaseConstants.StochastName}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
             $"{IllustrationPointsDatabaseConstants.Duration} " +
@@ -113,7 +113,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
+            "PeriodId, " +
             $"{IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM FaultTrees " +
             "JOIN DesignBeta USING(FaultTreeId) " +
@@ -129,7 +129,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
+            "PeriodId, " +
             $"{IllustrationPointsDatabaseConstants.StochastName}, " +
             $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
@@ -150,7 +150,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
+            "PeriodId, " +
             $"{IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM SubMechanisms " +
             "JOIN DesignBeta USING(SubMechanismId) " +
@@ -162,20 +162,41 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// Selects the output variables for each sub mechanism illustration point.
         /// </summary>
         public static readonly string SubMechanismIllustrationPointResults =
-            "SELECT " +
-            $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
-            $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
-            $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            $"{IllustrationPointsDatabaseConstants.PeriodId}, " +
-            $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
-            $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
-            $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
-            "FROM SubMechanisms " +
-            "JOIN DesignPointResults USING(SubMechanismId) " +
-            "JOIN OutputVariables USING(OutputVariableId) " +
-            $"WHERE {lastIteration} " +
-            $"AND {firstPeriod};";
+            AddIterationAndPeriodFilter(
+                "SELECT " +
+                $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
+                $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
+                $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+                "PeriodId, " +
+                $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
+                $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
+                $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
+                "FROM SubMechanisms " +
+                "JOIN DesignPointResults USING(SubMechanismId) " +
+                "JOIN OutputVariables USING(OutputVariableId)",
+                "DesignPointResults");
 
+        private static string AddIterationAndPeriodFilter(string resultsQuery, string resultsTableName)
+        {
+            return "SELECT results.* " +
+                   "FROM " +
+                   $" ({resultsQuery} " +
+                   "   WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)) results " +
+                   "JOIN " +
+                   " ((SELECT * " +
+                   "   FROM " +
+                   "     (SELECT WindDirectionId, " +
+                   "             ClosingSituationId, " +
+                   "             PeriodId " +
+                   $"     FROM {resultsTableName} " +
+                   "      WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind) " +
+                   "      ORDER BY PeriodId) " +
+                   "   GROUP BY WindDirectionId, ClosingSituationId)) firstPeriod " +
+                   "ON results.WindDirectionId = firstPeriod.WindDirectionId " +
+                   "AND results.ClosingSituationId = firstPeriod.ClosingSituationId " +
+                   "AND results.PeriodId = firstPeriod.PeriodId;";
+        }
+        
         /// <summary>
         /// Selects all the illustration points from the fault tree.
         /// </summary>
