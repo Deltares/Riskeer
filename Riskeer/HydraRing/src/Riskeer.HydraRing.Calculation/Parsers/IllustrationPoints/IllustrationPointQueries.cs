@@ -90,57 +90,57 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// Selects the alpha values for each fault tree illustration point.
         /// </summary>
         public static readonly string FaultTreeAlphaValues =
-            "SELECT " +
-            $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
-            $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
-            $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            "PeriodId, " +
-            $"{IllustrationPointsDatabaseConstants.StochastName}, " +
-            $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
-            $"{IllustrationPointsDatabaseConstants.Duration} " +
-            "FROM FaultTrees " +
-            "JOIN DesignAlpha USING(FaultTreeId) " +
-            "JOIN Stochasts USING(StochastId) " +
-            "WHERE DesignAlpha.LevelTypeId = 5 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            DecorateWithIterationAndPeriodFilter(
+                "SELECT " +
+                $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
+                $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
+                $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+                "PeriodId, " +
+                $"{IllustrationPointsDatabaseConstants.StochastName}, " +
+                $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
+                $"{IllustrationPointsDatabaseConstants.Duration} " +
+                "FROM FaultTrees " +
+                "JOIN DesignAlpha USING(FaultTreeId) " +
+                "JOIN Stochasts USING(StochastId) " +
+                "WHERE DesignAlpha.LevelTypeId = 5",
+                "DesignAlpha");
 
         /// <summary>
         /// Selects the beta values for each fault tree illustration point.
         /// </summary>
         public static readonly string FaultTreeBetaValues =
-            "SELECT " +
-            $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
-            $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
-            $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            "PeriodId, " +
-            $"{IllustrationPointsDatabaseConstants.BetaValue} " +
-            "FROM FaultTrees " +
-            "JOIN DesignBeta USING(FaultTreeId) " +
-            "WHERE DesignBeta.LevelTypeId = 5 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            DecorateWithIterationAndPeriodFilter(
+                "SELECT " +
+                $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
+                $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
+                $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+                "PeriodId, " +
+                $"{IllustrationPointsDatabaseConstants.BetaValue} " +
+                "FROM FaultTrees " +
+                "JOIN DesignBeta USING(FaultTreeId) " +
+                "WHERE DesignBeta.LevelTypeId = 5",
+                "DesignBeta");
 
         /// <summary>
         /// Selects the alpha values for each sub mechanism illustration point.
         /// </summary>
         public static readonly string SubMechanismAlphaValues =
-            "SELECT " +
-            $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
-            $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
-            $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
-            "PeriodId, " +
-            $"{IllustrationPointsDatabaseConstants.StochastName}, " +
-            $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit}, " +
-            $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
-            $"{IllustrationPointsDatabaseConstants.Duration}, " +
-            $"{IllustrationPointsDatabaseConstants.Realization} " +
-            "FROM SubMechanisms " +
-            "JOIN DesignAlpha USING(SubMechanismId) " +
-            "JOIN Stochasts USING(StochastId) " +
-            "WHERE DesignAlpha.LevelTypeId = 7 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            DecorateWithIterationAndPeriodFilter(
+                "SELECT " +
+                $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
+                $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
+                $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
+                "PeriodId, " +
+                $"{IllustrationPointsDatabaseConstants.StochastName}, " +
+                $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit}, " +
+                $"{IllustrationPointsDatabaseConstants.AlphaValue}," +
+                $"{IllustrationPointsDatabaseConstants.Duration}, " +
+                $"{IllustrationPointsDatabaseConstants.Realization} " +
+                "FROM SubMechanisms " +
+                "JOIN DesignAlpha USING(SubMechanismId) " +
+                "JOIN Stochasts USING(StochastId) " +
+                "WHERE DesignAlpha.LevelTypeId = 7",
+                "DesignAlpha");
 
         /// <summary>
         /// Selects the beta values for each sub mechanism illustration point.
