@@ -44,7 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"WindDirections.WindDirectionId = firstPeriod.WindDirectionId AS {IllustrationPointsDatabaseConstants.IsGoverning} " +
             "FROM WindDirections " +
             "JOIN " +
-            "(SELECT * " +
+            "(SELECT WindDirectionId " +
             "FROM GoverningWind " +
             $"WHERE {lastIteration} " +
             "ORDER BY PeriodId " +
@@ -171,7 +171,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
                 $"{IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
                 "PeriodId, " +
-                $"DesignPointResults.{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
+                $"{IllustrationPointsDatabaseConstants.IllustrationPointResultValue}, " +
                 $"{IllustrationPointsDatabaseConstants.IllustrationPointResultDescription}, " +
                 $"{IllustrationPointsDatabaseConstants.IllustrationPointUnit} " +
                 "FROM SubMechanisms " +
@@ -228,7 +228,6 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine} " +
             "FROM children;";
 
-        private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM GoverningWind)";
         private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)";
 
         private static string DecorateWithIterationAndPeriodFilter(string resultsQuery, string resultsTableName)
