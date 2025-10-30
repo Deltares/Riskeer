@@ -41,11 +41,14 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
             $"SELECT WindDirections.{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionName}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionAngle}, " +
-            $"WindDirections.WindDirectionId = GoverningWind.WindDirectionId AS {IllustrationPointsDatabaseConstants.IsGoverning} " +
+            $"WindDirections.WindDirectionId = firstPeriod.WindDirectionId AS {IllustrationPointsDatabaseConstants.IsGoverning} " +
             "FROM WindDirections " +
-            "JOIN GoverningWind " +
-            $"WHERE {lastIteration}" +
-            $"AND {firstPeriod};";
+            "JOIN " +
+            "(SELECT * " +
+            "FROM GoverningWind " +
+            $"WHERE {lastIteration} " +
+            "ORDER BY PeriodId " +
+            "LIMIT 1) firstPeriod;";
 
         /// <summary>
         /// Selects all the sub mechanisms.
