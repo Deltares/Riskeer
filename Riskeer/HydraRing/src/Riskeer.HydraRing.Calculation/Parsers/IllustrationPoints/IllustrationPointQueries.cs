@@ -162,7 +162,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// Selects the output variables for each sub mechanism illustration point.
         /// </summary>
         public static readonly string SubMechanismIllustrationPointResults =
-            AddIterationAndPeriodFilter(
+            DecorateWithIterationAndPeriodFilter(
                 "SELECT " +
                 $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
                 $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
@@ -176,27 +176,6 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 "JOIN OutputVariables USING(OutputVariableId)",
                 "DesignPointResults");
 
-        private static string AddIterationAndPeriodFilter(string resultsQuery, string resultsTableName)
-        {
-            return "SELECT results.* " +
-                   "FROM " +
-                   $" ({resultsQuery} " +
-                   "   WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)) results " +
-                   "JOIN " +
-                   " ((SELECT * " +
-                   "   FROM " +
-                   "     (SELECT WindDirectionId, " +
-                   "             ClosingSituationId, " +
-                   "             PeriodId " +
-                   $"     FROM {resultsTableName} " +
-                   "      WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind) " +
-                   "      ORDER BY PeriodId) " +
-                   "   GROUP BY WindDirectionId, ClosingSituationId)) firstPeriod " +
-                   "ON results.WindDirectionId = firstPeriod.WindDirectionId " +
-                   "AND results.ClosingSituationId = firstPeriod.ClosingSituationId " +
-                   "AND results.PeriodId = firstPeriod.PeriodId;";
-        }
-        
         /// <summary>
         /// Selects all the illustration points from the fault tree.
         /// </summary>
@@ -248,5 +227,26 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM GoverningWind)";
         private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)";
+
+        private static string DecorateWithIterationAndPeriodFilter(string resultsQuery, string resultsTableName)
+        {
+            return "SELECT results.* " +
+                   "FROM " +
+                   $"({resultsQuery} " +
+                   $"WHERE {lastIteration}) results " +
+                   "JOIN " +
+                   "((SELECT * " +
+                   "FROM " +
+                   "(SELECT WindDirectionId, " +
+                   "ClosingSituationId, " +
+                   "PeriodId " +
+                   $"FROM {resultsTableName} " +
+                   $"WHERE {lastIteration} " +
+                   "ORDER BY PeriodId) " +
+                   "GROUP BY WindDirectionId, ClosingSituationId)) firstPeriod " +
+                   "ON results.WindDirectionId = firstPeriod.WindDirectionId " +
+                   "AND results.ClosingSituationId = firstPeriod.ClosingSituationId " +
+                   "AND results.PeriodId = firstPeriod.PeriodId;";
+        }
     }
 }
