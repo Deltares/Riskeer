@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             if (propertyName.Equals(nameof(WaveHeight)))
             {
-                return !double.IsNaN(WaveHeight);
+                return IsOvertoppingDominant;
             }
 
             return false;
