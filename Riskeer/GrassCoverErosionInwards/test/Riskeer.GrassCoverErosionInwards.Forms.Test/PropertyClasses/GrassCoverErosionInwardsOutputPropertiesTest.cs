@@ -165,39 +165,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
         }
 
-        [Test]
-        public void PropertyAttributes_WithDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues()
+        [Test, Combinatorial]
+        public void PropertyAttributes_WithAnyCompositionOfOutput_ReturnExpectedValues([Values(true, false)] bool isOvertoppingDominant,
+                                                                                       [Values(true, false)] bool dikeHeightCalculated,
+                                                                                       [Values(true, false)] bool overtoppingRateCalculated)
         {
             // Setup
-            var overtoppingOutput = new OvertoppingOutput(10, true, 0, null);
-            var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
-            var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
-
-            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
-
-            // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
-
-            AssertOvertoppingOutputProperties(dynamicProperties);
-            AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
-            AssertOvertoppingRateOutputProperties(dynamicProperties, secondHydraulicLoadsOutputIndex);
-        }
-
-        [Test]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void PropertyAttributes_WithDikeHeightOrOvertoppingRateCalculated_ReturnExpectedValues(bool dikeHeightCalculated,
-                                                                                                      bool overtoppingRateCalculated)
-        {
-            // Setup
+            var random = new Random(39);
             DikeHeightOutput dikeHeightOutput = null;
             OvertoppingRateOutput overtoppingRateOutput = null;
 
-            var overtoppingOutput = new OvertoppingOutput(2, true, 0, null);
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), isOvertoppingDominant, random.NextDouble(), null);
 
             if (dikeHeightCalculated)
             {
@@ -216,41 +194,26 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
 
-            AssertOvertoppingOutputProperties(dynamicProperties);
+            AssertOvertoppingOutputProperties(dynamicProperties, isOvertoppingDominant);
+
+            int waveHeightNotPresentOffset = isOvertoppingDominant
+                                                 ? 0
+                                                 : 1;
 
             if (dikeHeightCalculated)
             {
-                AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
+                int dikeHeightIndex = firstHydraulicLoadsOutputIndex - waveHeightNotPresentOffset;
+
+                AssertDikeHeightOutputProperties(dynamicProperties, dikeHeightIndex);
             }
 
             if (overtoppingRateCalculated)
             {
-                AssertOvertoppingRateOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
+                int overtoppingRateIndex = (dikeHeightCalculated ? secondHydraulicLoadsOutputIndex : firstHydraulicLoadsOutputIndex) - waveHeightNotPresentOffset;
+
+                AssertOvertoppingRateOutputProperties(dynamicProperties, overtoppingRateIndex);
             }
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(10)]
-        public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues(double waveHeight)
-        {
-            // Setup
-            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, 0, null);
-
-            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
-
-            // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
-
-            // Assert
-            int propertiesCount = double.IsNaN(waveHeight) ? 3 : 4;
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(propertiesCount, dynamicProperties.Count);
-
-            AssertOvertoppingOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
         }
 
         private static void AssertOvertoppingOutputProperties(PropertyDescriptorCollection dynamicProperties, bool isOvertoppingDominant = true)
