@@ -56,23 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability);
 
-            Assert.IsTrue(output.HasWaveHeight);
-
             Assert.AreEqual(withIllustrationPoints, output.HasGeneralResult);
             Assert.AreSame(generalResult, output.GeneralResult);
-        }
-
-        [Test]
-        public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
-        {
-            // Setup
-            var output = new OvertoppingOutput(double.NaN, false, double.NaN, null);
-
-            // Call
-            bool hasWaveHeight = output.HasWaveHeight;
-
-            // Assert
-            Assert.IsFalse(hasWaveHeight);
         }
 
         [Test]
@@ -120,7 +105,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability);
-            Assert.IsTrue(output.HasWaveHeight);
             Assert.IsNull(output.GeneralResult);
         }
 
@@ -143,7 +127,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability);
-            Assert.IsTrue(output.HasWaveHeight);
             Assert.IsNull(output.GeneralResult);
         }
     }
