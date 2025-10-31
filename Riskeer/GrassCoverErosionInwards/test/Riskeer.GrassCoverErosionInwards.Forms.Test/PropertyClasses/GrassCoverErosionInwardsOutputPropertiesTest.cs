@@ -197,26 +197,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             AssertOvertoppingOutputProperties(dynamicProperties, isOvertoppingDominant);
 
-            int waveHeightNotPresentOffset = isOvertoppingDominant
-                                                 ? 0
-                                                 : 1;
+            int waveHeightNotPresentOffsetCorrection = isOvertoppingDominant ? 0 : 1;
 
             if (dikeHeightCalculated)
             {
-                int dikeHeightIndex = firstHydraulicLoadsOutputIndex - waveHeightNotPresentOffset;
+                int dikeHeightIndex = firstHydraulicLoadsOutputIndex - waveHeightNotPresentOffsetCorrection;
 
                 AssertDikeHeightOutputProperties(dynamicProperties, dikeHeightIndex);
             }
 
             if (overtoppingRateCalculated)
             {
-                int overtoppingRateIndex = (dikeHeightCalculated ? secondHydraulicLoadsOutputIndex : firstHydraulicLoadsOutputIndex) - waveHeightNotPresentOffset;
+                int overtoppingRateIndex = (dikeHeightCalculated ? secondHydraulicLoadsOutputIndex : firstHydraulicLoadsOutputIndex) - waveHeightNotPresentOffsetCorrection;
 
                 AssertOvertoppingRateOutputProperties(dynamicProperties, overtoppingRateIndex);
             }
         }
 
-        private static void AssertOvertoppingOutputProperties(PropertyDescriptorCollection dynamicProperties, bool isOvertoppingDominant = true)
+        private static void AssertOvertoppingOutputProperties(PropertyDescriptorCollection dynamicProperties, bool isOvertoppingDominant)
         {
             const string category = "\t\tSterkte berekening";
 
