@@ -64,14 +64,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public double Reliability { get; }
 
-        public bool HasWaveHeight
-        {
-            get
-            {
-                return !double.IsNaN(WaveHeight);
-            }
-        }
-
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>

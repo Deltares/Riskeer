@@ -158,7 +158,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
-            int propertiesCount = overtoppingOutput.HasWaveHeight ? 4 : 3;
+            int propertiesCount = !double.IsNaN(overtoppingOutput.WaveHeight) ? 4 : 3;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
@@ -177,7 +177,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            if (overtoppingOutput.HasWaveHeight)
+            if (!double.IsNaN(overtoppingOutput.WaveHeight))
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
@@ -187,7 +187,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int waveHeightNotPresentOffset = overtoppingOutput.HasWaveHeight
+            int waveHeightNotPresentOffset = !double.IsNaN(overtoppingOutput.WaveHeight)
                                                  ? 0
                                                  : 1;
 
@@ -214,7 +214,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
-            int propertiesCount = overtoppingOutput.HasWaveHeight ? 8 : 7;
+            int propertiesCount = !double.IsNaN(overtoppingOutput.WaveHeight) ? 8 : 7;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
@@ -233,7 +233,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            if (overtoppingOutput.HasWaveHeight)
+            if (!double.IsNaN(overtoppingOutput.WaveHeight))
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
@@ -243,7 +243,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int waveHeightNotPresentOffset = overtoppingOutput.HasWaveHeight
+            int waveHeightNotPresentOffset = !double.IsNaN(overtoppingOutput.WaveHeight)
                                                  ? 0
                                                  : 1;
 
