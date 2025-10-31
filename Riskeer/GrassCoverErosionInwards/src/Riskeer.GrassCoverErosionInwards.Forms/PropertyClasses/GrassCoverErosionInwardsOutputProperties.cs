@@ -64,7 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
                    || propertyName.Equals(nameof(WaveHeight)) && IsOvertoppingDominant;
         }
 
-        #region GrassCoverErosionInwards result
+        #region Overtopping
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 3)]
@@ -91,6 +91,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 3)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]
+        public bool IsOvertoppingDominant
+        {
+            get
+            {
+                return data.OvertoppingOutput.IsOvertoppingDominant;
+            }
+        }
+
+        [PropertyOrder(4)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 3)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_WaveHeight_Displayname))]
@@ -100,18 +112,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.OvertoppingOutput.WaveHeight;
-            }
-        }
-
-        [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 3)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]
-        public bool IsOvertoppingDominant
-        {
-            get
-            {
-                return data.OvertoppingOutput.IsOvertoppingDominant;
             }
         }
 
