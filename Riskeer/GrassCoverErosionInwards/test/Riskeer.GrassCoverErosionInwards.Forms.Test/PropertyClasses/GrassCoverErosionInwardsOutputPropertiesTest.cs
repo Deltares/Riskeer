@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
-        private const int isDominantIndex = 2;
+        private const int isOvertoppingDominantIndex = 2;
         private const int waveHeightIndex = 3;
 
         private const int firstHydraulicLoadsOutputIndex = 4;
@@ -234,8 +234,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
+            PropertyDescriptor isOvertoppingDominantProperty = dynamicProperties[isOvertoppingDominantIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isOvertoppingDominantProperty,
                                                                             category,
                                                                             "Overslag dominant [-]",
                                                                             "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
