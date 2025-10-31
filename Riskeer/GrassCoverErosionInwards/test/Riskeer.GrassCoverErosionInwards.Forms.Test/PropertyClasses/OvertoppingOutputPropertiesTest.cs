@@ -43,8 +43,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
-        private const int waveHeightIndex = 2;
-        private const int isDominantIndex = 3;
+        private const int isDominantIndex = 2;
+        private const int waveHeightIndex = 3;
         private const int windDirectionPropertyIndex = 4;
         private const int alphaValuesPropertyIndex = 5;
         private const int durationsPropertyIndex = 6;
@@ -178,6 +178,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
+            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
+                                                                            resultCategoryName,
+                                                                            "Overslag dominant [-]",
+                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
+                                                                            true);
+
             if (isOvertoppingDominant)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
@@ -187,17 +194,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 "De golfhoogte van de overslag deelberekening.",
                                                                                 true);
             }
-
-            int waveHeightNotPresentOffset = isOvertoppingDominant
-                                                 ? 0
-                                                 : 1;
-
-            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex - waveHeightNotPresentOffset];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
-                                                                            resultCategoryName,
-                                                                            "Overslag dominant [-]",
-                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
-                                                                            true);
         }
 
         [Test]
@@ -235,6 +231,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
+            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
+                                                                            resultCategoryName,
+                                                                            "Overslag dominant [-]",
+                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
+                                                                            true);
+
             if (isOvertoppingDominant)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
@@ -248,13 +251,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             int waveHeightNotPresentOffset = isOvertoppingDominant
                                                  ? 0
                                                  : 1;
-
-            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex - waveHeightNotPresentOffset];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
-                                                                            resultCategoryName,
-                                                                            "Overslag dominant [-]",
-                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
-                                                                            true);
 
             PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex - waveHeightNotPresentOffset];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,

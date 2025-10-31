@@ -83,6 +83,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]
+        public bool IsOvertoppingDominant
+        {
+            get
+            {
+                return data.IsOvertoppingDominant;
+            }
+        }
+
+        [PropertyOrder(4)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_WaveHeight_Displayname))]
@@ -92,18 +104,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.WaveHeight;
-            }
-        }
-
-        [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]
-        public bool IsOvertoppingDominant
-        {
-            get
-            {
-                return data.IsOvertoppingDominant;
             }
         }
 
