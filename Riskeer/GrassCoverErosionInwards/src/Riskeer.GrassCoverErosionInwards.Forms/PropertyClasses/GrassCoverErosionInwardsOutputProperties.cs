@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightOutput != null
                    || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateOutput != null
-                   || propertyName.Equals(nameof(WaveHeight)) && !double.IsNaN(data.OvertoppingOutput.WaveHeight);
+                   || propertyName.Equals(nameof(WaveHeight)) && IsOvertoppingDominant;
         }
 
         #region GrassCoverErosionInwards result

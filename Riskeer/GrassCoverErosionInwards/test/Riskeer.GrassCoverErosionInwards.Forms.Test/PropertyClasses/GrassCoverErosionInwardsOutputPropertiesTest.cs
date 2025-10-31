@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(39);
             double waveHeight = random.NextDouble();
-            bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
+            bool isOvertoppingDominant = random.NextBoolean();
             double reliability = random.NextDouble();
             double dikeHeight = random.NextDouble();
             double dikeHeightTargetProbability = random.NextDouble();
@@ -93,10 +93,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double overtoppingRateCalculatedReliability = random.NextDouble();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var resultOutput = new OvertoppingOutput(waveHeight,
-                                                     isOvertoppingDominant,
-                                                     reliability,
-                                                     null);
+            var overtoppingOutput = new OvertoppingOutput(waveHeight,
+                                                          isOvertoppingDominant,
+                                                          reliability,
+                                                          null);
 
             var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
                                                         dikeHeightTargetProbability,
@@ -105,6 +105,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                         dikeHeightCalculatedReliability,
                                                         dikeHeightConvergence,
                                                         null);
+
             var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
                                                                   overtoppingRateTargetProbability,
                                                                   overtoppingRateTargetReliability,
@@ -112,7 +113,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                   overtoppingRateCalculatedReliability,
                                                                   overtoppingRateConvergence,
                                                                   null);
-            var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
+
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties(output);
@@ -167,16 +169,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues()
         {
             // Setup
-            var resultOutput = new OvertoppingOutput(10,
-                                                     true,
-                                                     0,
-                                                     null);
+            var overtoppingOutput = new OvertoppingOutput(10, true, 0, null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
 
-            var output = new GrassCoverErosionInwardsOutput(resultOutput,
-                                                            dikeHeightOutput,
-                                                            overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties(output);
@@ -185,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(16, dynamicProperties.Count);
 
-            AssertResultOutputProperties(dynamicProperties);
+            AssertOvertoppingOutputProperties(dynamicProperties);
             AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             AssertOvertoppingRateOutputProperties(dynamicProperties, secondHydraulicLoadsOutputIndex);
         }
@@ -200,10 +197,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             DikeHeightOutput dikeHeightOutput = null;
             OvertoppingRateOutput overtoppingRateOutput = null;
 
-            var resultOutput = new OvertoppingOutput(2,
-                                                     true,
-                                                     0,
-                                                     null);
+            var overtoppingOutput = new OvertoppingOutput(2, true, 0, null);
 
             if (dikeHeightCalculated)
             {
@@ -215,9 +209,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
             }
 
-            var output = new GrassCoverErosionInwardsOutput(resultOutput,
-                                                            dikeHeightOutput,
-                                                            overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties(output);
@@ -226,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
 
-            AssertResultOutputProperties(dynamicProperties);
+            AssertOvertoppingOutputProperties(dynamicProperties);
 
             if (dikeHeightCalculated)
             {
@@ -245,12 +237,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var resultOutput = new OvertoppingOutput(waveHeight,
-                                                     true,
-                                                     0,
-                                                     null);
+            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, 0, null);
 
-            var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties(output);
@@ -261,44 +250,44 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
 
-            AssertResultOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
+            AssertOvertoppingOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
         }
 
-        private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties, bool waveHeightCalculated = true)
+        private static void AssertOvertoppingOutputProperties(PropertyDescriptorCollection dynamicProperties, bool isOvertoppingDominant = true)
         {
-            const string resultCategory = "\t\tSterkte berekening";
+            const string category = "\t\tSterkte berekening";
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
-                                                                            resultCategory,
+                                                                            category,
                                                                             "Faalkans [1/jaar]",
                                                                             "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
-                                                                            resultCategory,
+                                                                            category,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            if (waveHeightCalculated)
+            if (isOvertoppingDominant)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
-                                                                                resultCategory,
+                                                                                category,
                                                                                 "Indicatieve golfhoogte (Hs) [m]",
                                                                                 "De golfhoogte van de overslag deelberekening.",
                                                                                 true);
             }
 
-            int realDominantIndex = waveHeightCalculated
+            int realDominantIndex = isOvertoppingDominant
                                         ? isDominantIndex
                                         : isDominantIndex - 1;
 
             PropertyDescriptor isDominantProperty = dynamicProperties[realDominantIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
-                                                                            resultCategory,
+                                                                            category,
                                                                             "Overslag dominant [-]",
                                                                             "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
                                                                             true);
@@ -352,45 +341,45 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         private static void AssertOvertoppingRateOutputProperties(PropertyDescriptorCollection dynamicProperties, int overtoppingRateIndex)
         {
-            const string overtoppingRateCategory = "Overslagdebiet";
+            const string category = "Overslagdebiet";
             PropertyDescriptor overtoppingRateProperty = dynamicProperties[overtoppingRateIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateProperty,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Overslagdebiet [l/m/s]",
                                                                             "Het berekende overslagdebiet.",
                                                                             true);
 
             PropertyDescriptor overtoppingRateTargetProbability = dynamicProperties[overtoppingRateIndex + 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateTargetProbability,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Doelkans [1/jaar]",
                                                                             "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor overtoppingRateTargetReliability = dynamicProperties[overtoppingRateIndex + 2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateTargetReliability,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Betrouwbaarheidsindex doelkans [-]",
                                                                             "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor overtoppingRateCalculatedProbability = dynamicProperties[overtoppingRateIndex + 3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculatedProbability,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Berekende kans [1/jaar]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertyDescriptor overtoppingRateCalculatedReliability = dynamicProperties[overtoppingRateIndex + 4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculatedReliability,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertyDescriptor overtoppingRateCalculationConvergence = dynamicProperties[overtoppingRateIndex + 5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculationConvergence,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de overslagdebiet berekening?",
                                                                             true);
