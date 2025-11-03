@@ -232,8 +232,12 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
                 LeakageLengthInwardsPhreaticLine3 = input.LeakageLengthInwardsPhreaticLine3,
-                LeakageLengthOutwardsPhreaticLine4 = input.LeakageLengthOutwardsPhreaticLine4,
-                LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
+                LeakageLengthOutwardsPhreaticLine4 = input.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                         ? input.LeakageLengthOutwardsPhreaticLine4
+                                                         : 1.0,
+                LeakageLengthInwardsPhreaticLine4 = input.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                        ? input.LeakageLengthInwardsPhreaticLine4
+                                                        : 1.0,
                 PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
                 AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,

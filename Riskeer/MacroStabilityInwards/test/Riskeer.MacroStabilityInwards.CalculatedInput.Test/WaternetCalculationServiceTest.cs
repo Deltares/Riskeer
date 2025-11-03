@@ -158,7 +158,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
         }
 
         [Test]
-        public void ValidatDaily_GeneralInputNull_ThrowsArgumentNullException()
+        public void ValidateDaily_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
