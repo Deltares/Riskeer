@@ -288,6 +288,43 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
         }
 
         [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
+        public void CalculateExtreme_DifferentDikeSoilScenarios_SetsInputOnCalculator(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            input.DikeSoilScenario = dikeSoilScenario;
+
+            input.LeakageLengthInwardsPhreaticLine4 = random.NextRoundedDouble();
+            input.LeakageLengthOutwardsPhreaticLine4 = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                WaternetCalculationService.CalculateExtreme(input, new GeneralMacroStabilityInwardsInput(), random.NextRoundedDouble());
+
+                // Assert
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetExtremeCalculator.Input;
+
+                double expectedLeakageLengthInwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                       ? input.LeakageLengthInwardsPhreaticLine4
+                                                                       : 1.0;
+                double expectedLeakageLengthOutwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                        ? input.LeakageLengthOutwardsPhreaticLine4
+                                                                        : 1.0;
+
+                Assert.AreEqual(input.DikeSoilScenario, actualInput.DikeSoilScenario);
+                Assert.AreEqual(expectedLeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+                Assert.AreEqual(expectedLeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
+            }
+        }
+
+        [Test]
         public void CalculateExtreme_CalculationRan_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
@@ -363,6 +400,43 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
                 WaternetCalculatorInput actualInput = factory.LastCreatedWaternetDailyCalculator.Input;
 
                 CalculatorInputAssert.AssertDailyInput(input, actualInput);
+            }
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
+        public void CalculateDaily_DifferentDikeSoilScenarios_SetsInputOnCalculator(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+            input.DikeSoilScenario = dikeSoilScenario;
+
+            input.LeakageLengthInwardsPhreaticLine4 = random.NextRoundedDouble();
+            input.LeakageLengthOutwardsPhreaticLine4 = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                WaternetCalculationService.CalculateDaily(input, new GeneralMacroStabilityInwardsInput());
+
+                // Assert
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetDailyCalculator.Input;
+
+                double expectedLeakageLengthInwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                       ? input.LeakageLengthInwardsPhreaticLine4
+                                                                       : 1.0;
+                double expectedLeakageLengthOutwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                        ? input.LeakageLengthOutwardsPhreaticLine4
+                                                                        : 1.0;
+
+                Assert.AreEqual(input.DikeSoilScenario, actualInput.DikeSoilScenario);
+                Assert.AreEqual(expectedLeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+                Assert.AreEqual(expectedLeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
             }
         }
 
