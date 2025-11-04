@@ -45,7 +45,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
+        private const int inflowModelTypeColumnIndex = 7;
         private const int meanInsideWaterLevelColumnIndex = 8;
+        private const int criticalOvertoppingDischargeColumnIndex = 9;
+        private const int allowedLevelIncreaseStorageColumnIndex = 10;
 
         /// <summary>
         /// Fired when <see cref="ClosingStructureInflowModelType"/> has changed.
@@ -77,14 +80,23 @@ namespace Riskeer.ClosingStructures.Forms.Views
                     useForeshoreColumnIndex, new DataGridViewColumnStateDefinition()
                 },
                 {
+                    inflowModelTypeColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
                     meanInsideWaterLevelColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    criticalOvertoppingDischargeColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    allowedLevelIncreaseStorageColumnIndex, new DataGridViewColumnStateDefinition()
                 }
             };
 
             UpdateUseBreakWaterColumnStateDefinitions();
             UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
-            UpdateMeanInsideWaterLevelColumnStateDefinitions();
+            UpdateInflowModelTypeColumnStateDefinitions();
         }
 
         /// <summary>
@@ -291,6 +303,24 @@ namespace Riskeer.ClosingStructures.Forms.Views
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+        }
+
+        private void UpdateInflowModelTypeColumnStateDefinitions()
+        {
+            if (InflowModelType == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[inflowModelTypeColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[meanInsideWaterLevelColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[criticalOvertoppingDischargeColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[allowedLevelIncreaseStorageColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[inflowModelTypeColumnIndex]);
+                UpdateMeanInsideWaterLevelColumnStateDefinitions();
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[criticalOvertoppingDischargeColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[allowedLevelIncreaseStorageColumnIndex]);
             }
         }
 
