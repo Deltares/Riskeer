@@ -280,7 +280,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall)]
         [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert)]
-        public void InflowModelType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType)
+        public void InflowModelType_AlwaysOnChangeToValue_NotifyObserverAndCalculationPropertyChanged(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType)
         {
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
@@ -296,7 +296,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void InflowModelType_AlwaysOnChange_InflowModelTypeChangedFired()
+        public void InflowModelType_AlwaysOnChangeToValue_InflowModelTypeChangedFired()
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
@@ -346,6 +346,27 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void InflowModelType_ChangeToNull_NoNotificationsAndOutputNotCleared()
+        {
+            // Setup
+            var oldValue = (ClosingStructureInflowModelType) 0;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.InflowModelType.Value;
+                    row.InflowModelType = null;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.InflowModelType);
+                });
+        }
+
+        [Test]
         public void InflowModelType_ChangeToEqualValue_InflowModelTypeChangedNotFired()
         {
             // Setup
@@ -369,6 +390,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call
             row.InflowModelType = inflowModelType;
+
+            // Assert
+            Assert.AreEqual(0, inflowModelTypeChangedCounter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void InflowModelType_ChangeToNull_InflowModelTypeChangedNotFired()
+        {
+            // Setup
+            var inflowModelTypeChangedCounter = 0;
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
+            var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType
+                }
+            }, handler);
+
+            row.InflowModelTypeChanged += (s, a) => inflowModelTypeChangedCounter++;
+
+            // Call
+            row.InflowModelType = null;
 
             // Assert
             Assert.AreEqual(0, inflowModelTypeChangedCounter);
