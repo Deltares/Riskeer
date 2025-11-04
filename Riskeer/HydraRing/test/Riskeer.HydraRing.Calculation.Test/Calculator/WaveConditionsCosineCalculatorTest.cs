@@ -38,8 +38,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
             Assert.IsNaN(calculator.WaveHeight);
             Assert.IsNaN(calculator.WaveAngle);
-            Assert.IsNaN(calculator.WaveDirection);
             Assert.IsNaN(calculator.WavePeakPeriod);
+            Assert.IsNaN(calculator.WaveDirection);
+            Assert.IsNaN(calculator.Resistance);
             Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNull(calculator.Converged);
             Assert.IsNull(calculator.OutputDirectory);

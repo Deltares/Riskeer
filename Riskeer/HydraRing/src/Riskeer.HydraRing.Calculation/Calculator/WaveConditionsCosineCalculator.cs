@@ -54,6 +54,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
             WaveAngle = double.NaN;
             WavePeakPeriod = double.NaN;
             WaveDirection = double.NaN;
+            Resistance = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
@@ -65,6 +66,8 @@ namespace Riskeer.HydraRing.Calculation.Calculator
 
         public double WaveDirection { get; private set; }
 
+        public double Resistance { get; private set; }
+        
         public double ReliabilityIndex { get; private set; }
 
         public bool? Converged { get; private set; }
@@ -87,8 +90,9 @@ namespace Riskeer.HydraRing.Calculation.Calculator
             {
                 WaveHeight = waveConditionsCalculationParser.Output.WaveHeight;
                 WaveAngle = waveConditionsCalculationParser.Output.WaveAngle;
-                WaveDirection = waveConditionsCalculationParser.Output.WaveDirection;
                 WavePeakPeriod = waveConditionsCalculationParser.Output.WavePeakPeriod;
+                WaveDirection = waveConditionsCalculationParser.Output.WaveDirection;
+                Resistance = waveConditionsCalculationParser.Output.Resistance;
             }
 
             if (reliabilityIndexCalculationParser.Output != null)
