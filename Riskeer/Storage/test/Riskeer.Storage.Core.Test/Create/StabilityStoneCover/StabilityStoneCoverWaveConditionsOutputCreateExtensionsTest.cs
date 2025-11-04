@@ -69,8 +69,9 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues(StabilityStoneCoverWaveConditionsOutputType outputType)
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  CalculationConvergence.NotCalculated);
 
             // Call
             StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, 22);

@@ -62,8 +62,9 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  CalculationConvergence.NotCalculated);
 
             // Call
             WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22);

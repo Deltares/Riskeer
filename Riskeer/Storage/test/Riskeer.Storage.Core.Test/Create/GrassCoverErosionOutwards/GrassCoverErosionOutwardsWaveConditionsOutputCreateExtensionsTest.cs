@@ -67,8 +67,9 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  CalculationConvergence.NotCalculated);
 
             // Call
             GrassCoverErosionOutwardsWaveConditionsOutputEntity entity =
