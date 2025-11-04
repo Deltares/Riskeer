@@ -1042,18 +1042,18 @@ namespace Riskeer.Storage.Core.TestUtil
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                         new[]
                         {
-                            new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                            new WaveConditionsOutput(1, 2, 3, 4, 5, 6, 0.7, 0.8, 0.9, 1, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated)
                         },
                         new[]
                         {
-                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
+                            new WaveConditionsOutput(10, 20, 30, 40, 50, 60, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 10, 20, 30, 40, 50, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
                         },
                         new[]
                         {
-                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
+                            new WaveConditionsOutput(10, 20, 30, 40, 50, 60, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 10, 20, 30, 40, 50, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
                         })
                 });
         }
@@ -1164,12 +1164,12 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
-                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 6, 0.7, 0.8, 0.9, 1, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated)
                     }, new[]
                     {
-                        new WaveConditionsOutput(10, 9, 8, 7, 6, 0.5, 0.4, 0.3, 0.2, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1, CalculationConvergence.NotCalculated)
+                        new WaveConditionsOutput(10, 9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(9, 8, 7, 6, 5, 4, 0.3, 0.4, 0.1, 0, CalculationConvergence.NotCalculated)
                     })
                 });
         }
@@ -1278,8 +1278,8 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 6, 0.7, 0.8, 0.9, 1, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated)
                     })
                 });
         }
