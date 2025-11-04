@@ -186,23 +186,23 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(BreakWaterType.Wall)]
-        [TestCase(BreakWaterType.Caisson)]
-        [TestCase(BreakWaterType.Dam)]
-        public void BreakWaterType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(BreakWaterType breakWaterType)
+        public void BreakWaterType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
+            // Setup
+            var oldValue = (BreakWaterType) 0;
+
             // Call
             AssertPropertyNotChanged(
                 row =>
                 {
-                    breakWaterType = row.BreakWaterType;
+                    oldValue = row.BreakWaterType;
                     row.BreakWaterType = row.BreakWaterType;
                 },
                 calculation =>
                 {
                     // Assert
-                    Assert.NotNull(breakWaterType);
-                    Assert.AreEqual(breakWaterType, calculation.InputParameters.BreakWater.Type);
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Type);
                 });
         }
 
@@ -290,7 +290,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void InflowModelType_AlwaysOnChange_DikeProfileChangedFired()
+        public void InflowModelType_AlwaysOnChange_InflowModelTypeChangedFired()
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
@@ -322,25 +322,25 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void InflowModelType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
-            var inflowModelType = ClosingStructureInflowModelType.VerticalWall;
+            var oldValue = (ClosingStructureInflowModelType) 0;
 
             // Call
             AssertPropertyNotChanged(
                 row =>
                 {
-                    inflowModelType = row.InflowModelType;
+                    oldValue = row.InflowModelType.Value;
                     row.InflowModelType = row.InflowModelType;
                 },
                 calculation =>
                 {
                     // Assert
-                    Assert.NotNull(inflowModelType);
-                    Assert.AreEqual(inflowModelType, calculation.InputParameters.InflowModelType);
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.InflowModelType);
                 });
         }
 
         [Test]
-        public void InflowModelType_ChangeToEqualValue_DikeProfileChangedNotFired()
+        public void InflowModelType_ChangeToEqualValue_InflowModelTypeChangedNotFired()
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
@@ -737,18 +737,20 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert, true)]
-        [TestCase(ClosingStructureInflowModelType.LowSill, true)]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall, false)]
-        public void InflowModelType_AlwaysOnChange_CorrectColumnStates(ClosingStructureInflowModelType inflowModelType, bool isEnabled)
+        [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert, true)]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill, true)]
+        [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall, false)]
+        public void InflowModelType_AlwaysOnChange_CorrectColumnStates(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType, bool isEnabled)
         {
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
+            calculation.InputParameters.Structure = new TestClosingStructure(inflowModelType);
+
             // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters))
             {
-                InflowModelType = inflowModelType
+                InflowModelType = newInflowModelType
             };
 
             // Assert

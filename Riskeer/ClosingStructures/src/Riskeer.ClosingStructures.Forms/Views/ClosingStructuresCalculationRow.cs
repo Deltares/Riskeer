@@ -176,14 +176,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets or sets the inflow model type of the <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/>.
         /// </summary>
-        public ClosingStructureInflowModelType InflowModelType
+        public ClosingStructureInflowModelType? InflowModelType
         {
-            get => Calculation.InputParameters.InflowModelType;
+            get => Calculation.InputParameters.Structure != null
+                       ? Calculation.InputParameters.InflowModelType
+                       : (ClosingStructureInflowModelType?) null;
             set
             {
-                if (!Calculation.InputParameters.InflowModelType.Equals(value))
+                if (value.HasValue && !Calculation.InputParameters.InflowModelType.Equals(value.Value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.InflowModelType = value, PropertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.InflowModelType = value.Value, PropertyChangeHandler);
                     UpdateMeanInsideWaterLevelColumnStateDefinitions();
                     InflowModelTypeChanged?.Invoke(this, EventArgs.Empty);
                 }
