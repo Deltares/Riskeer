@@ -35,15 +35,17 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output
             const double waveDirection = 5.0;
             const double waveHeight = 9.93;
             const double wavePeakPeriod = 18;
+            const double resistance = 2.34;
 
             // Call
-            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle, waveDirection);
+            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance);
 
             // Assert
             Assert.AreEqual(waveHeight, output.WaveHeight);
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod);
             Assert.AreEqual(waveAngle, output.WaveAngle);
             Assert.AreEqual(waveDirection, output.WaveDirection);
+            Assert.AreEqual(resistance, output.Resistance);
         }
     }
 }
