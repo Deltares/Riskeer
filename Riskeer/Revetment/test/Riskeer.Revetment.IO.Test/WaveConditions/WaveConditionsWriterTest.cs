@@ -151,7 +151,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247,
                     UseBreakWater = true
-                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "1/100"),
+                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.55555, 6.66666), CoverType.StoneCoverBlocks, "1/100"),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
@@ -160,7 +160,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     StepSize = (RoundedDouble) 1,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, "1/100")
+                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666, 7.77777), CoverType.StoneCoverColumns, "1/100")
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWaveConditions_ValidData_ValidFile));
@@ -183,11 +183,11 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
 
         private static WaveConditionsOutput CreateWaveConditionsOutputForExport(double waterLevel, double waveHeight,
                                                                                 double wavePeakPeriod, double waveAngle,
-                                                                                double waveDirection)
+                                                                                double waveDirection, double resistance)
         {
-            return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle,
-                                            waveDirection, double.NaN, double.NaN, double.NaN,
-                                            double.NaN, CalculationConvergence.CalculatedConverged);
+            return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection,
+                                            resistance, double.NaN, double.NaN, double.NaN, double.NaN,
+                                            CalculationConvergence.CalculatedConverged);
         }
     }
 }
