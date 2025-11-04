@@ -42,13 +42,15 @@ namespace Riskeer.Revetment.Service.Test
             const double wavePeakPeriod = 3.3;
             const double waveAngle = 4.4;
             const double waveDirection = 5.5;
-            const double targetProbability = 1 / 6.6;
-            const double calculatedReliability = -7.7;
+            const double resistance = 6.6;
+            const double targetProbability = 1 / 7.7;
+            const double calculatedReliability = -8.8;
 
             // Call 
             WaveConditionsOutput output = WaveConditionsOutputFactory.CreateOutput(waterLevel, waveHeight, wavePeakPeriod,
-                                                                                   waveAngle, waveDirection, targetProbability,
-                                                                                   calculatedReliability, convergence);
+                                                                                   waveAngle, waveDirection, resistance,
+                                                                                   targetProbability, calculatedReliability,
+                                                                                   convergence);
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -56,6 +58,7 @@ namespace Riskeer.Revetment.Service.Test
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(resistance, output.Resistance, output.Resistance.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability, 1e-6);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
@@ -79,6 +82,7 @@ namespace Riskeer.Revetment.Service.Test
             Assert.IsNaN(output.WavePeakPeriod);
             Assert.IsNaN(output.WaveAngle);
             Assert.IsNaN(output.WaveDirection);
+            Assert.IsNaN(output.Resistance);
             Assert.AreEqual(targetProbability, output.TargetProbability, 1e-6);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.IsNaN(output.CalculatedProbability);

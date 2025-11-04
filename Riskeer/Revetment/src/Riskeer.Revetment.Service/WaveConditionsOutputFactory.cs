@@ -39,21 +39,23 @@ namespace Riskeer.Revetment.Service
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
         /// <param name="waveDirection">The calculated wave direction with respect to the North.</param>
+        /// <param name="resistance">The calculated resistance.</param>
         /// <param name="targetProbability">The target probability that was calculated for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculatedConvergence">The calculated convergence value.</param>
         /// <returns>The created <see cref="WaveConditionsOutput"/>.</returns>
         public static WaveConditionsOutput CreateOutput(double waterLevel, double waveHeight,
                                                         double wavePeakPeriod, double waveAngle,
-                                                        double waveDirection, double targetProbability,
+                                                        double waveDirection, double resistance, double targetProbability,
                                                         double calculatedReliability, bool? calculatedConvergence)
         {
             double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
             CalculationConvergence convergence = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculatedConvergence);
 
-            return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                            targetReliability, calculatedProbability, calculatedReliability, convergence);
+            return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance,
+                                            targetProbability, targetReliability, calculatedProbability, calculatedReliability,
+                                            convergence);
         }
 
         /// <summary>
@@ -69,6 +71,7 @@ namespace Riskeer.Revetment.Service
             double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
 
             return new WaveConditionsOutput(waterLevel,
+                                            double.NaN,
                                             double.NaN,
                                             double.NaN,
                                             double.NaN,
