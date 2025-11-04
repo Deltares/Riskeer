@@ -50,7 +50,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
+        private const int inflowModelTypeColumnIndex = 7;
         private const int meanInsideWaterLevelColumnIndex = 8;
+        private const int criticalOvertoppingDischargeColumnIndex = 9;
+        private const int allowedLevelIncreaseStorageColumnIndex = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -72,13 +75,16 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreSame(calculationScenario, row.Calculation);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(5, columnStateDefinitions.Count);
+            Assert.AreEqual(8, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useBreakWaterColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, inflowModelTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, meanInsideWaterLevelColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, criticalOvertoppingDischargeColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, allowedLevelIncreaseStorageColumnIndex);
             mocks.VerifyAll();
         }
 
