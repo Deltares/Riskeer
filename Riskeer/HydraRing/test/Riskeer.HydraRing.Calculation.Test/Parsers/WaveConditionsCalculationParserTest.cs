@@ -134,6 +134,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
         [TestCase("ValidFileNoWavePeriod")]
         [TestCase("ValidFileNoWaveDirection")]
         [TestCase("ValidFileNoWaveAngle")]
+        [TestCase("ValidFileNoResistance")]
         public void Parse_NotAllColumnsHaveResults_ThrowsHydraRingFileParserException(string subFolder)
         {
             // Setup
@@ -179,6 +180,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             Assert.AreEqual(-7.97903, parser.Output.WaveAngle);
             Assert.AreEqual(292.021, parser.Output.WaveDirection);
             Assert.AreEqual(5.02556, parser.Output.WavePeakPeriod);
+            Assert.AreEqual(2.76673, parser.Output.Resistance);
         }
     }
 }
