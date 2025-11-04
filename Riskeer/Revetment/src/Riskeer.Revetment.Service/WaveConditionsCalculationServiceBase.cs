@@ -278,6 +278,7 @@ namespace Riskeer.Revetment.Service
                                                                   calculator.WavePeakPeriod,
                                                                   calculator.WaveAngle,
                                                                   calculator.WaveDirection,
+                                                                  calculator.Resistance,
                                                                   targetProbability,
                                                                   calculator.ReliabilityIndex,
                                                                   calculator.Converged);
