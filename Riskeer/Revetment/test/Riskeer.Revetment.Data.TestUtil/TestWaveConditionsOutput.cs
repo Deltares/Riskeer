@@ -31,11 +31,11 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestWaveConditionsOutput"/> with default values.
         /// </summary>
-        public TestWaveConditionsOutput() : this(1.1, 2.2, 3.3, 4.4, 5.5) {}
+        public TestWaveConditionsOutput() : this(1.1, 2.2, 3.3, 4.4, 5.5, 6.6) {}
 
         private TestWaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod,
-                                         double waveAngle, double waveDirection) :
-            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection,
+                                         double waveAngle, double waveDirection, double resistance) :
+            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance,
                  0.1, 1.282, 0.4, 0.253, CalculationConvergence.CalculatedConverged) {}
     }
 }
