@@ -843,10 +843,28 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void InflowModelType_StructureNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[inflowModelTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[meanInsideWaterLevelColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[criticalOvertoppingDischargeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[allowedLevelIncreaseStorageColumnIndex], false);
+        }
+        
+        [Test]
         [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert, true)]
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill, true)]
         [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall, false)]
-        public void InflowModelType_AlwaysOnChange_CorrectColumnStates(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType, bool isEnabled)
+        public void InflowModelType_AlwaysOnChangeToValue_CorrectColumnStates(
+            ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType, bool meanInsideWaterLevelIsEnabled)
         {
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
@@ -854,14 +872,17 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             calculation.InputParameters.Structure = new TestClosingStructure(inflowModelType);
 
             // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters))
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
             {
                 InflowModelType = newInflowModelType
             };
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[meanInsideWaterLevelColumnIndex], isEnabled);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[inflowModelTypeColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[meanInsideWaterLevelColumnIndex], meanInsideWaterLevelIsEnabled);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[criticalOvertoppingDischargeColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[allowedLevelIncreaseStorageColumnIndex], true);
         }
 
         #endregion
