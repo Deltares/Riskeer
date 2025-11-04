@@ -36,8 +36,9 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         private const string wavePeriodColumnName = "WavePeriod";
         private const string waveDirectionColumnName = "WaveDirection";
         private const string waveAngleColumnName = "WaveAngle";
+        private const string resistanceColumnName = "ResistanceQvariant";
 
-        private readonly string query = $"SELECT {waveHeightColumnName}, {wavePeriodColumnName}, {waveAngleColumnName}, {waveDirectionColumnName} " +
+        private readonly string query = $"SELECT {waveHeightColumnName}, {wavePeriodColumnName}, {waveAngleColumnName}, {waveDirectionColumnName}, {resistanceColumnName} " +
                                         "FROM QVariantResults " +
                                         $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName}";
 
@@ -71,8 +72,9 @@ namespace Riskeer.HydraRing.Calculation.Parsers
                 double wavePeriod = Convert.ToDouble(result[wavePeriodColumnName]);
                 double waveAngle = Convert.ToDouble(result[waveAngleColumnName]);
                 double waveDirection = Convert.ToDouble(result[waveDirectionColumnName]);
+                double resistance = Convert.ToDouble(result[resistanceColumnName]);
 
-                Output = new WaveConditionsCalculationOutput(waveHeight, wavePeriod, waveAngle, waveDirection);
+                Output = new WaveConditionsCalculationOutput(waveHeight, wavePeriod, waveAngle, waveDirection, resistance);
             }
             catch (InvalidCastException e)
             {
