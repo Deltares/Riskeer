@@ -47,6 +47,7 @@ namespace Riskeer.Revetment.Data.TestUtil
                                             random.NextDouble(),
                                             random.NextDouble(),
                                             random.NextDouble(),
+                                            random.NextDouble(),
                                             random.NextEnumValue<CalculationConvergence>());
         }
 
