@@ -248,32 +248,30 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int waveHeightNotPresentOffset = isOvertoppingDominant
-                                                 ? 0
-                                                 : 1;
+            int waveHeightNotPresentOffsetCorrection = isOvertoppingDominant ? 0 : 1;
 
-            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex - waveHeightNotPresentOffset];
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex - waveHeightNotPresentOffsetCorrection];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Maatgevende windrichting",
                                                                             "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
                                                                             true);
 
-            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex - waveHeightNotPresentOffset];
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex - waveHeightNotPresentOffsetCorrection];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex - waveHeightNotPresentOffset];
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex - waveHeightNotPresentOffsetCorrection];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex - waveHeightNotPresentOffset];
+            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex - waveHeightNotPresentOffsetCorrection];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
