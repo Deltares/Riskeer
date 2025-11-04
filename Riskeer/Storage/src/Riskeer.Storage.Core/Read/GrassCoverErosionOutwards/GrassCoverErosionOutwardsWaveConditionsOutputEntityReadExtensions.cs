@@ -46,6 +46,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
                                             entity.WavePeakPeriod.ToNullAsNaN(),
                                             entity.WaveAngle.ToNullAsNaN(),
                                             entity.WaveDirection.ToNullAsNaN(),
+                                            double.NaN,
                                             entity.TargetProbability.ToNullAsNaN(),
                                             entity.TargetReliability.ToNullAsNaN(),
                                             entity.CalculatedProbability.ToNullAsNaN(),
