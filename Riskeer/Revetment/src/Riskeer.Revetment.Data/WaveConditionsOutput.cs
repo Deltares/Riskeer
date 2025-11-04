@@ -46,6 +46,7 @@ namespace Riskeer.Revetment.Data
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
         /// <param name="waveDirection">The calculated wave direction with respect to the North.</param>
+        /// <param name="resistance">The calculated resistance.</param>
         /// <param name="targetProbability">The target probability.</param>
         /// <param name="targetReliability">The target beta (reliability).</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
@@ -57,7 +58,7 @@ namespace Riskeer.Revetment.Data
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationConvergence"/> 
         /// has an invalid enum value of type <see cref="CalculationConvergence"/>.</exception>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
-                                    double waveDirection,
+                                    double waveDirection, double resistance,
                                     double targetProbability, double targetReliability,
                                     double calculatedProbability, double calculatedReliability,
                                     CalculationConvergence calculationConvergence)
@@ -67,6 +68,7 @@ namespace Riskeer.Revetment.Data
             WavePeakPeriod = new RoundedDouble(2, wavePeakPeriod);
             WaveAngle = new RoundedDouble(2, waveAngle);
             WaveDirection = new RoundedDouble(2, waveDirection);
+            Resistance = new RoundedDouble(2, resistance);
 
             TargetProbability = targetProbability;
             TargetReliability = new RoundedDouble(5, targetReliability);
@@ -106,6 +108,12 @@ namespace Riskeer.Revetment.Data
         /// [deg] 
         /// </summary>
         public RoundedDouble WaveDirection { get; }
+
+        /// <summary>
+        /// Gets the calculated resistance.
+        /// [-] 
+        /// </summary>
+        public RoundedDouble Resistance { get; }
 
         /// <summary>
         /// Gets the target beta.
