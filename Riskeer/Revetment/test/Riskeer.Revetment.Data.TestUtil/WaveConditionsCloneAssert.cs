@@ -50,6 +50,7 @@ namespace Riskeer.Revetment.Data.TestUtil
             Assert.AreEqual(original.WaveDirection, clone.WaveDirection);
             Assert.AreEqual(original.WaveHeight, clone.WaveHeight);
             Assert.AreEqual(original.WavePeakPeriod, clone.WavePeakPeriod);
+            Assert.AreEqual(original.Resistance, clone.Resistance);
         }
 
         /// <summary>

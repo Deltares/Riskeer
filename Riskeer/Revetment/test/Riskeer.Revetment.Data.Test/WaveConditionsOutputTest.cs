@@ -46,13 +46,15 @@ namespace Riskeer.Revetment.Data.Test
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.67893;
+            const double resistance = 2.76343;
             const double targetReliability = 3000;
             const double calculatedReliability = 4000;
             const CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated;
 
             // Call
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                  targetReliability, calculatedProbability, calculatedReliability, calculationConvergence);
+            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance,
+                                                  targetProbability, targetReliability, calculatedProbability, calculatedReliability,
+                                                  calculationConvergence);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
@@ -62,6 +64,7 @@ namespace Riskeer.Revetment.Data.Test
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(resistance, output.Resistance, output.Resistance.GetAccuracy());
 
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(5, output.TargetReliability.NumberOfDecimalPlaces);
@@ -83,8 +86,9 @@ namespace Riskeer.Revetment.Data.Test
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
             // Call 
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, targetProbability,
-                                                               double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                               double.NaN, targetProbability, double.NaN, double.NaN, double.NaN,
+                                                               CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -102,8 +106,9 @@ namespace Riskeer.Revetment.Data.Test
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
         {
             // Call 
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, calculatedProbability, double.NaN, CalculationConvergence.NotCalculated);
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                               double.NaN, double.NaN, double.NaN, calculatedProbability,
+                                                               double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -117,8 +122,9 @@ namespace Riskeer.Revetment.Data.Test
             const CalculationConvergence invalidEnumValue = (CalculationConvergence) 9001;
 
             // Call
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, double.NaN, double.NaN, invalidEnumValue);
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                               double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                               invalidEnumValue);
 
             // Assert
             const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CalculationConvergence'.";
