@@ -843,7 +843,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void InflowModelType_StructureNull_CorrectColumnStates()
+        public void InflowModelType_InputWithoutStructure_CorrectColumnStates()
         {
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
@@ -858,7 +858,26 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[criticalOvertoppingDischargeColumnIndex], false);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[allowedLevelIncreaseStorageColumnIndex], false);
         }
-        
+
+        [Test]
+        public void InflowModelType_InputWithStructure_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            calculation.InputParameters.Structure = new TestClosingStructure(ClosingStructureInflowModelType.LowSill);
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[inflowModelTypeColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[meanInsideWaterLevelColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[criticalOvertoppingDischargeColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[allowedLevelIncreaseStorageColumnIndex], true);
+        }
+
         [Test]
         [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert, true)]
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill, true)]
