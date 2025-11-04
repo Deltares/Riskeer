@@ -69,7 +69,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var properties = new WaveConditionsOutputProperties
             {
                 Data = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                double.NaN, double.NaN, double.NaN, convergence)
+                                                double.NaN, double.NaN, double.NaN, double.NaN, convergence)
             };
 
             // Assert
@@ -122,6 +122,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.5326;
+            const double resistance = 2.76343;
             const double targetProbability = 0.5;
             const double targetReliability = 3000;
             const double calculatedProbability = 0.4;
@@ -131,8 +132,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability, convergence)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance,
+                                                targetProbability, targetReliability, calculatedProbability, calculatedReliability,
+                                                convergence)
             };
 
             // Assert
@@ -159,6 +161,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.5326;
+            const double resistance = 2.76343;
             const double targetProbability = 0.5;
             const double targetReliability = 3000;
             const double calculatedProbability = 0.4;
@@ -167,8 +170,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability, CalculationConvergence.NotCalculated)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, resistance,
+                                                targetProbability, targetReliability, calculatedProbability, calculatedReliability,
+                                                CalculationConvergence.NotCalculated)
             };
 
             // Assert
