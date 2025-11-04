@@ -43,17 +43,23 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         double WaveAngle { get; }
 
         /// <summary>
+        /// Gets the peak period of the wave.
+        /// [s]
+        /// </summary>
+        double WavePeakPeriod { get; }
+        
+        /// <summary>
         /// Gets the direction of the wave with respect to the North.
         /// [deg]
         /// </summary>
         double WaveDirection { get; }
 
         /// <summary>
-        /// Gets the peak period of the wave.
-        /// [s]
+        /// Gets the resistance.
+        /// [-]
         /// </summary>
-        double WavePeakPeriod { get; }
-
+        double Resistance { get; }
+        
         /// <summary>
         /// Gets the calculated reliability index.
         /// [-]

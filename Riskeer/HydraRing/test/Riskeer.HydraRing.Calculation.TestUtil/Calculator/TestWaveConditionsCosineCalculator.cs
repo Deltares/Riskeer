@@ -29,13 +29,14 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
     /// </summary>
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
     {
-        public double WaveDirection { get; }
-        public double ReliabilityIndex { get; }
-        public string OutputDirectory { get; }
-        public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; }
         public double WaveAngle { get; }
         public double WavePeakPeriod { get; }
+        public double WaveDirection { get; }
+        public double Resistance { get; }
+        public double ReliabilityIndex { get; }
         public bool? Converged { get; set; }
+        public string OutputDirectory { get; }
+        public string LastErrorFileContent { get; set; }
     }
 }
