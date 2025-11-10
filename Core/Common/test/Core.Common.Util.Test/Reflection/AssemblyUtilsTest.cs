@@ -73,7 +73,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual("Copyright © Stichting Deltares and State of the Netherlands 2024", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
-            StringAssert.StartsWith("24.2.1.1", assemblyInfo.Version);
+            StringAssert.StartsWith("25.1.1.1", assemblyInfo.Version);
         }
 
         [Test]
