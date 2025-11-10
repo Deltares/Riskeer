@@ -92,7 +92,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WaveAngle).ToString(null, CultureInfo.InvariantCulture),
-                new RoundedDouble(2, exportableWaveConditions.WaveDirection).ToString(null, CultureInfo.InvariantCulture)
+                new RoundedDouble(2, exportableWaveConditions.WaveDirection).ToString(null, CultureInfo.InvariantCulture),
+                new RoundedDouble(2, exportableWaveConditions.Resistance).ToString(null, CultureInfo.InvariantCulture)
             };
 
             return string.Join(separator, stringComponents);
