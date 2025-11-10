@@ -95,6 +95,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             WavePeriod = waveConditionsOutput.WavePeakPeriod;
             WaveAngle = waveConditionsOutput.WaveAngle;
             WaveDirection = waveConditionsOutput.WaveDirection;
+            Resistance = waveConditionsOutput.Resistance;
         }
 
         /// <summary>
@@ -121,6 +122,11 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// Gets the water level.
         /// </summary>
         public RoundedDouble WaterLevel { get; }
+
+        /// <summary>
+        /// Gets the resistance.
+        /// </summary>
+        public RoundedDouble Resistance { get; }
 
         /// <summary>
         /// Gets the type of dike cover.

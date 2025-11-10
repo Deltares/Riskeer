@@ -139,6 +139,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
             Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
             Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+            Assert.AreEqual(waveConditionsOutput.Resistance, exportableWaveConditions.Resistance);
         }
 
         [Test]
@@ -180,6 +181,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
             Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
             Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+            Assert.AreEqual(waveConditionsOutput.Resistance, exportableWaveConditions.Resistance);
         }
 
         private static WaveConditionsInput CreateValidWaveConditionsInput()
