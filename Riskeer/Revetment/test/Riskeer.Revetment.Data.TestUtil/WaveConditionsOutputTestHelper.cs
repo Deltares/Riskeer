@@ -51,6 +51,7 @@ namespace Riskeer.Revetment.Data.TestUtil
             Assert.IsNaN(actualOutput.WavePeakPeriod);
             Assert.IsNaN(actualOutput.WaveAngle);
             Assert.IsNaN(actualOutput.WaveDirection);
+            Assert.IsNaN(actualOutput.Resistance);
             Assert.AreEqual(targetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(targetReliability, actualOutput.TargetReliability, actualOutput.TargetReliability.GetAccuracy());
             Assert.IsNaN(actualOutput.CalculatedProbability);

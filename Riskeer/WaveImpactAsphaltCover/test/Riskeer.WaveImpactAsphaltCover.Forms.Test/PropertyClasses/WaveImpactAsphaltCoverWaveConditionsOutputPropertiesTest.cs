@@ -76,6 +76,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedOutputProperty.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
             Assert.AreEqual(expectedOutputProperty.WaveAngle, firstOutputProperties.WaveAngle);
             Assert.AreEqual(expectedOutputProperty.WaveDirection, firstOutputProperties.WaveDirection);
+            Assert.AreEqual(expectedOutputProperty.Resistance, firstOutputProperties.Resistance);
             Assert.AreEqual(expectedOutputProperty.TargetProbability, firstOutputProperties.TargetProbability);
             Assert.AreEqual(expectedOutputProperty.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());

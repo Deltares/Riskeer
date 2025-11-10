@@ -103,7 +103,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
 
         [Test]
         [TestCaseSource(nameof(GetCoverTypes))]
-        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_ValidDataWithCoverType_ReturnsValidCollection_ValidDataWithCoverType_ReturnsValidCollection(CoverType coverType)
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_ValidDataWithCoverType_ReturnsValidCollection(CoverType coverType)
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput
@@ -142,6 +142,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
             Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
             Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+            Assert.AreEqual(waveConditionsOutput.Resistance, exportableWaveConditions.Resistance);
         }
 
         private static IEnumerable<TestCaseData> GetCoverTypes()
