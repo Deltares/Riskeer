@@ -29,20 +29,20 @@ using Riskeer.Migration.Core.TestUtil;
 
 namespace Riskeer.Migration.Integration.Test
 {
-    public class MigrationTo242IntegrationTest
+    public class MigrationTo251IntegrationTest
     {
-        private const string newVersion = "24.2";
+        private const string newVersion = "25.1";
 
         [Test]
         [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
-        public void Given241Project_WhenUpgradedTo242_ThenProjectAsExpected(string fileName, IEnumerable<string> expectedMessages)
+        public void Given241Project_WhenUpgradedTo251_ThenProjectAsExpected(string fileName, IEnumerable<string> expectedMessages)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, fileName);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given241Project_WhenUpgradedTo242_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given241Project_WhenUpgradedTo242_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given241Project_WhenUpgradedTo251_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given241Project_WhenUpgradedTo251_ThenProjectAsExpected), ".log"));
 
             var migrator = new ProjectFileMigrator
             {
@@ -235,7 +235,7 @@ namespace Riskeer.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"24.2\";";
+                "WHERE [Version] = \"25.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
 
