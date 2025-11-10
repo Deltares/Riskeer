@@ -460,6 +460,24 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende sterkte..
+        /// </summary>
+        public static string WaveConditionsOutput_Resistance_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_Resistance_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte [-].
+        /// </summary>
+        public static string WaveConditionsOutput_Resistance_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_Resistance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De opgegeven kans waarvoor het resultaat is berekend..
         /// </summary>
         public static string WaveConditionsOutput_TargetProbability_Description {

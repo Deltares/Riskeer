@@ -97,6 +97,18 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_Resistance_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_Resistance_Description))]
+        public RoundedDouble Resistance
+        {
+            get
+            {
+                return data.Resistance;
+            }
+        }
+
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_DisplayName))]

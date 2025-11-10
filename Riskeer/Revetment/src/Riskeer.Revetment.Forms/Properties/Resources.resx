@@ -246,6 +246,12 @@
   <data name="WaveConditionsOutput_WavePeakPeriod_DisplayName" xml:space="preserve">
     <value>Golfperiode (Tp) [s]</value>
   </data>
+  <data name="WaveConditionsOutput_Resistance_Description" xml:space="preserve">
+    <value>Berekende sterkte.</value>
+  </data>
+  <data name="WaveConditionsOutput_Resistance_DisplayName" xml:space="preserve">
+    <value>Sterkte [-]</value>
+  </data>
   <data name="WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>Ondergrens bekleding</value>
   </data>
