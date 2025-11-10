@@ -42,11 +42,12 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         private const int requiredWavePeakPeriodPropertyIndex = 2;
         private const int requiredWaveDirectionPropertyIndex = 3;
         private const int requiredWaveAnglePropertyIndex = 4;
-        private const int requiredTargetProbabilityPropertyIndex = 5;
-        private const int requiredTargetReliabilityPropertyIndex = 6;
-        private const int requiredCalculatedProbabilityPropertyIndex = 7;
-        private const int requiredCalculatedReliabilityPropertyIndex = 8;
-        private const int requiredConvergencePropertyIndex = 9;
+        private const int requiredResistancePropertyIndex = 5;
+        private const int requiredTargetProbabilityPropertyIndex = 6;
+        private const int requiredTargetReliabilityPropertyIndex = 7;
+        private const int requiredCalculatedProbabilityPropertyIndex = 8;
+        private const int requiredCalculatedReliabilityPropertyIndex = 9;
+        private const int requiredConvergencePropertyIndex = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -92,6 +93,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.WaveAngle);
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.WaveAngle));
+
+            Assert.IsNaN(properties.Resistance);
+            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
+                nameof(WaveConditionsOutputProperties.Resistance));
 
             Assert.IsNaN(properties.TargetProbability);
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoProbabilityValueDoubleConverter>(
@@ -143,6 +148,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(wavePeakPeriod, properties.WavePeakPeriod, properties.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveDirection, properties.WaveDirection, properties.WaveDirection.GetAccuracy());
             Assert.AreEqual(waveAngle, properties.WaveAngle, properties.WaveAngle.GetAccuracy());
+            Assert.AreEqual(resistance, properties.Resistance, properties.Resistance.GetAccuracy());
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
@@ -180,7 +186,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,
@@ -202,6 +208,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "Golfperiode (Tp) [s]",
                                                                             "Berekende golfperiode.",
                                                                             true);
+
             PropertyDescriptor waveDirectionProperty = dynamicProperties[requiredWaveDirectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionProperty,
                                                                             "Algemeen",
@@ -214,6 +221,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "Algemeen",
                                                                             "Golfrichting t.o.v. dijknormaal [°]",
                                                                             "Berekende maatgevende golfrichting ten opzichte van de dijknormaal.",
+                                                                            true);
+
+            PropertyDescriptor resistanceProperty = dynamicProperties[requiredResistancePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resistanceProperty,
+                                                                            "Algemeen",
+                                                                            "Sterkte [-]",
+                                                                            "Berekende sterkte.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];
