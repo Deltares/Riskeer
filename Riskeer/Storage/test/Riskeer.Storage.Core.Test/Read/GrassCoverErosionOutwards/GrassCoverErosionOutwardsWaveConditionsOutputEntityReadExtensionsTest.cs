@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks.Impl;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
