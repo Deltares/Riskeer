@@ -500,6 +500,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.WavePeakPeriod, actualOutput.WavePeakPeriod, expectedOutput.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(expectedOutput.WaveAngle, actualOutput.WaveAngle, expectedOutput.WaveAngle.GetAccuracy());
             Assert.AreEqual(expectedOutput.WaveDirection, actualOutput.WaveDirection, expectedOutput.WaveDirection.GetAccuracy());
+            Assert.AreEqual(expectedOutput.Resistance, actualOutput.Resistance, expectedOutput.Resistance.GetAccuracy());
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability, expectedOutput.TargetReliability.GetAccuracy());
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
