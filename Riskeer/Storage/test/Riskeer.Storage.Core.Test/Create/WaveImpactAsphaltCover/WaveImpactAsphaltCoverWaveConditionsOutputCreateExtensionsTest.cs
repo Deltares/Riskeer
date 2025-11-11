@@ -49,6 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(output.Resistance, entity.Resistance, output.Resistance.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
@@ -75,6 +76,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.IsNull(entity.WavePeakPeriod);
             Assert.IsNull(entity.WaveAngle);
             Assert.IsNull(entity.WaveDirection);
+            Assert.IsNull(entity.Resistance);
             Assert.IsNull(entity.TargetProbability);
             Assert.IsNull(entity.TargetReliability);
             Assert.IsNull(entity.CalculatedProbability);

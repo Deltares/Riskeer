@@ -53,6 +53,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
             Assert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(output.Resistance, entity.Resistance, output.Resistance.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
@@ -83,6 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.IsNull(entity.WaveAngle);
             Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
             Assert.IsNull(entity.WaveDirection);
+            Assert.IsNull(entity.Resistance);
             Assert.IsNull(entity.TargetProbability);
             Assert.IsNull(entity.TargetReliability);
             Assert.IsNull(entity.CalculatedProbability);
