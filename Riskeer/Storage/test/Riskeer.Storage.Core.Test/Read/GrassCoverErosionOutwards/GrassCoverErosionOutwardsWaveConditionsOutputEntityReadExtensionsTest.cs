@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Rhino.Mocks.Impl;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -44,6 +45,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 WavePeakPeriod = random.NextDouble(),
                 WaveAngle = random.NextDouble(),
                 WaveDirection = random.NextDouble(),
+                Resistance = random.NextDouble(),
                 TargetProbability = random.NextDouble(),
                 TargetReliability = random.NextDouble(),
                 CalculatedProbability = random.NextDouble(),
@@ -70,6 +72,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.IsNotNull(entity.WaveDirection);
             Assert.AreEqual(entity.WaveDirection.Value, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
+            Assert.IsNotNull(entity.Resistance);
+            Assert.AreEqual(entity.Resistance.Value, output.Resistance, output.Resistance.GetAccuracy());
+            
             Assert.IsNotNull(entity.TargetProbability);
             Assert.AreEqual(entity.TargetProbability.Value, output.TargetProbability);
 
@@ -98,6 +103,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 WavePeakPeriod = null,
                 WaveAngle = null,
                 WaveDirection = null,
+                Resistance = null,
                 TargetProbability = null,
                 TargetReliability = null,
                 CalculatedProbability = null,
@@ -113,6 +119,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.IsNaN(output.WavePeakPeriod);
             Assert.IsNaN(output.WaveAngle);
             Assert.IsNaN(output.WaveDirection);
+            Assert.IsNaN(output.Resistance);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);
