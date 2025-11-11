@@ -475,6 +475,7 @@
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
           <Property Name="WaveDirection" Type="real" />
+          <Property Name="Resistance" Type="real" />
           <Property Name="TargetProbability" Type="real" />
           <Property Name="TargetReliability" Type="real" />
           <Property Name="CalculatedProbability" Type="real" />
@@ -1292,6 +1293,7 @@
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
           <Property Name="WaveDirection" Type="real" />
+          <Property Name="Resistance" Type="real" />
           <Property Name="TargetProbability" Type="real" />
           <Property Name="TargetReliability" Type="real" />
           <Property Name="CalculatedProbability" Type="real" />
@@ -1429,6 +1431,7 @@
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
           <Property Name="WaveDirection" Type="real" />
+          <Property Name="Resistance" Type="real" />
           <Property Name="TargetProbability" Type="real" />
           <Property Name="TargetReliability" Type="real" />
           <Property Name="CalculatedProbability" Type="real" />
@@ -4933,6 +4936,7 @@
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
           <Property Name="WaveDirection" Type="Double" />
+          <Property Name="Resistance" Type="Double" />
           <Property Name="TargetProbability" Type="Double" />
           <Property Name="TargetReliability" Type="Double" />
           <Property Name="CalculatedProbability" Type="Double" />
@@ -5830,6 +5834,7 @@
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
           <Property Name="WaveDirection" Type="Double" />
+          <Property Name="Resistance" Type="Double" />
           <Property Name="TargetProbability" Type="Double" />
           <Property Name="TargetReliability" Type="Double" />
           <Property Name="CalculatedProbability" Type="Double" />
@@ -5995,6 +6000,7 @@
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
           <Property Name="WaveDirection" Type="Double" />
+          <Property Name="Resistance" Type="Double" />
           <Property Name="TargetProbability" Type="Double" />
           <Property Name="TargetReliability" Type="Double" />
           <Property Name="CalculatedProbability" Type="Double" />
@@ -7961,6 +7967,7 @@
                 <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
                 <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Resistance" ColumnName="Resistance" />
                 <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
@@ -8789,6 +8796,7 @@
                 <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
                 <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Resistance" ColumnName="Resistance" />
                 <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
@@ -8938,6 +8946,7 @@
                 <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
                 <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Resistance" ColumnName="Resistance" />
                 <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />

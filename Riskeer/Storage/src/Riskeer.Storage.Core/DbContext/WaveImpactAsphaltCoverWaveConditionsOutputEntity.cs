@@ -40,6 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? WavePeakPeriod { get; set; }
         public double? WaveAngle { get; set; }
         public double? WaveDirection { get; set; }
+        public double? Resistance { get; set; }
         public double? TargetProbability { get; set; }
         public double? TargetReliability { get; set; }
         public double? CalculatedProbability { get; set; }
