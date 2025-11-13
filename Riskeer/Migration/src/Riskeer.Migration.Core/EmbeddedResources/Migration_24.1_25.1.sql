@@ -230,17 +230,60 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
     'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     'FromVersion' VARCHAR(20) NOT NULL,
     'ToVersion' VARCHAR(20) NOT NULL,
-    'LogMessage' TEXT NOT NULL);
+    'LogMessage' TEXT NOT NULL
+);
  
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
-VALUES (
-    "24.1",
-    "25.1",
-    "Gevolgen van de migratie van versie 24.1 naar versie 25.1:");
- 
+VALUES ("24.1", "25.1", "Gevolgen van de migratie van versie 24.1 naar versie 25.1:");
+
+CREATE TEMP TABLE TempLogOutputDeleted
+(
+    'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+    JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 0;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+    JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 0;
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+    'NrRemaining' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT() +
+       (
+           SELECT COUNT()
+           FROM MacroStabilityInwardsCalculationOutputEntity
+               JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+           WHERE UseAssessmentLevelManualInput = 1
+       )
+FROM SemiProbabilisticPipingCalculationOutputEntity
+    JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
