@@ -40,7 +40,8 @@ INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionEntity SEL
 INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
-INSERT INTO MacroStabilityInwardsCalculationOutputEntity(
+INSERT INTO MacroStabilityInwardsCalculationOutputEntity
+(
     [MacroStabilityInwardsCalculationOutputEntityId],
     [MacroStabilityInwardsCalculationEntityId],
     [FactorOfStability],
@@ -77,7 +78,8 @@ INSERT INTO MacroStabilityInwardsCalculationOutputEntity(
     [SlipPlaneRightGridZTop],
     [SlipPlaneRightGridZBottom],
     [SlipPlaneRightGridNrOfVerticalPoints],
-    [SlipPlaneTangentLinesXml])
+    [SlipPlaneTangentLinesXml]
+)
 SELECT
     [MacroStabilityInwardsCalculationOutputEntityId],
     [MacroStabilityInwardsCalculationEntityId],
@@ -139,7 +141,8 @@ INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].Pipi
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
-INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
+INSERT INTO SemiProbabilisticPipingCalculationOutputEntity
+(
     [SemiProbabilisticPipingCalculationOutputEntityId],
     [SemiProbabilisticPipingCalculationEntityId],
     [Order],
@@ -150,7 +153,8 @@ INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
     [HeaveGradient],
     [SellmeijerCreepCoefficient],
     [SellmeijerCriticalFall],
-    [SellmeijerReducedFall])
+    [SellmeijerReducedFall]
+)
 SELECT
     [SemiProbabilisticPipingCalculationOutputEntityId],
     [SemiProbabilisticPipingCalculationEntityId],
@@ -179,12 +183,15 @@ INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
  
-INSERT INTO VersionEntity (
+INSERT INTO VersionEntity
+(
     [VersionId],
     [Version],
     [Timestamp],
-    [FingerPrint])
-SELECT [VersionId],
+    [FingerPrint]
+)
+SELECT
+    [VersionId],
     "25.1",
     [Timestamp],
     [FingerPrint]
@@ -233,11 +240,18 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
     'LogMessage' TEXT NOT NULL
 );
  
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
+INSERT INTO [LOGDATABASE].MigrationLogEntity
+(
     [FromVersion],
     [ToVersion],
-    [LogMessage])
-VALUES ("24.1", "25.1", "Gevolgen van de migratie van versie 24.1 naar versie 25.1:");
+    [LogMessage]
+)
+VALUES
+(
+    "24.1",
+    "25.1",
+    "Gevolgen van de migratie van versie 24.1 naar versie 25.1:"
+);
 
 CREATE TEMP TABLE TempLogOutputDeleted
 (
@@ -302,6 +316,9 @@ FROM TempLogOutputDeleted
     LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
 LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity
 (
