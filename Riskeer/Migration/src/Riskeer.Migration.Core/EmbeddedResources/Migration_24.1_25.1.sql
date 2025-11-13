@@ -119,7 +119,7 @@ SELECT
     [SlipPlaneRightGridNrOfVerticalPoints],
     [SlipPlaneTangentLinesXml]
 FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
-    JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
@@ -168,7 +168,7 @@ SELECT
     [SellmeijerCriticalFall],
     [SellmeijerReducedFall]
 FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
-    JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
@@ -271,15 +271,15 @@ INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPo
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted
-SELECT COUNT()
-FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+    SELECT COUNT()
+    FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
     JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
-WHERE UseAssessmentLevelManualInput = 0;
+    WHERE UseAssessmentLevelManualInput = 0;
 INSERT INTO TempLogOutputDeleted
-SELECT COUNT()
-FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+    SELECT COUNT()
+    FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
     JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
-WHERE UseAssessmentLevelManualInput = 0;
+    WHERE UseAssessmentLevelManualInput = 0;
 
 CREATE TEMP TABLE TempLogOutputRemaining
 (
@@ -289,13 +289,13 @@ CREATE TEMP TABLE TempLogOutputRemaining
 INSERT INTO TempLogOutputRemaining
 SELECT COUNT() +
     (
-       SELECT COUNT()
-       FROM MacroStabilityInwardsCalculationOutputEntity
-           JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
-       WHERE UseAssessmentLevelManualInput = 1
+        SELECT COUNT()
+        FROM MacroStabilityInwardsCalculationOutputEntity
+        JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+        WHERE UseAssessmentLevelManualInput = 1
     )
 FROM SemiProbabilisticPipingCalculationOutputEntity
-    JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity
@@ -313,7 +313,7 @@ SELECT
         ELSE "* Alle berekende resultaten zijn verwijderd."
         END
 FROM TempLogOutputDeleted
-    LEFT JOIN TempLogOutputRemaining
+LEFT JOIN TempLogOutputRemaining
 WHERE [NrDeleted] > 0
 LIMIT 1;
 
@@ -330,7 +330,8 @@ SELECT
     "24.1",
     "25.1",
     "* Geen aanpassingen."
-    WHERE (
+    WHERE
+    (
         SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
         WHERE [FromVersion] = "24.1"
     ) IS 1;
