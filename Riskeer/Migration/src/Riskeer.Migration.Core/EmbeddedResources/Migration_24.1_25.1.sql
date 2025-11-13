@@ -1,7 +1,3 @@
--- Migration script for migrating Riskeer databases.
--- SourceProject version: 24.1
--- TargetProject version: 25.1
-
 PRAGMA foreign_keys = OFF;
  
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
@@ -96,7 +92,7 @@ FROM [SOURCEPROJECT].VersionEntity;
 -- New version of Hydra-Ring --
 -------------------------------
 
--- Migrating some tables only partially
+-- Migrating specific tables only partially
 INSERT INTO MacroStabilityInwardsCalculationOutputEntity
 (
     [MacroStabilityInwardsCalculationOutputEntityId],
@@ -208,7 +204,7 @@ FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
 JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 
--- Not migrating specific tables at all
+-- Migrating specific tables not at all
 /*
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO DuneLocationCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
