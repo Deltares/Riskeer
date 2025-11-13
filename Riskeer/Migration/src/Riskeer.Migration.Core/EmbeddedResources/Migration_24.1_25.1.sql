@@ -288,12 +288,12 @@ CREATE TEMP TABLE TempLogOutputRemaining
 
 INSERT INTO TempLogOutputRemaining
 SELECT COUNT() +
-       (
-           SELECT COUNT()
-           FROM MacroStabilityInwardsCalculationOutputEntity
-               JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
-           WHERE UseAssessmentLevelManualInput = 1
-       )
+    (
+       SELECT COUNT()
+       FROM MacroStabilityInwardsCalculationOutputEntity
+           JOIN MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+       WHERE UseAssessmentLevelManualInput = 1
+    )
 FROM SemiProbabilisticPipingCalculationOutputEntity
     JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
@@ -326,9 +326,10 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity
     [ToVersion],
     [LogMessage]
 )
-SELECT "24.1",
-       "25.1",
-       "* Geen aanpassingen."
+SELECT
+    "24.1",
+    "25.1",
+    "* Geen aanpassingen."
     WHERE (
         SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
         WHERE [FromVersion] = "24.1"
