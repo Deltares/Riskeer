@@ -49,7 +49,7 @@ INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocat
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCalculationOutputEntity(
-[MacroStabilityInwardsCalculationOutputEntityId],
+    [MacroStabilityInwardsCalculationOutputEntityId],
     [MacroStabilityInwardsCalculationEntityId],
     [FactorOfStability],
     [ForbiddenZonesXEntryMin],
