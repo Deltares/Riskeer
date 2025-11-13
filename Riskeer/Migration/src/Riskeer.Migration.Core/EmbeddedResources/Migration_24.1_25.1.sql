@@ -109,7 +109,37 @@ SELECT [VersionId],
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
- 
+
+/*
+Outputs that used Hydra-Ring are not migrated
+*/
+-- ClosingStructuresOutputEntity
+-- DuneLocationCalculationOutputEntity
+-- FaultTreeIllustrationPointEntity
+-- FaultTreeIllustrationPointStochastEntity
+-- FaultTreeSubmechanismIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointStochastEntity
+-- GeneralResultSubMechanismIllustrationPointEntity
+-- GeneralResultSubMechanismIllustrationPointStochastEntity
+-- GrassCoverErosionInwardsDikeHeightOutputEntity
+-- GrassCoverErosionInwardsOutputEntity
+-- GrassCoverErosionInwardsOvertoppingRateOutputEntity
+-- GrassCoverErosionOutwardsWaveConditionsOutputEntity
+-- HeightStructuresOutputEntity
+-- HydraulicLocationOutputEntity
+-- IllustrationPointResultEntity
+-- MacroStabilityInwardsCalculationOutputEntity where UseManualAssessmentLevel is 0
+-- ProbabilisticPipingCalculationOutputEntity
+-- SemiProbabilisticPipingCalculationOutputEntity where UseManualAssessmentLevel is 0
+-- StabilityPointStructuresOutputEntity
+-- StabilityStoneCoverWaveConditionsOutputEntity
+-- SubMechanismIllustrationPointEntity
+-- SubMechanismIllustrationPointStochastEntity
+-- TopLevelFaultTreeIllustrationPointEntity
+-- TopLevelSubMechanismIllustrationPointEntity
+-- WaveImpactAsphaltCoverWaveConditionsOutputEntity
+
 /*
 Write migration logging
 */
