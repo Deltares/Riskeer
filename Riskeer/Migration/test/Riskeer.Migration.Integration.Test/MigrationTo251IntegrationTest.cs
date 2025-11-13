@@ -86,17 +86,17 @@ namespace Riskeer.Migration.Integration.Test
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject241WithOutput.risk", new[]
             {
-                fixedMigrationMessage
+                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
 
             yield return new TestCaseData("MigrationTestProject241DunesWithOutput.risk", new[]
             {
-                fixedMigrationMessage
+                "* Alle berekende resultaten zijn verwijderd."
             });
 
             yield return new TestCaseData("MigrationTestProject241MacroStabilityInwardsWithOutput.risk", new[]
             {
-                fixedMigrationMessage
+                "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
         }
 
