@@ -27,7 +27,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2024")]
+[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("nl-NL")]
