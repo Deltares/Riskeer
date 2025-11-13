@@ -87,18 +87,21 @@ namespace Riskeer.Migration.Integration.Test
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
-            const string fixedMigrationMessage = "* Geen aanpassingen.";
-
             yield return new TestCaseData("MigrationTestProject241NoOutput.risk", new[]
             {
-                fixedMigrationMessage
+                "* Geen aanpassingen."
             });
 
-            yield return new TestCaseData("MigrationTestProject241VariousFailureMechanismSectionResultConfigurations.risk", new[]
+            yield return new TestCaseData("MigrationTestProject241MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
-                fixedMigrationMessage
+                "* Alle berekende resultaten zijn verwijderd."
             });
 
+            yield return new TestCaseData("MigrationTestProject241PipingNoManualAssessmentLevels.risk", new[]
+            {
+                "* Alle berekende resultaten zijn verwijderd."
+            });
+            
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject241WithOutput.risk", new[]
