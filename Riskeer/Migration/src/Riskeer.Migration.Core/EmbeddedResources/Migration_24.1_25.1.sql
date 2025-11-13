@@ -284,10 +284,31 @@ FROM SemiProbabilisticPipingCalculationOutputEntity
     JOIN SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
 
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
+INSERT INTO [LOGDATABASE].MigrationLogEntity
+(
     [FromVersion],
     [ToVersion],
-    [LogMessage])
+    [LogMessage]
+)
+SELECT
+    "24.1",
+    "25.1",
+    CASE
+        WHEN [NrRemaining] > 0
+            THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+        ELSE "* Alle berekende resultaten zijn verwijderd."
+        END
+FROM TempLogOutputDeleted
+    LEFT JOIN TempLogOutputRemaining
+WHERE [NrDeleted] > 0
+LIMIT 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity
+(
+    [FromVersion],
+    [ToVersion],
+    [LogMessage]
+)
 SELECT "24.1",
        "25.1",
        "* Geen aanpassingen."
