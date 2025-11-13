@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2024. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2025. All rights reserved.
 //
 // This file is part of Riskeer.
 //
