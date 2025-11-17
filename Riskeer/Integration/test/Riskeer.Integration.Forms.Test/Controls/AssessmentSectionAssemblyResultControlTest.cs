@@ -233,12 +233,12 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
         private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyResultControl resultControl)
         {
-            return (BorderedLabel) (GetResultPanel(resultControl)).GetControlFromPosition(1, 0);
+            return (BorderedLabel) GetResultPanel(resultControl).GetControlFromPosition(1, 0);
         }
 
         private static BorderedLabel GetProbabilityLabel(AssessmentSectionAssemblyResultControl resultControl)
         {
-            return (BorderedLabel) (GetResultPanel(resultControl)).GetControlFromPosition(1, 1);
+            return (BorderedLabel) GetResultPanel(resultControl).GetControlFromPosition(1, 1);
         }
 
         private static TableLayoutPanel GetResultPanel(AssessmentSectionAssemblyResultControl resultControl)

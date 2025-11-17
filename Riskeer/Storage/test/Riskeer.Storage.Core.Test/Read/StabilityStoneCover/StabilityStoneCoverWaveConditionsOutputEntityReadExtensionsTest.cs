@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 
             Assert.IsNotNull(entity.Resistance);
             Assert.AreEqual(entity.Resistance.Value, output.Resistance, output.Resistance.GetAccuracy());
-            
+
             Assert.IsNotNull(entity.TargetProbability);
             Assert.AreEqual(entity.TargetProbability.Value, output.TargetProbability);
 

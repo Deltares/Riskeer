@@ -47,7 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// [s]
         /// </summary>
         double WavePeakPeriod { get; }
-        
+
         /// <summary>
         /// Gets the direction of the wave with respect to the North.
         /// [deg]
@@ -59,7 +59,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// [-]
         /// </summary>
         double Resistance { get; }
-        
+
         /// <summary>
         /// Gets the calculated reliability index.
         /// [-]

@@ -283,8 +283,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation);
         }
 
         [Test]

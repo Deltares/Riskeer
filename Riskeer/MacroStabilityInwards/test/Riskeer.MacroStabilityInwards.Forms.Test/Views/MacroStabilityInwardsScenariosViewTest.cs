@@ -342,7 +342,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             TextBox lengthEffectNRoundedTextBox = GetLengthEffectNRoundedTextBox(sectionConfigurationControl);
 
             // Precondition
-            var selectedItem = ((MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem);
+            var selectedItem = (MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem;
             Assert.AreSame(failureMechanism.Sections.First(), selectedItem.SectionConfiguration.Section);
             Assert.AreEqual("1,000", parameterATextBox.Text);
             Assert.AreEqual("2,60", lengthEffectNRoundedTextBox.Text);

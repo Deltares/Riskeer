@@ -457,120 +457,105 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Structure_Always_InputChangedAndObservablesNotified()
         {
             var structure = new TestHeightStructure();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.Structure = structure);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.Structure = structure);
         }
 
         [Test]
         public void StructureNormalOrientation_Always_InputChangedAndObservablesNotified()
         {
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StructureNormalOrientation = orientation);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StructureNormalOrientation = orientation);
         }
 
         [Test]
         public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObservablesNotified()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FailureProbabilityStructureWithErosion = random.NextDouble());
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FailureProbabilityStructureWithErosion = random.NextDouble());
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var location = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), null);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = location);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.SelectedHydraulicBoundaryLocation = location);
         }
 
         [Test]
         public void ForeshoreProfile_Always_InputChangedAndObservablesNotified()
         {
             var profile = new TestForeshoreProfile();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ForeshoreProfile = profile);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ForeshoreProfile = profile);
         }
 
         [Test]
         public void UseBreakWater_Always_InputChangedAndObservablesNotified()
         {
             bool useBreakWater = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.UseBreakWater.UseBreakWater = useBreakWater);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.UseBreakWater.UseBreakWater = useBreakWater);
         }
 
         [Test]
         public void UseForeshore_Always_InputChangedAndObservablesNotified()
         {
             bool useForeshore = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.UseForeshore.UseForeshore = useForeshore);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.UseForeshore.UseForeshore = useForeshore);
         }
 
         [Test]
         public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FlowWidthAtBottomProtection.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FlowWidthAtBottomProtection.Mean = newMean);
         }
 
         [Test]
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.WidthFlowApertures.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
         [Test]
         public void StorageStructureArea_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StorageStructureArea.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StorageStructureArea.Mean = newMean);
         }
 
         [Test]
         public void AllowedLevelIncreaseStorage_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.AllowedLevelIncreaseStorage.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.AllowedLevelIncreaseStorage.Mean = newMean);
         }
 
         [Test]
         public void CriticalOvertoppingDischarge_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.CriticalOvertoppingDischarge.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.CriticalOvertoppingDischarge.Mean = newMean);
         }
 
         [Test]
         public void StormDuration_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StormDuration.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StormDuration.Mean = newMean);
         }
 
         [Test]
         public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]
         public void LevelCrestStructure_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.LevelCrestStructure.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<HeightStructuresInputContextProperties> setProperty)

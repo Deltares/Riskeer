@@ -101,7 +101,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "* Alle berekende resultaten zijn verwijderd."
             });
-            
+
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject241WithOutput.risk", new[]

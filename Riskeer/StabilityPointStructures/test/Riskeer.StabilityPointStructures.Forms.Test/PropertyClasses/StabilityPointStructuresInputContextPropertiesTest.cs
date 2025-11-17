@@ -1348,304 +1348,266 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void VolumicWeightWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble height = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.VolumicWeightWater = height);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.VolumicWeightWater = height);
         }
 
         [Test]
         public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble factor = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FactorStormDurationOpenStructure = factor);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FactorStormDurationOpenStructure = factor);
         }
 
         [Test]
         public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var type = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.InflowModelType = type);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.InflowModelType = type);
         }
 
         [Test]
         public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var type = new Random(21).NextEnumValue<LoadSchematizationType>();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.LoadSchematizationType = type);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.LoadSchematizationType = type);
         }
 
         [Test]
         public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FailureProbabilityRepairClosure = random.NextDouble());
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FailureProbabilityRepairClosure = random.NextDouble());
         }
 
         [Test]
         public void LevellingCount_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             int count = new Random(21).Next();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.LevellingCount = count);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.LevellingCount = count);
         }
 
         [Test]
         public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ProbabilityCollisionSecondaryStructure = random.NextDouble());
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ProbabilityCollisionSecondaryStructure = random.NextDouble());
         }
 
         [Test]
         public void EvaluationLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble evaluationLevel = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.EvaluationLevel = evaluationLevel);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.EvaluationLevel = evaluationLevel);
         }
 
         [Test]
         public void VerticalDistance_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble verticalDistance = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.VerticalDistance = verticalDistance);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.VerticalDistance = verticalDistance);
         }
 
         [Test]
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.WidthFlowApertures.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
         [Test]
         public void InsideWaterLevelFailureConstruction_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean);
         }
 
         [Test]
         public void InsideWaterLevel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.InsideWaterLevel.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.InsideWaterLevel.Mean = newMean);
         }
 
         [Test]
         public void DrainCoefficient_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.DrainCoefficient.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DrainCoefficient.Mean = newMean);
         }
 
         [Test]
         public void DrainCoefficient_StandardDeviationChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newStandardDeviation = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.DrainCoefficient.StandardDeviation = newStandardDeviation);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DrainCoefficient.StandardDeviation = newStandardDeviation);
         }
 
         [Test]
         public void LevelCrestStructure_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.LevelCrestStructure.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
         [Test]
         public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ThresholdHeightOpenWeir.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ThresholdHeightOpenWeir.Mean = newMean);
         }
 
         [Test]
         public void FlowVelocityStructureClosable_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FlowVelocityStructureClosable.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FlowVelocityStructureClosable.Mean = newMean);
         }
 
         [Test]
         public void AreaFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.AreaFlowApertures.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.AreaFlowApertures.Mean = newMean);
         }
 
         [Test]
         public void ConstructiveStrengthLinearLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean);
         }
 
         [Test]
         public void ConstructiveStrengthQuadraticLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean);
         }
 
         [Test]
         public void StabilityLinearLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StabilityLinearLoadModel.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StabilityLinearLoadModel.Mean = newMean);
         }
 
         [Test]
         public void StabilityQuadraticLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StabilityQuadraticLoadModel.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StabilityQuadraticLoadModel.Mean = newMean);
         }
 
         [Test]
         public void FailureCollisionEnergy_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FailureCollisionEnergy.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FailureCollisionEnergy.Mean = newMean);
         }
 
         [Test]
         public void ShipMass_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ShipMass.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ShipMass.Mean = newMean);
         }
 
         [Test]
         public void ShipVelocity_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ShipVelocity.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ShipVelocity.Mean = newMean);
         }
 
         [Test]
         public void BankWidth_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.BankWidth.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.BankWidth.Mean = newMean);
         }
 
         [Test]
         public void Structure_Always_InputChangedAndObservablesNotified()
         {
             var structure = new TestStabilityPointStructure();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.Structure = structure);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.Structure = structure);
         }
 
         [Test]
         public void StructureNormalOrientation_Always_InputChangedAndObservablesNotified()
         {
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StructureNormalOrientation = orientation);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StructureNormalOrientation = orientation);
         }
 
         [Test]
         public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObservablesNotified()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FailureProbabilityStructureWithErosion = random.NextDouble());
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FailureProbabilityStructureWithErosion = random.NextDouble());
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var location = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), null);
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = location);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.SelectedHydraulicBoundaryLocation = location);
         }
 
         [Test]
         public void ForeshoreProfile_Always_InputChangedAndObservablesNotified()
         {
             var profile = new TestForeshoreProfile();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ForeshoreProfile = profile);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ForeshoreProfile = profile);
         }
 
         [Test]
         public void UseBreakWater_Always_InputChangedAndObservablesNotified()
         {
             bool useBreakWater = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.UseBreakWater.UseBreakWater = useBreakWater);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.UseBreakWater.UseBreakWater = useBreakWater);
         }
 
         [Test]
         public void UseForeshore_Always_InputChangedAndObservablesNotified()
         {
             bool useForeshore = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.UseForeshore.UseForeshore = useForeshore);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.UseForeshore.UseForeshore = useForeshore);
         }
 
         [Test]
         public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.FlowWidthAtBottomProtection.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.FlowWidthAtBottomProtection.Mean = newMean);
         }
 
         [Test]
         public void StorageStructureArea_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StorageStructureArea.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StorageStructureArea.Mean = newMean);
         }
 
         [Test]
         public void AllowedLevelIncreaseStorage_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.AllowedLevelIncreaseStorage.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.AllowedLevelIncreaseStorage.Mean = newMean);
         }
 
         [Test]
         public void CriticalOvertoppingDischarge_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.CriticalOvertoppingDischarge.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.CriticalOvertoppingDischarge.Mean = newMean);
         }
 
         [Test]
         public void StormDuration_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.StormDuration.Mean = newMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.StormDuration.Mean = newMean);
         }
 
         [Test]
