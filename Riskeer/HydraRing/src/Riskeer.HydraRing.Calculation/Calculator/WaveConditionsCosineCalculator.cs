@@ -67,7 +67,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         public double WaveDirection { get; private set; }
 
         public double Resistance { get; private set; }
-        
+
         public double ReliabilityIndex { get; private set; }
 
         public bool? Converged { get; private set; }
