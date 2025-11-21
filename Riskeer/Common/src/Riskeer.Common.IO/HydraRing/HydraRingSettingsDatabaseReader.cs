@@ -214,7 +214,9 @@ namespace Riskeer.Common.IO.HydraRing
                     try
                     {
                         return new TimeIntegrationSetting(
-                            reader.Read<int>(timeIntegrationSchemeIdColumn));
+                            reader.Read<int>(timeIntegrationSchemeIdColumn),
+                            3,
+                            1);
                     }
                     catch (ConversionException)
                     {

@@ -65,7 +65,7 @@ namespace Riskeer.Common.IO.HydraRing
         public TimeIntegrationSetting GetTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return timeIntegrationSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??
-                   new TimeIntegrationSetting(1);
+                   new TimeIntegrationSetting(1, 3, 1);
         }
 
         public void Dispose()
