@@ -154,26 +154,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ReadTimeIntegrationSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
+        [TestCase(invalidDatabase, 700131)]
+        [TestCase(invalidDatabaseWithOptionalColumns, 700131)]
+        [TestCase(invalidDatabaseWithOptionalColumns, 700132)]
+        public void ReadTimeIntegrationSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException(string databaseName, long locationId)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadTimeIntegrationSetting(700131, HydraRingFailureMechanismType.AssessmentLevel);
-
-                // Assert
-                Assert.Throws<CriticalFileReadException>(test);
-            }
-        }
-
-        [Test]
-        [TestCase(700131)]
-        [TestCase(700132)]
-        public void ReadTimeIntegrationSetting_InvalidValueInReadLocationForOptionalColumn_ThrowsCriticalFileReadException(long locationId)
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabaseWithOptionalColumns)))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(databaseName)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(locationId, HydraRingFailureMechanismType.AssessmentLevel);
@@ -184,38 +171,20 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(700131, 0, 1, 3, 1)]
-        [TestCase(700131, 3, 1, 3, 1)]
-        [TestCase(700134, 2, 1, 3, 1)]
-        [TestCase(700135, 4, 1, 3, 1)]
+        [TestCase(completeDatabase, 700131, 0, 1, 3, 1)]
+        [TestCase(completeDatabase, 700131, 3, 1, 3, 1)]
+        [TestCase(completeDatabase, 700134, 2, 1, 3, 1)]
+        [TestCase(completeDatabase, 700135, 4, 1, 3, 1)]
+        [TestCase(completeDatabaseWithOptionalColumns, 700131, 0, 1, 5, 0.7)]
+        [TestCase(completeDatabaseWithOptionalColumns, 700131, 3, 1, 5, 0.7)]
+        [TestCase(completeDatabaseWithOptionalColumns, 700134, 2, 1, 5, 0.7)]
+        [TestCase(completeDatabaseWithOptionalColumns, 700135, 4, 1, 5, 0.7)]
         public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismType_TimeIntegrationSettingWithExpectedValues(
-            long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme,
+            string databaseName, long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme,
             int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
-            {
-                // Call
-                TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
-
-                // Assert
-                Assert.AreEqual(expectedTimeIntegrationScheme, setting.TimeIntegrationSchemeId);
-                Assert.AreEqual(expectedMaxIterations, setting.MaxIterations);
-                Assert.AreEqual(expectedRelaxationFactor, setting.RelaxationFactor);
-            }
-        }
-
-        [Test]
-        [TestCase(700131, 0, 1, 5, 0.7)]
-        [TestCase(700131, 3, 1, 5, 0.7)]
-        [TestCase(700134, 2, 1, 5, 0.7)]
-        [TestCase(700135, 4, 1, 5, 0.7)]
-        public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismTypeAndOptionalColumns_TimeIntegrationSettingWithExpectedValues(
-            long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme,
-            int expectedMaxIterations, double expectedRelaxationFactor)
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabaseWithOptionalColumns)))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(databaseName)))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
