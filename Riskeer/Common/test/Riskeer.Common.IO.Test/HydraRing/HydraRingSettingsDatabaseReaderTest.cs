@@ -36,33 +36,17 @@ namespace Riskeer.Common.IO.Test.HydraRing
     [TestFixture]
     public class HydraRingSettingsDatabaseReaderTest
     {
-        private const string testDataSubDirectory = "HydraRingSettingsDatabaseReader";
-
-        private static readonly string completeDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "7_67.config.sqlite"));
-
-        private static readonly string emptyDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "7_67-empty.config.sqlite"));
-
-        private static readonly string invalidDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "7_67-invalid-value-types.config.sqlite"));
-
-        private static readonly string completeWithOptionalColumnsDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "7_67-with-optional-columns.config.sqlite"));
-
-        private static readonly string invalidForOptionalColumnsDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "7_67-invalid-value-types-in-optional-columns.config.sqlite"));
+        private const string completeDatabase = "7_67.config.sqlite";
+        private const string emptyDatabase = "7_67-empty.config.sqlite";
+        private const string invalidDatabase = "7_67-invalid-value-types.config.sqlite";
+        private const string completeDatabaseWithOptionalColumns = "7_67-with-optional-columns.config.sqlite";
+        private const string invalidDatabaseWithOptionalColumns = "7_67-invalid-value-types-in-optional-columns.config.sqlite";
 
         [Test]
         public void Constructor_DatabaseWithValidSchema_ReturnsNewReader()
         {
             // Call
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
@@ -76,7 +60,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadDesignTableSetting(123, calculationType);
@@ -95,7 +79,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             long locationId, HydraRingFailureMechanismType calculationType, double expectedMin, double expectedMax)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(locationId, calculationType);
@@ -112,7 +96,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_ValidLocationIdAndFailureMechanismTypeNotInDatabase_ReturnNull(long locationId, HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(locationId, calculationType);
@@ -126,7 +110,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(emptyDatabase)))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(700131, 0);
@@ -142,7 +126,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException(long locationId, HydraRingFailureMechanismType type)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadDesignTableSetting(locationId, type);
@@ -159,7 +143,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(123, calculationType);
@@ -173,7 +157,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(700131, HydraRingFailureMechanismType.AssessmentLevel);
@@ -189,7 +173,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_InvalidValueInReadLocationForOptionalColumn_ThrowsCriticalFileReadException(long locationId)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidForOptionalColumnsDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabaseWithOptionalColumns)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(locationId, HydraRingFailureMechanismType.AssessmentLevel);
@@ -209,7 +193,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
@@ -231,7 +215,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeWithOptionalColumnsDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabaseWithOptionalColumns)))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
@@ -249,7 +233,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismTypeNotInDatabase_ReturnNull(long locationId, HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
@@ -263,7 +247,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(emptyDatabase)))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(700131, 0);
@@ -297,7 +281,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             int expectedNiNumberSteps)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
@@ -328,7 +312,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             long locationId, int mechanismId, int subMechanismId)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
@@ -357,7 +341,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             long locationId, int mechanismId, int subMechanismId)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
@@ -371,7 +355,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadNumericsSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(emptyDatabase)))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(700135, 101, 102);
@@ -385,7 +369,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadExcludedLocations_TableWithRows_ReturnsAllLocationIdsInTable()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
                 IEnumerable<long> locations = reader.ReadExcludedLocations();
@@ -405,7 +389,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadExcludedLocations_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
                 TestDelegate test = () => reader.ReadExcludedLocations().ToArray();
@@ -419,7 +403,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ReadExcludedLocations_EmptyTable_ReturnsEmptyEnumerable()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
+            using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(emptyDatabase)))
             {
                 // Call
                 IEnumerable<long> locations = reader.ReadExcludedLocations();
@@ -427,6 +411,11 @@ namespace Riskeer.Common.IO.Test.HydraRing
                 // Assert
                 CollectionAssert.IsEmpty(locations);
             }
+        }
+
+        private static string GetDatabasePath(string databaseName)
+        {
+            return TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("HydraRingSettingsDatabaseReader", databaseName));
         }
     }
 }
