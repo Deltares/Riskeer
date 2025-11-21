@@ -54,6 +54,10 @@ namespace Riskeer.Common.IO.Test.HydraRing
             TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-with-optional-columns.config.sqlite"));
 
+        private static readonly string invalidForOptionalColumnsDatabasePath = TestHelper.GetTestDataPath(
+            TestDataPath.Riskeer.Common.IO,
+            Path.Combine(testDataSubDirectory, "7_67-invalid-value-types-in-optional-columns.config.sqlite"));
+
         [Test]
         public void Constructor_DatabaseWithValidSchema_ReturnsNewReader()
         {
@@ -173,6 +177,22 @@ namespace Riskeer.Common.IO.Test.HydraRing
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(700131, HydraRingFailureMechanismType.AssessmentLevel);
+
+                // Assert
+                Assert.Throws<CriticalFileReadException>(test);
+            }
+        }
+
+        [Test]
+        [TestCase(700131)]
+        [TestCase(700132)]
+        public void ReadTimeIntegrationSetting_InvalidValueInReadLocationForOptionalColumn_ThrowsCriticalFileReadException(long locationId)
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(invalidForOptionalColumnsDatabasePath))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadTimeIntegrationSetting(locationId, HydraRingFailureMechanismType.AssessmentLevel);
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(test);

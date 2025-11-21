@@ -272,7 +272,7 @@ namespace Riskeer.Common.IO.HydraRing
             {
                 return reader.Read<T>(columnName);
             }
-            catch (Exception e) when (e is ArgumentException || e is ConversionException)
+            catch (Exception e) when (e is ArgumentException)
             {
                 return defaultValue;
             }
