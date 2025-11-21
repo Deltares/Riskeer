@@ -45,7 +45,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void Constructor_InvalidPath_ThrowCriticalFileReadException(string databasePath)
         {
             // Call
-            TestDelegate test = () => new DesignTablesSettingsProvider(databasePath);
+            TestDelegate test = () => new TimeIntegrationSettingsProvider(databasePath);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -55,7 +55,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void Constructor_ValidPath_ReturnsNewInstance()
         {
             // Call
-            using (var provider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
+            using (var provider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(provider);
