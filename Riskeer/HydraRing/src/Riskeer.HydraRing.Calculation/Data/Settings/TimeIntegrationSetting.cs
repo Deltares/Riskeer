@@ -32,7 +32,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Settings
         /// <param name="timeIntegrationSchemeId">The time integration scheme id to use in a calculation.</param>
         /// <param name="maxIterations">The maximum number of iterations to use in a calculation.</param>
         /// <param name="relaxationFactor">The relaxation factor to use in a calculation.</param>
-        public TimeIntegrationSetting(int timeIntegrationSchemeId, double maxIterations = 3, double relaxationFactor = 1)
+        public TimeIntegrationSetting(int timeIntegrationSchemeId, int maxIterations = 3, double relaxationFactor = 1)
         {
             TimeIntegrationSchemeId = timeIntegrationSchemeId;
             MaxIterations = maxIterations;
@@ -47,7 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Gets the maximum number of iterations to use in a calculation.
         /// </summary>
-        public double MaxIterations { get; }
+        public int MaxIterations { get; }
 
         /// <summary>
         /// Gets the relaxation factor to use in a calculation.
