@@ -32,14 +32,16 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Settings
         {
             // Setup
             const int timeIntegrationSchemeId = 1;
+            const int maxIterations = 5;
+            const double relaxationFactor = 0.7;
 
             // Call
-            var timeIntegrationSetting = new TimeIntegrationSetting(timeIntegrationSchemeId);
+            var timeIntegrationSetting = new TimeIntegrationSetting(timeIntegrationSchemeId, maxIterations, relaxationFactor);
 
             // Assert
             Assert.AreEqual(timeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
-            Assert.AreEqual(3, timeIntegrationSetting.MaxIterations);
-            Assert.AreEqual(1, timeIntegrationSetting.RelaxationFactor);
+            Assert.AreEqual(maxIterations, timeIntegrationSetting.MaxIterations);
+            Assert.AreEqual(relaxationFactor, timeIntegrationSetting.RelaxationFactor);
         }
     }
 }

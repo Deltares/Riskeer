@@ -178,7 +178,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
                         1, new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25)
                     }
                 };
-                TimeIntegrationSetting = new TimeIntegrationSetting(1);
+                TimeIntegrationSetting = new TimeIntegrationSetting(1, 5, 0.7);
             }
 
             public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.AssessmentLevel;
