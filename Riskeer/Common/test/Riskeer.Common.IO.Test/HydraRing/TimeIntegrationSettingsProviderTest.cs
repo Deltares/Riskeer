@@ -63,18 +63,19 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 700131, 1)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 700131, 1)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 700131, 1)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 700131, 1)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 700131, 1)]
-        [TestCase(HydraRingFailureMechanismType.DikeHeight, 700134, 1)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 700134, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700134, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700134, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700134, 1)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 700131, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 700131, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 700131, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 700131, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 700131, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 700134, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 700134, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700134, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700134, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700134, 1, 3, 1)]
         public void GetTimeIntegrationSetting_KnownLocationIdAndFailureMechanismType_ReturnsExpectedTimeIntegrationSetting(
-            HydraRingFailureMechanismType failureMechanismType, long locationId, int expectedTimeIntegrationSchemeId)
+            HydraRingFailureMechanismType failureMechanismType, long locationId, int expectedTimeIntegrationSchemeId,
+            int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
             using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
@@ -84,23 +85,26 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
+                Assert.AreEqual(expectedMaxIterations, timeIntegrationSetting.MaxIterations);
+                Assert.AreEqual(expectedRelaxationFactor, timeIntegrationSetting.RelaxationFactor);
             }
         }
 
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 1)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 1)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 1)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 1)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 1)]
-        [TestCase(HydraRingFailureMechanismType.DikeHeight, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 1)]
-        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 1)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 1, 3, 1)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 1, 3, 1)]
         public void GetTimeIntegrationSetting_UnknownLocationId_ReturnsDefaultTimeIntegrationSetting(
-            HydraRingFailureMechanismType failureMechanismType, int expectedTimeIntegrationSchemeId)
+            HydraRingFailureMechanismType failureMechanismType, int expectedTimeIntegrationSchemeId,
+            int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
             using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
@@ -110,6 +114,8 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
+                Assert.AreEqual(expectedMaxIterations, timeIntegrationSetting.MaxIterations);
+                Assert.AreEqual(expectedRelaxationFactor, timeIntegrationSetting.RelaxationFactor);
             }
         }
     }
