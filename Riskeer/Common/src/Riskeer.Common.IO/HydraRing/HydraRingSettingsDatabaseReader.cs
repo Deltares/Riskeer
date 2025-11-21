@@ -62,6 +62,8 @@ namespace Riskeer.Common.IO.HydraRing
         private const string mechanismIdParameterName = "@mechanismID";
         private const string subMechanismIdParameterName = "@subMechanismID";
         private const string timeIntegrationSchemeIdColumn = "TimeIntegrationSchemeID";
+        private const string maxIterationsColumn = "MaxIterations";
+        private const string relaxationFactorColumn = "RelaxationFactor";
 
         private const string locationIdColumn = "LocationID";
 
@@ -215,8 +217,8 @@ namespace Riskeer.Common.IO.HydraRing
                     {
                         return new TimeIntegrationSetting(
                             reader.Read<int>(timeIntegrationSchemeIdColumn),
-                            3,
-                            1);
+                            TryReadOptionalColumnValue(reader, maxIterationsColumn, 3),
+                            TryReadOptionalColumnValue(reader, relaxationFactorColumn, 1.0));
                     }
                     catch (ConversionException)
                     {
@@ -261,6 +263,18 @@ namespace Riskeer.Common.IO.HydraRing
             catch (ConversionException)
             {
                 throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
+            }
+        }
+
+        private static T TryReadOptionalColumnValue<T>(IDataReader reader, string columnName, T defaultValue)
+        {
+            try
+            {
+                return reader.Read<T>(columnName);
+            }
+            catch (ArgumentException)
+            {
+                return defaultValue;
             }
         }
 
