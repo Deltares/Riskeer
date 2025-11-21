@@ -241,10 +241,10 @@ namespace Riskeer.HydraRing.Calculation.Services
                         "TimeIntegrationSchemeID", timeIntegrationSetting.TimeIntegrationSchemeId
                     },
                     {
-                        "MaxIterations", 3 // Fixed: set to the value that was used before this parameter became configurable
+                        "MaxIterations", timeIntegrationSetting.MaxIterations
                     },
                     {
-                        "RelaxationFactor", 1.0 // Fixed: set to the value that was used before this parameter became configurable
+                        "RelaxationFactor", timeIntegrationSetting.RelaxationFactor
                     }
                 });
             }
