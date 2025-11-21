@@ -104,7 +104,7 @@ namespace Riskeer.Common.IO.HydraRing
                                                                        $"AND MechanismID = {mechanismIdParameterName} " +
                                                                        $"AND SubMechanismID = {subMechanismIdParameterName}";
 
-            timeIntegrationSettingsForLocationAndCalculationTypeQuery = $"SELECT {timeIntegrationSchemeIdColumn} " +
+            timeIntegrationSettingsForLocationAndCalculationTypeQuery = $"SELECT * " +
                                                                         "FROM TimeIntegrationSettings " +
                                                                         $"WHERE LocationID = {locationIdParameterName} " +
                                                                         $"AND CalculationTypeID = {calculationTypeIdParameterName}";

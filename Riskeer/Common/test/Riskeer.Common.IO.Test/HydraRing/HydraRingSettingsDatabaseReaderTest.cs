@@ -50,6 +50,10 @@ namespace Riskeer.Common.IO.Test.HydraRing
             TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-invalid-value-types.config.sqlite"));
 
+        private static readonly string completeWithOptionalColumnsDatabasePath = TestHelper.GetTestDataPath(
+            TestDataPath.Riskeer.Common.IO,
+            Path.Combine(testDataSubDirectory, "7_67-with-optional-columns.config.sqlite"));
+
         [Test]
         public void Constructor_DatabaseWithValidSchema_ReturnsNewReader()
         {
@@ -186,6 +190,28 @@ namespace Riskeer.Common.IO.Test.HydraRing
         {
             // Setup
             using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            {
+                // Call
+                TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
+
+                // Assert
+                Assert.AreEqual(expectedTimeIntegrationScheme, setting.TimeIntegrationSchemeId);
+                Assert.AreEqual(expectedMaxIterations, setting.MaxIterations);
+                Assert.AreEqual(expectedRelaxationFactor, setting.RelaxationFactor);
+            }
+        }
+
+        [Test]
+        [TestCase(700131, 0, 1, 5, 0.7)]
+        [TestCase(700131, 3, 1, 5, 0.7)]
+        [TestCase(700134, 2, 1, 5, 0.7)]
+        [TestCase(700135, 4, 1, 5, 0.7)]
+        public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismTypeAndOptionalColumns_TimeIntegrationSettingWithExpectedValues(
+            long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme,
+            int expectedMaxIterations, double expectedRelaxationFactor)
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(completeWithOptionalColumnsDatabasePath))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
