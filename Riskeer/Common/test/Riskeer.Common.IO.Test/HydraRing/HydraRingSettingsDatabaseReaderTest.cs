@@ -176,12 +176,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(700131, 0, 1)]
-        [TestCase(700131, 3, 1)]
-        [TestCase(700134, 2, 1)]
-        [TestCase(700135, 4, 1)]
+        [TestCase(700131, 0, 1, 3, 1)]
+        [TestCase(700131, 3, 1, 3, 1)]
+        [TestCase(700134, 2, 1, 3, 1)]
+        [TestCase(700135, 4, 1, 3, 1)]
         public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismType_TimeIntegrationSettingWithExpectedValues(
-            long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme)
+            long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme,
+            int expectedMaxIterations, double expectedRelaxationFactor)
         {
             // Setup
             using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
@@ -191,6 +192,8 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationScheme, setting.TimeIntegrationSchemeId);
+                Assert.AreEqual(expectedMaxIterations, setting.MaxIterations);
+                Assert.AreEqual(expectedRelaxationFactor, setting.RelaxationFactor);
             }
         }
 
