@@ -38,6 +38,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Settings
 
             // Assert
             Assert.AreEqual(timeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
+            Assert.AreEqual(3, timeIntegrationSetting.MaxIterations);
+            Assert.AreEqual(1, timeIntegrationSetting.RelaxationFactor);
         }
     }
 }
