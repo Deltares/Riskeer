@@ -226,7 +226,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor resistanceProperty = dynamicProperties[requiredResistancePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resistanceProperty,
                                                                             "Algemeen",
-                                                                            "Sterkte [-]",
+                                                                            "Belastingparameter (S) [-]",
                                                                             "Berekende sterkte.",
                                                                             true);
 

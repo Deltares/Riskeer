@@ -469,7 +469,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sterkte [-].
+        ///   Looks up a localized string similar to Belastingparameter (S) [-].
         /// </summary>
         public static string WaveConditionsOutput_Resistance_DisplayName {
             get {

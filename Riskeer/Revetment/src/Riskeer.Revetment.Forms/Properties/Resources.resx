@@ -250,7 +250,7 @@
     <value>Berekende sterkte.</value>
   </data>
   <data name="WaveConditionsOutput_Resistance_DisplayName" xml:space="preserve">
-    <value>Sterkte [-]</value>
+    <value>Belastingparameter (S) [-]</value>
   </data>
   <data name="WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>Ondergrens bekleding</value>
