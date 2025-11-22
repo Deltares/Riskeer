@@ -247,7 +247,7 @@
     <value>Golfperiode (Tp) [s]</value>
   </data>
   <data name="WaveConditionsOutput_Resistance_Description" xml:space="preserve">
-    <value>Berekende sterkte.</value>
+    <value>De Belastingparameter (S) is een hulpparameter die wordt gebruikt bij het afleiden van rekenwaarden voor hydraulische belasting, gegeven een waterstandsniveau en een terugkeertijd.</value>
   </data>
   <data name="WaveConditionsOutput_Resistance_DisplayName" xml:space="preserve">
     <value>Belastingparameter (S) [-]</value>

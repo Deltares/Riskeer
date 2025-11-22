@@ -227,7 +227,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resistanceProperty,
                                                                             "Algemeen",
                                                                             "Belastingparameter (S) [-]",
-                                                                            "Berekende sterkte.",
+                                                                            "De Belastingparameter (S) is een hulpparameter die wordt gebruikt bij het afleiden van rekenwaarden voor hydraulische belasting, gegeven een waterstandsniveau en een terugkeertijd.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];

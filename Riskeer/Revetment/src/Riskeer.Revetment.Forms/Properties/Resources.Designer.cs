@@ -460,7 +460,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende sterkte..
+        ///   Looks up a localized string similar to De Belastingparameter (S) is een hulpparameter die wordt gebruikt bij het afleiden van rekenwaarden voor hydraulische belasting, gegeven een waterstandsniveau en een terugkeertijd..
         /// </summary>
         public static string WaveConditionsOutput_Resistance_Description {
             get {
