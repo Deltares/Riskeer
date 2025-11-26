@@ -65,6 +65,8 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 }
                 
                 minimumIndex += 1 + indexStepRow;
+                
+                Delay.Duration(Duration.Parse("500"), false);
             }
             return stepRow;
         }
