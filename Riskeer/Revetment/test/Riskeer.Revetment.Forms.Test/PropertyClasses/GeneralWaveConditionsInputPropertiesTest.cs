@@ -81,21 +81,21 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor aProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             miscCategory,
-                                                                            "a",
+                                                                            "a [-]",
                                                                             "De waarde van de parameter 'a' in de berekening voor golfcondities.",
                                                                             true);
 
             PropertyDescriptor bProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             miscCategory,
-                                                                            "b",
+                                                                            "b [-]",
                                                                             "De waarde van de parameter 'b' in de berekening voor golfcondities.",
                                                                             true);
 
             PropertyDescriptor cProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             miscCategory,
-                                                                            "c",
+                                                                            "c [-]",
                                                                             "De waarde van de parameter 'c' in de berekening voor golfcondities.",
                                                                             true);
         }

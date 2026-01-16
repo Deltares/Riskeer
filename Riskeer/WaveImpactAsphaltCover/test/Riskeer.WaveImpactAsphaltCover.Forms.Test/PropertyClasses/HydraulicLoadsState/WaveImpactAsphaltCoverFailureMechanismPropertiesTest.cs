@@ -89,21 +89,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             modelSettingsCategory,
-                                                                            "a",
+                                                                            "a [-]",
                                                                             "De waarde van de parameter 'a' in de berekening voor golfcondities.",
                                                                             true);
 
             PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             modelSettingsCategory,
-                                                                            "b",
+                                                                            "b [-]",
                                                                             "De waarde van de parameter 'b' in de berekening voor golfcondities.",
                                                                             true);
 
             PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             modelSettingsCategory,
-                                                                            "c",
+                                                                            "c [-]",
                                                                             "De waarde van de parameter 'c' in de berekening voor golfcondities.",
                                                                             true);
         }
