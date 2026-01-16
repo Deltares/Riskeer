@@ -723,7 +723,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         {
             RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection);
 
-            return calculation.InputParameters.GetWaterLevels(assessmentLevel).Reverse();
+            return calculation.InputParameters.GetWaterLevels(assessmentLevel);
         }
     }
 }

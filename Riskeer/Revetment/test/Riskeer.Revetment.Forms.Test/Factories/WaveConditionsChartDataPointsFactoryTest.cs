@@ -899,13 +899,13 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             {
                 new[]
                 {
-                    new Point2D(-10, 6),
-                    new Point2D(2, 6)
+                    new Point2D(-10, 5),
+                    new Point2D(1.666667, 5)
                 },
                 new[]
                 {
-                    new Point2D(-10, 5),
-                    new Point2D(1.666667, 5)
+                    new Point2D(-10, 6),
+                    new Point2D(2, 6)
                 }
             };
 

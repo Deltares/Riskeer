@@ -466,7 +466,7 @@ namespace Riskeer.Revetment.Service.Test
             };
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).Reverse().ToArray();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
@@ -530,7 +530,7 @@ namespace Riskeer.Revetment.Service.Test
             };
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).Reverse().ToArray();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
 
             int nrOfCalculators = waterLevels.Length;
 

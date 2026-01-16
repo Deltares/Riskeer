@@ -353,7 +353,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
                         RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-                        IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel).Reverse();
+                        IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
                         Assert.AreEqual(3, waterLevels.Count());
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
