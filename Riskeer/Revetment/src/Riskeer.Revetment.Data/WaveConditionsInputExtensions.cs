@@ -37,7 +37,7 @@ namespace Riskeer.Revetment.Data
         /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> containing water levels.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
-        /// <remarks>The water levels are ordered from high to low in the collection that is returned.</remarks>
+        /// <remarks>The water levels are ordered from low to high in the collection that is returned.</remarks>
         public static IEnumerable<RoundedDouble> GetWaterLevels(this WaveConditionsInput waveConditionsInput,
                                                                 RoundedDouble assessmentLevel)
         {
@@ -64,18 +64,18 @@ namespace Riskeer.Revetment.Data
                 return waterLevels;
             }
 
-            waterLevels.Add(upperBoundary);
+            waterLevels.Add(lowerBoundary);
 
             double stepSizeValue = waveConditionsInput.StepSize;
-            var currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
+            var currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary / stepSizeValue) * stepSizeValue + stepSizeValue);
 
-            while (currentWaterLevel > lowerBoundary)
+            while (currentWaterLevel < upperBoundary)
             {
                 waterLevels.Add(currentWaterLevel);
-                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel - stepSizeValue);
+                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel + stepSizeValue);
             }
 
-            waterLevels.Add(lowerBoundary);
+            waterLevels.Add(upperBoundary);
 
             return waterLevels;
         }
