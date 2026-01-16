@@ -48,18 +48,18 @@ namespace Riskeer.Revetment.Data
 
             var waterLevels = new List<RoundedDouble>();
 
+            var lowerBoundary = new RoundedDouble(2, Math.Max(waveConditionsInput.LowerBoundaryRevetment,
+                                                              !double.IsNaN(waveConditionsInput.LowerBoundaryWaterLevels)
+                                                                  ? waveConditionsInput.LowerBoundaryWaterLevels
+                                                                  : double.MinValue));
+
             var upperBoundary = new RoundedDouble(2, Math.Min(WaveConditionsInputHelper.GetUpperBoundaryAssessmentLevel(assessmentLevel),
                                                               Math.Min(waveConditionsInput.UpperBoundaryRevetment,
                                                                        !double.IsNaN(waveConditionsInput.UpperBoundaryWaterLevels)
                                                                            ? waveConditionsInput.UpperBoundaryWaterLevels
                                                                            : double.MaxValue)));
 
-            var lowerBoundary = new RoundedDouble(2, Math.Max(waveConditionsInput.LowerBoundaryRevetment,
-                                                              !double.IsNaN(waveConditionsInput.LowerBoundaryWaterLevels)
-                                                                  ? waveConditionsInput.LowerBoundaryWaterLevels
-                                                                  : double.MinValue));
-
-            if (double.IsNaN(upperBoundary) || double.IsNaN(lowerBoundary) || lowerBoundary >= upperBoundary)
+            if (double.IsNaN(lowerBoundary) || double.IsNaN(upperBoundary) || lowerBoundary >= upperBoundary)
             {
                 return waterLevels;
             }
