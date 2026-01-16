@@ -109,7 +109,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a.
+        ///   Looks up a localized string similar to a [-].
         /// </summary>
         public static string GeneralWaveConditionsInput_A_DisplayName {
             get {
@@ -127,7 +127,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to b.
+        ///   Looks up a localized string similar to b [-].
         /// </summary>
         public static string GeneralWaveConditionsInput_B_DisplayName {
             get {
@@ -145,7 +145,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to c.
+        ///   Looks up a localized string similar to c [-].
         /// </summary>
         public static string GeneralWaveConditionsInput_C_DisplayName {
             get {
