@@ -8,7 +8,7 @@
     <String Id="DowngradeErrorMessage" Value="Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd."/>
     <String Id="StartApplicationDescription"
             Value="Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName)."/>
-    <String Id="UserManualName" Value="Gebruikershandleiding Riskeer 25.1.1"/>
+    <String Id="UserManualName" Value="Gebruikershandleiding Riskeer 25.1.2"/>
     <String Id="UserManualDescription" Value="Open de gebruikershandleiding van Riskeer."/>
     <String Id="LicenseName" Value="Licentie.rtf"/>
     <String Id="Examples" Value="Voorbeelden"/>
