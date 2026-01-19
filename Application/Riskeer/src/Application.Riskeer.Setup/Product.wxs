@@ -2,7 +2,7 @@
     <!-- Static variables. -->
     <?include Variables.wxi ?>
     <Package Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)"
-             Manufacturer="!(loc.Manufacturer)" UpgradeCode="F87943E5-7D06-4CDC-A54E-F8A12FDA1CC3"
+             Manufacturer="!(loc.Manufacturer)" UpgradeCode="C12C7BDC-BC29-4BC8-9A3D-222B0A629D09"
              InstallerVersion="200">
         <SummaryInformation Manufacturer="!(loc.Manufacturer)"/>
         <Media Id="1" Cabinet="RiskeerFull.cab" EmbedCab="yes"/>
