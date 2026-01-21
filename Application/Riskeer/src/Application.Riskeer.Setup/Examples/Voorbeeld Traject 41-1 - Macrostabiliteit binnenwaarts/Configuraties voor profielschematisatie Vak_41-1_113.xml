@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
-  <map naam="Vak_41-123">
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D2">
+  <map naam="Vak_41-1_113">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D2">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D2</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D2</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -93,11 +93,11 @@
         <bijdrage>2</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D3">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D3">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D3</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D3</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -185,11 +185,11 @@
         <bijdrage>2</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D4">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D4">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D4</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D4</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -277,11 +277,11 @@
         <bijdrage>4</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D6">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D6">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D6</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D6</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -369,11 +369,11 @@
         <bijdrage>8</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D7">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D7">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D7</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D7</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -461,11 +461,11 @@
         <bijdrage>8</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D1">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D1">
       <waterstand>14.05</waterstand>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D1</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D1</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -553,11 +553,11 @@
         <bijdrage>12</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D8">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D8">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D8</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D8</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
@@ -645,11 +645,11 @@
         <bijdrage>16</bijdrage>
       </scenario>
     </berekening>
-    <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D5">
+    <berekening naam="Vak_41-1_113 Segment_41009_2D5">
       <waterstand>14.05</waterstand>
-      <profielschematisatie>Vak_41-123</profielschematisatie>
+      <profielschematisatie>Vak_41-1_113</profielschematisatie>
       <ondergrondmodel>41009_Stability</ondergrondmodel>
-      <ondergrondschematisatie>Vak_41-123_Segment_41009_1D5</ondergrondschematisatie>
+      <ondergrondschematisatie>Segment_41009_2D5</ondergrondschematisatie>
       <dijktype>kleidijkopklei</dijktype>
       <waterspanningen>
         <gemiddeldhoogwater>12</gemiddeldhoogwater>
