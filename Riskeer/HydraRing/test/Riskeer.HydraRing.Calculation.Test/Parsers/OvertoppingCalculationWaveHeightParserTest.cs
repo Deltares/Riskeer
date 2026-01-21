@@ -184,5 +184,24 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             Assert.IsNaN(parser.Output.WaveHeight);
             Assert.IsFalse(parser.Output.IsOvertoppingDominant);
         }
+        
+        [Test]
+        [TestCase("ValidFileNTIWithClosingSituation1", 0.927088, true)]
+        [TestCase("ValidFileNTIWithClosingSituation2", 0.68175, true)]
+        [TestCase("ValidFileFBCWithClosingSituation1", 1.71524, true)]
+        [TestCase("ValidFileFBCWithClosingSituation2", 1.66504, true)]
+        public void Parse_ValidDataWithDifferentClosingSituations_OutputSet(string file, double expectedWaveHeight, bool expectedOvertoppingDominant)
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, file);
+            var parser = new OvertoppingCalculationWaveHeightParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            Assert.AreEqual(expectedWaveHeight, parser.Output.WaveHeight, 1e-11);
+            Assert.AreEqual(expectedOvertoppingDominant, parser.Output.IsOvertoppingDominant);
+        }
     }
 }
