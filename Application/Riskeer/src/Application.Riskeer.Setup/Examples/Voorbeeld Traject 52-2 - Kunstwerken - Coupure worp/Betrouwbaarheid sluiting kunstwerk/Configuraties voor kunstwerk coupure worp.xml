@@ -66,8 +66,8 @@
     </scenario>
   </berekening>
   <map naam="Gevoeligheid">
-    <berekening naam="hr locatie 486">
-      <hblocatie>052-02_0105_1_IJ_km0944</hblocatie>
+    <berekening naam="Andere hydraulische belastingenlocatie">
+      <hblocatie>052-02_0104_1_IJ_km0944</hblocatie>
       <kunstwerk>KWK_1</kunstwerk>
       <orientatie>45</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
