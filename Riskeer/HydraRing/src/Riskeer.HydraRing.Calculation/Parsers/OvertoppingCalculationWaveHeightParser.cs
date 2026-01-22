@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         private readonly string query =
             "SELECT " +
             "(SELECT Value FROM GoverningWind g " +
-            "JOIN DesignPointResults d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId AND d.ClosingSituationId = g.ClosingSituationId " +
+            "JOIN DesignPointResults d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId " +
             "JOIN DesignBeta db ON db.WindDirectionId = d.WindDirectionId AND db.ClosingSituationId = d.ClosingSituationId AND db.OuterIterationId = d.OuterIterationId " +
             "AND db.PeriodId = d.PeriodId " +
             $"WHERE OutputVariableId = 3 AND db.LevelTypeId = 7 AND db.SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
@@ -48,7 +48,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers
             "JOIN " +
             "(SELECT d.ClosingSituationId, d.PeriodId, d.OuterIterationId, d.WindDirectionId, d.LevelTypeId " +
             "FROM GoverningWind g " +
-            "JOIN DesignBeta d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId And d.PeriodId = g.PeriodId AND d.ClosingSituationId = g.ClosingSituationId " +
+            "JOIN DesignBeta d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId And d.PeriodId = g.PeriodId " +
             $"WHERE LevelTypeId = 7 AND SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "AND SubmechanismId = 102 " +
             "ORDER BY d.OuterIterationId DESC, d.PeriodId, BetaValue " +
