@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -824,6 +824,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Gui.Test", "Core\Gui\test\Core.Gui.Test\Core.Gui.Test.csproj", "{D0C7032E-5730-46D1-A06F-7C4F06BA590A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Gui.TestUtil", "Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj", "{073EE964-974D-442E-801F-F4FCD6D303F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{297E54E6-CCB6-4433-AD2D-D27C51235595}"
+	ProjectSection(SolutionItems) = preProject
+		build\Base.targets = build\Base.targets
+		build\Copying.Lesser.licenseheader = build\Copying.Lesser.licenseheader
+		build\Copying.licenseheader = build\Copying.licenseheader
+		build\GlobalAssembly.cs = build\GlobalAssembly.cs
+		build\Source.targets = build\Source.targets
+		build\Test.targets = build\Test.targets
+		build\TestUtil.targets = build\TestUtil.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
