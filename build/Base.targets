@@ -9,7 +9,7 @@
     <LangVersion>7.3</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
-    <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2025</Copyright>
+    <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2026</Copyright>
     <Version>26.1.1</Version>
     <Configurations>Debug;Release;Coverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
