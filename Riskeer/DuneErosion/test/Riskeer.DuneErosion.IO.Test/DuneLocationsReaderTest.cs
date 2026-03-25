@@ -38,13 +38,13 @@ namespace Riskeer.DuneErosion.IO.Test
             IEnumerable<ReadDuneLocation> locations = reader.ReadDuneLocations();
 
             // Assert
-            Assert.AreEqual(1641, locations.Count());
+            Assert.AreEqual(2054, locations.Count());
             foreach (ReadDuneLocation duneLocation in locations)
             {
                 Assert.That(!string.IsNullOrEmpty(duneLocation.Name));
                 Assert.IsNotNull(duneLocation.Location);
                 Assert.AreNotEqual(0, duneLocation.CoastalAreaId);
-                Assert.IsTrue(duneLocation.Offset >= 0);
+                Assert.AreNotEqual(0, duneLocation.Offset);
             }
         }
     }
