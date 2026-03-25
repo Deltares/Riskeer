@@ -82,16 +82,6 @@ namespace Riskeer.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme Duinafslag..
-        /// </summary>
-        internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
-            get {
-                return ResourceManager.GetString("DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_locatio" +
-                        "n_but_name_is_not_according_format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingen berekenen voor locatie &apos;{0}&apos; ({1}).
         /// </summary>
         internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_CalculationIdentifier_1 {
