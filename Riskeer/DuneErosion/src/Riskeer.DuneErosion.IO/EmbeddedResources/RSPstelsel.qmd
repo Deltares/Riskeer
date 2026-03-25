@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.22.16-Bia?owie?a">
+<qgis version="3.44.8-Solothurn">
   <identifier></identifier>
   <parentidentifier></parentidentifier>
   <language></language>
@@ -7,10 +7,11 @@
   <title></title>
   <abstract></abstract>
   <links/>
+  <dates/>
   <fees></fees>
   <encoding></encoding>
   <crs>
-    <spatialrefsys>
+    <spatialrefsys nativeFormat="Wkt">
       <wkt></wkt>
       <proj4></proj4>
       <srsid>0</srsid>
