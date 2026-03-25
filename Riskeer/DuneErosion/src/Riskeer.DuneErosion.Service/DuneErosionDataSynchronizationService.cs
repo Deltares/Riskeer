@@ -79,7 +79,8 @@ namespace Riskeer.DuneErosion.Service
             foreach (ReadDuneLocation readDuneLocation in duneLocations)
             {
                 HydraulicBoundaryLocation correspondingHydraulicBoundaryLocation = hydraulicBoundaryLocations
-                    .FirstOrDefault(hbl => DoesHydraulicBoundaryLocationMatchWithDuneLocation(hbl, readDuneLocation));
+                    .FirstOrDefault(hbl => hbl.Name == readDuneLocation.Name);
+
                 if (correspondingHydraulicBoundaryLocation != null)
                 {
                     var duneLocation = new DuneLocation(readDuneLocation.Name,
