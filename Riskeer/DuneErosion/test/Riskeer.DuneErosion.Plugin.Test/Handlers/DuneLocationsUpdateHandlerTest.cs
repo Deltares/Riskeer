@@ -133,7 +133,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(calculationsForTargetProbabilities[1].DuneLocationCalculations);
 
             // Call
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test_1_1000", 205354, 609735);
             handler.AddLocations(new[]
             {
                 hydraulicBoundaryLocation
@@ -187,7 +187,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             // Call
             handler.AddLocations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735)
+                new HydraulicBoundaryLocation(1, "test_1_1000", 205354, 609735)
             });
 
             // Assert
@@ -298,7 +298,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             var handler = new DuneLocationsUpdateHandler(viewCommands, failureMechanism);
             handler.AddLocations(new[]
             {
-                new HydraulicBoundaryLocation(1, "Locatie_1_100", 205354, 609735)
+                new HydraulicBoundaryLocation(1, "Locatie_1_1000", 205354, 609735)
             });
 
             // Precondition
