@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.IO.Test
 {
@@ -33,7 +32,7 @@ namespace Riskeer.DuneErosion.IO.Test
         public void Constructor_NameNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ReadDuneLocation(null, new Point2D(0.0, 0.0), 0, 0.0);
+            void Call() => new ReadDuneLocation(null, new Point2D(0.0, 0.0), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,7 +46,7 @@ namespace Riskeer.DuneErosion.IO.Test
             const string name = "Dune location";
             var location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
-            const double offset = 4.29;
+            const int offset = 4;
 
             // Call
             var duneLocation = new ReadDuneLocation(name, location, coastalAreaId, offset);
@@ -56,18 +55,7 @@ namespace Riskeer.DuneErosion.IO.Test
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreSame(location, duneLocation.Location);
             Assert.AreEqual(coastalAreaId, duneLocation.CoastalAreaId);
-            Assert.AreEqual(offset, duneLocation.Offset.Value);
-        }
-
-        [Test]
-        public void Constructor_WithOffset_OffsetRounded()
-        {
-            // Call
-            var duneLocation = new ReadDuneLocation("dune", new Point2D(0.0, 0.0), 0, 4.298);
-
-            // Assert
-            Assert.AreEqual(2, duneLocation.Offset.NumberOfDecimalPlaces);
-            Assert.AreEqual(4.30, duneLocation.Offset, duneLocation.Offset.GetAccuracy());
+            Assert.AreEqual(offset, duneLocation.Offset);
         }
     }
 }

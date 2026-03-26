@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Riskeer.DuneErosion.IO
@@ -38,7 +37,7 @@ namespace Riskeer.DuneErosion.IO
         /// <param name="coastalAreaId">Coastal area id of the <see cref="ReadDuneLocation"/>.</param>
         /// <param name="offset">Offset of the <see cref="ReadDuneLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public ReadDuneLocation(string name, Point2D location, int coastalAreaId, double offset)
+        public ReadDuneLocation(string name, Point2D location, int coastalAreaId, int offset)
         {
             if (name == null)
             {
@@ -48,7 +47,7 @@ namespace Riskeer.DuneErosion.IO
             Name = name;
             Location = location;
             CoastalAreaId = coastalAreaId;
-            Offset = new RoundedDouble(2, offset);
+            Offset = offset;
         }
 
         /// <summary>
@@ -70,6 +69,6 @@ namespace Riskeer.DuneErosion.IO
         /// Gets the offset of the dune location.
         /// [m]
         /// </summary>
-        public RoundedDouble Offset { get; }
+        public int Offset { get; }
     }
 }
