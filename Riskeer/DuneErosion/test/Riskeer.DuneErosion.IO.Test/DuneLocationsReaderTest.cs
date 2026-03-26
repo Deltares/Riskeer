@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
 namespace Riskeer.DuneErosion.IO.Test
@@ -35,17 +36,22 @@ namespace Riskeer.DuneErosion.IO.Test
             var reader = new DuneLocationsReader();
 
             // Call
-            IEnumerable<ReadDuneLocation> locations = reader.ReadDuneLocations();
+            IEnumerable<ReadDuneLocation> readDuneLocations = reader.ReadDuneLocations();
 
             // Assert
-            Assert.AreEqual(2054, locations.Count());
-            foreach (ReadDuneLocation duneLocation in locations)
-            {
-                Assert.That(!string.IsNullOrEmpty(duneLocation.Name));
-                Assert.IsNotNull(duneLocation.Location);
-                Assert.AreNotEqual(0, duneLocation.CoastalAreaId);
-                Assert.AreNotEqual(0, duneLocation.Offset);
-            }
+            Assert.AreEqual(2054, readDuneLocations.Count());
+
+            AssertReadDuneLocation(readDuneLocations.ElementAt(27), "001-01_0028_SCHR_02_jr003200", new Point2D(205089, 611656), 2, 3200);
+            AssertReadDuneLocation(readDuneLocations.ElementAt(301), "003-01_0001_TERS_04_jr000000", new Point2D(140589, 596462), 4, 0);
+            AssertReadDuneLocation(readDuneLocations.ElementAt(1350), "extra_0005_MSVL_10_jrm000300", new Point2D(61531, 445004), 10, -300);
+        }
+
+        private static void AssertReadDuneLocation(ReadDuneLocation readDuneLocation, string expectedName, Point2D expectedLocation, int expectedCoastalAreaId, int expectedOffset)
+        {
+            Assert.AreEqual(expectedName, readDuneLocation.Name);
+            Assert.AreEqual(expectedLocation, readDuneLocation.Location);
+            Assert.AreEqual(expectedCoastalAreaId, readDuneLocation.CoastalAreaId);
+            Assert.AreEqual(expectedOffset, readDuneLocation.Offset);
         }
     }
 }
