@@ -77,8 +77,8 @@ namespace Riskeer.DuneErosion.IO
                 object nameValue = locationData.MetaData[nameKey];
                 string name = nameValue?.ToString() ?? string.Empty;
 
-                int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
-                double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
+                var coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
+                var offset = Convert.ToInt32(locationData.MetaData[offsetKey]);
 
                 yield return new ReadDuneLocation(name, location, coastalAreaId, offset);
             }
