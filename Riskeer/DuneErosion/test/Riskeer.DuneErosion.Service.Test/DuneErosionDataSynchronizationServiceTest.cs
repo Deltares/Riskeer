@@ -112,7 +112,7 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreEqual(readDuneLocation.CoastalAreaId, duneLocation.CoastalAreaId);
-            Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
+            Assert.AreEqual(readDuneLocation.Offset / 10.0, duneLocation.Offset);
         }
 
         [Test]
