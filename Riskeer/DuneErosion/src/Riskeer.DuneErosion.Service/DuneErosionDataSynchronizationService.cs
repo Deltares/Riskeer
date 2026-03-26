@@ -67,26 +67,25 @@ namespace Riskeer.DuneErosion.Service
                 return;
             }
 
-            var correspondingDuneLocations = new List<DuneLocation>();
-            foreach (ReadDuneLocation readDuneLocation in duneLocations)
-            {
-                HydraulicBoundaryLocation correspondingHydraulicBoundaryLocation = hydraulicBoundaryLocations
-                    .FirstOrDefault(hbl => hbl.Name == readDuneLocation.Name);
+            var duneLocationsToSet = new List<DuneLocation>();
 
-                if (correspondingHydraulicBoundaryLocation != null)
+            Dictionary<string, ReadDuneLocation> readDuneLocationsLookup = duneLocations.ToDictionary(rdl => rdl.Name, rdl => rdl);
+
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
+            {
+                if (readDuneLocationsLookup.TryGetValue(hydraulicBoundaryLocation.Name, out ReadDuneLocation correspondingReadDuneLocation))
                 {
-                    var duneLocation = new DuneLocation(readDuneLocation.Name,
-                                                        correspondingHydraulicBoundaryLocation,
-                                                        new DuneLocation.ConstructionProperties
-                                                        {
-                                                            CoastalAreaId = readDuneLocation.CoastalAreaId,
-                                                            Offset = readDuneLocation.Offset
-                                                        });
-                    correspondingDuneLocations.Add(duneLocation);
+                    duneLocationsToSet.Add(new DuneLocation(hydraulicBoundaryLocation.Name,
+                                                            hydraulicBoundaryLocation,
+                                                            new DuneLocation.ConstructionProperties
+                                                            {
+                                                                CoastalAreaId = correspondingReadDuneLocation.CoastalAreaId,
+                                                                Offset = correspondingReadDuneLocation.Offset
+                                                            }));
                 }
             }
 
-            failureMechanism.SetDuneLocations(correspondingDuneLocations);
+            failureMechanism.SetDuneLocations(duneLocationsToSet);
         }
 
         /// <summary>
