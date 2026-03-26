@@ -96,12 +96,15 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_DuneLocationOffsetMatchesWithHydraulicBoundaryLocationName_DuneLocationAddedToFailureMechanism()
+        public void SetDuneLocations_HydraulicBoundaryLocationNameMatchesReadDuneLocationName_DuneLocationAddedToFailureMechanism()
         {
             // Setup
+            const string name = "001-01_0001_SCHR_02_jr001000";
+
+            var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_2_1.1", 1.0, 5.3);
+            var readDuneLocation = new ReadDuneLocation(name, new Point2D(random.NextDouble(), random.NextDouble()), random.Next(), random.NextDouble());
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(random.Next(), name, random.NextDouble(), random.NextDouble());
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -122,7 +125,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
-            Assert.AreEqual(readDuneLocation.Name, duneLocation.Name);
+            Assert.AreEqual(name, duneLocation.Name);
             Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
         }
