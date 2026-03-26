@@ -40,6 +40,17 @@ namespace Riskeer.DuneErosion.IO.Test
         }
 
         [Test]
+        public void Constructor_LocationNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => new ReadDuneLocation(string.Empty, null, 0, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("location", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

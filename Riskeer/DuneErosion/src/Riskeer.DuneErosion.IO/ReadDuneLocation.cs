@@ -36,16 +36,11 @@ namespace Riskeer.DuneErosion.IO
         /// <param name="location">The coordinate of the <see cref="ReadDuneLocation"/>.</param>
         /// <param name="coastalAreaId">Coastal area id of the <see cref="ReadDuneLocation"/>.</param>
         /// <param name="offset">Offset of the <see cref="ReadDuneLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="location"/> is <c>null</c>.</exception>
         public ReadDuneLocation(string name, Point2D location, int coastalAreaId, int offset)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            Name = name;
-            Location = location;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Location = location ?? throw new ArgumentNullException(nameof(location));
             CoastalAreaId = coastalAreaId;
             Offset = offset;
         }
