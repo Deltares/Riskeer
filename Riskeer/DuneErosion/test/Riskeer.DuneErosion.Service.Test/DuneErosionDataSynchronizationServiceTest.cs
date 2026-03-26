@@ -88,7 +88,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation(name, new Point2D(random.NextDouble(), random.NextDouble()), random.Next(), random.NextDouble());
+            var readDuneLocation = new ReadDuneLocation(name, new Point2D(random.NextDouble(), random.NextDouble()), random.Next(), random.Next());
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(random.Next(), name, random.NextDouble(), random.NextDouble());
 
             // Precondition
@@ -109,9 +109,9 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
+            Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(name, duneLocation.Name);
-            Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
+            Assert.AreEqual(readDuneLocation.CoastalAreaId, duneLocation.CoastalAreaId);
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
         }
 
