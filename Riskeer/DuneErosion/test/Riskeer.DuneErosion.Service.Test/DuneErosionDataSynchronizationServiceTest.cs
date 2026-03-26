@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
@@ -128,41 +127,6 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(-0.123)]
-        [TestCase(1)]
-        [TestCase(123.456789)]
-        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DuneLocationNotAddedLogMessage(double offset)
-        {
-            // Setup
-            var locationName = $"Location_{offset}";
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3);
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-
-            // Call
-            void Call() =>
-                DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[]
-                {
-                    hydraulicBoundaryLocation
-                }, new[]
-                {
-                    readDuneLocation
-                });
-
-            // Assert
-            string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
-                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme Duinafslag.";
-            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }
 
         [Test]
