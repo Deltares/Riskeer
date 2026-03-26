@@ -65,7 +65,7 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_DuneLocationsNull_ThrowArgumentNullException()
+        public void SetDuneLocations_ReadDuneLocationsNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -77,7 +77,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("duneLocations", exception.ParamName);
+            Assert.AreEqual("readDuneLocations", exception.ParamName);
         }
 
         [Test]
