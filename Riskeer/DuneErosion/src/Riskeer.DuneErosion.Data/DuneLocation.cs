@@ -89,6 +89,7 @@ namespace Riskeer.DuneErosion.Data
 
         /// <summary>
         /// Gets the offset of the dune location.
+        /// [dam]
         /// </summary>
         public RoundedDouble Offset { get; }
 
@@ -104,6 +105,7 @@ namespace Riskeer.DuneErosion.Data
 
             /// <summary>
             /// Sets the offset of the dune location.
+            /// [dam]
             /// </summary>
             public double Offset { internal get; set; }
         }

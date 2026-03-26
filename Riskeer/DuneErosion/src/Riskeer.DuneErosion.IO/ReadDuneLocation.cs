@@ -68,6 +68,7 @@ namespace Riskeer.DuneErosion.IO
 
         /// <summary>
         /// Gets the offset of the dune location.
+        /// [m]
         /// </summary>
         public RoundedDouble Offset { get; }
     }
