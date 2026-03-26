@@ -126,7 +126,7 @@ namespace Riskeer.DuneErosion.Service
                                                   new DuneLocation.ConstructionProperties
                                                   {
                                                       CoastalAreaId = correspondingReadDuneLocation.CoastalAreaId,
-                                                      Offset = correspondingReadDuneLocation.Offset
+                                                      Offset = correspondingReadDuneLocation.Offset / 10.0
                                                   });
                 }
             }
