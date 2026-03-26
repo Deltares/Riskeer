@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Service
                 return;
             }
 
-            failureMechanism.SetDuneLocations(GetDuneLocationsToSet(hydraulicBoundaryLocations, readDuneLocations));
+            failureMechanism.SetDuneLocations(GetDuneLocationsToSet(hydraulicBoundaryLocations, readDuneLocations).ToList());
         }
 
         /// <summary>
