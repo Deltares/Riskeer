@@ -105,7 +105,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
-        public void AddLocations_NewLocationsIsDune_LocationAndCalculationsAdded()
+        public void AddLocations_AddedLocationIsDuneLocation_LocationAndCalculationsAdded()
         {
             // Setup
             var mocks = new MockRepository();
@@ -133,7 +133,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(calculationsForTargetProbabilities[1].DuneLocationCalculations);
 
             // Call
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test_1_1000", 205354, 609735);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = CreateLocationThatIsDuneLocation(random);
             handler.AddLocations(new[]
             {
                 hydraulicBoundaryLocation
@@ -187,7 +187,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             // Call
             handler.AddLocations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test_1_1000", 205354, 609735)
+                CreateLocationThatIsDuneLocation(random)
             });
 
             // Assert
@@ -286,19 +286,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
-        public void DoPostUpdateActions_FailureMechanismHasNoDuneLocations_DoNothing()
+        public void DoPostUpdateActions_FailureMechanismHasDuneLocations_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
+            var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             var handler = new DuneLocationsUpdateHandler(viewCommands, failureMechanism);
             handler.AddLocations(new[]
             {
-                new HydraulicBoundaryLocation(1, "Locatie_1_1000", 205354, 609735)
+                CreateLocationThatIsDuneLocation(random)
             });
 
             // Precondition
@@ -309,6 +310,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
 
             // Assert
             mocks.VerifyAll(); // Expect no calls in 'viewCommands'
+        }
+
+        private static HydraulicBoundaryLocation CreateLocationThatIsDuneLocation(Random random)
+        {
+            return new HydraulicBoundaryLocation(random.Next(), "001-01_0001_SCHR_02_jr001000", random.NextDouble(), random.NextDouble());
         }
 
         private static void AssertDuneLocationCalculations(DuneLocation expectedDuneLocation, DuneErosionFailureMechanism failureMechanism)
