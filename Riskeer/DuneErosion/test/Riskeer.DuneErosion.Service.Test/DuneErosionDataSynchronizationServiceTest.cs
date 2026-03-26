@@ -121,7 +121,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("Location 1", new Point2D(random.NextDouble(), random.NextDouble()), random.Next(), random.NextDouble());
+            var readDuneLocation = new ReadDuneLocation("Location 1", new Point2D(random.NextDouble(), random.NextDouble()), random.Next(), random.Next());
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(random.Next(), "Location 2", random.NextDouble(), random.NextDouble());
 
             // Precondition
