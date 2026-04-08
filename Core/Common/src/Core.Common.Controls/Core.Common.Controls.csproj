@@ -31,4 +31,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions">
+      <Version>10.0.5</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>
