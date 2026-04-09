@@ -29,8 +29,8 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Common.Util.TestUtil.Settings;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
@@ -71,27 +71,20 @@ namespace Riskeer.Migration.Test
         public void Constructor_ReturnsExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             // Call
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IMigrateProject>(migrator);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShouldMigrate_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
@@ -100,8 +93,6 @@ namespace Riskeer.Migration.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -109,10 +100,7 @@ namespace Riskeer.Migration.Test
         public void ShouldMigrate_InvalidFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
@@ -122,17 +110,13 @@ namespace Riskeer.Migration.Test
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 Call, "Bronprojectpad moet een geldig projectpad zijn.");
             Assert.AreEqual("filePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShouldMigrate_OutdatedProjectUnsupported_ReturnsNotSupportedAndGeneratesLogMessages()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             var versionedFile = new ProjectVersionedFile(sourceFilePath);
@@ -148,8 +132,6 @@ namespace Riskeer.Migration.Test
             var expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
             Assert.AreEqual(MigrationRequired.NotSupported, shouldMigrate);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -161,10 +143,8 @@ namespace Riskeer.Migration.Test
             string question = "Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Riskeer of Ringtoets." +
                               $"{Environment.NewLine}{Environment.NewLine}" +
                               $"Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Riskeerversie ({currentDatabaseVersion})?";
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(question)).Return(confirmContinuation);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(question).Returns(confirmContinuation);
 
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
@@ -186,17 +166,13 @@ namespace Riskeer.Migration.Test
 
             MigrationRequired expectedResult = confirmContinuation ? MigrationRequired.Yes : MigrationRequired.Aborted;
             Assert.AreEqual(expectedResult, shouldMigrate);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShouldMigrate_LatestProjectVersion_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             string sourceFilePath = ProjectMigrationTestHelper.GetLatestProjectFilePath();
 
@@ -207,17 +183,13 @@ namespace Riskeer.Migration.Test
 
             // Assert
             Assert.AreEqual(MigrationRequired.No, shouldMigrate);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void DetermineMigrationLocation_OriginalFilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
@@ -226,8 +198,6 @@ namespace Riskeer.Migration.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("originalFilePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,10 +205,7 @@ namespace Riskeer.Migration.Test
         public void DetermineMigrationLocation_InvalidOriginalFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
@@ -248,8 +215,6 @@ namespace Riskeer.Migration.Test
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 Call, "Bronprojectpad moet een geldig projectpad zijn.");
             Assert.AreEqual("originalFilePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -267,11 +232,9 @@ namespace Riskeer.Migration.Test
 
             string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.risk");
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName))
-                         .Return(expectedReturnPath);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName)
+                         .Returns(expectedReturnPath);
 
             var migrator = new ProjectMigrator(inquiryHelper);
 
@@ -280,7 +243,7 @@ namespace Riskeer.Migration.Test
 
             // Assert
             Assert.AreEqual(expectedReturnPath, targetFilePath);
-            mocks.VerifyAll();
+            inquiryHelper.Received().GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
         }
 
         [Test]
@@ -296,11 +259,9 @@ namespace Riskeer.Migration.Test
             string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
             var expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName))
-                         .Return(null);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName)
+                         .Returns((string) null);
 
             var migrator = new ProjectMigrator(inquiryHelper);
             var targetFilePath = "arbitraryPath";
@@ -315,17 +276,14 @@ namespace Riskeer.Migration.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedLogMessage, 1);
 
             Assert.IsNull(targetFilePath);
-            mocks.VerifyAll();
+            inquiryHelper.Received().GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
         }
 
         [Test]
         public void Migrate_SourcePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             string targetFileName = $"{nameof(ProjectMigratorTest)}." +
@@ -344,10 +302,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_TargetPathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
@@ -365,10 +320,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_InvalidSourceFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             string targetFileName = $"{nameof(ProjectMigratorTest)}." +
@@ -382,8 +334,6 @@ namespace Riskeer.Migration.Test
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 Call, "Bronprojectpad moet een geldig projectpad zijn.");
             Assert.AreEqual("sourceFilePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -391,10 +341,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_InvalidTargetFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var migrator = new ProjectMigrator(inquiryHelper);
 
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
@@ -406,8 +353,6 @@ namespace Riskeer.Migration.Test
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 Call, "Doelprojectpad moet een geldig projectpad zijn.");
             Assert.AreEqual("targetFilePath", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -420,9 +365,7 @@ namespace Riskeer.Migration.Test
                                 $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
@@ -629,8 +572,6 @@ namespace Riskeer.Migration.Test
 
             string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
             Assert.IsFalse(File.Exists(logPath));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -642,9 +583,7 @@ namespace Riskeer.Migration.Test
                                 $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}_log";
 
@@ -674,8 +613,6 @@ namespace Riskeer.Migration.Test
 
                 Assert.IsTrue(File.Exists(logPath));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -687,9 +624,7 @@ namespace Riskeer.Migration.Test
                                 $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
@@ -720,8 +655,6 @@ namespace Riskeer.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -733,9 +666,7 @@ namespace Riskeer.Migration.Test
                                 $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
@@ -763,8 +694,6 @@ namespace Riskeer.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -773,9 +702,7 @@ namespace Riskeer.Migration.Test
             // Setup
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
@@ -803,8 +730,6 @@ namespace Riskeer.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
-
-            mocks.VerifyAll();
         }
     }
 }
