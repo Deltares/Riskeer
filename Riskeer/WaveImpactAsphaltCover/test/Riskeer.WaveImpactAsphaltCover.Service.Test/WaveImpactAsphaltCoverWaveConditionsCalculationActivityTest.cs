@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Service;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -36,9 +36,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -51,17 +49,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}'", activity.Description);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
@@ -71,7 +65,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
