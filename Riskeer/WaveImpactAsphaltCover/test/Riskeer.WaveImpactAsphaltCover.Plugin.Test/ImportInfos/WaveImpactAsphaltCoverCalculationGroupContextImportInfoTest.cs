@@ -21,16 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -113,12 +110,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-                             .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
 
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
                                                                             null,
@@ -130,7 +126,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

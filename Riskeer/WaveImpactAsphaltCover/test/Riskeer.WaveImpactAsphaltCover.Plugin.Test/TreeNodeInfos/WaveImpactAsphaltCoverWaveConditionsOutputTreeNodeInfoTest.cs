@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -106,21 +106,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
                 var output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(output, treeViewControl).Returns(menuBuilder);
 
                 using (var plugin = new WaveImpactAsphaltCoverPlugin())
                 {
@@ -130,10 +125,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Call
                     info.ContextMenuStrip(output, null, treeViewControl);
                 }
-            }
 
-            // Assert
-            mocks.VerifyAll();
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         private TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
