@@ -105,7 +105,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
                                                                             modelSettingsCategory,
                                                                             "c [-]",
                                                                             "De waarde van de parameter 'c' in de berekening voor golfcondities.",
-                                                                            true);
+                                                                            false);
         }
     }
 }
