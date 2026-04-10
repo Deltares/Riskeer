@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState;
@@ -46,7 +47,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, new FailureMechanismPropertyChangeHandler<WaveImpactAsphaltCoverFailureMechanism>());
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismPropertiesBase>(properties);
@@ -64,7 +65,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism());
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), new FailureMechanismPropertyChangeHandler<WaveImpactAsphaltCoverFailureMechanism>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -119,7 +120,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
         private void SetToOutOfBounds()
         {
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, new FailureMechanismPropertyChangeHandler<WaveImpactAsphaltCoverFailureMechanism>());
             // C must be in range [0, ... , 2]
             properties.C = new RoundedDouble(2, 3.14);
         }
