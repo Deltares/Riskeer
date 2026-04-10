@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -53,7 +53,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
 
-            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput;
+            GeneralWaveImpactAsphaltCoverWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
             Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
             Assert.AreEqual(generalWaveConditionsInput.C, properties.C);

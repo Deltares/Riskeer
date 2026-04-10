@@ -21,20 +21,20 @@
 
 using Core.Common.Base.Data;
 
-namespace Riskeer.Revetment.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// Class that holds all the static wave conditions input parameters.
     /// </summary>
-    public class GeneralWaveConditionsInput
+    public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralWaveConditionsInput"/>.
+        /// Creates a new instance of <see cref="GeneralWaveImpactAsphaltCoverWaveConditionsInput"/>.
         /// </summary>
         /// <param name="a">The 'a' parameter used in wave conditions calculations.</param>
         /// <param name="b">The 'b' parameter used in wave conditions calculations.</param>
         /// <param name="c">The 'c' parameter used in wave conditions calculations.</param>
-        public GeneralWaveConditionsInput(double a, double b, double c)
+        public GeneralWaveImpactAsphaltCoverWaveConditionsInput(double a, double b, double c)
         {
             A = new RoundedDouble(2, a);
             B = new RoundedDouble(2, b);
@@ -54,6 +54,6 @@ namespace Riskeer.Revetment.Data
         /// <summary>
         /// Gets the 'c' parameter used in wave conditions calculations.
         /// </summary>
-        public RoundedDouble C { get; }
+        public RoundedDouble C { get; set; }
     }
 }
