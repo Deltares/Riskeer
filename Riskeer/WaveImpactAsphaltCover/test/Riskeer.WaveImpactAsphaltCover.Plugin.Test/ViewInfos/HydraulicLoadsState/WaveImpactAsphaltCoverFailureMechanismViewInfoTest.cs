@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsSta
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismView));
         }
@@ -64,8 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsSta
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
