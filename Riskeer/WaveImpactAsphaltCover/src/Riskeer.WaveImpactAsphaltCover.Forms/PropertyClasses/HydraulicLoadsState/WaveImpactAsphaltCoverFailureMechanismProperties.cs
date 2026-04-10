@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
@@ -89,7 +90,20 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsSta
             }
             set
             {
-                data.GeneralInput.C = value;
+                RoundedDouble newC = value.ToPrecision(data.GeneralInput.C.NumberOfDecimalPlaces);
+
+                ValidateParamC(newC);
+
+                data.GeneralInput.C = newC;
+            }
+        }
+
+        private static void ValidateParamC(RoundedDouble newC)
+        {
+            if (double.IsNaN(newC) || newC < 0.0 || newC > 2.0)
+            {
+                throw new ArgumentOutOfRangeException(null,
+                    Resources.WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType);
             }
         }
 
