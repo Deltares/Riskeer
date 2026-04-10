@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
