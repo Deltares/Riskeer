@@ -48,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
-            GeneralInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput(1.0, 0.0, 0.0);
+            GeneralInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
             CalculationsInputComments = new Comment();
         }
 

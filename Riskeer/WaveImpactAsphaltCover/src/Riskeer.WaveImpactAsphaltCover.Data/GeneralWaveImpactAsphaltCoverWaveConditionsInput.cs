@@ -24,35 +24,32 @@ using Core.Common.Base.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Class that holds all the static wave conditions input parameters.
+    /// Class that holds all the static wave impact asphalt cover wave conditions input parameters.
     /// </summary>
     public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GeneralWaveImpactAsphaltCoverWaveConditionsInput"/>.
         /// </summary>
-        /// <param name="a">The 'a' parameter used in wave conditions calculations.</param>
-        /// <param name="b">The 'b' parameter used in wave conditions calculations.</param>
-        /// <param name="c">The 'c' parameter used in wave conditions calculations.</param>
-        public GeneralWaveImpactAsphaltCoverWaveConditionsInput(double a, double b, double c)
+        public GeneralWaveImpactAsphaltCoverWaveConditionsInput()
         {
-            A = new RoundedDouble(2, a);
-            B = new RoundedDouble(2, b);
-            C = new RoundedDouble(2, c);
+            A = new RoundedDouble(2, 1.0);
+            B = new RoundedDouble(2);
+            C = new RoundedDouble(2);
         }
 
         /// <summary>
-        /// Gets the 'a' parameter used in wave conditions calculations.
+        /// Gets the 'a' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
         public RoundedDouble A { get; }
 
         /// <summary>
-        /// Gets the 'b' parameter used in wave conditions calculations.
+        /// Gets the 'b' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
         public RoundedDouble B { get; }
 
         /// <summary>
-        /// Gets the 'c' parameter used in wave conditions calculations.
+        /// Gets and sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
         public RoundedDouble C { get; set; }
     }
