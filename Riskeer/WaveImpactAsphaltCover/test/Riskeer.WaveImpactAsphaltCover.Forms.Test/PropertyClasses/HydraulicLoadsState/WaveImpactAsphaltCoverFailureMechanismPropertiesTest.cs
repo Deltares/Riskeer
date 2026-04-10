@@ -19,10 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState;
@@ -107,5 +108,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
                                                                             "De waarde van de parameter 'c' in de berekening voor golfcondities.",
                                                                             false);
         }
+
+        [Test]
+        public void Test_InvalidValueParamC()
+        {
+            // Call
+            Assert.Catch<ArgumentOutOfRangeException>(SetToOutOfBounds);
+        }
+
+        private void SetToOutOfBounds()
+        {
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            // C must be in range [0, ... , 2]
+            properties.C = new RoundedDouble(2, 3.14);
+        }
+
     }
 }
