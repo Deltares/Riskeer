@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -39,9 +39,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -57,16 +55,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -77,7 +72,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture]
@@ -85,24 +79,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             : EqualsTestFixture<StabilityStoneCoverWaveConditionsCalculationContext,
                 DerivedStabilityStoneCoverWaveConditionsCalculationContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly StabilityStoneCoverWaveConditionsCalculation calculation = new StabilityStoneCoverWaveConditionsCalculation();
             private static readonly StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-            [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
 
             protected override StabilityStoneCoverWaveConditionsCalculationContext CreateObject()
             {

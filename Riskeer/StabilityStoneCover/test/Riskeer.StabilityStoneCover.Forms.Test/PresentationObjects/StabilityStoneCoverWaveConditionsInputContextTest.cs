@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Forms.PresentationObjects;
@@ -64,10 +64,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
@@ -78,7 +75,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }
