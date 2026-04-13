@@ -38,7 +38,7 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -84,7 +84,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearOutputIndexNestedGroup = 14;
 
         private IGui gui;
-        private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
 
@@ -97,7 +96,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(info.Text);
@@ -124,8 +122,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnGroupName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
@@ -144,8 +141,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnCalculationGroupIcon()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
@@ -164,8 +160,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_EmptyGroup_ReturnEmpty()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -185,8 +180,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithChildren_ReturnChildren()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var childGroup = new CalculationGroup();
             var calculationItem = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -225,51 +219,60 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
                                                                                  assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddRenameItem().Returns(menuBuilder);
+            menuBuilder.AddDeleteItem().Returns(menuBuilder);
+            menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddImportItem();
+                menuBuilder.AddExportItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddDeleteChildrenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -278,7 +281,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
@@ -288,11 +291,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -343,7 +345,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  parentGroup,
                                                                                  failureMechanism,
@@ -353,45 +355,53 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                        failureMechanism,
                                                                                        assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddRenameItem().Returns(menuBuilder);
+            menuBuilder.AddDeleteItem().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddImportItem();
+                menuBuilder.AddExportItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddRenameItem();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddDeleteItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -401,7 +411,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  parentGroup,
                                                                                  failureMechanism,
@@ -415,10 +425,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
@@ -465,7 +474,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeWithoutHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -474,16 +483,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                              failureMechanism,
                                                                              assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            exportCommandHandler.CanExportFrom(nodeData).Returns(true);
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -494,11 +503,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                          nodeData,
                                                          treeViewControl);
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -560,6 +568,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
+                
+                exportCommandHandler.Received().CanExportFrom(nodeData);
             }
         }
 
@@ -567,8 +577,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeWithHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -589,16 +599,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                              failureMechanism,
                                                                              assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportCommandHandler.Expect(ech => ech.CanExportFrom(nodeData)).Return(true);
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            exportCommandHandler.CanExportFrom(nodeData).Returns(true);
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -609,11 +619,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                          nodeData,
                                                          treeViewControl);
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -676,6 +685,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
+                
+                importCommandHandler.Received().GetSupportedImportInfos(nodeData);
+                exportCommandHandler.Received().CanExportFrom(nodeData);
             }
         }
 
@@ -688,7 +700,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var group = new CalculationGroup();
                 failureMechanism.CalculationsGroup.Children.Add(group);
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = new AssessmentSectionStub();
                 var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  failureMechanism.CalculationsGroup,
                                                                                  failureMechanism,
@@ -700,10 +712,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -724,8 +735,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled(bool usePreprocessorClosure)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var group = new CalculationGroup();
@@ -744,10 +755,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -791,10 +801,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -821,10 +830,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var observerA = mocks.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-            var observerB = mocks.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
+            var observerA = Substitute.For<IObserver>();
+            var observerB = Substitute.For<IObserver>();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
@@ -857,29 +864,26 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
 
                 int nrOfCalculators = failureMechanism.Calculations
                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                       .Sum(c => c.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(c.InputParameters, assessmentSection)).Count());
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                                 .Returns(callInfo =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                              assessmentSection.HydraulicBoundaryData,
                                              hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestWaveConditionsCosineCalculator())
-                                 .Repeat
-                                 .Times(nrOfCalculators);
-                mocks.ReplayAll();
-
+                                         (HydraRingCalculationSettings) callInfo[0]);
+                                     return new TestWaveConditionsCosineCalculator();
+                                 });
+    
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -903,6 +907,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     });
                     Assert.AreEqual(3, calculationA.Output.Items.Count());
                     Assert.AreEqual(3, calculationB.Output.Items.Count());
+                    observerA.Received().UpdateObserver();
+                    observerB.Received().UpdateObserver();
+                    calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
                 }
             }
         }
@@ -912,8 +919,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHrdFilePath);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             var group = new CalculationGroup();
 
@@ -931,12 +937,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                mocks.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+    
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -954,8 +959,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHrdFilePath);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
@@ -979,12 +983,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                mocks.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+    
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -1004,16 +1007,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHrdFilePath);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var observerA = mocks.StrictMock<IObserver>();
-            var observerB = mocks.StrictMock<IObserver>();
-            if (confirm)
-            {
-                observerA.Expect(o => o.UpdateObserver());
-                observerB.Expect(o => o.UpdateObserver());
-            }
+            var observerA = Substitute.For<IObserver>();
+            var observerB = Substitute.For<IObserver>();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
@@ -1054,12 +1051,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                mocks.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+    
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -1071,6 +1067,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         Assert.IsNull(calculationA.Output);
                         Assert.IsNull(calculationB.Output);
+                        observerA.Received().UpdateObserver();
+                        observerB.Received().UpdateObserver();
                     }
                 }
             }
@@ -1082,7 +1080,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1099,12 +1097,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
+                var observer = Substitute.For<IObserver>();
 
                 var calculationItem = new CalculationGroup
                 {
@@ -1128,6 +1124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -1157,16 +1154,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 Name = "Nieuwe berekening"
             };
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 group.Children.Add(calculationItem);
                 nodeData.Attach(observer);
 
@@ -1187,6 +1182,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                     Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -1236,22 +1232,20 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
+                var observer = Substitute.For<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
                                                                                  assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommands = mocks.StrictMock<IViewCommands>();
+                var viewCommands = Substitute.For<IViewCommands>();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                gui.ViewCommands.Returns(viewCommands);
 
-                mocks.ReplayAll();
-
+    
                 nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
@@ -1288,6 +1282,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 WaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -1299,9 +1294,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
-                assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+                assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
                 {
                     HydraulicBoundaryDatabases =
                     {
@@ -1315,21 +1310,20 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 });
 
-                var observer = mocks.StrictMock<IObserver>();
+                var observer = Substitute.For<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
                                                                                  assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommands = mocks.StrictMock<IViewCommands>();
+                var viewCommands = Substitute.For<IViewCommands>();
 
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                gui.ViewCommands.Returns(viewCommands);
 
-                mocks.ReplayAll();
-
+    
                 nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
@@ -1357,11 +1351,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_ParentIsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1386,6 +1378,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, group);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -1393,7 +1386,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             null,
@@ -1402,12 +1395,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
+                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+                var importHandler = Substitute.For<IImportCommandHandler>();
+                importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
+                var exportHandler = Substitute.For<IExportCommandHandler>();
+                var updateHandler = Substitute.For<IUpdateCommandHandler>();
+                var viewCommands = Substitute.For<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
@@ -1416,11 +1409,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                          context,
                                                          treeViewControl);
 
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
@@ -1438,8 +1430,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
         {
             // Given
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.CalculationsGroup.Attach(observer);
@@ -1451,12 +1442,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
+                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+                var importHandler = Substitute.For<IImportCommandHandler>();
+                importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
+                var exportHandler = Substitute.For<IExportCommandHandler>();
+                var updateHandler = Substitute.For<IUpdateCommandHandler>();
+                var viewCommands = Substitute.For<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
@@ -1465,11 +1456,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                          context,
                                                          treeViewControl);
 
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
@@ -1479,7 +1469,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
                     Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculation>(failureMechanism.CalculationsGroup.Children[0]);
-                    // Check expectancies in TearDown()
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -1488,7 +1478,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -1512,10 +1502,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 calculation.InputParameters.UseBreakWater = true;
 
                 // Call
@@ -1535,11 +1524,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfilesClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            calculationInputObserver.Expect(o => o.UpdateObserver());
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -1567,10 +1555,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+    
                 calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1580,14 +1567,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+                    calculationInputObserver.Received().UpdateObserver();
+                    calculationObserver.DidNotReceive().UpdateObserver();
                 }
             }
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
+            gui = Substitute.For<IGui>();
             plugin = new WaveImpactAsphaltCoverPlugin
             {
                 Gui = gui
@@ -1598,7 +1586,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public override void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
 
             base.TearDown();
         }
