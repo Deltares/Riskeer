@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
 using NUnit.Framework;
@@ -272,7 +273,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = Substitute.For<IMainWindow>();
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
