@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -59,7 +59,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void Calculations_MultipleChildrenAdded_ReturnWaveImpactAsphaltCoverCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 CalculationsGroup =
@@ -68,13 +67,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                     {
                         new CalculationGroup(),
                         new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                        mocks.StrictMock<ICalculation>(),
+                        Substitute.For<ICalculation>(),
                         new WaveImpactAsphaltCoverWaveConditionsCalculation()
                     }
                 }
             };
-
-            mocks.ReplayAll();
 
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
@@ -82,7 +79,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is WaveImpactAsphaltCoverWaveConditionsCalculation));
-            mocks.VerifyAll();
         }
     }
 }

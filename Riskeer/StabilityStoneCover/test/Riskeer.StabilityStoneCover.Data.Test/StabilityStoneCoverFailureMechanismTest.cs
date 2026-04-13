@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -59,7 +59,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void Calculations_MultipleChildrenAdded_ReturnStabilityStoneCoverWaveConditionsCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 CalculationsGroup =
@@ -68,13 +67,11 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                     {
                         new CalculationGroup(),
                         new StabilityStoneCoverWaveConditionsCalculation(),
-                        mocks.StrictMock<ICalculation>(),
+                        Substitute.For<ICalculation>(),
                         new StabilityStoneCoverWaveConditionsCalculation()
                     }
                 }
             };
-
-            mocks.ReplayAll();
 
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
@@ -82,7 +79,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             // Assert
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is StabilityStoneCoverWaveConditionsCalculation));
-            mocks.VerifyAll();
         }
     }
 }
