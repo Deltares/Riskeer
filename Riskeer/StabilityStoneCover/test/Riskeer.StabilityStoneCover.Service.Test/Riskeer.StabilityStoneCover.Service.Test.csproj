@@ -35,9 +35,6 @@
     <PackageReference Include="NSubstitute.Analyzers.CSharp">
       <Version>1.0.16</Version>
     </PackageReference>
-    <PackageReference Include="RhinoMocks">
-      <Version>3.6.1</Version>
-    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.117</Version>
     </PackageReference>
