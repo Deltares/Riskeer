@@ -90,6 +90,56 @@
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Formats.Nrbf">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Buffers">
+      <Version>4.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Collections.Immutable">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Numerics.Vectors">
+      <Version>4.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Metadata">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>6.1.2</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Bcl.HashCode">
+      <Version>6.0.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Memory">
+      <Version>4.6.3</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Resources.Extensions">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MadeBy.png" />
@@ -116,6 +166,16 @@
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x64\*&quot;" />
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Resources_Extensions)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Formats_Nrbf)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Reflection_Metadata)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Bcl_HashCode)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ValueTuple)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Memory)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Buffers)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Numerics_Vectors)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Runtime_CompilerServices_Unsafe)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Collections_Immutable)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
