@@ -78,7 +78,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde van asphalt parameter C moet binnen het bereik {0} liggen..
+        ///   Looks up a localized string similar to De waarde van asfalt parameter C moet binnen het bereik {0} liggen..
         /// </summary>
         public static string WaveImpactAsphaltParamC_must_be_in_Range_0_ {
             get {

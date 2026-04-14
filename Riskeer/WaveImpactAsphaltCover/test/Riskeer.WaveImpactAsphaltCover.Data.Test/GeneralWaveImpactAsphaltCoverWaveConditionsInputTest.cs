@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 
@@ -50,6 +51,25 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual(2, generalInput.B.NumberOfDecimalPlaces);
             Assert.AreEqual(c2, generalInput.C, generalInput.C.GetAccuracy());
             Assert.AreEqual(2, generalInput.C.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(-0.005)]
+        [TestCase(20.005)]
+        public void Constructor_OutOfRangeValues(double newValue)
+        {
+            // Setup
+            var inputParameters = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
+
+            // Call
+            TestDelegate test = () => inputParameters.C = (RoundedDouble) newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
+                "De waarde van asfalt parameter C moet binnen het bereik [0,00, 2,00] liggen.");
         }
 
     }
