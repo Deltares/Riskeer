@@ -25,8 +25,8 @@ using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
 
@@ -41,9 +41,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_CalculationOfTypeOtherThanGiven_ThrowsCriticalFileWriteExceptionWithInnerArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<IConfigurationItem>();
-            mocks.ReplayAll();
+            var calculation = Substitute.For<IConfigurationItem>();
 
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
@@ -67,8 +65,6 @@ namespace Riskeer.Common.IO.TestUtil
             {
                 File.Delete(filePath);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
