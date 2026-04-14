@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using System;
+using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {
@@ -28,14 +30,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// </summary>
     public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
+        private const int waveImpactAphaltNumberOfDecimalPlaces = 2;
+        private RoundedDouble c;
+
         /// <summary>
         /// Creates a new instance of <see cref="GeneralWaveImpactAsphaltCoverWaveConditionsInput"/>.
         /// </summary>
         public GeneralWaveImpactAsphaltCoverWaveConditionsInput()
         {
-            A = new RoundedDouble(2, 1.0);
-            B = new RoundedDouble(2);
-            C = new RoundedDouble(2);
+            A = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces, 1.0);
+            B = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces);
+            c = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces);
         }
 
         /// <summary>
@@ -48,9 +53,31 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public RoundedDouble B { get; }
 
+        private static readonly Range<RoundedDouble> waveImpactAphaltCValidityRange =
+            new Range<RoundedDouble>(new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces),
+                                     new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces, 2.0));
+
         /// <summary>
         /// Gets and sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
-        public RoundedDouble C { get; set; }
+        public RoundedDouble C
+        {
+            get
+            {
+                return c;
+            }
+            set
+            {
+                RoundedDouble newValue = value.ToPrecision(waveImpactAphaltNumberOfDecimalPlaces);
+
+                if (!waveImpactAphaltCValidityRange.InRange(newValue))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.WaveImpactAsphaltParamC_must_be_in_Range_0_,
+                                                                                       waveImpactAphaltCValidityRange));
+                }
+
+                c = newValue;
+            }
+        }
     }
 }

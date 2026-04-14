@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -258,11 +258,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
 
             var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
-            // Call            
+            // Call
             void Call() => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
-            const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
+            const string expectedMessage = "De waarde van volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
 
@@ -294,7 +294,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
 
             var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
-            // Call            
+            // Call
             properties.WaterVolumetricWeight = roundedValue;
 
             // Assert

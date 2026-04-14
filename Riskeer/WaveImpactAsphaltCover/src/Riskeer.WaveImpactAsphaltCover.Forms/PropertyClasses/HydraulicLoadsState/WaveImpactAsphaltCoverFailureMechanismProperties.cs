@@ -104,25 +104,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsSta
             }
             set
             {
-                RoundedDouble newC = value.ToPrecision(data.GeneralInput.C.NumberOfDecimalPlaces);
-
-                ValidateParamC(newC);
-
                 IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                     data,
-                    newC,
+                    value,
                     (f, v) => f.GeneralInput.C = v);
 
                 NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        private static void ValidateParamC(RoundedDouble newC)
-        {
-            if (double.IsNaN(newC) || newC < 0.0 || newC > 2.0)
-            {
-                throw new ArgumentOutOfRangeException(null,
-                    Resources.WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType);
             }
         }
 
@@ -133,7 +120,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsSta
                 affectedObject.NotifyObservers();
             }
         }
-
 
         #endregion
     }
