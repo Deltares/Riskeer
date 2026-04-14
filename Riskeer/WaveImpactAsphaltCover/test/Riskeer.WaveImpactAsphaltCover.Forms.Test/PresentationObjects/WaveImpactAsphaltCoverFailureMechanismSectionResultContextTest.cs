@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -36,9 +36,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -48,7 +46,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>>(context);
-            mocks.VerifyAll();
         }
     }
 }
