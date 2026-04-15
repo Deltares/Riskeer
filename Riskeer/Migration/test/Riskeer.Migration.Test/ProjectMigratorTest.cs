@@ -613,6 +613,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 24.1 naar versie 25.1:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 25.1 naar versie 26.1:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {

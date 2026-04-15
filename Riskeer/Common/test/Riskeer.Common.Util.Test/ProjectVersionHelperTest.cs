@@ -35,12 +35,12 @@ namespace Riskeer.Common.Util.Test
             string currentVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
-            Assert.AreEqual("25.1", currentVersion);
+            Assert.AreEqual("26.1", currentVersion);
         }
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("25.2")]
+        [TestCase("26.2")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
