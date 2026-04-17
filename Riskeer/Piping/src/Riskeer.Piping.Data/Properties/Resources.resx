@@ -130,7 +130,7 @@
     <value>Het gespecificeerde punt moet op het profiel liggen (bereik {0}).</value>
   </data>
   <data name="GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde van volumiek gewicht van water moet binnen het bereik {0} liggen.</value>
+    <value>De waarde van het volumiek gewicht van water moet binnen het bereik {0} liggen.</value>
   </data>
   <data name="UniqueFeature_Name_FeatureDescription" xml:space="preserve">
     <value>naam</value>

@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Data.Test
             TestDelegate test = () => inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde van volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde van het volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.");
         }
 
         [Test]

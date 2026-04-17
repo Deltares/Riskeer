@@ -124,6 +124,6 @@
     <value>Golfklappen op asfaltbekleding</value>
   </data>
   <data name="WaveImpactAsphaltParamC_must_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde van asfalt parameter C moet binnen het bereik {0} liggen.</value>
+    <value>De waarde van parameter 'c' moet binnen het bereik {0} liggen.</value>
   </data>
 </root>

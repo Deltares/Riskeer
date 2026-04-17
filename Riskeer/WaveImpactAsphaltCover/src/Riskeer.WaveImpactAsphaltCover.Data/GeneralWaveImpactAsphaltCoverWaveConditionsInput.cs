@@ -26,7 +26,7 @@ using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Class that holds all the static wave impact asphalt cover wave conditions input parameters.
+    /// The general input parameters that apply to each wave impact asphalt cover wave conditions calculation.
     /// </summary>
     public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
@@ -58,7 +58,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                                      new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces, 2.0));
 
         /// <summary>
-        /// Gets and sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.
+        /// Gets or sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
         public RoundedDouble C
         {

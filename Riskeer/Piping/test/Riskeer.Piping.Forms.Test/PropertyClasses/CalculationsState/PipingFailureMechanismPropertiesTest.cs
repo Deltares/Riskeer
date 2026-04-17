@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
             void Call() => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
-            const string expectedMessage = "De waarde van volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.";
+            const string expectedMessage = "De waarde van het volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
 

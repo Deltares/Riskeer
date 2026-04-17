@@ -33,24 +33,32 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var random = new Random(21);
-            double c = random.NextDouble();
-            var c2 = new RoundedDouble(2, c);
-
             // Call
-            var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput
-            {
-                C = c2
-            };
+            var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
 
             // Assert
             Assert.AreEqual(1.0, generalInput.A, generalInput.A.GetAccuracy());
             Assert.AreEqual(2, generalInput.A.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, generalInput.B, generalInput.B.GetAccuracy());
             Assert.AreEqual(2, generalInput.B.NumberOfDecimalPlaces);
-            Assert.AreEqual(c2, generalInput.C, generalInput.C.GetAccuracy());
+            Assert.AreEqual(0.0, generalInput.C, generalInput.C.GetAccuracy());
             Assert.AreEqual(2, generalInput.C.NumberOfDecimalPlaces);
+        }
+        
+        [Test]
+        [TestCase(1.69)]
+        [TestCase(-0.004)]
+        [TestCase(2.004)]
+        public void C_SetValidValue_ValueSet(double newValue)
+        {
+            // Setup
+            var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
+
+            // Call
+            generalInput.C = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, generalInput.C, generalInput.C.GetAccuracy());
         }
 
         [Test]
@@ -58,8 +66,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(-0.005)]
-        [TestCase(20.005)]
-        public void Constructor_OutOfRangeValues(double newValue)
+        [TestCase(2.005)]
+        public void C_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
             var inputParameters = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
