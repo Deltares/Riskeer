@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using System;
+using Core.Common.Base.Data;
 using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data
@@ -31,6 +31,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
         private const int numberOfDecimalPlaces = 2;
+
+        private static readonly Range<RoundedDouble> cValidityRange =
+            new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlaces),
+                                     new RoundedDouble(numberOfDecimalPlaces, 2.0));
+
         private RoundedDouble c;
 
         /// <summary>
@@ -52,10 +57,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// Gets the 'b' parameter used in wave impact asphalt cover wave conditions calculations.
         /// </summary>
         public RoundedDouble B { get; }
-
-        private static readonly Range<RoundedDouble> cValidityRange =
-            new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlaces),
-                                     new RoundedDouble(numberOfDecimalPlaces, 2.0));
 
         /// <summary>
         /// Gets or sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.

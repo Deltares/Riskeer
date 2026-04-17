@@ -27,7 +27,6 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
