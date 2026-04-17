@@ -77,7 +77,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
-                "De waarde van asfalt parameter C moet binnen het bereik [0,00, 2,00] liggen.");
+                "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.");
         }
     }
 }
