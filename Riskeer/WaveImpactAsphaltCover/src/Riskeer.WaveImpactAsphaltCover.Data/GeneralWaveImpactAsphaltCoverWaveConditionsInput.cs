@@ -30,7 +30,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// </summary>
     public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
     {
-        private const int waveImpactAphaltNumberOfDecimalPlaces = 2;
+        private const int numberOfDecimalPlaces = 2;
         private RoundedDouble c;
 
         /// <summary>
@@ -38,9 +38,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public GeneralWaveImpactAsphaltCoverWaveConditionsInput()
         {
-            A = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces, 1.0);
-            B = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces);
-            c = new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces);
+            A = new RoundedDouble(numberOfDecimalPlaces, 1.0);
+            B = new RoundedDouble(numberOfDecimalPlaces);
+            c = new RoundedDouble(numberOfDecimalPlaces);
         }
 
         /// <summary>
@@ -53,12 +53,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public RoundedDouble B { get; }
 
-        private static readonly Range<RoundedDouble> waveImpactAphaltCValidityRange =
-            new Range<RoundedDouble>(new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces),
-                                     new RoundedDouble(waveImpactAphaltNumberOfDecimalPlaces, 2.0));
+        private static readonly Range<RoundedDouble> cValidityRange =
+            new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlaces),
+                                     new RoundedDouble(numberOfDecimalPlaces, 2.0));
 
         /// <summary>
         /// Gets or sets the 'c' parameter used in wave impact asphalt cover wave conditions calculations.
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is set to <see cref="double.NaN"/> or falls out of range [0, 2].</exception>
         /// </summary>
         public RoundedDouble C
         {
@@ -68,12 +69,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             }
             set
             {
-                RoundedDouble newValue = value.ToPrecision(waveImpactAphaltNumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(numberOfDecimalPlaces);
 
-                if (!waveImpactAphaltCValidityRange.InRange(newValue))
+                if (!cValidityRange.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.WaveImpactAsphaltParamC_must_be_in_Range_0_,
-                                                                                       waveImpactAphaltCValidityRange));
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_,
+                                                                                       cValidityRange));
                 }
 
                 c = newValue;

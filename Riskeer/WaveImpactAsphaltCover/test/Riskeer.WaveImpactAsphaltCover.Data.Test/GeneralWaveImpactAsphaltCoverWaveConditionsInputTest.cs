@@ -28,7 +28,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
-    public class GeneralWaveConditionsInputTest
+    public class GeneralWaveImpactAsphaltCoverWaveConditionsInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -44,7 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual(0.0, generalInput.C, generalInput.C.GetAccuracy());
             Assert.AreEqual(2, generalInput.C.NumberOfDecimalPlaces);
         }
-        
+
         [Test]
         [TestCase(1.69)]
         [TestCase(-0.004)]
@@ -70,10 +70,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void C_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
-            var inputParameters = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
+            var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
 
             // Call
-            TestDelegate test = () => inputParameters.C = (RoundedDouble) newValue;
+            TestDelegate test = () => generalInput.C = (RoundedDouble) newValue;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
