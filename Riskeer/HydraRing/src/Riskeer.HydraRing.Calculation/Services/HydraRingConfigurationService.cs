@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -86,7 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Services
         /// Adds Hydra-Ring calculation input to the configuration.
         /// </summary>
         /// <param name="input">The calculation input to add to the configuration.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> is not unique.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
@@ -132,9 +132,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["ForelandModels"] = GetForelandModelsConfiguration(),
                 ["Forelands"] = GetForelandsConfiguration(),
                 ["ProbabilityAlternatives"] = new List<OrderedDictionary>(),
-                ["SetUpHeights"] = new List<OrderedDictionary>(),
                 ["CalcWindDirections"] = new List<OrderedDictionary>(),
-                ["WaveReductions"] = new List<OrderedDictionary>(),
                 ["Areas"] = GetAreasConfiguration(),
                 ["Projects"] = GetProjectsConfiguration(),
                 ["Breakwaters"] = GetBreakWatersConfiguration()
