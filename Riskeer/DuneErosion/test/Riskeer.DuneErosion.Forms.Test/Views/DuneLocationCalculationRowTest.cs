@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Globalization;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -65,13 +66,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var row = new DuneLocationCalculationRow(duneLocationCalculation, fileName);
 
             // Assert
+            RoundedDouble expectedOffsetInMeters = duneLocation.Offset * 10;
+            
             Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
             Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
             Assert.AreEqual(duneLocation.Id, row.Id);
             Assert.AreEqual(duneLocation.Name, row.Name);
             Assert.AreEqual(fileName, row.HydraulicBoundaryDatabaseFileName);
             Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
+            Assert.AreEqual(expectedOffsetInMeters.ToString("0", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
             Assert.AreEqual(duneLocationCalculation.Output.WaveHeight, row.WaveHeight);
             Assert.AreEqual(duneLocationCalculation.Output.WavePeriod, row.WavePeriod);

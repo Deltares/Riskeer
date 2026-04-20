@@ -124,6 +124,6 @@
     <value>Duinafslag</value>
   </data>
   <data name="DuneLocation_Offset_format" xml:space="preserve">
-    <value>0.#</value>
+    <value>0</value>
   </data>
 </root>

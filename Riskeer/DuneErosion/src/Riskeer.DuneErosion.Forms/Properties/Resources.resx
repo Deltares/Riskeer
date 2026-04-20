@@ -130,7 +130,7 @@
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>
   </data>
   <data name="DuneLocation_Offset_DisplayName" xml:space="preserve">
-    <value>Metrering [dam]</value>
+    <value>Metrering [m]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaterLevel_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme Duinafslag.</value>
