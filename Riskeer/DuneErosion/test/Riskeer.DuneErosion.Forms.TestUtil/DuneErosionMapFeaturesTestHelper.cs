@@ -68,7 +68,8 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Id, mapFeature, "ID");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Name, mapFeature, "Naam");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.CoastalAreaId, mapFeature, "Kustvaknummer");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature, "Metrering");
+                RoundedDouble expectedOffsetInMeter = expectedDuneLocation.Offset * 10;
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedOffsetInMeter.ToString("0", CultureInfo.CurrentCulture), mapFeature, "Metrering");
 
                 Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
 

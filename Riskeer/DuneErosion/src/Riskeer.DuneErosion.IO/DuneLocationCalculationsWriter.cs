@@ -85,7 +85,7 @@ namespace Riskeer.DuneErosion.IO
             var stringComponents = new List<string>
             {
                 duneLocation.CoastalAreaId.ToString(CultureInfo.InvariantCulture),
-                duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
+                duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_OffsetInDecameter_format, CultureInfo.InvariantCulture),
                 calculation.TargetProbability.ToString(CultureInfo.InvariantCulture)
             };
 
