@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -40,9 +40,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
     public class WaveImpactAsphaltCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
         /// <summary>
-        /// Performs a wave conditions calculation for the wave impact on asphalt failure mechanism based on the supplied 
-        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>  and sets 
-        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation.Output"/> if the calculation was successful. 
+        /// Performs a wave conditions calculation for the wave impact on asphalt failure mechanism based on the supplied
+        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>  and sets
+        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation.Output"/> if the calculation was successful.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
@@ -58,13 +58,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
         /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                               IAssessmentSection assessmentSection,
-                              GeneralWaveConditionsInput generalWaveConditionsInput)
+                              GeneralWaveImpactAsphaltCoverWaveConditionsInput generalWaveConditionsInput)
         {
             if (calculation == null)
             {

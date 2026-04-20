@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Data.Test
             TestDelegate test = () => inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0,00, 20,00] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde van het volumiek gewicht van water moet binnen het bereik [0,00, 20,00] liggen.");
         }
 
         [Test]

@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -25,7 +25,6 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -49,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
-            GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
+            GeneralInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
             CalculationsInputComments = new Comment();
         }
 
@@ -61,7 +60,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
-        public GeneralWaveConditionsInput GeneralInput { get; }
+        public GeneralWaveImpactAsphaltCoverWaveConditionsInput GeneralInput { get; }
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
 
