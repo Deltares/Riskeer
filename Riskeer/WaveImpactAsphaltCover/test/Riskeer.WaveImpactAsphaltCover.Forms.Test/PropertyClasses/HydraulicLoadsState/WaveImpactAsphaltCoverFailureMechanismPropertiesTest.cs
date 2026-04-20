@@ -21,10 +21,15 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState;
@@ -59,6 +64,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
             Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
             Assert.AreEqual(generalWaveConditionsInput.C, properties.C);
+        }
+
+        [Test]
+        public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
         }
 
         [Test]
@@ -106,24 +122,81 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             modelSettingsCategory,
                                                                             "c [-]",
-                                                                            "De waarde van de parameter 'c' in de berekening voor golfcondities.",
-                                                                            false);
+                                                                            "De waarde van de parameter 'c' in de berekening voor golfcondities.");
         }
 
         [Test]
-        public void Test_InvalidValueParamC()
+        [SetCulture("nl-NL")]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(-0.005)]
+        [TestCase(2.005)]
+        public void C_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
         {
-            // Call
-            Assert.Catch<ArgumentOutOfRangeException>(SetToOutOfBounds);
-        }
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
 
-        private void SetToOutOfBounds()
-        {
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, new FailureMechanismPropertyChangeHandler<WaveImpactAsphaltCoverFailureMechanism>());
-            // C must be in range [0, ... , 2]
-            properties.C = new RoundedDouble(2, 3.14);
+            var roundedValue = (RoundedDouble) value;
+
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<WaveImpactAsphaltCoverFailureMechanism, RoundedDouble>(
+                failureMechanism,
+                roundedValue,
+                new[]
+                {
+                    observable
+                });
+
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, handler);
+
+            // Call
+            void Call() => properties.C = roundedValue;
+
+            // Assert
+            const string expectedMessage = "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(1.5)]
+        [TestCase(-0.004)]
+        [TestCase(2.004)]
+        public void C_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var roundedValue = (RoundedDouble) value;
+
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<WaveImpactAsphaltCoverFailureMechanism, RoundedDouble>(
+                failureMechanism,
+                roundedValue,
+                new[]
+                {
+                    observable
+                });
+
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, handler);
+
+            // Call
+            properties.C = roundedValue;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.GeneralInput.C,
+                            failureMechanism.GeneralInput.C.GetAccuracy());
+            Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
+        }
     }
 }

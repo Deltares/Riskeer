@@ -19,16 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 
@@ -54,79 +48,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects.Hydrauli
             Assert.IsInstanceOf<FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
-        }
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(-0.005)]
-        [TestCase( 2.005)]
-        public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var roundedValue = (RoundedDouble) value;
-
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<WaveImpactAsphaltCoverFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                roundedValue,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, handler);
-
-            // Call
-            void Call() => properties.C = roundedValue;
-
-            // Assert
-            const string expectedMessage = "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1.5)]
-        [TestCase(-0.004)]
-        [TestCase( 2.004)]
-        public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var roundedValue = (RoundedDouble) value;
-
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<WaveImpactAsphaltCoverFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                roundedValue,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, handler);
-
-            // Call
-            properties.C = roundedValue;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.C,
-                            failureMechanism.GeneralInput.C.GetAccuracy());
-            Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
         }
     }
 }
