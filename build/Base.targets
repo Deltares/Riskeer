@@ -12,7 +12,11 @@
     <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2026</Copyright>
     <Version>26.1.1</Version>
     <Configurations>Debug;Release;Coverage</Configurations>
+    <UseWpf>true</UseWpf>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <ConfigurationGroup>Debug</ConfigurationGroup>
