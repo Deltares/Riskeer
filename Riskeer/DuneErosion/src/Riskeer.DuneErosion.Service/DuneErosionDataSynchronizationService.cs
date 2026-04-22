@@ -121,7 +121,7 @@ namespace Riskeer.DuneErosion.Service
             {
                 if (readDuneLocationsLookup.TryGetValue(hydraulicBoundaryLocation.Name, out ReadDuneLocation correspondingReadDuneLocation))
                 {
-                    yield return new DuneLocation(hydraulicBoundaryLocation.Name,
+                    yield return new DuneLocation(correspondingReadDuneLocation.Name,
                                                   hydraulicBoundaryLocation,
                                                   new DuneLocation.ConstructionProperties
                                                   {
