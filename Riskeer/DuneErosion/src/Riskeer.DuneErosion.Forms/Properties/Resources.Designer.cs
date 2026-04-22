@@ -252,7 +252,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metrering.
+        ///   Looks up a localized string similar to Metrering [m].
         /// </summary>
         internal static string MetaData_Offset {
             get {

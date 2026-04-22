@@ -154,7 +154,7 @@
     <value>Kustvaknummer</value>
   </data>
   <data name="MetaData_Offset" xml:space="preserve">
-    <value>Metrering</value>
+    <value>Metrering [m]</value>
   </data>
   <data name="MetaData_WaterLevel_TargetProbability_0" xml:space="preserve">
     <value>Rekenwaarde h - {0}</value>
