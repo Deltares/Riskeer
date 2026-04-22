@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Text.RegularExpressions;
 using Riskeer.Common.Util.Properties;
 
 namespace Riskeer.Common.Util
@@ -59,9 +60,15 @@ namespace Riskeer.Common.Util
         /// <param name="version">The version to compare.</param>
         /// <returns><c>true</c> if <paramref name="version"/> is a valid database version, 
         /// <c>false</c> otherwise.</returns>
-        /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.</remarks>
+        /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.
+        /// A valid version matches pattern #(.#)*.</remarks>
         public static bool IsValidVersion(string version)
         {
+            const string pattern = @"^[1-9][0-9]*(.?[0-9]+)*$";
+            if(!Regex.IsMatch(version, pattern))
+            {
+                return false;
+            };
             var versionComparer = new ProjectVersionComparer();
             return versionComparer.Compare(version, validDatabaseVersion) >= 0;
         }
