@@ -91,10 +91,10 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
             // Call
-            bool isNewer = ProjectVersionHelper.IsValidVersion(validVersion);
+            bool isValidVersion = ProjectVersionHelper.IsValidVersion(validVersion);
 
             // Assert
-            Assert.IsTrue(isNewer);
+            Assert.IsTrue(isValidVersion);
         }
 
         [Test]
@@ -102,10 +102,10 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
-            bool isNewer = ProjectVersionHelper.IsValidVersion(invalidVersion);
+            bool isValidVersion = ProjectVersionHelper.IsValidVersion(invalidVersion);
 
             // Assert
-            Assert.IsFalse(isNewer);
+            Assert.IsFalse(isValidVersion);
         }
 
         [Test]
@@ -137,15 +137,8 @@ namespace Riskeer.Common.Util.Test
             {
                 new TestCaseData("5"),
                 new TestCaseData("17.1"),
-                new TestCaseData("17.2"),
-                new TestCaseData("17.3"),
-                new TestCaseData("18.1"),
-                new TestCaseData("19.1"),
-                new TestCaseData("21.1"),
-                new TestCaseData("22.1"),
-                new TestCaseData("23.1"),
-                new TestCaseData("24.1"),
-                new TestCaseData("25.1")
+                new TestCaseData("6.1.2"),
+                new TestCaseData("18.1.2.4")
             };
         }
 
@@ -154,8 +147,11 @@ namespace Riskeer.Common.Util.Test
             return new[]
             {
                 new TestCaseData("4"),
+                new TestCaseData("4.8"),
                 new TestCaseData("5a"),
-                new TestCaseData("..")
+                new TestCaseData(".."),
+                new TestCaseData("18.-3"),
+                new TestCaseData("5.a")
             };
         }
     }
