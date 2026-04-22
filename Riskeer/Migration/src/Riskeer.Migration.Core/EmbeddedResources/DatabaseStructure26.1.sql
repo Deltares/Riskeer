@@ -555,6 +555,7 @@ CREATE TABLE WaveImpactAsphaltCoverFailureMechanismMetaEntity
 	WaveImpactAsphaltCoverFailureMechanismMetaEntityId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	FailureMechanismEntityId INTEGER NOT NULL,
 	ForeshoreProfileCollectionSourcePath TEXT NULL COLLATE NOCASE,
+	ParameterC REAL NOT NULL,
 	CONSTRAINT FK_WaveImpactAsphaltCoverFailureMechanismMetaEntity_FailureMechanismEntity FOREIGN KEY (FailureMechanismEntityId) REFERENCES FailureMechanismEntity (FailureMechanismEntityId) ON DELETE Cascade ON UPDATE Cascade
 )
 ;

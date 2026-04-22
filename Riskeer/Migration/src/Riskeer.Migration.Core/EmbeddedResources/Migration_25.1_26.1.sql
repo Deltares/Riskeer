@@ -100,7 +100,16 @@ INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPRO
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
 INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
-INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
+	[WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId] ,
+	[ForeshoreProfileCollectionSourcePath] ,
+	[ParameterC])
+	SELECT 
+	[WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId] ,
+	[ForeshoreProfileCollectionSourcePath] ,
+	0.0 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
