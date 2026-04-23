@@ -180,6 +180,7 @@ namespace Application.Riskeer.Integration.Test
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection221.risk"));
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection231.risk"));
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection241.risk"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection251.risk"));
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
