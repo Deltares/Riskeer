@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -62,6 +62,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+                    AssertAsphaltParameterC(reader);
                 }
 
                 AssertLogDatabase(logFilePath, expectedMessages);
@@ -193,6 +194,15 @@ namespace Riskeer.Migration.Integration.Test
         {
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
+            reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertAsphaltParameterC(MigratedDatabaseReader reader)
+        {
+            const string validateForeignKeys =
+                "SELECT COUNT() = 1 " +
+                "FROM [WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
+                "WHERE [ParameterC] = \"0.0\";";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
     }
