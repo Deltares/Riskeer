@@ -168,6 +168,7 @@ namespace Riskeer.Migration.Integration.Test
                 "SurfaceLineEntity",
                 "TopLevelFaultTreeIllustrationPointEntity",
                 "TopLevelSubMechanismIllustrationPointEntity",
+                "VersionEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
                 "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
