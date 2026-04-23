@@ -32,6 +32,7 @@ namespace Riskeer.Common.Util
     {
         private const string validDatabaseVersion = "5";
         private const string currentDatabaseVersion = "26.1";
+        private const string pattern = @"^[1-9][0-9]*(.?[0-9]+)*$";
 
         /// <summary>
         /// Gets the current database version.
@@ -64,11 +65,11 @@ namespace Riskeer.Common.Util
         /// A valid version matches pattern #(.#)*.</remarks>
         public static bool IsValidVersion(string version)
         {
-            const string pattern = @"^[1-9][0-9]*(.?[0-9]+)*$";
-            if(!Regex.IsMatch(version, pattern))
+            if (!Regex.IsMatch(version, pattern))
             {
                 return false;
-            };
+            }
+
             var versionComparer = new ProjectVersionComparer();
             return versionComparer.Compare(version, validDatabaseVersion) >= 0;
         }
