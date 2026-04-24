@@ -2498,10 +2498,11 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet()
         {
             // Setup
             const string fileLocation = "some/path/to/foreshoreProfiles";
+            var random = new Random(Seed: 20);
 
             var entity = new FailureMechanismEntity
             {
@@ -2511,7 +2512,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
                         ForeshoreProfileCollectionSourcePath = fileLocation,
-                        ParameterC = 1.33
+                        ParameterC = random.NextDouble(0.0, 2.0)
                     }
                 }
             };
@@ -2524,7 +2525,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
             Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
-            Assert.AreEqual(1.33, failureMechanism.GeneralInput.C);
+            Assert.AreEqual(entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC,
+                            failureMechanism.GeneralInput.C, 1e-6);
             CollectionAssert.IsEmpty(foreshoreProfiles);
         }
 

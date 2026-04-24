@@ -150,7 +150,8 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, filePath);
-            failureMechanism.GeneralInput.C = (RoundedDouble) 1.33;
+            var random = new Random(Seed:20);
+            failureMechanism.GeneralInput.C = (RoundedDouble) random.NextDouble(0.0, 2.0);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -162,7 +163,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                                      .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
             double paramC = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC;
-            Assert.AreEqual(1.33, paramC, 1e-6);
+            Assert.AreEqual(failureMechanism.GeneralInput.C, paramC, 1e-6);
         }
 
         [Test]

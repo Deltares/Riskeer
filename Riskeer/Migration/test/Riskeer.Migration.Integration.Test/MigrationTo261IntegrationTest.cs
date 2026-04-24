@@ -62,7 +62,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
-                    AssertAsphaltParameterC(reader);
+                    AssertAsphaltParameterC(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath, expectedMessages);
@@ -197,13 +197,22 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertAsphaltParameterC(MigratedDatabaseReader reader)
+        private static void AssertAsphaltParameterC(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string validateForeignKeys =
-                "SELECT COUNT() = 1 " +
-                "FROM [WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
-                "WHERE [ParameterC] = \"0.0\";";
-            reader.AssertReturnedDataIsValid(validateForeignKeys);
+            string validateFailureMechanismMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity " +
+                ") " +
+                "FROM WaveImpactAsphaltCoverFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity OLD USING(WaveImpactAsphaltCoverFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath] " +
+                "AND NEW.[ParameterC] = 0.0; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateFailureMechanismMetaEntity);
         }
     }
 }
