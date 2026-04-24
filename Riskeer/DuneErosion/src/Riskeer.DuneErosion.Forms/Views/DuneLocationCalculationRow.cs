@@ -94,7 +94,8 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.DuneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
+                RoundedDouble offsetInMeters = CalculatableObject.DuneLocation.Offset * 10;
+                return offsetInMeters.ToString(DuneErosionDataResources.DuneLocation_OffsetInMeter_format, CultureInfo.InvariantCulture);
             }
         }
 

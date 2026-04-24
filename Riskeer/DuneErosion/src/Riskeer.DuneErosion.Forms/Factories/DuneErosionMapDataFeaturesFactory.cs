@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Factories;
@@ -63,8 +64,9 @@ namespace Riskeer.DuneErosion.Forms.Factories
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RiskeerDuneErosionDataResources.DuneLocation_Offset_format,
-                                                                                   CultureInfo.CurrentCulture);
+            RoundedDouble offsetInMeters = location.Offset * 10;
+            feature.MetaData[Resources.MetaData_Offset] = offsetInMeters.ToString(RiskeerDuneErosionDataResources.DuneLocation_OffsetInMeter_format,
+                                                                                  CultureInfo.CurrentCulture);
 
             HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities,
                                                                                          Resources.MetaData_WaterLevel_TargetProbability_0);

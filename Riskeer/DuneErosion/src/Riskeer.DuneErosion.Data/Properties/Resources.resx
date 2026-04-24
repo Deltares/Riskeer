@@ -123,7 +123,10 @@
   <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Duinafslag</value>
   </data>
-  <data name="DuneLocation_Offset_format" xml:space="preserve">
+  <data name="DuneLocation_OffsetInMeter_format" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DuneLocation_OffsetInDecameter_format" xml:space="preserve">
     <value>0.#</value>
   </data>
 </root>
