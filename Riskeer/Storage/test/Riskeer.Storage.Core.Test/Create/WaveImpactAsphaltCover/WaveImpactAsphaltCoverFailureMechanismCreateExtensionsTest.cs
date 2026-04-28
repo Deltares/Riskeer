@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
@@ -55,6 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random(20);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -73,8 +75,13 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
+                },
+                GeneralInput =
+                {
+                    C = (RoundedDouble) random.NextDouble(0.0, 2.0)
                 }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -88,6 +95,8 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+            double paramC = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC;
+            Assert.AreEqual(failureMechanism.GeneralInput.C, paramC);
         }
 
         [Test]

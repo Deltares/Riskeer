@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -62,6 +62,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+                    AssertWaveImpactAsphaltCoverFailureMechanism(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath, expectedMessages);
@@ -220,6 +221,24 @@ namespace Riskeer.Migration.Integration.Test
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity " +
+                ") " +
+                "FROM WaveImpactAsphaltCoverFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.WaveImpactAsphaltCoverFailureMechanismMetaEntity OLD USING(WaveImpactAsphaltCoverFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath] " +
+                "AND NEW.[ParameterC] = 0.0; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateFailureMechanismMetaEntity);
         }
     }
 }

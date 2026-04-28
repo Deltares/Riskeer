@@ -10,7 +10,7 @@ ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 -------------
 -- General --
 -------------
-       
+
 -- Migrating unaffected tables one to one
 INSERT INTO AdoptableFailureMechanismSectionResultEntity SELECT * FROM [SOURCEPROJECT].AdoptableFailureMechanismSectionResultEntity;
 INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
@@ -100,9 +100,20 @@ INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPRO
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
 INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
-INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+
+-- Migrating table(s) by setting a default value for new field(s)
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
+    [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    [ParameterC])
+SELECT
+    [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    0.0 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 
 -- Updating database version
 INSERT INTO VersionEntity (
@@ -116,7 +127,7 @@ SELECT [VersionId],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
 
-/* 
+/*
 Write migration logging
 */
 ATTACH DATABASE "{1}" AS LOGDATABASE;
