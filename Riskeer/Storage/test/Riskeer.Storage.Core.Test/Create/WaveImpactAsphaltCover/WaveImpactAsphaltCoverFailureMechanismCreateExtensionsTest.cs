@@ -56,6 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random(20);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -74,8 +75,13 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
+                },
+                GeneralInput =
+                {
+                    C = (RoundedDouble) random.NextDouble(0.0, 2.0)
                 }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -89,6 +95,8 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+            double paramC = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC;
+            Assert.AreEqual(failureMechanism.GeneralInput.C, paramC);
         }
 
         [Test]
@@ -150,8 +158,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, filePath);
-            var random = new Random(Seed:20);
-            failureMechanism.GeneralInput.C = (RoundedDouble) random.NextDouble(0.0, 2.0);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -162,8 +168,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                                      .SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities)
                                      .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
-            double paramC = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC;
-            Assert.AreEqual(failureMechanism.GeneralInput.C, paramC, 1e-6);
         }
 
         [Test]

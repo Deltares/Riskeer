@@ -62,7 +62,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
-                    AssertAsphaltParameterC(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverFailureMechanism(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath, expectedMessages);
@@ -223,7 +223,7 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertAsphaltParameterC(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateFailureMechanismMetaEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
