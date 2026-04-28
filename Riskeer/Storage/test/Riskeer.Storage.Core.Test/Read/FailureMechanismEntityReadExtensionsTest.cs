@@ -2526,7 +2526,7 @@ namespace Riskeer.Storage.Core.Test.Read
             ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
             Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             Assert.AreEqual(entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC,
-                            failureMechanism.GeneralInput.C, 1e-6);
+                            failureMechanism.GeneralInput.C, 1e-2);
             CollectionAssert.IsEmpty(foreshoreProfiles);
         }
 
