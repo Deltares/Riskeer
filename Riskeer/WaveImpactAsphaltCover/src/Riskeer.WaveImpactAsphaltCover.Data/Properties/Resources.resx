@@ -123,7 +123,7 @@
   <data name="WaveImpactAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Golfklappen op asfaltbekleding</value>
   </data>
-  <data name="WaveImpactAsphaltParamC_must_be_in_Range_0_" xml:space="preserve">
+  <data name="GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde van parameter 'c' moet binnen het bereik {0} liggen.</value>
   </data>
 </root>
