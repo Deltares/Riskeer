@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string innerMessage = "Inner message";
 
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", $"{message} {innerMessage}", calculationName));
             mocks.ReplayAll();
 
@@ -60,7 +60,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculationA";
 
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName));
             mocks.ReplayAll();
 

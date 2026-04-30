@@ -6,7 +6,7 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             mocks.ReplayAll();
 
             var configuration = new StochastConfiguration();
@@ -98,7 +98,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                    $"Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden.";
 
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             log.Expect(l => l.ErrorFormat(expectedFormat, expectedError, calculationName));
             mocks.ReplayAll();
 
@@ -133,7 +133,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             mocks.ReplayAll();
 
             var configuration = new StochastConfiguration();
@@ -189,7 +189,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                    $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
 
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             log.Expect(l => l.ErrorFormat(expectedFormat, expectedError, calculationName));
             mocks.ReplayAll();
 
