@@ -200,7 +200,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             string error = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.";
 
             var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
+            var log = mocks.StrictMockWithRemoting<ILog>();
             log.Expect(l => l.ErrorFormat(expectedMessage, error, calculationName));
             mocks.ReplayAll();
 
