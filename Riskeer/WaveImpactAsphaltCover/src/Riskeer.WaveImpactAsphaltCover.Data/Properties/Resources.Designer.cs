@@ -103,7 +103,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Properties {
         /// </summary>
         public static string GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("WaveImpactAsphaltParamC_must_be_in_Range_0_", resourceCulture);
+                return ResourceManager.GetString("GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_", resourceCulture);
             }
         }
     }
