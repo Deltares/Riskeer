@@ -138,7 +138,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 if (geometryList.Count == 1)
                 {
-                    IPolygon polygon = geometryList.First();
+                    IPolygon polygon = geometryList[0];
                     shell = polygon.Shell;
                     holes = polygon.Holes;
                 }
