@@ -22,7 +22,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Text;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Core.Common.Util.Drawing
@@ -60,7 +59,7 @@ namespace Core.Common.Util.Drawing
             AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
             Marshal.FreeCoTaskMem(fontPtr);
 
-            return new Font(privateFontCollection.Families.Last(), 14.0F);
+            return new Font(privateFontCollection.Families[privateFontCollection.Families.Length - 1], 14.0F);
         }
 
         [DllImport("gdi32.dll")]

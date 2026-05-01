@@ -198,7 +198,7 @@ namespace Core.Common.Geometry
             List<Point2D> pointList = points.ToList();
             Point2D firstPoint = pointList[0];
 
-            if (!firstPoint.Equals(pointList.Last()))
+            if (!firstPoint.Equals(pointList[pointList.Count - 1]))
             {
                 pointList.Add(firstPoint);
             }
