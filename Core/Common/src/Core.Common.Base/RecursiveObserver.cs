@@ -137,11 +137,10 @@ namespace Core.Common.Base
                 {
                     ObserveObjectsRecursively(childContainer);
                 }
-                else if (child is TObservable)
+                else if (child is TObservable observableChild)
                 {
-                    observable = (TObservable) child;
-                    observable.Attach(this);
-                    observedChildren.Add(observable);
+                    observableChild.Attach(this);
+                    observedChildren.Add(observableChild);
                 }
             }
         }
