@@ -754,9 +754,9 @@ namespace Riskeer.HydraRing.Calculation.Services
                             continue;
                         }
 
-                        if (val is double)
+                        if (val is double d)
                         {
-                            valueStrings.Add(((double) val).ToString(CultureInfo.InvariantCulture));
+                            valueStrings.Add(d.ToString(CultureInfo.InvariantCulture));
                             continue;
                         }
 
