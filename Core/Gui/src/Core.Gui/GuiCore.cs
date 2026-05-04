@@ -48,7 +48,6 @@ using Core.Gui.Plugin.Map;
 using Core.Gui.Properties;
 using Core.Gui.Settings;
 using log4net;
-using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using WindowsApplication = System.Windows.Forms.Application;
 
@@ -357,7 +356,7 @@ namespace Core.Gui
         {
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
-            if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
+            if (!rootLogger.Appenders.Any(a => a is MessageWindowLogAppender))
             {
                 rootLogger.AddAppender(new MessageWindowLogAppender());
                 rootLogger.Repository.Configured = true;
@@ -367,7 +366,7 @@ namespace Core.Gui
         private static void RemoveLogging()
         {
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
-            MessageWindowLogAppender messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
+            MessageWindowLogAppender messageWindowLogAppender = rootLogger.Appenders.OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
                 rootLogger.RemoveAppender(messageWindowLogAppender);
