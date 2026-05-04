@@ -394,8 +394,7 @@ namespace Riskeer.Common.IO.Structures
                 throw CreateLineParseException(lineNumber, message);
             }
 
-            return readText.Split(separator)
-                           .ToArray();
+            return readText.Split(separator);
         }
 
         /// <summary>
