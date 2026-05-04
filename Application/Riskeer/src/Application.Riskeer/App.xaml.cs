@@ -92,9 +92,9 @@ namespace Application.Riskeer
             SetLanguage();
 
             string userDisplay = UserDisplay();
-            log.Info(string.Format(ApplicationResources.App_Starting_Riskeer_version_0_by_user_0,
-                                   SettingsHelper.Instance.ApplicationVersion,
-                                   userDisplay));
+            log.InfoFormat(ApplicationResources.App_Starting_Riskeer_version_0_by_user_0,
+                           SettingsHelper.Instance.ApplicationVersion,
+                           userDisplay);
         }
 
         private void OnStartup(object sender, StartupEventArgs e)

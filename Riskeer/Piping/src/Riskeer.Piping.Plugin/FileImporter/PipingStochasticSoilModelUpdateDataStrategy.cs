@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <summary>
         /// Class for comparing <see cref="PipingStochasticSoilModel"/> by just the name.
         /// </summary>
-        private class SoilModelNameEqualityComparer : IEqualityComparer<PipingStochasticSoilModel>
+        private sealed class SoilModelNameEqualityComparer : IEqualityComparer<PipingStochasticSoilModel>
         {
             public bool Equals(PipingStochasticSoilModel x, PipingStochasticSoilModel y)
             {

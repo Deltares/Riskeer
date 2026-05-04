@@ -160,9 +160,9 @@ namespace Riskeer.Revetment.Service
             {
                 try
                 {
-                    log.Info(string.Format(CultureInfo.CurrentCulture,
-                                           Resources.WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_started,
-                                           waterLevel));
+                    log.InfoFormat(CultureInfo.CurrentCulture,
+                                   Resources.WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_started,
+                                   waterLevel);
 
                     NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
 
@@ -185,9 +185,9 @@ namespace Riskeer.Revetment.Service
                 }
                 finally
                 {
-                    log.Info(string.Format(CultureInfo.CurrentCulture,
-                                           Resources.WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_ended,
-                                           waterLevel));
+                    log.InfoFormat(CultureInfo.CurrentCulture,
+                                   Resources.WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_ended,
+                                   waterLevel);
                 }
             }
 

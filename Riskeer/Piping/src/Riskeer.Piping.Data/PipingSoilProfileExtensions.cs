@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Data
             if (topAquiferLayer != null)
             {
                 PipingSoilLayer[] aquitardLayers = GetConsecutiveLayers(soilProfile, level, false).ToArray();
-                if (aquitardLayers.Any() && topAquiferLayer.Top < aquitardLayers.First().Top)
+                if (aquitardLayers.Any() && topAquiferLayer.Top < aquitardLayers[0].Top)
                 {
                     return aquitardLayers;
                 }
@@ -129,8 +129,8 @@ namespace Riskeer.Piping.Data
                 return double.NaN;
             }
 
-            PipingSoilLayer bottomLayer = layers.Last();
-            PipingSoilLayer topLayer = layers.First();
+            PipingSoilLayer bottomLayer = layers[layers.Length - 1];
+            PipingSoilLayer topLayer = layers[0];
 
             return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));
         }

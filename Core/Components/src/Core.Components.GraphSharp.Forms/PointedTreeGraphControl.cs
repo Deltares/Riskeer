@@ -185,7 +185,7 @@ namespace Core.Components.GraphSharp.Forms
         /// <summary>
         /// Lookup class for administration related to drawn vertices.
         /// </summary>
-        private class DrawnGraphNode
+        private sealed class DrawnGraphNode
         {
             /// <summary>
             /// The graph node which the drawn <see cref="PointedTreeElementVertex "/> is based upon.

@@ -285,7 +285,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             }
         }
 
-        private class MetaDataItemsLookup
+        private sealed class MetaDataItemsLookup
         {
             public string WaterLevelMetaDataItem { get; set; }
 

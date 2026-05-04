@@ -91,9 +91,9 @@ namespace Core.Gui.Commands
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
                                 Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
                 string itemToExportType = source == null ? "null" : source.GetType().FullName;
-                log.Warn(string.Format(CultureInfo.CurrentCulture,
-                                       Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available,
-                                       itemToExportType));
+                log.WarnFormat(CultureInfo.CurrentCulture,
+                               Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available,
+                               itemToExportType);
                 return null;
             }
 

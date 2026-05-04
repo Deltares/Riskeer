@@ -166,7 +166,7 @@ namespace Riskeer.Common.Service.Structures
             {
                 PerformCalculation(calculation, input);
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Service.Structures
                                          ? messageProvider.GetCalculationFailedMessage(calculationName)
                                          : messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent);
 
-                    log.Error(message);
+                    log.Error(message, e);
 
                     exceptionThrown = true;
                     throw;
@@ -268,9 +268,8 @@ namespace Riskeer.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       calculation.Name,
-                                       e.Message));
+                log.WarnFormat(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                               calculation.Name, e.Message);
             }
 
             calculation.Output = new StructuresOutput(reliability, generalResult);

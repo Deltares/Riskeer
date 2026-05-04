@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             List<MacroStabilityInwardsStochasticSoilModel> available = availableStochasticSoilModels.ToList();
             if (available.Count == 1)
             {
-                macroStabilityInwardsInput.StochasticSoilModel = available.First();
+                macroStabilityInwardsInput.StochasticSoilModel = available[0];
             }
             else if (!available.Any() || !available.Contains(macroStabilityInwardsInput.StochasticSoilModel))
             {

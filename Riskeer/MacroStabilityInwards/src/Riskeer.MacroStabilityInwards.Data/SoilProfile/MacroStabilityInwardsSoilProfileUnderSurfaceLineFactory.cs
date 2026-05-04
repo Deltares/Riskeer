@@ -85,8 +85,8 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
                                                                                 layer => As2DGeometry(
                                                                                     layer,
                                                                                     soilProfile,
-                                                                                    localizedSurfaceLine.First().X,
-                                                                                    localizedSurfaceLine.Last().X))
+                                                                                    localizedSurfaceLine[0].X,
+                                                                                    localizedSurfaceLine[localizedSurfaceLine.Length - 1].X))
                                                                             .ToArray();
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);
@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
             return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineGeometry, soilLayerGeometry).Where(arr => arr.Length > 2);
         }
 
-        private class TempSoilLayerGeometry
+        private sealed class TempSoilLayerGeometry
         {
             public TempSoilLayerGeometry(IEnumerable<Point2D> outerLoop, MacroStabilityInwardsSoilLayerData data)
             {

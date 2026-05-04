@@ -249,12 +249,12 @@ namespace Riskeer.Piping.Data
             bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
             if (isDifferentPoints && exitPointIndex > 0)
             {
-                tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+                tempExitPointL = localGeometry[exitPointIndex].X;
             }
 
             if (isDifferentPoints && entryPointIndex > -1)
             {
-                tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+                tempEntryPointL = localGeometry[entryPointIndex].X;
             }
         }
 

@@ -277,7 +277,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Strategy implementation for rearranging the order of an <see cref="ICalculation"/>
         /// within a <see cref="CalculationGroup"/> through a drag and drop action.
         /// </summary>
-        private class DroppingCalculationWithinSameContainer : DroppingCalculationInContainerStrategy
+        private sealed class DroppingCalculationWithinSameContainer : DroppingCalculationInContainerStrategy
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingCalculationWithinSameContainer"/> class.
@@ -292,7 +292,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Strategy implementation for moving an <see cref="ICalculation"/> from
         /// one <see cref="CalculationGroup"/> to another using a drag and drop action.
         /// </summary>
-        private class DroppingCalculationToNewContainer : DroppingCalculationInContainerStrategy
+        private sealed class DroppingCalculationToNewContainer : DroppingCalculationInContainerStrategy
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingCalculationToNewContainer"/> class.

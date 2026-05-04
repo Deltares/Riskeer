@@ -39,10 +39,8 @@ namespace Core.Gui.UITypeEditors
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            if (value is Color)
+            if (value is Color color)
             {
-                var color = (Color) value;
-
                 var colorDialog = new ColorDialog
                 {
                     Color = color,

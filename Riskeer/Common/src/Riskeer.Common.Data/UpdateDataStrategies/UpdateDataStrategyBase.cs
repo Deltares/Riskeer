@@ -227,7 +227,7 @@ namespace Riskeer.Common.Data.UpdateDataStrategies
         /// <summary>
         /// Inner class for obtaining the modifications of an update action.
         /// </summary>
-        private class CollectionModification
+        private sealed class CollectionModification
         {
             /// <summary>
             /// Creates a new instance of <see cref="CollectionModification"/>.

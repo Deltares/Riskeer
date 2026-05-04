@@ -283,8 +283,8 @@ namespace Riskeer.Piping.Forms.Factories
 
         private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            Point2D firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
-            Point2D lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
+            Point2D firstSurfaceLinePoint = surfaceLineLocalGeometry[0];
+            Point2D lastSurfaceLinePoint = surfaceLineLocalGeometry[surfaceLineLocalGeometry.Length - 1];
 
             double startX = firstSurfaceLinePoint.X;
             double endX = lastSurfaceLinePoint.X;

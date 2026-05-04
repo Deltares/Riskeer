@@ -67,9 +67,9 @@ namespace Riskeer.Common.IO.SoilProfile
                     double newProbability = currentStochasticSoilProfile.Probability + stochasticSoilProfile.Probability;
                     uniqueStochasticSoilProfiles[soilProfile] = new StochasticSoilProfile(newProbability, soilProfile);
 
-                    log.Warn(string.Format(Resources.StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed,
-                                           currentStochasticSoilProfile.SoilProfile.Name,
-                                           soilModelName));
+                    log.WarnFormat(Resources.StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed,
+                                   currentStochasticSoilProfile.SoilProfile.Name,
+                                   soilModelName);
                 }
                 else
                 {

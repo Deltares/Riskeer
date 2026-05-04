@@ -340,7 +340,7 @@ namespace Riskeer.Storage.Core
             return new StorageException(message, innerException);
         }
 
-        private class StagedProject
+        private sealed class StagedProject
         {
             public StagedProject(RiskeerProject projectModel, ProjectEntity projectEntity)
             {

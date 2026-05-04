@@ -407,7 +407,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 // More than 1 colon => assume format urn:ogc:def:crs:EPSG:6.18.3:3857
                 if (srsParts.Length > 4)
                 {
-                    return $"{srsParts[4]}:{srsParts.Last()}";
+                    return $"{srsParts[4]}:{srsParts[srsParts.Length - 1]}";
                 }
             }
 

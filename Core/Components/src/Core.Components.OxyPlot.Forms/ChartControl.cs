@@ -375,7 +375,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Lookup class for administration related to drawn chart data series.
         /// </summary>
-        private class DrawnChartData
+        private sealed class DrawnChartData
         {
             /// <summary>
             /// The chart data which the drawn <see cref="ChartDataSeries"/> is based upon.

@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         /// <param name="points">The points to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="points"/> contains less than 2 unique points.</exception>
-        private void ValidateAndTrimPoints(IEnumerable<Point2D> points)
+        private static void ValidateAndTrimPoints(IEnumerable<Point2D> points)
         {
             if (points == null)
             {

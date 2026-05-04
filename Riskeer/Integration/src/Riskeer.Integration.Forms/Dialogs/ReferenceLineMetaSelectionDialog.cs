@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             Close();
         }
 
-        private class AssessmentSectionIdComparer : IComparer<string>
+        private sealed class AssessmentSectionIdComparer : IComparer<string>
         {
             public int Compare(string x, string y)
             {
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Dialogs
                 }
 
                 string[] parts = str.Split('-');
-                string[] firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                string[] firstPart = Regex.Split(parts[0], "([A-Za-z])");
                 if (firstPart.Length > 1)
                 {
                     int.TryParse(firstPart[0], out id);
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             }
         }
 
-        private class ReferenceLineMetaSelectionRow
+        private sealed class ReferenceLineMetaSelectionRow
         {
             public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
             {

@@ -250,14 +250,14 @@ namespace Core.Common.Base.Data
                 return 1;
             }
 
-            if (obj is RoundedDouble)
+            if (obj is RoundedDouble roundedDouble)
             {
-                return CompareTo((RoundedDouble) obj);
+                return CompareTo(roundedDouble);
             }
 
-            if (obj is double)
+            if (obj is double d)
             {
-                return CompareTo((double) obj);
+                return CompareTo(d);
             }
 
             throw new ArgumentException("Arg must be double or RoundedDouble");

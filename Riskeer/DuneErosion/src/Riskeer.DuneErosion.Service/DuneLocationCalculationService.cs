@@ -118,14 +118,14 @@ namespace Riskeer.DuneErosion.Service
                                                                                          messageProvider);
                 }
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
                                   ? messageProvider.GetCalculationFailedMessage(duneLocationName)
-                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorContent));
+                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorContent), e);
 
                     exceptionThrown = true;
                     throw;

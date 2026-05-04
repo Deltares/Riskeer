@@ -319,8 +319,8 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
         {
-            Log.Error(string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
-                                    e.Message));
+            Log.ErrorFormat(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                            e.Message);
 
             return new ReadResult<T>(true);
         }

@@ -199,7 +199,7 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileReadException e)
             {
-                Log.Error(e.Message);
+                Log.Error(e.Message, e);
                 return new ReadResult<FailureMechanismSection>(true);
             }
         }
@@ -281,7 +281,7 @@ namespace Riskeer.Common.IO.FileImporters
             var doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
             {
-                Point2D pointToConnect = resultList.Last().EndPoint;
+                Point2D pointToConnect = resultList[resultList.Count - 1].EndPoint;
                 FailureMechanismSection closestSectionToConnectWith = GetClosestSectionToReferencePoint(pointToConnect, sourceList);
 
                 if (closestSectionToConnectWith == null)

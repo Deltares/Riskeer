@@ -163,7 +163,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private void LogWarning(string message)
         {
-            log.Warn($"'{calculation.Name}': {message}");
+            log.WarnFormat("'{0}': {1}", calculation.Name, message);
         }
 
         private void MoveTempFileToFinal(string tempFilePath)

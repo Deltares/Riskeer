@@ -105,14 +105,14 @@ namespace Riskeer.Common.Service
                                    targetProbability,
                                    messageProvider);
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
                                   ? messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name)
-                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
+                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(hydraulicBoundaryLocation.Name, lastErrorContent), e);
 
                     exceptionThrown = true;
                     throw;
@@ -186,9 +186,8 @@ namespace Riskeer.Common.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       hydraulicBoundaryLocation.Name,
-                                       e.Message));
+                log.WarnFormat(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                               hydraulicBoundaryLocation.Name, e.Message);
             }
 
             HydraulicBoundaryLocationCalculationOutput hydraulicBoundaryLocationCalculationOutput = CreateOutput(

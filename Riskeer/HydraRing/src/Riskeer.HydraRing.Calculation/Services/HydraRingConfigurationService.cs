@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 throw new ArgumentException(@"Section id is not unique", nameof(input));
             }
 
-            if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)
+            if (hydraRingInputs.Count > 0 && hydraRingInputs[0].FailureMechanismType != input.FailureMechanismType)
             {
                 throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
@@ -754,9 +754,9 @@ namespace Riskeer.HydraRing.Calculation.Services
                             continue;
                         }
 
-                        if (val is double)
+                        if (val is double d)
                         {
-                            valueStrings.Add(((double) val).ToString(CultureInfo.InvariantCulture));
+                            valueStrings.Add(d.ToString(CultureInfo.InvariantCulture));
                             continue;
                         }
 

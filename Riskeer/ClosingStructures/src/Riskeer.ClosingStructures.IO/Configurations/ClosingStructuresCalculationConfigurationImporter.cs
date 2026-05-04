@@ -122,8 +122,8 @@ namespace Riskeer.ClosingStructures.IO.Configurations
             return null;
         }
 
-        private bool TrySetStochasts(ClosingStructuresCalculationConfiguration readCalculation,
-                                     StructuresCalculation<ClosingStructuresInput> calculation)
+        private static bool TrySetStochasts(ClosingStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<ClosingStructuresInput> calculation)
         {
             var assigner = new ClosingStructuresCalculationStochastAssigner(
                 readCalculation,
@@ -215,8 +215,8 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetFactorStormDurationOpenStructure(ClosingStructuresCalculationConfiguration readCalculation,
-                                                         StructuresCalculation<ClosingStructuresInput> calculation)
+        private static void SetFactorStormDurationOpenStructure(ClosingStructuresCalculationConfiguration readCalculation,
+                                                                StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {

@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.Views
             SelectionChanged?.Invoke(this, e);
         }
 
-        private class DrawnIllustrationPointNode
+        private sealed class DrawnIllustrationPointNode
         {
             public IllustrationPointNode IllustrationPointNode { get; set; }
 
