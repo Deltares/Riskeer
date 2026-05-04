@@ -864,7 +864,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);

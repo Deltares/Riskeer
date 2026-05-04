@@ -155,8 +155,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             return true;
         }
 
-        private bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                     StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 readCalculation,
@@ -334,8 +334,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                         StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static void SetFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                                StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {
@@ -348,8 +348,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static void SetVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                  StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.VolumicWeightWater.HasValue)
             {

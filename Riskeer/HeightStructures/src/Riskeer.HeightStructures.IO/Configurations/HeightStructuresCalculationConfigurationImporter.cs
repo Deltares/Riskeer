@@ -115,8 +115,8 @@ namespace Riskeer.HeightStructures.IO.Configurations
             return null;
         }
 
-        private bool TrySetStochasts(HeightStructuresCalculationConfiguration readCalculation,
-                                     StructuresCalculation<HeightStructuresInput> calculation)
+        private static bool TrySetStochasts(HeightStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<HeightStructuresInput> calculation)
         {
             var assigner = new HeightStructuresCalculationStochastAssigner(
                 readCalculation,

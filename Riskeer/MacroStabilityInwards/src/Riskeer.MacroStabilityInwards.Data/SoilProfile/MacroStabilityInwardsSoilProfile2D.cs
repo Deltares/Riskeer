@@ -146,7 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
         /// <param name="collection">The collection of <see cref="MacroStabilityInwardsSoilLayer2D"/> to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="collection"/> contains no layers.</exception>
-        private void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer2D> collection)
+        private static void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer2D> collection)
         {
             if (collection == null)
             {
