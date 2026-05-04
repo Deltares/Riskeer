@@ -76,8 +76,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             TestDelegate test = () => generalInput.C = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
-                "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                test, "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.");
         }
     }
 }
