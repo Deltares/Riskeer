@@ -197,7 +197,7 @@ namespace Riskeer.MacroStabilityInwards.Service
                 xCoordinates.AddRange(GetDiscretizedXCoordinatesBetweenInterval(firstXCoordinate, secondXCoordinate));
             }
 
-            xCoordinates.Add(uniqueClippedXCoordinates.Last());
+            xCoordinates.Add(uniqueClippedXCoordinates[uniqueClippedXCoordinates.Length - 1]);
 
             return xCoordinates;
         }

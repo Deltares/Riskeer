@@ -129,7 +129,7 @@ namespace Riskeer.Piping.Data
                 return double.NaN;
             }
 
-            PipingSoilLayer bottomLayer = layers.Last();
+            PipingSoilLayer bottomLayer = layers[layers.Length - 1];
             PipingSoilLayer topLayer = layers.First();
 
             return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));

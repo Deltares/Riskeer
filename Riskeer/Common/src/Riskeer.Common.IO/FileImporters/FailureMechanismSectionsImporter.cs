@@ -281,7 +281,7 @@ namespace Riskeer.Common.IO.FileImporters
             var doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
             {
-                Point2D pointToConnect = resultList.Last().EndPoint;
+                Point2D pointToConnect = resultList[resultList.Count - 1].EndPoint;
                 FailureMechanismSection closestSectionToConnectWith = GetClosestSectionToReferencePoint(pointToConnect, sourceList);
 
                 if (closestSectionToConnectWith == null)

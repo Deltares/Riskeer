@@ -86,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
                                                                                     layer,
                                                                                     soilProfile,
                                                                                     localizedSurfaceLine.First().X,
-                                                                                    localizedSurfaceLine.Last().X))
+                                                                                    localizedSurfaceLine[localizedSurfaceLine.Length - 1].X))
                                                                             .ToArray();
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);

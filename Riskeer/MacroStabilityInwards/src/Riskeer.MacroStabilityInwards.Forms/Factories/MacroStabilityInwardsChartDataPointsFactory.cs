@@ -644,13 +644,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 area.AddRange(topLine);
 
                 List<Point2D> sortedBottomLine = bottomLine.OrderByDescending(p => p.X).ToList();
-                if (sortedBottomLine.First().Equals(topLine.Last()))
+                if (sortedBottomLine.First().Equals(topLine[topLine.Count - 1]))
                 {
                     sortedBottomLine.Remove(sortedBottomLine.First());
                 }
 
                 area.AddRange(sortedBottomLine);
-                if (topLine.Any() && !area.Last().Equals(topLine.First()))
+                if (topLine.Any() && !area[area.Count - 1].Equals(topLine.First()))
                 {
                     area.Add(topLine.First());
                 }
