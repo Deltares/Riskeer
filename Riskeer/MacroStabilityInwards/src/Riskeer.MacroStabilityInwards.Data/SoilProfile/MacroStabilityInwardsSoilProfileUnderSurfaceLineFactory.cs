@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
                                                                                 layer => As2DGeometry(
                                                                                     layer,
                                                                                     soilProfile,
-                                                                                    localizedSurfaceLine.First().X,
+                                                                                    localizedSurfaceLine[0].X,
                                                                                     localizedSurfaceLine[localizedSurfaceLine.Length - 1].X))
                                                                             .ToArray();
 

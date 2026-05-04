@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Service
             List<PipingStochasticSoilModel> available = availableStochasticSoilModels.ToList();
             if (available.Count == 1)
             {
-                pipingInput.StochasticSoilModel = available.First();
+                pipingInput.StochasticSoilModel = available[0];
             }
             else if (!available.Any() || !available.Contains(pipingInput.StochasticSoilModel))
             {

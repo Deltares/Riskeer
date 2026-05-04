@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 throw new ArgumentException(@"Section id is not unique", nameof(input));
             }
 
-            if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)
+            if (hydraRingInputs.Count > 0 && hydraRingInputs[0].FailureMechanismType != input.FailureMechanismType)
             {
                 throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }

@@ -111,7 +111,7 @@ namespace Riskeer.Revetment.Forms.Factories
                 new Point2D(GetPointXOnRevetmentLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
             };
 
-            if (input.LowerBoundaryWaterLevels < points.First().Y)
+            if (input.LowerBoundaryWaterLevels < points[0].Y)
             {
                 points.Insert(0, new Point2D(GetPointXOnRevetmentLine(input, input.LowerBoundaryWaterLevels), input.LowerBoundaryWaterLevels));
             }

@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Dialogs
                 }
 
                 string[] parts = str.Split('-');
-                string[] firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                string[] firstPart = Regex.Split(parts[0], "([A-Za-z])");
                 if (firstPart.Length > 1)
                 {
                     int.TryParse(firstPart[0], out id);

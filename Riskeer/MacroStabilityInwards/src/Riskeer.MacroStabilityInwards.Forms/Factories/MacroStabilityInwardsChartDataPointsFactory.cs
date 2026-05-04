@@ -585,7 +585,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
                     if (intersectionPointResult.IntersectionType == Intersection2DType.Intersects)
                     {
-                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints.First());
+                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints[0]);
                     }
                 }
             }
@@ -644,15 +644,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 area.AddRange(topLine);
 
                 List<Point2D> sortedBottomLine = bottomLine.OrderByDescending(p => p.X).ToList();
-                if (sortedBottomLine.First().Equals(topLine[topLine.Count - 1]))
+                if (sortedBottomLine[0].Equals(topLine[topLine.Count - 1]))
                 {
-                    sortedBottomLine.Remove(sortedBottomLine.First());
+                    sortedBottomLine.Remove(sortedBottomLine[0]);
                 }
 
                 area.AddRange(sortedBottomLine);
-                if (topLine.Any() && !area[area.Count - 1].Equals(topLine.First()))
+                if (topLine.Any() && !area[area.Count - 1].Equals(topLine[0]))
                 {
-                    area.Add(topLine.First());
+                    area.Add(topLine[0]);
                 }
             }
 
@@ -693,7 +693,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
                     if (intersectionPointResult.IntersectionType == Intersection2DType.Intersects)
                     {
-                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints.First());
+                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints[0]);
                     }
                 }
             }
@@ -728,7 +728,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 {
                     areaPoints.AddRange(phreaticLineArea);
                     areaPoints.AddRange(waternetLineArea.OrderByDescending(p => p.X));
-                    areaPoints.Add(phreaticLineArea.First());
+                    areaPoints.Add(phreaticLineArea[0]);
 
                     areas.Add(areaPoints.ToArray());
 
@@ -743,7 +743,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             areaPoints.AddRange(phreaticLineArea);
             areaPoints.AddRange(waternetLineArea.OrderByDescending(p => p.X));
-            areaPoints.Add(phreaticLineArea.First());
+            areaPoints.Add(phreaticLineArea[0]);
 
             areas.Add(areaPoints.ToArray());
 
