@@ -70,8 +70,8 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
                                                                                                           ReadConversionCollector collector)
         {
             return entity.MacroStabilityInwardsSoilProfileOneDEntity != null
-                       ? (IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>) ReadSoilProfile1D(entity, collector)
-                       : ReadSoilProfile2D(entity, collector);
+                       ? (IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>) entity.ReadSoilProfile1D(collector)
+                       : entity.ReadSoilProfile2D(collector);
         }
 
         private static IMacroStabilityInwardsSoilProfile<MacroStabilityInwardsSoilLayer1D> ReadSoilProfile1D(this MacroStabilityInwardsStochasticSoilProfileEntity entity,

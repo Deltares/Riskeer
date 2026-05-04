@@ -49,7 +49,7 @@ namespace Core.Components.Gis.Data
                 var nestedMapDataCollection = mapData as MapDataCollection;
                 if (nestedMapDataCollection != null)
                 {
-                    featureBasedMapDataList.AddRange(GetFeatureBasedMapDataRecursively(nestedMapDataCollection));
+                    featureBasedMapDataList.AddRange(nestedMapDataCollection.GetFeatureBasedMapDataRecursively());
                     continue;
                 }
 

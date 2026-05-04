@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Read
                 Code = entity.Code
             };
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            ReadFailureMechanismSectionResults(entity, failureMechanism, collector);
+            entity.ReadFailureMechanismSectionResults(failureMechanism, collector);
             return failureMechanism;
         }
 

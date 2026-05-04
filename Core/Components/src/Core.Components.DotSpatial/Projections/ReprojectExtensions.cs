@@ -68,7 +68,7 @@ namespace Core.Components.DotSpatial.Projections
                 throw new ArgumentNullException(nameof(target));
             }
 
-            Coordinate[] seq = Reproject(ring.Coordinates.Densify(36).ToArray(), source, target);
+            Coordinate[] seq = ring.Coordinates.Densify(36).ToArray().Reproject(source, target);
             return ring.Factory.CreateLinearRing(seq);
         }
 

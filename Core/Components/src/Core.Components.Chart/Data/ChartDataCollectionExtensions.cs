@@ -49,7 +49,7 @@ namespace Core.Components.Chart.Data
                 var nestedChartDataCollection = chartData as ChartDataCollection;
                 if (nestedChartDataCollection != null)
                 {
-                    chartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
+                    chartDataList.AddRange(nestedChartDataCollection.GetChartDataRecursively());
                     continue;
                 }
 
