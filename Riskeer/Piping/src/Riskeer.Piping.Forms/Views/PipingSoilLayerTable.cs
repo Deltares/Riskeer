@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Forms.Views
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelShift), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift, true);
         }
 
-        private class FormattedPipingSoilLayerRow
+        private sealed class FormattedPipingSoilLayerRow
         {
             public FormattedPipingSoilLayerRow(PipingSoilLayer layer)
             {

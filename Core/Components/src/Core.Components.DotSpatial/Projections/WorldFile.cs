@@ -224,7 +224,7 @@ namespace Core.Components.DotSpatial.Projections
             return new Point(x, y);
         }
 
-        private class Matrix2D
+        private sealed class Matrix2D
         {
             /// <summary>
             /// Gets the X-component of the pixel width.

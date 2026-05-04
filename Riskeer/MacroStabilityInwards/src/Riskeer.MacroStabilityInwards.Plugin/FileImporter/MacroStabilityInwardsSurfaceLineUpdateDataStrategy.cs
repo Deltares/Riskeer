@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
         /// <summary>
         /// Class for comparing <see cref="MacroStabilityInwardsSurfaceLine"/> by only the name.
         /// </summary>
-        private class MacroStabilityInwardsSurfaceLineNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsSurfaceLine>
+        private sealed class MacroStabilityInwardsSurfaceLineNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsSurfaceLine>
         {
             public bool Equals(MacroStabilityInwardsSurfaceLine x, MacroStabilityInwardsSurfaceLine y)
             {

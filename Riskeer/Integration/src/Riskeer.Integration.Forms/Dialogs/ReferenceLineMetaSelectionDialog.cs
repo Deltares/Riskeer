@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             Close();
         }
 
-        private class AssessmentSectionIdComparer : IComparer<string>
+        private sealed class AssessmentSectionIdComparer : IComparer<string>
         {
             public int Compare(string x, string y)
             {
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             }
         }
 
-        private class ReferenceLineMetaSelectionRow
+        private sealed class ReferenceLineMetaSelectionRow
         {
             public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
             {

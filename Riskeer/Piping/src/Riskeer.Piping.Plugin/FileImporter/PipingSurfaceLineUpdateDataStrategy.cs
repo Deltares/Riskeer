@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <summary>
         /// Class for comparing <see cref="PipingSurfaceLine"/> by only the name.
         /// </summary>
-        private class PipingSurfaceLineNameEqualityComparer : IEqualityComparer<PipingSurfaceLine>
+        private sealed class PipingSurfaceLineNameEqualityComparer : IEqualityComparer<PipingSurfaceLine>
         {
             public bool Equals(PipingSurfaceLine x, PipingSurfaceLine y)
             {

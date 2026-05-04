@@ -231,7 +231,7 @@ namespace Riskeer.Common.IO.SoilProfile
             throw new SoilProfileReadException(message);
         }
 
-        private class Layer1DProperties : LayerProperties
+        private sealed class Layer1DProperties : LayerProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="Layer1DProperties"/> which contains properties
@@ -265,7 +265,7 @@ namespace Riskeer.Common.IO.SoilProfile
             public double Top { get; }
         }
 
-        private class RequiredProfileProperties
+        private sealed class RequiredProfileProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/> which contains properties

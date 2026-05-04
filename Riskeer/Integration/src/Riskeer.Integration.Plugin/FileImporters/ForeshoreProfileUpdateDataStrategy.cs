@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
         /// <summary>
         /// Class for comparing he <see cref="ForeshoreProfile"/> only by ID.
         /// </summary>
-        private class ForeshoreProfileEqualityComparer : IEqualityComparer<ForeshoreProfile>
+        private sealed class ForeshoreProfileEqualityComparer : IEqualityComparer<ForeshoreProfile>
         {
             public bool Equals(ForeshoreProfile x, ForeshoreProfile y)
             {

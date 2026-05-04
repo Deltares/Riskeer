@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
             return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineGeometry, soilLayerGeometry).Where(arr => arr.Length > 2);
         }
 
-        private class TempSoilLayerGeometry
+        private sealed class TempSoilLayerGeometry
         {
             public TempSoilLayerGeometry(IEnumerable<Point2D> outerLoop, MacroStabilityInwardsSoilLayerData data)
             {

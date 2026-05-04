@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             return referenceLine;
         }
 
-        private class PhreaticLineComparer : IEqualityComparer<MacroStabilityInwardsPhreaticLine>
+        private sealed class PhreaticLineComparer : IEqualityComparer<MacroStabilityInwardsPhreaticLine>
         {
             public bool Equals(MacroStabilityInwardsPhreaticLine x, MacroStabilityInwardsPhreaticLine y)
             {

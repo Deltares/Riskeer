@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <summary>
         /// Resolver for nested schema definitions.
         /// </summary>
-        private class NestedSchemaDefinitionsResolver : XmlResolver
+        private sealed class NestedSchemaDefinitionsResolver : XmlResolver
         {
             private readonly IDictionary<string, string> nestedSchemaDefinitions;
             private readonly IDictionary<string, bool> nestedSchemaDefinitionsUsage;

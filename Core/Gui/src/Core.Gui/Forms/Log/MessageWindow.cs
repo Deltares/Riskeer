@@ -275,7 +275,7 @@ namespace Core.Gui.Forms.Log
         /// <summary>
         /// Class that holds message information.
         /// </summary>
-        private class MessageData
+        private sealed class MessageData
         {
             /// <summary>
             /// Gets or sets the logging level.

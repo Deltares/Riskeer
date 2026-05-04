@@ -343,7 +343,7 @@ namespace Core.Components.DotSpatial.Forms
         /// <summary>
         /// Lookup class for administration related to drawn map data layers.
         /// </summary>
-        private class DrawnMapData
+        private sealed class DrawnMapData
         {
             /// <summary>
             /// The feature based map data which the drawn <see cref="FeatureBasedMapDataLayer"/> is based upon.

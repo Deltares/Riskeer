@@ -80,7 +80,7 @@ namespace Core.Gui.Converters
         /// Properties are named based on the first item in the provided tuple and the value is
         /// based on the second item.
         /// </summary>
-        private class ArrayPropertyDescriptor : SimplePropertyDescriptor
+        private sealed class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
             private readonly object propertyValue;
 

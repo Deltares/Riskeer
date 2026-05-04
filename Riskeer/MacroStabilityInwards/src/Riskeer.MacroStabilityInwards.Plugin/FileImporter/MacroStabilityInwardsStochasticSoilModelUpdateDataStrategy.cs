@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
         /// <summary>
         /// Class for comparing <see cref="MacroStabilityInwardsStochasticSoilModel"/> by just the name.
         /// </summary>
-        private class SoilModelNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsStochasticSoilModel>
+        private sealed class SoilModelNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsStochasticSoilModel>
         {
             public bool Equals(MacroStabilityInwardsStochasticSoilModel x, MacroStabilityInwardsStochasticSoilModel y)
             {

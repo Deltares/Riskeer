@@ -355,7 +355,7 @@ namespace Riskeer.Common.IO.SoilProfile
             throw new SoilProfileReadException(message);
         }
 
-        private class Layer2DProperties : LayerProperties
+        private sealed class Layer2DProperties : LayerProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="Layer2DProperties"/> which contains properties
@@ -389,7 +389,7 @@ namespace Riskeer.Common.IO.SoilProfile
             public byte[] GeometryValue { get; }
         }
 
-        private class RequiredProfileProperties
+        private sealed class RequiredProfileProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/> which contains properties

@@ -74,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
         /// <summary>
         /// Class for comparing the <see cref="DikeProfile"/> only by ID.
         /// </summary>
-        private class DikeProfileIdEqualityComparer : IEqualityComparer<DikeProfile>
+        private sealed class DikeProfileIdEqualityComparer : IEqualityComparer<DikeProfile>
         {
             public bool Equals(DikeProfile x, DikeProfile y)
             {
