@@ -268,8 +268,8 @@ namespace Riskeer.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       calculation.Name, e.Message), e);
+                log.WarnFormat(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                               calculation.Name, e.Message);
             }
 
             calculation.Output = new StructuresOutput(reliability, generalResult);

@@ -229,8 +229,8 @@ namespace Riskeer.Common.IO.FileImporters
             }
             else
             {
-                Log.Info(string.Format(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used,
-                                       key, structureName, structureId));
+                Log.InfoFormat(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used,
+                               key, structureName, structureId);
             }
         }
 

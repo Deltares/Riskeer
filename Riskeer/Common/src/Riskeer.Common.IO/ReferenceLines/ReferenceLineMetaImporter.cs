@@ -94,8 +94,8 @@ namespace Riskeer.Common.IO.ReferenceLines
             shapeFilePath = files[0];
             if (files.Length > 1)
             {
-                log.Warn(string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1,
-                                       Path.GetDirectoryName(shapeFilePath), Path.GetFileName(shapeFilePath)));
+                log.WarnFormat(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1,
+                               Path.GetDirectoryName(shapeFilePath), Path.GetFileName(shapeFilePath));
             }
         }
 

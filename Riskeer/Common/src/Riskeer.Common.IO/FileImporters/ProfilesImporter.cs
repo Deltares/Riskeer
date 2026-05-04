@@ -306,7 +306,7 @@ namespace Riskeer.Common.IO.FileImporters
 
                     if (data.SheetPileType != SheetPileType.Coordinates)
                     {
-                        Log.Error(string.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
+                        Log.ErrorFormat(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath);
                         continue;
                     }
 

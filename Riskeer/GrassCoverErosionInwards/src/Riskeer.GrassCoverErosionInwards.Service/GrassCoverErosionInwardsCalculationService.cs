@@ -281,8 +281,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1,
-                                       calculation.Name, e.Message), e);
+                log.WarnFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1,
+                               calculation.Name, e.Message);
             }
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
@@ -632,10 +632,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.Warn(
-                    string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
-                                  Resources.GrassCoverErosionInwardsCalculationService_DikeHeight,
-                                  calculationName));
+                log.WarnFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
+                               Resources.GrassCoverErosionInwardsCalculationService_DikeHeight,
+                               calculationName);
             }
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
@@ -648,8 +647,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1,
-                                       calculationName, e.Message), e);
+                log.WarnFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1,
+                               calculationName, e.Message);
             }
 
             return new DikeHeightOutput(dikeHeight, targetProbability,
@@ -683,10 +682,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.Warn(
-                    string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
-                                  Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate,
-                                  calculationName));
+                log.WarnFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
+                               Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate,
+                               calculationName);
             }
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
@@ -699,8 +697,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1,
-                                       calculationName, e.Message), e);
+                log.WarnFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1,
+                               calculationName, e.Message);
             }
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,

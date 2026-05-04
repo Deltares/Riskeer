@@ -187,8 +187,8 @@ namespace Riskeer.Common.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       hydraulicBoundaryLocation.Name, e.Message), e);
+                log.WarnFormat(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                               hydraulicBoundaryLocation.Name, e.Message);
             }
 
             HydraulicBoundaryLocationCalculationOutput hydraulicBoundaryLocationCalculationOutput = CreateOutput(
