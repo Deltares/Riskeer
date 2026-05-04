@@ -164,7 +164,7 @@ namespace Riskeer.Migration.Integration.Test
                                                 "* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                         messages[17]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("24.1", "25.1", $"Gevolgen van de migratie van versie 24.1 naar versie 25.1:"),
+                        new MigrationLogMessage("24.1", "25.1", "Gevolgen van de migratie van versie 24.1 naar versie 25.1:"),
                         messages[18]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("24.1", "25.1", "* Geen aanpassingen."),
