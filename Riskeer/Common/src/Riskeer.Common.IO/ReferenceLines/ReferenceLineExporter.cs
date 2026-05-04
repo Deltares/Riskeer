@@ -66,7 +66,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             }
             catch (CriticalFileWriteException e)
             {
-                log.Error(string.Format(Resources.ReferenceLineExporter_Error_0_no_ReferenceLine_exported, e.Message));
+                log.Error(string.Format(Resources.ReferenceLineExporter_Error_0_no_ReferenceLine_exported, e.Message), e);
                 return false;
             }
 

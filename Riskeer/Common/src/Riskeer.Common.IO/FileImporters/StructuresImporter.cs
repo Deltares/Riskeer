@@ -120,7 +120,7 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileValidationException e)
             {
-                Log.Error(e.Message);
+                Log.Error(e.Message, e);
                 return false;
             }
 
@@ -282,7 +282,7 @@ namespace Riskeer.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    Log.Error(exception.Message);
+                    Log.Error(exception.Message, exception);
                     return new ReadResult<StructuresParameterRow>(true);
                 }
 
@@ -304,7 +304,7 @@ namespace Riskeer.Common.IO.FileImporters
                     }
                     catch (Exception exception) when (exception is CriticalFileReadException || exception is LineParseException)
                     {
-                        Log.Error(exception.Message);
+                        Log.Error(exception.Message, exception);
                         return new ReadResult<StructuresParameterRow>(true);
                     }
                 }
@@ -328,11 +328,11 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                Log.Error(exception.Message);
+                Log.Error(exception.Message, exception);
             }
             catch (ArgumentException exception)
             {
-                Log.Error(exception.Message);
+                Log.Error(exception.Message, exception);
             }
 
             return new ReadResult<StructureLocation>(true);
@@ -366,7 +366,7 @@ namespace Riskeer.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    Log.Error(exception.Message);
+                    Log.Error(exception.Message, exception);
                     return new ReadResult<StructureLocation>(true);
                 }
             }

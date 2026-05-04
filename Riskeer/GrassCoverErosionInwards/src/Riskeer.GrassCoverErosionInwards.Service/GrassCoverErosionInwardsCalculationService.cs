@@ -282,8 +282,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             catch (ArgumentException e)
             {
                 log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1,
-                                       calculation.Name,
-                                       e.Message));
+                                       calculation.Name, e.Message), e);
             }
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
@@ -650,8 +649,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             catch (ArgumentException e)
             {
                 log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1,
-                                       calculationName,
-                                       e.Message));
+                                       calculationName, e.Message), e);
             }
 
             return new DikeHeightOutput(dikeHeight, targetProbability,
@@ -702,8 +700,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             catch (ArgumentException e)
             {
                 log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1,
-                                       calculationName,
-                                       e.Message));
+                                       calculationName, e.Message), e);
             }
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,

@@ -199,7 +199,7 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileReadException e)
             {
-                Log.Error(e.Message);
+                Log.Error(e.Message, e);
                 return new ReadResult<FailureMechanismSection>(true);
             }
         }

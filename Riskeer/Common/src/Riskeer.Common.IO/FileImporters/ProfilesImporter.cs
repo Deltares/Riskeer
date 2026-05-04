@@ -120,7 +120,7 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileReadException e)
             {
-                Log.Error(e.Message);
+                Log.Error(e.Message, e);
                 return false;
             }
 
@@ -189,11 +189,11 @@ namespace Riskeer.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                Log.Error(exception.Message);
+                Log.Error(exception.Message, exception);
             }
             catch (ArgumentException exception)
             {
-                Log.Error(exception.Message);
+                Log.Error(exception.Message, exception);
             }
 
             return new ReadResult<ProfileLocation>(true);
@@ -227,7 +227,7 @@ namespace Riskeer.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    Log.Error(exception.Message);
+                    Log.Error(exception.Message, exception);
                     return new ReadResult<ProfileLocation>(true);
                 }
             }
@@ -323,7 +323,7 @@ namespace Riskeer.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    Log.Error(exception.Message);
+                    Log.Error(exception.Message, exception);
                     return new ReadResult<DikeProfileData>(true);
                 }
                 catch (CriticalFileValidationException)

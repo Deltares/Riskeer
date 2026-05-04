@@ -82,7 +82,7 @@ namespace Riskeer.Integration.IO.Exporters
             }
             catch (Exception e) when (e is AssemblyException || e is AssemblyFactoryException)
             {
-                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
+                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details, e);
                 return false;
             }
             catch (CriticalFileWriteException e)

@@ -127,9 +127,9 @@ namespace Core.Gui.Commands
             }
             catch (ProjectFactoryException e)
             {
-                log.Error(e.Message);
+                log.Error(e.Message, e);
                 projectOwner.SetProject(null, null);
-                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_failed);
+                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_failed, e);
             }
         }
 
