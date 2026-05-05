@@ -440,7 +440,7 @@ RQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAtFFFAH//Z
 			</helperscreenshot>
 		</mouseitem>
 		<explicitdelayitem
-		duration="500ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>
