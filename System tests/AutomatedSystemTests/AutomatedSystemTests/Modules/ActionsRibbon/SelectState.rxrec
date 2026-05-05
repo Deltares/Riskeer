@@ -687,7 +687,7 @@ RQBG/wDrj/uj+ZpKKKACiiikAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB//Z
 			</helperscreenshot>
 		</mouseitem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="1000ms"
 		enabled="True"
 		optional="False">
 			<comment>

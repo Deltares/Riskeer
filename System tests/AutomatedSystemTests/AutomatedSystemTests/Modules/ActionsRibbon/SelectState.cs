@@ -95,8 +95,8 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.RibbonButtons.GenericRibbonButton' at Center.", repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButtonInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(2));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(2));
+            Delay.Duration(1000, false);
             
         }
 
