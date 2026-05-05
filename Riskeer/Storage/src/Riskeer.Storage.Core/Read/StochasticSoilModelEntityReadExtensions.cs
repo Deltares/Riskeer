@@ -67,7 +67,7 @@ namespace Riskeer.Storage.Core.Read
             }
 
             Point2D[] geometry = ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml).ToArray();
-            PipingStochasticSoilProfile[] stochasticSoilProfiles = ReadPipingStochasticSoilProfiles(entity, collector).ToArray();
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = entity.ReadPipingStochasticSoilProfiles(collector).ToArray();
             var model = new PipingStochasticSoilModel(entity.Name, geometry, stochasticSoilProfiles);
 
             collector.Read(entity, model);

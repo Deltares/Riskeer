@@ -61,8 +61,7 @@ namespace Riskeer.Common.Data.AssessmentSection
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            HydraulicBoundaryLocationCalculation calculation = GetNormativeHydraulicBoundaryLocationCalculation(assessmentSection,
-                                                                                                                hydraulicBoundaryLocation);
+            HydraulicBoundaryLocationCalculation calculation = assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             return calculation?.Output?.Result ?? RoundedDouble.NaN;
         }

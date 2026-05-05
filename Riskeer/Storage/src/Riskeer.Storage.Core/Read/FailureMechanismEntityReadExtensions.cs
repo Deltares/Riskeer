@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            ReadCommonFailureMechanismProperties(entity, failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
         }
 
@@ -674,10 +674,9 @@ namespace Riskeer.Storage.Core.Read
 
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
                 entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
-            ReadForeshoreProfiles(entity,
-                                  failureMechanism.ForeshoreProfiles,
-                                  metaEntity.ForeshoreProfileCollectionSourcePath,
-                                  collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
+                                         metaEntity.ForeshoreProfileCollectionSourcePath,
+                                         collector);
 
             ReadGrassCoverErosionOutwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -948,10 +947,9 @@ namespace Riskeer.Storage.Core.Read
 
             StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
                 entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
-            ReadForeshoreProfiles(entity,
-                                  failureMechanism.ForeshoreProfiles,
-                                  metaEntity.ForeshoreProfileCollectionSourcePath,
-                                  collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
+                                         metaEntity.ForeshoreProfileCollectionSourcePath,
+                                         collector);
 
             ReadStabilityStoneCoverRootCalculationGroup(entity.CalculationGroupEntity,
                                                         failureMechanism.CalculationsGroup,

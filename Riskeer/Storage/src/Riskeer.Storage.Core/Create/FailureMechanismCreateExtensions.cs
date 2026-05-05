@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<FailureMechanismEntity>(mechanism, registry);
+            var entity = mechanism.Create<FailureMechanismEntity>(registry);
             entity.FailureMechanismType = (short) type;
             return entity;
         }
@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<FailureMechanismEntity>(mechanism, registry);
+            var entity = mechanism.Create<FailureMechanismEntity>(registry);
             entity.FailureMechanismType = (short) type;
             entity.CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone();
 
@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<SpecificFailureMechanismEntity>(specificFailureMechanism, registry);
+            var entity = specificFailureMechanism.Create<SpecificFailureMechanismEntity>(registry);
             AddEntitiesForSectionResults(specificFailureMechanism.SectionResults, registry);
             entity.Name = specificFailureMechanism.Name.DeepClone();
             entity.Code = specificFailureMechanism.Code.DeepClone();
@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Create
                 FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = assemblyResult.ManualFailureMechanismAssemblyProbability.ToNaNAsNull()
             };
 
-            AddEntitiesForFailureMechanismSections(failureMechanism, registry, entity);
+            failureMechanism.AddEntitiesForFailureMechanismSections(registry, entity);
 
             return entity;
         }
