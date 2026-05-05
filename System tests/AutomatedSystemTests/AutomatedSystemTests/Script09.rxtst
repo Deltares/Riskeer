@@ -2645,7 +2645,7 @@
 					<param
 					mask="False"
 					name="milisecondsToWait"
-					value="1000">
+					value="5000">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2961,7 +2961,7 @@
 					<param
 					mask="False"
 					name="waitTimeInMIliseconds"
-					value="1000">
+					value="5000">
 					</param>
 				</parameters>
 			</smartfoldernode>
