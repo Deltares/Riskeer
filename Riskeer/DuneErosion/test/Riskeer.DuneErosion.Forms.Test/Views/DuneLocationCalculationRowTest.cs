@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             // Assert
             RoundedDouble expectedOffsetInMeters = duneLocation.Offset * 10;
-            
+
             Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
             Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
             Assert.AreEqual(duneLocation.Id, row.Id);

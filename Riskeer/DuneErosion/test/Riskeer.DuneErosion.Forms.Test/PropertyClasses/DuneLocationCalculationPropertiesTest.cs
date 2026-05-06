@@ -246,7 +246,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             RoundedDouble expectedOffsetInMeters = duneLocation.Offset * 10;
-            
+
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);

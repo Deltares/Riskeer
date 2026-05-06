@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.Calculation
                 var nestedCalculationGroup = calculationItem as CalculationGroup;
                 if (nestedCalculationGroup != null)
                 {
-                    children.AddRange(GetAllChildrenRecursive(nestedCalculationGroup));
+                    children.AddRange(nestedCalculationGroup.GetAllChildrenRecursive());
                 }
             }
 
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.Calculation
                 var nestedCalculationGroup = calculationItem as CalculationGroup;
                 if (nestedCalculationGroup != null)
                 {
-                    calculations.AddRange(GetCalculations(nestedCalculationGroup));
+                    calculations.AddRange(nestedCalculationGroup.GetCalculations());
                 }
             }
 
