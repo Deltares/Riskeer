@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -585,7 +585,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
                     if (intersectionPointResult.IntersectionType == Intersection2DType.Intersects)
                     {
-                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints.First());
+                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints[0]);
                     }
                 }
             }
@@ -644,15 +644,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 area.AddRange(topLine);
 
                 List<Point2D> sortedBottomLine = bottomLine.OrderByDescending(p => p.X).ToList();
-                if (sortedBottomLine.First().Equals(topLine.Last()))
+                if (sortedBottomLine[0].Equals(topLine[topLine.Count - 1]))
                 {
-                    sortedBottomLine.Remove(sortedBottomLine.First());
+                    sortedBottomLine.Remove(sortedBottomLine[0]);
                 }
 
                 area.AddRange(sortedBottomLine);
-                if (topLine.Any() && !area.Last().Equals(topLine.First()))
+                if (topLine.Any() && !area[area.Count - 1].Equals(topLine[0]))
                 {
-                    area.Add(topLine.First());
+                    area.Add(topLine[0]);
                 }
             }
 
@@ -693,7 +693,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
                     if (intersectionPointResult.IntersectionType == Intersection2DType.Intersects)
                     {
-                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints.First());
+                        intersectionPoints.Add(intersectionPointResult.IntersectionPoints[0]);
                     }
                 }
             }
@@ -728,7 +728,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                 {
                     areaPoints.AddRange(phreaticLineArea);
                     areaPoints.AddRange(waternetLineArea.OrderByDescending(p => p.X));
-                    areaPoints.Add(phreaticLineArea.First());
+                    areaPoints.Add(phreaticLineArea[0]);
 
                     areas.Add(areaPoints.ToArray());
 
@@ -743,7 +743,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             areaPoints.AddRange(phreaticLineArea);
             areaPoints.AddRange(waternetLineArea.OrderByDescending(p => p.X));
-            areaPoints.Add(phreaticLineArea.First());
+            areaPoints.Add(phreaticLineArea[0]);
 
             areas.Add(areaPoints.ToArray());
 

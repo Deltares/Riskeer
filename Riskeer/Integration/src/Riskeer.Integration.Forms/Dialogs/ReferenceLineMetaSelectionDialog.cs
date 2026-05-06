@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             Close();
         }
 
-        private class AssessmentSectionIdComparer : IComparer<string>
+        private sealed class AssessmentSectionIdComparer : IComparer<string>
         {
             public int Compare(string x, string y)
             {
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Dialogs
                 }
 
                 string[] parts = str.Split('-');
-                string[] firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                string[] firstPart = Regex.Split(parts[0], "([A-Za-z])");
                 if (firstPart.Length > 1)
                 {
                     int.TryParse(firstPart[0], out id);
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             }
         }
 
-        private class ReferenceLineMetaSelectionRow
+        private sealed class ReferenceLineMetaSelectionRow
         {
             public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
             {

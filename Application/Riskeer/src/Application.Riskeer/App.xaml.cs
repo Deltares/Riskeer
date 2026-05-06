@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -92,9 +92,9 @@ namespace Application.Riskeer
             SetLanguage();
 
             string userDisplay = UserDisplay();
-            log.Info(string.Format(ApplicationResources.App_Starting_Riskeer_version_0_by_user_0,
-                                   SettingsHelper.Instance.ApplicationVersion,
-                                   userDisplay));
+            log.InfoFormat(ApplicationResources.App_Starting_Riskeer_version_0_by_user_0,
+                           SettingsHelper.Instance.ApplicationVersion,
+                           userDisplay);
         }
 
         private void OnStartup(object sender, StartupEventArgs e)

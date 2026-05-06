@@ -6,14 +6,14 @@
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Core.Common.Util.Reflection;
 using Core.Gui.Properties;
 using log4net.Appender;
 using log4net.Core;
@@ -38,7 +37,7 @@ namespace Core.Gui.Forms.Log
     {
         /// <summary>
         /// This list contains any messages that could not yet be delivered to the <see cref="IMessageWindow"/>
-        /// (typically because it doesn't exist yet at startup). The messages are kept in the backlog 
+        /// (typically because it doesn't exist yet at startup). The messages are kept in the backlog
         /// and sent to <see cref="IMessageWindow"/> upon the next message arriving while an
         /// instance of <see cref="IMessageWindow"/> has been set.
         /// </summary>
@@ -78,8 +77,8 @@ namespace Core.Gui.Forms.Log
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not this appender should forward its 
-        /// messages to <see cref="IMessageWindow"/> (set to <c>true</c>) or should cache 
+        /// Gets or sets a value indicating whether or not this appender should forward its
+        /// messages to <see cref="IMessageWindow"/> (set to <c>true</c>) or should cache
         /// them for when it's enabled at a later time (set to <c>false</c>).
         /// </summary>
         public bool Enabled
@@ -115,9 +114,7 @@ namespace Core.Gui.Forms.Log
             var stringFormat = loggingEvent.MessageObject as SystemStringFormat;
             if (stringFormat != null)
             {
-                var format = TypeUtils.GetField<string>(stringFormat, "m_format");
-                var args = TypeUtils.GetField<object[]>(stringFormat, "m_args");
-                message = GetLocalizedMessage(format, args);
+                message = GetLocalizedMessage(stringFormat.Format, stringFormat.Args);
             }
 
             if (message == null)

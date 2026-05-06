@@ -13,7 +13,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 throw new ArgumentException(@"Section id is not unique", nameof(input));
             }
 
-            if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)
+            if (hydraRingInputs.Count > 0 && hydraRingInputs[0].FailureMechanismType != input.FailureMechanismType)
             {
                 throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
@@ -754,9 +754,9 @@ namespace Riskeer.HydraRing.Calculation.Services
                             continue;
                         }
 
-                        if (val is double)
+                        if (val is double d)
                         {
-                            valueStrings.Add(((double) val).ToString(CultureInfo.InvariantCulture));
+                            valueStrings.Add(d.ToString(CultureInfo.InvariantCulture));
                             continue;
                         }
 

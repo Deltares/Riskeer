@@ -13,7 +13,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -103,7 +103,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Properties {
         /// </summary>
         public static string GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("WaveImpactAsphaltParamC_must_be_in_Range_0_", resourceCulture);
+                return ResourceManager.GetString("GeneralWaveImpactAsphaltCoverWaveConditionsInput_C_must_be_in_Range_0_", resourceCulture);
             }
         }
     }
