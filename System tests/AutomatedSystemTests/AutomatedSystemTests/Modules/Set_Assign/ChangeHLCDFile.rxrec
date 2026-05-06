@@ -391,7 +391,7 @@ mode="Global">
 			</arguments>
 		</userrecorditem>
 		<explicitdelayitem
-		duration="2000ms"
+		duration="10000ms"
 		enabled="True"
 		optional="False">
 			<comment>

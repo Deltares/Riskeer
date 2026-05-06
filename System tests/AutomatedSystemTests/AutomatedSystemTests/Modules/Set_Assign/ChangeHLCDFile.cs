@@ -113,8 +113,8 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             
             Mouse_Click_ButtonOK_If_Exists(repo.Bevestigen.ButtonOKInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(7));
-            Delay.Duration(2000, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 10s.", new RecordItemIndex(7));
+            Delay.Duration(10000, false);
             
         }
 
