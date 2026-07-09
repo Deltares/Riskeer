@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -47,10 +47,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
@@ -70,17 +68,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 GrassCoverErosionOutwardsWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual(calculation.InputParameters.CalculationType, properties.RevetmentType);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
@@ -103,7 +98,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Modelinstellingen",
                                                                             "Type bekleding",
                                                                             "Het type van de bekleding waarvoor berekend wordt.");
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,11 +106,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
 
             var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
@@ -138,7 +129,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(customHandler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

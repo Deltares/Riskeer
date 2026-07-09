@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,8 +30,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -72,9 +72,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new GrassCoverErosionOutwardsFailureMechanismView(null, assessmentSection);
@@ -82,7 +80,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -243,10 +240,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -259,7 +253,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -282,10 +278,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -302,7 +295,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -326,10 +321,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -347,7 +339,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -369,10 +363,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -392,7 +383,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -415,10 +408,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -440,7 +430,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -463,10 +455,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -480,7 +469,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -503,10 +494,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -520,7 +508,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -648,21 +638,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
+            var foreshoreProfilesMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
 
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var calculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
             return new[]

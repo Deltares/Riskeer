@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -39,9 +39,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -57,16 +55,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -77,7 +72,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture]
@@ -85,24 +79,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             : EqualsTestFixture<GrassCoverErosionOutwardsWaveConditionsCalculationContext,
                 DerivedGrassCoverErosionOutwardsWaveConditionsCalculationContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly GrassCoverErosionOutwardsWaveConditionsCalculation calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             private static readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
-
-            [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
 
             protected override GrassCoverErosionOutwardsWaveConditionsCalculationContext CreateObject()
             {

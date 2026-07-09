@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -66,9 +66,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
@@ -94,7 +92,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.DidNotReceive().CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -113,14 +111,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             int nrOfCalculators = GetNrOfCalculators(calculation, assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -141,7 +134,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 }
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -167,14 +160,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
             int nrOfCalculators = GetNrOfCalculators(calculation, assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(waveConditionsCosineCalculator)
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(waveConditionsCosineCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -224,7 +212,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 }
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -241,12 +229,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -284,7 +269,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -301,12 +286,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -328,7 +310,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -347,14 +329,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             int nrOfCalculators = GetNrOfCalculators(calculation, assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -366,7 +343,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -390,14 +367,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator)
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
@@ -412,7 +384,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -441,14 +413,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(waveConditionsCosineCalculator)
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(waveConditionsCosineCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -459,7 +426,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -481,21 +448,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                                                                         assessmentSection);
             int nrOfCalculators = GetNrOfCalculators(calculation, assessmentSection);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                          assessmentSection.HydraulicBoundaryData,
                                          hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
+                                     (HydraRingCalculationSettings) callInfo[0]);
+
+                                 return new TestWaveConditionsCosineCalculator();
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -504,7 +468,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -513,18 +477,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         public void Finish_VariousCalculationEndStates_NotifiesObserversOfCalculation(bool endInFailure)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator
                              {
                                  EndInFailure = endInFailure
                              });
-            mockRepository.ReplayAll();
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
@@ -545,7 +505,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             activity.Finish();
 
             // Assert
-            mockRepository.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         private static int GetNrOfCalculators(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

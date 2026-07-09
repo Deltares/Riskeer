@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,8 +26,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -113,12 +113,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-                             .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                             .Returns(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
                                                                                null,
@@ -130,7 +127,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

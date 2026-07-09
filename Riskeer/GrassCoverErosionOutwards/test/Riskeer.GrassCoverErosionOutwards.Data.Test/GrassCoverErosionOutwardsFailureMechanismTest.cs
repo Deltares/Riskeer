@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -59,7 +59,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void Calculations_MultipleChildrenAdded_ReturnGrassCoverErosionOutwardsWaveConditionsCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 CalculationsGroup =
@@ -68,13 +67,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                     {
                         new CalculationGroup(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                        mocks.Stub<ICalculation>(),
+                        Substitute.For<ICalculation>(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation()
                     }
                 }
             };
-
-            mocks.ReplayAll();
 
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
@@ -82,7 +79,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is GrassCoverErosionOutwardsWaveConditionsCalculation));
-            mocks.VerifyAll();
         }
     }
 }

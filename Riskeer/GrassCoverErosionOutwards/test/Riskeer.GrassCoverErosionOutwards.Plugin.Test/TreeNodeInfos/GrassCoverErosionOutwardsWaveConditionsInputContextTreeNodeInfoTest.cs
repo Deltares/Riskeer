@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
@@ -101,22 +101,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
@@ -126,10 +120,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Call
                     info.ContextMenuStrip(null, null, treeViewControl);
                 }
-            }
 
-            // Assert
-            mocks.VerifyAll();
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddOpenItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         private static TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)

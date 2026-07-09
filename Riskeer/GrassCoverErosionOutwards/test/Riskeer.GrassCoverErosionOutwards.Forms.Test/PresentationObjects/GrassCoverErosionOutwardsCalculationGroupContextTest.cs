@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -40,9 +40,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -59,7 +57,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [TestFixture(true)]
@@ -68,25 +65,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             : EqualsTestFixture<GrassCoverErosionOutwardsCalculationGroupContext,
                 DerivedGrassCoverErosionOutwardsCalculationGroupContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
 
             private static CalculationGroup parent;
-
-            [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
 
             public GrassCoverErosionOutwardsCalculationGroupContextEqualsTest(bool hasParent)
             {

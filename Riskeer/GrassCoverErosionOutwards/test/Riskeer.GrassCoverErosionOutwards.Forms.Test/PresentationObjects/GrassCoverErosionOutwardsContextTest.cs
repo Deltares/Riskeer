@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -39,9 +39,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_WrappedDataNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -51,17 +49,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, null, assessmentSection);
@@ -69,16 +64,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -88,16 +80,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -112,7 +101,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
             CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         private class SimpleGrassCoverErosionOutwardsContext : GrassCoverErosionOutwardsContext<IObservable>
