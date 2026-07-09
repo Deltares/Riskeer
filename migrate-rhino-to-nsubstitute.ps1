@@ -1,69 +1,208 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-Migrate test files from Rhino.Mocks to NSubstitute following the approved rulebook
+Scan test files for Rhino.Mocks patterns and flag them for migration
+Outputs a structured report of patterns found so agents can process them intelligently
 .PARAMETER FilePath
-Path to the C# test file to migrate
+Path to the C# test file to scan
+.PARAMETER OutputFile
+Optional: Path to save JSON report of findings (default: stdout)
 #>
 param(
     [Parameter(Mandatory=$true)]
-    [string]$FilePath
+    [string]$FilePath,
+    [Parameter(Mandatory=$false)]
+    [string]$OutputFile
 )
 
-# Read the file with UTF8 encoding
+function Find-Patterns {
+    param([string]$content, [string]$filePath)
+    
+    $findings = @()
+    $lines = $content -split "`n"
+    
+    # Pattern definitions matching DEPENDENCIES.md rulebook
+    $patterns = @(
+        @{
+            name = "MockRepository"
+            regex = "new MockRepository\(\)"
+            rule = "Remove entirely; use Substitute.For<T>() inline"
+            type = "removal"
+        },
+        @{
+            name = "mocks.Stub<T>()"
+            regex = "mocks\.Stub<[^>]+>\(\)"
+            rule = "Replace with Substitute.For<T>()"
+            type = "transform"
+        },
+        @{
+            name = "mocks.StrictMock<T>()"
+            regex = "mocks\.StrictMock<[^>]+>\(\)"
+            rule = "Replace with Substitute.For<T>()"
+            type = "transform"
+        },
+        @{
+            name = "obj.Stub(x => x.Foo).Return(v)"
+            regex = "\w+\.Stub\([^)]*=>[^)]*\)\.Return\("
+            rule = "Transform to obj.Foo.Returns(v); requires context review"
+            type = "contextual"
+        },
+        @{
+            name = "obj.Expect(x => x.Foo).Return(v)"
+            regex = "\w+\.Expect\([^)]*=>[^)]*\)\.Return\("
+            rule = "Replace with obj.Foo.Returns(v); add obj.Received().Foo() assertion"
+            type = "contextual"
+        },
+        @{
+            name = "IgnoreArguments()"
+            regex = "\.IgnoreArguments\(\)"
+            rule = "Use Arg.Any<T>() in the lambda instead"
+            type = "contextual"
+        },
+        @{
+            name = "Arg<T>.Is.Anything"
+            regex = "Arg<[^>]+>\.Is\.Anything"
+            rule = "Replace with Arg.Any<T>()"
+            type = "transform"
+        },
+        @{
+            name = "Repeat.Never()"
+            regex = "Repeat\.Never\(\)"
+            rule = "Use obj.DidNotReceive().Foo() assertion"
+            type = "contextual"
+        },
+        @{
+            name = "Repeat.Any()"
+            regex = "Repeat\.Any\(\)"
+            rule = "Remove verification (no equivalent in NSubstitute)"
+            type = "contextual"
+        },
+        @{
+            name = "Repeat.AtLeastOnce()"
+            regex = "Repeat\.AtLeastOnce\(\)"
+            rule = "Replace with obj.Received().Foo() assertion"
+            type = "contextual"
+        },
+        @{
+            name = "Repeat.Once()"
+            regex = "Repeat\.Once\(\)"
+            rule = "Replace with obj.Received().Foo() or obj.Received(1).Foo()"
+            type = "contextual"
+        },
+        @{
+            name = "Repeat.Twice()"
+            regex = "Repeat\.Twice\(\)"
+            rule = "Replace with obj.Received(2).Foo() assertion"
+            type = "contextual"
+        },
+        @{
+            name = "Repeat.Times(n)"
+            regex = "Repeat\.Times\(\d+\)"
+            rule = "Replace with obj.Received(n).Foo() assertion"
+            type = "contextual"
+        },
+        @{
+            name = ".Throw() on non-void"
+            regex = "\.Throw\([^)]+\)(?!.*void)"
+            rule = "Replace with .Returns(_ => throw new Ex())"
+            type = "contextual"
+        },
+        @{
+            name = ".Throw() on void"
+            regex = "void.*\.Throw\([^)]+\)"
+            rule = "Use .When(x => x.VoidFoo()).Do(_ => throw new Ex())"
+            type = "contextual"
+        },
+        @{
+            name = "WhenCalled(inv => ...)"
+            regex = "\.WhenCalled\([^)]*=>\s*[^)]*\)"
+            rule = "Replace with .When(x => x.Foo()).Do(...)"
+            type = "contextual"
+        },
+        @{
+            name = ".Do(Action)"
+            regex = "\.Do\([^)]+\)"
+            rule = "Use .When(x => x.Foo()).Do(...) or .Returns(...)"
+            type = "contextual"
+        },
+        @{
+            name = "ReplayAll()"
+            regex = "\.ReplayAll\(\)"
+            rule = "Remove (not needed in NSubstitute)"
+            type = "removal"
+        },
+        @{
+            name = "VerifyAll()"
+            regex = "\.VerifyAll\(\)"
+            rule = "Remove; replace with explicit Received() assertions"
+            type = "contextual"
+        },
+        @{
+            name = "using Rhino.Mocks"
+            regex = "using Rhino\.Mocks"
+            rule = "Remove; add 'using NSubstitute;' if not present"
+            type = "removal"
+        }
+    )
+    
+    for ($i = 0; $i -lt $lines.Count; $i++) {
+        $lineNum = $i + 1
+        $line = $lines[$i]
+        
+        # Skip if line doesn't contain Rhino references
+        if ($line -notmatch "Rhino|mocks|Substitute|Repeat|Arg|IgnoreArguments|WhenCalled|\.Do\(|\.Throw\(|Expect|ReplayAll|VerifyAll") {
+            continue
+        }
+        
+        foreach ($pattern in $patterns) {
+            if ($line -match $pattern.regex) {
+                $findings += @{
+                    line = $lineNum
+                    content = $line.Trim()
+                    pattern = $pattern.name
+                    rule = $pattern.rule
+                    type = $pattern.type
+                }
+            }
+        }
+    }
+    
+    return $findings
+}
+
+# Main logic
 $content = Get-Content -Path $FilePath -Encoding UTF8 -Raw
 
-# Skip if already migrated
-if ($content -notlike "*Rhino.Mocks*" -and $content -like "*NSubstitute*") {
+# Skip if already fully migrated
+if ($content -notmatch "Rhino\.Mocks|\.Stub\(|\.Expect\(|\.IgnoreArguments\(\)|Repeat\.|WhenCalled|ReplayAll|VerifyAll" -and $content -like "*using NSubstitute*") {
     Write-Host "Already migrated: $FilePath" -ForegroundColor Green
     return
 }
 
-# Check if has NSubstitute already
-$hasNSubstitute = $content -like "*using NSubstitute*"
+$findings = Find-Patterns -content $content -filePath $FilePath
 
-# Phase 1: Replace using statements
-$content = $content -replace "using Rhino\.Mocks;", ""
-if (-not $hasNSubstitute) {
-    # Add NSubstitute using after NUnit if present, otherwise at end of using block
-    if ($content -like "*using NUnit.Framework;*") {
-        $content = $content -replace "(using NUnit\.Framework;)", "`$1`nusing NSubstitute;"
-    } elseif ($content -like "*using Core.Common*") {
-        # Find last using Core.Common statement and add after it
-        $content = $content -replace "(using Core\.Common[^;]*;)", "`$1`nusing NSubstitute;"
-    } else {
-        # Add after last using statement
-        $lastUsingMatch = [regex]::Matches($content, "using [^;]+;") | Select-Object -Last 1
-        if ($lastUsingMatch) {
-            $lastUsing = $lastUsingMatch.Value
-            $content = $content -replace [regex]::Escape($lastUsing), "$lastUsing`nusing NSubstitute;"
-        }
+if ($findings.Count -eq 0) {
+    Write-Host "No Rhino.Mocks patterns found: $FilePath" -ForegroundColor Green
+    return
+}
+
+# Build report
+$report = @{
+    file = $FilePath
+    needsMigration = $true
+    patternCount = $findings.Count
+    patterns = $findings
+    summary = @{
+        removals = @($findings | Where-Object { $_.type -eq "removal" }).Count
+        transforms = @($findings | Where-Object { $_.type -eq "transform" }).Count
+        contextual = @($findings | Where-Object { $_.type -eq "contextual" }).Count
     }
 }
 
-# Phase 2: Remove MockRepository initialization  
-# Pattern: var mocks = new MockRepository(); with surrounding empty lines
-$content = $content -replace "(\s+)var mocks = new MockRepository\(\);\r?\n", "`$1"
-
-# Phase 3: Replace mocks.Stub<T>() -> Substitute.For<T>()
-$content = $content -replace "mocks\.Stub<([^>]+)>\(\)", "Substitute.For<`$1>()"
-
-# Phase 4: Replace object.Stub(lambda).Return -> object.Return pattern
-# This is trickier - need to handle chained calls
-# Pattern: variable.Stub(x => x.Property).Return(value)
-$content = $content -replace "(\w+)\.Stub\(([^)]*)\s*=>\s*(.+?)\)\.Return", "`$1.`$3.Returns"
-
-# Phase 5: Remove ReplayAll() calls with surrounding whitespace
-$content = $content -replace "\s*mocks\.ReplayAll\(\);\r?\n", "`n"
-
-# Phase 6: Remove VerifyAll() calls with surrounding whitespace
-$content = $content -replace "\s*mocks\.VerifyAll\(\);\r?\n", "`n"
-
-# Phase 7: Clean up extra blank lines created by removals
-$content = $content -replace "\r?\n\s*\r?\n\s*\r?\n", "`n`n"
-
-# Write back with UTF8 encoding (no BOM)
-$utf8NoBOM = New-Object System.Text.UTF8Encoding $false
-[System.IO.File]::WriteAllText($FilePath, $content, $utf8NoBOM)
-
-Write-Host "Migrated: $FilePath" -ForegroundColor Cyan
+# Output
+if ($OutputFile) {
+    $report | ConvertTo-Json -Depth 10 | Out-File -FilePath $OutputFile -Encoding UTF8
+    Write-Host "Flagged $($findings.Count) patterns in: $FilePath -> $OutputFile" -ForegroundColor Cyan
+} else {
+    $report | ConvertTo-Json -Depth 10
+}
