@@ -21,9 +21,9 @@
 
 using System;
 using Core.Components.OxyPlot.CustomSeries;
+using NSubstitute;
 using NUnit.Framework;
 using OxyPlot;
-using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
 {
@@ -60,9 +60,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         public void Render_NoLines_NoCallForDrawLine()
         {
             // Setup
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
 
             var series = new MultipleLineSeries();
 
@@ -70,16 +68,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, null, default, default);
         }
 
         [Test]
         public void Render_EmptyLines_NoCallForDrawLine()
         {
             // Setup
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
 
             var series = new MultipleLineSeries
             {
@@ -95,7 +91,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, null, default, default);
         }
 
         [Test]
@@ -125,19 +121,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var model = new PlotModel();
             model.Series.Add(series);
 
-            var mocks = new MockRepository();
-            var renderContext = mocks.Stub<IRenderContext>();
-            renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
-            renderContext.Stub(rc => rc.ResetClip());
-            renderContext.Expect(rc => rc.DrawLine(
-                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length == pointCount),
-                                     Arg<OxyColor>.Is.Equal(series.Color),
-                                     Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Equal(dashes ?? style.Value.GetDashArray()),
-                                     Arg<LineJoin>.Is.Anything,
-                                     Arg<bool>.Is.Anything));
+            var renderContext = Substitute.For<IRenderContext>();
+            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
 
-            mocks.ReplayAll();
             var line = new DataPoint[pointCount];
             series.Lines.Add(line);
 
@@ -152,7 +138,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            double[] expectedDashes = dashes ?? style.Value.GetDashArray();
+            renderContext.Received(1).DrawLine(
+                Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
+                Arg.Is<OxyColor>(c => c == series.Color),
+                Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Is<double[]>(d => Equals(d, expectedDashes)),
+                Arg.Any<LineJoin>(),
+                Arg.Any<bool>());
         }
 
         [Test]
@@ -182,19 +175,8 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var model = new PlotModel();
             model.Series.Add(series);
 
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
-            renderContext.Stub(rc => rc.ResetClip());
-            renderContext.Expect(rc => rc.DrawLine(
-                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length == 1),
-                                     Arg<OxyColor>.Is.Equal(series.Color),
-                                     Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Equal(dashes ?? style.Value.GetDashArray()),
-                                     Arg<LineJoin>.Is.Anything,
-                                     Arg<bool>.Is.Anything)).Repeat.Times(lineCount);
-
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
+            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
 
             for (var i = 0; i < lineCount; i++)
             {
@@ -210,7 +192,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            double[] expectedDashes = dashes ?? style.Value.GetDashArray();
+            renderContext.Received(lineCount).DrawLine(
+                Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
+                Arg.Is<OxyColor>(c => c == series.Color),
+                Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Is<double[]>(d => Equals(d, expectedDashes)),
+                Arg.Any<LineJoin>(),
+                Arg.Any<bool>());
         }
     }
 }

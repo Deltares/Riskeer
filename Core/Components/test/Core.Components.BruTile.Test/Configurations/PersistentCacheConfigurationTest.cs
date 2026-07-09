@@ -29,8 +29,8 @@ using Core.Common.Util;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.Gis.Exceptions;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.BruTile.Test.Configurations
 {
@@ -131,10 +131,8 @@ namespace Core.Components.BruTile.Test.Configurations
         public void InitializeFromTileSource_ValidTileSource_InitializeConfiguration()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            var tileSchema = mocks.Stub<ITileSchema>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
+            var tileSchema = Substitute.For<ITileSchema>();
 
             string rootPath = TestHelper.GetScratchPadPath("InitializeFromTileSource_ValidTileSource_InitializeConfiguration");
 
@@ -155,18 +153,14 @@ namespace Core.Components.BruTile.Test.Configurations
                     }
                 },
                 rootPath);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            var tileSchema = mocks.Stub<ITileSchema>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
+            var tileSchema = Substitute.For<ITileSchema>();
 
             var tileSource = new TileSource(tileProvider, tileSchema);
 
@@ -194,10 +188,8 @@ namespace Core.Components.BruTile.Test.Configurations
         public void InitializeFromTileSource_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            var tileSchema = mocks.Stub<ITileSchema>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
+            var tileSchema = Substitute.For<ITileSchema>();
 
             string rootPath = TestHelper.GetScratchPadPath("InitializeFromTileSource_ConfigurationDisposed_ThrownObjectDisposedException");
 
@@ -217,8 +209,6 @@ namespace Core.Components.BruTile.Test.Configurations
                     Assert.AreEqual("SimplePersistentCacheConfiguration", objectName);
                 },
                 rootPath);
-
-            mocks.VerifyAll();
         }
 
         [Test]

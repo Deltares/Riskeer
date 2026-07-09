@@ -37,8 +37,8 @@ using DotSpatial.Data;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -172,10 +172,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void GivenMapLayerWithScheme_WhenConvertingLayerFeatures_ThenClearsAppliedSchemeAndAppliesDefaultCategory()
         {
             // Given
-            var mocks = new MockRepository();
-            var categoryOne = mocks.Stub<ILineCategory>();
-            var categoryTwo = mocks.Stub<ILineCategory>();
-            mocks.ReplayAll();
+            var categoryOne = Substitute.For<ILineCategory>();
+            var categoryTwo = Substitute.For<ILineCategory>();
 
             var mapLineLayer = new MapLineLayer
             {
@@ -227,7 +225,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle);
             AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
 
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -1,6 +1,37 @@
 # Dependencies
 The following table shows the libraries used in the repository.
 
+## NSubstitute Migration Rulebook
+
+Active migration from Rhino.Mocks to NSubstitute. All new test code must use NSubstitute. Rhino.Mocks overloads in shared helpers (`*TestUtil`) are kept until repository-wide Rhino usage is zero.
+
+| Rhino.Mocks pattern | NSubstitute equivalent |
+|---|---|
+| `new MockRepository(); repo.StrictMock<T>()/Stub<T>()` | `Substitute.For<T>()` |
+| `obj.Stub(x => x.Foo(a)).Return(v)` | `obj.Foo(a).Returns(v)` |
+| `obj.Expect(x => x.Foo(a)).Return(v)` | `obj.Foo(a).Returns(v)` + `obj.Received().Foo(a)` at verify |
+| `obj.Expect(x => x.VoidFoo(a))` | _(remove)_ + `obj.Received().VoidFoo(a)` at verify |
+| `Arg<T>.Is.Anything` / `IgnoreArguments()` | `Arg.Any<T>()` |
+| `WhenCalled(inv => ...)` / `.Do((Action)...)` | `.When(x => x.Foo()).Do(_ => ...)` |
+| `Repeat.Never()` | `obj.DidNotReceive().Foo()` |
+| `Repeat.Any()` | _(remove verification)_ |
+| `Repeat.AtLeastOnce()` | `obj.Received().Foo()` |
+| `Repeat.Twice()` | `obj.Received(2).Foo()` |
+| `.Throw(new Ex())` on non-void | `.Returns(_ => throw new Ex())` |
+| `.Throw(new Ex())` on void | `.When(x => x.VoidFoo()).Do(_ => throw new Ex())` |
+| `ReplayAll()` | _(remove)_ |
+| `VerifyAll()` | explicit `Received()` / `DidNotReceive()` calls |
+
+**Structure preservation rules**
+- Keep the original test layout (`Setup` / `Call` / `Assert`) intact wherever possible.
+- When migrating `Repeat.Times(n)` / `Repeat.Once()` / `Repeat.Twice()`, keep the count intent near the original setup location by introducing a local `const`/variable there (for example `const int numberOfChangedProperties = 5;`) and reuse that variable in the later `Received(...)` assertion.
+- Avoid moving verification intent unnecessarily far from its original location; prefer minimal, local edits over broader rewrites.
+- Only introduce extra `Received()` assertions when they replace original Rhino verification intent.
+
+**Scope:** ~400+ test files across Core and Riskeer. **Status:** Phase 2 - pilot complete; Phase 3 in progress (Core test suites migrated; Riskeer domain suites pending).
+
+
+
 For each library the version and used license is shown. For the full license text of the library, refer to the [Licenses subfolder](licenses).
 
 | Library                                   | Version     | License      | Source                                                                          |
@@ -45,7 +76,7 @@ For each library the version and used license is shown. For the full license tex
 | Piping                                    | 16.2.1.4574 | AGPL-3.0     | https://repos.deltares.nl/repos/FailureMechanisms/FailureMechanisms/DikesPiping |
 | QuickGraph                                | 3.6.61119.7 | MS-PL        | https://www.nuget.org/packages/QuickGraph                                       |
 | NSubstitute                               | 4.4.0       | BSD-3-Clause | https://github.com/nsubstitute/NSubstitute                                     |
-| RhinoMocks                                | 3.6.1       | BSD-3-Clause | https://github.com/hibernating-rhinos/rhino-mocks                               |
+| RhinoMocks                                | 3.6.1       | BSD-3-Clause | https://github.com/hibernating-rhinos/rhino-mocks (migration to NSubstitute in progress; kept for dual-stack helpers) |
 | SmartThreadPool.dll                       | 2.2.4       | MS-PL        | https://github.com/amibar/SmartThreadPool                                       |
 | Stub.System.Data.SQLite.Core.NetFramework | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |
 | System.Data.SQLite.Core                   | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |

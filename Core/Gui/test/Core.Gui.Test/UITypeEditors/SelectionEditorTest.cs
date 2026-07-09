@@ -22,11 +22,12 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.UITypeEditors;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.UITypeEditors
 {
@@ -65,11 +66,9 @@ namespace Core.Gui.Test.UITypeEditors
         {
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            mockRepository.ReplayAll();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            provider.GetService(Arg.Any<Type>()).Returns(service);
 
             var someValue = new object();
 
@@ -79,7 +78,7 @@ namespace Core.Gui.Test.UITypeEditors
             // Assert
             Assert.AreSame(someValue, result);
 
-            mockRepository.VerifyAll();
+            provider.Received().GetService(Arg.Any<Type>());
         }
 
         [Test]
@@ -87,13 +86,10 @@ namespace Core.Gui.Test.UITypeEditors
         {
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var context = mockRepository.StrictMock<ITypeDescriptorContext>();
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            mockRepository.ReplayAll();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            provider.GetService(Arg.Any<Type>()).Returns(service);
 
             var someValue = new object();
 
@@ -103,7 +99,8 @@ namespace Core.Gui.Test.UITypeEditors
             // Assert
             Assert.AreSame(someValue, result);
 
-            mockRepository.VerifyAll();
+            provider.Received().GetService(Arg.Any<Type>());
+            service.Received().DropDownControl(Arg.Any<Control>());
         }
 
         [Test]
@@ -112,21 +109,20 @@ namespace Core.Gui.Test.UITypeEditors
             var nullItem = new object();
             var editor = new TestSelectionEditor(nullItem);
 
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var context = mockRepository.StrictMock<ITypeDescriptorContext>();
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            service.Expect(s => s.CloseDropDown());
-            mockRepository.ReplayAll();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            provider.GetService(Arg.Any<Type>()).Returns(service);
 
             // Call
             object result = editor.EditValue(context, provider, nullItem);
 
             // Assert
             Assert.IsNull(result);
-            mockRepository.VerifyAll();
+
+            provider.Received().GetService(Arg.Any<Type>());
+            service.Received().DropDownControl(Arg.Any<Control>());
+            service.Received().CloseDropDown();
         }
 
         private class TestSelectionEditor : SelectionEditor<IObjectProperties, object>

@@ -24,9 +24,9 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Components.Gis.Forms.Views;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.Gis.Forms.Test.Views
 {
@@ -62,9 +62,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WithDialogParent_ExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
 
             // Call
             using (var dialog = new WmtsConnectionDialog(dialogParent))
@@ -95,17 +93,13 @@ namespace Core.Components.Gis.Forms.Test.Views
                 var urlTextBox = new TextBoxTester("urlTextBox", dialog);
                 Assert.IsEmpty(urlTextBox.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void WmtsConnectionInfoConstructor_WithDialogParent_ExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
             const string connectionName = @"name";
             const string connectionUrl = @"url";
             var info = new WmtsConnectionInfo(connectionName, connectionUrl);
@@ -139,8 +133,6 @@ namespace Core.Components.Gis.Forms.Test.Views
                 var urlTextBox = new TextBoxTester("urlTextBox", dialog);
                 Assert.AreEqual(connectionUrl, urlTextBox.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -295,9 +287,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
 
             // Call
             TestDelegate call = () =>
@@ -310,7 +300,6 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(call);
-            mocks.VerifyAll();
         }
     }
 }

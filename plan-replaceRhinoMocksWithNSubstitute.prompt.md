@@ -1,6 +1,6 @@
 ## Plan: Replace Rhino.Mocks with NSubstitute
 
-Migrate test projects from Rhino.Mocks to NSubstitute in controlled phases using a dual-stack transition: shared test helpers expose both Rhino.Mocks and NSubstitute implementations until repository usage of Rhino is zero. This reduces regression risk around strict/replay semantics while keeping CI green and allowing incremental suite migration.
+Migrate test projects from Rhino.Mocks to NSubstitute in controlled phases using a dual-stack transition: shared test helpers expose both Rhino.Mocks and NSubstitute implementations until repository usage of Rhino is zero. This reduces regression risk around strict/replay semantics while keeping CI green and allowing incremental suite migration. Ensure files you edit are edited with -Encoding UTF8 to not break any "e with dots". 
 
 ### Steps
 1. [ ] Inventory Rhino usage and package references across `Riskeer/**/*.cs` and `Riskeer/**/*.csproj`, tagging `MockRepository`, `Expect`, `Stub`, `Arg`, `ReplayAll`, `VerifyAll`, `WhenCalled`, `IgnoreArguments`, `Repeat`.
@@ -29,6 +29,11 @@ Migrate test projects from Rhino.Mocks to NSubstitute in controlled phases using
 | `VerifyAll()` | `Received()` / `DidNotReceive()` | Assert only behavior that matters to test intent. |
 | `Repeat.Twice()/Once()/Never()` | `Received(2/1/0)` | Use exact counts only where contract requires it. |
 | `Throw(new Ex())` | `Returns(_ => throw new Ex())` or `When(...).Do(_ => throw ...)` | Pick based on return type vs `void`. |
+
+### Structure Preservation Rule
+1. Preserve the original test structure as much as possible; prefer the smallest mechanical edit that replaces Rhino semantics.
+2. Do not move count intent far away from its original setup location. If Rhino used `Repeat.Times(n)` in setup, keep that intent visible there by storing it in a local variable/constant and reuse that value in the later `Received(...)` assertion.
+3. Avoid broad rewrites when a local substitution is sufficient.
 
 ### Phased Rollout
 1. **Phase 0 - Baseline:** create inventory and migration rulebook; freeze new Rhino usage.

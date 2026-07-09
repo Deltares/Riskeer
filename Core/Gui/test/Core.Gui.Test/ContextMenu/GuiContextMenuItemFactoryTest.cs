@@ -28,8 +28,8 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -37,6 +37,23 @@ namespace Core.Gui.Test.ContextMenu
     public class ContextMenuItemFactoryTest
     {
         private MockRepository mocks;
+
+        private sealed class MockRepository
+        {
+            public T StrictMock<T>() where T : class
+            {
+                return Substitute.For<T>();
+            }
+
+            public T Stub<T>() where T : class
+            {
+                return Substitute.For<T>();
+            }
+
+            public void ReplayAll() {}
+
+            public void VerifyAll() {}
+        }
 
         [SetUp]
         public void SetUp()
@@ -256,7 +273,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(canOpenView);
+            viewCommands.CanOpenViewFor(nodeData).Returns(canOpenView);
 
             mocks.ReplayAll();
 
@@ -290,8 +307,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(true);
-            viewCommands.Expect(ch => ch.OpenView(nodeData));
+            viewCommands.CanOpenViewFor(nodeData).Returns(true);
 
             mocks.ReplayAll();
 
@@ -308,7 +324,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received(1).OpenView(nodeData);
         }
 
         [Test]
@@ -324,7 +340,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            exportCommandHandler.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
+            exportCommandHandler.CanExportFrom(nodeData).Returns(hasExportersForNodeData);
 
             mocks.ReplayAll();
 
@@ -358,8 +374,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            exportCommandHandler.Expect(ch => ch.CanExportFrom(nodeData)).Return(true);
-            exportCommandHandler.Expect(ch => ch.ExportFrom(nodeData));
+            exportCommandHandler.CanExportFrom(nodeData).Returns(true);
 
             mocks.ReplayAll();
 
@@ -376,7 +391,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            exportCommandHandler.Received(1).ExportFrom(nodeData);
         }
 
         [Test]
@@ -392,12 +407,12 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(hasImportersForNodeData
-                                                                                                 ? new[]
-                                                                                                 {
-                                                                                                     new ImportInfo()
-                                                                                                 }
-                                                                                                 : new ImportInfo[0]);
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(hasImportersForNodeData
+                                                                               ? new[]
+                                                                               {
+                                                                                   new ImportInfo()
+                                                                               }
+                                                                               : new ImportInfo[0]);
 
             mocks.ReplayAll();
 
@@ -436,8 +451,7 @@ namespace Core.Gui.Test.ContextMenu
                 new ImportInfo()
             };
 
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
-            importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(importInfos);
 
             mocks.ReplayAll();
 
@@ -454,7 +468,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            importCommandHandler.Received(1).ImportOn(nodeData, importInfos);
         }
 
         [Test]
@@ -514,7 +528,7 @@ namespace Core.Gui.Test.ContextMenu
                 new ImportInfo()
             };
 
-            importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
+            
 
             mocks.ReplayAll();
 
@@ -531,7 +545,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            importCommandHandler.Received(1).ImportOn(nodeData, importInfos);
         }
 
         [Test]
@@ -653,12 +667,12 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(hasImportersForNodeData
-                                                                                                 ? new[]
-                                                                                                 {
-                                                                                                     new ImportInfo()
-                                                                                                 }
-                                                                                                 : new ImportInfo[0]);
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(hasImportersForNodeData
+                                                                               ? new[]
+                                                                               {
+                                                                                   new ImportInfo()
+                                                                               }
+                                                                               : new ImportInfo[0]);
 
             mocks.ReplayAll();
 
@@ -701,8 +715,7 @@ namespace Core.Gui.Test.ContextMenu
                 new ImportInfo()
             };
 
-            importCommandHandler.Expect(ich => ich.GetSupportedImportInfos(nodeData)).Return(importInfos);
-            importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
+            importCommandHandler.GetSupportedImportInfos(nodeData).Returns(importInfos);
 
             mocks.ReplayAll();
 
@@ -719,7 +732,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            importCommandHandler.Received(1).ImportOn(nodeData, importInfos);
         }
 
         [Test]
@@ -889,7 +902,7 @@ namespace Core.Gui.Test.ContextMenu
                 new ImportInfo()
             };
 
-            importCommandHandler.Expect(ich => ich.ImportOn(nodeData, importInfos));
+            
 
             mocks.ReplayAll();
 
@@ -906,7 +919,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            importCommandHandler.Received(1).ImportOn(nodeData, importInfos);
         }
 
         [Test]
@@ -922,7 +935,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            updateCommandHandler.Expect(ch => ch.CanUpdateOn(nodeData)).Return(canUpdateOn);
+            updateCommandHandler.CanUpdateOn(nodeData).Returns(canUpdateOn);
 
             mocks.ReplayAll();
 
@@ -956,8 +969,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            updateCommandHandler.Expect(ch => ch.CanUpdateOn(nodeData)).Return(true);
-            updateCommandHandler.Expect(ch => ch.UpdateOn(nodeData));
+            updateCommandHandler.CanUpdateOn(nodeData).Returns(true);
 
             mocks.ReplayAll();
 
@@ -974,7 +986,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            updateCommandHandler.Received(1).UpdateOn(nodeData);
         }
 
         [Test]
@@ -989,7 +1001,7 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            commandHandler.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
+            commandHandler.CanShowPropertiesFor(nodeData).Returns(hasPropertyInfoForNodeData);
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
                                                                    importCommandHandler,
@@ -1023,8 +1035,7 @@ namespace Core.Gui.Test.ContextMenu
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
-            commandHandler.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(true);
-            commandHandler.Expect(ch => ch.ShowPropertiesForSelection());
+            commandHandler.CanShowPropertiesFor(nodeData).Returns(true);
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
                                                                    importCommandHandler,
@@ -1041,7 +1052,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            commandHandler.Received(1).ShowPropertiesForSelection();
         }
     }
 }

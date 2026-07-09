@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Converters
 {
@@ -115,9 +115,7 @@ namespace Core.Gui.Test.Converters
         [Test]
         public void GetProperties_WithoutPropertyDescriptor_ThrowsArgumentException()
         {
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
 
             var converter = new KeyValueExpandableArrayConverter();
 
@@ -127,17 +125,14 @@ namespace Core.Gui.Test.Converters
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test,
                                                                                       "The KeyValueExpandableArrayConverter can only be used on properties that have the KeyValueElementAttribute defined.");
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithoutKeyValueElementAttribute_ThrowsArgumentException()
         {
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var descriptor = mocks.Stub<PropertyDescriptor>("name", new Attribute[0]);
-            context.Stub(c => c.PropertyDescriptor).Return(descriptor);
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
+            context.PropertyDescriptor.Returns(descriptor);
 
             var converter = new KeyValueExpandableArrayConverter();
 
@@ -148,7 +143,6 @@ namespace Core.Gui.Test.Converters
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 test,
                 "The KeyValueExpandableArrayConverter can only be used on properties that have the KeyValueElementAttribute defined.");
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -161,12 +155,10 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute(nameof(TestObject.Name), nameof(TestObject.Value));
             var attributes = new AttributeCollection(attribute);
 
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var descriptor = mocks.Stub<PropertyDescriptor>("name", new Attribute[0]);
-            descriptor.Stub(d => d.Attributes).Return(attributes);
-            context.Stub(c => c.PropertyDescriptor).Return(descriptor);
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
+            descriptor.Attributes.Returns(attributes);
+            context.PropertyDescriptor.Returns(descriptor);
 
             const string name = "name";
             const string value = "value";
@@ -196,8 +188,6 @@ namespace Core.Gui.Test.Converters
                 Assert.NotNull(actualValue);
                 Assert.AreEqual(value, actualValue);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -207,12 +197,10 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute(nameof(TestObject.Name), nameof(TestObject.Value));
             var attributes = new AttributeCollection(attribute);
 
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var descriptor = mocks.Stub<PropertyDescriptor>("name", new Attribute[0]);
-            descriptor.Stub(d => d.Attributes).Return(attributes);
-            context.Stub(c => c.PropertyDescriptor).Return(descriptor);
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
+            descriptor.Attributes.Returns(attributes);
+            context.PropertyDescriptor.Returns(descriptor);
 
             const int elementCount = 12;
             TestObject[] array = Enumerable.Repeat(new TestObject
@@ -230,8 +218,6 @@ namespace Core.Gui.Test.Converters
             {
                 Assert.Throws<NotSupportedException>(() => propertyDescriptors[i].SetValue(array, i));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -241,12 +227,10 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute("IDoNotExist", nameof(TestObject.Value));
             var attributes = new AttributeCollection(attribute);
 
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var descriptor = mocks.Stub<PropertyDescriptor>("name", new Attribute[0]);
-            descriptor.Stub(d => d.Attributes).Return(attributes);
-            context.Stub(c => c.PropertyDescriptor).Return(descriptor);
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
+            descriptor.Attributes.Returns(attributes);
+            context.PropertyDescriptor.Returns(descriptor);
 
             const int elementCount = 12;
             TestObject[] array = Enumerable.Repeat(new TestObject
@@ -270,12 +254,10 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute(nameof(TestObject.Name), "IDoNotExist");
             var attributes = new AttributeCollection(attribute);
 
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var descriptor = mocks.Stub<PropertyDescriptor>("name", new Attribute[0]);
-            descriptor.Stub(d => d.Attributes).Return(attributes);
-            context.Stub(c => c.PropertyDescriptor).Return(descriptor);
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
+            descriptor.Attributes.Returns(attributes);
+            context.PropertyDescriptor.Returns(descriptor);
 
             const int elementCount = 12;
             TestObject[] array = Enumerable.Repeat(new TestObject

@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -48,9 +48,7 @@ namespace Core.Gui.Test.Plugin
         public void Gui_SetValue_GetNewlySetValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            mocks.ReplayAll();
+            var gui = Substitute.For<IGui>();
 
             using (var plugin = new SimplePlugin())
             {
@@ -60,8 +58,6 @@ namespace Core.Gui.Test.Plugin
                 // Assert
                 Assert.AreEqual(gui, plugin.Gui);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -194,9 +190,7 @@ namespace Core.Gui.Test.Plugin
         public void Dispose_SetGuiToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            mocks.ReplayAll();
+            var gui = Substitute.For<IGui>();
 
             var plugin = new SimplePlugin
             {
@@ -208,7 +202,6 @@ namespace Core.Gui.Test.Plugin
 
             // Assert
             Assert.IsNull(plugin.Gui);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -229,11 +222,9 @@ namespace Core.Gui.Test.Plugin
         public void GetInquiryHelper_WithGui_ReturnsDialogBasedInquiryHelper()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
             var plugin = new SimplePlugin
             {
@@ -245,18 +236,15 @@ namespace Core.Gui.Test.Plugin
 
             // Assert
             Assert.IsInstanceOf<DialogBasedInquiryHelper>(inquiryHelper);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPluginWithGui_WhenGetInquiryHelperCalled_ThenAlwaysSameInquiryHelperReturned()
         {
             // Given
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
             var plugin = new SimplePlugin
             {
@@ -269,7 +257,6 @@ namespace Core.Gui.Test.Plugin
 
             // Then
             Assert.AreSame(inquiryHelper1, inquiryHelper2);
-            mocks.VerifyAll();
         }
 
         private class SimplePlugin : PluginBase

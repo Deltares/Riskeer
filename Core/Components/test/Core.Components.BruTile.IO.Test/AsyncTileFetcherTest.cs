@@ -25,8 +25,8 @@ using System.Threading;
 using BruTile;
 using BruTile.Cache;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.BruTile.IO.Test
 {
@@ -43,9 +43,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             // Call
             using (var tileFetcher = new AsyncTileFetcher(tileProvider, 100, 200))
@@ -53,8 +51,6 @@ namespace Core.Components.BruTile.IO.Test
                 // Assert
                 Assert.IsInstanceOf<ITileFetcher>(tileFetcher);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,9 +70,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_NegativeNumberOfTilesForMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             // Call
             TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
@@ -85,7 +79,6 @@ namespace Core.Components.BruTile.IO.Test
             const string message = "Het aantal kaart tegels voor de geheugen cache moeten positief zijn.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual(min < 0 ? "minTiles" : "maxTiles", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,9 +87,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_InvalidInMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             // Call
             TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
@@ -104,7 +95,6 @@ namespace Core.Components.BruTile.IO.Test
             // Assert
             const string message = "Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -114,14 +104,11 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            tileProvider.Stub(tp => tp.GetTile(info)).Return(data);
+            var tileProvider = Substitute.For<ITileProvider>();
+            tileProvider.GetTile(info).Returns(data);
 
-            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
-            persistentCache.Stub(c => c.Find(info.Index)).Return(null);
-            persistentCache.Expect(c => c.Add(info.Index, data));
-            mocks.ReplayAll();
+            var persistentCache = Substitute.For<ITileCache<byte[]>>();
+            persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherIsDoneEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
@@ -162,7 +149,7 @@ namespace Core.Components.BruTile.IO.Test
                 }
             }
 
-            mocks.VerifyAll();
+            persistentCache.Received(1).Add(info.Index, data);
         }
 
         [Test]
@@ -172,14 +159,11 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            tileProvider.Stub(tp => tp.GetTile(info)).Return(data);
+            var tileProvider = Substitute.For<ITileProvider>();
+            tileProvider.GetTile(info).Returns(data);
 
-            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
-            persistentCache.Stub(c => c.Find(info.Index)).Return(null);
-            persistentCache.Stub(c => c.Add(info.Index, data));
-            mocks.ReplayAll();
+            var persistentCache = Substitute.For<ITileCache<byte[]>>();
+            persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
@@ -206,8 +190,6 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher should not fire asynchronous events if tile is retrieved from cache.");
                 }
-
-                mocks.VerifyAll();
             }
         }
 
@@ -218,13 +200,11 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            tileProvider.Stub(tp => tp.GetTile(info)).Return(data);
+            var tileProvider = Substitute.For<ITileProvider>();
+            tileProvider.GetTile(info).Returns(data);
 
-            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
-            persistentCache.Stub(c => c.Find(info.Index)).Return(data);
-            mocks.ReplayAll();
+            var persistentCache = Substitute.For<ITileCache<byte[]>>();
+            persistentCache.Find(info.Index).Returns(data);
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
@@ -241,8 +221,6 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher should not fire asynchronous events if tile is retrieved from cache.");
                 }
-
-                mocks.VerifyAll();
             }
         }
 
@@ -253,13 +231,11 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            tileProvider.Stub(tp => tp.GetTile(info)).Return(data);
+            var tileProvider = Substitute.For<ITileProvider>();
+            tileProvider.GetTile(info).Returns(data);
 
-            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
-            persistentCache.Stub(c => c.Find(info.Index)).Throw(new IOException());
-            mocks.ReplayAll();
+            var persistentCache = Substitute.For<ITileCache<byte[]>>();
+            persistentCache.Find(info.Index).Returns(_ => throw new IOException());
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
@@ -276,8 +252,6 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher should not fire asynchronous events if tile is retrieved from cache.");
                 }
-
-                mocks.VerifyAll();
             }
         }
 
@@ -285,9 +259,7 @@ namespace Core.Components.BruTile.IO.Test
         public void GetTile_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -300,8 +272,6 @@ namespace Core.Components.BruTile.IO.Test
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
             Assert.AreEqual("AsyncTileFetcher", objectName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -374,26 +344,20 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            using (mocks.Ordered())
-            {
-                var callCount = 0;
-                tileProvider.Stub(tp => tp.GetTile(info))
-                            .WhenCalled(invocation =>
+            var tileProvider = Substitute.For<ITileProvider>();
+            var callCount = 0;
+            tileProvider.GetTile(info)
+                        .Returns(_ =>
+                        {
+                            if (++callCount == 1)
                             {
-                                if (++callCount == 1)
-                                {
-                                    throw new Exception("1st attempt fails.");
-                                }
-                            })
-                            .Return(data);
-            }
+                                throw new Exception("1st attempt fails.");
+                            }
+                            return data;
+                        });
 
-            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
-            persistentCache.Stub(c => c.Find(info.Index)).Return(null);
-            persistentCache.Expect(c => c.Add(info.Index, data));
-            mocks.ReplayAll();
+            var persistentCache = Substitute.For<ITileCache<byte[]>>();
+            persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherIsDoneEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
@@ -432,9 +396,9 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher did not respond within timelimit.");
                 }
-
-                mocks.VerifyAll();
             }
+
+            persistentCache.Received(1).Add(info.Index, data);
         }
 
         [Test]
@@ -475,9 +439,7 @@ namespace Core.Components.BruTile.IO.Test
         public void DropAllPendingTileRequests_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -488,17 +450,13 @@ namespace Core.Components.BruTile.IO.Test
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
             Assert.AreEqual("AsyncTileFetcher", objectName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsReady_TileFetcherIdle_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
             {
@@ -507,7 +465,6 @@ namespace Core.Components.BruTile.IO.Test
 
                 // Assert
                 Assert.IsTrue(fetcherIsReady);
-                mocks.VerifyAll();
             }
         }
 
@@ -518,12 +475,13 @@ namespace Core.Components.BruTile.IO.Test
             using (var isReadyCalledEvent = new AutoResetEvent(false))
             {
                 var tileInfo = new TileInfo();
-                var mocks = new MockRepository();
-                var tileProvider = mocks.Stub<ITileProvider>();
-                tileProvider.Stub(p => p.GetTile(tileInfo))
-                            .WhenCalled(invocation => isReadyCalledEvent.WaitOne(100))
-                            .Return(null);
-                mocks.ReplayAll();
+                var tileProvider = Substitute.For<ITileProvider>();
+                tileProvider.GetTile(tileInfo)
+                            .Returns(_ =>
+                            {
+                                isReadyCalledEvent.WaitOne(100);
+                                return null;
+                            });
 
                 using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
                 {
@@ -536,7 +494,6 @@ namespace Core.Components.BruTile.IO.Test
                     isReadyCalledEvent.Set();
 
                     Assert.IsFalse(fetcherIsReady);
-                    mocks.VerifyAll();
                 }
             }
         }
@@ -545,9 +502,7 @@ namespace Core.Components.BruTile.IO.Test
         public void IsRead_TileFetcherDisposed_ThrowObjetDisposedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -558,17 +513,13 @@ namespace Core.Components.BruTile.IO.Test
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
             Assert.AreEqual("AsyncTileFetcher", objectName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_CalledMultipleTimes_DoesNotThrow()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileProvider = mocks.Stub<ITileProvider>();
-            mocks.ReplayAll();
+            var tileProvider = Substitute.For<ITileProvider>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
 

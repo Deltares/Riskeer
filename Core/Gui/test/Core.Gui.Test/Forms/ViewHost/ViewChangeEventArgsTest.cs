@@ -21,8 +21,8 @@
 
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.ViewHost;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {
@@ -43,7 +43,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void Constructor_WithView_ViewSet()
         {
             // Setup
-            var view = new MockRepository().StrictMock<IView>();
+            var view = Substitute.For<IView>();
 
             // Call
             var args = new ViewChangeEventArgs(view);

@@ -24,9 +24,9 @@ using System.Windows.Forms;
 using Core.Gui.Clipboard;
 using Core.Gui.Commands;
 using Core.Gui.TestUtil.Clipboard;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test
 {
@@ -37,10 +37,7 @@ namespace Core.Gui.Test
         public void DefaultConstructor_ExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             // Call
             using (var dialog = new ExceptionDialog(window, null, null))
@@ -58,17 +55,13 @@ namespace Core.Gui.Test
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Show_Always_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null))
             {
@@ -83,17 +76,13 @@ namespace Core.Gui.Test
                 string exceptionText = textBox.Text;
                 Assert.AreEqual("", exceptionText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Show_WithException_ExceptionMessageSetToTextBox()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             var exception = new Exception("Test", new Exception("Test inner"));
             using (var dialog = new ExceptionDialog(window, null, exception))
@@ -106,17 +95,13 @@ namespace Core.Gui.Test
                 string exceptionText = textBox.Text;
                 Assert.AreEqual(exception.ToString().Replace(Environment.NewLine, "\n"), exceptionText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenExceptionDialog_WhenNoOpenLogActionSet_ThenOpenLogButtonDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null))
             {
@@ -128,17 +113,13 @@ namespace Core.Gui.Test
                 var buttonOpenLog = (Button) button.TheObject;
                 Assert.IsFalse(buttonOpenLog.Enabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenExceptionDialog_WhenOpenLogActionSet_ThenOpenLogButtonEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null)
             {
@@ -153,18 +134,13 @@ namespace Core.Gui.Test
                 var buttonOpenLog = (Button) button.TheObject;
                 Assert.IsTrue(buttonOpenLog.Enabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenExceptionDialog_WhenRestartButtonClicked_ThenDialogResultOk()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null))
             {
@@ -177,17 +153,13 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.AreEqual(DialogResult.OK, dialog.DialogResult);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenExceptionDialog_WhenExitButtonClicked_ThenDialogResultCancel()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null))
             {
@@ -200,8 +172,6 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.AreEqual(DialogResult.Cancel, dialog.DialogResult);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,9 +180,7 @@ namespace Core.Gui.Test
             // Setup
             var counter = 0;
 
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
 
             using (var dialog = new ExceptionDialog(window, null, null)
             {
@@ -228,8 +196,6 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.AreEqual(1, counter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -258,12 +224,10 @@ namespace Core.Gui.Test
         public void GivenExceptionDialog_WhenSaveProjectClicked_ThenSaveProjectAsCalledAndMessageBoxShown(bool saveSuccessful, string expectedDialogTitle, string expectedDialogMessage)
         {
             // Setup
-            var mocks = new MockRepository();
-            var commandsOwner = mocks.StrictMock<ICommandsOwner>();
-            var commands = mocks.StrictMock<IStorageCommands>();
-            commandsOwner.Expect(co => co.StorageCommands).Return(commands);
-            commands.Expect(c => c.SaveProjectAs()).Return(saveSuccessful);
-            mocks.ReplayAll();
+            var commandsOwner = Substitute.For<ICommandsOwner>();
+            var commands = Substitute.For<IStorageCommands>();
+            commandsOwner.StorageCommands.Returns(commands);
+            commands.SaveProjectAs().Returns(saveSuccessful);
 
             var messageBoxTitle = "";
             var messageBoxText = "";
@@ -291,20 +255,18 @@ namespace Core.Gui.Test
                 Assert.AreEqual(expectedDialogTitle, messageBoxTitle);
                 Assert.AreEqual(expectedDialogMessage, messageBoxText);
             }
-
-            mocks.VerifyAll();
+            _ = commandsOwner.Received().StorageCommands;
+            commands.Received().SaveProjectAs();
         }
 
         [Test]
         public void GivenExceptionDialog_WhenSaveProjectClickedAndExceptionThrown_ThenUnsuccessfulMessageShown()
         {
             // Setup
-            var mocks = new MockRepository();
-            var commandsOwner = mocks.StrictMock<ICommandsOwner>();
-            var commands = mocks.StrictMock<IStorageCommands>();
-            commandsOwner.Expect(co => co.StorageCommands).Return(commands);
-            commands.Expect(c => c.SaveProjectAs()).Throw(new Exception());
-            mocks.ReplayAll();
+            var commandsOwner = Substitute.For<ICommandsOwner>();
+            var commands = Substitute.For<IStorageCommands>();
+            commandsOwner.StorageCommands.Returns(commands);
+            commands.SaveProjectAs().Returns(_ => throw new Exception());
 
             var messageBoxTitle = "";
             var messageBoxText = "";
@@ -331,8 +293,8 @@ namespace Core.Gui.Test
                 Assert.AreEqual("Project is niet opgeslagen", messageBoxTitle);
                 Assert.AreEqual("Opslaan van project is mislukt.", messageBoxText);
             }
-
-            mocks.VerifyAll();
+            _ = commandsOwner.Received().StorageCommands;
+            commands.Received().SaveProjectAs();
         }
     }
 }

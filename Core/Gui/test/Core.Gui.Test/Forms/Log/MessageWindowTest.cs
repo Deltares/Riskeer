@@ -26,9 +26,9 @@ using Core.Gui.Clipboard;
 using Core.Gui.Forms.Log;
 using Core.Gui.TestUtil.Clipboard;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Log
 {
@@ -46,9 +46,7 @@ namespace Core.Gui.Test.Forms.Log
             // Precondition
             Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
 
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
 
             // Call
             using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
@@ -59,8 +57,6 @@ namespace Core.Gui.Test.Forms.Log
                 Assert.IsInstanceOf<DataTable>(messageWindow.Data);
                 Assert.AreSame(messageWindow, MessageWindowLogAppender.Instance.MessageWindow);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,9 +129,7 @@ namespace Core.Gui.Test.Forms.Log
         public void ShowDetailsButton_MessageSelectedOnClick_ShowMessageWindowDialogWithDetails()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
 
             const string detailedMessage = "TestDetailedMessage";
 
@@ -167,8 +161,6 @@ namespace Core.Gui.Test.Forms.Log
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -195,9 +187,7 @@ namespace Core.Gui.Test.Forms.Log
         public void ShowDetailsButton_DoubleClickOnRowHeader_DoesShowMessageWindowDialog()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
@@ -292,9 +282,7 @@ namespace Core.Gui.Test.Forms.Log
         public void ShowDetailsButton_MessageSelectedOnDoubleClick_ShowMessageWindowDialogWithDetails()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
@@ -328,8 +316,6 @@ namespace Core.Gui.Test.Forms.Log
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -356,9 +342,7 @@ namespace Core.Gui.Test.Forms.Log
         public void ShowDetailsButton_MessageSelectedOnEnterKeyDown_ShowMessageWindowDialogWithDetails()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
@@ -390,8 +374,6 @@ namespace Core.Gui.Test.Forms.Log
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

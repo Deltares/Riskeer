@@ -75,7 +75,7 @@ namespace Core.Common.Controls.TreeView
     /// <see cref="Data"/>, only contains uniquely identifiable data objects. Additionally, only one
     /// <see cref="TreeNodeInfo"/> object can be registered per <see cref="TreeNodeInfo.TagType"/>.
     /// </remarks>
-    public partial class TreeViewControl : UserControl
+    public partial class TreeViewControl : UserControl, ITreeViewControl
     {
         private const int maximumTextLength = 259;
         private const string stateImageLocationString = "StateImage";

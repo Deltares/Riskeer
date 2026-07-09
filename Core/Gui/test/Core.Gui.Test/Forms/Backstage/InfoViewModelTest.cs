@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.Forms.Backstage;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Backstage
 {
@@ -51,9 +51,7 @@ namespace Core.Gui.Test.Forms.Backstage
             // Given
             const string description = "new description";
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
 
             var viewModel = new InfoViewModel();
             viewModel.SetProject(project);
@@ -73,7 +71,6 @@ namespace Core.Gui.Test.Forms.Backstage
             {
                 nameof(viewModel.ProjectDescription)
             }, propertyNames);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -81,9 +78,6 @@ namespace Core.Gui.Test.Forms.Backstage
         {
             // Given
             const string description = "new description";
-
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
 
             var viewModel = new InfoViewModel();
 
@@ -99,7 +93,6 @@ namespace Core.Gui.Test.Forms.Backstage
             // Then
             Assert.IsNull(viewModel.ProjectDescription);
             CollectionAssert.IsEmpty(propertyNames);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,9 +126,7 @@ namespace Core.Gui.Test.Forms.Backstage
         public void SetProject_WithProject_ExpectedValuesAndPropertyChangedEventsFired()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
 
             project.Name = "Test";
             project.Description = "Test description";
@@ -161,7 +152,6 @@ namespace Core.Gui.Test.Forms.Backstage
                 nameof(viewModel.ProjectDescription),
                 nameof(viewModel.ProjectDescriptionEditable)
             }, propertyNames);
-            mocks.VerifyAll();
         }
     }
 }

@@ -22,8 +22,8 @@
 using System;
 using System.Windows.Forms;
 using Core.Gui.Forms;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms
 {
@@ -45,9 +45,7 @@ namespace Core.Gui.Test.Forms
         public void Constructor_WithDialogParent_SetProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             // Call
             using (var dialog = new SelectViewDialog(parent))
@@ -57,8 +55,6 @@ namespace Core.Gui.Test.Forms
                 Assert.IsNull(dialog.SelectedItem);
                 Assert.IsNull(dialog.Items);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

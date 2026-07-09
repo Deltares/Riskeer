@@ -25,8 +25,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test
 {
@@ -39,11 +39,9 @@ namespace Core.Gui.Test
         public void Constructor_ExpectedValues(bool savingExistingProject)
         {
             // Setup
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
+            var storeProject = Substitute.For<IStoreProject>();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
             var activity = new SaveProjectActivity(project, "", savingExistingProject, storeProject, projectOwner);
@@ -57,18 +55,15 @@ namespace Core.Gui.Test
             string expectedName = $"Opslaan van {exitingPrefix}project";
             Assert.AreEqual(expectedName, activity.Description);
 
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
+            var storeProject = Substitute.For<IStoreProject>();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
             TestDelegate call = () => new SaveProjectActivity(project, null, true, storeProject, projectOwner);
@@ -76,17 +71,14 @@ namespace Core.Gui.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("filePath", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
             TestDelegate call = () => new SaveProjectActivity(null, "", true, storeProject, projectOwner);
@@ -94,17 +86,14 @@ namespace Core.Gui.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("project", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_StoreProjectNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
             TestDelegate call = () => new SaveProjectActivity(project, "", true, null, projectOwner);
@@ -118,10 +107,8 @@ namespace Core.Gui.Test
         public void Constructor_ProjectOwnerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var storeProject = Substitute.For<IStoreProject>();
 
             // Call
             TestDelegate call = () => new SaveProjectActivity(project, "", true, storeProject, null);
@@ -138,19 +125,10 @@ namespace Core.Gui.Test
         {
             // Setup
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(false);
-            using (mocks.Ordered())
-            {
-                storeProject.Expect(sp => sp.StageProject(project));
-                storeProject.Expect(sp => sp.SaveProjectAs(filePath));
-            }
-
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(false);
 
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
 
@@ -161,7 +139,11 @@ namespace Core.Gui.Test
             string prefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessageIsGenerated(call, $"Opslaan van {prefix}project is gestart.", 1);
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                storeProject.StageProject(project);
+                storeProject.SaveProjectAs(filePath);
+            });
         }
 
         [Test]
@@ -171,14 +153,10 @@ namespace Core.Gui.Test
         {
             // Setup
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(true);
-            storeProject.Expect(sp => sp.SaveProjectAs(filePath));
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(true);
 
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
 
@@ -189,7 +167,8 @@ namespace Core.Gui.Test
             string prefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessageIsGenerated(call, $"Opslaan van {prefix}project is gestart.", 1);
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            mocks.VerifyAll();
+            storeProject.Received().SaveProjectAs(filePath);
+            storeProject.DidNotReceive().StageProject(project);
         }
 
         [Test]
@@ -199,15 +178,11 @@ namespace Core.Gui.Test
             // Setup
             const string filePath = "A";
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(true);
-            storeProject.Stub(sp => sp.SaveProjectAs(filePath))
-                        .Throw(exception);
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(true);
+            storeProject.When(sp => sp.SaveProjectAs(filePath)).Do(_ => throw exception);
 
             var activity = new SaveProjectActivity(project, filePath, false, storeProject, projectOwner);
 
@@ -222,7 +197,6 @@ namespace Core.Gui.Test
                                                                   Tuple.Create(errorMessage, LogLevelConstant.Error)
                                                               }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -232,15 +206,11 @@ namespace Core.Gui.Test
             // Setup
             const string filePath = "A";
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(true);
-            storeProject.Stub(sp => sp.SaveProjectAs(filePath))
-                        .Throw(exception);
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(true);
+            storeProject.When(sp => sp.SaveProjectAs(filePath)).Do(_ => throw exception);
 
             var activity = new SaveProjectActivity(project, filePath, true, storeProject, projectOwner);
 
@@ -255,7 +225,6 @@ namespace Core.Gui.Test
                                                                   Tuple.Create(errorMessage, LogLevelConstant.Error)
                                                               }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -265,19 +234,10 @@ namespace Core.Gui.Test
         {
             // Setup
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(false);
-            using (mocks.Ordered())
-            {
-                storeProject.Expect(sp => sp.StageProject(project));
-                storeProject.Expect(sp => sp.SaveProjectAs(filePath));
-            }
-
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(false);
 
             var progressMessages = new List<string>();
 
@@ -301,7 +261,11 @@ namespace Core.Gui.Test
                 $"Stap 2 van {totalSteps} | Project opslaan"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                storeProject.StageProject(project);
+                storeProject.SaveProjectAs(filePath);
+            });
         }
 
         [Test]
@@ -311,14 +275,10 @@ namespace Core.Gui.Test
         {
             // Setup
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(true);
-            storeProject.Expect(sp => sp.SaveProjectAs(filePath));
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(true);
 
             var progressMessages = new List<string>();
 
@@ -341,7 +301,8 @@ namespace Core.Gui.Test
                 $"Stap 1 van {totalSteps} | Project opslaan"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            mocks.VerifyAll();
+            storeProject.Received().SaveProjectAs(filePath);
+            storeProject.DidNotReceive().StageProject(project);
         }
 
         [Test]
@@ -351,15 +312,9 @@ namespace Core.Gui.Test
             const string fileName = "A";
             string filePath = $@"C:\\folder\{fileName}.rtd";
 
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-
-            var project = mocks.Stub<IProject>();
-            project.Expect(p => p.NotifyObservers());
-
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(project, filePath));
-            mocks.ReplayAll();
+            var storeProject = Substitute.For<IStoreProject>();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             var activity = new SaveProjectActivity(project, filePath, false, storeProject, projectOwner);
             activity.Run();
@@ -380,7 +335,8 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.AreEqual(ActivityState.Finished, activity.State);
             Assert.AreEqual(fileName, project.Name);
-            mocks.VerifyAll();
+            projectOwner.Received(1).SetProject(project, filePath);
+            project.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -390,11 +346,9 @@ namespace Core.Gui.Test
             const string fileName = "A";
             string filePath = $@"C:\\folder\{fileName}.rtd";
 
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var project = mocks.StrictMock<IProject>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            mocks.ReplayAll();
+            var storeProject = Substitute.For<IStoreProject>();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             var activity = new SaveProjectActivity(project, filePath, true, storeProject, projectOwner);
             activity.Run();
@@ -414,7 +368,8 @@ namespace Core.Gui.Test
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.AreEqual(ActivityState.Finished, activity.State);
-            mocks.VerifyAll();
+            projectOwner.DidNotReceiveWithAnyArgs().SetProject(default(IProject), default(string));
+            project.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -426,15 +381,10 @@ namespace Core.Gui.Test
             const string fileName = "A";
             string filePath = $@"C:\\folder\{fileName}.rtd";
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject).Return(hasStagedProject);
-            storeProject.Stub(sp => sp.StageProject(project));
-            storeProject.Stub(sp => sp.SaveProjectAs(filePath));
-
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(hasStagedProject);
+            var projectOwner = Substitute.For<IProjectOwner>();
 
             var activity = new SaveProjectActivity(project, filePath, false, storeProject, projectOwner);
             activity.Run();
@@ -461,7 +411,6 @@ namespace Core.Gui.Test
                 $"Stap {totalSteps} van {totalSteps} | Initialiseren van opgeslagen project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -471,20 +420,10 @@ namespace Core.Gui.Test
         {
             // Given
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(false);
-            using (mocks.Ordered())
-            {
-                storeProject.Expect(sp => sp.StageProject(project));
-                storeProject.Expect(sp => sp.SaveProjectAs(filePath))
-                            .Repeat.Never();
-            }
-
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(false);
 
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
             activity.ProgressChanged += (sender, args) => activity.Cancel();
@@ -509,7 +448,8 @@ namespace Core.Gui.Test
                                                               }, 2);
 
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            mocks.VerifyAll();
+            storeProject.Received(1).StageProject(project);
+            storeProject.DidNotReceive().SaveProjectAs(filePath);
         }
 
         [Test]
@@ -519,20 +459,10 @@ namespace Core.Gui.Test
         {
             // Given
             const string filePath = "A";
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            if (!saveExistingProject)
-            {
-                projectOwner.Expect(po => po.SetProject(project, filePath));
-            }
-
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Stub(sp => sp.HasStagedProject)
-                        .Return(true);
-            storeProject.Expect(sp => sp.SaveProjectAs(filePath));
-            mocks.ReplayAll();
+            var project = Substitute.For<IProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.HasStagedProject.Returns(true);
 
             var calledCancel = false;
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
@@ -565,7 +495,11 @@ namespace Core.Gui.Test
                                                               }, 2);
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
-            mocks.VerifyAll();
+            storeProject.Received(1).SaveProjectAs(filePath);
+            if (!saveExistingProject)
+            {
+                projectOwner.Received(1).SetProject(project, filePath);
+            }
         }
 
         private static IEnumerable<TestCaseData> GetExceptions()

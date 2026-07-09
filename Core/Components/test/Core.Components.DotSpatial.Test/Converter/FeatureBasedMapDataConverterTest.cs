@@ -37,8 +37,8 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -287,11 +287,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void GivenLayerWithConvertedProperties_WhenConvertingLayerFeatures_ThenOnlyDefaultCategoryAdded()
         {
             // Given
-            var mocks = new MockRepository();
-            var defaultCategory = mocks.Stub<IPointCategory>();
-            var categoryOne = mocks.Stub<IPointCategory>();
-            var categoryTwo = mocks.Stub<IPointCategory>();
-            mocks.ReplayAll();
+            var defaultCategory = Substitute.For<IPointCategory>();
+            var categoryOne = Substitute.For<IPointCategory>();
+            var categoryTwo = Substitute.For<IPointCategory>();
 
             const string metadataAttributeName = "Meta";
             var theme = new MapTheme<TestCategoryTheme>(metadataAttributeName, new[]

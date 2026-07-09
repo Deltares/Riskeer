@@ -26,8 +26,8 @@ using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Map;
 using Core.Gui.UITypeEditors;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.UITypeEditors
 {
@@ -53,20 +53,18 @@ namespace Core.Gui.Test.UITypeEditors
             var editor = new MetaDataAttributeEditor();
             var someValue = new object();
 
-            var mockRepository = new MockRepository();
-            var serviceProvider = mockRepository.Stub<IServiceProvider>();
-            var service = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
 
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
-            mockRepository.VerifyAll();
+            serviceProvider.Received().GetService(Arg.Any<Type>());
         }
 
         [Test]
@@ -81,20 +79,18 @@ namespace Core.Gui.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new MetaDataAttributeEditor();
             var someValue = new object();
-            var mockRepository = new MockRepository();
-            var serviceProvider = mockRepository.Stub<IServiceProvider>();
-            var service = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
 
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(selectableMetaDataAttribute, result);
-            mockRepository.VerifyAll();
+            serviceProvider.Received().GetService(Arg.Any<Type>());
         }
 
         private static SelectableMetaDataAttribute CreateSelectableMetaDataAttribute()

@@ -24,8 +24,8 @@ using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Enums;
 using Core.Common.Util.Test.Properties;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Util.Test.Enums
 {
@@ -230,9 +230,7 @@ namespace Core.Common.Util.Test.Enums
         public void GetStandardValues_ITypeDescriptorContext_ReturnEnumValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var typeDescriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
-            mockRepository.ReplayAll();
+            var typeDescriptorContext = Substitute.For<ITypeDescriptorContext>();
 
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
@@ -244,7 +242,6 @@ namespace Core.Common.Util.Test.Enums
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(SimpleEnum.FirstValue, result[0]);
             Assert.AreEqual(SimpleEnum.SecondValue, result[1]);
-            mockRepository.VerifyAll();
         }
 
         private enum SimpleEnum

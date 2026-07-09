@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Base.Test.TypeConverters
 {
@@ -90,9 +90,7 @@ namespace Core.Common.Base.Test.TypeConverters
         public void ConvertFrom_TextDoesNotRepresentNumber_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
 
             const string text = "I'm not a number!";
 
@@ -104,16 +102,13 @@ namespace Core.Common.Base.Test.TypeConverters
             // Assert
             string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst moet een getal zijn.", message);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertFrom_TextIsEmpty_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
 
             string text = string.Empty;
 
@@ -125,16 +120,13 @@ namespace Core.Common.Base.Test.TypeConverters
             // Assert
             string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst mag niet leeg zijn.", message);
-            mocks.ReplayAll();
         }
 
         [Test]
         public void ConvertFrom_TextTooLongToStoreInDouble_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
 
             string text = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
@@ -146,15 +138,12 @@ namespace Core.Common.Base.Test.TypeConverters
             // Assert
             string message = Assert.Throws<NotSupportedException>(Call).Message;
             Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", message);
-            mocks.VerifyAll();
         }
 
         private static void DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedRoundedDouble(double input)
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
+            var context = Substitute.For<ITypeDescriptorContext>();
 
             string text = input.ToString(CultureInfo.CurrentCulture);
 
@@ -166,7 +155,6 @@ namespace Core.Common.Base.Test.TypeConverters
             // Assert
             Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, conversionResult.NumberOfDecimalPlaces);
             Assert.AreEqual(input, conversionResult.Value);
-            mocks.VerifyAll();
         }
     }
 }

@@ -26,9 +26,9 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Helpers
 {
@@ -36,14 +36,10 @@ namespace Core.Gui.Test.Helpers
     public class DialogBasedInquiryHelperTest : NUnitFormTest
     {
         private IWin32Window dialogParent;
-        private MockRepository mocks;
 
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => new DialogBasedInquiryHelper(null);
 
@@ -55,9 +51,6 @@ namespace Core.Gui.Test.Helpers
         [Test]
         public void Constructor_WithParent_CreatesNewInquiryHelper()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -70,8 +63,7 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -95,8 +87,7 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -118,8 +109,7 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_ExistingFileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
             string expectedFilePath = Path.GetFullPath(Path.GetRandomFileName());
@@ -145,8 +135,7 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -170,8 +159,7 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -193,8 +181,7 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_FileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
             string expectedFilePath = Path.GetFullPath(Path.GetRandomFileName());
@@ -217,8 +204,7 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFolderLocation_Always_ShowsFolderBrowserDialog()
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -244,8 +230,7 @@ namespace Core.Gui.Test.Helpers
         public void InquireContinuation_OkOrCancelClicked_ReturnExpectedResult(bool confirm)
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -286,8 +271,7 @@ namespace Core.Gui.Test.Helpers
                                                                                     OptionalStepResult expectedResult)
         {
             // Setup
-            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            dialogParent.Handle.Returns(default(IntPtr));
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
@@ -325,18 +309,16 @@ namespace Core.Gui.Test.Helpers
 
             Assert.AreEqual(description, title);
             Assert.AreEqual(query, actualQuery);
-            mocks.VerifyAll();
+            _ = dialogParent.Received().Handle;
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
-            dialogParent = mocks.StrictMock<IWin32Window>();
+            dialogParent = Substitute.For<IWin32Window>();
         }
 
         public override void TearDown()
         {
-            mocks.VerifyAll();
         }
     }
 }

@@ -21,9 +21,9 @@
 
 using System;
 using Core.Components.OxyPlot.CustomSeries;
+using NSubstitute;
 using NUnit.Framework;
 using OxyPlot;
-using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
 {
@@ -61,9 +61,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         public void Render_NoAreas_NoCallForDrawPolygon()
         {
             // Setup
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
 
             var series = new MultipleAreaSeries();
 
@@ -71,16 +69,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, null, default, default);
         }
 
         [Test]
         public void Render_EmptyAreas_NoCallForDrawPolygon()
         {
             // Setup
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
 
             var series = new MultipleAreaSeries
             {
@@ -96,7 +92,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, null, default, default);
         }
 
         [Test]
@@ -109,20 +105,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var model = new PlotModel();
             model.Series.Add(series);
 
-            var mocks = new MockRepository();
-            var renderContext = mocks.Stub<IRenderContext>();
-            renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
-            renderContext.Stub(rc => rc.ResetClip());
-            renderContext.Expect(rc => rc.DrawPolygon(
-                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length == pointCount),
-                                     Arg<OxyColor>.Is.Equal(series.Fill),
-                                     Arg<OxyColor>.Is.Equal(series.Color),
-                                     Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Anything,
-                                     Arg<LineJoin>.Is.Anything,
-                                     Arg<bool>.Is.Anything));
+            var renderContext = Substitute.For<IRenderContext>();
+            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
 
-            mocks.ReplayAll();
             var area = new DataPoint[pointCount];
             series.Areas.Add(area);
 
@@ -137,7 +122,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.Received(1).DrawPolygon(
+                Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
+                Arg.Is<OxyColor>(c => c == series.Fill),
+                Arg.Is<OxyColor>(c => c == series.Color),
+                Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Any<double[]>(),
+                Arg.Any<LineJoin>(),
+                Arg.Any<bool>());
         }
 
         [Test]
@@ -150,20 +142,8 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var model = new PlotModel();
             model.Series.Add(series);
 
-            var mocks = new MockRepository();
-            var renderContext = mocks.StrictMock<IRenderContext>();
-            renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
-            renderContext.Stub(rc => rc.ResetClip());
-            renderContext.Expect(rc => rc.DrawPolygon(
-                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length == 1),
-                                     Arg<OxyColor>.Is.Equal(series.Fill),
-                                     Arg<OxyColor>.Is.Equal(series.Color),
-                                     Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Anything,
-                                     Arg<LineJoin>.Is.Anything,
-                                     Arg<bool>.Is.Anything)).Repeat.Times(areaCount);
-
-            mocks.ReplayAll();
+            var renderContext = Substitute.For<IRenderContext>();
+            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
 
             for (var i = 0; i < areaCount; i++)
             {
@@ -179,7 +159,14 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            mocks.VerifyAll();
+            renderContext.Received(areaCount).DrawPolygon(
+                Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
+                Arg.Is<OxyColor>(c => c == series.Fill),
+                Arg.Is<OxyColor>(c => c == series.Color),
+                Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Any<double[]>(),
+                Arg.Any<LineJoin>(),
+                Arg.Any<bool>());
         }
     }
 }

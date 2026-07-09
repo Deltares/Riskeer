@@ -29,8 +29,8 @@ using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Migration;
@@ -55,9 +55,7 @@ namespace Application.Riskeer.Integration.Test
 
             // Given
             var projectStore = new StorageSqLite();
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
             var guiCoreSettings = new GuiCoreSettings
@@ -78,8 +76,6 @@ namespace Application.Riskeer.Integration.Test
                 Assert.AreEqual("description", gui.Project.Description);
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -91,15 +87,9 @@ namespace Application.Riskeer.Integration.Test
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_ThenMigratedProjectSet));
 
             var projectStore = new StorageSqLite();
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(helper => helper.InquireContinuation(null))
-                         .IgnoreArguments()
-                         .Return(true);
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(targetFilePath);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(Arg.Any<string>()).Returns(true);
+            inquiryHelper.GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>()).Returns(targetFilePath);
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
             var guiCoreSettings = new GuiCoreSettings
@@ -119,8 +109,8 @@ namespace Application.Riskeer.Integration.Test
                 Assert.AreEqual("description", gui.Project.Description);
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
-
-            mocks.VerifyAll();
+            inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
+            inquiryHelper.Received().GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
@@ -130,12 +120,8 @@ namespace Application.Riskeer.Integration.Test
         {
             // Given
             var projectStore = new StorageSqLite();
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(helper => helper.InquireContinuation(null))
-                         .IgnoreArguments()
-                         .Return(false);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(Arg.Any<string>()).Returns(false);
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
@@ -148,8 +134,7 @@ namespace Application.Riskeer.Integration.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
+            inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
         }
 
         [OneTimeSetUp]

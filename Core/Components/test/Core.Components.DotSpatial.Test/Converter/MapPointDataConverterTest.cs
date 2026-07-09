@@ -35,8 +35,8 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Point = NetTopologySuite.Geometries.Point;
 using PointShape = DotSpatial.Symbology.PointShape;
 
@@ -157,10 +157,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Given
             const string metadataAttribute = "Meta";
 
-            var mocks = new MockRepository();
-            var categoryOne = mocks.Stub<IPointCategory>();
-            var categoryTwo = mocks.Stub<IPointCategory>();
-            mocks.ReplayAll();
+            var categoryOne = Substitute.For<IPointCategory>();
+            var categoryTwo = Substitute.For<IPointCategory>();
 
             var mapPointLayer = new MapPointLayer
             {
@@ -214,8 +212,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             IPointSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(pointStyle);
             AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
-
-            mocks.VerifyAll();
         }
 
         [Test]

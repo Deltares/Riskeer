@@ -26,8 +26,8 @@ using Core.Components.Chart.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Chart;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Chart
 {
@@ -70,10 +70,7 @@ namespace Core.Gui.Test.PropertyClasses.Chart
             // Setup
             const int numberOfChangedProperties = 1;
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var chartData = new TestChartData("Test");
 
@@ -89,7 +86,7 @@ namespace Core.Gui.Test.PropertyClasses.Chart
 
             // Assert
             Assert.IsFalse(chartData.IsVisible);
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]

@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Base.Test
 {
@@ -45,29 +45,22 @@ namespace Core.Common.Base.Test
         public void Observers_WhenAttachingObserver_ContainsExpectedObserver()
         {
             // Setup
-            var mocks = new MockRepository();
             var testObservable = new TestObservable();
-            var observer = mocks.Stub<IObserver>();
+            var observer = Substitute.For<IObserver>();
             testObservable.Attach(observer);
-            mocks.ReplayAll();
 
             // Call
             IEnumerable<IObserver> observers = testObservable.Observers;
 
             // Assert
             Assert.AreSame(observer, observers.Single());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()); // Expect to be called once
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var observable = new TestObservable();
             observable.Attach(observer);
@@ -76,16 +69,14 @@ namespace Core.Common.Base.Test
             observable.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver(); // Expect to be called once
         }
 
         [Test]
         public void NotifyObserver_AttachedObserverDetachedAgain_ObserverNoLongerNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var observable = new TestObservable();
             observable.Attach(observer);
@@ -95,22 +86,21 @@ namespace Core.Common.Base.Test
             observable.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on 'observer'
+            observer.DidNotReceive().UpdateObserver(); // Expect no calls on 'observer'
         }
 
         [Test]
         public void NotifyObservers_MultipleObserversDetachingOrAttachingOthers_NoUpdatesForAttachedAndDetachedObservers()
         {
             // Setup
-            var mocks = new MockRepository();
             var testObservable = new TestObservable();
 
-            var observer1 = mocks.Stub<IObserver>();
-            var observer2 = mocks.Stub<IObserver>();
-            var observer3 = mocks.Stub<IObserver>();
-            var observer4 = mocks.Stub<IObserver>();
-            var observer5 = mocks.Stub<IObserver>();
-            var observer6 = mocks.Stub<IObserver>();
+            var observer1 = Substitute.For<IObserver>();
+            var observer2 = Substitute.For<IObserver>();
+            var observer3 = Substitute.For<IObserver>();
+            var observer4 = Substitute.For<IObserver>();
+            var observer5 = Substitute.For<IObserver>();
+            var observer6 = Substitute.For<IObserver>();
 
             testObservable.Attach(observer1);
             testObservable.Attach(observer2);
@@ -118,20 +108,19 @@ namespace Core.Common.Base.Test
             testObservable.Attach(observer4);
             testObservable.Attach(observer6);
 
-            observer1.Expect(o => o.UpdateObserver());
-            observer2.Expect(o => o.UpdateObserver()).Do((Action) (() => testObservable.Detach(observer3)));
-            observer3.Expect(o => o.UpdateObserver()).Repeat.Never(); // A detached observer should no longer be updated
-            observer4.Expect(o => o.UpdateObserver()).Do((Action) (() => testObservable.Attach(observer5)));
-            observer5.Expect(o => o.UpdateObserver()).Repeat.Never(); // An attached observer should not be updated too
-            observer6.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
+            observer2.When(x => x.UpdateObserver()).Do(_ => testObservable.Detach(observer3));
+            observer4.When(x => x.UpdateObserver()).Do(_ => testObservable.Attach(observer5));
 
             // Call
             testObservable.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll();
+            observer1.Received().UpdateObserver();
+            observer2.Received().UpdateObserver();
+            observer3.DidNotReceive().UpdateObserver(); // A detached observer should no longer be updated
+            observer4.Received().UpdateObserver();
+            observer5.DidNotReceive().UpdateObserver(); // An attached observer should not be updated too
+            observer6.Received().UpdateObserver();
         }
 
         private class TestObservable : Observable {}

@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Properties;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -36,14 +35,10 @@ namespace Core.Gui.Test.ContextMenu
         public void Constructor_WithParameters_PropertiesSet()
         {
             // Setup
-            var mockRepository = new MockRepository();
-
             const string text = "text";
             const string toolTip = "tooltip";
             Bitmap image = Resources.ImportIcon;
             var counter = 0;
-
-            mockRepository.ReplayAll();
 
             EventHandler handler = (s, e) => counter++;
 
@@ -57,8 +52,6 @@ namespace Core.Gui.Test.ContextMenu
             Assert.AreEqual(toolTip, result.ToolTipText);
             Assert.AreEqual(1, counter);
             TestHelper.AssertImagesAreEqual(image, result.Image);
-
-            mockRepository.VerifyAll();
         }
     }
 }

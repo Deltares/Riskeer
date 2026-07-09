@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.IO;
 using Core.Common.Base.Service;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Base.Test.Service
 {
@@ -45,9 +45,7 @@ namespace Core.Common.Base.Test.Service
         public void Constructor_DescriptionIsNull_ArgumentExceptionIsThrown()
         {
             // Setup
-            var mocks = new MockRepository();
-            var importer = mocks.Stub<IFileImporter>();
-            mocks.ReplayAll();
+            var importer = Substitute.For<IFileImporter>();
 
             // Call
             TestDelegate call = () => new FileImportActivity(importer, null);
@@ -55,16 +53,13 @@ namespace Core.Common.Base.Test.Service
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("description", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Description_FileImportActivityWithFileImporter_DescriptionShouldBeSameAsImporterDescription()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            mocks.ReplayAll();
+            var fileImporter = Substitute.For<IFileImporter>();
 
             const string description = "Importer description";
 
@@ -73,18 +68,14 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             Assert.AreEqual(description, fileImportActivity.Description);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_FileImportActivityWithFileImporter_FileImporterImportCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
-            fileImporter.Expect(i => i.Import()).Return(true);
-            mocks.ReplayAll();
+            var fileImporter = Substitute.For<IFileImporter>();
+            fileImporter.Import().Returns(true);
 
             var fileImportActivity = new FileImportActivity(fileImporter, "");
 
@@ -92,18 +83,15 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Run();
 
             // Assert
-            mocks.VerifyAll();
+            fileImporter.Received().Import();
         }
 
         [Test]
         public void Run_FileImportActivityWithFileImporterAndImportFails_ImportActivityStateFailed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
-            fileImporter.Expect(i => i.Import()).Return(false);
-            mocks.ReplayAll();
+            var fileImporter = Substitute.For<IFileImporter>();
+            fileImporter.Import().Returns(false);
 
             var fileImportActivity = new FileImportActivity(fileImporter, "");
 
@@ -112,18 +100,15 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             Assert.AreEqual(ActivityState.Failed, fileImportActivity.State);
-            mocks.VerifyAll();
+            fileImporter.Received().Import();
         }
 
         [Test]
         public void Cancel_WhenImportingAndUncancelable_ImportActivityStateExecuted()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
-            fileImporter.Stub(i => i.Import()).Return(true);
-            mocks.ReplayAll();
+            var fileImporter = Substitute.For<IFileImporter>();
+            fileImporter.Import().Returns(true);
 
             var fileImportActivity = new FileImportActivity(fileImporter, "");
             fileImportActivity.ProgressChanged += (sender, args) =>
@@ -138,7 +123,6 @@ namespace Core.Common.Base.Test.Service
             // Assert
             fileImportActivity.Run();
             Assert.AreEqual(ActivityState.Executed, fileImportActivity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -165,11 +149,7 @@ namespace Core.Common.Base.Test.Service
         public void Cancel_FileImportActivityWithFileImporter_CancelsImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
-            fileImporter.Expect(x => x.Cancel());
-            mocks.ReplayAll();
+            var fileImporter = Substitute.For<IFileImporter>();
 
             var fileImportActivity = new FileImportActivity(fileImporter, "");
 
@@ -177,7 +157,7 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Cancel();
 
             // Assert
-            mocks.VerifyAll();
+            fileImporter.Received().Cancel();
         }
 
         [Test]
@@ -203,10 +183,7 @@ namespace Core.Common.Base.Test.Service
         public void Finish_FileImportActivityWithFileImporterObservableTargetAndSpecificState_ObserversOfTargetAreNotified(ActivityState state)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var target = new ObservableList<object>();
             target.Attach(observer);
@@ -218,16 +195,14 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Finish();
 
             // Assert
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Finish_FileImportActivityWithFileImporterObservableTargetAndNoneState_ObserversOfTargetAreNotNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var target = new ObservableList<object>();
             target.Attach(observer);
@@ -239,7 +214,7 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Finish();
 
             // Assert
-            mocks.VerifyAll();
+            observer.DidNotReceive().UpdateObserver();
         }
 
         private class SimpleFileImporter<T> : FileImporterBase<T> where T : class

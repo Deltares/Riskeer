@@ -25,17 +25,15 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.ContextMenu
 {
     [TestFixture]
     public class TreeViewContextMenuItemFactoryTest : NUnitFormTest
     {
-        private MockRepository mocks;
-
         [Test]
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
@@ -84,18 +82,9 @@ namespace Core.Gui.Test.ContextMenu
         public void CreateDeleteItem_DependingOnCanRemoveNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
             var nodeData = new object();
-
-            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(canDelete);
-
-            if (canDelete)
-            {
-                treeViewControl.Expect(tvc => tvc.TryRemoveNodeForData(nodeData));
-            }
-
-            mocks.ReplayAll();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
+            treeViewControl.CanRemoveNodeForData(nodeData).Returns(canDelete);
 
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
 
@@ -109,7 +98,14 @@ namespace Core.Gui.Test.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.DeleteIcon, item.Image);
             Assert.AreEqual(canDelete, item.Enabled);
 
-            mocks.VerifyAll();
+            if (canDelete)
+            {
+                treeViewControl.Received(1).TryRemoveNodeForData(nodeData);
+            }
+            else
+            {
+                treeViewControl.DidNotReceive().TryRemoveNodeForData(nodeData);
+            }
         }
 
         [Test]
@@ -119,15 +115,8 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            treeViewControl.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete).Repeat.AtLeastOnce();
-
-            if (canDelete)
-            {
-                treeViewControl.Expect(tvc => tvc.TryRemoveChildNodesOfData(nodeData));
-            }
-
-            mocks.ReplayAll();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
+            treeViewControl.CanRemoveChildNodesOfData(nodeData).Returns(canDelete);
 
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
 
@@ -144,7 +133,14 @@ namespace Core.Gui.Test.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.DeleteChildrenIcon, item.Image);
             Assert.AreEqual(canDelete, item.Enabled);
 
-            mocks.VerifyAll();
+            if (canDelete)
+            {
+                treeViewControl.Received(1).TryRemoveChildNodesOfData(nodeData);
+            }
+            else
+            {
+                treeViewControl.DidNotReceive().TryRemoveChildNodesOfData(nodeData);
+            }
         }
 
         [Test]
@@ -154,16 +150,8 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(dataObject)).Return(canRename);
-
-            if (canRename)
-            {
-                treeViewControl.Expect(tvc => tvc.TryRenameNodeForData(dataObject));
-            }
-
-            mocks.ReplayAll();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
+            treeViewControl.CanRenameNodeForData(dataObject).Returns(canRename);
 
             var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControl);
 
@@ -177,7 +165,14 @@ namespace Core.Gui.Test.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.RenameIcon, item.Image);
             Assert.AreEqual(canRename, item.Enabled);
 
-            mocks.VerifyAll();
+            if (canRename)
+            {
+                treeViewControl.Received(1).TryRenameNodeForData(dataObject);
+            }
+            else
+            {
+                treeViewControl.DidNotReceive().TryRenameNodeForData(dataObject);
+            }
         }
 
         [Test]
@@ -250,11 +245,6 @@ namespace Core.Gui.Test.ContextMenu
             Assert.AreEqual("Klap dit element en alle onderliggende elementen in.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-        }
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
         }
     }
 }

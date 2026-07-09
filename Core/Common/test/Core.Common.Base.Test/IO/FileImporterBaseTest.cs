@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Base.Test.IO
 {
@@ -74,10 +74,7 @@ namespace Core.Common.Base.Test.IO
         public void DoPostImportUpdates_TargetIsObservable_NotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observableInstance = mocks.Stub<IObservable>();
-            observableInstance.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observableInstance = Substitute.For<IObservable>();
 
             var simpleImporter = new SimpleFileImporter<IObservable>(observableInstance);
 
@@ -85,16 +82,14 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Assert NotifyObservers is called
+            observableInstance.Received().NotifyObservers(); // Assert NotifyObservers is called
         }
 
         [Test]
         public void DoPostImportUpdates_ImportCanceled_NoNotifyObserversCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observableTarget = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
+            var observableTarget = Substitute.For<IObservable>();
 
             var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget);
             simpleImporter.Cancel();
@@ -103,7 +98,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Assert no NotifyObservers were called
+            observableTarget.DidNotReceive().NotifyObservers(); // Assert no NotifyObservers were called
         }
 
         [Test]

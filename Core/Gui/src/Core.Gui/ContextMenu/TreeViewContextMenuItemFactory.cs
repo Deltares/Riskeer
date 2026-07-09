@@ -32,15 +32,15 @@ namespace Core.Gui.ContextMenu
     internal class TreeViewContextMenuItemFactory
     {
         private readonly object dataObject;
-        private readonly TreeViewControl treeViewControl;
+        private readonly ITreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="dataObject"/>.
         /// </summary>
         /// <param name="dataObject">The data object for which to create the <see cref="ToolStripItem"/> objects.</param>
-        /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ToolStripItem"/> actions.</param>
+        /// <param name="treeViewControl">The <see cref="ITreeViewControl"/> to use while executing the <see cref="ToolStripItem"/> actions.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataObject"/> or <paramref name="treeViewControl"/> is <c>null</c>.</exception>
-        public TreeViewContextMenuItemFactory(object dataObject, TreeViewControl treeViewControl)
+        public TreeViewContextMenuItemFactory(object dataObject, ITreeViewControl treeViewControl)
         {
             if (dataObject == null)
             {

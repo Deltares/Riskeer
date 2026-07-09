@@ -25,8 +25,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Forms.Log;
 using log4net.Core;
 using log4net.Util;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Log
 {
@@ -78,10 +78,7 @@ namespace Core.Gui.Test.Forms.Log
             DateTime dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(level, dataTime, message));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -101,7 +98,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(level, dataTime, message);
         }
 
         [Test]
@@ -120,12 +117,7 @@ namespace Core.Gui.Test.Forms.Log
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
                                             null);
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
-                                                   Arg<string>.Is.Equal(expectedText)));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -137,7 +129,9 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
+                                                Arg.Is<string>(actualText => actualText == expectedText));
         }
 
         [Test]
@@ -154,12 +148,7 @@ namespace Core.Gui.Test.Forms.Log
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
                                             null);
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                   Arg<string>.Is.Equal(messageText)));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -171,7 +160,9 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                Arg.Is<string>(actualText => actualText == messageText));
         }
 
         [Test]
@@ -187,12 +178,7 @@ namespace Core.Gui.Test.Forms.Log
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, null),
                                             null);
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                   Arg<string>.Is.Equal(messageText)));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -204,7 +190,9 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                Arg.Is<string>(actualText => actualText == messageText));
         }
 
         [Test]
@@ -220,12 +208,7 @@ namespace Core.Gui.Test.Forms.Log
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Error,
                                             messageText, exception);
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                   Arg<string>.Is.Equal(expectedText)));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -237,7 +220,9 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                Arg.Is<string>(actualText => actualText == expectedText));
         }
 
         [Test]
@@ -254,9 +239,7 @@ namespace Core.Gui.Test.Forms.Log
             DateTime dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.StrictMock<IMessageWindow>();
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -276,7 +259,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.DidNotReceive().AddMessage(Arg.Any<Level>(), Arg.Any<DateTime>(), Arg.Any<string>());
         }
 
         [Test]
@@ -293,10 +276,7 @@ namespace Core.Gui.Test.Forms.Log
             DateTime dataTime = DateTime.Today;
             const string message = "<yet another nice log-message>";
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(level, dataTime, message));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -317,7 +297,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.Enabled = true;
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(level, dataTime, message);
         }
 
         [Test]
@@ -334,10 +314,7 @@ namespace Core.Gui.Test.Forms.Log
             DateTime dataTime = DateTime.Today;
             const string message = "<another nice log-message>";
 
-            var mocks = new MockRepository();
-            var messageWindow = mocks.Stub<IMessageWindow>();
-            messageWindow.Expect(w => w.AddMessage(level, dataTime, message));
-            mocks.ReplayAll();
+            var messageWindow = Substitute.For<IMessageWindow>();
 
             var appender = new MessageWindowLogAppender
             {
@@ -357,7 +334,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.MessageWindow = messageWindow;
 
             // Assert
-            mocks.VerifyAll();
+            messageWindow.Received().AddMessage(level, dataTime, message);
         }
     }
 }
