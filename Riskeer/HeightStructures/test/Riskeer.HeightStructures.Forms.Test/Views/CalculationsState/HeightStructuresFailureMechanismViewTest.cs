@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,7 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -76,9 +76,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new HeightStructuresFailureMechanismView(null, assessmentSection);
@@ -86,7 +84,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,10 +249,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -268,7 +262,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -291,10 +288,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -311,7 +305,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -334,10 +331,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -355,7 +349,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].Received(1).UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -377,10 +374,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -400,7 +394,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].Received(1).UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -419,10 +416,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
@@ -437,7 +431,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
             // Then
             MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
                                                       structuresData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].Received(1).UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -455,10 +452,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
@@ -476,7 +470,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
             // Then
             MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
                                                       structuresData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].Received(1).UpdateObserver();
+            observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -500,10 +497,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -526,7 +520,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -549,10 +546,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -566,7 +560,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].DidNotReceive().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].DidNotReceive().UpdateObserver();
+            observers[structuresObserverIndex].DidNotReceive().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -702,24 +699,23 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
+            var foreshoreProfilesMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
 
-            var structuresMapDataObserver = mocks.StrictMock<IObserver>();
+            var structuresMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[structuresIndex].Attach(structuresMapDataObserver);
 
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var calculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
             return new[]

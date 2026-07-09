@@ -30,7 +30,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -79,10 +79,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -114,17 +112,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[0].ValueMember);
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[1].ValueMember);
             Assert.AreEqual("Value", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[2].ValueMember);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_FailureMechanismWithForeshoreProfiles_ForeshoreProfilesComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -139,17 +134,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("<selecteer>", foreshoreProfileComboBoxItems[0].ToString());
             Assert.AreEqual("Profiel 1", foreshoreProfileComboBoxItems[1].ToString());
             Assert.AreEqual("Profiel 2", foreshoreProfileComboBoxItems[2].ToString());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_Always_BreakWaterTypeComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -164,17 +156,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
             Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
             Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -212,17 +201,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual(10.00.ToString("0.00", CultureInfo.CurrentCulture), cells[meanLevelCrestStructureColumnIndex].FormattedValue);
             Assert.AreEqual(0.01.ToString("0.00", CultureInfo.CurrentCulture), cells[criticalOvertoppingDischargeColumnIndex].FormattedValue);
             Assert.AreEqual(100.0.ToString("0.00", CultureInfo.CurrentCulture), cells[allowedLevelIncreaseStorageColumnIndex].FormattedValue);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -235,17 +221,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_ChangingStructures_ButtonCorrectState()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -277,7 +260,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(button.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -292,10 +274,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void CalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -308,7 +288,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -328,10 +307,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
@@ -345,7 +322,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -358,12 +334,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void CalculationsView_InvalidOvertoppingAndLevelIncreaseStorage_ShowsErrorTooltip(double newValue, int index)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var inputObserver = Substitute.For<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
@@ -382,7 +356,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
@@ -400,9 +374,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             bool useCalculationWithOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var inputObserver = Substitute.For<IObserver>();
 
             if (useCalculationWithOutput)
             {
@@ -411,17 +384,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                     var tester = new MessageBoxTester(wnd);
                     tester.ClickOk();
                 };
-
-                calculationObserver.Expect(o => o.UpdateObserver());
             }
 
-            inputObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
@@ -445,17 +411,24 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             calculationScenario.Output = null;
-            mocks.VerifyAll();
+            if (useCalculationWithOutput)
+            {
+                calculationObserver.Received(1).UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+            }
+
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationsView_WhenForeshoreProfilesUpdatedAndNotified_ThenForeshoreProfilesComboboxCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -483,8 +456,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Profiel 2", foreshoreProfileItems[2].ToString());
             Assert.AreEqual("Profiel 3", foreshoreProfileItems[3].ToString());
             Assert.AreEqual("Profiel 4", foreshoreProfileItems[4].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -493,10 +464,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
@@ -514,17 +483,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.IsInstanceOf<HeightStructuresInputContext>(selection);
             var dataRow = (HeightStructuresCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((HeightStructuresInputContext) selection).Calculation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenShowViewWithForeshoreProfiles()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
@@ -550,19 +516,15 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.NotNull(selectionDialog);
             Assert.NotNull(grid);
             Assert.AreEqual(failureMechanism.ForeshoreProfiles.Count, rows);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             failureMechanism.CalculationsGroup.Attach(observer);
@@ -584,17 +546,15 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             button.Click();
 
             // Then
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenForeshoreProfileSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
@@ -624,18 +584,15 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             Assert.AreEqual(1, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
@@ -658,7 +615,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         public override void Setup()
@@ -686,7 +643,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {

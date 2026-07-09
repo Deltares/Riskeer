@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
@@ -48,26 +48,11 @@ namespace Riskeer.HeightStructures.IO.Test
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        private MockRepository mocks;
-
-        [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Constructor_StructureUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
             // Call
             TestDelegate call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
@@ -83,8 +68,7 @@ namespace Riskeer.HeightStructures.IO.Test
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
             var replaceDataStrategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
@@ -100,9 +84,8 @@ namespace Riskeer.HeightStructures.IO.Test
         public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
 
             var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -126,6 +109,7 @@ namespace Riskeer.HeightStructures.IO.Test
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
             Assert.IsNull(importTarget.SourcePath);
+            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -135,25 +119,24 @@ namespace Riskeer.HeightStructures.IO.Test
             var importTarget = new StructureCollection<HeightStructure>();
             string filePath = Path.Combine(testDataPath, "HeightStructuresVarianceConvert", "StructureNeedVarianceValueConversion.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(1, readStructures.Count());
-                        HeightStructure structure = readStructures.First();
-                        Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
-                        Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-                        Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-                        Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
-                        Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
-                        Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                Assert.AreEqual(1, readStructures.Count());
+                HeightStructure structure = readStructures.First();
+                Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
+                Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
+                Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -177,6 +160,7 @@ namespace Riskeer.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -184,9 +168,8 @@ namespace Riskeer.HeightStructures.IO.Test
         public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
 
             var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -211,6 +194,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 });
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
+            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -221,28 +205,27 @@ namespace Riskeer.HeightStructures.IO.Test
             string filePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter),
                                            "MissingParameters", "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(1, readStructures.Count());
-                        HeightStructure structure = readStructures.First();
-                        var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
-                        {
-                            Name = "test",
-                            Location = new Point2D(0, 0),
-                            Id = "id"
-                        });
-                        Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-                        DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-                        Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                Assert.AreEqual(1, readStructures.Count());
+                HeightStructure structure = readStructures.First();
+                var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+                Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+                DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+                Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+            });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -268,6 +251,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -278,28 +262,27 @@ namespace Riskeer.HeightStructures.IO.Test
             string filePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter),
                                            "MissingAndDuplicateIrrelevantParameters", "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(1, readStructures.Count());
-                        HeightStructure structure = readStructures.First();
-                        var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
-                        {
-                            Name = "test",
-                            Location = new Point2D(0, 0),
-                            Id = "id"
-                        });
-                        Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-                        DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-                        Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                Assert.AreEqual(1, readStructures.Count());
+                HeightStructure structure = readStructures.First();
+                var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+                Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+                DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+                Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+            });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -325,6 +308,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -335,18 +319,17 @@ namespace Riskeer.HeightStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(4, readStructures.Count());
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                Assert.AreEqual(4, readStructures.Count());
+            });
 
             var referencePoints = new List<Point2D>
             {
@@ -368,6 +351,7 @@ namespace Riskeer.HeightStructures.IO.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 13);
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -378,18 +362,17 @@ namespace Riskeer.HeightStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(1, readStructures.Count());
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                Assert.AreEqual(1, readStructures.Count());
+            });
 
             var referencePoints = new List<Point2D>
             {
@@ -409,6 +392,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -419,9 +403,8 @@ namespace Riskeer.HeightStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithOnlyDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<HeightStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
 
             var referencePoints = new List<Point2D>
             {
@@ -459,11 +442,10 @@ namespace Riskeer.HeightStructures.IO.Test
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(cancelledLogMessage);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Kunstwerken").Returns(cancelledLogMessage);
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
 
             string validFilePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
@@ -489,6 +471,7 @@ namespace Riskeer.HeightStructures.IO.Test
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsFalse(importResult);
+            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -496,11 +479,10 @@ namespace Riskeer.HeightStructures.IO.Test
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(cancelledLogMessage);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Kunstwerken").Returns(cancelledLogMessage);
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
 
             string validFilePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
@@ -526,6 +508,7 @@ namespace Riskeer.HeightStructures.IO.Test
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsFalse(importResult);
+            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -537,14 +520,12 @@ namespace Riskeer.HeightStructures.IO.Test
             var importTarget = new StructureCollection<HeightStructure>();
 
             const string progressText = "ProgressText";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(progressText);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(progressText);
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(Arg<IEnumerable<HeightStructure>>.Is.NotNull,
-                                                                    Arg.Is(validFilePath)))
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), validFilePath)
+                    .Returns(Enumerable.Empty<IObservable>());
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
@@ -567,26 +548,24 @@ namespace Riskeer.HeightStructures.IO.Test
                 "Huidige actie was niet meer te annuleren en is daarom voortgezet.", LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), validFilePath);
         }
 
         [Test]
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
             IObservable[] observables =
             {
                 observableA,
                 observableB
             };
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()).Returns(observables);
 
             string validFilePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter),
                                                 "MissingParameters", "Kunstwerken.shp");
@@ -604,6 +583,9 @@ namespace Riskeer.HeightStructures.IO.Test
 
             // Assert
             // Assertions performed in TearDown
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

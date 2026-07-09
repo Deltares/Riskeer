@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,7 +34,6 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -52,6 +51,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using NSubstitute;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
@@ -71,7 +71,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
-        private MockRepository mocks;
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
@@ -79,7 +78,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(info.Text);
@@ -106,7 +104,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsCalculationIcon()
         {
             // Setup
-            mocks.ReplayAll();
 
             // Call
             Image image = info.Image(null);
@@ -120,8 +117,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         [TestCase(false)]
         public void ChildNodeObjects_Always_ReturnsChildrenOfData(bool hasOutput)
         {
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
@@ -160,37 +156,33 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddRenameItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddDeleteItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -198,15 +190,36 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
             }
 
-            // Assert
-            // Assert expectancies are called in TearDown()
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddExportItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddRenameItem();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddDeleteItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
@@ -215,11 +228,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -275,7 +286,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
@@ -285,10 +296,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -310,7 +320,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -326,10 +336,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -351,7 +360,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateStructureEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -369,10 +378,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -393,7 +401,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var structure = new TestHeightStructure();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -406,20 +414,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(obs => obs.UpdateObserver());
+            var inputObserver = Substitute.For<IObserver>();
             calculation.InputParameters.Attach(inputObserver);
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
 
                 plugin.Gui = gui;
 
@@ -433,16 +439,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    // Note: observer assertions are verified in the TearDown()
+                    // Note: observer assertions are verified below.
                 }
             }
+
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructureClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var structure = new TestHeightStructure();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -457,10 +465,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            var inputObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = Substitute.For<IObserver>();
             calculation.InputParameters.Attach(inputObserver);
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
             string textBoxMessage = null;
@@ -473,11 +481,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
 
                 plugin.Gui = gui;
 
@@ -495,8 +502,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -505,7 +510,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructureClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var structure = new TestHeightStructure();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -519,12 +524,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(obs => obs.UpdateObserver());
+            var inputObserver = Substitute.For<IObserver>();
             calculation.InputParameters.Attach(inputObserver);
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(obs => obs.UpdateObserver());
+            var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
             string textBoxMessage = null;
@@ -537,11 +540,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
 
                 plugin.Gui = gui;
 
@@ -560,16 +562,19 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the TearDown()
+                    // Note: observer assertions are verified below.
                 }
             }
+
+            inputObserver.Received(1).UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
@@ -577,10 +582,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -600,7 +604,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateCalculationEnabled()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -608,10 +612,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -631,7 +634,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithoutForeshoreProfile_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
@@ -643,10 +646,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -669,7 +671,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputInSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -687,10 +689,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -713,7 +714,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
@@ -734,10 +735,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -759,11 +759,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            calculationInputObserver.Expect(o => o.UpdateObserver());
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -785,10 +784,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -806,6 +804,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
+
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -814,9 +814,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenPerformClick_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)
         {
             // Given
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -838,12 +838,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            if (continuation)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-                calculationInputObserver.Expect(o => o.UpdateObserver());
-            }
-
             var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
             {
@@ -862,10 +856,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -889,14 +882,19 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
+
+            if (continuation)
+            {
+                calculationObserver.Received(1).UpdateObserver();
+                calculationInputObserver.Received(1).UpdateObserver();
+            }
         }
 
         [Test]
         public void GivenValidCalculation_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -922,10 +920,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns(string.Empty);
+            assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -941,25 +939,24 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                var gui = Substitute.For<IGui>();
+                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                             assessmentSection.HydraulicBoundaryData,
-                                             hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-                mocks.ReplayAll();
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+                calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                    Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+                calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                           Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        (HydraRingCalculationSettings) invocation[0]);
+                });
 
                 plugin.Gui = gui;
 
@@ -990,6 +987,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     Assert.IsNotNull(calculation.Output);
                 }
+
+                observer.Received(1).UpdateObserver();
+                calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                    Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -997,7 +998,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var observer = mocks.StrictMock<IObserver>();
+            var observer = Substitute.For<IObserver>();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -1021,8 +1022,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -1039,10 +1040,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -1067,7 +1067,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -1080,10 +1080,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -1102,7 +1101,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithOutputWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -1115,10 +1114,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -1137,7 +1135,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -1148,7 +1146,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
             var messageBoxText = "";
@@ -1162,10 +1160,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -1185,7 +1182,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
@@ -1196,8 +1193,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
+            var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
             var messageBoxText = "";
@@ -1211,10 +1207,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
@@ -1227,6 +1222,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                     Assert.IsFalse(calculation.Output.HasGeneralResult);
                 }
+
+                calculationObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -1237,8 +1234,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var elementToBeRemoved = new StructuresCalculationScenario<HeightStructuresInput>();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationContext = new HeightStructuresCalculationScenarioContext(elementToBeRemoved,
                                                                                     group,
                                                                                     failureMechanism,
@@ -1247,10 +1244,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                            null,
                                                                            failureMechanism,
                                                                            assessmentSection);
-
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
@@ -1266,11 +1259,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationScenarioContext));
         }
@@ -1278,8 +1272,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public override void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
-
             base.TearDown();
         }
 

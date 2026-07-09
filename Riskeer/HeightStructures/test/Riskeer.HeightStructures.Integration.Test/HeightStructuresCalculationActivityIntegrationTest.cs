@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
@@ -85,12 +85,9 @@ namespace Riskeer.HeightStructures.Integration.Test
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -129,7 +126,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -146,12 +143,9 @@ namespace Riskeer.HeightStructures.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -178,22 +172,17 @@ namespace Riskeer.HeightStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
         public void Finish_ValidCalculationAndRan_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-            mockRepository.ReplayAll();
+            var observer = Substitute.For<IObserver>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -223,7 +212,8 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            mockRepository.VerifyAll();
+            observer.Received(1).UpdateObserver();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -234,20 +224,16 @@ namespace Riskeer.HeightStructures.Integration.Test
         public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -278,7 +264,8 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mockRepository.VerifyAll();
+            observer.Received(1).UpdateObserver();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -313,20 +300,18 @@ namespace Riskeer.HeightStructures.Integration.Test
                 }
             };
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                          assessmentSection.HydraulicBoundaryData,
                                          hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-            mockRepository.ReplayAll();
+                                     (HydraRingCalculationSettings) callInfo[0]);
+
+                                 return new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
+                             });
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -348,7 +333,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
     }
 }

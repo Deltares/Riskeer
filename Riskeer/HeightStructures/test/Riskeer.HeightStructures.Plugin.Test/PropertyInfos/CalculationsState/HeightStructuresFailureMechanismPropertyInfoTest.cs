@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
@@ -62,9 +62,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.CalculationsState
         public void CreateInstance_WithContext_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -75,8 +73,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.CalculationsState
             // Assert
             Assert.IsInstanceOf<HeightStructuresFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

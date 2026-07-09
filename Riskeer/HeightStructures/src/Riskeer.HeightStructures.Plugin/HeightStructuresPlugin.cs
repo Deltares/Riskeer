@@ -119,13 +119,12 @@ namespace Riskeer.HeightStructures.Plugin
                         RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
-                (context, filePath) => new HeightStructuresCalculationConfigurationImporter(
-                    filePath,
-                    context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
-                    context.AvailableForeshoreProfiles,
-                    context.AvailableStructures));
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>((context, filePath) => new HeightStructuresCalculationConfigurationImporter(
+                                                                                                                                        filePath,
+                                                                                                                                        context.WrappedData,
+                                                                                                                                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
+                                                                                                                                        context.AvailableForeshoreProfiles,
+                                                                                                                                        context.AvailableStructures));
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()

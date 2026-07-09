@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -221,12 +221,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.RegistrationState
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
 
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
 
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -243,7 +238,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.RegistrationState
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            mocks.VerifyAll();
+            observers[sectionsObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -413,22 +410,21 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.RegistrationState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
 
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsStartPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
 
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsEndPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
             return new[]
             {

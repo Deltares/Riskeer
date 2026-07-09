@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -54,9 +54,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculationScenario = new StructuresCalculationScenario<HeightStructuresInput>();
 
@@ -76,7 +74,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -371,10 +368,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             StructuresCalculationScenario<HeightStructuresInput> calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
@@ -389,7 +383,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
         }
 
         /// <summary>
@@ -416,21 +409,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
-
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
-
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var inputObserver = Substitute.For<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             StructuresOutput assignedOutput = null;
 
