@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
@@ -91,9 +91,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         public void IsEnabled_FailureMechanismSectionsSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -112,16 +110,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
                 Assert.IsTrue(isEnabled);
             }
 
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_FailureMechanismSectionsSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -137,7 +132,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
                 Assert.IsFalse(isEnabled);
             }
 
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -160,10 +154,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -177,7 +169,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
-                mocks.VerifyAll();
             }
         }
 
@@ -185,9 +176,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         public void CurrentPath_FailureMechanismSectionsSourcePathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -204,7 +193,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.AreEqual(sourcePath, currentFilePath);
-                mocks.VerifyAll();
             }
         }
 

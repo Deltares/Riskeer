@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -113,12 +112,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-                             .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
 
             var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                          null,
@@ -130,7 +128,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationConfigurationImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

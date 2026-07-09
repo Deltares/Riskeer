@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState;
@@ -53,9 +53,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.HydraulicLoadsSt
         public void CreateInstance_WithContext_SetsFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
@@ -72,7 +70,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.HydraulicLoadsSt
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 
-            mocks.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(StabilityStoneCoverPlugin plugin)

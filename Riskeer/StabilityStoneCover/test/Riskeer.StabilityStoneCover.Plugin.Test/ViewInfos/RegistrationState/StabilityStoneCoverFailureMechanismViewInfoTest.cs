@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailureMechanismView));
         }
@@ -64,8 +62,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
@@ -83,8 +80,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
@@ -98,7 +94,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,8 +118,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -136,7 +130,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
             // Assert
             Assert.IsFalse(closeForData);
 
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -160,7 +153,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherGrassCoverErosionInwardsFailureMechanism = new StabilityStoneCoverFailureMechanism();
