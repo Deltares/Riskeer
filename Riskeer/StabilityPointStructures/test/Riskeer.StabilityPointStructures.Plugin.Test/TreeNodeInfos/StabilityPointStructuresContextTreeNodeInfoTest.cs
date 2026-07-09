@@ -21,12 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
@@ -72,9 +73,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnExpectedText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
@@ -92,17 +91,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 const string expectedText = "Kunstwerken";
                 Assert.AreEqual(expectedText, text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
@@ -119,17 +114,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsProperties.GeneralFolderIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_CollectionHasElements_ReturnControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.StabilityPointStructures.AddRange(new[]
@@ -153,17 +144,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_Always_ReturnStabilityPointStructures()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             StabilityPointStructure structure1 = new TestStabilityPointStructure("id structure1");
             StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
@@ -189,17 +176,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(structure1, children.ElementAt(0));
                 Assert.AreSame(structure2, children.ElementAt(1));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_CollectionIsEmpty_ReturnGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
@@ -219,35 +202,30 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
             {
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.AddImportItem().Returns(menuBuilder);
+                menuBuilder.AddUpdateItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.Build().Returns((ContextMenuStrip) null);
             }
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
@@ -257,7 +235,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)

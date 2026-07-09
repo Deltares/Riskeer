@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -36,9 +36,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
@@ -48,7 +46,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
-            mocks.VerifyAll();
         }
     }
 }

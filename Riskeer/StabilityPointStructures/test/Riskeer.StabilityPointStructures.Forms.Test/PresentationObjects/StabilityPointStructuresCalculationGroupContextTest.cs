@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -40,9 +40,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -61,7 +59,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.AvailableForeshoreProfiles);
             Assert.AreSame(failureMechanism.StabilityPointStructures, groupContext.AvailableStructures);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture(true)]
@@ -70,25 +67,17 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             : EqualsTestFixture<StabilityPointStructuresCalculationGroupContext,
                 DerivedStabilityPointStructuresCalculationGroupContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly StabilityPointStructuresFailureMechanism failureMechanism = new StabilityPointStructuresFailureMechanism();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
 
             private static CalculationGroup parent;
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             public StabilityPointStructuresCalculationGroupContextEqualsTest(bool hasParent)
             {

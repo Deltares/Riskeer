@@ -21,12 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
@@ -86,9 +87,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void Text_WithContext_ReturnsName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
@@ -97,7 +96,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Sterkte en stabiliteit puntconstructies", text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -158,9 +156,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnChildDataNodes()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
@@ -176,39 +172,34 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var comment = (Comment) children[0];
             Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
                 {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                    menuBuilder.AddOpenItem().Returns(menuBuilder);
+                    menuBuilder.AddSeparator().Returns(menuBuilder);
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                    menuBuilder.AddSeparator().Returns(menuBuilder);
+                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                    menuBuilder.AddSeparator().Returns(menuBuilder);
+                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                    menuBuilder.Build().Returns((ContextMenuStrip) null);
                 }
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
@@ -217,15 +208,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -235,21 +224,19 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 };
                 var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
                 {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                    menuBuilder.AddSeparator().Returns(menuBuilder);
+                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                    menuBuilder.AddSeparator().Returns(menuBuilder);
+                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                    menuBuilder.Build().Returns((ContextMenuStrip) null);
                 }
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
@@ -258,7 +245,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [TestFixture]

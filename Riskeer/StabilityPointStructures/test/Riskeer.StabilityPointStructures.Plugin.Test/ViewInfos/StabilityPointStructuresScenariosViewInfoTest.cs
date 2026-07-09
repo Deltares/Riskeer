@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -92,13 +92,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             // Setup
             var unrelatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 unrelatedFailureMechanism
             });
-            mocks.ReplayAll();
 
             using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism()))
             {
@@ -111,8 +109,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,13 +117,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             // Setup
             var relatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 relatedFailureMechanism
             });
-            mocks.ReplayAll();
 
             using (var view = new StabilityPointStructuresScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism))
             {
@@ -140,8 +134,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -177,10 +169,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutStabilityPointStructuresFailureMechanism_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
 
             using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism()))
             {
@@ -190,17 +180,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
@@ -213,17 +199,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -236,8 +218,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

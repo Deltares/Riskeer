@@ -211,9 +211,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                   .ToArray();
 
-            StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = calculations.Where(
-                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
-                     && c.HasOutput).ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = calculations.Where(c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                                                                                                                          && c.HasOutput).ToArray();
 
             var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)

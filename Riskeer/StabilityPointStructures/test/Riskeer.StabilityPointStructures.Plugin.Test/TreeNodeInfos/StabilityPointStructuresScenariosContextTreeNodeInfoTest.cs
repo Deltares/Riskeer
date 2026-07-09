@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,12 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -35,14 +36,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructuresScenariosContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresScenariosContext));
         }
@@ -51,14 +50,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(info.Text);
@@ -105,18 +102,16 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
             {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+                menuBuilder.Build().Returns((ContextMenuStrip) null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
