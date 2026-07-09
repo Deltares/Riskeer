@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
@@ -39,9 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_InputToUpdateNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
-            mocks.ReplayAll();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
 
             var collector = new ReadConversionCollector();
 
@@ -51,16 +49,13 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("inputToUpdate", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Read_ReadConversionCollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
-            mocks.ReplayAll();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
 
             var inputToUpdate = new SimpleStructuresInput();
 
@@ -70,7 +65,6 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("collector", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,8 +73,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(78);
 
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
             entity.StructureNormalOrientation = random.NextDouble(0, 360);
             entity.AllowedLevelIncreaseStorageMean = random.NextDouble(1e-6, 9999.9999);
             entity.AllowedLevelIncreaseStorageStandardDeviation = random.NextDouble(1e-6, 9999.9999);
@@ -95,8 +88,6 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.UseForeshore = Convert.ToByte(random.NextBoolean());
             entity.UseBreakWater = Convert.ToByte(random.NextBoolean());
             entity.ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean());
-            mocks.ReplayAll();
-
             var inputToUpdate = new SimpleStructuresInput();
             var collector = new ReadConversionCollector();
 
@@ -124,15 +115,13 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(inputToUpdate.ForeshoreProfile);
             Assert.IsNull(inputToUpdate.HydraulicBoundaryLocation);
             Assert.IsNull(inputToUpdate.Structure);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Read_EntityWithParametersNull_InputObjectUpdatedWithNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
             entity.StructureNormalOrientation = null;
             entity.AllowedLevelIncreaseStorageMean = null;
             entity.AllowedLevelIncreaseStorageStandardDeviation = null;
@@ -143,8 +132,6 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.WidthFlowAperturesMean = null;
             entity.WidthFlowAperturesStandardDeviation = null;
             entity.StormDurationMean = null;
-            mocks.ReplayAll();
-
             var inputToUpdate = new SimpleStructuresInput();
             var collector = new ReadConversionCollector();
 
@@ -162,7 +149,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNaN(inputToUpdate.WidthFlowApertures.Mean);
             Assert.IsNaN(inputToUpdate.WidthFlowApertures.StandardDeviation);
             Assert.IsNaN(inputToUpdate.StormDuration.Mean);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -172,10 +158,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var foreshoreProfile = new TestForeshoreProfile();
             var foreshoreEntity = new ForeshoreProfileEntity();
 
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
             entity.ForeshoreProfileEntity = foreshoreEntity;
-            mocks.ReplayAll();
 
             var inputToUpdate = new SimpleStructuresInput();
             var collector = new ReadConversionCollector();
@@ -186,7 +170,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreSame(foreshoreProfile, inputToUpdate.ForeshoreProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -196,10 +179,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
             var hydraulicLocationEntity = new HydraulicLocationEntity();
 
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStructuresCalculationEntity>();
+            var entity = Substitute.For<IStructuresCalculationEntity>();
             entity.HydraulicLocationEntity = hydraulicLocationEntity;
-            mocks.ReplayAll();
 
             var inputToUpdate = new SimpleStructuresInput();
             var collector = new ReadConversionCollector();
@@ -210,7 +191,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, inputToUpdate.HydraulicBoundaryLocation);
-            mocks.VerifyAll();
         }
 
         private static void AssertBoolean(byte expectedByte, bool actual)

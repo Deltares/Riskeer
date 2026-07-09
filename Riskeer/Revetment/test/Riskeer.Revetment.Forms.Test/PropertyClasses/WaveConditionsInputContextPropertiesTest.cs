@@ -31,7 +31,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -75,9 +75,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             void Call() => new WaveConditionsInputContextProperties(null, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
@@ -85,16 +83,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("context", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -109,7 +104,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,9 +127,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void Constructor_WithValidData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -218,7 +210,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(BreakWaterType.Dam, properties.BreakWater.BreakWaterType);
             Assert.AreEqual(damHeight, properties.BreakWater.BreakWaterHeight.Value, properties.BreakWater.BreakWaterHeight.GetAccuracy());
             CollectionAssert.IsEmpty(properties.ForeshoreGeometry.Coordinates);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -226,9 +217,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             [Values(true, false)] bool withForeshoreProfile)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -364,16 +353,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "Eigenschappen van de voorlandgeometrie.",
                                                                             true);
 
-            mocks.VerifyAll();
         }
 
         [Test]
         public void WaterLevels_WithValidData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -400,7 +386,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNotEmpty(properties.WaterLevels);
             CollectionAssert.AreEqual(input.GetWaterLevels(assessmentLevel), properties.WaterLevels);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -419,16 +404,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void SelectedTargetProbability_WaterLevelTypeNotUserDefinedTargetProbability_InputChangedAndObservablesNotified(WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
                 });
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var input = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(input);
@@ -449,7 +431,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(customHandler.Called);
             Assert.IsNull(calculation.InputParameters.CalculationsTargetProbability);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -458,16 +440,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Setup
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
                     calculationsForTargetProbability
                 });
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var input = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(input);
@@ -491,7 +470,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsTrue(customHandler.Called);
             Assert.AreSame(calculationsForTargetProbability, input.CalculationsTargetProbability);
             Assert.AreEqual(waterLevelType, input.WaterLevelType);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -570,9 +549,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputWithoutLocation_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -588,16 +565,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsForeshoreProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -612,9 +587,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     }
                 }
             };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
@@ -640,16 +613,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
             Assert.AreEqual(distanceToForeshoreProfileReferencePoint, itemDistance, itemDistance.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_InputWithLocationsForeshoreProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var input = new WaveConditionsInput
@@ -682,16 +652,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
             Assert.AreEqual(distanceToForeshoreProfileReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertiesWithForeshoreProfileAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -706,9 +674,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     }
                 }
             };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -730,16 +696,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsNoReferencePoint_ReturnsLocationsSortedById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -756,9 +720,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     }
                 }
             };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
@@ -775,16 +737,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                  .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                  .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndReferencePoint_ReturnsLocationsSortedByDistanceThenById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -804,9 +764,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     }
                 }
             };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
@@ -828,15 +786,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                  .OrderBy(hbl => hbl.Distance)
                                  .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingForeshoreProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -855,9 +811,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     }
                 }
             };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
@@ -890,16 +844,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                  .OrderBy(hbl => hbl.Distance)
                                  .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableForeshoreProfiles_InputWithLocations_ReturnsLocations()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -920,16 +871,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(foreshoreProfiles, availableForeshoreProfiles);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SelectedTargetProbability_WaterLevelTypeNone_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -945,7 +893,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsNull(selectedTargetProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -956,9 +903,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Func<IAssessmentSection, double> getTargetProbabilityFunc)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -985,16 +930,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(waterLevelType, selectedTargetProbability.WaterLevelType);
             Assert.AreSame(getHydraulicBoundaryLocationCalculationsFunc(assessmentSection), selectedTargetProbability.HydraulicBoundaryLocationCalculations);
             Assert.AreEqual(getTargetProbabilityFunc(assessmentSection), selectedTargetProbability.TargetProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableTargetProbabilities_AssessmentSectionWithUserDefinedWaterLevelTargetProbabilities_ReturnsSortedTargetProbabilities()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -1024,17 +966,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             };
 
             CollectionAssert.AreEqual(expectedTargetProbabilities, selectableTargetProbabilities);
-            mocks.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<WaveConditionsInputContextProperties> setProperty)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
 
             var input = new WaveConditionsInput
             {
@@ -1061,7 +999,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(customHandler.Called);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
 
         private static IEnumerable<TestCaseData> GetSelectableTargetProbabilities()

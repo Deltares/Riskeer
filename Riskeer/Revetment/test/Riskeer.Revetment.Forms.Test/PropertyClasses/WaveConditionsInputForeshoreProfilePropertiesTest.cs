@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -97,11 +97,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
+            var observer = Substitute.For<IObserver>();
             const int numberOfChangedProperties = 1;
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
 
             var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties
@@ -116,7 +113,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(input.UseForeshore);
-            mockRepository.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [TestCase(true, 0, true, TestName = "Properties_WithOrWithoutForeshoreProfileAndPoints_ReturnValues(true, 0, true)")]

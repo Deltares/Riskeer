@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
@@ -91,16 +91,14 @@ namespace Riskeer.Revetment.Service.Test
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
             }, true);
 
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculation1,
                 calculation2,
                 calculation3,
                 calculation4
             });
-            mocks.ReplayAll();
 
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
@@ -117,7 +115,6 @@ namespace Riskeer.Revetment.Service.Test
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);
             Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculations).All(c => c.HasOutput));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -177,9 +174,8 @@ namespace Riskeer.Revetment.Service.Test
                 CalculationsTargetProbability = otherCalculationsForTargetProbability
             }, true);
 
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculation1,
                 calculation2,
@@ -187,7 +183,6 @@ namespace Riskeer.Revetment.Service.Test
                 calculation4,
                 calculation5
             });
-            mocks.ReplayAll();
 
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
@@ -202,7 +197,6 @@ namespace Riskeer.Revetment.Service.Test
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);
             Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculations).All(c => c.HasOutput));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -259,9 +253,8 @@ namespace Riskeer.Revetment.Service.Test
                 CalculationsTargetProbability = otherCalculationsForTargetProbability
             }, true);
 
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculation1,
                 calculation2,
@@ -269,7 +262,6 @@ namespace Riskeer.Revetment.Service.Test
                 calculation4,
                 calculation5
             });
-            mocks.ReplayAll();
 
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
@@ -295,7 +287,6 @@ namespace Riskeer.Revetment.Service.Test
 
             Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculations).All(c => c.HasOutput));
             Assert.IsNotNull(calculation5.InputParameters.CalculationsTargetProbability);
-            mocks.VerifyAll();
         }
     }
 }

@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.DikeProfiles;
@@ -493,20 +493,6 @@ namespace Riskeer.Storage.Core.Test.Create
         private class MacroStabilityInwardsStochasticSoilProfileRegistryTest : RegistryTest<MacroStabilityInwardsStochasticSoilProfile,
             MacroStabilityInwardsStochasticSoilProfileEntity>
         {
-            private MockRepository mockRepository;
-
-            [SetUp]
-            public void Setup()
-            {
-                mockRepository = new MockRepository();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mockRepository.VerifyAll();
-            }
-
             public MacroStabilityInwardsStochasticSoilProfileRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
@@ -514,8 +500,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
             {
-                var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-                mockRepository.ReplayAll();
+                var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
 
                 return new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
             }

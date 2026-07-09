@@ -26,7 +26,7 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
@@ -55,16 +55,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var factory = Substitute.For<IAssemblyToolKernelFactory>();
 
             // Call
             var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionAssemblyGroupBoundariesCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]

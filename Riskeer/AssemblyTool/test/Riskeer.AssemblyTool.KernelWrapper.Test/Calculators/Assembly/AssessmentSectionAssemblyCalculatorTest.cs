@@ -28,7 +28,7 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
@@ -47,16 +47,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Constructor_WithFactory_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             // Call
             var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionAssemblyCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,9 +71,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleAssessmentSection_FailureMechanismProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             var random = new Random(21);
             var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
@@ -256,9 +251,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleAssessmentSectionWithCorrelatedFailureMechanismProbabilities_CorrelatedFailureMechanismProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             var random = new Random(21);
             var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
@@ -275,9 +268,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleAssessmentSectionWithCorrelatedFailureMechanismProbabilities_UncorrelatedFailureMechanismProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             var random = new Random(21);
             var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);

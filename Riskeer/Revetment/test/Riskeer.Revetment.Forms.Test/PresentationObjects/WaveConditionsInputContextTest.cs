@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -44,9 +44,7 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new WaveConditionsInputContext(waveConditionsInput, null, assessmentSection);
@@ -54,7 +52,6 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculation", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]

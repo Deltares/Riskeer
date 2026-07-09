@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
@@ -42,8 +42,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
             // Call
@@ -199,8 +198,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
             // Call

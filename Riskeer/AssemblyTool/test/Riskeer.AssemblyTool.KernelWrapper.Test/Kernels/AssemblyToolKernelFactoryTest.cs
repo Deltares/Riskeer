@@ -22,7 +22,7 @@
 using Assembly.Kernel.Implementations;
 using Assembly.Kernel.Interfaces;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
@@ -58,9 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void Instance_WhenSetToInstance_ReturnsThatInstance()
         {
             // Setup
-            var mocks = new MockRepository();
-            var firstFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var firstFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             AssemblyToolKernelFactory.Instance = firstFactory;
 
@@ -69,7 +67,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
-            mocks.VerifyAll();
         }
 
         [Test]
