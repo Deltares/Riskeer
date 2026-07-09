@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.RegistrationState
 {
@@ -35,10 +35,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.RegistrationS
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.RegistrationS
             Assert.IsInstanceOf<FailureMechanismContext<ClosingStructuresFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
         }
     }
 }

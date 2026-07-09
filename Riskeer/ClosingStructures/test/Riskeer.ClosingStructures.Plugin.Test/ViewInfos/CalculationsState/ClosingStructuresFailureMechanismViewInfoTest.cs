@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,26 +22,24 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.ClosingStructures.Forms.Views.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new ClosingStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismView));
         }
@@ -64,9 +62,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationsState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 

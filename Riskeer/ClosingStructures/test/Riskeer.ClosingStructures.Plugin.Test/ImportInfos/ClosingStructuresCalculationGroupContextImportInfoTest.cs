@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.IO.Configurations;
@@ -33,6 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
 {
@@ -62,10 +62,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
                                                                        null,
                                                                        new ClosingStructuresFailureMechanism(),
@@ -81,8 +78,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<ClosingStructuresCalculationConfigurationImporter>(fileImporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

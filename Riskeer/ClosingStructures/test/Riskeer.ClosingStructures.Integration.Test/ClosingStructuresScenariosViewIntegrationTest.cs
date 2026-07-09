@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.ClosingStructures.IO;
@@ -39,6 +38,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Integration.Test
 {
@@ -85,10 +85,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
         public void ScenariosView_GenerateCalculations_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -141,18 +138,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual("Eerste kunstwerk sluiting 6-3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ScenariosView_RenameCalculations_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -206,18 +198,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 // Assert
                 Assert.AreEqual("Eerste kunstwerk sluiting 6-3_changed", cells[nameColumnIndex].FormattedValue);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ScenariosView_ChangeStructureOfCalculation_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -267,8 +254,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual("Eerste kunstwerk sluiting 6-3 Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Tweede kunstwerk sluiting 6-3 Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

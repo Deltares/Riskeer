@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
@@ -36,6 +35,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 {
@@ -86,10 +86,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         public void Text_WithContext_ReturnsName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Call
@@ -97,7 +94,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 
             // Assert
             Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -158,10 +154,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnChildDataNodes()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InAssembly = false
@@ -176,56 +169,68 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 
             var comment = (Comment) children[0];
             Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
+
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
-            }
 
-            // Assert
-            mocks.VerifyAll();
+                // Assert
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddOpenItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -235,30 +240,42 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
                 };
                 var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
+
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
-            }
 
-            // Assert
-            mocks.VerifyAll();
+                // Assert
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         [TestFixture]

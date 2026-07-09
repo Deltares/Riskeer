@@ -23,12 +23,12 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PropertyClasses;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {
@@ -63,10 +63,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var collection = new StructureCollection<ClosingStructure>();
@@ -78,8 +75,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<StructureCollectionProperties<ClosingStructure>>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

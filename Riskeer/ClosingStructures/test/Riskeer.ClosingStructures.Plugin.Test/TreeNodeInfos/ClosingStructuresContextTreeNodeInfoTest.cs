@@ -26,12 +26,12 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Properties;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
@@ -82,10 +82,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnExpectedText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
@@ -96,17 +93,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Assert
             const string expectedText = "Kunstwerken";
             Assert.AreEqual(expectedText, text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
@@ -116,17 +109,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_CollectionHasElementsEmpty_ReturnControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.ClosingStructures.AddRange(new[]
             {
@@ -143,17 +132,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_Always_ReturnClosingStructures()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ClosingStructure closingStructure1 = new TestClosingStructure("structure1");
             ClosingStructure closingStructure2 = new TestClosingStructure("structure2");
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -172,17 +157,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(2, children.Length);
             Assert.AreSame(closingStructure1, children.ElementAt(0));
             Assert.AreSame(closingStructure2, children.ElementAt(1));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_CollectionIsEmpty_ReturnGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Precondition
@@ -195,34 +176,35 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
@@ -231,7 +213,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddImportItem();
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

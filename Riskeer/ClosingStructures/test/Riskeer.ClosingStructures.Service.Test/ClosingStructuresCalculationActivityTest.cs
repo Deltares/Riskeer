@@ -22,11 +22,11 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Service.Test
 {
@@ -37,10 +37,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
@@ -52,18 +49,13 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
@@ -72,7 +64,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

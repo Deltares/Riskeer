@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {
@@ -37,10 +37,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
@@ -54,17 +51,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Equals_ToDerivedObject_ReturnsFalse()
         {
             // Setup  
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
@@ -76,7 +69,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsFalse(isEqual);
-            mocksRepository.VerifyAll();
         }
 
         private class DerivedClosingStructuresCalculationScenarioContext : ClosingStructuresCalculationScenarioContext

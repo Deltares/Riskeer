@@ -26,24 +26,22 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ClosingStructureTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new ClosingStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructure));
         }
@@ -52,15 +50,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -86,7 +81,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnNameOfStructure()
         {
             // Setup
-            mocks.ReplayAll();
             const string name = "very nice name!";
             ClosingStructure structure = new TestClosingStructure("id", name);
 
@@ -101,8 +95,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnStructuresIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -114,20 +106,18 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 ClosingStructure nodeData = new TestClosingStructure();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
@@ -137,6 +127,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             // Assert expectancies are called in TearDown()
+
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }
