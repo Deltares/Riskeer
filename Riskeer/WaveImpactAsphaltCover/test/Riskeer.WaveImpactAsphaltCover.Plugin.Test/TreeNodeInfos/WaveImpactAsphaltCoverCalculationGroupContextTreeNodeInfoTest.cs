@@ -243,7 +243,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
@@ -294,7 +294,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -371,7 +371,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
@@ -427,7 +427,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
@@ -506,7 +506,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -568,7 +568,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
-                
+
                 exportCommandHandler.Received().CanExportFrom(nodeData);
             }
         }
@@ -622,7 +622,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -685,7 +685,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
-                
+
                 importCommandHandler.Received().GetSupportedImportInfos(nodeData);
                 exportCommandHandler.Received().CanExportFrom(nodeData);
             }
@@ -714,7 +714,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -757,7 +757,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -803,7 +803,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -883,7 +883,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                          (HydraRingCalculationSettings) callInfo[0]);
                                      return new TestWaveConditionsCosineCalculator();
                                  });
-    
+
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -941,7 +941,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-    
+
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -987,7 +987,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-    
+
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -1055,7 +1055,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-    
+
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -1161,7 +1161,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 group.Children.Add(calculationItem);
                 nodeData.Attach(observer);
 
@@ -1245,7 +1245,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 gui.ViewCommands.Returns(viewCommands);
 
-    
                 nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
@@ -1323,7 +1322,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 gui.ViewCommands.Returns(viewCommands);
 
-    
                 nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
@@ -1412,7 +1410,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.ViewCommands.Returns(viewCommands);
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
@@ -1459,7 +1457,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.ViewCommands.Returns(viewCommands);
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
@@ -1504,7 +1502,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 calculation.InputParameters.UseBreakWater = true;
 
                 // Call
@@ -1557,7 +1555,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-    
+
                 calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))

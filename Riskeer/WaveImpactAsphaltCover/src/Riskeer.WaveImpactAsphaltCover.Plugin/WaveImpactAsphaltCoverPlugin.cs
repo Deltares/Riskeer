@@ -148,15 +148,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverCalculationGroupContext>(
-                (context, filePath) =>
-                    new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
-                        filePath,
-                        context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
-                        context.ForeshoreProfiles,
-                        context.AssessmentSection.FailureMechanismContribution,
-                        context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverCalculationGroupContext>((context, filePath) =>
+                                                                                                                                              new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
+                                                                                                                                                  filePath,
+                                                                                                                                                  context.WrappedData,
+                                                                                                                                                  context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
+                                                                                                                                                  context.ForeshoreProfiles,
+                                                                                                                                                  context.AssessmentSection.FailureMechanismContribution,
+                                                                                                                                                  context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

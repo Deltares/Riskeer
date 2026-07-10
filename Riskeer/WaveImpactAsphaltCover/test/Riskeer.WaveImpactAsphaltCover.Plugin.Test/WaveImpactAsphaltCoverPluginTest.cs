@@ -144,7 +144,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
         }
 
         [Test]
@@ -190,7 +189,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
             }
-
         }
 
         [Test]

@@ -111,7 +111,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         [Test]
@@ -136,7 +135,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         [Test]
@@ -160,7 +158,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
         }
 
         [Test]
@@ -180,7 +177,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
         }
 
         [Test]
@@ -200,7 +196,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         [Test]
@@ -222,7 +217,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
         }
 
         [Test]
@@ -245,7 +239,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         [Test]

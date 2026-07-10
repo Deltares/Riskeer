@@ -76,7 +76,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            
+
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -103,7 +103,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            
+
             const string name = "cool name";
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -127,7 +127,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnCalculationIcon()
         {
             // Setup
-            
+
             // Call
             Image icon = info.Image(null);
 
@@ -139,7 +139,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_Always_ReturnTrue()
         {
             // Setup
-            
+
             // Call
             bool shouldBeVisible = info.EnsureVisibleOnCreate(null, null);
 
@@ -165,7 +165,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 }
             });
-            
+
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -223,7 +223,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 }
             });
-            
+
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -267,7 +267,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void CanRename_Always_ReturnTrue()
         {
             // Setup
-            
+
             // Call
             bool canRename = info.CanRename(null, null);
 
@@ -484,7 +484,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 // Call
@@ -559,7 +559,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -731,7 +731,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
@@ -748,6 +748,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
+
             calculationInputObserver.Received().UpdateObserver();
         }
 
@@ -802,7 +803,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
@@ -825,7 +826,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
-            
+
             if (continuation)
             {
                 calculationObserver.Received().UpdateObserver();
@@ -1077,7 +1078,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -1129,7 +1130,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -1183,7 +1184,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                
+
                 plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>

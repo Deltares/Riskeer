@@ -69,7 +69,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.RegistrationS
                 Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
-
         }
 
         private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)

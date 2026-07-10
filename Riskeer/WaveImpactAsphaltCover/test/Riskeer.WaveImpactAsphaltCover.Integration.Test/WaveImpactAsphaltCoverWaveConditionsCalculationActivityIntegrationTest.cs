@@ -407,7 +407,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                              {
                                  EndInFailure = endInFailure,
                                  LastErrorFileContent = lastErrorFileContent
-                              });
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

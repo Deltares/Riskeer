@@ -109,7 +109,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
         }
 
         [Test]
@@ -131,7 +130,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
         }
 
         [Test]

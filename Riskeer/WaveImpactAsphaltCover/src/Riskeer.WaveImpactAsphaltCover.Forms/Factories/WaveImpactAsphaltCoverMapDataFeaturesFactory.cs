@@ -54,11 +54,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
                                             && calculation.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
-                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new MapCalculationData(
-                        calculation.Name,
-                        calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(calculation => new MapCalculationData(
+                                                                                calculation.Name,
+                                                                                calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
+                                                                                calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

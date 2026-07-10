@@ -72,7 +72,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             private static CalculationGroup parent;
 
-
             public WaveImpactAsphaltCoverCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;

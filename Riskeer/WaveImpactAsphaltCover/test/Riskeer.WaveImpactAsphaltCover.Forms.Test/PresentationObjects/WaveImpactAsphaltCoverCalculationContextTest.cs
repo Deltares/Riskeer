@@ -84,7 +84,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             private static readonly WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-
             protected override WaveImpactAsphaltCoverWaveConditionsCalculationContext CreateObject()
             {
                 return new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);

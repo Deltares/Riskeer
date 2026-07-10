@@ -92,9 +92,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                                                              .ToArray();
 
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> expectedAffectedCalculations = calculations.Where(
-                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
-                     && c.HasOutput).ToArray();
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> expectedAffectedCalculations = calculations.Where(c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                                                                                                                                && c.HasOutput).ToArray();
 
             var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
