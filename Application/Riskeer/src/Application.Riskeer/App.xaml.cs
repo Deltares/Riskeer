@@ -29,6 +29,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -78,7 +79,12 @@ namespace Application.Riskeer
         private GuiCore gui;
 
         private delegate void ExceptionDelegate(Exception exception);
-
+        
+        // Create a static instance of the App class to ensure that the AssemblyResolve event is subscribed to before any assemblies are loaded.
+        static App()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.ResolveAssembly;
+        }
         /// <summary>
         /// Creates a new instance of <see cref="App"/>.
         /// </summary>
