@@ -392,7 +392,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   TreeViewControl treeViewControl)
+                                                                                   ITreeViewControl treeViewControl)
         {
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = context.WrappedData
                                                                                              .Calculations
@@ -481,7 +481,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -498,7 +498,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -551,7 +551,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context,
                                                                          object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                                         ITreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -745,7 +745,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationScenarioContext context,
                                                                     object parentData,
-                                                                    TreeViewControl treeViewControl)
+                                                                    ITreeViewControl treeViewControl)
         {
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
@@ -863,7 +863,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);

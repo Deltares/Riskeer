@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -44,10 +44,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
@@ -77,17 +74,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
@@ -110,16 +103,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [TestFixture]
         private class SemiProbabilisticPipingCalculationScenarioContextEqualsTest
             : EqualsTestFixture<SemiProbabilisticPipingCalculationScenarioContext, DerivedSemiProbabilisticPipingCalculationScenarioContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly SemiProbabilisticPipingCalculationScenario calculation = new SemiProbabilisticPipingCalculationScenario();
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
@@ -127,16 +117,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             private static readonly CalculationGroup parent = new CalculationGroup();
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             protected override SemiProbabilisticPipingCalculationScenarioContext CreateObject()
             {

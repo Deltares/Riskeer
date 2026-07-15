@@ -29,7 +29,7 @@ using Core.Components.Gis.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -150,12 +150,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 2;
-
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
             backgroundData.Attach(observer);
 
@@ -172,8 +167,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newTransparency, properties.Transparency, properties.Transparency.GetAccuracy());
             Assert.AreEqual(newVisibility, properties.IsVisible);
-
-            mockRepository.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]

@@ -29,7 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -657,10 +657,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void PublicTrySetScenarioParameters_NoScenario_NoDataAddedToModelReturnsTrue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
-            mockRepository.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
                                                                 new CalculationGroup());
 
@@ -669,8 +666,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsTrue(successful);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -678,12 +673,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             const string calculationScenarioName = "calculationScenario";
-
-            var mockRepository = new MockRepository();
-            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.Name).Return(calculationScenarioName);
-            mockRepository.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
+            calculationScenario.Name.Returns(calculationScenarioName);
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
                                                                 new CalculationGroup());
 
@@ -696,8 +687,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                      $"Berekening '{calculationScenarioName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(successful);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -705,12 +694,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             const string calculationScenarioName = "calculationScenario";
-
-            var mockRepository = new MockRepository();
-            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.Name).Return(calculationScenarioName);
-            mockRepository.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
+            calculationScenario.Name.Returns(calculationScenarioName);
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
                                                                 new CalculationGroup());
 
@@ -727,8 +712,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                      $"Berekening '{calculationScenarioName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(successful);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -737,12 +720,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Setup
             var random = new Random(45);
             double contribution = random.NextDouble();
-
-            var mockRepository = new MockRepository();
-            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.Contribution)
-                               .SetPropertyWithArgument((RoundedDouble) (contribution / 100));
-            mockRepository.ReplayAll();
+            var calculationScenario = Substitute.For<ICalculationScenario>();
 
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
                                                                 new CalculationGroup());
@@ -754,9 +732,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             }, calculationScenario);
 
             // Assert
+            calculationScenario.Received().Contribution =
+                Arg.Is<RoundedDouble>(x => x == (RoundedDouble) (contribution / 100));
             Assert.IsTrue(successful);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -765,12 +743,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Setup
             var random = new Random(45);
             bool isRelevant = random.NextBoolean();
-
-            var mockRepository = new MockRepository();
-            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.IsRelevant).SetPropertyWithArgument(isRelevant);
-            mockRepository.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
                                                                 new CalculationGroup());
 
@@ -782,8 +755,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsTrue(successful);
-
-            mockRepository.VerifyAll();
+            calculationScenario.Received().IsRelevant = Arg.Is<bool>(x => x == isRelevant);
         }
 
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>

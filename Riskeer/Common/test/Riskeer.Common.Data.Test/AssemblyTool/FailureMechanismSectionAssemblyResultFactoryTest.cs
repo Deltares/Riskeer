@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -52,10 +52,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleSectionAdoptableSection_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(null, assessmentSection, calculateStrategy);
@@ -63,18 +61,13 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleSectionAdoptableSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            mocks.ReplayAll();
-
+            var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
@@ -83,18 +76,13 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleSectionAdoptableSection_CalculateProbabilityStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
@@ -103,8 +91,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculateProbabilityStrategy", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,12 +107,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double calculatedSectionProbability = random.NextDouble();
             var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(calculatedSectionProbability);
-            mocks.ReplayAll();
-
+            var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            calculateStrategy.CalculateSectionProbability().Returns(calculatedSectionProbability);
             var assessmentSection = new AssessmentSectionStub();
 
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -162,18 +144,13 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(furtherAnalysisType, calculatorInput.FurtherAnalysisType);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleSectionAdoptableSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            mocks.ReplayAll();
-
+            var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var assessmentSection = new AssessmentSectionStub();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -188,18 +165,13 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleSectionAdoptableSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            mocks.ReplayAll();
-
+            var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var assessmentSection = new AssessmentSectionStub();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -218,8 +190,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -230,9 +200,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleSectionNonAdoptableSection_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(null, assessmentSection);
@@ -240,8 +208,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]

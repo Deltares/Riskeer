@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -53,10 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             double GetNormFunc() => 0.01;
@@ -77,8 +74,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
                 Assert.AreEqual(GetNormFunc(), ((WaterLevelCalculationsForNormTargetProbabilityProperties) objectProperties).TargetProbability);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RiskeerPlugin plugin)

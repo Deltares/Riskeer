@@ -39,7 +39,7 @@ using Core.Components.Gis.Forms.Views;
 using Core.Components.Gis.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Components.Gis.Forms.Test.Views
 {
@@ -54,7 +54,6 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         private static readonly TestDataPath testPath = TestDataPath.Core.Components.Gis.IO;
 
-        private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
         private IWmtsCapabilityFactory wmtsCapabilityFactory;
 
@@ -62,8 +61,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WmtsCapabilityFactoryNull_ThrowArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             // Call
             TestDelegate test = () => new WmtsLocationControl(null, null);
 
@@ -76,8 +73,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WithFactory_DefaultValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
                 // Call
@@ -96,8 +91,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WithFactory_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
                 // Call
@@ -165,8 +158,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WithData_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -203,8 +194,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
                 // Call
@@ -225,8 +214,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GetSelectedMapData_WithoutSelectedData_ReturnsNull()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
@@ -246,8 +233,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GetSelectedMapData_WithSelectedComboBoxWithoutSelectedRow_ReturnsNull()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -268,8 +253,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GetSelectedMapData_WithSelectedData_ReturnsSelectedMapData()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -299,8 +282,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenValidWmtsConnectionInfos_WhenConstructed_ThenExpectedProperties()
         {
             // Given
-            mockRepository.ReplayAll();
-
             var settingsHelper = new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
@@ -344,8 +325,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenValidWmtsConnectionInfos_WhenConstructedWithMapData_ThenExpectedProperties()
         {
             // Given
-            mockRepository.ReplayAll();
-
             const string mapDataName = "Zeegraskartering";
             const string mapDataUrl = "https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities";
             var mapData = new WmtsMapData(mapDataName, mapDataUrl, "capability", "image/png");
@@ -393,8 +372,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenInvalidWmtsConnectionInfos_WhenConstructed_ThenLogGenerated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             var settingsHelper = new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
@@ -434,8 +411,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenAddLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
@@ -469,8 +444,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenAddLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             const string name = @"someName";
             const string url = @"someUrl";
             const string noConfigFolderName = "noConfig";
@@ -528,8 +501,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenAddLocationClickedAndInvalidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -574,8 +545,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenAddLocationClickedAndConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLogGenerated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             const string name = @"someName";
             const string url = @"someUrl";
             const string noConfigFolderName = "noConfig";
@@ -635,8 +604,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenEditLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             const string capabilitiesName = "oldName";
             const string capabilitiesUrl = "oldUrl";
 
@@ -684,8 +651,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenEditLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
-            mockRepository.ReplayAll();
-
             const string newName = "newName";
             const string newUrl = "newUrl";
             const string oldUrl = "oldUrl";
@@ -747,14 +712,11 @@ namespace Core.Components.Gis.Forms.Test.Views
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl))
-                                 .Return(new[]
-                                 {
-                                     CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData))
-                                 });
-            mockRepository.ReplayAll();
-
+            
+            wmtsCapabilityFactory.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl).Returns(new[]
+            {
+                CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData))
+            });
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var form = new Form())
             using (ShowValidWmtsLocationControl(form, wmtsCapabilityFactory))
@@ -783,9 +745,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenConnectClickedAndCannotFindTileSourceException_ThenErrorMessageShown()
         {
             // Given
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments().Throw(new CannotFindTileSourceException("error"));
-            mockRepository.ReplayAll();
-
+            wmtsCapabilityFactory.GetWmtsCapabilities(null).ReturnsForAnyArgs(x => throw new CannotFindTileSourceException("error"));
             string messageBoxTitle = null;
             string messageBoxText = null;
             DialogBoxHandler = (formName, wnd) =>
@@ -818,16 +778,12 @@ namespace Core.Components.Gis.Forms.Test.Views
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
-
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null))
-                                 .IgnoreArguments()
-                                 .Return(new[]
-                                 {
-                                     CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
-                                     CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
-                                 });
-            mockRepository.ReplayAll();
-
+            
+            wmtsCapabilityFactory.GetWmtsCapabilities(Arg.Any<string>()).Returns(new[]
+            {
+                CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
+                CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
+            });
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
@@ -854,15 +810,12 @@ namespace Core.Components.Gis.Forms.Test.Views
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
-
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(selectedBackgroundMapData.SourceCapabilitiesUrl))
-                                 .Return(new[]
-                                 {
-                                     CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
-                                     CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
-                                 });
-            mockRepository.ReplayAll();
-
+            
+            wmtsCapabilityFactory.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl).Returns(new[]
+            {
+                CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
+                CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
+            }); 
             using (new UseCustomTileSourceFactoryConfig(selectedBackgroundMapData))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(selectedBackgroundMapData, wmtsCapabilityFactory))
@@ -885,14 +838,12 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         public override void Setup()
         {
-            mockRepository = new MockRepository();
-            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
-            wmtsCapabilityFactory = mockRepository.StrictMock<IWmtsCapabilityFactory>();
+            tileFactory = Substitute.For<ITileSourceFactory>();
+            wmtsCapabilityFactory = Substitute.For<IWmtsCapabilityFactory>();
         }
 
         public override void TearDown()
         {
-            mockRepository.VerifyAll();
             base.TearDown();
         }
 

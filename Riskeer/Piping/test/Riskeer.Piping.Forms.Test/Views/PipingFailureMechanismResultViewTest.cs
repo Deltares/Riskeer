@@ -24,7 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -75,10 +75,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -91,8 +88,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

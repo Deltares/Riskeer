@@ -30,7 +30,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Piping.Data;
@@ -82,10 +82,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void IsEnabled_SoilModelCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var stochasticSoilModel = new PipingStochasticSoilModelCollection();
 
@@ -96,17 +93,13 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_SoilModelCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var stochasticSoilModel = new PipingStochasticSoilModelCollection();
             stochasticSoilModel.AddRange(Enumerable.Empty<PipingStochasticSoilModel>(), "some/path");
@@ -118,7 +111,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -135,14 +127,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
@@ -156,7 +145,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -165,14 +153,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
@@ -210,17 +195,13 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CurrentPath_StochasticSoilModelCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string expectedFilePath = "some/path";
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             stochasticSoilModelCollection.AddRange(new[]
@@ -237,17 +218,13 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual(expectedFilePath, currentPath);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             var importTarget = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
@@ -257,7 +234,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsInstanceOf<StochasticSoilModelImporter<PipingStochasticSoilModel>>(importer);
-            mocks.VerifyAll();
         }
 
         public override void Setup()

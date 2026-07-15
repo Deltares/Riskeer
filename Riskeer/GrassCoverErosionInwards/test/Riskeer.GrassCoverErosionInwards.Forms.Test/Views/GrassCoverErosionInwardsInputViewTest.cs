@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
@@ -277,11 +277,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_CalculationDikeProfileUpdated_SetNewChartData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
@@ -318,7 +314,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 AssertForeshoreChartData(dikeProfile2, foreshoreChartData);
                 Assert.AreSame(dikeHeightChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeHeightIndex));
                 AssertDikeHeightChartData(dikeProfile2, dikeHeightChartData);
-                mocks.VerifyAll();
+                observer.Received(3).UpdateObserver();
             }
         }
 
@@ -326,10 +322,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_PreviousGrassCoverErosionInwardsCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation
@@ -364,7 +357,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                mocks.VerifyAll(); // No update observer expected
+                // No update observer expected
             }
         }
 

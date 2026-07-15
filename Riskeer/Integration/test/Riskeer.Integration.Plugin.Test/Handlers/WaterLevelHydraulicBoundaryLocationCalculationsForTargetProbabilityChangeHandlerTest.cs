@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -60,17 +60,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             var handler = new WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]

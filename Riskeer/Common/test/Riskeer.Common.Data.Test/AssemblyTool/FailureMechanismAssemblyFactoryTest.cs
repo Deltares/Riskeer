@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -43,9 +43,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => FailureMechanismAssemblyFactory.AssembleFailureMechanism<TestFailureMechanism>(null, assessmentSection);
@@ -53,8 +51,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]

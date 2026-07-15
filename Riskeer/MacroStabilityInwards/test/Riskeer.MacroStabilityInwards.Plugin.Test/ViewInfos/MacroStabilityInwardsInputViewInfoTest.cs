@@ -23,9 +23,10 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -40,14 +41,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsInputViewInfoTest
     {
-        private MockRepository mocks;
+        
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsInputView));
         }
@@ -80,9 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var calculationInputContext = new MacroStabilityInwardsInputContext(input,
@@ -97,7 +96,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculation, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -119,16 +117,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculation, view.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedCalculationScenarioContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationScenarioContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                                  new CalculationGroup(),
@@ -147,7 +142,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -155,9 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationScenarioContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationToRemove = new MacroStabilityInwardsCalculationScenario();
 
@@ -178,7 +170,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -186,9 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -210,7 +199,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -218,9 +206,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -242,7 +228,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -250,9 +235,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -276,7 +259,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -284,9 +266,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -310,7 +290,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -318,9 +297,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -337,7 +314,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -345,9 +321,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -364,7 +338,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -372,9 +345,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -394,7 +365,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -402,9 +372,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -424,7 +392,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -436,15 +403,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -455,7 +419,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -467,15 +430,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -486,7 +446,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -501,15 +460,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -520,7 +476,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -535,15 +490,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -554,7 +506,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 

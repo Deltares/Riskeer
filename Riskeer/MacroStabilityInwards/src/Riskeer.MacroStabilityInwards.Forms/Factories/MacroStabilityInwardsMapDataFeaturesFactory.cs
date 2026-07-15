@@ -113,11 +113,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                                        && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
-                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new MapCalculationData(
-                        calculation.Name,
-                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(calculation => new MapCalculationData(
+                                                                                calculation.Name,
+                                                                                calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                                                                calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

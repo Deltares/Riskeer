@@ -189,11 +189,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string authorityCode = "EPSG:28992";
             var extent = new Extent(10000, 123456, 987654321, 321654);
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, authorityCode, extent);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(authorityCode, extent);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -209,18 +205,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 Assert.AreEqual(0, layer.Transparency);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ConfigurationNotInitialized_InitializeConfigurationBeforeUsingIt()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateUninitializedStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateUninitializedStubConfiguration();
             // Call
             using (new BruTileLayer(configuration))
             {
@@ -229,7 +220,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             // Assert
             configuration.Received(1).Initialize();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -237,19 +227,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             const string authorityNumber = "28991";
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, authorityNumber);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(authorityNumber);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
                 // Assert
                 Assert.AreEqual(AuthorityCodeHandler.Instance[$"EPSG:{authorityNumber}"], layer.Projection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -257,11 +241,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             string esriProjectionString = AuthorityCodeHandler.Instance["EPSG:2000"].ToEsriString();
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, esriProjectionString);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(esriProjectionString);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -269,8 +249,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo expectedProjection = ProjectionInfo.FromEsriString(esriProjectionString);
                 Assert.IsTrue(expectedProjection.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -278,11 +256,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             string proj4String = AuthorityCodeHandler.Instance["EPSG:2222"].ToProj4String();
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, proj4String);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(proj4String);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -290,8 +264,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo expectedProjection = ProjectionInfo.FromProj4String(proj4String);
                 Assert.IsTrue(expectedProjection.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -300,10 +272,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Constructor_UnknownProjectionSpecification_ProjectionSetToCorrectedWgs84(string authorityCode)
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, authorityCode);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(authorityCode);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -311,8 +280,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo wgs84 = GetCorrectedWgs84Projection();
                 Assert.IsTrue(wgs84.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -320,11 +287,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             const string urnCode = "urn:ogc:def:crs:EPSG:6.18.3:3857";
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, urnCode);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(urnCode);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -332,8 +295,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo expectedProjection = AuthorityCodeHandler.Instance["EPSG:3857"];
                 Assert.IsTrue(expectedProjection.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -341,11 +302,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             const string proj4String = "+proj=sterea +lat_0=52.15616055555555 +lon_0=corruption +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs ";
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, proj4String);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(proj4String);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -353,8 +310,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo wgs84 = GetCorrectedWgs84Projection();
                 Assert.IsTrue(wgs84.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -364,10 +319,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Constructor_SrsAsNullOrWhitespaceString_ProjectionSetToCorrectedWgs84(string invalidSrs)
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, invalidSrs);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration(invalidSrs);
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -375,8 +327,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 ProjectionInfo wgs84 = GetCorrectedWgs84Projection();
                 Assert.IsTrue(wgs84.Equals(layer.Projection));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -388,10 +338,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Transparency_InvalidValue_ThrowArgumentOutOfRangeException(float invalidValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             using (var layer = new BruTileLayer(configuration))
             {
                 // Call
@@ -402,23 +349,18 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
                 Assert.AreEqual("value", paramName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Transparency_ValidValue_InvalidateMapFrame()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
+            IConfiguration configuration = CreateStubConfiguration();
 
             var mapFrameExtents = new DotSpatialExtent();
 
-            var mapFrame = mocks.StrictMock<IFrame>();
+            var mapFrame = Substitute.For<IFrame>();
             mapFrame.ViewExtents.Returns(mapFrameExtents);
-            mocks.ReplayAll();
-
             using (var layer = new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame
@@ -443,8 +385,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Assert.AreEqual(EventArgs.Empty, itemChangedEventArgs);
                 mapFrame.Received(1).Invalidate(mapFrameExtents);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -453,28 +393,24 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string authorityCode = "EPSG:28992";
             var extent = new Extent(10000, 123456, 987654321, 321654);
+            var tileFetcher = Substitute.For<ITileFetcher>();
 
-            var mocks = new MockRepository();
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-
-            var schema = mocks.Stub<ITileSchema>();
+            var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns(authorityCode);
             schema.Extent.Returns(extent);
 
-            var clonedConfiguration = mocks.Stub<IConfiguration>();
+            var clonedConfiguration = Substitute.For<IConfiguration>();
             clonedConfiguration.Initialized.Returns(true);
             clonedConfiguration.TileSchema.Returns(schema);
             clonedConfiguration.TileFetcher.Returns(tileFetcher);
 
-            var configuration = mocks.Stub<IConfiguration>();
+            var configuration = Substitute.For<IConfiguration>();
             configuration.Clone().Returns(clonedConfiguration);
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
             configuration.TileFetcher.Returns(tileFetcher);
 
-            var mapFrame = mocks.Stub<IFrame>();
-            mocks.ReplayAll();
-
+            var mapFrame = Substitute.For<IFrame>();
             const float transparency = 0.3f;
             using (var layer = new BruTileLayer(configuration)
             {
@@ -506,18 +442,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 configuration.Received(1).Clone();
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Reproject_TargetProjectionNull_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -531,18 +462,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Assert.AreSame(originalProjection, layer.Projection);
                 Assert.AreSame(originalExtent, layer.Extent);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Reproject_TargetProjectionDifferentFromOriginal_ChangeProjection()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -559,18 +485,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 DotSpatialExtent expectedExtent = originalExtent.Reproject(originalProjection, targetProjection);
                 Assert.AreEqual(expectedExtent, layer.Extent);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Reproject_TargetProjectionSameAsOriginal_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -584,22 +505,19 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Assert.AreSame(originalProjection, layer.Projection);
                 Assert.AreSame(originalExtent, layer.Extent);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_WhenDisposeLocked_DoNothing()
         {
             // Given
-            var mocks = new MockRepository();
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-            var schema = mocks.Stub<ITileSchema>();
+            var tileFetcher = Substitute.For<ITileFetcher>();
+            var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
 
             var disposedLocked = false;
-            var configuration = mocks.Stub<IConfiguration>();
+            var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
             configuration.TileFetcher.Returns(tileFetcher);
@@ -610,8 +528,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                     Assert.Fail("configuration shouldn't be disposed if layer.Dispose is locked.");
                 }
             });
-            mocks.ReplayAll();
-
             using (var layer = new BruTileLayer(configuration))
             {
                 // When
@@ -623,17 +539,14 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             }
 
             // Then
-            mocks.VerifyAll(); // Asserts method call in proper order
+            // Asserts method call in proper order
         }
 
         [Test]
         public void DrawRegions_LayerInvisible_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             using (var layer = new BruTileLayer(configuration)
             {
                 IsVisible = false
@@ -652,8 +565,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Assert.DoesNotThrow(call,
                                     "No exception should be thrown for null Graphics objects, as nothing should be drawn.");
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -667,10 +578,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                               float transparency)
         {
             // Setup
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateConfigurationForDrawingImmediately(mocks, testConfig);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateConfigurationForDrawingImmediately(testConfig);
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) mapCanvasSource.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
@@ -698,8 +606,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 // Assert
                 TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -713,11 +619,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
                                    6, 7, Resources.green_256x256)
             }, 4);
-
-            var mocks = new MockRepository();
-            IConfiguration configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(mocks, testConfig);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(testConfig);
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
@@ -734,8 +636,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.BackgroundLayerCanvasAfterAddingTestTiles, mapCanvas);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -751,19 +651,15 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
                                    6, 7, Resources.green_256x256)
             }, 4);
-
-            var mocks = new MockRepository();
             byte[] tileData = trueEmptyFalseNull ? new byte[0] : null;
-            IConfiguration configuration = CreateConfigurationForDrawing(mocks, testConfig,
+            IConfiguration configuration = CreateConfigurationForDrawing(testConfig,
                                                                          (tileFetcher, bitmaps) =>
                                                                          {
                                                                              foreach (KeyValuePair<TileInfo, Bitmap> tileInfoImagePair in bitmaps)
                                                                              {
-                                                                                                                                                  tileFetcher.GetTile(tileInfoImagePair.Key).Returns(tileData);
+                                                                                 tileFetcher.GetTile(tileInfoImagePair.Key).Returns(tileData);
                                                                              }
                                                                          });
-            mocks.ReplayAll();
-
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
@@ -780,8 +676,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.BackgroundLayerCanvas, mapCanvas);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -796,35 +690,47 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         [TestCase(-1.0 - 1e-6, 0.0)]
         [TestCase(0.0, 1.0 + 1e-6)]
         [TestCase(0.0, -1.0 - 1e-6)]
-        public void LayerWithMapFrameAndDrawnAtLevel_TileReceivedEventAtCurrentLevel_InvalidateMapFrameIfRegionIntersects(double dxFactor, double dyFactor)
+        public void LayerWithMapFrameAndDrawnAtLevel_TileReceivedEventAtCurrentLevel_InvalidateMapFrameIfRegionIntersects(
+            double dxFactor,
+            double dyFactor)
         {
             // Given
             const int zoomLevel = 4;
+
             var testConfig = new TileInfosTestConfig(new[]
             {
-                new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
-                                   7, 7, Resources.blue_256x256),
-                new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
-                                   6, 7, Resources.green_256x256)
+                new TileInfoConfig(
+                    new Extent(99949.76, 463000.08, 155000, 518050.32),
+                    7,
+                    7,
+                    Resources.blue_256x256),
+                new TileInfoConfig(
+                    new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                    6,
+                    7,
+                    Resources.green_256x256)
             }, zoomLevel);
 
-            var mapExtent = new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503);
+            var mapExtent = new DotSpatialExtent(
+                -78529.9210634486,
+                403315.730436505,
+                306453.46038588,
+                581961.051306503);
+
             double dx = (mapExtent.MaxX - mapExtent.MinX) * dxFactor;
             double dy = (mapExtent.MaxY - mapExtent.MinY) * dyFactor;
-            var tileExtent = new DotSpatialExtent(mapExtent.MinX + dx, mapExtent.MinY + dy,
-                                                  mapExtent.MaxX + dx, mapExtent.MaxY + dy);
 
-            var mocks = new MockRepository();
-            var mapFrame = mocks.StrictMock<IFrame>();
+            var tileExtent = new DotSpatialExtent(
+                mapExtent.MinX + dx,
+                mapExtent.MinY + dy,
+                mapExtent.MaxX + dx,
+                mapExtent.MaxY + dy);
+
+            var mapFrame = Substitute.For<IFrame>();
             mapFrame.ViewExtents.Returns(mapExtent);
-            if (Math.Abs(dxFactor) <= 1.0 && Math.Abs(dyFactor) <= 1.0)
-            {
-                // Note: Only invalidate area's within the view port
-                mapFrame.Invalidate(tileExtent);
-            }
 
-            IConfiguration configuration = CreateConfigurationForDrawingImmediately(mocks, testConfig);
-            mocks.ReplayAll();
+            IConfiguration configuration =
+                CreateConfigurationForDrawingImmediately(testConfig);
 
             using (var layer = new BruTileLayer(configuration)
             {
@@ -833,31 +739,41 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
-                var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
-                                          mapExtent,
-                                          graphics);
+                var mapArgs = new MapArgs(
+                    new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
+                    mapExtent,
+                    graphics);
 
                 var regions = new List<DotSpatialExtent>();
 
                 layer.DrawRegions(mapArgs, regions);
 
                 // When
-                configuration.TileFetcher.TileReceived +=
-                    Raise.EventWith(configuration.TileFetcher,
-                                    new TileReceivedEventArgs(new TileInfo
-                                    {
-                                        Extent = new Extent(tileExtent.MinX, tileExtent.MinY, tileExtent.MaxX, tileExtent.MaxY),
-                                        Index = new TileIndex(0, 0, zoomLevel)
-                                    }, new byte[0]));
+                configuration.TileFetcher.TileReceived += Raise.EventWith(
+                    configuration.TileFetcher,
+                    new TileReceivedEventArgs(
+                        new TileInfo
+                        {
+                            Extent = new Extent(
+                                tileExtent.MinX,
+                                tileExtent.MinY,
+                                tileExtent.MaxX,
+                                tileExtent.MaxY),
+                            Index = new TileIndex(0, 0, zoomLevel)
+                        },
+                        new byte[0]));
 
-                if (Math.Abs(dxFactor) <= 1.0 && Math.Abs(dyFactor) <= 1.0)
+                // Then
+                if (Math.Abs(dxFactor) <= 1.0 &&
+                    Math.Abs(dyFactor) <= 1.0)
                 {
                     mapFrame.Received(1).Invalidate(tileExtent);
                 }
+                else
+                {
+                    mapFrame.DidNotReceive().Invalidate(Arg.Any<DotSpatialExtent>());
+                }
             }
-
-            // Then
-            mocks.VerifyAll(); // mapFrame.Invalidate should be called if extent overlaps
         }
 
         [Test]
@@ -876,14 +792,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             }, currentZoomLevel);
 
             var mapExtent = new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503);
-
-            var mocks = new MockRepository();
-            var mapFrame = mocks.StrictMock<IFrame>();
+            var mapFrame = Substitute.For<IFrame>();
             mapFrame.ViewExtents.Returns(mapExtent);
 
-            IConfiguration configuration = CreateConfigurationForDrawingImmediately(mocks, testConfig);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateConfigurationForDrawingImmediately(testConfig);
             using (var layer = new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame
@@ -912,20 +824,16 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             }
 
             // Then
-            mocks.VerifyAll(); // mapFrame.Invalidate shouldn't be called!
+            // mapFrame.Invalidate shouldn't be called!
         }
 
         [Test]
         public void LayerWithMapFrame_QueueEmptyEvent_InvalidateWholeMapFrame()
         {
             // Given
-            var mocks = new MockRepository();
-            var mapFrame = mocks.StrictMock<IFrame>();
-            mapFrame.Invalidate();
+            var mapFrame = Substitute.For<IFrame>();
 
-            IConfiguration configuration = CreateStubConfiguration(mocks);
-            mocks.ReplayAll();
-
+            IConfiguration configuration = CreateStubConfiguration();
             using (new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame
@@ -934,12 +842,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 // When
                 configuration.TileFetcher.QueueEmpty +=
                     Raise.EventWith(configuration.TileFetcher, EventArgs.Empty);
-
-                mapFrame.Received(1).Invalidate();
             }
 
             // Then
-            mocks.VerifyAll(); // mapFrame.Invalidate should be called
+            mapFrame.Received(1).Invalidate();
         }
 
         private static Resolution CreateResolutionForLevel(int level)
@@ -1008,12 +914,12 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             public Bitmap Image { get; }
         }
 
-        private static IConfiguration CreateConfigurationForDrawingImmediately(MockRepository mocks, TileInfosTestConfig config)
+        private static IConfiguration CreateConfigurationForDrawingImmediately(TileInfosTestConfig config)
         {
-            return CreateConfigurationForDrawing(mocks, config, TileFetcherGetsImageImmediately);
+            return CreateConfigurationForDrawing(config, TileFetcherGetsImageImmediately);
         }
 
-        private static IConfiguration CreateConfigurationForDrawing(MockRepository mocks, TileInfosTestConfig config, Action<ITileFetcher, IDictionary<TileInfo, Bitmap>> configureTileFetcherGetTileStub)
+        private static IConfiguration CreateConfigurationForDrawing(TileInfosTestConfig config, Action<ITileFetcher, IDictionary<TileInfo, Bitmap>> configureTileFetcherGetTileStub)
         {
             const string epsgCode = "EPSG:28992";
             int level = config.Level;
@@ -1026,27 +932,27 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 },
                 c => c.Image);
 
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-            tileFetcher.When(tf => tf.DropAllPendingTileRequests()).Do(_ => { });
+            var tileFetcher = Substitute.For<ITileFetcher>();
+            tileFetcher.When(tf => tf.DropAllPendingTileRequests()).Do(_ => {});
             configureTileFetcherGetTileStub(tileFetcher, tileInfoImageLookup);
 
-            var tileSchema = mocks.Stub<ITileSchema>();
+            var tileSchema = Substitute.For<ITileSchema>();
             tileSchema.Srs.Returns(epsgCode);
             tileSchema.Extent.Returns(new Extent(-285401.92, 22598.16, 595401.92, 903402));
             tileSchema.Resolutions.Returns(CreateResolutionDictionary(level));
             tileSchema.GetTileInfos(Arg.Any<Extent>(), level)
                       .Returns(tileInfoImageLookup.Keys);
 
-            var configuration = mocks.Stub<IConfiguration>();
+            var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileFetcher.Returns(tileFetcher);
             configuration.TileSchema.Returns(tileSchema);
             return configuration;
         }
 
-        private static IConfiguration CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(MockRepository mocks, TileInfosTestConfig config)
+        private static IConfiguration CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(TileInfosTestConfig config)
         {
-            return CreateConfigurationForDrawing(mocks, config, TileFetcherGetsImageOnSecondAttempt);
+            return CreateConfigurationForDrawing(config, TileFetcherGetsImageOnSecondAttempt);
         }
 
         private static void TileFetcherGetsImageImmediately(ITileFetcher tileFetcher, IDictionary<TileInfo, Bitmap> tileInfoImageLookup)
@@ -1096,34 +1002,34 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             }
         }
 
-        private static IConfiguration CreateStubConfiguration(MockRepository mocks,
-                                                              string tileSchemaSrsString = "EPSG:28992",
-                                                              Extent tileSourceExtent = new Extent())
+        private static IConfiguration CreateStubConfiguration(
+            string tileSchemaSrsString = "EPSG:28992",
+            Extent tileSourceExtent = new Extent())
         {
-            var schema = mocks.Stub<ITileSchema>();
+            var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns(tileSchemaSrsString);
             schema.Extent.Returns(tileSourceExtent);
 
-            var tileFetcher = mocks.Stub<ITileFetcher>();
+            var tileFetcher = Substitute.For<ITileFetcher>();
 
-            var configuration = mocks.Stub<IConfiguration>();
+            var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
             configuration.TileFetcher.Returns(tileFetcher);
             return configuration;
         }
 
-        private static IConfiguration CreateUninitializedStubConfiguration(MockRepository mocks)
+        private static IConfiguration CreateUninitializedStubConfiguration()
         {
-            var schema = mocks.Stub<ITileSchema>();
+            var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
 
-            var tileFetcher = mocks.Stub<ITileFetcher>();
+            var tileFetcher = Substitute.For<ITileFetcher>();
 
-            var configuration = mocks.Stub<IConfiguration>();
+            var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(false);
-            configuration.When(c => c.Initialize()).Do(_ => { });
+            configuration.When(c => c.Initialize()).Do(_ => {});
             configuration.TileSchema.Returns(schema);
             configuration.TileFetcher.Returns(tileFetcher);
 
@@ -1155,5 +1061,4 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             return wgs84;
         }
     }
-
 }

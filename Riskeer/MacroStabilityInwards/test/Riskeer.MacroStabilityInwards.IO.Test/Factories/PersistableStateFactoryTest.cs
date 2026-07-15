@@ -26,7 +26,7 @@ using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -57,9 +57,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_IdFactoryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
-            mocks.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
 
             // Call
             void Call() => PersistableStateFactory.Create(soilProfile, null, new MacroStabilityInwardsExportRegistry());
@@ -67,16 +65,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("idFactory", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Create_RegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
-            mocks.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
 
             // Call
             void Call() => PersistableStateFactory.Create(soilProfile, new IdFactory(), null);
@@ -84,7 +79,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

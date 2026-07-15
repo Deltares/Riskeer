@@ -29,7 +29,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.Data;
@@ -80,10 +80,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void IsEnabled_SurfaceLineCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
@@ -94,17 +91,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_SurfaceLineCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(), "some/path");
@@ -116,7 +109,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,14 +125,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -154,7 +143,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -163,14 +151,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -208,17 +193,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CurrentPath_SurfaceLineCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string expectedFilePath = "some/path";
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]
@@ -235,18 +216,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual(expectedFilePath, currentPath);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_ValidInput_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
@@ -257,7 +234,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsInstanceOf<SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>>(importer);
-            mocks.VerifyAll();
         }
 
         public override void Setup()

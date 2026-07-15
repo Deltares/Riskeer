@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
@@ -48,10 +48,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToScenarioConfiguration_ValidCalculationScenario_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var scenario = mocks.Stub<ICalculationScenario>();
-            mocks.ReplayAll();
-
+            var scenario = Substitute.For<ICalculationScenario>();
             var random = new Random(21);
             RoundedDouble contribution = random.NextRoundedDouble();
             bool relevant = random.NextBoolean();
@@ -65,7 +62,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(contribution * 100, configuration.Contribution);
             Assert.AreEqual(relevant, configuration.IsRelevant);
-            mocks.VerifyAll();
         }
     }
 }

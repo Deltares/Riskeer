@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Observers;
@@ -61,11 +61,8 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            observer.Received().UpdateObserver();
             var failureMechanism = new TestFailureMechanism();
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
@@ -77,18 +74,13 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultsNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
@@ -100,18 +92,14 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -128,18 +116,14 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismAssemblyResultNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
@@ -151,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

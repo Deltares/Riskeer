@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -53,11 +53,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
             RoundedDouble contribution = random.NextRoundedDouble();
-
-            var mocks = new MockRepository();
-            var calculationScenario = mocks.Stub<ICalculationScenario>();
-            mocks.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
             calculationScenario.Name = name;
             calculationScenario.IsRelevant = isRelevant;
             calculationScenario.Contribution = contribution;
@@ -73,8 +69,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             TestHelper.AssertTypeConverter<ScenarioRow<ICalculationScenario>, NoProbabilityValueDoubleConverter>(
                 nameof(ScenarioRow<ICalculationScenario>.FailureProbability));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -83,11 +77,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenario = mocks.Stub<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.NotifyObservers());
-            mocks.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
             var row = new TestScenarioRow<ICalculationScenario>(calculationScenario);
 
             // Call
@@ -95,18 +85,14 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, calculationScenario.IsRelevant);
-            mocks.VerifyAll();
+            calculationScenario.Received().NotifyObservers();
         }
 
         [Test]
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenario = mocks.Stub<ICalculationScenario>();
-            calculationScenario.Expect(cs => cs.NotifyObservers());
-            mocks.ReplayAll();
-
+            var calculationScenario = Substitute.For<ICalculationScenario>();
             double newValue = new Random(21).NextDouble(0, 100);
 
             var row = new TestScenarioRow<ICalculationScenario>(calculationScenario);
@@ -116,7 +102,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue / 100, calculationScenario.Contribution, calculationScenario.Contribution.GetAccuracy());
-            mocks.VerifyAll();
+            calculationScenario.Received().NotifyObservers();
         }
 
         private class TestScenarioRow<TCalculationScenario> : ScenarioRow<TCalculationScenario>

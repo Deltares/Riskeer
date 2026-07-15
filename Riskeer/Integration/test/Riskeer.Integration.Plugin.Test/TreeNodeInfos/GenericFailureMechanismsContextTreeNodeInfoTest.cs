@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
@@ -131,21 +131,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -157,7 +150,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]

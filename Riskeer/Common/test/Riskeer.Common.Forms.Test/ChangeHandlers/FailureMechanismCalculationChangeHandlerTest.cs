@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -39,9 +39,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            mockRepository.ReplayAll();
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
 
             // Call
             void Call() => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHandler);
@@ -49,17 +47,14 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutQuery_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
-            mockRepository.ReplayAll();
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHandler);
@@ -67,16 +62,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("query", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
-            mockRepository.ReplayAll();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, null);
@@ -84,34 +76,26 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("inquiryHandler", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithParameters_ImplementsExpectedInterface()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             // Call
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_FailureMechanismWithoutCalculations_ReturnsFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
 
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
@@ -121,20 +105,16 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_FailureMechanismWithCalculationWithoutOutput_ReturnFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
 
-            var calculation = mockRepository.StrictMock<ICalculation>();
-            calculation.Expect(calc => calc.HasOutput).Return(false);
-            mockRepository.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            calculation.HasOutput.Returns(false);
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
@@ -147,20 +127,16 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_FailureMechanismWithCalculationWithOutput_ReturnTrue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
 
-            var calculation = mockRepository.StrictMock<ICalculation>();
-            calculation.Expect(calc => calc.HasOutput).Return(true);
-            mockRepository.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            calculation.HasOutput.Returns(true);
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
@@ -173,7 +149,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsTrue(requireConfirmation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -186,12 +161,9 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(string message, bool expectedResult)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
+            inquiryHandler.InquireContinuation(message).Returns(expectedResult);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, message, inquiryHandler);
 
             // Call
@@ -199,7 +171,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedResult, result);
-            mockRepository.VerifyAll();
         }
     }
 }

@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
     [TestFixture]
     public class PipingFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismView));
         }
@@ -64,9 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
         public void GetViewName_WithPipingFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -75,7 +71,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -84,9 +79,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism
             {
                 InAssembly = inAssembly
@@ -99,7 +92,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,9 +115,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -136,8 +126,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.IsFalse(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]

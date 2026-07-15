@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -40,14 +40,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
     [TestFixture]
     public class ProbabilisticPipingInputContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
+        
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingInputContext));
         }
@@ -56,15 +56,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -96,10 +93,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
-            mocks.ReplayAll();
-
+                Substitute.For<IAssessmentSection>());
             // Call
             string text = info.Text(pipingInputContext);
 
@@ -117,10 +111,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
-            mocks.ReplayAll();
-
+                Substitute.For<IAssessmentSection>());
             // Call
             Image image = info.Image(pipingInputContext);
 
@@ -132,19 +123,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var gui = mocks.Stub<IGui>();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var gui = Substitute.For<IGui>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -152,7 +140,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            menuBuilder.Received().AddOpenItem();
+            menuBuilder.Received().AddSeparator();
+            menuBuilder.Received().AddPropertiesItem();
         }
     }
 }

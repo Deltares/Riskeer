@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
@@ -62,10 +62,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(39);
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
@@ -113,10 +110,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void A_ChangeToEqualValue_NoNotificationsAndChangeHandlerNotCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(21);
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
@@ -131,7 +125,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             sectionRow.A = originalValue;
 
             // Assert
-            mocks.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotifications(
@@ -139,11 +132,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanismSectionConfiguration sectionConfiguration)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var random = new Random(21);
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
@@ -162,7 +151,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

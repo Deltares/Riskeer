@@ -33,7 +33,7 @@ using Core.Common.Util.Reflection;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Core.Gui.Test.Forms.ViewHost
@@ -114,10 +114,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void AddDocumentView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
         {
             // Setup
-            var mocks = new MockRepository();
-            var testView = mocks.StrictMock<IView>();
-            mocks.ReplayAll();
-
+            var testView = Substitute.For<IView>();
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
@@ -131,8 +128,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsFalse(IsDocumentViewPresent(avalonDockViewHost, testView));
                 Assert.AreEqual(0, viewOpenedCounter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -504,10 +499,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void AddToolView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
         {
             // Setup
-            var mocks = new MockRepository();
-            var testView = mocks.StrictMock<IView>();
-            mocks.ReplayAll();
-
+            var testView = Substitute.For<IView>();
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
@@ -521,8 +513,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsFalse(IsToolViewPresent(avalonDockViewHost, testView, ToolViewLocation.Left));
                 Assert.AreEqual(0, viewOpenedCounter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

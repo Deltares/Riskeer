@@ -25,7 +25,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -61,10 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         public void Name_WithContext_ReturnsName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(
                 new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, () => 0.1);
 
@@ -78,18 +75,13 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.AreEqual("Waterstanden (1/10)", name);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileExporter_WithContext_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(
                 new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, () => 0.1);
 
@@ -105,8 +97,6 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter>(fileExporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

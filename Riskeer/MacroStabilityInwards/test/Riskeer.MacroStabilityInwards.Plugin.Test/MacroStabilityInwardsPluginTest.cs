@@ -30,7 +30,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -162,12 +162,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
             // Setup
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             using (var plugin = new MacroStabilityInwardsPlugin
             {
                 Gui = gui
@@ -231,8 +227,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -273,12 +267,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin
             {
                 Gui = gui
@@ -292,8 +283,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
             }
-
-            mocks.VerifyAll();
         }
     }
 }

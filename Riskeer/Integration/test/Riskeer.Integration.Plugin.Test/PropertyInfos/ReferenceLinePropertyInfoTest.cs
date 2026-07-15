@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -60,10 +60,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ReturnReferenceLineProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             // Call
@@ -72,7 +69,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<ReferenceLineProperties>(objectProperties);
             Assert.AreSame(context.WrappedData, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }

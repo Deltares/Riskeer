@@ -21,7 +21,7 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 
@@ -34,17 +34,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-            mocks.ReplayAll();
-
+            var structuresCalculation = Substitute.For<IStructuresCalculation>();
             // Call
             var structuresOutputContext = new StructuresOutputContext(structuresCalculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
             Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
-            mocks.VerifyAll();
         }
     }
 }

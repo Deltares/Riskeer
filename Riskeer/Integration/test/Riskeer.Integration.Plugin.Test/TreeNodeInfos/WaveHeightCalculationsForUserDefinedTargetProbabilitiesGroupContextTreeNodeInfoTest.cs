@@ -38,7 +38,7 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -189,35 +189,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
-
-            var mockRepository = new MockRepository();
-            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-            using (mockRepository.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddExportItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
                                                                                                    assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -230,7 +217,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddExportItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddDeleteChildrenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -241,16 +242,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
                                                                                                    assessmentSection);
-
-            var mockRepository = new MockRepository();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -283,7 +279,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -310,24 +305,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
-
-            var mockRepository = new MockRepository();
-            var calculationsObserver = mockRepository.StrictMock<IObserver>();
-            calculationsObserver.Expect(o => o.UpdateObserver());
+            var calculationsObserver = Substitute.For<IObserver>();
             calculations.Attach(calculationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
-                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
-
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
+                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -346,8 +335,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            mockRepository.VerifyAll();
+            calculationsObserver.Received().UpdateObserver();
         }
 
         [Test]
@@ -362,15 +350,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculationsForTargetProbabilities, assessmentSection);
-
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -389,8 +373,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -407,15 +389,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                 assessmentSection);
-
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -435,8 +413,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -448,15 +424,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                 assessmentSection);
-
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -472,8 +444,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -483,8 +453,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-
-            var mockRepository = new MockRepository();
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
@@ -519,33 +487,30 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
-                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
+                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator
                 {
                     Converged = false
                 };
-                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                             assessmentSection.HydraulicBoundaryData,
-                                             hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(waveHeightCalculator)
-                                 .Repeat
-                                 .Times(2);
-                mockRepository.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+                calculatorFactory
+                    .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                    .Returns(callInfo =>
+                    {
+                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                assessmentSection.HydraulicBoundaryData,
+                                hydraulicBoundaryLocation),
+                            callInfo.Arg<HydraRingCalculationSettings>());
+                        return waveHeightCalculator;
+                    });
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
@@ -582,9 +547,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations[0].Output);
                     }
                 }
-            }
 
-            mockRepository.VerifyAll();
+                calculatorFactory.Received(2)
+                                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            }
         }
 
         [Test]
@@ -613,17 +579,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                 assessmentSection);
-
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculationObserver = mockRepository.StrictMock<IObserver>();
+                var calculationObserver = Substitute.For<IObserver>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 calculation.Attach(calculationObserver);
 
                 using (var plugin = new RiskeerPlugin())
@@ -645,8 +607,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -675,18 +635,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                 assessmentSection);
-
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculationObserver = mockRepository.StrictMock<IObserver>();
-                calculationObserver.Expect(o => o.UpdateObserver());
+                var calculationObserver = Substitute.For<IObserver>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 calculation.Attach(calculationObserver);
 
                 using (var plugin = new RiskeerPlugin())
@@ -707,9 +662,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.IsFalse(calculation.Output.HasGeneralResult);
                     }
                 }
+                calculationObserver.Received().UpdateObserver();
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -892,12 +846,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var droppedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
                     calculationsForTargetProbability3,
                     assessmentSectionStub);
-
-                var mockRepository = new MockRepository();
-                var observer = mockRepository.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mockRepository.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 calculationsForTargetProbabilities.Attach(observer);
 
                 // Call
@@ -910,8 +859,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculationsForTargetProbability3,
                     calculationsForTargetProbability2
                 }, calculationsForTargetProbabilities);
-
-                mockRepository.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -947,10 +895,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static IEnumerable<TestCaseData> GetWaveHeightCalculations()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations[0]));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations[1]));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations[0]));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations[1]));
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

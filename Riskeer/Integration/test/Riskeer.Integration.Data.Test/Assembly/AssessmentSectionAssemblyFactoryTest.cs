@@ -296,8 +296,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
                                                                                 .ToArray();
             assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
-            AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection).ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1);
+            AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection).ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1);
 
             return assessmentSection;
         }
@@ -310,8 +309,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             IEnumerable<IFailureMechanism> allFailureMechanisms = AssessmentSectionTestHelper.GetAllFailureMechanisms(assessmentSection);
             allFailureMechanisms.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
-            allFailureMechanisms.ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1);
+            allFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P1);
 
             return assessmentSection;
         }

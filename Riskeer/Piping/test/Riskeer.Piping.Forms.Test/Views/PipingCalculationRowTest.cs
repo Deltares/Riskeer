@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -49,10 +49,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             const string calculationType = "Test";
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
@@ -107,7 +104,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(phreaticLevelExitMean, row.PhreaticLevelExitMean);
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
             Assert.AreEqual(calculation.InputParameters.ExitPointL, row.ExitPointL);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -407,22 +403,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
+            var inputObserver = Substitute.For<IObserver>();
 
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
+            var calculationObserver = Substitute.For<IObserver>();
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             IPipingCalculationScenario<PipingInput> calculation =
                 PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation(), hasOutput);
 
@@ -438,13 +423,16 @@ namespace Riskeer.Piping.Forms.Test.Views
             if (expectUpdates)
             {
                 Assert.IsFalse(calculation.HasOutput);
+                inputObserver.Received(1).UpdateObserver();
+                if (hasOutput)
+                {
+                    calculationObserver.Received(1).UpdateObserver();
+                }
             }
             else
             {
                 Assert.AreEqual(hasOutput, calculation.HasOutput);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static void SetPropertyToInvalidValueAndVerifyException(
@@ -453,10 +441,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             string expectedMessage)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
@@ -471,7 +456,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
@@ -479,11 +463,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IPipingCalculationScenario<PipingInput> calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
@@ -497,7 +477,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

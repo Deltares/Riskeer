@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -56,9 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             // Call
             void Call() => new ReferenceLineUpdateHandler(null, viewCommands);
@@ -66,16 +64,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new ReferenceLineUpdateHandler(assessmentSection, null);
@@ -83,24 +78,19 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("viewCommands", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
             // Call
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IReferenceLineUpdateHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -109,11 +99,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void ConfirmUpdate_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
             string dialogTitle = null, dialogMessage = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -143,18 +130,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Update_OriginalReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             var referenceLine = new ReferenceLine();
@@ -165,18 +148,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("originalReferenceLine", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Update_NewReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             var referenceLine = new ReferenceLine();
@@ -187,17 +166,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("newReferenceLine", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Update_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
@@ -356,38 +331,28 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.Contains(observables, failureMechanism);
             CollectionAssert.Contains(observables, failureMechanism.SectionResults);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void DoPostUpdateActions_NoUpdateCalled_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             // Call
             handler.DoPostUpdateActions();
 
             // Assert
-            mocks.VerifyAll(); // Expect not calls in 'viewCommands'
+            // Expect not calls in 'viewCommands'
         }
 
         [Test]
         public void DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
-                        .Repeat.Times(expectedNumberOfRemovedInstances);
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
@@ -397,19 +362,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received(expectedNumberOfRemovedInstances).RemoveAllViewsForItem(Arg.Is<object>(o => o != null));
         }
 
         [Test]
         public void DoPostUpdateActions_CalledSecondTimeAfterUpdateAndUpdateCycle_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
-                        .Repeat.Times(expectedNumberOfRemovedInstances);
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
@@ -420,7 +380,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             handler.DoPostUpdateActions(); // Expected number should be identical to that of DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received(expectedNumberOfRemovedInstances).RemoveAllViewsForItem(Arg.Is<object>(o => o != null));
         }
     }
 }

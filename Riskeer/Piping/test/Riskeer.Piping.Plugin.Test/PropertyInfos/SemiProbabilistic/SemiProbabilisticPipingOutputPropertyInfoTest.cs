@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
@@ -65,11 +65,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             var context = new SemiProbabilisticPipingOutputContext(output, failureMechanism, assessmentSection);
 
@@ -79,7 +75,6 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             // Assert
             Assert.IsInstanceOf<SemiProbabilisticPipingOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }

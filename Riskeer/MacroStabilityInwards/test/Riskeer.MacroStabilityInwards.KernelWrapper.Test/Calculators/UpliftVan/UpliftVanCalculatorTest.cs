@@ -26,7 +26,7 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -56,9 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_InputNull_ArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
-            mocks.ReplayAll();
+            var factory = Substitute.For<IMacroStabilityInwardsKernelFactory>();
 
             // Call
             void Call() => new UpliftVanCalculator(null, factory);
@@ -66,7 +64,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -87,10 +84,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
-            mocks.ReplayAll();
-
+            var factory = Substitute.For<IMacroStabilityInwardsKernelFactory>();
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
 
             // Call
@@ -98,7 +92,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
             // Assert
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]

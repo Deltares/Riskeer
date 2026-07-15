@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -56,10 +56,7 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
         public void CreateCalculationConfigurationImportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            mocks.ReplayAll();
-
+            var fileImporter = Substitute.For<IFileImporter>();
             Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
 
             // Call
@@ -75,8 +72,6 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
             Assert.IsTrue(importInfo.IsEnabled(null));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,10 +89,7 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
         public void CreateFailureMechanismSectionsImportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var replaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
 
             // Call
@@ -113,18 +105,14 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, importInfo.Image);
             Assert.IsNull(importInfo.VerifyUpdates);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithoutGeometry_ThenReturnsFalse()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
 
@@ -139,18 +127,14 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             // Then
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCreatedImportInfo_WhenIsEnabledCalledWithReferenceLineWithGeometry_ThenReturnsTrue()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
 
@@ -165,18 +149,14 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             // Then
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCreatedImportInfo_WhenCreatingFileImporter_ThenReturnFileImporter()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
 
@@ -191,7 +171,6 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
 
             // Then
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

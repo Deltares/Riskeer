@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -37,10 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var target = new ObservableObject();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -52,17 +49,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var observableObject = new ObservableObject();
 
             // Call
@@ -71,7 +64,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]

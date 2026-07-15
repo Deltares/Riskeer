@@ -42,7 +42,7 @@ using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Map
 {
@@ -52,7 +52,6 @@ namespace Core.Gui.Test.Forms.Map
         private const int contextMenuAddMapLayerIndex = 0;
         private const int contextMenuZoomToAllIndex = 2;
 
-        private MockRepository mocks;
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
@@ -219,10 +218,7 @@ namespace Core.Gui.Test.Forms.Map
         public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyObservers(bool initialVisibleState)
         {
             // Setup
-            var collectionObserver = mocks.StrictMock<IObserver>();
-            collectionObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var collectionObserver = Substitute.For<IObserver>();
             var featureBasedMapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
             mapDataCollection.Add(featureBasedMapData);
@@ -238,18 +234,15 @@ namespace Core.Gui.Test.Forms.Map
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
             Assert.AreEqual(!initialVisibleState, featureBasedMapData.IsVisible);
-            mocks.VerifyAll();
+            collectionObserver.Received().UpdateObserver();
         }
 
         [Test]
         public void OnNodeChecked_WithContextAndStateMixed_SetMapDataVisibilityAndNotifyObservers()
         {
             // Setup
-            var observer1 = mocks.StrictMock<IObserver>();
-            var observer2 = mocks.StrictMock<IObserver>();
-            observer2.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer1 = Substitute.For<IObserver>();
+            var observer2 = Substitute.For<IObserver>();
             var featureBasedMapData1 = new TestFeatureBasedMapData();
             var featureBasedMapData2 = new TestFeatureBasedMapData
             {
@@ -271,7 +264,7 @@ namespace Core.Gui.Test.Forms.Map
             Assert.IsTrue(context.WrappedData.IsVisible);
             Assert.IsTrue(featureBasedMapData1.IsVisible);
             Assert.IsTrue(featureBasedMapData2.IsVisible);
-            mocks.VerifyAll();
+            observer2.Received().UpdateObserver();
         }
 
         [Test]
@@ -280,10 +273,7 @@ namespace Core.Gui.Test.Forms.Map
         public void OnNodeChecked_WithContext_NotifyObserversOfChangedChildrenOnly(bool initialVisibility, int expectedNotifications)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var featureBasedMapData1 = new TestFeatureBasedMapData();
             var featureBasedMapData2 = new TestFeatureBasedMapData
             {
@@ -312,19 +302,15 @@ namespace Core.Gui.Test.Forms.Map
             info.OnNodeChecked(context, null);
 
             // Assert
-            mocks.VerifyAll();
+            observer.Received(expectedNotifications).UpdateObserver();
         }
 
         [Test]
         public void OnNodeChecked_WithContext_NotifyObserversOfParentMapDataCollections()
         {
             // Setup
-            var collectionObserver = mocks.StrictMock<IObserver>();
-            collectionObserver.Expect(o => o.UpdateObserver());
-            var parentCollectionObserver = mocks.StrictMock<IObserver>();
-            parentCollectionObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var collectionObserver = Substitute.For<IObserver>();
+            var parentCollectionObserver = Substitute.For<IObserver>();
             var featureBasedMapData = new TestFeatureBasedMapData();
             var nestedMapDataCollection = new MapDataCollection("nested");
             nestedMapDataCollection.Add(featureBasedMapData);
@@ -341,7 +327,8 @@ namespace Core.Gui.Test.Forms.Map
             info.OnNodeChecked(nestedCollectionContext, null);
 
             // Assert
-            mocks.VerifyAll();
+            collectionObserver.Received().UpdateObserver();
+            parentCollectionObserver.Received().UpdateObserver();
         }
 
         [Test]
@@ -433,10 +420,7 @@ namespace Core.Gui.Test.Forms.Map
         public void OnDrop_MapDataCollectionContextMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var mapDataCollection1 = new MapDataCollection("Collection 1");
             var mapDataCollection2 = new MapDataCollection("Collection 2");
             var mapDataCollection3 = new MapDataCollection("Collection 3");
@@ -460,6 +444,7 @@ namespace Core.Gui.Test.Forms.Map
                 int reversedIndex = 2 - position;
                 Assert.AreSame(context.WrappedData, parentMapDataCollection.Collection.ElementAt(reversedIndex));
             }
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -470,9 +455,7 @@ namespace Core.Gui.Test.Forms.Map
         public void OnDrop_MapDataCollectionContextMovedToPositionOutsideRange_ThrowsException(int position)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var mapDataCollection1 = new MapDataCollection("Collection 1");
             var mapDataCollection2 = new MapDataCollection("Collection 2");
             var mapDataCollection3 = new MapDataCollection("Collection 3");
@@ -506,26 +489,29 @@ namespace Core.Gui.Test.Forms.Map
             var mapData = new MapDataCollection("test data");
             MapDataCollectionContext context = GetContext(mapData);
 
-            var builder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                builder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(builder);
-                builder.Expect(mb => mb.AddSeparator()).Return(builder);
-                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
-                builder.Expect(mb => mb.AddSeparator()).Return(builder);
-                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
-                builder.Expect(mb => mb.Build()).Return(null);
-            }
+            var builder = Substitute.For<IContextMenuBuilder>();
+            builder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>()).Returns(builder);
+            builder.AddSeparator().Returns(builder);
+            builder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(builder);
+            builder.AddSeparator().Returns(builder);
+            builder.AddPropertiesItem().Returns(builder);
 
-            contextMenuBuilderProvider.Expect(p => p.Get(context, null)).Return(builder);
-
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(context, null).Returns(builder);
             // Call
             info.ContextMenuStrip(context, null, null);
 
             // Assert
             // Assert expectancies are called in TearDown()
+
+            Received.InOrder(() =>
+            {
+                builder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>());
+                builder.AddSeparator();
+                builder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                builder.AddSeparator();
+                builder.AddPropertiesItem();
+                builder.Build();
+            });
         }
 
         [Test]
@@ -535,15 +521,15 @@ namespace Core.Gui.Test.Forms.Map
             var mapDataCollection = new MapDataCollection("test data");
             MapDataCollectionContext context = GetContext(mapDataCollection);
 
-            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            importCommandHandler.GetSupportedImportInfos(Arg.Any<IEnumerable<ImportInfo>>()).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -555,9 +541,7 @@ namespace Core.Gui.Test.Forms.Map
                                                      mapDataCollection,
                                                      treeViewControl);
 
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(context, treeViewControl)).Return(builder);
-                mocks.ReplayAll();
-
+                contextMenuBuilderProvider.Get(context, treeViewControl).Returns(builder);
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
@@ -589,9 +573,7 @@ namespace Core.Gui.Test.Forms.Map
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(null, null)).IgnoreArguments().Return(builder);
-                mocks.ReplayAll();
-
+                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {
@@ -618,10 +600,7 @@ namespace Core.Gui.Test.Forms.Map
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(null, null)).IgnoreArguments().Return(builder);
-
-                mocks.ReplayAll();
-
+                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {
@@ -649,9 +628,7 @@ namespace Core.Gui.Test.Forms.Map
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(null, null)).IgnoreArguments().Return(builder);
-                mocks.ReplayAll();
-
+                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {
@@ -681,12 +658,10 @@ namespace Core.Gui.Test.Forms.Map
             mapData.Add(featureBasedMapData);
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-            var mapControl = mocks.StrictMock<IMapControl>();
-            mapControl.Expect(c => c.Data).Return(mapData);
-            mapControl.Expect(c => c.ZoomToVisibleLayers(mapData));
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            var mapControl = Substitute.For<IMapControl>();
+            mapControl.Data.Returns(mapData);
+            mapControl.ZoomToVisibleLayers(mapData);
             mapLegendView.MapControl = mapControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
@@ -695,7 +670,7 @@ namespace Core.Gui.Test.Forms.Map
                 contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                // Assert expectancies are called in TearDown()
+                mapControl.Received().ZoomToVisibleLayers(mapData);
             }
         }
 
@@ -704,9 +679,7 @@ namespace Core.Gui.Test.Forms.Map
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
             var mapData = new MapDataCollection("A")
             {
                 IsVisible = true
@@ -724,10 +697,7 @@ namespace Core.Gui.Test.Forms.Map
 
         public override void Setup()
         {
-            mocks = new MockRepository();
-            contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
             mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
@@ -739,8 +709,6 @@ namespace Core.Gui.Test.Forms.Map
         public override void TearDown()
         {
             mapLegendView.Dispose();
-
-            mocks.VerifyAll();
         }
 
         private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollectionContext parentMapDataCollectionContext = null)

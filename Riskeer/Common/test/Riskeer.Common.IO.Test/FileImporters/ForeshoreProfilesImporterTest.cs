@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -43,28 +43,18 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class ForeshoreProfilesImporterTest
     {
-        private MockRepository mockRepository;
-
         [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
+        public void SetUp() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mockRepository.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var importTarget = new ForeshoreProfileCollection();
             var referenceLine = new ReferenceLine();
 
@@ -79,10 +69,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "", strategy, messageProvider);
 
@@ -95,10 +83,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "", strategy, messageProvider);
 
@@ -111,10 +97,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, strategy, messageProvider);
 
@@ -127,9 +111,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ForeshoreProfileUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", null, messageProvider);
 
             // Assert
@@ -141,9 +123,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_MessageProviderNull_ThrowArgumentNullException()
         {
             // Setup
-            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", strategy, null);
 
@@ -163,12 +143,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             // Call
@@ -194,20 +172,18 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .WhenCalled(invocation =>
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(callInfo =>
                     {
-                        Assert.AreSame(filePath, invocation.Arguments[1]);
-
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
+                        Assert.AreSame(filePath, callInfo.Args()[1]);
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
+                        return new IObservable[]
+                            {};
                     });
 
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
@@ -252,13 +228,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             referenceLine.SetGeometry(referencePoints);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             // Call
@@ -280,26 +254,24 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .WhenCalled(invocation =>
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(callInfo =>
                     {
-                        Assert.AreSame(filePath, invocation.Arguments[1]);
-
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
+                        Assert.AreSame(filePath, callInfo.Args()[1]);
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
+                        return new IObservable[]
+                            {};
                     });
 
             const string expectedAddingDataToModelMessage = "Adding data to model";
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddingDataToModelMessage);
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(expectedAddingDataToModelMessage);
             var progressChangeNotifications = new List<ProgressNotification>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
@@ -338,21 +310,19 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
+            var observer = Substitute.For<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .WhenCalled(invocation =>
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(callInfo =>
                     {
-                        Assert.AreSame(filePath, invocation.Arguments[1]);
-
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
+                        Assert.AreSame(filePath, callInfo.Args()[1]);
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
                         ForeshoreProfile[] readForeshoreProfilesArray = readForeshoreProfiles.ToArray();
                         Assert.AreEqual(5, readForeshoreProfilesArray.Length);
 
@@ -383,11 +353,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
                         Assert.AreEqual(15.56165507, foreshoreProfile5.X0);
                         Assert.AreEqual(330.0, foreshoreProfile5.Orientation, foreshoreProfile5.Orientation.GetAccuracy());
                         Assert.IsTrue(foreshoreProfile5.HasBreakWater);
+                        return new IObservable[]
+                            {};
                     });
 
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -408,29 +378,27 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
+            var observer = Substitute.For<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .WhenCalled(invocation =>
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(callInfo =>
                     {
-                        Assert.AreSame(filePath, invocation.Arguments[1]);
-
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
+                        Assert.AreSame(filePath, callInfo.Args()[1]);
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
+                        return new IObservable[]
+                            {};
                     });
 
             const string expectedAddingDataToModelMessage = "Adding data to model";
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddingDataToModelMessage);
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(expectedAddingDataToModelMessage);
             var progressChangeNotifications = new List<ProgressNotification>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
@@ -472,16 +440,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
 
             const string cancelledLogMessage = "Operation cancelled";
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Voorlandprofielen")).Return(cancelledLogMessage);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Voorlandprofielen").Returns(cancelledLogMessage);
 
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine,
                                                                           filePath, strategy, messageProvider);
@@ -513,15 +479,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
 
             const string cancelledLogMessage = "Operation cancelled";
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Voorlandprofielen")).Return(cancelledLogMessage);
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Voorlandprofielen").Returns(cancelledLogMessage);
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
                                                                           strategy, messageProvider);
@@ -552,26 +516,22 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .WhenCalled(invocation =>
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(callInfo =>
                     {
-                        Assert.AreSame(filePath, invocation.Arguments[1]);
-
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
-                        {
-                            Assert.AreEqual(5, readForeshoreProfiles.Count());
-                        }
+                        Assert.AreSame(filePath, callInfo.Args()[1]);
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
+                        Assert.AreEqual(5, readForeshoreProfiles.Count());
+                        return new IObservable[]
+                            {};
                     });
 
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
                                                                           strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
@@ -594,20 +554,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ThrowsUpdateDataException_ReturnsFalseAndLogsError()
         {
             // Setup
-            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
-                           .Return("");
-            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Dijkprofielen"))
-                           .IgnoreArguments()
-                           .Return("error {0}");
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns("");
+            messageProvider.GetUpdateDataFailedLogMessageText("Dijkprofielen").Returns("error {0}");
 
             const string exceptionMessage = "Look, an exception!";
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .Throw(new UpdateDataException(exceptionMessage));
-            mockRepository.ReplayAll();
-
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(_ => throw new UpdateDataException(exceptionMessage));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -633,28 +587,24 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var observableA = mockRepository.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mockRepository.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(referenceLine);
 
-            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .Return(new[]
+
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns(new[]
                     {
                         observableA,
                         observableB
                     });
 
-            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             foreshoreProfilesImporter.Import();
@@ -663,7 +613,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             foreshoreProfilesImporter.DoPostImport();
 
             // Assert
-            // Assertions are handled in the TearDown
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()

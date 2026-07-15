@@ -22,7 +22,7 @@
 using System;
 using Core.Common.IO.Readers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -35,8 +35,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void SetSoilLayerBaseProperties_SoilLayerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.Stub<IRowBasedDatabaseReader>();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             var properties = new LayerProperties(reader, "");
 
             // Call
@@ -119,53 +118,49 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             double popMean = random.NextDouble();
             double popCoefficientOfVariation = random.NextDouble();
             double popShift = random.NextDouble();
-
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.StrictMock<IRowBasedDatabaseReader>();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.IsAquifer)).Return(isAquifer);
-            reader.Expect(r => r.ReadOrDefault<string>(SoilProfileTableDefinitions.MaterialName)).Return(materialName);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.Color)).Return(color);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.BelowPhreaticLevelDistributionType)).Return(belowPhreaticLevelDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelShift)).Return(belowPhreaticLevelShift);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation)).Return(belowPhreaticLevelCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.DiameterD70DistributionType)).Return(diameterD70DistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Shift)).Return(diameterD70Shift);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Mean)).Return(diameterD70Mean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation)).Return(diameterD70CoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.PermeabilityDistributionType)).Return(permeabilityDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityShift)).Return(permeabilityShift);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityMean)).Return(permeabilityMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation)).Return(permeabilityCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.UsePop)).Return(usePop);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthModel)).Return(shearStrengthModel);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.AbovePhreaticLevelDistributionType)).Return(abovePhreaticLevelDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelMean)).Return(abovePhreaticLevelMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation)).Return(abovePhreaticLevelCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelShift)).Return(abovePhreaticLevelShift);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.CohesionDistributionType)).Return(cohesionDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionMean)).Return(cohesionMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionCoefficientOfVariation)).Return(cohesionCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionShift)).Return(cohesionShift);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.FrictionAngleDistributionType)).Return(frictionAngleDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleMean)).Return(frictionAngleMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation)).Return(frictionAngleCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleShift)).Return(frictionAngleShift);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.ShearStrengthRatioDistributionType)).Return(shearStrengthRatioDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioMean)).Return(shearStrengthRatioMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation)).Return(shearStrengthRatioCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioShift)).Return(shearStrengthRatioShift);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.StrengthIncreaseExponentDistributionType)).Return(strengthIncreaseExponentDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentMean)).Return(strengthIncreaseExponentMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation)).Return(strengthIncreaseExponentCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentShift)).Return(strengthIncreaseExponentShift);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.PopDistributionType)).Return(popDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopMean)).Return(popMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopCoefficientOfVariation)).Return(popCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopShift)).Return(popShift);
-            mockRepository.ReplayAll();
-
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.IsAquifer).Returns(isAquifer);
+            reader.ReadOrDefault<string>(SoilProfileTableDefinitions.MaterialName).Returns(materialName);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.Color).Returns(color);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.BelowPhreaticLevelDistributionType).Returns(belowPhreaticLevelDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelShift).Returns(belowPhreaticLevelShift);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelMean).Returns(belowPhreaticLevelMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelDeviation).Returns(belowPhreaticLevelDeviation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation).Returns(belowPhreaticLevelCoefficientOfVariation);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.DiameterD70DistributionType).Returns(diameterD70DistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Shift).Returns(diameterD70Shift);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Mean).Returns(diameterD70Mean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation).Returns(diameterD70CoefficientOfVariation);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.PermeabilityDistributionType).Returns(permeabilityDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityShift).Returns(permeabilityShift);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityMean).Returns(permeabilityMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation).Returns(permeabilityCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.UsePop).Returns(usePop);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthModel).Returns(shearStrengthModel);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.AbovePhreaticLevelDistributionType).Returns(abovePhreaticLevelDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelMean).Returns(abovePhreaticLevelMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation).Returns(abovePhreaticLevelCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelShift).Returns(abovePhreaticLevelShift);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.CohesionDistributionType).Returns(cohesionDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionMean).Returns(cohesionMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionCoefficientOfVariation).Returns(cohesionCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionShift).Returns(cohesionShift);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.FrictionAngleDistributionType).Returns(frictionAngleDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleMean).Returns(frictionAngleMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation).Returns(frictionAngleCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleShift).Returns(frictionAngleShift);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.ShearStrengthRatioDistributionType).Returns(shearStrengthRatioDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioMean).Returns(shearStrengthRatioMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation).Returns(shearStrengthRatioCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioShift).Returns(shearStrengthRatioShift);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.StrengthIncreaseExponentDistributionType).Returns(strengthIncreaseExponentDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentMean).Returns(strengthIncreaseExponentMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation).Returns(strengthIncreaseExponentCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentShift).Returns(strengthIncreaseExponentShift);
+            reader.ReadOrDefault<long?>(SoilProfileTableDefinitions.PopDistributionType).Returns(popDistributionType);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopMean).Returns(popMean);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopCoefficientOfVariation).Returns(popCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopShift).Returns(popShift);
             var properties = new LayerProperties(reader, "");
             var soilLayer = new TestSoilLayerBase();
 
@@ -224,21 +219,16 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreEqual(properties.PopMean, soilLayer.PopMean);
             Assert.AreEqual(properties.PopCoefficientOfVariation, soilLayer.PopCoefficientOfVariation);
             Assert.AreEqual(properties.PopShift, soilLayer.PopShift);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SetSoilLayerBaseProperties_LayerPropertiesNullValues_ReturnsExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.Stub<IRowBasedDatabaseReader>();
-            reader.Stub(r => r.ReadOrDefault<double?>(null)).IgnoreArguments().Return(null);
-            reader.Stub(r => r.ReadOrDefault<long?>(null)).IgnoreArguments().Return(null);
-            reader.Stub(r => r.ReadOrDefault<string>(null)).IgnoreArguments().Return(null);
-            mockRepository.ReplayAll();
-
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
+            reader.ReadOrDefault<double?>(null).Returns((double?)null);
+            reader.ReadOrDefault<long?>(null).Returns((long?)null);
+            reader.ReadOrDefault<string>(null).Returns((string)null);
             var soilLayer = new TestSoilLayerBase();
             var properties = new LayerProperties(reader, string.Empty);
 
@@ -298,8 +288,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.IsNaN(soilLayer.PopMean);
             Assert.IsNaN(soilLayer.PopCoefficientOfVariation);
             Assert.IsNaN(soilLayer.PopShift);
-
-            mockRepository.VerifyAll();
         }
 
         private class TestSoilLayerBase : SoilLayerBase {}

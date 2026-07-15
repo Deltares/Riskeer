@@ -21,7 +21,7 @@
 
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -38,26 +38,19 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var changeHandler = new PipingFailureMechanismCalculationChangeHandler(new PipingFailureMechanism(), string.Empty, inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismCalculationChangeHandler>(changeHandler);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_NoProbabilisticCalculations_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
             {
@@ -72,17 +65,13 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_ProbabilisticCalculationsWithoutOutput_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
 
@@ -93,17 +82,13 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_ProbabilisticCalculationsWithOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario
             {
@@ -117,7 +102,6 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsTrue(requireConfirmation);
-            mocks.VerifyAll();
         }
     }
 }

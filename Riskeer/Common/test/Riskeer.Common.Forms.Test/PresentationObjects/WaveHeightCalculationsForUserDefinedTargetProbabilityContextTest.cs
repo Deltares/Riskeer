@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -37,10 +37,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
@@ -51,18 +48,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext>(context);
             Assert.AreSame(calculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenContextWithObserverAttached_WhenNotifyingObserversOfWaveHeightCalculationsForUserDefinedTargetProbabilities_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
@@ -74,18 +66,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenContextWithObserverAttached_WhenNotifyingObserversOfWaveHeightCalculationsForUserDefinedTargetProbability_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
@@ -97,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
@@ -37,9 +37,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void CreateLoadAssessmentSectionActivity_AssessmentSectionOwnerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            mocks.ReplayAll();
+            var service = Substitute.For<ILoadAssessmentSectionService>();
 
             // Call
             void Call() => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(null, service, string.Empty);
@@ -47,7 +45,6 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("owner", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -65,9 +62,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void CreateLoadAssessmentSectionActivity_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            mocks.ReplayAll();
+            var service = Substitute.For<ILoadAssessmentSectionService>();
 
             // Call
             void Call() => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(new AssessmentSectionOwner(), service, null);
@@ -75,7 +70,6 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -86,12 +80,8 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             var owner = new AssessmentSectionOwner();
             var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var mocks = new MockRepository();
-            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(pr => pr.LoadAssessmentSection(filePath)).Return(expectedAssessmentSection);
-            mocks.ReplayAll();
-
+            var service = Substitute.For<ILoadAssessmentSectionService>();
+            service.LoadAssessmentSection(filePath).Returns(expectedAssessmentSection);
             // Call
             Activity activity = LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(owner, service, filePath);
 
@@ -100,8 +90,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             activity.Run();
             Assert.AreSame(expectedAssessmentSection, owner.AssessmentSection);
-
-            mocks.VerifyAll();
+            service.Received().LoadAssessmentSection(filePath);
         }
     }
 }

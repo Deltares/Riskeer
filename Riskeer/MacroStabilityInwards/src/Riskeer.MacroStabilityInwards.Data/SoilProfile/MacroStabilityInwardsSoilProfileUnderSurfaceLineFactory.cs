@@ -81,12 +81,11 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 
             double geometryBottom = Math.Min(soilProfile.Bottom, localizedSurfaceLine.Min(p => p.Y)) - 1;
             IEnumerable<Point2D> surfaceLineGeometry = AdvancedMath2D.CompleteLineToPolygon(localizedSurfaceLine, geometryBottom);
-            IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(
-                                                                                layer => As2DGeometry(
-                                                                                    layer,
-                                                                                    soilProfile,
-                                                                                    localizedSurfaceLine.First().X,
-                                                                                    localizedSurfaceLine.Last().X))
+            IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(layer => As2DGeometry(
+                                                                                               layer,
+                                                                                               soilProfile,
+                                                                                               localizedSurfaceLine.First().X,
+                                                                                               localizedSurfaceLine.Last().X))
                                                                             .ToArray();
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);

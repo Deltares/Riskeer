@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -34,14 +34,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
+        
         private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismView));
         }
@@ -64,9 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
         public void GetViewName_WithGrassCoverErosionInwardsFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -83,9 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = inAssembly
@@ -98,7 +94,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -106,9 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
@@ -118,8 +111,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
 
             // Assert
             Assert.IsFalse(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -143,8 +134,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var otherGrassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 

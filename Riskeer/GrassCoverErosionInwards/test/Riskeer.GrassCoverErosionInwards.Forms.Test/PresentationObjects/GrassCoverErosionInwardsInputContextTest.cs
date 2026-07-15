@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -31,21 +31,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextTest
     {
-        private MockRepository mocksRepository;
+        
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
+            
         }
 
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var input = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -59,16 +57,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var input = new GrassCoverErosionInwardsInput();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -78,7 +73,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocksRepository.VerifyAll();
         }
     }
 }

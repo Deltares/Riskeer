@@ -27,7 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -64,10 +64,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailureMechanismSectionResultRowErrorProviderNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -77,17 +74,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResultRowErrorProvider", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -97,17 +90,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -117,17 +106,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -161,8 +146,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -173,12 +156,9 @@ namespace Riskeer.Common.Forms.Test.Views
             double sectionProbability = random.NextDouble();
 
             const string errorText = "error";
-            var mocks = new MockRepository();
-            var errorProvider = mocks.StrictMock<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Expect(ep => ep.GetManualProbabilityValidationError(sectionProbability))
-                         .Return(errorText);
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(sectionProbability)
+                         .Returns(errorText);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -195,8 +175,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -206,13 +184,9 @@ namespace Riskeer.Common.Forms.Test.Views
             bool isRelevant, NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType)
         {
             // Given
-            var mocks = new MockRepository();
-            var errorProvider = mocks.StrictMock<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
-                         .IgnoreArguments()
-                         .Return("error message");
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(double.NaN)
+                         .Returns("error message");
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -229,8 +203,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.IsEmpty(columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -241,12 +213,8 @@ namespace Riskeer.Common.Forms.Test.Views
             double sectionProbability = random.NextDouble();
 
             const string errorText = "error";
-            var mocks = new MockRepository();
-            var errorProvider = mocks.StrictMock<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Expect(ep => ep.GetManualProbabilityValidationError(sectionProbability))
-                         .Return(errorText);
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(sectionProbability).Returns(errorText);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -264,8 +232,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -276,14 +242,9 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var random = new Random(21);
             double sectionProbability = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var errorProvider = mocks.StrictMock<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
-                         .IgnoreArguments()
-                         .Return("error");
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(double.NaN)
+                         .Returns("error");
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -301,8 +262,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.IsEmpty(columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
             }
-
-            mocks.VerifyAll();
         }
 
         #region Registration
@@ -379,12 +338,8 @@ namespace Riskeer.Common.Forms.Test.Views
             T newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            var observer = Substitute.For<IObserver>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
             result.Attach(observer);
@@ -399,18 +354,14 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(newValue, assertPropertyFunc(result));
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static void ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(
             Action<NonAdoptableFailureMechanismSectionResultRow> setPropertyAction)
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -425,8 +376,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -437,10 +386,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_AssemblyRan_InputCorrectlySetOnCalculator()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             var assessmentSection = new AssessmentSectionStub();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -464,18 +410,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(row.FurtherAnalysisType, input.FurtherAnalysisType);
                 Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssemblyRan_ReturnsAssemblyResult()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -493,18 +434,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(calculatorOutput.FailureMechanismSectionAssemblyGroup),
                                 row.AssemblyGroup);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
         {
             // Given
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -531,18 +467,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
                                 row.AssemblyGroup);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
         {
             // Given
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -567,18 +498,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
         {
             // Given
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -615,10 +541,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_Always_ExpectedColumnStates()
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -633,8 +556,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex], true, true);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -643,13 +564,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithIsRelevant_ExpectedColumnStates(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
-                         .IgnoreArguments()
-                         .Return(string.Empty);
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(double.NaN)
+                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -675,8 +592,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -686,13 +601,9 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                                            bool isEnabled, bool isReadOnly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
-                         .IgnoreArguments()
-                         .Return(string.Empty);
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(double.NaN)
+                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -710,8 +621,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -722,13 +631,9 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                              bool expectedDisabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
-                         .IgnoreArguments()
-                         .Return(string.Empty);
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.GetManualProbabilityValidationError(double.NaN)
+                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -746,8 +651,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], expectedDisabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -757,11 +660,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
-            mocks.ReplayAll();
-
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -782,8 +681,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(
                     columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex], expectedBackgroundColor);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion

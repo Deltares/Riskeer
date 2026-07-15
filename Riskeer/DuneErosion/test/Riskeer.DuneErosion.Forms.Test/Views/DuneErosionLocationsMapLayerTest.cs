@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -77,11 +77,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenMapLayerWithDuneLocations_WhenChangingDuneLocationsDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.SetDuneLocations(new[]
             {
@@ -106,18 +102,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithDuneLocations_WhenUserDefinedTargetProbabilitiesCollectionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.SetDuneLocations(new[]
             {
@@ -142,18 +134,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithDuneLocations_WhenCalculationsForUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var targetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(targetProbability);
@@ -178,18 +166,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithDuneLocations_WhenCalculationsForAddedUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.SetDuneLocations(new[]
             {
@@ -217,17 +201,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithDuneLocations_WhenCalculationsForRemovedUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var targetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(targetProbability);
@@ -254,19 +235,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 // Then
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMapLayerWithDuneLocations_WhenUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
@@ -291,7 +266,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -299,11 +274,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdatedSelectedMetaDataAttributeResetToDefault(string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
@@ -332,7 +303,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -340,11 +311,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenMapLayerWithDuneLocations_WhenNotSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
@@ -377,7 +344,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -385,11 +352,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
@@ -419,7 +382,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -429,11 +392,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             string selectedMetaDataAttributeFormat, string expectedSelectedMetadataAttributeFormat)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const double targetProbability = 0.1;
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -473,7 +432,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,

@@ -343,7 +343,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
                                                                                      object parentData,
-                                                                                     TreeViewControl treeViewControl)
+                                                                                     ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -414,7 +414,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -431,7 +431,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -484,7 +484,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityStoneCoverCalculationGroupContext nodeData,
                                                                          object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                                         ITreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -665,7 +665,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(StabilityStoneCoverWaveConditionsCalculationContext nodeData,
                                                                                   object parentData,
-                                                                                  TreeViewControl treeViewControl)
+                                                                                  ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

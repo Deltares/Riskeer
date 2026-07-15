@@ -30,7 +30,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -301,11 +301,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void ScenariosView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var calculationObserver = Substitute.For<IObserver>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             ShowFullyConfiguredMacroStabilityInwardsScenariosView(failureMechanism);
 
@@ -319,7 +315,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
-            mocks.VerifyAll();
+            calculationObserver.Received().UpdateObserver();
         }
 
         [Test]

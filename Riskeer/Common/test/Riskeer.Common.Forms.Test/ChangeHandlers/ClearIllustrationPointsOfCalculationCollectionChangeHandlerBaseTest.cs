@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.ChangeHandlers;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
@@ -47,16 +47,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IClearIllustrationPointsOfCalculationCollectionChangeHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,12 +62,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             const string confirmationMessage = "Inquiry";
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(confirmationMessage)).Return(expectedConfirmation);
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(confirmationMessage).Returns(expectedConfirmation);
             var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper)
             {
                 ConfirmationMessage = confirmationMessage
@@ -83,7 +75,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             Assert.IsTrue(handler.GetConfirmationMessageCalled);
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.VerifyAll();
         }
 
         private class TestClearIllustrationPointsOfCalculationCollectionChangeHandler

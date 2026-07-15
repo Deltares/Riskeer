@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -36,17 +36,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void ChangePropertyAndNotify_WithoutPropertySetDelegate_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => PropertyChangeHelper.ChangePropertyAndNotify(null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("setPropertyDelegate", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -65,17 +61,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             SetObservablePropertyValueDelegate setAction = () => {};
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IObservablePropertyChangeHandler>();
-            handler.Expect(h => h.SetPropertyValueAfterConfirmation(setAction)).Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
+            handler.SetPropertyValueAfterConfirmation(setAction).Returns(Enumerable.Empty<IObservable>());
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -83,12 +74,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             SetObservablePropertyValueDelegate setAction = () => {};
-
-            var mocks = new MockRepository();
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
 
             IObservable[] affectedObjects =
             {
@@ -96,15 +83,14 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 observableB
             };
 
-            var handler = mocks.StrictMock<IObservablePropertyChangeHandler>();
-            handler.Expect(h => h.SetPropertyValueAfterConfirmation(setAction)).Return(affectedObjects);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
+            handler.SetPropertyValueAfterConfirmation(setAction).Returns(affectedObjects);
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
 
             // Assert
-            mocks.VerifyAll();
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
         }
     }
 }

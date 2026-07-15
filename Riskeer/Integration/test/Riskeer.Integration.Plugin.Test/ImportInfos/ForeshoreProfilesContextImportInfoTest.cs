@@ -30,7 +30,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -50,12 +50,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
             var importTarget = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -70,8 +67,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -126,12 +121,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -146,20 +138,15 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -174,8 +161,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -198,24 +183,20 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            var mainWindow = Substitute.For<IMainWindow>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(mainWindow);
 
-            var calculationWithoutOutput = mocks.Stub<ICalculation>();
-            calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(false);
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
+            calculationWithoutOutput.HasOutput.Returns(false);
 
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithoutOutput
             });
-
-            mocks.ReplayAll();
-
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
@@ -231,8 +212,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsTrue(updatesVerified);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -241,23 +220,20 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            var mainWindow = Substitute.For<IMainWindow>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(mainWindow);
 
-            var calculationWithoutOutput = mocks.Stub<ICalculation>();
-            calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(true);
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
+            calculationWithoutOutput.HasOutput.Returns(true);
 
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithoutOutput
             });
-            mocks.ReplayAll();
-
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
@@ -294,8 +270,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                                                 $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ImportInfo GetImportInfo(RiskeerPlugin plugin)

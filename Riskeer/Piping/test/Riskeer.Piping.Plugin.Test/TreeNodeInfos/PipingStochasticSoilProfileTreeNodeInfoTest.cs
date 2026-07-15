@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -105,26 +105,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
 
+            menuBuilder.Received().Build();
+
             // Assert
-            mocks.VerifyAll();
         }
     }
 }

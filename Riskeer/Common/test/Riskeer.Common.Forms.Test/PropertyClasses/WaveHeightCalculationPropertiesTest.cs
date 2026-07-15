@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -42,10 +42,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
@@ -54,17 +51,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
@@ -89,17 +82,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de golfhoogte berekening?",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_Always_ReturnsExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var random = new Random(39);
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
@@ -114,7 +103,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.Result);
             Assert.AreEqual(convergence, properties.Convergence);
-            mocks.VerifyAll();
         }
     }
 }

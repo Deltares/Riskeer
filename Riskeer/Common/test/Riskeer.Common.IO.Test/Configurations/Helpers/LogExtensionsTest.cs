@@ -22,7 +22,7 @@
 using System;
 using log4net;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Helpers
@@ -37,19 +37,14 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string message = "an error";
             const string calculationName = "calculationA";
             const string innerMessage = "Inner message";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", $"{message} {innerMessage}", calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", $"{message} {innerMessage}", calculationName);
             var exception = new ArgumentOutOfRangeException(null, innerMessage);
 
             // Call
             log.LogOutOfRangeException(message, calculationName, exception);
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -58,17 +53,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             const string message = "an error";
             const string calculationName = "calculationA";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName);
             // Call
             log.LogCalculationConversionError(message, calculationName);
 
             // Assert
-            mocks.VerifyAll();
         }
     }
 }

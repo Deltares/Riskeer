@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -133,14 +133,8 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                     hydraulicBoundaryDatabase2
                 }
             };
-
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
             hydraulicBoundaryData.Attach(observer);
-
-            mockRepository.ReplayAll();
-
             // Call
             hydraulicBoundaryData.SetNewFolderPath(newFolderPath);
 
@@ -148,8 +142,8 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(Path.Combine(newFolderPath, hlcdFileName), hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName1), hydraulicBoundaryDatabase1.FilePath);
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName2), hydraulicBoundaryDatabase2.FilePath);
-
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
+            
         }
 
         [Test]

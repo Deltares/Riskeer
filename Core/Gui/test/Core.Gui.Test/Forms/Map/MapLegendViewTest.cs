@@ -33,29 +33,23 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Map;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Map
 {
     [TestFixture]
     public class MapLegendViewTest
     {
-        private MockRepository mocks;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
         }
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_ContextMenuBuilderProviderAndWindowNotNull_CreatesUserControlAndTreeViewControl()
@@ -139,12 +133,9 @@ namespace Core.Gui.Test.Forms.Map
         {
             // Setup
             var mapData = new MapDataCollection("A");
-            var mockRepository = new MockRepository();
-            var mapControl = mockRepository.Stub<IMapControl>();
+            var mapControl = Substitute.For<IMapControl>();
 
-            mapControl.Expect(mc => mc.Data).Return(mapData);
-            mockRepository.ReplayAll();
-
+            mapControl.Data.Returns(mapData);
             using (var view = new MapLegendView(contextMenuBuilderProvider)
             {
                 Data = new MapDataCollection("A")
@@ -156,8 +147,6 @@ namespace Core.Gui.Test.Forms.Map
                 // Assert
                 Assert.AreSame(mapData, ((MapDataCollectionContext) view.Data).WrappedData);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

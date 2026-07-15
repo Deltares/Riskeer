@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;
@@ -52,10 +52,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_InvalidSoilProfile_ThrowsImportedDataTransformException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
 
@@ -64,7 +61,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             string message = $"De ondergrondschematisatie van het type '{soilProfile.GetType().Name}' is niet ondersteund. " +
                              "Alleen ondergrondschematisaties van het type 'SoilProfile1D' of 'SoilProfile2D' zijn ondersteund.";
             Assert.AreEqual(message, exception.Message);
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -133,8 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 
             foreach (MacroStabilityInwardsStochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
             {
-                MacroStabilityInwardsStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(
-                    sp => IsSame(sp, fromProfile)
+                MacroStabilityInwardsStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile)
                 );
                 if (sameProfile != null)
                 {
@@ -153,8 +152,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
                 newSoilProfiles.Add(fromProfile.SoilProfile);
             }
 
-            foreach (MacroStabilityInwardsStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                         sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
+            foreach (MacroStabilityInwardsStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
             {
                 stochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);

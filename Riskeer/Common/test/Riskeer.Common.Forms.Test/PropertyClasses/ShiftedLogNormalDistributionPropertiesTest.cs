@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -66,9 +66,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_DistributionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             void Call() => new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None, null, handler);
@@ -76,7 +74,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("distribution", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,10 +109,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution();
 
             // Call
@@ -128,18 +122,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, false, false);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),
@@ -164,10 +153,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnDistributionName()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),

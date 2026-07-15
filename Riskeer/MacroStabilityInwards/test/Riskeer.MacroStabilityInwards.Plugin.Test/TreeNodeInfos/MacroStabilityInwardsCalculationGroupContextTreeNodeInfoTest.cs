@@ -34,7 +34,7 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
-        private MockRepository mocks;
+        
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
@@ -89,8 +89,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -118,9 +116,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var groupContext = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -139,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var calculationItem = mocks.StrictMock<ICalculationBase>();
+            var calculationItem = Substitute.For<ICalculationBase>();
 
             var childCalculation = new MacroStabilityInwardsCalculationScenario();
 
@@ -151,10 +147,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(childGroup);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -192,7 +185,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             });
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             parentGroup,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -206,17 +199,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            exportHandler.CanExportFrom(nodeData).Returns(true);
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
@@ -226,15 +219,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                      nodeData,
                                                      treeViewControl);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
 
-            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
-
-            mocks.ReplayAll();
-
+            treeViewControl.CanRemoveNodeForData(nodeData).Returns(true);
+            treeViewControl.CanRenameNodeForData(nodeData).Returns(true);
+            treeViewControl.CanExpandOrCollapseForData(nodeData).Returns(false);
             plugin.Gui = gui;
 
             // Call
@@ -323,7 +313,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             });
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -331,18 +321,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                             failureMechanism,
                                                                             assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            exportHandler.CanExportFrom(nodeData).Returns(true);
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
 
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            viewCommandsHandler.CanOpenViewFor(nodeData).Returns(true);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -354,12 +344,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                          nodeData,
                                                          treeViewControl);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -439,7 +426,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,
@@ -451,11 +438,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 failureMechanism,
                                                                                 assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -480,7 +465,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,
@@ -494,11 +479,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -523,7 +506,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,
@@ -540,11 +523,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -591,10 +572,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -617,13 +596,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var group = new CalculationGroup();
                 var parentGroup = new CalculationGroup();
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -639,13 +617,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var calculationItem = new CalculationGroup
@@ -671,6 +646,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -683,7 +659,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 var parentGroup = new CalculationGroup();
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -699,13 +675,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var calculationItem = new MacroStabilityInwardsCalculationScenario
@@ -731,6 +704,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -781,10 +755,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -856,13 +828,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -911,14 +881,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                if (confirm)
-                {
-                    calculation1Observer.Expect(o => o.UpdateObserver());
-                    calculation2Observer.Expect(o => o.UpdateObserver());
-                }
-
+                var calculation1Observer = Substitute.For<IObserver>();
+                var calculation2Observer = Substitute.For<IObserver>();
+                
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -964,10 +929,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 string messageBoxTitle = null, messageBoxText = null;
@@ -1000,6 +963,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
                 }
+                
+                if (confirm)
+                {
+                    calculation1Observer.Received().UpdateObserver();
+                    calculation2Observer.Received().UpdateObserver();
+                }
+                else
+                {
+                    calculation1Observer.DidNotReceive().UpdateObserver();
+                    calculation2Observer.DidNotReceive().UpdateObserver();
+                }
             }
         }
 
@@ -1012,7 +986,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var surfaceLines = new[]
                 {
@@ -1029,14 +1003,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 MacroStabilityInwardsSurfaceLineSelectionDialog selectionDialog = null;
@@ -1067,13 +1039,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_ParentIsMacroStabilityInwardsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
             var group = new CalculationGroup();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var parentGroup = new CalculationGroup();
             parentGroup.Children.Add(group);
 
@@ -1099,11 +1068,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            observer.Received().UpdateObserver();
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
+            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext));
         }
@@ -1111,8 +1081,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public override void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
-
             base.TearDown();
         }
     }

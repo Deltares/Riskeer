@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses;
@@ -38,10 +38,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_DesignVariableNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                      null,
@@ -50,17 +47,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("designVariable", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new NormalDistribution();
             var designVariable = new NormalDistributionDesignVariable(distribution);
 
@@ -75,17 +68,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
             Assert.AreEqual("Normaal", properties.DistributionType);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new NormalDistribution();
             var designVariable = new NormalDistributionDesignVariable(distribution);
 
@@ -123,17 +112,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Rekenwaarde",
                                                                             "De representatieve waarde die gebruikt wordt door de berekening.",
                                                                             true);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),

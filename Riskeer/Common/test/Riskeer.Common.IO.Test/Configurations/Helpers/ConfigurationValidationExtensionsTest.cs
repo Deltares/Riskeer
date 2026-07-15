@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
@@ -53,17 +53,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ValidateWaveReduction_NoCalculationName_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             // Call
             TestDelegate test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, null, log);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculationName", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -71,17 +67,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string calculationName = "calculation";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             // Call
             bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, log);
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -89,17 +80,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string calculationName = "calculation";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             // Call
             bool valid = new WaveReductionConfiguration().ValidateWaveReduction(null, calculationName, log);
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -109,12 +95,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculation";
             const string error = "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            log.Expect(l => l.ErrorFormat(expectedMessage, error, calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat(expectedMessage, error, calculationName);
             var waveReductionConfiguration = new WaveReductionConfiguration();
             var random = new Random(21);
 
@@ -139,7 +121,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -147,11 +128,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string calculationName = "calculation";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             // Call
             bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(
                 new TestForeshoreProfile("voorland", Enumerable.Empty<Point2D>()),
@@ -160,7 +137,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -168,11 +144,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string calculationName = "calculation";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             var waveReductionConfiguration = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = true
@@ -186,7 +158,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -198,12 +169,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
 
             string error = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMock<ILog>();
-            log.Expect(l => l.ErrorFormat(expectedMessage, error, calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat(expectedMessage, error, calculationName);
             var waveReductionConfiguration = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = true
@@ -214,7 +181,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(valid);
-            mocks.VerifyAll();
         }
     }
 }

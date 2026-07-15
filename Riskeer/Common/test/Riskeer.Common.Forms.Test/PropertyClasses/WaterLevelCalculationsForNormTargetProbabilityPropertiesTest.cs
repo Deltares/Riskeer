@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -44,10 +44,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
@@ -60,17 +57,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.Calculations));
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, NoProbabilityValueDoubleConverter>(
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.TargetProbability));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                           assessmentSection, 0.1);
@@ -92,7 +85,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische belastingendatabase.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -100,11 +92,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const double targetProbability = 0.1;
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
@@ -116,7 +104,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(1, properties.Calculations.Length);
-            mocks.VerifyAll();
         }
     }
 }

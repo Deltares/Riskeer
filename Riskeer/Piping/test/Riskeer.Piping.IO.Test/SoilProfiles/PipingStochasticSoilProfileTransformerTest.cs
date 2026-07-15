@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.TestUtil;
@@ -53,10 +53,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void Transform_PipingSoilProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
@@ -65,17 +62,13 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("soilProfile", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Transform_InvalidStochasticSoilProfile_ThrowsImportedDataTransformException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
@@ -96,11 +89,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         {
             // Setup
             var random = new Random(21);
-
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             var stochasticSoilProfile = new StochasticSoilProfile(random.NextDouble(), soilProfile);
@@ -111,7 +100,6 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(stochasticSoilProfile.Probability, pipingStochasticSoilProfile.Probability);
             Assert.AreSame(pipingSoilProfile, pipingStochasticSoilProfile.SoilProfile);
-            mockRepository.VerifyAll();
         }
     }
 }

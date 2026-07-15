@@ -394,7 +394,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   TreeViewControl treeViewControl)
+                                                                                   ITreeViewControl treeViewControl)
         {
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = context.WrappedData
                                                                                             .Calculations
@@ -485,7 +485,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -502,7 +502,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -555,7 +555,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(HeightStructuresCalculationGroupContext context,
                                                                          object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                                         ITreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -753,7 +753,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationScenarioContext context,
                                                                     object parentData,
-                                                                    TreeViewControl treeViewControl)
+                                                                    ITreeViewControl treeViewControl)
         {
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
@@ -871,7 +871,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #endregion
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
+        private static ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);

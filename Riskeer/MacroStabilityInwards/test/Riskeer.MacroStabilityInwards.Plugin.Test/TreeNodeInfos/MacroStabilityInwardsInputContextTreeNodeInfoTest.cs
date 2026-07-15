@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 
@@ -35,14 +35,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class MacroStabilityInwardsInputContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
+        
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsInputContext));
         }
@@ -51,15 +51,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -85,8 +82,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             string text = info.Text(null);
 
@@ -98,8 +93,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -111,19 +104,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var gui = mocks.Stub<IGui>();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var gui = Substitute.For<IGui>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -131,7 +121,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            menuBuilder.Received().AddOpenItem();
+            menuBuilder.Received().AddSeparator();
+            menuBuilder.Received().AddPropertiesItem();
+            menuBuilder.Received().Build();
         }
     }
 }

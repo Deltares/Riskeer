@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -35,10 +35,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
 
             // Call
@@ -46,7 +43,6 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>>(context);
-            mocks.VerifyAll();
         }
     }
 }

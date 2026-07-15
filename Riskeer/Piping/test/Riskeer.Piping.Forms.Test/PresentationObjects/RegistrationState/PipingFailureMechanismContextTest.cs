@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
@@ -35,10 +35,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.RegistrationState
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.RegistrationState
             Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
         }
     }
 }

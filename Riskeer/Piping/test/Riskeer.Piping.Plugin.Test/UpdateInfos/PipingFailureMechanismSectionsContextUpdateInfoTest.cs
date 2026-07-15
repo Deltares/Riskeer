@@ -30,7 +30,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
@@ -50,12 +50,9 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -68,20 +65,15 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", name);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -94,20 +86,15 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Algemeen", category);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -120,21 +107,16 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_FailureMechanismSectionsSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -153,21 +135,16 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_FailureMechanismSectionsSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -183,20 +160,15 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -209,22 +181,17 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -239,21 +206,16 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CurrentPath_FailureMechanismSectionsSourcePathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -271,21 +233,16 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.AreEqual(sourcePath, currentFilePath);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void VerifyUpdates_NoProbabilisticCalculations_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
@@ -306,21 +263,16 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(updatesVerified);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void VerifyUpdates_ProbabilisticCalculationsWithoutOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
 
@@ -338,8 +290,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(updatesVerified);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -348,13 +298,10 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculationWithOutput = new ProbabilisticPipingCalculationScenario
             {
@@ -395,8 +342,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);
             }
-
-            mocks.VerifyAll();
         }
 
         private static UpdateInfo GetUpdateInfo(PipingPlugin plugin)

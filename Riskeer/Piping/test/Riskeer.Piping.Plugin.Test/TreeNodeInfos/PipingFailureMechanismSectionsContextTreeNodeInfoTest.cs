@@ -29,7 +29,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
@@ -107,33 +107,25 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+           
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new PipingPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -145,46 +137,48 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>());
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_WithAddImportItem_CorrectImportInfosPassed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddImportItem())
-                       .IgnoreArguments()
-                       .WhenCalled(invocation =>
-                       {
-                           var importInfos = (ImportInfo[]) invocation.Arguments[0];
-                           Assert.AreEqual(1, importInfos.Length);
-                           Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(PipingFailureMechanismSectionsContext)));
-                       })
-                       .Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddImportItem(
+                           Arg.Do<ImportInfo[]>(importInfos =>
+                           {
+                               Assert.AreEqual(1, importInfos.Length);
+                               Assert.IsTrue(
+                                   importInfos.Any(i =>
+                                                       i.DataType == typeof(PipingFailureMechanismSectionsContext)));
+                           }))
+                       .Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.Build();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new PipingPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -197,17 +191,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_NoSectionsOnFailureMechanism_ReturnGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -221,18 +211,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasSectionsOnFailureMechanism_ReturnControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SetSections(new[]
             {
@@ -255,8 +240,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(PipingPlugin plugin)

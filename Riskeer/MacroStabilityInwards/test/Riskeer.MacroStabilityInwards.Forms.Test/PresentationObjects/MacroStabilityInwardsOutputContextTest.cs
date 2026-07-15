@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -36,10 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -70,10 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -85,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
     }
 }

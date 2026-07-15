@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -45,9 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, assessmentSection);
@@ -55,8 +53,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -171,10 +167,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleSection_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -183,18 +176,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleSection_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
@@ -204,8 +192,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]

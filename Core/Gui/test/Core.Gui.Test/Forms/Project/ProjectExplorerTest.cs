@@ -33,7 +33,7 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Project;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Project
 {
@@ -55,9 +55,7 @@ namespace Core.Gui.Test.Forms.Project
         public void Constructor_TreeNodeInfosNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             // Call
             void Call() => new ProjectExplorer(viewCommands, null);
@@ -65,17 +63,13 @@ namespace Core.Gui.Test.Forms.Project
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("treeNodeInfos", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             // Call
             using (var explorer = new ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
             {
@@ -85,19 +79,14 @@ namespace Core.Gui.Test.Forms.Project
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_Always_SetTreeViewControlData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
+            var project = Substitute.For<IProject>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
                 new TreeNodeInfo
@@ -116,20 +105,14 @@ namespace Core.Gui.Test.Forms.Project
                 // Assert
                 Assert.AreSame(project, treeViewControl.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ProjectDataDeleted_Always_CallsRemoveAllViewsForItemWithTag()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(project));
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var viewCommands = Substitute.For<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
                 new TreeNodeInfo
@@ -157,7 +140,7 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received().RemoveAllViewsForItem(project);
         }
 
         [Test]
@@ -165,11 +148,8 @@ namespace Core.Gui.Test.Forms.Project
         public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
+            var project = Substitute.For<IProject>();
             const string stringA = "testA";
             const string stringB = "testB";
 
@@ -210,7 +190,6 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -220,13 +199,8 @@ namespace Core.Gui.Test.Forms.Project
             // Setup
             const string treeIdentifier = "SomeName";
             const string formIdentifier = "SomeForm";
-
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(a => a.OpenViewForSelection());
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
+            var project = Substitute.For<IProject>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
                 new TreeNodeInfo
@@ -261,7 +235,7 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received().OpenViewForSelection();
         }
 
         [Test]
@@ -269,11 +243,8 @@ namespace Core.Gui.Test.Forms.Project
         public void Selection_Always_ReturnsSelectedNodeData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
+            var project = Substitute.For<IProject>();
             const string stringA = "testA";
             const string stringB = "testB";
 
@@ -312,7 +283,6 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
         }
     }
 }

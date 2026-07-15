@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -40,10 +40,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, null);
@@ -51,24 +48,19 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculations", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -77,12 +69,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var random = new Random(21);
             bool expectedConfirmation = random.NextBoolean();
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?").Returns(expectedConfirmation);
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
@@ -91,7 +79,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -114,17 +101,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 calculationWithOutput,
                 calculationWithIllustrationPoints
             };
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            var calculationWithIllustrationPointsObserver = mocks.StrictMock<IObserver>();
+            var calculationWithIllustrationPointsObserver = Substitute.For<IObserver>();
             calculationWithIllustrationPoints.Attach(calculationWithIllustrationPointsObserver);
 
-            var calculationWithoutIllustrationPointsObserver = mocks.StrictMock<IObserver>();
+            var calculationWithoutIllustrationPointsObserver = Substitute.For<IObserver>();
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
-            mocks.ReplayAll();
-
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
 
             // Call
@@ -143,8 +126,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             };
             Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
             Assert.IsTrue(calculationsWithOutput.All(calc => !calc.Output.HasGeneralResult));
-
-            mocks.VerifyAll();
         }
     }
 }

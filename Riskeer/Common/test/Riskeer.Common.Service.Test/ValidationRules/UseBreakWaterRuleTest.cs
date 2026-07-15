@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Service.ValidationRules;
 
@@ -31,13 +31,8 @@ namespace Riskeer.Common.Service.Test.ValidationRules
     [TestFixture]
     public class UseBreakWaterRuleTest
     {
-        private MockRepository mockRepository;
-
         [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         [TestCase(BreakWaterType.Wall)]
@@ -46,11 +41,9 @@ namespace Riskeer.Common.Service.Test.ValidationRules
         public void Validate_ValidBreakWaterHeight_NoErrorMessage(BreakWaterType type)
         {
             // Setup
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = true;
-            breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, 5.0));
-            mockRepository.ReplayAll();
-
+            breakWater.BreakWater.Returns(new BreakWater(type, 5.0));
             var rule = new UseBreakWaterRule(breakWater);
 
             // Call 
@@ -58,7 +51,6 @@ namespace Riskeer.Common.Service.Test.ValidationRules
 
             // Assert
             CollectionAssert.IsEmpty(message);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -70,11 +62,9 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             double height)
         {
             // Setup
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = false;
-            breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, height));
-            mockRepository.ReplayAll();
-
+            breakWater.BreakWater.Returns(new BreakWater(type, height));
             var rule = new UseBreakWaterRule(breakWater);
 
             // Call 
@@ -82,7 +72,6 @@ namespace Riskeer.Common.Service.Test.ValidationRules
 
             // Assert
             CollectionAssert.IsEmpty(message);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -94,11 +83,9 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             double height)
         {
             // Setup
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = true;
-            breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, height));
-            mockRepository.ReplayAll();
-
+            breakWater.BreakWater.Returns(new BreakWater(type, height));
             var rule = new UseBreakWaterRule(breakWater);
 
             // Call 
@@ -110,7 +97,6 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             Assert.AreEqual(1, validationMessages.Length);
             const string expectedMessage = "De waarde voor 'hoogte' van de dam moet een concreet getal zijn.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
-            mockRepository.VerifyAll();
         }
     }
 }

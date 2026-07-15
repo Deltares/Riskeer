@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -37,14 +37,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StructuresOutputContextTreeNodeInfoTest
     {
-        private MockRepository mocksRepository;
         private RiskeerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StructuresOutputContext));
         }
@@ -53,15 +51,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocksRepository.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -87,8 +82,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsFromResource()
         {
             // Setup
-            mocksRepository.ReplayAll();
-
             // Call
             string text = info.Text(null);
 
@@ -100,9 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
-            mocksRepository.ReplayAll();
-
+            var structuresCalculation = Substitute.For<IStructuresCalculation>();
             // Call
             Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
@@ -114,10 +105,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
-            structuresCalculation.Stub(c => c.HasOutput).Return(true);
-            mocksRepository.ReplayAll();
-
+            var structuresCalculation = Substitute.For<IStructuresCalculation>();
+            structuresCalculation.HasOutput.Returns(true);
             // Call
             Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
@@ -129,8 +118,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
             // Setup
-            mocksRepository.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -142,21 +129,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
-            using (mocksRepository.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocksRepository);
-                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
-                mocksRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -164,7 +145,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

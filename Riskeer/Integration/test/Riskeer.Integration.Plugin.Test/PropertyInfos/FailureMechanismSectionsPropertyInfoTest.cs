@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -62,11 +62,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithValidArguments_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -75,8 +72,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

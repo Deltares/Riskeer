@@ -31,7 +31,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
@@ -142,25 +142,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicLocationConfigurationDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -173,7 +165,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -182,17 +180,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicLocationConfigurationDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
-
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            importCommandHandler.GetSupportedImportInfos(Arg.Any<object>()).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -204,11 +200,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                      context,
                                                      treeViewControl);
 
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(builder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -228,7 +222,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

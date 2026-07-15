@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -37,10 +37,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
 
             // Call
@@ -51,7 +48,6 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<IFailureMechanismContext<SpecificFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
         }
 
         [Test]

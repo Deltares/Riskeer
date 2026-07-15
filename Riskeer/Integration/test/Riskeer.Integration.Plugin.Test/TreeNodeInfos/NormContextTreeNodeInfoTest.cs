@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -104,24 +104,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new NormContext(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(),
                                           assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -134,7 +127,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

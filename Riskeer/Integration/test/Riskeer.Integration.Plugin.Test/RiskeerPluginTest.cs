@@ -40,7 +40,7 @@ using Core.Gui.Settings;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -277,15 +277,9 @@ namespace Riskeer.Integration.Plugin.Test
             // Setup
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             using (var plugin = new RiskeerPlugin
             {
                 Gui = gui
@@ -447,8 +441,6 @@ namespace Riskeer.Integration.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -511,10 +503,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_AssessmentSection_ReturnFailureMechanismContribution()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             using (var plugin = new RiskeerPlugin())
             {
                 // Call
@@ -526,8 +515,6 @@ namespace Riskeer.Integration.Plugin.Test
                     assessmentSection.FailureMechanismContribution
                 }, childrenWithViewDefinitions);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -624,11 +611,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDataNotLinked_ThenNoWarning()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -643,7 +627,6 @@ namespace Riskeer.Integration.Plugin.Test
                 TestHelper.AssertLogMessagesCount(Action, 0);
             }
 
-            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -652,11 +635,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDataLinkedToExistingFile_ThenNoWarning()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
             string testFilePath = Path.Combine(testDataDir, "HRD dutch coast south.sqlite");
 
@@ -685,7 +665,6 @@ namespace Riskeer.Integration.Plugin.Test
                 TestHelper.AssertLogMessagesCount(Action, 0);
             }
 
-            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -694,11 +673,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDataLinkedToNonExistingFile_ThenWarning()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -727,7 +703,6 @@ namespace Riskeer.Integration.Plugin.Test
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Action, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
             }
 
-            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -736,11 +711,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedSpecificFailureMechanismView_WhenChangingCorrespondingSpecificFailureMechanismAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -774,7 +746,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, newName));
-                mocks.VerifyAll();
             }
         }
 
@@ -797,11 +768,8 @@ namespace Riskeer.Integration.Plugin.Test
             double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -837,7 +805,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
-                mocks.VerifyAll();
             }
         }
 
@@ -850,11 +817,8 @@ namespace Riskeer.Integration.Plugin.Test
             double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -890,7 +854,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
-                mocks.VerifyAll();
             }
         }
 
@@ -903,11 +866,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -941,7 +901,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/100"));
-                mocks.VerifyAll();
             }
         }
 
@@ -950,11 +909,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenFailureMechanismContributionUpdatedAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -990,7 +946,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
-                mocks.VerifyAll();
             }
         }
 
@@ -999,11 +954,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1040,7 +992,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -1049,11 +1000,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenUserDefinedTargetProbabilityRemovedFromCollectionAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1090,7 +1038,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -1099,11 +1046,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenRemovingDataForOpenedViewAndObserversNotified_ThenNoExceptionThrown()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1136,7 +1080,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.DoesNotThrow(Call);
-                mocks.VerifyAll();
             }
         }
 
@@ -1149,11 +1092,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1187,7 +1127,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/100"));
-                mocks.VerifyAll();
             }
         }
 
@@ -1196,11 +1135,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1237,7 +1173,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -1246,11 +1181,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenUserDefinedTargetProbabilityRemovedFromCollectionAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1287,7 +1219,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -1296,11 +1227,8 @@ namespace Riskeer.Integration.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenRemovingDataForOpenedViewAndObserversNotified_ThenNoExceptionThrown()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1333,7 +1261,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.DoesNotThrow(Call);
-                mocks.VerifyAll();
             }
         }
 

@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -179,14 +179,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
                 failureMechanism
             });
-            mocks.ReplayAll();
-
             using (var view = new GrassCoverErosionInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
                 view.Data = failureMechanism.CalculationsGroup;
@@ -196,8 +193,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

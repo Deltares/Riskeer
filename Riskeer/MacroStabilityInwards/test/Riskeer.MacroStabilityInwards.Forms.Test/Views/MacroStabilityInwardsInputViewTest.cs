@@ -29,7 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -75,9 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new MacroStabilityInwardsInputView(null, new GeneralMacroStabilityInwardsInput(), assessmentSection, GetHydraulicBoundaryLocationCalculation);
@@ -85,17 +83,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), null, assessmentSection, GetHydraulicBoundaryLocationCalculation);
@@ -103,8 +97,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("generalInput", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -122,9 +114,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), assessmentSection, null);
@@ -132,18 +122,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
@@ -169,18 +154,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Bottom, tableControl.Dock);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithoutSurfaceLine_NoChartDataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
@@ -192,18 +172,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyChartData(view.Chart.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithoutStochasticSoilProfile_SoilLayerTableEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
@@ -215,18 +190,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 CollectionAssert.IsEmpty(GetSoilLayerTable(view).Rows);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithEmptyWaternets_NoWaternetChartDataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -255,18 +225,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithWaternets_WaternetChartDataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -293,18 +258,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN),
                                                                                       (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithValidTangentLineParameters_TangentLinesDataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -349,8 +309,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     }
                 }, tangentLinesData.Lines);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -358,10 +316,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_ScenarioWithSurfaceLineAndStochasticSoilProfile_DataSetToCollectionOfFilledChartData(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -388,18 +343,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string initialName = "Initial name";
             const string updatedName = "Updated name";
 
@@ -424,20 +374,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(updatedName, view.Chart.ChartTitle);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationSurfaceLineUpdated_ChartDataUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -469,20 +413,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreSame(surfaceLineChartData, (ChartLineData) chartDataList[surfaceLineIndex]);
 
                 MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(surfaceLine2, surfaceLineChartData);
-                mocks.VerifyAll();
             }
+            
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationWithStochasticSoilProfileAndSurfaceLine_WhenStochasticSoilProfileUpdate_ThenChartDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
+            
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -524,10 +466,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                         newSoilProfile.SoilProfile.Name,
                                                                                         true,
                                                                                         surfaceLineChartData);
-
-                    mocks.VerifyAll();
                 }
             }
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -553,11 +494,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             const int updatedRightGridIndex = rightGridIndex - 1;
             const int updatedWaternetZonesExtremeIndex = waternetZonesExtremeIndex - 1;
             const int updatedWaternetZonesDailyIndex = waternetZonesDailyIndex - 1;
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation, new GeneralMacroStabilityInwardsInput(),
@@ -661,18 +598,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Zones extreem", actualWaternetZonesExtremeData.Name);
                 Assert.AreEqual("Zones dagelijks", actualWaternetZonesDailyData.Name);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationInputGridSettingsUpdated_GridChartDataUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation, new GeneralMacroStabilityInwardsInput(),
@@ -700,18 +632,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, actualLeftGridData);
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, actualRightGridData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationInputTangentLineSettingsUpdated_TangentLineChartDataUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -756,20 +683,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     }
                 }, tangentLinesData.Lines);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithStochasticSoilProfile_WhenStochasticSoilProfileUpdated_ThenDataTableUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -816,7 +737,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                     // Then
                     Assert.AreEqual(2, soilLayerDataTable.Rows.Count);
-                    mocks.VerifyAll();
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -825,10 +746,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithGridPoints_WhenGridDeterminationTypeSetToAutomatic_ThenNoGridPoints()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculation.InputParameters;
             input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
@@ -866,8 +784,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     CollectionAssert.IsEmpty(updatedRightGridData.Points);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -879,10 +795,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -934,18 +847,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     CollectionAssert.IsEmpty(tangentLinesData.Lines);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMacroStabilityInputViewWithSoilProfileSeries_WhenSurfaceLineSetToNull_ThenCollectionOfEmptyChartDataSetForSoilProfiles()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -989,18 +897,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                         chartData.Collection.ElementAt(soilProfileIndex));
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithWaternets_WhenWaternetSetEmpty_ThenNoChartData()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1044,18 +947,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithEmptyWaternets_WhenWaternetSet_ThenChartDataSet()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1096,18 +994,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithEmptyWaternets_WhenHydraulicBoundaryLocationCalculationUpdated_ThenChartDataSet()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1150,8 +1043,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1207,10 +1098,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithEmptyWaternets_WhenInputUpdatedAndHydraulicBoundaryLocationCalculationNull_ThenChartDataSet()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1250,18 +1138,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetAndSurfaceLineSame_ThenChartDataNotUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1299,18 +1182,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 CollectionAssert.AreEqual(waternetExtremeChartData, ((ChartDataCollection) chartData[waternetZonesExtremeIndex]).Collection);
                 CollectionAssert.AreEqual(waternetDailyChartData, ((ChartDataCollection) chartData[waternetZonesDailyIndex]).Collection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithWaternets_WhenObserversNotifiedAndSurfaceLineChanged_ThenChartDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -1356,8 +1234,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput()),
                                                                                       waternetDailyChartDataCollection);
             }
-
-            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> StochasticSoilProfiles()

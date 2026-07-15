@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -42,10 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
-            mocks.ReplayAll();
-
+            var factory = Substitute.For<IMacroStabilityInwardsKernelFactory>();
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
 
             // Call
@@ -53,7 +50,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 
             // Assert
             Assert.IsInstanceOf<WaternetCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]

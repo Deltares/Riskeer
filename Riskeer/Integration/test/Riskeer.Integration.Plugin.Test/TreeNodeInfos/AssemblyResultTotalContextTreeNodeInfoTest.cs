@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
@@ -108,22 +108,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var context = new AssemblyResultTotalContext(assessmentSection);
-
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -136,7 +127,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.Build();
+            });
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

@@ -38,7 +38,7 @@ using Core.Gui.PresentationObjects.Chart;
 using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Chart
 {
@@ -49,7 +49,7 @@ namespace Core.Gui.Test.Forms.Chart
 
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
-        private MockRepository mocks;
+
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         private static IEnumerable<TestCaseData> ChartDataLegendImages
@@ -115,10 +115,7 @@ namespace Core.Gui.Test.Forms.Chart
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
             chartLegendView = new ChartLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
@@ -131,7 +128,6 @@ namespace Core.Gui.Test.Forms.Chart
         public void TearDown()
         {
             chartLegendView.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -303,10 +299,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void OnNodeChecked_Always_SetsChartDataVisibilityAndNotifiesParentObservers(ChartData chartData, bool initialVisibleState)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             ChartDataContext context = GetContext(chartData);
             context.WrappedData.IsVisible = initialVisibleState;
 
@@ -317,6 +310,7 @@ namespace Core.Gui.Test.Forms.Chart
 
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -430,10 +424,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void OnDrop_ChartDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var chartData1 = new TestChartData();
             var chartData2 = new TestChartData();
             var chartData3 = new TestChartData();
@@ -458,6 +449,7 @@ namespace Core.Gui.Test.Forms.Chart
                 var wrappedCollectionData = (ChartDataCollection) collectionContext.WrappedData;
                 Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
             }
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -468,9 +460,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void OnDrop_ChartDataMovedToPositionOutsideRange_ThrowsException(int position)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var chartData1 = new ChartLineData("line");
             var chartData2 = new ChartAreaData("area");
             var chartData3 = new ChartPointData("point");
@@ -507,24 +497,23 @@ namespace Core.Gui.Test.Forms.Chart
         public void ContextMenuStrip_DifferentTypesOfChartData_CallsBuilder(ChartData chartData)
         {
             // Setup
-            var builder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
-                builder.Expect(mb => mb.AddSeparator()).Return(builder);
-                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
-                builder.Expect(mb => mb.Build()).Return(null);
-            }
+            var builder = Substitute.For<IContextMenuBuilder>();
+            builder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(builder);
+            builder.AddSeparator().Returns(builder);
+            builder.AddPropertiesItem().Returns(builder);
 
-            contextMenuBuilderProvider.Expect(p => p.Get(chartData, null)).Return(builder);
-
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(chartData, null).Returns(builder);
             // Call
             info.ContextMenuStrip(GetContext(chartData), null, null);
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            Received.InOrder(() =>
+            {
+                builder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                builder.AddSeparator();
+                builder.AddPropertiesItem();
+                builder.Build();
+            });
         }
 
         [Test]
@@ -532,10 +521,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = true,
@@ -561,10 +547,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = false
@@ -587,10 +570,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = true
@@ -622,12 +602,10 @@ namespace Core.Gui.Test.Forms.Chart
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-            var chartControl = mocks.StrictMock<IChartControl>();
-            chartControl.Expect(c => c.Data).Return(new ChartDataCollection("name"));
-            chartControl.Expect(c => c.ZoomToVisibleSeries(lineData));
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            var chartControl = Substitute.For<IChartControl>();
+            chartControl.Data.Returns(new ChartDataCollection("name"));
+            chartControl.ZoomToVisibleSeries(lineData);
             chartLegendView.ChartControl = chartControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
@@ -636,7 +614,7 @@ namespace Core.Gui.Test.Forms.Chart
                 contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                // Assert expectancies are called in TearDown()
+                chartControl.Received().ZoomToVisibleSeries(lineData);
             }
         }
 
@@ -654,9 +632,7 @@ namespace Core.Gui.Test.Forms.Chart
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-            mocks.ReplayAll();
-
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Call

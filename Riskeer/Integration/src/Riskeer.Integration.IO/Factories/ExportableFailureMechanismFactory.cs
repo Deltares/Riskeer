@@ -191,10 +191,9 @@ namespace Riskeer.Integration.IO.Factories
             where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
-            return failureMechanism.SectionResults.Select(
-                                       sr => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                                           idGenerator, registry, sr, failureMechanism, assessmentSection,
-                                           assembleFailureMechanismSectionFunc))
+            return failureMechanism.SectionResults.Select(sr => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
+                                                              idGenerator, registry, sr, failureMechanism, assessmentSection,
+                                                              assembleFailureMechanismSectionFunc))
                                    .ToList();
         }
     }

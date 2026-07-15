@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Util.Test
@@ -48,27 +48,20 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_LocationIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             // Call
             TestDelegate test = () => new CalculationWithLocation(calculation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("location", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             var location = new Point2D(0, 0);
 
             // Call
@@ -77,7 +70,6 @@ namespace Riskeer.Common.Util.Test
             // Assert
             Assert.AreSame(calculation, calculationWithLocation.Calculation);
             Assert.AreSame(location, calculationWithLocation.Location);
-            mocks.VerifyAll();
         }
     }
 }

@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -71,10 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsFailureMechanismSections()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismSectionsContext = new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -83,7 +80,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(failureMechanism.Sections, viewData);
-            mocks.VerifyAll();
         }
 
         protected override bool ShouldCloseMethod(IView view, object o)

@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -40,10 +40,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var surfaceLines = new[]
             {
@@ -67,17 +64,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(stochasticSoilModels, context.AvailableStochasticSoilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationInput = new SemiProbabilisticPipingInput();
             var surfaceLines = new[]
             {
@@ -95,7 +88,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }

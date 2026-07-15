@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -64,10 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
             var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -77,8 +74,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(assessmentSection.FailureMechanismContribution, view.FailureMechanismContribution);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -105,10 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection.FailureMechanismContribution))
             {
@@ -118,19 +110,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection1 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-            IAssessmentSection assessmentSection2 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection1 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
+            IAssessmentSection assessmentSection2 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection1.FailureMechanismContribution))
             {
@@ -140,8 +127,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

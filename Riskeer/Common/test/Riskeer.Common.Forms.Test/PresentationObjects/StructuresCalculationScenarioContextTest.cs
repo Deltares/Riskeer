@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
@@ -39,10 +39,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestStructuresCalculationScenario();
             var failureMechanism = new TestCalculatableFailureMechanism();
             var parent = new CalculationGroup();
@@ -57,17 +54,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestStructuresCalculationScenario();
             var failureMechanism = new TestCalculatableFailureMechanism();
 
@@ -77,30 +70,22 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parent", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture]
         private class StructuresCalculationScenarioContextEqualsTest : EqualsTestFixture<TestStructuresCalculationScenarioContext, DerivedTestStructuresCalculationScenarioContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
 
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly TestStructuresCalculationScenario calculation = new TestStructuresCalculationScenario();
             private static readonly TestCalculatableFailureMechanism failureMechanism = new TestCalculatableFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             protected override TestStructuresCalculationScenarioContext CreateObject()
             {

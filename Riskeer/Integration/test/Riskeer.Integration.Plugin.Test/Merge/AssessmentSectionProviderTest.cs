@@ -27,7 +27,7 @@ using Core.Gui.Forms;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Storage.Core;
@@ -43,26 +43,20 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var viewParent = Substitute.For<IViewParent>();
+            var projectStorage = Substitute.For<IStoreProject>();
             // Call
             var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ViewParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
+            var projectStorage = Substitute.For<IStoreProject>();
 
             // Call
             void Call() => new AssessmentSectionProvider(null, projectStorage);
@@ -76,9 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void Constructor_ProjectStorageNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            mocks.ReplayAll();
+            var viewParent = Substitute.For<IViewParent>();
 
             // Call
             void Call() => new AssessmentSectionProvider(viewParent, null);
@@ -92,11 +84,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void GetAssessmentSection_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var viewParent = Substitute.For<IViewParent>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             // Call
@@ -105,17 +94,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSection_AssessmentSectionFromActivityNull_ThrowsAssessmentSectionProviderException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectStorage = Substitute.For<IStoreProject>();
             using (var viewParent = new TestViewParentForm())
             {
                 var provider = new AssessmentSectionProvider(viewParent, projectStorage);
@@ -131,8 +116,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 // Assert
                 Assert.Throws<AssessmentSectionProviderException>(Call);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

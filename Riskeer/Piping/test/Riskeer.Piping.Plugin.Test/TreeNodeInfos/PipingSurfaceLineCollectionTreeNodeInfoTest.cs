@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -38,14 +38,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingSurfaceLineCollectionTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSurfaceLinesContext));
         }
@@ -54,15 +52,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -88,9 +83,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new PipingSurfaceLineCollection();
             var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -106,9 +99,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new PipingSurfaceLineCollection();
             var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -124,9 +115,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ForeColor_CollectionWithoutSurfaceLines_ReturnsGrayText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new PipingSurfaceLineCollection();
             var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -142,7 +131,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ForeColor_CollectionWithSurfaceLines_ReturnsControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingSurfaceLine1 = new PipingSurfaceLine("Line A");
             var pipingSurfaceLine2 = new PipingSurfaceLine("Line B");
 
@@ -156,9 +145,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             // Call
             Color foreColor = info.ForeColor(pipingSurfaceLineContext);
 
@@ -170,7 +156,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingSurfaceLine1 = new PipingSurfaceLine("Line A");
             var pipingSurfaceLine2 = new PipingSurfaceLine("Line B");
 
@@ -184,9 +170,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             // Call
             object[] objects = info.ChildNodeObjects(pipingSurfaceLineContext);
 
@@ -201,34 +184,41 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
-            // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            // Arrange
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
 
-                // Call
+                // Act
                 info.ContextMenuStrip(null, null, treeViewControl);
-            }
 
-            // Assert
-            // Assert expectancies are called in TearDown()
+                // Assert
+                Received.InOrder(() =>
+                {
+                    gui.Get(Arg.Any<object>(), treeViewControl);
+
+                    menuBuilder.AddImportItem();
+                    menuBuilder.AddUpdateItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
     }
 }

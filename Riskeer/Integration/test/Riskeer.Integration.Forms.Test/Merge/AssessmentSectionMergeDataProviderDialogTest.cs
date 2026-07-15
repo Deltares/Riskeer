@@ -30,7 +30,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Data;
@@ -66,10 +66,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             // Call
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
@@ -84,8 +81,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Bitmap actualImage = dialog.Icon.ToBitmap();
                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -184,10 +179,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GetMergeData_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
@@ -197,8 +189,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("assessmentSection", exception.ParamName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

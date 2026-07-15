@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -36,10 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_DefaultValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
@@ -51,7 +48,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsSurfaceLineCollection>>(context);
             Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -73,10 +69,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
             // Call
@@ -85,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
         }
     }
 }

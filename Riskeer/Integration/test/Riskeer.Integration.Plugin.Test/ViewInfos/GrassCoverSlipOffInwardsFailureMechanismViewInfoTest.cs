@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,18 +37,17 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class GrassCoverSlipOffInwardsFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
+        
         private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism,
-                           NonAdoptableFailureMechanismSectionResult>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism,
+                                                          NonAdoptableFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -69,9 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void GetViewName_WithFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
             var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -87,9 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableFailureMechanismSectionResult> view =
@@ -101,8 +96,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -129,9 +122,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
                 InAssembly = inAssembly
@@ -144,7 +135,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
@@ -51,9 +51,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_IdFactoryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
-            mocks.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
 
             // Call
             void Call() => PersistableGeometryFactory.Create(soilProfile, null, new MacroStabilityInwardsExportRegistry());
@@ -61,16 +59,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("idFactory", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Create_RegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
-            mocks.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
 
             // Call
             void Call() => PersistableGeometryFactory.Create(soilProfile, new IdFactory(), null);
@@ -78,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

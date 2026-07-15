@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -81,12 +81,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string testName = "ttt";
-
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            soilProfile.Stub(sp => sp.Name).Return(testName);
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
+            soilProfile.Name.Returns(testName);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.1, soilProfile);
 
             // Call
@@ -110,18 +106,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -129,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            menuBuilder.Received().Build();
         }
     }
 }

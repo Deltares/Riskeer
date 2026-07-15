@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
@@ -42,10 +42,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             PipingSurfaceLine[] surfaceLines =
             {
                 new PipingSurfaceLine(string.Empty),
@@ -73,17 +70,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_SurfaceLinesIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -96,17 +89,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("surfaceLines", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_StochasticSoilModelsIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
@@ -117,17 +106,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("stochasticSoilModels", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_PipingFailureMechanismIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
@@ -138,7 +123,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("pipingFailureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

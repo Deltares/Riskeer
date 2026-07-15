@@ -89,9 +89,8 @@ namespace Riskeer.Piping.Service.Probabilistic
             calculation.ClearOutput();
 
             PipingFailureMechanismSectionConfiguration sectionConfiguration =
-                failureMechanism.SectionConfigurations.Single(
-                    configuration => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                        Math2D.ConvertPointsToLineSegments(configuration.Section.Points)));
+                failureMechanism.SectionConfigurations.Single(configuration => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                                                                  Math2D.ConvertPointsToLineSegments(configuration.Section.Points)));
 
             service.Calculate(calculation,
                               failureMechanism.GeneralInput,

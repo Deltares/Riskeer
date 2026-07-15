@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -37,10 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_DefaultValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
@@ -51,17 +48,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
@@ -70,7 +63,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -31,7 +31,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data.Probabilistic;
@@ -188,12 +188,8 @@ namespace Riskeer.Piping.Plugin.Test
             // Setup
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             using (var plugin = new PipingPlugin
             {
                 Gui = gui
@@ -281,20 +277,15 @@ namespace Riskeer.Piping.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin
             {
                 Gui = gui
@@ -309,8 +300,6 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingFailureMechanismSectionsContext)));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -334,12 +323,9 @@ namespace Riskeer.Piping.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin
             {
                 Gui = gui
@@ -354,8 +340,6 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(SemiProbabilisticPipingCalculationScenarioContext)));
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ProbabilisticPipingCalculationScenarioContext)));
             }
-
-            mocks.VerifyAll();
         }
     }
 }

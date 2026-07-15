@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -39,14 +39,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     [TestFixture]
     public class PipingFailureMechanismResultViewInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismResultView));
         }
@@ -70,9 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var context = new PipingFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
@@ -81,7 +77,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,10 +93,8 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
@@ -112,23 +105,19 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
+            var otherFailureMechanism = Substitute.For<IFailureMechanism>();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 otherFailureMechanism
             });
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
@@ -139,8 +128,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,13 +136,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
                 failureMechanism
             });
-            mocks.ReplayAll();
-
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
@@ -164,17 +149,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
@@ -185,17 +166,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
@@ -206,17 +183,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -228,17 +201,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
@@ -253,8 +222,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -263,9 +230,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var context = new PipingFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
@@ -274,7 +239,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanismResultView>(view);
-            mocks.VerifyAll();
         }
     }
 }

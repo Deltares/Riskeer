@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -57,26 +57,19 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_WithViewCommands_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             // Call
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionCompositionChangeHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
@@ -85,17 +78,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_ChangeToSameValue_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
@@ -126,7 +115,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.True(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -140,10 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                              AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = new AssessmentSection(oldComposition);
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
@@ -159,7 +144,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -174,12 +158,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                     int expectedNumberOfCalls)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.InAssembly)))
-                        .Repeat.Times(expectedNumberOfCalls);
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = new AssessmentSection(oldComposition);
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
@@ -188,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received(expectedNumberOfCalls).RemoveAllViewsForItem(Arg.Is<IFailureMechanism>(fm => !fm.InAssembly));
         }
 
         private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)

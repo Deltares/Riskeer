@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 
@@ -49,10 +49,7 @@ namespace Riskeer.Common.Data.Test.Calculation
         public void Children_AddCalculation_CalculationAddedToCollection()
         {
             // Setup
-            var mockingRepository = new MockRepository();
-            var calculation = mockingRepository.StrictMock<ICalculation>();
-            mockingRepository.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             var group = new CalculationGroup();
 
             // Call
@@ -61,17 +58,13 @@ namespace Riskeer.Common.Data.Test.Calculation
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.Contains(group.Children, calculation);
-            mockingRepository.VerifyAll();
         }
 
         [Test]
         public void Children_RemoveCalculation_CalculationRemovedFromCollection()
         {
             // Setup
-            var mockingRepository = new MockRepository();
-            var calculation = mockingRepository.StrictMock<ICalculation>();
-            mockingRepository.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
@@ -81,7 +74,6 @@ namespace Riskeer.Common.Data.Test.Calculation
             // Assert
             Assert.AreEqual(0, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, calculation);
-            mockingRepository.VerifyAll();
         }
 
         [Test]
@@ -90,11 +82,8 @@ namespace Riskeer.Common.Data.Test.Calculation
         public void Children_AddCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
         {
             // Setup
-            var mockingRepository = new MockRepository();
-            var calculation = mockingRepository.StrictMock<ICalculation>();
-            var calculationToInsert = mockingRepository.StrictMock<ICalculation>();
-            mockingRepository.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            var calculationToInsert = Substitute.For<ICalculation>();
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
@@ -109,7 +98,6 @@ namespace Riskeer.Common.Data.Test.Calculation
                 calculationToInsert,
                 calculation
             }, group.Children, "Already existing items should have remained in collection and new item should be added.");
-            mockingRepository.VerifyAll();
         }
 
         [Test]

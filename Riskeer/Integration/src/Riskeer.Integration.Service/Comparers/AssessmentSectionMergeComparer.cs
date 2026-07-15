@@ -90,14 +90,12 @@ namespace Riskeer.Integration.Service.Comparers
             ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = hydraulicBoundaryData.HydraulicBoundaryDatabases;
             ObservableList<HydraulicBoundaryDatabase> otherHydraulicBoundaryDatabases = otherHydraulicBoundaryData.HydraulicBoundaryDatabases;
 
-            HydraulicBoundaryDatabase[] overlappingDatabases = otherHydraulicBoundaryDatabases.Where(
-                ohbd => hydraulicBoundaryDatabases.Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath))
-                                                  .Contains(Path.GetFileNameWithoutExtension(ohbd.FilePath))).ToArray();
+            HydraulicBoundaryDatabase[] overlappingDatabases = otherHydraulicBoundaryDatabases.Where(ohbd => hydraulicBoundaryDatabases.Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath))
+                                                                                                                                       .Contains(Path.GetFileNameWithoutExtension(ohbd.FilePath))).ToArray();
 
             foreach (HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase in overlappingDatabases)
             {
-                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryDatabases.First(
-                    hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicBoundaryDatabase.FilePath));
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryDatabases.First(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicBoundaryDatabase.FilePath));
 
                 if (!AreHydraulicBoundaryDatabasesEquivalent(hydraulicBoundaryDatabase, otherHydraulicBoundaryDatabase))
                 {

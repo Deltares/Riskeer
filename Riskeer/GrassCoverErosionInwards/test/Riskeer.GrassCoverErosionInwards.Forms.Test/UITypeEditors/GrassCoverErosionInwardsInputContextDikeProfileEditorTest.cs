@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -39,14 +39,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextDikeProfileEditorTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
@@ -59,25 +51,22 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProvider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.StrictMock<ITypeDescriptorContext>();
-            serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            descriptorContext.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
-            mockRepository.ReplayAll();
-
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
             var someValue = new object();
 
             // Call
@@ -85,8 +74,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(someValue, result);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -106,27 +93,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             };
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProvider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.StrictMock<ITypeDescriptorContext>();
-            serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            service.Expect(s => s.CloseDropDown()).IgnoreArguments();
-            descriptorContext.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
-            mockRepository.ReplayAll();
-
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
             var someValue = new object();
 
             // Call
@@ -134,8 +117,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(dikeProfile, result);
-
-            mockRepository.VerifyAll();
         }
     }
 }

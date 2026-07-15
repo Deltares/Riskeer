@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -37,14 +37,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextTreeNodeInfoTest
     {
-        private MockRepository mocksRepository;
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext));
         }
@@ -53,15 +51,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocksRepository.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -91,10 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new GrassCoverErosionInwardsInput(),
                 new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
-                mocksRepository.Stub<IAssessmentSection>());
-
-            mocksRepository.ReplayAll();
-
+                Substitute.For<IAssessmentSection>());
             // Call
             string text = info.Text(grassCoverErosionInwardsInputContext);
 
@@ -110,10 +102,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new GrassCoverErosionInwardsInput(),
                 new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
-                mocksRepository.Stub<IAssessmentSection>());
-
-            mocksRepository.ReplayAll();
-
+                Substitute.For<IAssessmentSection>());
             // Call
             Image image = info.Image(grassCoverErosionInwardsInputContext);
 
@@ -125,21 +114,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
-            using (mocksRepository.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocksRepository.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -147,7 +130,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

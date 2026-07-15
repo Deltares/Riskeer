@@ -174,9 +174,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             if (failureMechanism.Sections.Any())
             {
-                MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
-                    section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.SectionConfigurations
-                                                                                                                      .First(sc => sc.Section == section))).ToArray();
+                MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(section => new MacroStabilityInwardsScenariosViewFailureMechanismSectionViewModel(failureMechanism.SectionConfigurations
+                                                                                                                                                                                                                                                            .First(sc => sc.Section == section))).ToArray();
 
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
                 listBox.SelectedItem =

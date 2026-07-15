@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.Calculation;
@@ -61,11 +61,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingCalculationGroupDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var failureMechanism = new TestCalculatableFailureMechanism();
             failureMechanism.SetSections(new[]
@@ -93,19 +89,14 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingCalculationScenarioDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var calculationScenario = new TestCalculationScenario();
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
@@ -137,19 +128,14 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingRootCalculationScenarioInputDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var calculationScenario = new TestCalculationScenario();
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
@@ -181,19 +167,14 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingNestedCalculationScenarioInputDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var calculationScenario = new TestCalculationScenario();
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
@@ -230,8 +211,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

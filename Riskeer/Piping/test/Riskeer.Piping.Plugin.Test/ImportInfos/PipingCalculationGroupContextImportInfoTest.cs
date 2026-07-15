@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
@@ -113,11 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
                                                             null,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
@@ -130,7 +126,6 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<PipingCalculationConfigurationImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

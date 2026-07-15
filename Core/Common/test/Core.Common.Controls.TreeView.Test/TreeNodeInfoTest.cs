@@ -68,7 +68,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, string> text = o => "";
             Func<object, Color> foreColor = o => Color.Azure;
             Func<object, Image> image = o => new Bitmap(16, 16);
-            Func<object, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
+            Func<object, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
             Func<object, object, bool> ensureVisibleOnCreate = (o, p) => true;
             Func<object, bool> expandOnCreate = o => true;
             Func<object, object[]> childNodeObjects = o => new object[0];
@@ -171,7 +171,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, string> text = o => "";
             Func<int, Color> foreColor = o => Color.Azure;
             Func<int, Image> image = o => new Bitmap(16, 16);
-            Func<int, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
+            Func<int, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
             Func<int, object, bool> ensureVisibleOnCreate = (o, p) => true;
             Func<int, bool> expandOnCreate = o => true;
             Func<int, object[]> childNodeObjects = o => new object[0];
@@ -187,7 +187,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
             Func<object, object, bool> canInsert = (o1, o2) => true;
-            Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => {};
+            Action<object, object, object, int, ITreeViewControl> onDrop = (o1, o2, o3, index, tvc) => {};
 
             // Call
             treeNodeInfo.Text = text;

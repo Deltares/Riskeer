@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -58,10 +58,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             // Call
             using (var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => null))
             {
@@ -78,18 +75,13 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 CollectionAssert.IsEmpty(splitContainer.Panel2.Controls);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralResultWithIllustrationPoints_DataSetOnIllustrationPointControl()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
             // Call
@@ -99,17 +91,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralResultWithoutIllustrationPoints_DataSetOnIllustrationPointControl()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             // Call
             var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => null);
             ShowTestView(view);
@@ -117,17 +105,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedAndPropagatedAccordingly()
         {
             // Given
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
             var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => generalResult);
             ShowTestView(view);
@@ -149,7 +133,6 @@ namespace Riskeer.Common.Forms.Test.Views
             AssertIllustrationPointSelection(topLevelIllustrationPoint,
                                              topLevelIllustrationPoints.Select(ip => ip.ClosingSituation),
                                              view.Selection);
-            mocks.VerifyAll();
         }
 
         private static IllustrationPointsControl GetIllustrationPointsControl(GeneralResultSubMechanismIllustrationPointView view)

@@ -31,7 +31,7 @@ using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -75,10 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(null,
                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
@@ -87,18 +84,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -115,17 +108,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -144,17 +133,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -174,17 +159,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.AreSame(context, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -316,8 +297,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Rekengrids",
                 "Eigenschappen van de rekengrids.",
                 true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -326,10 +305,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_UseAssessmentLevelManualInput_ReturnsExpectedAttributeValues(bool useManualAssessmentLevelInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -384,8 +360,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                     "Waterstand [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.");
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -394,11 +368,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues(bool useManualAssessmentLevelInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(22);
 
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -481,18 +452,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(inputParameters, properties.GridSettings.Data);
 
             Assert.AreSame(inputParameters, properties.SlipPlaneSettings.Data);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -539,7 +505,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(slipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(slipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength.GetAccuracy());
             Assert.AreEqual(maximumSliceWidth, inputParameters.MaximumSliceWidth, inputParameters.MaximumSliceWidth.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -657,10 +622,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void SurfaceLine_NewSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -696,18 +658,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SurfaceLine_SameSurfaceLine_SoilProfileUnchanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -749,17 +707,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SurfaceLine_DifferentSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
             MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
@@ -805,19 +759,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void StochasticSoilProfile_DifferentStochasticSoilModelWithOneProfile_SetsSoilProfileSetToProfileOfNewModel()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             MacroStabilityInwardsSoilProfile1D soilProfile1 = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile1);
@@ -871,18 +820,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(stochasticSoilProfile2, inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         [Test]
         public void GetAvailableSurfaceLines_Always_ReturnAllMacroStabilityInwardsSurfaceLines()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
@@ -897,18 +843,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(context.AvailableMacroStabilityInwardsSurfaceLines, surfaceLines);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilModels_NoSurfaceLineAssigned_ReturnAllStochasticSoilModels()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
@@ -926,18 +868,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(context.AvailableStochasticSoilModels, soilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilModels_SurfaceLineAssigned_ReturnMatchingSubsetOfStochasticSoilModels()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
@@ -1002,18 +940,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 failureMechanism.StochasticSoilModels[0],
                 failureMechanism.StochasticSoilModels[2]
             }, availableStochasticSoilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilProfiles_NoStochasticSoilModel_ReturnEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
@@ -1031,18 +965,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             CollectionAssert.IsEmpty(profiles);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilProfiles_StochasticSoilModel_ReturnAssignedSoilModelProfiles()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsStochasticSoilModel model =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A", new[]
@@ -1072,18 +1002,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             CollectionAssert.AreEqual(model.StochasticSoilProfiles, profiles);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
@@ -1101,19 +1027,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.DoesNotThrow(call);
             Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertiesWithSurfaceLineAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
-            var mockRepository = new MockRepository();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -1126,9 +1050,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
@@ -1160,17 +1081,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1188,10 +1106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
@@ -1210,16 +1125,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 hydraulicBoundaryData.GetLocations().Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                      .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsAndSurfaceLine_ReturnLocationsSortedByDistanceThenById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1239,10 +1152,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -1272,16 +1182,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingSurfaceLine_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1301,11 +1209,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            observable.Expect(o => o.NotifyObservers());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -1353,7 +1257,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         [Test]
@@ -1362,11 +1266,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -1397,11 +1298,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -1420,7 +1318,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1429,11 +1326,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -1464,11 +1358,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -1494,12 +1385,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsCalculationScenario calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             MacroStabilityInwardsInput inputParameters = calculation.InputParameters;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -1525,7 +1412,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         private static MacroStabilityInwardsStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)

@@ -29,7 +29,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
@@ -107,33 +107,23 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new MacroStabilityInwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -146,45 +136,49 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>());
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_WithAddImportItem_CorrectImportInfosPassed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddImportItem())
-                       .IgnoreArguments()
-                       .WhenCalled(invocation =>
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>())
+                       .Returns(menuBuilder);
+            menuBuilder.When(x => x.AddImportItem(Arg.Any<ImportInfo[]>()))
+                       .Do(invocation =>
                        {
-                           var importInfos = (ImportInfo[]) invocation.Arguments[0];
+                           var importInfos = invocation.Arg<ImportInfo[]>();
                            Assert.AreEqual(1, importInfos.Length);
                            Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsFailureMechanismSectionsContext)));
-                       })
-                       .Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+                       });
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new MacroStabilityInwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -197,17 +191,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            menuBuilder.Received().Build();
         }
 
         [Test]
         public void ForeColor_NoSectionsOnFailureMechanism_ReturnGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -221,18 +212,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasSectionsOnFailureMechanism_ReturnControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SetSections(new[]
             {
@@ -255,8 +241,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(MacroStabilityInwardsPlugin plugin)

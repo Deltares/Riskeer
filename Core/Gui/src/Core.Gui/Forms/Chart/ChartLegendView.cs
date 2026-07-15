@@ -256,7 +256,7 @@ namespace Core.Gui.Forms.Chart
             return draggedDataContext.ParentChartData.Equals(targetDataContext.WrappedData);
         }
 
-        private static void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl control)
         {
             var chartContext = (ChartDataContext) droppedData;
             var sourceContext = oldParentData as ChartDataContext;
@@ -288,7 +288,7 @@ namespace Core.Gui.Forms.Chart
             return draggedDataContext.ParentChartData.Equals(targetDataObject);
         }
 
-        private static void ChartDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void ChartDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl control)
         {
             var chartContext = (ChartDataContext) droppedData;
 

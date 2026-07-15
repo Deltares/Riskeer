@@ -123,9 +123,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                                                                             .ToArray();
 
-            IEnumerable<GrassCoverErosionInwardsCalculation> expectedAffectedCalculations = calculations.Where(
-                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
-                     && c.HasOutput).ToArray();
+            IEnumerable<GrassCoverErosionInwardsCalculation> expectedAffectedCalculations = calculations.Where(c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                                                                                                                    && c.HasOutput).ToArray();
 
             var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)

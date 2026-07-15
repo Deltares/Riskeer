@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -47,10 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
@@ -82,7 +79,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability * 100, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -192,22 +188,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
+            var inputObserver = Substitute.For<IObserver>();
 
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
+            var calculationObserver = Substitute.For<IObserver>();
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             MacroStabilityInwardsOutput assignedOutput = null;
 
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
@@ -230,13 +215,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             if (expectUpdates)
             {
                 Assert.IsNull(calculation.Output);
+
+                inputObserver.Received().UpdateObserver();
+                if ( hasOutput)
+                {
+                    calculationObserver.Received().UpdateObserver();
+                } 
             }
             else
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
+                
+                inputObserver.DidNotReceive().UpdateObserver();
+                if ( hasOutput)
+                {
+                    calculationObserver.DidNotReceive().UpdateObserver();
+                } 
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
@@ -244,11 +239,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsCalculationScenario calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
@@ -262,7 +253,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

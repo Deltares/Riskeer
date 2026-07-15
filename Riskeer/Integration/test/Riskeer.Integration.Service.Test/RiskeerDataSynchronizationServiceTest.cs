@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -359,16 +359,12 @@ namespace Riskeer.Integration.Service.Test
                     Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 }
             });
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
                 pipingFailureMechanism,
                 macroStabilityInwardsFailureMechanism
             });
-            mocks.ReplayAll();
-
             MacroStabilityInwardsCalculationScenario[] expectedAffectedMacroStabilityInwardsCalculations = macroStabilityInwardsFailureMechanism.Calculations
                                                                                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                                                                                 .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput)
@@ -395,7 +391,6 @@ namespace Riskeer.Integration.Service.Test
 
             CollectionAssert.AreEquivalent(expectedAffectedPipingCalculations.Concat<ICalculationScenario>(expectedAffectedMacroStabilityInwardsCalculations),
                                            affectedItems);
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -36,7 +36,7 @@ using Core.Gui.Properties;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -71,28 +71,24 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
         private Form testForm;
-        private MockRepository mocks;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
-            mocks = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new DuneLocationCalculationsView(null,
@@ -110,8 +106,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
@@ -144,8 +139,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_GetTargetProbabilityFunc_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
@@ -163,8 +157,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentException()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
@@ -182,10 +175,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
@@ -306,10 +297,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             // Call
             ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 
@@ -414,10 +403,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 
             DataGridView dataGridView = GetDataGridView();
@@ -537,10 +524,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var calculations = new ObservableList<DuneLocationCalculation>();
 
             ShowDuneLocationCalculationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection);
@@ -616,10 +601,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             ShowDuneLocationCalculationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -693,21 +676,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("1");
+            assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+            var calculationsObserver = Substitute.For<IObserver>();
 
-            var calculationsObserver = mocks.StrictMock<IObserver>();
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestDunesBoundaryConditionsCalculator());
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestDunesBoundaryConditionsCalculator());
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -755,10 +732,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 
             DataGridView dataGridView = GetDataGridView();
@@ -800,21 +775,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("1");
+            assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
-            var calculationsObserver = mocks.StrictMock<IObserver>();
+            var calculationsObserver = Substitute.For<IObserver>();
 
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestDunesBoundaryConditionsCalculator());
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestDunesBoundaryConditionsCalculator());
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -889,26 +859,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("1");
+            assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                                hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(dunesBoundaryConditionsCalculator);
-            mocks.ReplayAll();
-
+            calculatorFactory
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                   hydraulicBoundaryLocation),
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return dunesBoundaryConditionsCalculator;
+                });
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new DuneLocationCalculationsView(duneLocationCalculations,
@@ -1005,10 +972,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     }
                 }
             };
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             return ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(hydraulicBoundaryLocation),

@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
@@ -69,10 +69,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -109,18 +106,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
             Assert.AreEqual(generalInput.Gravity, properties.Gravity);
             Assert.AreEqual(generalInput.MeanDiameter70, properties.MeanDiameter70);
             Assert.AreEqual(generalInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -227,8 +219,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
                                                                             "Reductiefactor Sellmeijer [-]",
                                                                             "Reductiefactor Sellmeijer.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -241,10 +231,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
         public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var failureMechanism = new PipingFailureMechanism();
             var roundedValue = (RoundedDouble) value;
 
@@ -265,8 +252,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -276,11 +261,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
         public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var failureMechanism = new PipingFailureMechanism();
             var roundedValue = (RoundedDouble) value;
 
@@ -301,8 +282,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

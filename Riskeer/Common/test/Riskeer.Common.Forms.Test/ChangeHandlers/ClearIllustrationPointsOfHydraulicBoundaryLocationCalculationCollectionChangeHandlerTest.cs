@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.ChangeHandlers;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
@@ -37,10 +37,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_CollectionDescriptionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             TestDelegate call = () => new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, null, Enumerable.Empty<IObservable>);
@@ -48,17 +45,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("collectionDescription", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ClearIllustrationPointsFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             TestDelegate call = () => new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, string.Empty, null);
@@ -66,24 +59,19 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("clearIllustrationPointsFunc", exception.ParamName);
-            mocks.ReplayAll();
         }
 
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Cal
             var handler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,13 +82,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             const string collectionDescription = "Verzameling";
             string inquiry = $"Weet u zeker dat u alle berekende illustratiepunten bij '{collectionDescription}' wilt wissen?";
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(inquiry))
-                         .Return(expectedConfirmation);
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(inquiry).Returns(expectedConfirmation);
             var handler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, collectionDescription, Enumerable.Empty<IObservable>);
 
@@ -109,18 +92,14 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearIllustrationPoints_Always_ExecutesClearIllustrationPointsFunc()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var observable = Substitute.For<IObservable>();
             IObservable[] observables =
             {
                 observable
@@ -134,7 +113,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreSame(observables, affectedObjects);
-            mocks.VerifyAll();
         }
     }
 }

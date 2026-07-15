@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -40,9 +40,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             // Call
             void Call() => new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(inquiryHelper, null);
@@ -50,24 +48,19 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<ProbabilisticPipingCalculationScenario>());
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -76,12 +69,8 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
             // Setup
             var random = new Random(21);
             bool expectedConfirmation = random.NextBoolean();
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?"))
-                         .Return(expectedConfirmation);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?").Returns(expectedConfirmation);
 
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<ProbabilisticPipingCalculationScenario>());
@@ -91,7 +80,6 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -114,11 +102,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 calculationWithIllustrationPoints,
                 new ProbabilisticPipingCalculationScenario()
             };
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
                 inquiryHelper, calculations);
 
@@ -145,7 +129,6 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
                 return !output.ProfileSpecificOutput.HasGeneralResult
                        && !output.SectionSpecificOutput.HasGeneralResult;
             }));
-            mocks.VerifyAll();
         }
     }
 }

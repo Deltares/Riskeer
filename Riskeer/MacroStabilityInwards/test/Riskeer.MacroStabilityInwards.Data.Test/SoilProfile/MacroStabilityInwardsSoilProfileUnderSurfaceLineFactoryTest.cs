@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
@@ -72,10 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Create_SoilProfileNot1DOr2D_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
@@ -86,7 +83,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual($"{soilProfile.GetType().Name} is not supported. " +
                             $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} and " +
                             $"{nameof(MacroStabilityInwardsSoilProfile2D)}.", exception.Message);
-            mocks.VerifyAll();
         }
 
         [Test]

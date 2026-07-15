@@ -28,7 +28,7 @@ using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.ReferenceLines;
@@ -40,18 +40,16 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
     [TestFixture]
     public class ReferenceLineContextImportInfoTest
     {
-        private MockRepository mocks;
+        
         private ImportInfo importInfo;
         private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            mocks.ReplayAll();
-
+            
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin = new RiskeerPlugin
             {
                 Gui = gui
@@ -63,7 +61,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -120,9 +117,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var importTarget = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             // Call

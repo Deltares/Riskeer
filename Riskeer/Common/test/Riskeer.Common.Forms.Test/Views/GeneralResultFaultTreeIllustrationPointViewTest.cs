@@ -30,7 +30,7 @@ using Core.Components.GraphSharp.Forms;
 using Core.Components.GraphSharp.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -63,10 +63,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             // Call
             using (var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => null))
             {
@@ -85,18 +82,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(1, splitContainerPanel2Controls.Count);
                 Assert.IsInstanceOf<IllustrationPointsFaultTreeControl>(splitContainerPanel2Controls[0]);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralResultWithoutIllustrationPoints_DataSetOnIllustrationPointControl()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             // Call
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => null);
             ShowTestView(view);
@@ -107,18 +99,13 @@ namespace Riskeer.Common.Forms.Test.Views
 
             IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
             Assert.IsNull(illustrationPointsFaultTreeControl.Data);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralResultWithIllustrationPoints_DataSetOnIllustrationPointControl()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
             // Call
@@ -128,17 +115,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedAndPropagatedAccordingly()
         {
             // Given
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResult);
             ShowTestView(view);
@@ -163,7 +146,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
             Assert.AreSame(topLevelFaultTreeIllustrationPoint, illustrationPointsFaultTreeControl.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -172,10 +154,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingFaultTreeIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly(bool sameClosingSituations)
         {
             // Given
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResultFunc);
             ShowTestView(view);
@@ -205,7 +184,6 @@ namespace Riskeer.Common.Forms.Test.Views
                                 : topLevel.ClosingSituation,
                             selectedFaultTreeContext.ClosingSituation);
             Assert.AreEqual(topLevel.WindDirection.Name, selectedFaultTreeContext.WindDirectionName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -214,10 +192,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingSubMechanismIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly(bool sameClosingSituations)
         {
             // Given
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             var view = new GeneralResultFaultTreeIllustrationPointView(calculation, () => generalResultFunc);
             ShowTestView(view);
@@ -246,7 +221,6 @@ namespace Riskeer.Common.Forms.Test.Views
                                 : topLevel.ClosingSituation,
                             selectedSubMechanismContext.ClosingSituation);
             Assert.AreEqual(topLevel.WindDirection.Name, selectedSubMechanismContext.WindDirectionName);
-            mocks.VerifyAll();
         }
 
         [Test]

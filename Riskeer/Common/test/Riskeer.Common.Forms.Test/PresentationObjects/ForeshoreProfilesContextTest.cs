@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,11 +37,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ValidValues_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var foreshoresList = new ForeshoreProfileCollection();
 
             // Call
@@ -52,16 +49,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(foreshoresList, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), null, assessmentSection);
@@ -69,16 +63,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("parentFailureMechanism", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             // Call
             void Call() => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), failureMechanism, null);
@@ -86,7 +77,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("parentAssessmentSection", paramName);
-            mocks.VerifyAll();
         }
     }
 }

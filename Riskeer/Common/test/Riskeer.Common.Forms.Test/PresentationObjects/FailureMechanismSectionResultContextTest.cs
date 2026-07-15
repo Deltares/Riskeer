@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -37,12 +37,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var sectionResults = Substitute.For<IObservableEnumerable<FailureMechanismSectionResult>>();
             // Call
             var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism, assessmentSection);
 
@@ -51,17 +48,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var sectionResults = Substitute.For<IObservableEnumerable<FailureMechanismSectionResult>>();
 
             // Call
             void Call() => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, null, assessmentSection);
@@ -69,17 +63,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var sectionResults = Substitute.For<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism, null);
@@ -87,7 +78,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }

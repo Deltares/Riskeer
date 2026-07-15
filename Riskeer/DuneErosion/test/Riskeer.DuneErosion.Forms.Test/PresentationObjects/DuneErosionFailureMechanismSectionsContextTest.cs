@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
@@ -35,10 +35,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<FailureMechanismSectionsContext>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
     }
 }

@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -38,20 +38,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ReferenceLineContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
+        
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -76,17 +74,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -99,17 +93,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Referentielijn", text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -122,27 +112,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ReferenceLineIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -155,16 +140,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            menuBuilder.Received().Build();
         }
 
         [Test]
         public void ForeColor_ContextHasReferenceLineWithoutGeometry_ReturnDisabledColor()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var referenceLineContext = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -177,17 +160,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_ContextHasReferenceLineWithGeometry_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var referenceLineContext = new ReferenceLineContext(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
                                                                 assessmentSection);
 
@@ -201,8 +180,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(RiskeerPlugin plugin)

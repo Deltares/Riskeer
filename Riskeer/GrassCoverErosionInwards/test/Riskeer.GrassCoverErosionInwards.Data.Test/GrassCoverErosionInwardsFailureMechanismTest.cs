@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -64,7 +64,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Calculations_MultipleChildrenAdded_ReturnGrassCoverErosionInwardsCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 CalculationsGroup =
@@ -73,21 +72,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                     {
                         new CalculationGroup(),
                         new GrassCoverErosionInwardsCalculation(),
-                        mocks.StrictMock<ICalculation>(),
+                        Substitute.For<ICalculation>(),
                         new GrassCoverErosionInwardsCalculation()
                     }
                 }
             };
-
-            mocks.ReplayAll();
-
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is GrassCoverErosionInwardsCalculation));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -127,11 +122,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void GivenObserverAttachedToDikeProfiles_WhenNotifyObservers_ThenObserverIsNotified()
         {
             // Scenario
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.Attach(observer);
 
@@ -139,7 +130,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             failureMechanism.DikeProfiles.NotifyObservers();
 
             // Result
-            mocks.VerifyAll(); // Expect observer to be notified.
+            observer.Received().UpdateObserver();
         }
     }
 }

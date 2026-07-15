@@ -29,7 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -170,11 +170,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenViewWithSpecificFailureMechanismData_WhenFailureMechanismNameUpdatedAndNotified_ThenMapDataUpdatedAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new SpecificFailureMechanism();
 
@@ -192,7 +188,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newFailureMechanismName, mapData.Name);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -216,12 +212,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             IEnumerable<MapData> mapDataCollection = view.Map.Data.Collection;
             MapData referenceLineMapData = mapDataCollection.ElementAt(referenceLineIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, mapDataCollection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(mapDataCollection);
             // Precondition
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
@@ -235,7 +226,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -253,14 +244,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, mapDataCollection);
-            observers[sectionsCollectionIndex + sectionsIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsCollectionIndex + sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsCollectionIndex + sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(mapDataCollection);
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -276,7 +260,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            mocks.VerifyAll();
+            observers[sectionsCollectionIndex + sectionsIndex].Received().UpdateObserver();
+            observers[sectionsCollectionIndex + sectionsStartPointIndex].Received().UpdateObserver();
+            observers[sectionsCollectionIndex + sectionsEndPointIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -385,25 +371,24 @@ namespace Riskeer.Integration.Forms.Test.Views
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
 
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsStartPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
 
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsEndPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
             return new[]

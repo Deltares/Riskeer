@@ -33,7 +33,8 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.GuiServices;
@@ -241,21 +242,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
-
-            var mockRepository = new MockRepository();
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService = Substitute.For<IHydraulicBoundaryLocationCalculationGuiService>();
 
             double actualNormValue = double.NaN;
             IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
-            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0];
-                    actualNormValue = (double) invocation.Arguments[2];
-                });
-
-            mockRepository.ReplayAll();
-
+            guiService.When(service => service.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
+                      .Do(invocation =>
+                      {
+                          performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
+                          actualNormValue = invocation.Arg<double>();
+                      });
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -283,8 +279,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
                 }
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -292,14 +286,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
-            var mocks = new MockRepository();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-            gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
-            gui.Stub(g => g.ProjectStore).Return(mocks.Stub<IStoreProject>());
-            mocks.ReplayAll();
-
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
             const double targetProbability = 0.01;
 
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
@@ -323,8 +314,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

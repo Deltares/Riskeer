@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationGroupContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
@@ -70,10 +70,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void Text_CalculationGroup_Always_ReturnsWrappedDataName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             const string groupName = "testName";
             var groupContext = new TestCalculationGroupContext(new CalculationGroup
                                                                {
@@ -88,7 +85,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(groupName, text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -108,10 +104,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_CalculationGroup_ForCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
 
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -121,7 +114,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -141,10 +133,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CanRenameNode_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
@@ -153,7 +142,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(isRenamingAllowed);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -173,12 +161,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void OnNodeRenamed_CalculationGroup_WithData_RenameGroupAndNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             const string newName = "new name";
             var group = new CalculationGroup();
             var nodeData = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
@@ -192,17 +176,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, group.Name);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void CanRemove_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parentGroup = new CalculationGroup();
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
             var parentNodeData = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
@@ -213,17 +194,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(isRemovalAllowed);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanRemove_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
@@ -232,17 +209,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsFalse(isRemovalAllowed);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanDrag_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parentGroup = new CalculationGroup();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
             var parentGroupContext = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
@@ -253,17 +226,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(canDrag);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanDrag_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
@@ -272,7 +241,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsFalse(canDrag);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -284,10 +252,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             object draggedItemContext;
             ICalculationBase draggedItem;
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
@@ -318,8 +283,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -331,11 +294,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceFailureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            var targetFailureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var sourceFailureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var targetFailureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             object draggedItemContext;
             ICalculationBase draggedItem;
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
@@ -366,8 +326,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -377,14 +335,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            var originalOwnerObserver = mocks.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
-            var newOwnerObserver = mocks.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var originalOwnerObserver = Substitute.For<IObserver>();
+            var newOwnerObserver = Substitute.For<IObserver>();
             ICalculationBase draggedItem;
             object draggedItemContext;
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
@@ -418,8 +371,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
                                "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
             }
-
-            mocks.VerifyAll();
+            originalOwnerObserver.Received().UpdateObserver();
+            newOwnerObserver.Received().UpdateObserver();
         }
 
         [Test]
@@ -430,14 +383,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             [Values(0, 2)] int newIndex)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            var existingItem = mocks.StrictMock<ICalculationBase>();
-            existingItem.Stub(ci => ci.Name).Return("");
-            var originalOwnerObserver = mocks.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            var existingItem = Substitute.For<ICalculationBase>();
+            existingItem.Name.Returns("");
+            var originalOwnerObserver = Substitute.For<IObserver>();
             const string name = "Very cool name";
 
             object draggedItemContext;
@@ -473,8 +422,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(name, draggedItem.Name,
                                 "No renaming should occur when dragging within the same TestCalculationGroup.");
             }
-
-            mocks.VerifyAll();
+            originalOwnerObserver.Received().UpdateObserver();
         }
 
         [Test]
@@ -484,15 +432,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             ICalculationBase draggedItem;
             object draggedItemContext;
 
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
-            treeViewControl.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
+            treeViewControl.TryRenameNodeForData(draggedItemContext);
 
             CalculationGroup originalOwnerGroup;
             TestCalculationGroupContext originalOwnerGroupContext;
@@ -503,16 +450,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             TestCalculationGroupContext newOwnerGroupContext;
             CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, failureMechanism);
 
-            var sameNamedItem = mocks.StrictMock<ICalculationBase>();
-            sameNamedItem.Stub(sni => sni.Name).Return(draggedItem.Name);
+            var sameNamedItem = Substitute.For<ICalculationBase>();
+            sameNamedItem.Name.Returns(draggedItem.Name);
 
-            var originalOwnerObserver = mocks.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
+            var originalOwnerObserver = Substitute.For<IObserver>();
 
-            var newOwnerObserver = mocks.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var newOwnerObserver = Substitute.For<IObserver>();
             newOwnerGroup.Children.Add(sameNamedItem);
 
             originalOwnerGroup.Attach(originalOwnerObserver);
@@ -543,8 +486,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe map", draggedItem.Name);
                     break;
             }
-
-            mocks.VerifyAll();
+            newOwnerObserver.UpdateObserver();
+            originalOwnerObserver.UpdateObserver();
         }
 
         /// <summary>
@@ -608,7 +551,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
@@ -630,10 +573,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void TextOfCalculationContextTreeNodeInfo_Always_ReturnsWrappedDataName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             const string calculationName = "calculationName";
@@ -650,7 +590,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(calculationName, text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -685,12 +624,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToCalculationItemAndNotifyObserver()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var calculation = new TestCalculation
@@ -709,7 +644,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, calculation.Name);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -719,11 +654,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationToBeRemoved = new TestCalculation();
             var group = new CalculationGroup();
             group.Children.Add(calculationToBeRemoved);
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
@@ -736,7 +667,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(removalAllowed);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -745,11 +675,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var calculationToBeRemoved = new TestCalculation();
             var group = new CalculationGroup();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
@@ -762,18 +688,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanRemoveCalculationContextTreeNodeInfo_EverythingElse_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.StrictMock<object>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var data = Substitute.For<object>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var calculationContext = new TestCalculationContext(new TestCalculation(), new CalculationGroup(), failureMechanism);
@@ -784,7 +706,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            // Expect no calls on arguments
         }
 
         [Test]
@@ -838,14 +760,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string name = "A";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(name);
-            var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-            context.Stub(c => c.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(name);
+            var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            context.WrappedData.Returns(failureMechanism);
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
@@ -854,7 +772,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(name, text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -875,12 +792,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void ForeColor_FailureMechanismInAssemblyTrue_ReturnsControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-            context.Stub(c => c.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            context.WrappedData.Returns(failureMechanism);
             failureMechanism.InAssembly = true;
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
@@ -891,19 +805,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_FailureMechanismInAssemblyFalse_ReturnsGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-            context.Stub(c => c.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            context.WrappedData.Returns(failureMechanism);
             failureMechanism.InAssembly = false;
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
@@ -914,19 +824,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnResultFromConstructorMethod()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-            context.Stub(c => c.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            context.WrappedData.Returns(failureMechanism);
             failureMechanism.InAssembly = true;
 
             object[] resultInAssembly =
@@ -951,20 +857,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.AreEqual(resultInAssembly, children);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnResultFromConstructorMethod()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-            context.Stub(c => c.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            context.WrappedData.Returns(failureMechanism);
             failureMechanism.InAssembly = false;
 
             object[] resultInAssembly =
@@ -989,8 +890,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.AreEqual(resultNotInAssembly, children);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1001,14 +900,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-                context.Stub(c => c.WrappedData).Return(failureMechanism);
-                context.Stub(c => c.Parent).Return(assessmentSection);
-                mocks.ReplayAll();
-
+                var assessmentSection = Substitute.For<IAssessmentSection>();
+                var failureMechanism = Substitute.For<IFailureMechanism>();
+                var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+                context.WrappedData.Returns(failureMechanism);
+                context.Parent.Returns(assessmentSection);
                 failureMechanism.InAssembly = true;
 
                 TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
@@ -1038,8 +934,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreSame(contextMenuStripInAssembly, contextMenuStrip);
                 }
-
-                mocks.VerifyAll();
             }
         }
 
@@ -1051,14 +945,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                var context = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
-                context.Stub(c => c.WrappedData).Return(failureMechanism);
-                context.Stub(c => c.Parent).Return(assessmentSection);
-                mocks.ReplayAll();
-
+                var assessmentSection = Substitute.For<IAssessmentSection>();
+                var failureMechanism = Substitute.For<IFailureMechanism>();
+                var context = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+                context.WrappedData.Returns(failureMechanism);
+                context.Parent.Returns(assessmentSection);
                 failureMechanism.InAssembly = false;
 
                 TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
@@ -1088,8 +979,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreSame(contextMenuStripNotInAssembly, result);
                 }
-
-                mocks.VerifyAll();
             }
         }
 
@@ -1131,13 +1020,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string name = "A";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(name);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(name);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(
@@ -1148,7 +1033,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(name, text);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1185,11 +1069,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnResultFromConstructorMethod()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             object[] resultInAssembly =
             {
                 new object(),
@@ -1205,7 +1086,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.AreEqual(resultInAssembly, children);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1215,11 +1095,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             using (var contextMenuStripRelevant = new ContextMenuStrip())
             {
-                var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
+                var failureMechanism = Substitute.For<IFailureMechanism>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 failureMechanism.InAssembly = true;
 
                 var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
@@ -1241,8 +1118,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
                 }
-
-                mocks.VerifyAll();
             }
         }
 

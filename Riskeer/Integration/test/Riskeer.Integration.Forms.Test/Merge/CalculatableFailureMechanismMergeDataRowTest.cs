@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.Merge;
@@ -39,12 +39,8 @@ namespace Riskeer.Integration.Forms.Test.Merge
             // Setup
             var random = new Random(21);
             IEnumerable<TestCalculation> calculations = Enumerable.Repeat(new TestCalculation(), random.Next(0, 10));
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(calculations);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(calculations);
             // Call
             var row = new CalculatableFailureMechanismMergeDataRow(failureMechanism);
 
@@ -52,8 +48,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
             Assert.IsInstanceOf<FailureMechanismMergeDataRow>(row);
             Assert.AreSame(failureMechanism, row.FailureMechanism);
             Assert.AreEqual(calculations.Count(), row.NumberOfCalculations);
-
-            mocks.ReplayAll();
         }
     }
 }

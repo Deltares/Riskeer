@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data;
@@ -71,10 +71,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_PerformFailureMechanismSectionAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestAdoptableFailureMechanism();
 
             // Call
@@ -86,17 +83,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("performFailureMechanismSectionAssemblyFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestAdoptableFailureMechanism();
 
             // Call
@@ -112,20 +105,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            var mocks = new MockRepository();
-            using (ShowFailureMechanismResultsView(mocks, new TestAdoptableFailureMechanism(),
+            using (ShowFailureMechanismResultsView( new TestAdoptableFailureMechanism(),
                                                    (fm, ass) => CreateFailureMechanismAssemblyResult()))
             {
-                mocks.ReplayAll();
-
                 // Then
                 DataGridView dataGridView = GetDataGridView();
 
@@ -158,8 +146,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -167,13 +153,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculateProbabilityStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            calculateProbabilityStrategy.Stub(s => s.CalculateSectionProbability()).Return(0.001);
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var calculateProbabilityStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            calculateProbabilityStrategy.CalculateSectionProbability().Returns(0.001);
+            var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
 
             var failureMechanism = new TestAdoptableFailureMechanism();
@@ -221,16 +204,12 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenAdoptableFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAAssemblyFunctionPerformed()
         {
             // Given
-            var mocks = new MockRepository();
-
             var failureMechanism = new TestAdoptableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -242,14 +221,12 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView(mocks, failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
             }))
             {
-                mocks.ReplayAll();
-
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
@@ -264,16 +241,12 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(rowsChanged);
                 Assert.AreEqual(2, nrOfAssemblyCalls);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenAdoptableFailureMechanismResultView_WhenRootCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var mocks = new MockRepository();
-
             var failureMechanism = new TestAdoptableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -285,14 +258,12 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView(mocks, failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
             }))
             {
-                mocks.ReplayAll();
-
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
@@ -313,8 +284,6 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenAdoptableFailureMechanismResultView_WhenNestedCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
-            var mocks = new MockRepository();
-
             var failureMechanism = new TestAdoptableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -328,14 +297,12 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView(mocks, failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
             }))
             {
-                mocks.ReplayAll();
-
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
@@ -350,8 +317,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(rowsChanged);
                 Assert.AreEqual(2, nrOfAssemblyCalls);
             }
-
-            mocks.VerifyAll();
         }
 
         private static FailureMechanismAssemblyResultWrapper CreateFailureMechanismAssemblyResult()
@@ -365,21 +330,19 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private TestAdoptableFailureMechanismResultView ShowFailureMechanismResultsView(
-            MockRepository mocks,
             TestAdoptableFailureMechanism failureMechanism,
             Func<TestAdoptableFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
-            return ShowFailureMechanismResultsView(mocks, failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
+            return ShowFailureMechanismResultsView( failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
         }
 
         private TestAdoptableFailureMechanismResultView ShowFailureMechanismResultsView(
-            MockRepository mocks,
             TestAdoptableFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
             Func<TestAdoptableFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
-            var calculateProbabilityStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var rowErrorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
+            var calculateProbabilityStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var rowErrorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
 
             var failureMechanismResultView = new TestAdoptableFailureMechanismResultView(failureMechanism.SectionResults,
                                                                                          failureMechanism,

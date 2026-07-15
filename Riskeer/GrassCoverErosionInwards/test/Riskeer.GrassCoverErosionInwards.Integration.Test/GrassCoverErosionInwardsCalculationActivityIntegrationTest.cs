@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -92,18 +92,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         public void Run_CombinationOfCalculations_ProgressTextSetAccordingly([Values(true, false)] bool shouldDikeHeightBeCalculated,
                                                                              [Values(true, false)] bool shouldOvertoppingRateBeCalculated)
         {
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestHydraulicLoadsCalculator());
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestHydraulicLoadsCalculator());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -154,7 +146,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             }
 
             Assert.AreEqual(expectedProgressTexts, progressTexts);
-            mockRepository.VerifyAll();
         }
 
         private static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
@@ -213,20 +204,21 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             };
 
             var calculator = new TestOvertoppingCalculator();
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
 
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        settings);
+
+                    return calculator;
+                });
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
@@ -272,8 +264,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -303,13 +293,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 LastErrorFileContent = lastErrorFileContent,
                 EndInFailure = endInFailure
             };
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -333,8 +318,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -353,14 +336,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 }
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
@@ -383,8 +360,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -396,21 +371,15 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                                             string lastErrorFileContent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var calculator = new TestOvertoppingCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -438,23 +407,17 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Finish_ValidOvertoppingCalculation_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -485,7 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.Reliability));
             Assert.IsNull(calculation.Output.DikeHeightOutput);
             Assert.IsNull(calculation.Output.OvertoppingRateOutput);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         #endregion
@@ -505,31 +468,37 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
+            calculatorFactory
+                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
 
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        settings);
+
+                    return new TestOvertoppingCalculator();
+                });
+
+            calculatorFactory
+                .CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
+
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        settings);
+
+                    return dikeHeightCalculator;
+                });
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
@@ -589,8 +558,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -602,17 +569,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(dikeHeightCalculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -651,8 +611,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -664,16 +622,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(dikeHeightCalculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -712,8 +663,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -726,16 +675,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 LastErrorFileContent = "An error occurred"
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(dikeHeightCalculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -774,8 +716,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -788,16 +728,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 ReliabilityIndex = -1
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(dikeHeightCalculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -836,32 +770,22 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Finish_InvalidDikeHeightCalculation_OutputSetAndObserversNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 Value = double.NaN,
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(dikeHeightCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -891,26 +815,18 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.IsNull(calculation.Output.DikeHeightOutput);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Finish_ValidDikeHeightCalculation_OutputSetAndObserversNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator());
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestHydraulicLoadsCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -943,7 +859,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             DikeHeightOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
             Assert.IsNotNull(dikeHeightOutput);
             Assert.IsFalse(double.IsNaN(dikeHeightOutput.DikeHeight));
-            mockRepository.VerifyAll();
+            
+            observer.Received().UpdateObserver();
         }
 
         #endregion
@@ -963,31 +880,36 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+          calculatorFactory
+                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        settings);
 
+                    return new TestOvertoppingCalculator();
+                });
+          calculatorFactory
+              .CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+              .Returns(callInfo =>
+              {
+                  var settings = callInfo.Arg<HydraRingCalculationSettings>();
+
+                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                          assessmentSection.HydraulicBoundaryData,
+                          hydraulicBoundaryLocation),
+                      settings);
+
+                  return overtoppingRateCalculator;
+              });
+          
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
@@ -1046,8 +968,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1060,17 +980,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingRateCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -1108,8 +1020,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1121,17 +1031,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingRateCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -1169,8 +1071,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1183,17 +1083,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 LastErrorFileContent = "An error occurred"
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingRateCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -1231,8 +1123,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1245,16 +1135,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 ReliabilityIndex = -1
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+          
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(overtoppingRateCalculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -1293,32 +1177,25 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Finish_InvalidOvertoppingRateCalculation_OutputSetAndObserversNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 Value = double.NaN,
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestOvertoppingCalculator());
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
+            
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -1348,26 +1225,18 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.IsNull(calculation.Output.OvertoppingRateOutput);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Finish_ValidOvertoppingRateCalculation_OutputSetAndObserversNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator());
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestHydraulicLoadsCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
@@ -1400,7 +1269,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             OvertoppingRateOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
             Assert.IsNotNull(overtoppingRateOutput);
             Assert.IsFalse(double.IsNaN(overtoppingRateOutput.OvertoppingRate));
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();   
         }
 
         #endregion

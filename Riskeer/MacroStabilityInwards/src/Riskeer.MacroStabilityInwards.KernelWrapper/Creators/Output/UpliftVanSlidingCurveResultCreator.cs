@@ -74,45 +74,44 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 
         private static IEnumerable<UpliftVanSliceResult> CreateSlices(IEnumerable<Slice> slidingCurveSlices)
         {
-            return slidingCurveSlices.Select(
-                slice =>
-                    new UpliftVanSliceResult(
-                        ToPoint2D(slice.TopLeftPoint),
-                        ToPoint2D(slice.TopRightPoint),
-                        ToPoint2D(slice.BottomLeftPoint),
-                        ToPoint2D(slice.BottomRightPoint),
-                        new UpliftVanSliceResult.ConstructionProperties
-                        {
-                            Cohesion = slice.Cohesion,
-                            FrictionAngle = slice.FrictionAngleInput,
-                            CriticalPressure = slice.YieldStress,
-                            OverConsolidationRatio = slice.OCR,
-                            Pop = slice.POP,
-                            DegreeOfConsolidationPorePressureSoil = slice.DegreeOfConsolidationPorePressure,
-                            DegreeOfConsolidationPorePressureLoad = slice.PorePressureDueToDegreeOfConsolidationLoad,
-                            Dilatancy = slice.Dilatancy,
-                            ExternalLoad = slice.ExternalLoad,
-                            HydrostaticPorePressure = slice.HydrostaticPorePressure,
-                            LeftForce = slice.LeftForce,
-                            LeftForceAngle = slice.LeftForceAngle,
-                            LeftForceY = slice.LeftForceY,
-                            RightForce = slice.RightForce,
-                            RightForceAngle = slice.RightForceAngle,
-                            RightForceY = slice.RightForceY,
-                            LoadStress = slice.LoadStress,
-                            NormalStress = slice.NormalStress,
-                            PorePressure = slice.PorePressure,
-                            HorizontalPorePressure = slice.HorizontalPorePressure,
-                            VerticalPorePressure = slice.VerticalPorePressure,
-                            PiezometricPorePressure = slice.PiezometricPorePressure,
-                            EffectiveStress = slice.EffectiveStress,
-                            ExcessPorePressure = slice.ExcessPorePressure,
-                            ShearStress = slice.ShearStress,
-                            SoilStress = slice.SoilStress,
-                            TotalPorePressure = slice.TotalPorePressure,
-                            TotalStress = slice.TotalStress,
-                            Weight = slice.Weight
-                        })).ToArray();
+            return slidingCurveSlices.Select(slice =>
+                                                 new UpliftVanSliceResult(
+                                                     ToPoint2D(slice.TopLeftPoint),
+                                                     ToPoint2D(slice.TopRightPoint),
+                                                     ToPoint2D(slice.BottomLeftPoint),
+                                                     ToPoint2D(slice.BottomRightPoint),
+                                                     new UpliftVanSliceResult.ConstructionProperties
+                                                     {
+                                                         Cohesion = slice.Cohesion,
+                                                         FrictionAngle = slice.FrictionAngleInput,
+                                                         CriticalPressure = slice.YieldStress,
+                                                         OverConsolidationRatio = slice.OCR,
+                                                         Pop = slice.POP,
+                                                         DegreeOfConsolidationPorePressureSoil = slice.DegreeOfConsolidationPorePressure,
+                                                         DegreeOfConsolidationPorePressureLoad = slice.PorePressureDueToDegreeOfConsolidationLoad,
+                                                         Dilatancy = slice.Dilatancy,
+                                                         ExternalLoad = slice.ExternalLoad,
+                                                         HydrostaticPorePressure = slice.HydrostaticPorePressure,
+                                                         LeftForce = slice.LeftForce,
+                                                         LeftForceAngle = slice.LeftForceAngle,
+                                                         LeftForceY = slice.LeftForceY,
+                                                         RightForce = slice.RightForce,
+                                                         RightForceAngle = slice.RightForceAngle,
+                                                         RightForceY = slice.RightForceY,
+                                                         LoadStress = slice.LoadStress,
+                                                         NormalStress = slice.NormalStress,
+                                                         PorePressure = slice.PorePressure,
+                                                         HorizontalPorePressure = slice.HorizontalPorePressure,
+                                                         VerticalPorePressure = slice.VerticalPorePressure,
+                                                         PiezometricPorePressure = slice.PiezometricPorePressure,
+                                                         EffectiveStress = slice.EffectiveStress,
+                                                         ExcessPorePressure = slice.ExcessPorePressure,
+                                                         ShearStress = slice.ShearStress,
+                                                         SoilStress = slice.SoilStress,
+                                                         TotalPorePressure = slice.TotalPorePressure,
+                                                         TotalStress = slice.TotalStress,
+                                                         Weight = slice.Weight
+                                                     })).ToArray();
         }
 
         private static Point2D ToPoint2D(CSharpWrapperPoint2D point)

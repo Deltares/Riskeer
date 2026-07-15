@@ -30,7 +30,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -97,11 +97,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         public void IsEnabled_DikeProfileCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var dikeProfiles = new DikeProfileCollection();
             dikeProfiles.AddRange(Enumerable.Empty<DikeProfile>(), "some/path");
@@ -118,18 +115,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_DikeProfileCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var dikeProfiles = new DikeProfileCollection();
 
@@ -145,8 +137,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -169,14 +159,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -194,7 +181,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.IsTrue(updatesVerified);
-                mocks.VerifyAll();
             }
         }
 
@@ -204,14 +190,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -252,7 +235,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);
-                mocks.VerifyAll();
             }
         }
 
@@ -260,11 +242,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         public void CreateFileImporter_Always_ReturnsFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
@@ -277,7 +256,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.IsInstanceOf<DikeProfilesImporter>(importer);
-                mocks.VerifyAll();
             }
         }
 
@@ -285,10 +263,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         public void CurrentPath_DikeProfileCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string expectedFilePath = "some/path";
             var surfaceLines = new DikeProfileCollection();
             surfaceLines.AddRange(new[]
@@ -309,7 +284,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.AreEqual(expectedFilePath, currentFilePath);
-                mocks.VerifyAll();
             }
         }
 

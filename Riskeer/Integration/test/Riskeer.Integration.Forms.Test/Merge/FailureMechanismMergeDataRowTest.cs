@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.Merge;
@@ -53,13 +53,9 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Sections.Returns(Enumerable.Empty<FailureMechanismSection>());
             failureMechanism.InAssembly = inAssembly;
 
             // Call
@@ -71,8 +67,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.IsFalse(row.HasSections);
             Assert.AreEqual(0, row.NumberOfCalculations);
-
-            mocks.ReplayAll();
         }
 
         [Test]
@@ -82,12 +76,8 @@ namespace Riskeer.Integration.Forms.Test.Merge
             var random = new Random(21);
             IEnumerable<FailureMechanismSection> sections = Enumerable.Repeat(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(),
                                                                               random.Next(1, 10));
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Sections).Return(sections);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Sections.Returns(sections);
             // Call
             var row = new FailureMechanismMergeDataRow(failureMechanism);
 

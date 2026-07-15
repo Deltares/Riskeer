@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -48,10 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithValidProbabilities_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             double probability = new Random(21).Next(0, 1);
 
             // Call
@@ -61,7 +58,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.IsInstanceOf<Observable>(stochasticSoilProfile);
             Assert.AreEqual(probability, stochasticSoilProfile.Probability);
             Assert.AreSame(soilProfile, stochasticSoilProfile.SoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,9 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithInvalidProbabilities_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
 
             // Call
             void Call() => new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
@@ -85,17 +79,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel" +
                                            " moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Update_WithNullProfile_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call
@@ -104,7 +94,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("fromProfile", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -124,10 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void ToString_WithProfile_ReturnsToStringResultOfProfile()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call

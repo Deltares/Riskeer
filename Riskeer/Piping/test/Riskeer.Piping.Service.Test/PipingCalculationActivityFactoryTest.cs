@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -34,6 +34,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
@@ -63,9 +64,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
@@ -73,7 +72,6 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -179,10 +177,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_UnsupportedCalculationType_ThrowsNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculation());
 
@@ -192,7 +187,6 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -203,9 +197,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateCalculationActivities(null,
@@ -215,16 +207,13 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivitiesForCalculationGroup_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
@@ -234,7 +223,6 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -345,10 +333,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_UnsupportedCalculationType_ThrowsNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -363,7 +348,6 @@ namespace Riskeer.Piping.Service.Test
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -374,9 +358,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateSemiProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(null,
@@ -386,16 +368,13 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateSemiProbabilisticPipingCalculationActivity_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(new TestSemiProbabilisticPipingCalculation(),
@@ -405,7 +384,6 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalPipingInput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -468,9 +446,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(null,
@@ -480,16 +456,13 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateProbabilisticPipingCalculationActivity_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(),
@@ -499,7 +472,6 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -572,19 +544,8 @@ namespace Riskeer.Piping.Service.Test
         {
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
-
-            var mocks = new MockRepository();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(profileSpecificCalculator)
-                             .Repeat.Once();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(sectionSpecificCalculator)
-                             .Repeat.Once();
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(profileSpecificCalculator, sectionSpecificCalculator);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -601,8 +562,6 @@ namespace Riskeer.Piping.Service.Test
                 Assert.AreEqual(DerivedPipingInput.GetSeepageLength(calculation.InputParameters).Mean,
                                 sectionSpecificInputs[0].Variables.First(v => v.VariableId == 48).Parameter1);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion

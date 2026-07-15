@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Data.Test.Calculation
@@ -62,13 +62,10 @@ namespace Riskeer.Common.Data.Test.Calculation
         public void GetCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation2 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-            var calculation4 = mocks.StrictMock<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation1 = Substitute.For<ICalculation>();
+            var calculation2 = Substitute.For<ICalculation>();
+            var calculation3 = Substitute.For<ICalculation>();
+            var calculation4 = Substitute.For<ICalculation>();
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
@@ -96,29 +93,26 @@ namespace Riskeer.Common.Data.Test.Calculation
                 calculation4
             };
             CollectionAssert.AreEquivalent(itemsThatShouldBeFound, result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearCalculationOutput_ForCalculationGroupWithGroupsAndCalculations_OutputOfRelevantCalculationsIsClearedAndObserversAreNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation2 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-            var calculation4 = mocks.StrictMock<ICalculation>();
+            var calculation1 = Substitute.For<ICalculation>();
+            var calculation2 = Substitute.For<ICalculation>();
+            var calculation3 = Substitute.For<ICalculation>();
+            var calculation4 = Substitute.For<ICalculation>();
 
-            calculation1.Expect(c => c.HasOutput).Return(true);
-            calculation2.Expect(c => c.HasOutput).Return(true);
-            calculation3.Expect(c => c.HasOutput).Return(false);
-            calculation4.Expect(c => c.HasOutput).Return(false);
-            calculation1.Expect(c => c.ClearOutput());
-            calculation2.Expect(c => c.ClearOutput());
-            calculation1.Expect(c => c.NotifyObservers());
-            calculation2.Expect(c => c.NotifyObservers());
+            calculation1.HasOutput.Returns(true);
+            calculation2.HasOutput.Returns(true);
+            calculation3.HasOutput.Returns(false);
+            calculation4.HasOutput.Returns(false);
 
-            mocks.ReplayAll();
+            calculation1.ClearOutput();
+            calculation2.ClearOutput();
+            calculation1.NotifyObservers();
+            calculation2.NotifyObservers();
 
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
@@ -139,26 +133,21 @@ namespace Riskeer.Common.Data.Test.Calculation
             rootGroup.ClearCalculationOutput();
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
         public void HasOutput_ForCalculationGroupWithGroupsAndCalculationsWithoutOutput_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation2 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-            var calculation4 = mocks.StrictMock<ICalculation>();
+            var calculation1 = Substitute.For<ICalculation>();
+            var calculation2 = Substitute.For<ICalculation>();
+            var calculation3 = Substitute.For<ICalculation>();
+            var calculation4 = Substitute.For<ICalculation>();
 
-            calculation1.Expect(c => c.HasOutput).Return(false);
-            calculation2.Expect(c => c.HasOutput).Return(false);
-            calculation3.Expect(c => c.HasOutput).Return(false);
-            calculation4.Expect(c => c.HasOutput).Return(false);
-
-            mocks.ReplayAll();
-
+            calculation1.HasOutput.Returns(false);
+            calculation2.HasOutput.Returns(false);
+            calculation3.HasOutput.Returns(false);
+            calculation4.HasOutput.Returns(false);
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
@@ -179,26 +168,21 @@ namespace Riskeer.Common.Data.Test.Calculation
 
             // Assert
             Assert.IsFalse(hasOutput);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void HasOutput_ForCalculationGroupWithGroupsAndOneCalculationWithOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation2 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-            var calculation4 = mocks.StrictMock<ICalculation>();
+            var calculation1 = Substitute.For<ICalculation>();
+            var calculation2 = Substitute.For<ICalculation>();
+            var calculation3 = Substitute.For<ICalculation>();
+            var calculation4 = Substitute.For<ICalculation>();
 
-            calculation1.Stub(c => c.HasOutput).Return(false);
-            calculation2.Stub(c => c.HasOutput).Return(false);
-            calculation3.Stub(c => c.HasOutput).Return(false);
-            calculation4.Stub(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculation1.HasOutput.Returns(false);
+            calculation2.HasOutput.Returns(false);
+            calculation3.HasOutput.Returns(false);
+            calculation4.HasOutput.Returns(true);
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
@@ -219,7 +203,6 @@ namespace Riskeer.Common.Data.Test.Calculation
 
             // Assert
             Assert.IsTrue(hasOutput);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -239,13 +222,10 @@ namespace Riskeer.Common.Data.Test.Calculation
         public void GetAllChildrenRecursive_GroupWithNestedGroupsWithCalculations_ReturnAllNestedGroupsAndCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculation>();
-            var calculation2 = mocks.Stub<ICalculation>();
-            var calculation3 = mocks.Stub<ICalculation>();
-            var calculation4 = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
+            var calculation1 = Substitute.For<ICalculation>();
+            var calculation2 = Substitute.For<ICalculation>();
+            var calculation3 = Substitute.For<ICalculation>();
+            var calculation4 = Substitute.For<ICalculation>();
             var nestedChildGroup = new CalculationGroup
             {
                 Children =
@@ -296,7 +276,6 @@ namespace Riskeer.Common.Data.Test.Calculation
 
             // Assert
             CollectionAssert.AreEquivalent(expectedChildren, children);
-            mocks.VerifyAll();
         }
     }
 }

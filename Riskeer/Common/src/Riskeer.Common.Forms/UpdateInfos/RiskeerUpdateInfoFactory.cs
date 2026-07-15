@@ -61,8 +61,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
                 throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
             }
 
-            return CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TSectionResult>(
-                context => new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData, sectionResultUpdateStrategy));
+            return CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TSectionResult>(context => new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData, sectionResultUpdateStrategy));
         }
 
         /// <summary>

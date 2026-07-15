@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -38,9 +38,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new SemiProbabilisticPipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
@@ -48,16 +46,13 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("wrappedData", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), null, assessmentSection);
@@ -65,7 +60,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -83,10 +77,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -98,7 +89,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             Assert.AreSame(output, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
     }
 }

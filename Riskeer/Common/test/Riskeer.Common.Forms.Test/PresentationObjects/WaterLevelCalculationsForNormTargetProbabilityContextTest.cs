@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -50,9 +50,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
@@ -68,10 +66,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
             Func<double> getNormFunc = () => 0.01;
 
@@ -85,7 +80,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(calculations, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(getNormFunc, context.GetNormFunc);
-            mockRepository.VerifyAll();
         }
     }
 }

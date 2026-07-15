@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -41,14 +41,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class SpecificFailureMechanismContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private TreeNodeInfo info;
         private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SpecificFailureMechanismContext));
         }
@@ -57,15 +55,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -91,9 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
             var failureMechanismContext = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -108,8 +101,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -121,9 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_Always_ReturnsControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -138,8 +127,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CanRename_Always_ReturnTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             bool canRename = info.CanRename(null, null);
 
@@ -151,8 +138,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CanDrag_Always_ReturnTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             bool canDrag = info.CanDrag(null, null);
 
@@ -164,11 +149,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void OnNodeRenamed_ChangesNameOfFailureMechanismAndNotifiesObservers()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new SpecificFailureMechanism();
             failureMechanism.Attach(observer);
 
@@ -181,14 +163,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, failureMechanism.Name);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             // Call
             bool canRename = info.CanRemove(null, null);
 
@@ -200,11 +181,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_WithContexts_RemovesFailureMechanismFromCollectionAndNotifiesObservers()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -220,15 +198,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanisms);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -268,9 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnOnlyFailureMechanismNotInAssemblyComments()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = false
@@ -294,38 +269,43 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var failureMechanism = new SpecificFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeView).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(context, assessmentSection, treeView);
 
                 // Assert
-                // Assert expectancies are called in TearDown()
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddOpenItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddRenameItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddDeleteItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
             }
         }
 
@@ -337,38 +317,42 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeView).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(context, assessmentSection, treeView);
 
                 // Assert
-                // Assert expectancies are called in TearDown()
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddRenameItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddDeleteItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
             }
         }
 

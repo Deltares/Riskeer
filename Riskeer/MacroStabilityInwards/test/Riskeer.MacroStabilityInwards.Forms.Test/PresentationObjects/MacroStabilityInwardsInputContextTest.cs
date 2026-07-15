@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -38,10 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var surfaceLines = new[]
             {
@@ -65,17 +62,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailableMacroStabilityInwardsSurfaceLines);
             CollectionAssert.AreEqual(stochasticSoilModels, context.AvailableStochasticSoilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationInput = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var surfaceLines = new[]
             {
@@ -93,7 +86,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }

@@ -27,7 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.Test
 {
@@ -38,12 +38,9 @@ namespace Core.Gui.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -60,8 +57,6 @@ namespace Core.Gui.Test
             Assert.AreEqual("Openen van project", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,12 +74,9 @@ namespace Core.Gui.Test
         public void Constructor_FilePathNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = null,
@@ -100,19 +92,14 @@ namespace Core.Gui.Test
             const string expectedMessage = "File path should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("requiredOpenProjectProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectOwnerNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -128,19 +115,14 @@ namespace Core.Gui.Test
             const string expectedMessage = "Project owner should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("requiredOpenProjectProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectFactoryNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -156,19 +138,14 @@ namespace Core.Gui.Test
             const string expectedMessage = "Project factory should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("requiredOpenProjectProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_StoreProjectNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -184,21 +161,16 @@ namespace Core.Gui.Test
             const string expectedMessage = "Project storage should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("requiredOpenProjectProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_MigrationFilePathNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectStorage = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -220,20 +192,15 @@ namespace Core.Gui.Test
             const string expectedMessage = "Migration target file path should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("optionalProjectMigrationProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_MigrateProjectNull_ThrowArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectStorage = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -255,8 +222,6 @@ namespace Core.Gui.Test
             const string expectedMessage = "Project migrator should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("optionalProjectMigrationProperties", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -264,18 +229,14 @@ namespace Core.Gui.Test
         {
             // Setup
             const string someFilePath = "<path to some file>";
+            var project = Substitute.For<IProject>();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someFilePath))
-                          .Return(project);
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -293,8 +254,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -302,16 +261,12 @@ namespace Core.Gui.Test
         {
             // Setup
             const string someFilePath = "<path to some file>";
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns((IProject)null);
 
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someFilePath))
-                          .Return(null);
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -329,8 +284,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -341,16 +294,12 @@ namespace Core.Gui.Test
 
             const string message = "<some exception message>";
             var innerException = new Exception("A");
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(x => { throw new StorageException(message, innerException); });
 
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someFilePath))
-                          .Throw(new StorageException(message, innerException));
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -372,8 +321,6 @@ namespace Core.Gui.Test
             }, 2);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -381,16 +328,12 @@ namespace Core.Gui.Test
         {
             // Setup
             const string someFilePath = "<path to some file>";
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(x => { throw new ArgumentException(); });
 
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someFilePath))
-                          .Throw(new ArgumentException());
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -408,8 +351,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -418,22 +359,18 @@ namespace Core.Gui.Test
             // Setup
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
+            var project = Substitute.For<IProject>();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someMigrationFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someMigrationFilePath))
-                          .Return(project);
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Expect(m => m.Migrate(someFilePath, someMigrationFilePath))
-                           .Return(true);
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.Migrate(someFilePath, someMigrationFilePath)
+                           .Returns(true);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -457,8 +394,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -467,23 +402,18 @@ namespace Core.Gui.Test
             // Setup
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
+            var project = Substitute.For<IProject>();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someMigrationFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someMigrationFilePath))
-                          .Return(project)
-                          .Repeat.Never();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Expect(m => m.Migrate(someFilePath, someMigrationFilePath))
-                           .Return(false);
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.Migrate(someFilePath, someMigrationFilePath)
+                           .Returns(false);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -507,8 +437,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -518,23 +446,18 @@ namespace Core.Gui.Test
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
             const string exceptionMessage = "<some exception message>";
+            var project = Substitute.For<IProject>();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someMigrationFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.StrictMock<IStoreProject>();
-            projectStorage.Expect(ps => ps.LoadProject(someMigrationFilePath))
-                          .Return(project)
-                          .Repeat.Never();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
 
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-
-            var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(m => m.Migrate(someFilePath, someMigrationFilePath))
-                           .Throw(new ArgumentException(exceptionMessage));
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.Migrate(someFilePath, someMigrationFilePath)
+                           .Returns(x => { throw new ArgumentException(exceptionMessage); });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -562,24 +485,18 @@ namespace Core.Gui.Test
             }, 2);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_WithMigration_ExpectedProgressNotifications()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(pm => pm.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Return(true);
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            var migrateProject = Substitute.For<IMigrateProject>();
+            migrateProject.Migrate(null, null)
+                          .Returns(true);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -614,19 +531,15 @@ namespace Core.Gui.Test
                 "Stap 2 van 3 | Inlezen van project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_WithoutMigration_ExpectedProgressNotifications()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -654,7 +567,6 @@ namespace Core.Gui.Test
                 "Stap 1 van 2 | Inlezen van project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -662,20 +574,16 @@ namespace Core.Gui.Test
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
+            var project = Substitute.For<IProject>();
+            project.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            project.Expect(p => p.NotifyObservers());
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Return(project);
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(project, someFilePath));
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.SetProject(project, someFilePath);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -705,8 +613,6 @@ namespace Core.Gui.Test
             Assert.AreEqual(ActivityState.Finished, activity.State);
 
             Assert.AreEqual(Path.GetFileNameWithoutExtension(someFilePath), project.Name);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -714,17 +620,13 @@ namespace Core.Gui.Test
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns((IProject)null);
 
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Return(null);
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(null, null));
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.SetProject(null, null);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -753,8 +655,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -763,17 +663,13 @@ namespace Core.Gui.Test
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(x => { throw exceptionToThrow; });
 
-            var mocks = new MockRepository();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Throw(exceptionToThrow);
-
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(null, null));
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.SetProject(null, null);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -802,8 +698,6 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -811,22 +705,17 @@ namespace Core.Gui.Test
         {
             // Setup
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
+            var project = Substitute.For<IProject>();
+            project.DidNotReceive().NotifyObservers();
 
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            project.Expect(p => p.NotifyObservers())
-                   .Repeat.Never();
+            var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath)
+                          .Returns(project);
 
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Return(project);
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(project, someFilePath))
-                        .Repeat.Never();
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.DidNotReceive().SetProject(project, someFilePath);
+            
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -852,28 +741,19 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Finish_ProjectMigratedAndOpened_ExpectedProgressText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(sp => sp.LoadProject(null))
-                        .IgnoreArguments()
-                        .Return(project);
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(pm => pm.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Return(true);
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
+            var migrateProject = Substitute.For<IMigrateProject>();
+            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -912,24 +792,17 @@ namespace Core.Gui.Test
                 "Stap 3 van 3 | Initialiseren van geopend project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Finish_OnlyProjectOpened_ExpectedProgressText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(sp => sp.LoadProject(null))
-                        .IgnoreArguments()
-                        .Return(project);
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -962,25 +835,18 @@ namespace Core.Gui.Test
                 "Stap 2 van 2 | Initialiseren van geopend project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Finish_ProjectMigrationFailed_ProjectSetToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(null, null));
-            var storeProject = mocks.Stub<IStoreProject>();
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(pm => pm.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Throw(new ArgumentException());
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            var storeProject = Substitute.For<IStoreProject>();
+            var migrateProject = Substitute.For<IMigrateProject>();
+            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -1011,7 +877,6 @@ namespace Core.Gui.Test
             activity.Finish();
 
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1020,16 +885,11 @@ namespace Core.Gui.Test
         public void GivenActivityMigratingAndOpeningProject_WhenCancellingDuringMigration_ThenDoNotLoadProject(bool migrationSuccessful)
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(mp => mp.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Return(migrationSuccessful);
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var migrateProject = Substitute.For<IMigrateProject>();
+            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(migrationSuccessful);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -1052,23 +912,17 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenActivityMigrationProject_WhenCancellingAndMigrationThrowsException_ThenDoNotLoadProject()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(mp => mp.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Throw(new ArgumentException());
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var migrateProject = Substitute.For<IMigrateProject>();
+            migrateProject.When(x => x.Migrate(Arg.Any<string>(), Arg.Any<string>())).Do(x => { throw new ArgumentException(); });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -1091,7 +945,6 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1100,16 +953,11 @@ namespace Core.Gui.Test
         public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_ThenDoNotSetProject(bool loadProjectSuccessful)
         {
             // Setup
-            var mocks = new MockRepository();
-            IProject project = loadProjectSuccessful ? mocks.Stub<IProject>() : null;
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(s => s.LoadProject(null))
-                        .IgnoreArguments()
-                        .Return(project);
-            mocks.ReplayAll();
-
+            IProject project = loadProjectSuccessful ? Substitute.For<IProject>() : null;
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -1126,22 +974,16 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenActivityOpeningProject_WhenCancellingWhileLoadProjectThrowsStorageException_ThenDoNotSetProject()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(s => s.LoadProject(null))
-                        .IgnoreArguments()
-                        .Throw(new StorageException());
-            mocks.ReplayAll();
-
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var projectOwner = Substitute.For<IProjectOwner>();
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.When(x=>x.LoadProject(Arg.Any<string>())).Do(x => { throw new StorageException(); });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -1158,7 +1000,6 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> ExceptionCases()

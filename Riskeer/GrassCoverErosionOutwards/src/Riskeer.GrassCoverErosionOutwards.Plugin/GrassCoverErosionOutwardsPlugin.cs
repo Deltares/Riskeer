@@ -344,7 +344,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
                                                                                      object parentData,
-                                                                                     TreeViewControl treeViewControl)
+                                                                                     ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -420,7 +420,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -437,7 +437,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -490,7 +490,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip CalculationGroupContextMenuStrip(GrassCoverErosionOutwardsCalculationGroupContext nodeData,
                                                                   object parentData,
-                                                                  TreeViewControl treeViewControl)
+                                                                  ITreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -677,7 +677,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip WaveConditionsCalculationContextMenuStrip(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
                                                                            object parentData,
-                                                                           TreeViewControl treeViewControl)
+                                                                           ITreeViewControl treeViewControl)
         {
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));

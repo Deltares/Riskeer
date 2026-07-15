@@ -29,7 +29,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
@@ -206,30 +206,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicLoadsStateRootContext(assessmentSection);
-
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -241,7 +230,20 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddRenameItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -253,12 +255,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var mocks = new MockRepository();
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeView).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     plugin.Gui = gui;
@@ -299,11 +297,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicLoadsStateRootContext(assessmentSection);
             context.Attach(observer);
@@ -319,8 +313,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(newName, assessmentSection.Name);
             }
-
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]

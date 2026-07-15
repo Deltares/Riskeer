@@ -24,7 +24,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -33,35 +33,24 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class CriticalProfilePropertiesTest
     {
-        private MockRepository mocks;
-
         [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
+        public void SetUp() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_WithReaderValuesValid_SetProperties()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             const string profileName = "profile";
             const int layerCount = 1;
             const long soilProfileId = 1234;
 
-            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).IgnoreArguments().Return(layerCount);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.SoilProfileId)).IgnoreArguments().Return(soilProfileId);
-
-            mocks.ReplayAll();
-
+            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
+            reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(layerCount);
+            reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(soilProfileId);
             // Call
             var properties = new CriticalProfileProperties(reader);
 
@@ -75,19 +64,16 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_WithReaderInvalidProfileId_ThrowsCriticalFileReadException()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             const string profileName = "profile";
             const int layerCount = 1;
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).IgnoreArguments().Return(layerCount);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.SoilProfileId)).IgnoreArguments().Throw(invalidCastException);
-            reader.Expect(r => r.Path).Return(path);
-
-            mocks.ReplayAll();
-
+            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
+            reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(layerCount);
+            reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(_ => throw invalidCastException);
+            reader.Path.Returns(path);
             // Call
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
@@ -104,15 +90,12 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_WithReaderInvalidProfileName_ThrowsCriticalFileReadException()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Throw(invalidCastException);
-            reader.Expect(r => r.Path).Return(path);
-
-            mocks.ReplayAll();
-
+            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(_ => throw invalidCastException);
+            reader.Path.Returns(path);
             // Call
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
@@ -128,17 +111,14 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_WithReaderInvalidLayerCount_ThrowsCriticalFileReadException()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             const string profileName = "profile";
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName);
-            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).Throw(invalidCastException);
-            reader.Expect(r => r.Path).Return(path);
-
-            mocks.ReplayAll();
-
+            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
+            reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(_ => throw invalidCastException);
+            reader.Path.Returns(path);
             // Call
             TestDelegate test = () => new CriticalProfileProperties(reader);
 

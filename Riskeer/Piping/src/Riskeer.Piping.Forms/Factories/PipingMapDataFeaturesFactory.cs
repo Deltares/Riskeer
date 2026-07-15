@@ -109,16 +109,14 @@ namespace Riskeer.Piping.Forms.Factories
                 return new MapFeature[0];
             }
 
-            IEnumerable<TCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
-                c => c.InputParameters.SurfaceLine != null
-                     && c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<TCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c => c.InputParameters.SurfaceLine != null
+                                                                                                                             && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
-                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new MapCalculationData(
-                        calculation.Name,
-                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(calculation => new MapCalculationData(
+                                                                                calculation.Name,
+                                                                                calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                                                                calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

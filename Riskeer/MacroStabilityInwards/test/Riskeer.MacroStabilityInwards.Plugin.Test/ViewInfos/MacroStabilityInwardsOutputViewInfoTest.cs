@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -42,14 +42,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsOutputViewInfoTest
     {
-        private MockRepository mocks;
+        
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsOutputView));
         }
@@ -83,9 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var scenario = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsOutputContext(scenario, failureMechanism, assessmentSection);
 
@@ -94,7 +92,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(scenario, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,7 +109,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculation, view.Data);
-            mocks.VerifyAll();
         }
 
         [TestFixture]

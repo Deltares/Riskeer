@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -34,14 +34,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.HydraulicLoadsState
     [TestFixture]
     public class DuneErosionFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
+        
         private DuneErosionPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
+            
             plugin = new DuneErosionPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DuneErosionFailureMechanismView));
         }
@@ -64,9 +64,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.HydraulicLoadsState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -75,7 +73,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.HydraulicLoadsState
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
-            mocks.VerifyAll();
         }
 
         [Test]

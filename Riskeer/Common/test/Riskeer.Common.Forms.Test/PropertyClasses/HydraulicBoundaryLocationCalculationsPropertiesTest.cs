@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -38,9 +38,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestHydraulicBoundaryLocationCalculationsProperties(null, assessmentSection);
@@ -48,7 +46,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocationCalculations", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,10 +63,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
@@ -80,18 +74,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertyControlWithData_WhenSingleCalculationUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
@@ -109,18 +98,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 // Then
                 Assert.AreEqual(1, refreshRequiredRaised);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_ThenRefreshRequiredEventNotRaised()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
@@ -138,7 +122,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(0, refreshRequiredRaised);
-            mocks.VerifyAll();
         }
 
         private class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties

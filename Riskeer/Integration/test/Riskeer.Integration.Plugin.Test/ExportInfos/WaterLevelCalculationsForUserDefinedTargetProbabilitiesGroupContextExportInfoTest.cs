@@ -25,7 +25,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -77,10 +77,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_WithContext_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(), assessmentSection);
 
@@ -96,18 +93,13 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter>(fileExporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ContextWithTargetProbabilities_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
@@ -124,18 +116,13 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ContextWithEmptyTargetProbabilities_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(), assessmentSection);
 
@@ -149,8 +136,6 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(RiskeerPlugin plugin)

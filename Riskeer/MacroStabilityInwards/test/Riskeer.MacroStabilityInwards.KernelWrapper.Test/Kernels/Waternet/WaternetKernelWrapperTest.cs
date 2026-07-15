@@ -25,7 +25,7 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
@@ -38,9 +38,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Constructor_CalculatorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
+            var validator = Substitute.For<IValidator>();
 
             // Call
             void Call() => new WaternetKernelWrapper(null, validator, string.Empty);
@@ -48,16 +46,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculator", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidatorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            mocks.ReplayAll();
+            var calculator = Substitute.For<ICalculator>();
 
             // Call
             void Call() => new WaternetKernelWrapper(calculator, null, string.Empty);
@@ -65,25 +60,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("validator", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
             // Call
             var kernel = new WaternetKernelWrapper(calculator, validator, "Waternet");
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
             Assert.IsNull(kernel.Waternet);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -99,17 +89,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
                 Waternet = new CSharpWrapperWaternet(),
                 Messages = messagesNull ? null : new Message[0]
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.CalculateWaternet(0)).Return(output);
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            var calculator = Substitute.For<ICalculator>();
+            calculator.CalculateWaternet(0).Returns(output);
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(new ValidationOutput
             {
                 IsValid = true
             });
-            mocks.ReplayAll();
-
             var kernel = new WaternetKernelWrapper(calculator, validator, name);
 
             // Call
@@ -118,22 +104,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             // Assert
             Assert.AreSame(output.Waternet, kernel.Waternet);
             Assert.AreEqual(name, kernel.Waternet.Name);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Calculate_WaternetCannotBeGenerated_ThrowsWaternetKernelWrapperException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(new ValidationOutput
             {
                 IsValid = false
             });
-            mocks.ReplayAll();
-
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call
@@ -141,7 +123,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             // Assert
             Assert.Throws<WaternetKernelWrapperException>(Call);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,17 +130,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var exceptionToThrow = new Exception();
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.CalculateWaternet(0)).Throw(exceptionToThrow);
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            var calculator = Substitute.For<ICalculator>();
+            calculator.CalculateWaternet(0).Returns(_ => throw exceptionToThrow);
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(new ValidationOutput
             {
                 IsValid = true
             });
-            mocks.ReplayAll();
-
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call
@@ -169,7 +146,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var exception = Assert.Throws<WaternetKernelWrapperException>(Call);
             Assert.AreSame(exceptionToThrow, exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -202,17 +178,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
                 },
                 Waternet = new CSharpWrapperWaternet()
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.CalculateWaternet(0)).Return(waternetCreatorOutput);
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            var calculator = Substitute.For<ICalculator>();
+            calculator.CalculateWaternet(0).Returns(waternetCreatorOutput);
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(new ValidationOutput
             {
                 IsValid = true
             });
-            mocks.ReplayAll();
-
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call
@@ -223,7 +195,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             string expectedMessage = $"{message1}{Environment.NewLine}" +
                                      $"{message2}";
             Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -234,13 +205,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             {
                 Messages = new Message[0]
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Return(validationOutput);
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(validationOutput);
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call
@@ -248,7 +215,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             // Assert
             Assert.AreSame(validationOutput.Messages, validationMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -256,13 +222,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var exceptionToThrow = new Exception();
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.ValidateWaternetCreator()).Throw(exceptionToThrow);
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
+            validator.ValidateWaternetCreator().Returns(_ => throw exceptionToThrow);
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call

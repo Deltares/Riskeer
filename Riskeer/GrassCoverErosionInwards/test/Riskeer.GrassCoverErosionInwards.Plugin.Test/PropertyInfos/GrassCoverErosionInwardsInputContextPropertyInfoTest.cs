@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -62,10 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new GrassCoverErosionInwardsInputContext(
@@ -80,8 +77,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

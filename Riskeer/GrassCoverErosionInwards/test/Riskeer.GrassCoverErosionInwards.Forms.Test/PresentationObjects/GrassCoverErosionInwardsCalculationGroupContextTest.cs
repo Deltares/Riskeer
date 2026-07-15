@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -40,10 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -60,7 +57,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.DikeProfiles, groupContext.AvailableDikeProfiles);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture(true)]
@@ -69,25 +65,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             : EqualsTestFixture<GrassCoverErosionInwardsCalculationGroupContext,
                 DerivedGrassCoverErosionInwardsCalculationGroupContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
 
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
 
             private static CalculationGroup parent;
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             public GrassCoverErosionInwardsCalculationGroupContextEqualsTest(bool hasParent)
             {

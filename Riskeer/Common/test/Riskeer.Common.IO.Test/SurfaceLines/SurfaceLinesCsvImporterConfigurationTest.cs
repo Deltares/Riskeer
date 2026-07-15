@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.IO.SurfaceLines;
 
@@ -34,50 +34,38 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_ValidParameters_ValuesAsExpected()
         {
             // Setup
-            var mocks = new MockRepository();
-            var strategy = mocks.Stub<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            var transformer = mocks.Stub<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
-            mocks.ReplayAll();
-
+            var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
+            var transformer = Substitute.For<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
             // Call
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
 
             // Assert
             Assert.AreSame(strategy, configuration.UpdateStrategy);
             Assert.AreSame(transformer, configuration.Transformer);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            var mocks = new MockRepository();
-            var transformer = mocks.Stub<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
-            mocks.ReplayAll();
-
+            var transformer = Substitute.For<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
             TestDelegate test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("updateStrategy", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_TransformerNull_ThrowsArgumentNullException()
         {
             // Call
-            var mocks = new MockRepository();
-            var strategy = mocks.Stub<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            mocks.ReplayAll();
-
+            var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
             TestDelegate test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(null, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("transformer", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }

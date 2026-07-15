@@ -25,7 +25,7 @@ using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
@@ -48,9 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
         public void Constructor_InputNull_ArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
-            mocks.ReplayAll();
+            var factory = Substitute.For<IMacroStabilityInwardsKernelFactory>();
 
             // Call
             void Call() => new TestWaternetCalculator(null, factory);
@@ -58,7 +56,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,10 +76,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
-            mocks.ReplayAll();
-
+            var factory = Substitute.For<IMacroStabilityInwardsKernelFactory>();
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
 
             // Call
@@ -90,7 +84,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 
             // Assert
             Assert.IsInstanceOf<IWaternetCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]

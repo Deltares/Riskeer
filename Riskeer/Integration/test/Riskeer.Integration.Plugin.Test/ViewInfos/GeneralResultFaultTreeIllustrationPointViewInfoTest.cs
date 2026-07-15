@@ -24,7 +24,7 @@ using System.Threading;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
@@ -85,33 +85,24 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedStructuresCalculation()
         {
             // Setup
-            var mocks = new MockRepository();
-            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-            mocks.ReplayAll();
-
+            var structuresCalculation = Substitute.For<IStructuresCalculation>();
             // Call
             object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateInstance_WithContext_CreatesGeneralResultFaultTreeIllustrationPointView()
         {
             // Setup
-            var mocks = new MockRepository();
-            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-            mocks.ReplayAll();
-
+            var structuresCalculation = Substitute.For<IStructuresCalculation>();
             // Call
             IView view = info.CreateInstance(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
-            mocks.VerifyAll();
         }
 
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester

@@ -53,7 +53,7 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -129,11 +129,8 @@ namespace Core.Gui.Test.Forms.Main
         public void SetGui_Always_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             using (var mainWindow = new MainWindow())
             {
                 // Call
@@ -141,7 +138,6 @@ namespace Core.Gui.Test.Forms.Main
 
                 // Assert
                 Assert.IsNotNull(mainWindow.BackstageViewModel);
-                mocks.VerifyAll();
             }
         }
 
@@ -179,16 +175,13 @@ namespace Core.Gui.Test.Forms.Main
         public void Visible_SetToTrue_ShowMainForm()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
+            var viewHost = Substitute.For<IViewHost>();
+            viewHost.ToolViews.Returns(new IView[0]);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
-            gui.Stub(g => g.ViewHost).Return(viewHost);
-            mocks.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.FixedSettings.Returns(new GuiCoreSettings());
+            gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
+            gui.ViewHost.Returns(viewHost);
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -201,24 +194,19 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsTrue(mainWindow.IsVisible);
                 Assert.AreEqual(Visibility.Visible, mainWindow.Visibility);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Visible_SetToFalse_HideMainForm()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
+            var viewHost = Substitute.For<IViewHost>();
+            viewHost.ToolViews.Returns(new IView[0]);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
-            gui.Stub(g => g.ViewHost).Return(viewHost);
-            mocks.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.FixedSettings.Returns(new GuiCoreSettings());
+            gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
+            gui.ViewHost.Returns(viewHost);
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -232,8 +220,6 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsFalse(mainWindow.IsVisible);
                 Assert.AreEqual(Visibility.Hidden, mainWindow.Visibility);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -254,18 +240,24 @@ namespace Core.Gui.Test.Forms.Main
         public void SubscribeToGui_GuiSet_AttachEvents()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Expect(vh => vh.ViewOpened += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewBroughtToFront += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ActiveDocumentViewChanged += null).IgnoreArguments();
+            var viewHost = Substitute.For<IViewHost>();
+            EventHandler opened = null;
+            EventHandler front = null;
+            EventHandler closed = null;
+            EventHandler changed = null;
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(viewHost);
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
-
+            viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => opened = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => front = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => closed = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
+                    .Do(ci => changed = ci.Arg<EventHandler>());
+            
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(viewHost);
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -275,7 +267,13 @@ namespace Core.Gui.Test.Forms.Main
             }
 
             // Assert
-            mocks.VerifyAll(); // Expect event subscription
+            Assert.Multiple(() =>
+            {
+                Assert.That(opened, Is.Not.Null);
+                Assert.That(front, Is.Not.Null);
+                Assert.That(closed, Is.Not.Null);
+                Assert.That(changed, Is.Not.Null);
+            });
         }
 
         [Test]
@@ -296,22 +294,33 @@ namespace Core.Gui.Test.Forms.Main
         public void UnsubscribeFromGui_GuiSetAndSubscribed_DetachEvents()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Expect(vh => vh.ViewOpened += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewOpened -= null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewBroughtToFront += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewBroughtToFront -= null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ActiveDocumentViewChanged += null).IgnoreArguments();
-            viewHost.Expect(vh => vh.ActiveDocumentViewChanged -= null).IgnoreArguments();
+            var viewHost = Substitute.For<IViewHost>();
+            EventHandler opened = null;
+            EventHandler front = null;
+            EventHandler closed = null;
+            EventHandler changed = null;
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(viewHost);
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
+            viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => opened = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => front = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => closed = ci.Arg<EventHandler>());
+            viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
+                    .Do(ci => changed = ci.Arg<EventHandler>());
 
+            viewHost.When(x => x.ViewOpened -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => opened = null);
+            viewHost.When(x => x.ViewBroughtToFront -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => front = null);
+            viewHost.When(x => x.ViewClosed -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+                    .Do(ci => closed = null);
+            viewHost.When(x => x.ActiveDocumentViewChanged -= Arg.Any<EventHandler<EventArgs>>())
+                    .Do(ci => changed = null);
+
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(viewHost);
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -322,7 +331,13 @@ namespace Core.Gui.Test.Forms.Main
             }
 
             // Assert
-            mocks.VerifyAll(); // Expect event subscription and desubscription
+            Assert.Multiple(() =>
+            {
+                Assert.That(opened, Is.Null);
+                Assert.That(front, Is.Null);
+                Assert.That(closed, Is.Null);
+                Assert.That(changed, Is.Null);
+            });
         }
 
         [Test]
@@ -346,20 +361,16 @@ namespace Core.Gui.Test.Forms.Main
             // Setup
             var selectedObject = new object();
             var viewHost = new AvalonDockViewHost();
+            var selectedObjectProperties = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(selectedObject)
+                            .Returns(selectedObjectProperties);
 
-            var mocks = new MockRepository();
-            var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
-                            .Return(selectedObjectProperties);
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(viewHost);
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(viewHost);
             gui.Selection = selectedObject;
-            gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
-
+            gui.PropertyResolver.Returns(propertyResolver);
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -373,7 +384,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
-            mocks.VerifyAll();
+            propertyResolver.Received().GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -382,21 +393,16 @@ namespace Core.Gui.Test.Forms.Main
             // Setup
             var selectedObject = new object();
             var viewHost = new AvalonDockViewHost();
+            var selectedObjectProperties = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(selectedObject)
+                            .Returns(selectedObjectProperties);
 
-            var mocks = new MockRepository();
-            var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
-                            .Return(selectedObjectProperties)
-                            .Repeat.Once();
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(viewHost);
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(viewHost);
             gui.Selection = selectedObject;
-            gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
-
+            gui.PropertyResolver.Returns(propertyResolver);
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -413,7 +419,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreSame(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
-            mocks.VerifyAll();
+            propertyResolver.Received().GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -441,26 +447,22 @@ namespace Core.Gui.Test.Forms.Main
             {
                 new TreeNodeInfo<IProject>()
             };
+            var selectedObjectProperties = Substitute.For<IObjectProperties>();
 
-            var mocks = new MockRepository();
-            var selectedObjectProperties = mocks.Stub<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(selectedObject)
+                            .Returns(selectedObjectProperties);
 
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
-                            .Return(selectedObjectProperties);
+            var viewCommands = Substitute.For<IViewCommands>();
+            var project = Substitute.For<IProject>();
 
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var project = mocks.Stub<IProject>();
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(viewHost);
-            gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            gui.Stub(g => g.Project).Return(project);
-            gui.Stub(g => g.GetTreeNodeInfos()).Return(treeNodeInfos);
-            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            mocks.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(viewHost);
+            gui.PropertyResolver.Returns(propertyResolver);
+            gui.ViewCommands.Returns(viewCommands);
+            gui.Project.Returns(project);
+            gui.GetTreeNodeInfos().Returns(treeNodeInfos);
+            gui.FixedSettings.Returns(new GuiCoreSettings());
             gui.Selection = selectedObject;
 
             using (var mainWindow = new MainWindow())
@@ -493,7 +495,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
 
-            mocks.VerifyAll();
+            propertyResolver.Received().GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -540,13 +542,10 @@ namespace Core.Gui.Test.Forms.Main
         public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenProjectSet_ThenNoDataSetOnProjectExplorer()
         {
             // Given
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -560,21 +559,16 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsNull(mainWindow.ProjectExplorer.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenProjectSet_ThenExpectedDataSetOnProjectExplorer()
         {
             // Given
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -593,21 +587,16 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenProjectSet_ThenExpectedDataSetOnProjectExplorer()
         {
             // Given
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -627,20 +616,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithMapLegendView_WhenMapViewAdded_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -661,20 +645,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithMapLegendView_WhenMapViewBroughtToFront_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -699,20 +678,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithMapLegendView_WhenMapViewRemoved_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -735,20 +709,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsNull(GetMapControl(mapLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithMapLegendView_WhenOtherMapViewRemoved_ThenComponentsNotUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -773,20 +742,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithChartLegendView_WhenChartViewAdded_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -807,20 +771,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithChartLegendView_WhenChartViewBroughtToFront_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -845,20 +804,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view1.Chart, GetChartControl(chartLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithChartLegendView_WhenChartViewRemoved_ThenComponentsUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -881,20 +835,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsNull(GetChartControl(chartLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithChartLegendView_WhenOtherChartViewRemoved_ThenComponentsNotUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -919,8 +868,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -929,14 +876,10 @@ namespace Core.Gui.Test.Forms.Main
         public void GivenMainWindow_WhenNewProjectIsCalled_ThenCreateNewProject(bool backstageVisible)
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            projectFactory.CreateNewProject().Returns(Substitute.For<IProject>());
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -957,7 +900,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
 
-            mocks.VerifyAll();
+            projectFactory.Received().CreateNewProject();
         }
 
         [Test]
@@ -978,12 +921,9 @@ namespace Core.Gui.Test.Forms.Main
         public void GivenMainWindowWithoutProject_WhenSaveProjectCanExecuteIsCalled_ThenReturnsFalse()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -997,21 +937,16 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsFalse(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMainWindowWithProject_WhenSaveProjectCanExecuteIsCalled_ThenReturnsTrue()
         {
             // Given
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1026,8 +961,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsTrue(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1041,19 +974,14 @@ namespace Core.Gui.Test.Forms.Main
 
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
             {
-                var mocks = new MockRepository();
-                var project = mocks.Stub<IProject>();
+                var project = Substitute.For<IProject>();
 
-                var projectStore = mocks.StrictMock<IStoreProject>();
-                projectStore.Expect(ps => ps.SaveProjectAs(someValidFilePath));
-                projectStore.Expect(ps => ps.SaveProjectFileFilter).Return(string.Empty);
-                projectStore.Expect(ps => ps.HasStagedProject).Return(false);
-                projectStore.Expect(ps => ps.StageProject(project));
+                var projectStore = Substitute.For<IStoreProject>();
+                projectStore.SaveProjectFileFilter.Returns(string.Empty);
+                projectStore.HasStagedProject.Returns(false);
 
-                var projectMigrator = mocks.Stub<IMigrateProject>();
-                var projectFactory = mocks.Stub<IProjectFactory>();
-                mocks.ReplayAll();
-
+                var projectMigrator = Substitute.For<IMigrateProject>();
+                var projectFactory = Substitute.For<IProjectFactory>();
                 DialogBoxHandler = (s, hWnd) =>
                 {
                     var saveFileDialogTester = new SaveFileDialogTester(hWnd);
@@ -1090,8 +1018,10 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
-
-                mocks.VerifyAll();
+                
+                
+                projectStore.Received().SaveProjectAs(someValidFilePath);
+                projectStore.Received().StageProject(project);
             }
         }
 
@@ -1113,12 +1043,9 @@ namespace Core.Gui.Test.Forms.Main
         public void GivenMainWindowWithoutProject_WhenSaveProjectAsCanExecuteIsCalled_ThenReturnsFalse()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1132,21 +1059,16 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsFalse(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMainWindowWithProject_WhenSaveProjectAsCanExecuteIsCalled_ThenReturnsTrue()
         {
             // Given
-            var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var project = Substitute.For<IProject>();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1161,8 +1083,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsTrue(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1176,19 +1096,14 @@ namespace Core.Gui.Test.Forms.Main
 
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
             {
-                var mocks = new MockRepository();
-                var project = mocks.Stub<IProject>();
+                var project = Substitute.For<IProject>();
 
-                var projectStore = mocks.StrictMock<IStoreProject>();
-                projectStore.Expect(ps => ps.SaveProjectAs(someValidFilePath));
-                projectStore.Expect(ps => ps.SaveProjectFileFilter).Return(string.Empty);
-                projectStore.Expect(ps => ps.HasStagedProject).Return(false);
-                projectStore.Expect(ps => ps.StageProject(project));
+                var projectStore = Substitute.For<IStoreProject>();
+                projectStore.SaveProjectFileFilter.Returns(string.Empty);
+                projectStore.HasStagedProject.Returns(false);
 
-                var projectMigrator = mocks.Stub<IMigrateProject>();
-                var projectFactory = mocks.Stub<IProjectFactory>();
-                mocks.ReplayAll();
-
+                var projectMigrator = Substitute.For<IMigrateProject>();
+                var projectFactory = Substitute.For<IProjectFactory>();
                 DialogBoxHandler = (s, hWnd) =>
                 {
                     var saveFileDialogTester = new SaveFileDialogTester(hWnd);
@@ -1225,8 +1140,9 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
-
-                mocks.VerifyAll();
+                
+                projectStore.Received().SaveProjectAs(someValidFilePath);
+                projectStore.Received().StageProject(project);
             }
         }
 
@@ -1238,17 +1154,12 @@ namespace Core.Gui.Test.Forms.Main
             // Given
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Gui);
             string filePath = Path.Combine(directoryPath, nameof(MainWindowTest), "Project.risk");
+            var projectStore = Substitute.For<IStoreProject>();
+            projectStore.LoadProject(filePath).Returns(Substitute.For<IProject>());
+            projectStore.OpenProjectFileFilter.Returns(string.Empty);
 
-            var mocks = new MockRepository();
-
-            var projectStore = mocks.StrictMock<IStoreProject>();
-            projectStore.Expect(ps => ps.LoadProject(filePath));
-            projectStore.Expect(ps => ps.OpenProjectFileFilter).Return(string.Empty);
-
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             DialogBoxHandler = (s, hWnd) =>
             {
                 var openFileDialogTester = new OpenFileDialogTester(hWnd);
@@ -1284,20 +1195,17 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
-
-            mocks.VerifyAll();
+            
+            projectStore.Received().LoadProject(filePath);
         }
 
         [Test]
         public void GivenMainWindowWithoutViewTabOpen_WhenCanExecuteCloseViewTabCommand_ThenFalse()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1311,20 +1219,15 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsFalse(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMainWindowWithViewTabOpen_WhenCanExecuteCloseViewTabCommand_ThenTrue()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1340,8 +1243,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 Assert.IsTrue(canExecute);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1350,12 +1251,9 @@ namespace Core.Gui.Test.Forms.Main
         public void GivenMainWindow_WhenExecuteToggleBackstageCommand_ThenBackstageToggled(bool backstageVisible)
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1377,8 +1275,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 AssertVisibility(mainWindow, !backstageVisible);
             }
-
-            mocks.VerifyAll();
         }
 
         private static void ToggleToolViewAndAssert(Func<MainWindow, IView> getToolViewFunc,
@@ -1386,12 +1282,9 @@ namespace Core.Gui.Test.Forms.Main
                                                     bool initiallyAdded)
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1415,8 +1308,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Then
                 AssertToolWindowPresent(mainWindow.ViewHost.ToolViews, getToolViewFunc(mainWindow), !initiallyAdded);
             }
-
-            mocks.VerifyAll();
         }
 
         private static void AssertToolWindowPresent(IEnumerable<IView> toolViews, IView toolView, bool isPresent)

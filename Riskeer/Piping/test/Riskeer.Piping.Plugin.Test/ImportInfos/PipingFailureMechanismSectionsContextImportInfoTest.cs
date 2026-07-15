@@ -27,7 +27,7 @@ using Core.Common.Util;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
@@ -48,10 +48,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
             // Call
@@ -59,17 +56,13 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.AreEqual("Vakindeling", name);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
             // Call
@@ -77,17 +70,13 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.AreEqual("Algemeen", category);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
             // Call
@@ -95,19 +84,15 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
@@ -116,19 +101,15 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
@@ -137,17 +118,13 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
             // Call
@@ -155,18 +132,14 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void VerifyUpdates_NoProbabilisticCalculations_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
@@ -181,18 +154,14 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void VerifyUpdates_ProbabilisticCalculationsWithoutOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
 
@@ -204,7 +173,6 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -215,14 +183,10 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             // Setup
             string expectedInquiryMessage = "Als u een vakindeling importeert, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd." +
                                             $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.InquireContinuation(expectedInquiryMessage))
-                         .Return(isActionConfirmed);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation(expectedInquiryMessage)
+                         .Returns(isActionConfirmed);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var calculationWithOutput = new ProbabilisticPipingCalculationScenario
             {
@@ -238,19 +202,15 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.AreEqual(isActionConfirmed, updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = GetImportInfo(inquiryHelper);
 
@@ -259,7 +219,6 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
-            mocks.VerifyAll();
         }
 
         private static ImportInfo<PipingFailureMechanismSectionsContext> GetImportInfo(IInquiryHelper inquiryHelper)

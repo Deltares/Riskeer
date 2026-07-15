@@ -225,7 +225,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(null, treeViewControl).Returns(menuBuilder);
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);

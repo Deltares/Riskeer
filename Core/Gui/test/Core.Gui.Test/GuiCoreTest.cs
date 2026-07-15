@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -49,7 +49,7 @@ using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Xceed.Wpf.AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
@@ -82,12 +82,9 @@ namespace Core.Gui.Test
         public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             // Call
@@ -121,20 +118,15 @@ namespace Core.Gui.Test
 
                 Assert.AreSame(projectStore, gui.ProjectStore);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_MainWindowNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             // Call
@@ -143,18 +135,14 @@ namespace Core.Gui.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mainWindow", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectStoreNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -166,19 +154,14 @@ namespace Core.Gui.Test
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectStore", exception.ParamName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -190,19 +173,14 @@ namespace Core.Gui.Test
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectMigrator", exception.ParamName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ProjectFactoryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -214,20 +192,15 @@ namespace Core.Gui.Test
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectFactory", exception.ParamName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FixedSettingsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             {
                 // Call
@@ -237,23 +210,17 @@ namespace Core.Gui.Test
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("fixedSettings", exception.ParamName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_WithPlugin_PluginRemoved()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Expect(p => p.Deactivate());
-            plugin.Expect(p => p.Dispose());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var plugin = Substitute.For<PluginBase>();
 
+            var projectFactory = Substitute.For<IProjectFactory>();
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Plugins.Add(plugin);
 
@@ -262,22 +229,20 @@ namespace Core.Gui.Test
 
             // Assert
             CollectionAssert.IsEmpty(gui.Plugins);
-            mocks.VerifyAll();
+            plugin.Received().Deactivate();
+            plugin.Received().Dispose();
         }
 
         [Test]
         public void Dispose_WithPluginThatThrowsExceptionDuringDeactivation_LogsErrorAndPluginRemoved()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
-            plugin.Expect(p => p.Dispose());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var plugin = Substitute.For<PluginBase>();
+            plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("Bad stuff happening!"));
+            plugin.Dispose();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Plugins.Add(plugin);
 
@@ -287,19 +252,15 @@ namespace Core.Gui.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
             CollectionAssert.IsEmpty(gui.Plugins);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_HasSelection_SelectionCleared()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
             {
                 Selection = new object()
@@ -310,19 +271,15 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.IsNull(gui.Selection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_HasMainWindow_MainWindowDisposed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             {
                 var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -334,20 +291,15 @@ namespace Core.Gui.Test
                 Assert.IsTrue(mainWindow.IsWindowDisposed);
                 Assert.IsNull(gui.MainWindow);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_HasInitializedMessageWindowForLogAppender_MessageWindowCleared()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var messageWindowLogAppender = new MessageWindowLogAppender();
 
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
@@ -374,20 +326,15 @@ namespace Core.Gui.Test
             {
                 rootLogger.RemoveAppender(messageWindowLogAppender);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_HasOpenedToolView_ToolViewsClearedAndViewsDisposed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var toolView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -402,20 +349,15 @@ namespace Core.Gui.Test
                 CollectionAssert.IsEmpty(gui.ViewHost.ToolViews);
                 Assert.IsTrue(toolView.IsDisposed);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Dispose_HasOpenedDocumentView_DocumentViewsClearedAndViewsDisposed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var documentView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -431,20 +373,15 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.DocumentViewController);
                 Assert.IsTrue(documentView.IsDisposed);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_NoMessageWindowLogAppender_AddsNewLogAppender()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
             rootLogger.RemoveAllAppenders();
@@ -474,20 +411,15 @@ namespace Core.Gui.Test
                     rootLogger.AddAppender(appender);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_AlreadyHasMessageWindowLogAppender_NoChangesToLogAppenders()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var appender = new MessageWindowLogAppender();
 
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
@@ -520,8 +452,6 @@ namespace Core.Gui.Test
                     rootLogger.AddAppender(originalAppender);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -530,16 +460,12 @@ namespace Core.Gui.Test
             // Setup
             const string fileName = "SomeFile";
             var testFile = $"{fileName}.rtd";
-
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
-            var project = mocks.Stub<IProject>();
-            projectStore.Expect(ps => ps.LoadProject(testFile)).Return(project);
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.No);
+            var project = Substitute.For<IProject>();
+            projectStore.LoadProject(testFile).Returns(project);
+            var projectFactory = Substitute.For<IProjectFactory>();
             project.Name = fileName;
 
             var guiCoreSettings = new GuiCoreSettings
@@ -574,8 +500,6 @@ namespace Core.Gui.Test
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -584,15 +508,11 @@ namespace Core.Gui.Test
             // Setup
             const string fileName = "SomeFile";
             var testFile = $"{fileName}.rtd";
-
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationRequired.Yes);
-            projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(null);
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.Yes);
+            projectMigrator.DetermineMigrationLocation(testFile).Returns((string) null);
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -603,8 +523,6 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -615,16 +533,11 @@ namespace Core.Gui.Test
             var testFile = $"{fileName}.rtd";
 
             const string expectedErrorMessage = "You shall not migrate!";
+            var projectStore = Substitute.For<IStoreProject>();
 
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile))
-                           .Throw(new ArgumentException(expectedErrorMessage));
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(testFile).Returns(_ => throw new ArgumentException(expectedErrorMessage));
+            var projectFactory = Substitute.For<IProjectFactory>();
             var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -639,8 +552,6 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -652,18 +563,13 @@ namespace Core.Gui.Test
             var targetFile = $"{fileName}_17_1.rtd";
 
             const string expectedErrorMessage = "You shall not migrate!";
+            var projectStore = Substitute.For<IStoreProject>();
 
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationRequired.Yes);
-            projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(targetFile);
-            projectMigrator.Stub(pm => pm.Migrate(testFile, targetFile))
-                           .Throw(new ArgumentException(expectedErrorMessage));
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.Yes);
+            projectMigrator.DetermineMigrationLocation(testFile).Returns(targetFile);
+            projectMigrator.Migrate(testFile, targetFile).Returns(_ => throw new ArgumentException(expectedErrorMessage));
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings
             {
                 ApplicationIcon = SystemIcons.Application
@@ -687,8 +593,6 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -699,15 +603,11 @@ namespace Core.Gui.Test
             var testFile = $"{fileName}.rtd";
 
             const string storageExceptionText = "<Some error preventing the project from being opened>";
-
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
-            projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.No);
+            projectStore.LoadProject(testFile).Returns(_ => throw new StorageException(storageExceptionText));
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings
             {
                 ApplicationIcon = SystemIcons.Application
@@ -731,8 +631,6 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -742,12 +640,9 @@ namespace Core.Gui.Test
         public void Run_WithoutFile_NoProjectSet(string path)
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.StrictMock<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -760,19 +655,14 @@ namespace Core.Gui.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_WithPlugins_SetGuiAndActivatePlugins()
         {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -785,27 +675,20 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.AreSame(gui, plugin.Gui);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Run_WithPluginThatThrowsExceptionWhenActivated_PluginDeactivatedAndDisposed()
         {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
-            plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-            plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
-            plugin.Expect(p => p.Deactivate());
-            plugin.Expect(p => p.Dispose());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var plugin = Substitute.For<PluginBase>();
+            plugin.GetStateInfos().Returns(Enumerable.Empty<StateInfo>());
+            plugin.GetViewInfos().Returns(Enumerable.Empty<ViewInfo>());
+            plugin.GetPropertyInfos().Returns(Enumerable.Empty<PropertyInfo>());
+            plugin.GetTreeNodeInfos().Returns(Enumerable.Empty<TreeNodeInfo>());
+            plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
+            var projectFactory = Substitute.For<IProjectFactory>();
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -816,26 +699,25 @@ namespace Core.Gui.Test
             }
 
             // Assert
-            mocks.VerifyAll(); // Expect calls on plugin
+            // Expect calls on plugin
+            plugin.Received().Dispose();
+            plugin.Received().Deactivate();
         }
 
         [Test]
         public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogsErrorForDeactivatingThenDisposed()
         {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
-            plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-            plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
-            plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
-            plugin.Expect(p => p.Dispose());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var plugin = Substitute.For<PluginBase>();
+            plugin.GetStateInfos().Returns(Enumerable.Empty<StateInfo>());
+            plugin.GetViewInfos().Returns(Enumerable.Empty<ViewInfo>());
+            plugin.GetPropertyInfos().Returns(Enumerable.Empty<PropertyInfo>());
+            plugin.GetTreeNodeInfos().Returns(Enumerable.Empty<TreeNodeInfo>());
+            plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
+            plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("MORE ERROR!"));
+            plugin.Dispose();
+            var projectFactory = Substitute.For<IProjectFactory>();
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -849,20 +731,16 @@ namespace Core.Gui.Test
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessageAndLogLevel);
             }
-
-            mocks.VerifyAll(); // Expect Dispose call on plugin
+            // Expect Dispose call on plugin
         }
 
         [Test]
         public void Run_InitializesViewHost()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
@@ -881,20 +759,15 @@ namespace Core.Gui.Test
 
                 Assert.IsNotNull(gui.DocumentViewController);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnsEmptyCollection()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var rootData = new object();
@@ -905,8 +778,6 @@ namespace Core.Gui.Test
                 // Assert
                 CollectionAssert.IsEmpty(dataInstancesWithViewDefinitions);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -914,30 +785,20 @@ namespace Core.Gui.Test
         {
             // Setup
             var rootData = new object();
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
 
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-
-            var plugin1 = mocks.StrictMock<PluginBase>();
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
-                   .Return(new[]
-                   {
-                       rootData
-                   });
-            plugin1.Stub(p => p.Dispose());
-            plugin1.Stub(p => p.Deactivate());
-            var plugin2 = mocks.StrictMock<PluginBase>();
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
-                   .Return(new[]
-                   {
-                       rootData
-                   });
-            plugin2.Stub(p => p.Dispose());
-            plugin2.Stub(p => p.Deactivate());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var plugin1 = Substitute.For<PluginBase>();
+            plugin1.GetChildDataWithViewDefinitions(rootData).Returns(new[]
+            {
+                rootData
+            });
+            var plugin2 = Substitute.For<PluginBase>();
+            plugin2.GetChildDataWithViewDefinitions(rootData).Returns(new[]
+            {
+                rootData
+            });
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
@@ -954,7 +815,10 @@ namespace Core.Gui.Test
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
 
-            mocks.VerifyAll();
+            plugin1.Received().Dispose();
+            plugin1.Received().Deactivate();
+            plugin2.Received().Dispose();
+            plugin2.Received().Deactivate();
         }
 
         [Test]
@@ -963,41 +827,29 @@ namespace Core.Gui.Test
             // Setup
             object rootData = 1;
             object rootChild = 2;
-
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin1 = mocks.StrictMock<PluginBase>();
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
-                   .Return(new[]
-                   {
-                       rootData,
-                       rootChild
-                   });
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootChild))
-                   .Return(new[]
-                   {
-                       rootChild
-                   });
-            plugin1.Stub(p => p.Dispose());
-            plugin1.Stub(p => p.Deactivate());
-            var plugin2 = mocks.StrictMock<PluginBase>();
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
-                   .Return(new[]
-                   {
-                       rootChild,
-                       rootData
-                   });
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootChild))
-                   .Return(new[]
-                   {
-                       rootChild
-                   });
-            plugin2.Stub(p => p.Dispose());
-            plugin2.Stub(p => p.Deactivate());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var plugin1 = Substitute.For<PluginBase>();
+            plugin1.GetChildDataWithViewDefinitions(rootData).Returns(new[]
+            {
+                rootData,
+                rootChild
+            });
+            plugin1.GetChildDataWithViewDefinitions(rootChild).Returns(new[]
+            {
+                rootChild
+            });
+            var plugin2 = Substitute.For<PluginBase>();
+            plugin2.GetChildDataWithViewDefinitions(rootData).Returns(new[]
+            {
+                rootChild,
+                rootData
+            });
+            plugin2.GetChildDataWithViewDefinitions(rootChild).Returns(new[]
+            {
+                rootChild
+            });
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
@@ -1015,19 +867,19 @@ namespace Core.Gui.Test
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
 
-            mocks.VerifyAll();
+            plugin1.Received().Dispose();
+            plugin1.Received().Deactivate();
+            plugin2.Received().Dispose();
+            plugin2.Received().Deactivate();
         }
 
         [Test]
         public void GetTreeNodeInfos_NoPluginsConfigured_ReturnsEmptyCollection()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
@@ -1036,8 +888,6 @@ namespace Core.Gui.Test
                 // Assert
                 CollectionAssert.IsEmpty(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1059,26 +909,16 @@ namespace Core.Gui.Test
                 new TreeNodeInfo(),
                 new TreeNodeInfo()
             };
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
 
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-
-            var pluginA = mocks.Stub<PluginBase>();
-            pluginA.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginA);
-            pluginA.Stub(p => p.Dispose());
-            pluginA.Stub(p => p.Deactivate());
-            var pluginB = mocks.Stub<PluginBase>();
-            pluginB.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginB);
-            pluginB.Stub(p => p.Dispose());
-            pluginB.Stub(p => p.Deactivate());
-            var pluginC = mocks.Stub<PluginBase>();
-            pluginC.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginC);
-            pluginC.Stub(p => p.Dispose());
-            pluginC.Stub(p => p.Deactivate());
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var pluginA = Substitute.For<PluginBase>();
+            pluginA.GetTreeNodeInfos().Returns(nodesPluginA);
+            var pluginB = Substitute.For<PluginBase>();
+            pluginB.GetTreeNodeInfos().Returns(nodesPluginB);
+            var pluginC = Substitute.For<PluginBase>();
+            pluginC.GetTreeNodeInfos().Returns(nodesPluginC);
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginA);
@@ -1091,21 +931,22 @@ namespace Core.Gui.Test
                 // Assert
                 IEnumerable<TreeNodeInfo> expected = nodesPluginA.Concat(nodesPluginB).Concat(nodesPluginC);
                 CollectionAssert.AreEquivalent(expected, result);
+                pluginA.Received().Dispose();
+                pluginA.Received().Deactivate();
+                pluginB.Received().Dispose();
+                pluginB.Received().Deactivate();
+                pluginC.Received().Dispose();
+                pluginC.Received().Deactivate();
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Get_GuiHasNotRunYet_ThrowsInvalidOperationException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var treeView = new TreeViewControl())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1116,20 +957,15 @@ namespace Core.Gui.Test
                 string message = Assert.Throws<InvalidOperationException>(Call).Message;
                 Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Get_GuiIsRunning_ReturnsContextMenuBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var treeView = new TreeViewControl())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -1151,21 +987,16 @@ namespace Core.Gui.Test
                                                       .Build();
                 Assert.AreEqual(9, contextMenu.Items.Count);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithoutSetProject_WhenSettingNewProject_ThenProjectOpenedEventsFired()
         {
             // Given
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var newProject = mocks.Stub<IProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var newProject = Substitute.For<IProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var openedCallCount = 0;
@@ -1188,20 +1019,15 @@ namespace Core.Gui.Test
                 Assert.AreEqual(1, openedCallCount);
                 Assert.AreEqual(1, beforeOpenCallCount);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithoutSetProject_WhenSettingNewProjectToNull_ThenNothingHappens()
         {
             // Given
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var openedCallCount = 0;
@@ -1224,21 +1050,16 @@ namespace Core.Gui.Test
                 Assert.AreEqual(0, openedCallCount);
                 Assert.AreEqual(0, beforeOpenCallCount);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithSetProject_WhenSettingNewProjectToNull_ThenProjectOpenedEventsFired()
         {
             // Given
-            var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var originalProject = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var originalProject = Substitute.For<IProject>();
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.SetProject(originalProject, null);
@@ -1263,20 +1084,15 @@ namespace Core.Gui.Test
                 Assert.AreEqual(1, openedCallCount);
                 Assert.AreEqual(1, beforeOpenCallCount);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithoutSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selectionProvider = new TestSelectionProvider();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1293,20 +1109,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selectionProvider = new TestSelectionProvider();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1322,20 +1133,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnActiveSelectionProvider_ThenSelectionSynced()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selectionProvider = new TestSelectionProvider();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1352,20 +1158,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnRemovedSelectionProvider_ThenSelectionNoLongerSynced()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selection = new object();
             var selectionProvider = new TestSelectionProvider();
 
@@ -1385,20 +1186,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderSetAsActiveView_ThenSelectionPreserved()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var testView = new TestView();
             var selection = new object();
 
@@ -1415,20 +1211,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderRemoved_ThenSelectionPreserved()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var testView = new TestView();
             var selection = new object();
 
@@ -1445,20 +1236,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithSelectionFromSelectionProvider_WhenSelectionProviderRemoved_ThenSelectionCleared()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selectionProvider = new TestSelectionProvider();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1476,20 +1262,15 @@ namespace Core.Gui.Test
                 // Then
                 Assert.IsNull(gui.Selection);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenGuiWithRandomSelection_WhenGuiDisposed_ThenSelectionNoLongerSynced()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var selectionProvider = new TestSelectionProvider();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -1507,20 +1288,15 @@ namespace Core.Gui.Test
 
             // Then
             Assert.IsNull(gui.Selection);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ActiveStateInfo_GuiWithoutStateInfos_ReturnsExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -1540,12 +1316,9 @@ namespace Core.Gui.Test
         public void ActiveStateInfo_GuiWithStateInfosAndWithoutProject_ReturnsExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
@@ -1571,13 +1344,10 @@ namespace Core.Gui.Test
         public void ActiveStateInfo_GuiWithStateInfosAndWithProject_ReturnsExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var project = Substitute.For<IProject>();
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())

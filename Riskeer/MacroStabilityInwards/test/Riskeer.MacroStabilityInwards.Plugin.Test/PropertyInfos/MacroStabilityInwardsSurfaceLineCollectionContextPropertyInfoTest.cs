@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -62,10 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var collection = new MacroStabilityInwardsSurfaceLineCollection();
@@ -77,8 +74,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineCollectionProperties>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

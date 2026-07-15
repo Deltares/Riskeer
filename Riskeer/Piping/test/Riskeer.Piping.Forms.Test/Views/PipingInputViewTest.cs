@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -350,11 +350,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void UpdateObserver_CalculationSurfaceLineUpdated_ChartDataUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(9);
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (var view = new PipingInputView())
             {
                 var characteristicPoint = new Point3D(1.2, 2.3, 4.0);
@@ -430,7 +426,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine2, entryPointChartData);
                 AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine2, exitPointChartData);
                 AssertCharacteristicPoints(surfaceLine2, chartDataList);
-                mocks.VerifyAll();
+
+                observer.Received(9).UpdateObserver();
             }
         }
 
@@ -438,11 +435,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void UpdateObserver_StochasticSoilProfileUpdated_ChartDataUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (var view = new PipingInputView())
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -486,7 +479,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(soilProfileData, (ChartDataCollection) view.Chart.Data.Collection.ElementAt(soilProfileIndex));
                 AssertSoilProfileChartData(soilProfile2, soilProfileData, true);
-                mocks.VerifyAll();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -579,10 +572,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void UpdateObserver_PreviousCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (var view = new PipingInputView())
             {
                 var calculation = new TestPipingCalculationScenario(new TestPipingInput())
@@ -610,7 +600,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
-                mocks.VerifyAll(); // No update observer expected
+                // No update observer expected
             }
         }
 

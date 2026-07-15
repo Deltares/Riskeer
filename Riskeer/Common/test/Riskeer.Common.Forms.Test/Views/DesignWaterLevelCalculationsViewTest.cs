@@ -28,7 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
@@ -52,28 +52,24 @@ namespace Riskeer.Common.Forms.Test.Views
         private const int designWaterLevelColumnIndex = 5;
 
         private Form testForm;
-        private MockRepository mockRepository;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
-            mockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetTargetProbabilityFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             // Call
             void Call() => new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
@@ -90,8 +86,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             // Call
             void Call() => new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
@@ -108,9 +103,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             // Call
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSection,
@@ -127,9 +120,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             // Call
             ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                  assessmentSection,
@@ -270,15 +261,14 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService = Substitute.For<IHydraulicBoundaryLocationCalculationGuiService>();
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
-                });
-            mockRepository.ReplayAll();
+            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>()))
+                      .Do(callInfo =>
+                      {
+                          performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray();
+                      });
 
             view.CalculationGuiService = guiService;
             ButtonTester buttonTester = GetCalculateForSelectedButton();
@@ -289,6 +279,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
+            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>());
         }
 
         [Test]
@@ -320,23 +311,20 @@ namespace Riskeer.Common.Forms.Test.Views
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
             AssessmentSectionStub assessmentSection = GetConfiguredAssessmentSectionStub(hydraulicBoundaryLocationCalculations);
 
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService = Substitute.For<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IAssessmentSection assessmentSectionValue = null;
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double targetProbabilityValue = double.NaN;
             string calculationIdentifierValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
-                    assessmentSectionValue = (IAssessmentSection) invocation.Arguments[1];
-                    targetProbabilityValue = (double) invocation.Arguments[2];
-                    calculationIdentifierValue = (string) invocation.Arguments[3];
-                });
-
-            mockRepository.ReplayAll();
-
+            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>()))
+                      .Do(callInfo =>
+                      {
+                          performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray();
+                          assessmentSectionValue = callInfo.Arg<IAssessmentSection>();
+                          targetProbabilityValue = callInfo.Arg<double>();
+                          calculationIdentifierValue = callInfo.Arg<string>();
+                      });
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
                                                                                          targetProbability,
@@ -359,6 +347,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(targetProbability, targetProbabilityValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
+            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>());
         }
 
         private DataGridView GetCalculationsDataGridView()

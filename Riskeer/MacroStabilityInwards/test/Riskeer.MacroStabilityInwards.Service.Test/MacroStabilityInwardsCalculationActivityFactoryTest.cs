@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -47,9 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
@@ -57,17 +55,13 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivity_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             // Call
@@ -76,7 +70,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -129,9 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(null, new GeneralMacroStabilityInwardsInput(), assessmentSection);
@@ -139,16 +130,13 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivitiesForCalculationGroup_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), null, assessmentSection);
@@ -156,7 +144,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -226,9 +213,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
@@ -236,7 +221,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

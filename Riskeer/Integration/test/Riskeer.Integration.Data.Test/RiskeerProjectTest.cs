@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Data.Test
@@ -111,11 +111,7 @@ namespace Riskeer.Integration.Data.Test
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var project = new RiskeerProject(CreateAssessmentSection());
             project.Attach(observer);
 
@@ -123,18 +119,14 @@ namespace Riskeer.Integration.Data.Test
             project.NotifyObservers();
 
             // Assert
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void NotifyObservers_AttachedObserverHasBeenDetached_ObserverShouldNoLongerBeNotified()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var project = new RiskeerProject(CreateAssessmentSection());
             project.Attach(observer);
             project.NotifyObservers();
@@ -144,7 +136,7 @@ namespace Riskeer.Integration.Data.Test
             project.NotifyObservers();
 
             // Assert
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static AssessmentSection CreateAssessmentSection()

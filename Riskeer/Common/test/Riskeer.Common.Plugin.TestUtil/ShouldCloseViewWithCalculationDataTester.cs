@@ -154,7 +154,6 @@ namespace Riskeer.Common.Plugin.TestUtil
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
         }
 
         [Test]
@@ -177,7 +176,6 @@ namespace Riskeer.Common.Plugin.TestUtil
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         /// <summary>

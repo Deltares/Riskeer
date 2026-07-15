@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.TestUtil;
@@ -38,27 +38,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_StochasticSoilProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             // Call
             TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(null, soilProfile);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("stochasticSoilProfile", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Transform_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
@@ -67,18 +60,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("soilProfile", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Transform_InvalidStochasticSoilProfile_ThrowsImportedDataTransformException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
+            var macroStabilityInwardsSoilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
 
             // Call
@@ -97,12 +86,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         {
             // Setup
             var random = new Random(21);
-
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
+            var macroStabilityInwardsSoilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var stochasticSoilProfile = new StochasticSoilProfile(random.NextDouble(), soilProfile);
 
             // Call
@@ -112,7 +97,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(stochasticSoilProfile.Probability, macroStabilityInwardsStochasticSoilProfile.Probability);
             Assert.AreSame(macroStabilityInwardsSoilProfile, macroStabilityInwardsStochasticSoilProfile.SoilProfile);
-            mocks.VerifyAll();
         }
     }
 }

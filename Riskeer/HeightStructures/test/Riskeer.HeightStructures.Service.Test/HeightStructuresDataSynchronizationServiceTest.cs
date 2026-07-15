@@ -327,9 +327,8 @@ namespace Riskeer.HeightStructures.Service.Test
             IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>()
                                                                                                              .ToArray();
 
-            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> expectedAffectedCalculations = calculations.Where(
-                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
-                     && c.HasOutput).ToArray();
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> expectedAffectedCalculations = calculations.Where(c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                                                                                                                                     && c.HasOutput).ToArray();
 
             var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)

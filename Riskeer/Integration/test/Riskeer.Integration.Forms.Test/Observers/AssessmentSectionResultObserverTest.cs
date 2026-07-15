@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -85,18 +85,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -108,18 +104,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.ReferenceLine.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -131,18 +123,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -157,18 +145,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 specificFailureMechanism.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -180,11 +164,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 var specificFailureMechanism = new SpecificFailureMechanism();
                 assessmentSection.SpecificFailureMechanisms.Add(specificFailureMechanism);
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
@@ -194,7 +174,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 specificFailureMechanism.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -212,10 +192,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
 
@@ -225,7 +202,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 failureMechanismToRemove.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
             }
         }
 
@@ -238,10 +214,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             // Given
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 TFailureMechanism oldFailureMechanism = getFailureMechanismFunc(assessmentSection);
 
                 setNewFailureMechanismAction();
@@ -253,7 +226,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 oldFailureMechanism.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
             }
         }
 
@@ -266,11 +238,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             // Given
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 setNewFailureMechanismAction();
                 assessmentSection.NotifyObservers();
 
@@ -282,7 +250,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -293,10 +261,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 PipingFailureMechanism oldFailureMechanism = assessmentSection.Piping;
                 FailureMechanismTestHelper.SetSections(oldFailureMechanism, new[]
                 {
@@ -312,7 +277,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 oldFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -323,11 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 var newFailureMechanism = new PipingFailureMechanism();
                 FailureMechanismTestHelper.SetSections(newFailureMechanism, new[]
                 {
@@ -343,7 +304,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -354,10 +315,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 MacroStabilityInwardsFailureMechanism oldFailureMechanism = assessmentSection.MacroStabilityInwards;
                 FailureMechanismTestHelper.SetSections(oldFailureMechanism, new[]
                 {
@@ -373,7 +331,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 oldFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -384,11 +342,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 var newFailureMechanism = new MacroStabilityInwardsFailureMechanism();
                 FailureMechanismTestHelper.SetSections(newFailureMechanism, new[]
                 {
@@ -404,7 +358,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -418,18 +372,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -441,18 +391,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.DuneErosion.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -466,18 +412,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -489,18 +431,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.GrassCoverErosionOutwards.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -514,18 +452,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -540,18 +474,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -569,18 +499,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.MacroStabilityInwards.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -595,18 +521,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculationScenario.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -624,18 +546,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.Piping.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -649,18 +567,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -672,18 +586,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.StabilityStoneCover.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -695,18 +605,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.WaveImpactAsphaltCover.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -718,18 +624,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.GrassCoverSlipOffInwards.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -741,18 +643,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.GrassCoverSlipOffOutwards.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -764,18 +662,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.Microstability.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -787,18 +681,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.PipingStructure.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -810,18 +700,14 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 assessmentSection.WaterPressureAsphaltCover.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 

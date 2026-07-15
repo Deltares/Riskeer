@@ -32,7 +32,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -77,9 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismView(null, assessmentSection);
@@ -87,7 +85,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -269,12 +266,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -286,7 +278,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -308,12 +300,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -329,7 +316,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -351,12 +338,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             });
 
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -366,7 +348,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -384,12 +366,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             surfaceLine.SetGeometry(new[]
             {
@@ -401,7 +378,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             // Then
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -416,12 +393,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -435,7 +407,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -473,19 +445,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             calculationB.InputParameters.SurfaceLine = surfaceLineB;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -520,19 +487,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationA.InputParameters.SurfaceLine = surfaceLineB;
             calculationA.InputParameters.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -559,19 +521,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationA.Name = "new name";
             calculationA.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -745,24 +702,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var stochasticSoilModelsMapDataObserver = mocks.StrictMock<IObserver>();
+            var stochasticSoilModelsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelsMapDataObserver);
 
-            var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
+            var surfaceLinesMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var calculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
             return new[]

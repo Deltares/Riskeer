@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 
@@ -33,19 +33,17 @@ namespace Riskeer.Common.Service.Test
         public void UpdateForeshoreProfileDerivedCalculationInput_ForeshoreProfileSynchronized_DoesNotNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationInput = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInput.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
+            var calculationInput = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            calculationInput.IsForeshoreProfileInputSynchronized.Returns(true);
 
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculation.Stub(c => c.InputParameters).Return(calculationInput);
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.InputParameters.Returns(calculationInput);
             // Call
             SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
-            // Assert
-            mocks.VerifyAll();
+            // Assert;
+            calculationInput.DidNotReceive().NotifyObservers();
+            calculation.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -54,28 +52,24 @@ namespace Riskeer.Common.Service.Test
         public void UpdateForeshoreProfileDerivedCalculationInput_ForeshoreProfileNotSynchronized_NotifyObservers(bool hasOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationInput = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInput.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationInput.Expect(ci => ci.SynchronizeForeshoreProfileInput());
-            calculationInput.Expect(ci => ci.NotifyObservers());
+            var calculationInput = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            calculationInput.IsForeshoreProfileInputSynchronized.Returns(false);
 
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculation.Stub(c => c.InputParameters).Return(calculationInput);
-            calculation.Expect(c => c.HasOutput).Return(hasOutput);
-            if (hasOutput)
-            {
-                calculation.Expect(c => c.ClearOutput());
-                calculation.Expect(c => c.NotifyObservers());
-            }
-
-            mocks.ReplayAll();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.InputParameters.Returns(calculationInput);
+            calculation.HasOutput.Returns(hasOutput);
 
             // Call
             SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
             // Assert
-            mocks.VerifyAll();
+            calculationInput.Received().SynchronizeForeshoreProfileInput();
+            calculationInput.Received().NotifyObservers();
+            if (hasOutput)
+            {
+                calculation.Received().ClearOutput();
+                calculation.Received().NotifyObservers();
+            }
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}

@@ -22,7 +22,7 @@
 using System.ComponentModel;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
@@ -40,10 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsLocationInputDaily();
 
             // Call
@@ -52,18 +49,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsLocationInputBaseProperties<MacroStabilityInwardsLocationInputDaily>>(properties);
             Assert.AreSame(input, properties.Data);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsLocationInputDaily();
 
             // Call
@@ -98,18 +90,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Indringingslengte [m]",
                 "De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.",
                 true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsLocationInputDaily();
 
             // Call
@@ -117,8 +104,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(input.PenetrationLength, properties.PenetrationLength);
-
-            mocks.VerifyAll();
         }
     }
 }

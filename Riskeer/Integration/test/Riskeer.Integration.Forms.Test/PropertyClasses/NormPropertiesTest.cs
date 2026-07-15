@@ -27,7 +27,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -42,9 +42,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            mocks.ReplayAll();
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
 
             // Call
             void Call() => new NormProperties(null, failureMechanismContributionNormChangeHandler);
@@ -52,7 +50,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -73,10 +70,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            mocks.ReplayAll();
-
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
@@ -92,17 +86,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 nameof(NormProperties.MaximumAllowableFloodingProbability));
             TestHelper.AssertTypeConverter<NormProperties, EnumTypeConverter>(
                 nameof(NormProperties.NormativeProbabilityType));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            mocks.ReplayAll();
-
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
@@ -132,18 +122,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "Rekenwaarde voor waterstanden",
                                                                             "De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor 'Piping' en 'Macrostabiliteit binnenwaarts'.");
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            mocks.ReplayAll();
-
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
@@ -153,7 +138,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, properties.MaximumAllowableFloodingProbability);
             Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, properties.SignalFloodingProbability);
             Assert.AreEqual(failureMechanismContribution.NormativeProbabilityType, properties.NormativeProbabilityType);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -161,18 +145,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbability(null))
-                                                         .IgnoreArguments()
-                                                         .WhenCalled(invocation =>
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+                                                         .Do(invocation =>
                                                          {
-                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
-            mocks.ReplayAll();
-
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             const double newValue = 0.001;
@@ -182,7 +161,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
-            mocks.VerifyAll();
+            failureMechanismContributionNormChangeHandler.Received().ChangeNormativeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -191,18 +170,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
-
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeProbability(null))
-                                                         .IgnoreArguments()
-                                                         .WhenCalled(invocation =>
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+                                                         .Do(invocation =>
                                                          {
-                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
-            mocks.ReplayAll();
-
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             const double newValue = 0.001;
@@ -212,7 +186,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
-            mocks.VerifyAll();
+            failureMechanismContributionNormChangeHandler.Received().ChangeNormativeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -221,18 +195,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
-
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbability(null))
-                                                         .IgnoreArguments()
-                                                         .WhenCalled(invocation =>
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+                                                         .Do(invocation =>
                                                          {
-                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
-            mocks.ReplayAll();
-
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             const double newValue = 0.00001;
@@ -242,7 +211,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
-            mocks.VerifyAll();
+            failureMechanismContributionNormChangeHandler.Received().ChangeNormativeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -250,18 +219,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeProbability(null))
-                                                         .IgnoreArguments()
-                                                         .WhenCalled(invocation =>
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeProbability(Arg.Any<Action>()))
+                                                         .Do(invocation =>
                                                          {
-                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
-            mocks.ReplayAll();
-
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             const double newValue = 0.00001;
@@ -271,7 +235,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
-            mocks.VerifyAll();
+            failureMechanismContributionNormChangeHandler.Received().ChangeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -279,18 +243,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-
-            var mocks = new MockRepository();
-            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbabilityType(null))
-                                                         .IgnoreArguments()
-                                                         .WhenCalled(invocation =>
+            var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbabilityType(Arg.Any<Action>()))
+                                                         .Do(invocation =>
                                                          {
-                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
-            mocks.ReplayAll();
-
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             const NormativeProbabilityType newValue = NormativeProbabilityType.SignalFloodingProbability;
@@ -300,7 +259,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismContribution.NormativeProbabilityType);
-            mocks.VerifyAll();
+            failureMechanismContributionNormChangeHandler.Received().ChangeNormativeProbabilityType(Arg.Any<Action>());
         }
     }
 }

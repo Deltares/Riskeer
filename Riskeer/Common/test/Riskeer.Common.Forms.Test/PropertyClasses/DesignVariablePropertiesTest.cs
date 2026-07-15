@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -35,10 +35,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_DesignVariableNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                          null,
@@ -47,17 +44,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("designVariable", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution();
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
@@ -69,7 +62,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
             Assert.AreEqual(designVariable.GetDesignValue(), properties.DesignValue);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -77,10 +69,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnDistributionName()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,

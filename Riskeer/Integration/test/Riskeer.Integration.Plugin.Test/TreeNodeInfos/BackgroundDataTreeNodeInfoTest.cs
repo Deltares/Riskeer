@@ -40,7 +40,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
@@ -204,23 +204,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mockRepository = new MockRepository();
-
-            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-            using (mockRepository.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -232,7 +224,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -240,15 +238,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
-
-            var mockRepository = new MockRepository();
             var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -267,27 +261,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenNoMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            var tileFactory = Substitute.For<ITileSourceFactory>();
             var newMapData = new WmtsMapData("Actueel Hoogtebestand Nederland (AHN1)",
                                              "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
                                              "()", "image/png");
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(null))
-                       .IgnoreArguments()
-                       .Return(new[]
+            tileFactory.GetWmtsTileSources(Arg.Any<string>()).Returns(new[]
                        {
                            new TestWmtsTileSource(newMapData)
                        });
 
-            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = Substitute.For<IObserver>();
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
@@ -300,15 +289,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
-                var viewCommands = mockRepository.Stub<IViewCommands>();
-                var mainWindow = mockRepository.Stub<IMainWindow>();
+                var viewCommands = Substitute.For<IViewCommands>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
@@ -338,18 +325,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+                backgroundDataObserver.Received().UpdateObserver();
+                tileFactory.Received().GetWmtsTileSources(Arg.Any<string>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenNoMapDataSet_WhenSelectingMapDataFromContextMenuCancelled_ThenNoObserversNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
+            var assessmentSectionObserver = Substitute.For<IObserver>();
+            var backgroundDataObserver = Substitute.For<IObserver>();
 
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid));
 
@@ -360,15 +346,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
-                var viewCommands = mockRepository.Stub<IViewCommands>();
-                var mainWindow = mockRepository.Stub<IMainWindow>();
+                var viewCommands = Substitute.For<IViewCommands>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -395,18 +379,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
-            var mockRepository = new MockRepository();
-
-            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = Substitute.For<IObserver>();
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
@@ -424,15 +403,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
-                var viewCommands = mockRepository.Stub<IViewCommands>();
-                var mainWindow = mockRepository.Stub<IMainWindow>();
+                var viewCommands = Substitute.For<IViewCommands>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -461,19 +438,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+                backgroundDataObserver.Received().UpdateObserver();
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenMapDataSet_WhenSelectingValidWellKnownMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
-            var mockRepository = new MockRepository();
-
-            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = Substitute.For<IObserver>();
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
@@ -491,15 +464,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
-                var viewCommands = mockRepository.Stub<IViewCommands>();
-                var mainWindow = mockRepository.Stub<IMainWindow>();
+                var viewCommands = Substitute.For<IViewCommands>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -528,18 +499,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+                backgroundDataObserver.Received().UpdateObserver();
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenMapDataSet_WhenSelectingMapDataFromContextMenuCancelled_ThenNoObserversNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
+            var assessmentSectionObserver = Substitute.For<IObserver>();
+            var backgroundDataObserver = Substitute.For<IObserver>();
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
@@ -555,15 +524,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
-                var viewCommands = mockRepository.Stub<IViewCommands>();
-                var mainWindow = mockRepository.Stub<IMainWindow>();
+                var viewCommands = Substitute.For<IViewCommands>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -590,8 +557,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
                 }
             }
-
-            mockRepository.VerifyAll();
+            backgroundDataObserver.DidNotReceive().UpdateObserver();
+            assessmentSectionObserver.DidNotReceive().UpdateObserver();
         }
 
         private static void SetBackgroundData(IAssessmentSection assessmentSection, WmtsMapData mapData)
