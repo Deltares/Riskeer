@@ -1,3 +1,0 @@
-﻿<Include xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <?define ApplicationFullName="!(loc.ApplicationLongName) $(var.ReleaseVersion)" ?>
-</Include>
