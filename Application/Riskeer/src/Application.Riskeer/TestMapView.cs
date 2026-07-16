@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.Geometries;
+using Core.Components.Gis.IO.Importers;
 
 namespace Application.Riskeer
 {
@@ -37,36 +37,12 @@ namespace Application.Riskeer
         {
             var mapDataCollection = new MapDataCollection("test");
 
-            mapDataCollection.Add(new MapPointData("test points")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(2, 2)
-                            }
-                        })
-                    }),
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(4, 4)
-                            }
-                        })
-                    })
-                }
-            });
+            new FeatureBasedMapDataImporter(mapDataCollection, GetFilePath("traject_6-3.shp")).Import();
 
             mapControl = new MapControl
             {
-                Data = mapDataCollection
+                Data = mapDataCollection,
+                Dock = DockStyle.Fill
             };
 
             Controls.Add(mapControl);
@@ -75,5 +51,15 @@ namespace Application.Riskeer
         public object Data { get; set; }
 
         public IMapControl Map => mapControl;
+
+        private static string GetFilePath(string fileName)
+        {
+            return Path.Combine(Path.GetDirectoryName(GetThisFilePath()), fileName);
+        }
+
+        private static string GetThisFilePath([CallerFilePath] string path = null)
+        {
+            return path;
+        }
     }
 }

@@ -110,7 +110,11 @@ namespace Application.Riskeer
 
             RunRiskeer();
 
-            gui.ViewHost.AddDocumentView(new TestMapView(), "Test map view", "", new FontFamily());
+            var mapView = new TestMapView();
+
+            gui.ViewHost.AddDocumentView(mapView, "Test map view", "", new FontFamily());
+
+            mapView.Map.ZoomToVisibleLayers();
         }
 
         private void RunRiskeer()
