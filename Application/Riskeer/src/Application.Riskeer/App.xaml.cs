@@ -33,31 +33,18 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
 using Core.Gui.Forms.Main;
-using Core.Gui.Helpers;
 using Core.Gui.Settings;
 using log4net;
 using log4net.Appender;
-using Riskeer.ClosingStructures.Plugin;
-using Riskeer.DuneErosion.Plugin;
-using Riskeer.GrassCoverErosionInwards.Plugin;
-using Riskeer.GrassCoverErosionOutwards.Plugin;
-using Riskeer.HeightStructures.Plugin;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms;
-using Riskeer.Integration.Plugin;
-using Riskeer.Integration.Plugin.Handlers;
-using Riskeer.MacroStabilityInwards.Plugin;
-using Riskeer.Migration;
-using Riskeer.Piping.Plugin;
-using Riskeer.StabilityPointStructures.Plugin;
-using Riskeer.StabilityStoneCover.Plugin;
-using Riskeer.Storage.Core;
-using Riskeer.WaveImpactAsphaltCover.Plugin;
 using ApplicationResources = Application.Riskeer.Properties.Resources;
 
 namespace Application.Riskeer
@@ -88,7 +75,7 @@ namespace Application.Riskeer
 
             log = LogManager.GetLogger(typeof(App));
 
-            SettingsHelper.Instance = new RiskeerSettingsHelper();
+            SettingsHelper.Instance = new TestSettingsHelper();
             SetLanguage();
 
             string userDisplay = UserDisplay();
@@ -118,27 +105,8 @@ namespace Application.Riskeer
             };
 
             var mainWindow = new MainWindow();
-            var projectMigrator = new ProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(mainWindow);
-            var projectFactory = new RiskeerProjectFactory(() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile());
 
-            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, projectFactory, settings)
-            {
-                Plugins =
-                {
-                    new RiskeerPlugin(),
-                    new ClosingStructuresPlugin(),
-                    new StabilityPointStructuresPlugin(),
-                    new WaveImpactAsphaltCoverPlugin(),
-                    new GrassCoverErosionInwardsPlugin(),
-                    new GrassCoverErosionOutwardsPlugin(),
-                    new PipingPlugin(),
-                    new HeightStructuresPlugin(),
-                    new StabilityStoneCoverPlugin(),
-                    new DuneErosionPlugin(),
-                    new MacroStabilityInwardsPlugin()
-                }
-            };
+            gui = new GuiCore(mainWindow, new TestStoreProject(), new TestMigrateProject(), new TestProjectFactory(), settings);
 
             RunRiskeer();
         }
@@ -322,6 +290,93 @@ namespace Application.Riskeer
             return string.IsNullOrWhiteSpace(fileAppender?.File)
                        ? string.Empty
                        : Path.GetDirectoryName(fileAppender.File);
+        }
+
+        private class TestSettingsHelper : SettingsHelper
+        {
+            
+        }
+
+        private class TestStoreProject : IStoreProject
+        {
+            public string OpenProjectFileFilter { get; }
+
+            public string SaveProjectFileFilter { get; }
+
+            public bool HasStagedProject { get; }
+
+            public void SaveProjectAs(string databaseFilePath)
+            {
+                
+            }
+
+            public IProject LoadProject(string databaseFilePath)
+            {
+                return new TestProject();
+            }
+            
+            public void StageProject(IProject project)
+            {
+            }
+            
+            public void UnstageProject()
+            {
+            }
+            
+            public bool HasStagedProjectChanges(string filePath)
+            {
+                return false;
+            }
+        }
+
+        private class TestMigrateProject : IMigrateProject
+        {
+            public MigrationRequired ShouldMigrate(string filePath)
+            {
+                return MigrationRequired.No;
+            }
+
+            public string DetermineMigrationLocation(string originalFilePath)
+            {
+                return string.Empty;
+            }
+
+            public bool Migrate(string sourceFilePath, string targetFilePath)
+            {
+                return true;
+            }
+        }
+        
+        private class TestProject : IProject
+        {
+            public IEnumerable<IObserver> Observers { get; }
+            
+            public void Attach(IObserver observer)
+            {
+                
+            }
+            
+            public void Detach(IObserver observer)
+            {
+                
+            }
+            
+            public void NotifyObservers()
+            {
+                
+            }
+
+            public string Name { get; set; }
+            
+            public string Description { get; set; }
+        }
+
+        private class TestProjectFactory : IProjectFactory
+        {
+            public IProject CreateNewProject()
+            {
+                return new TestProject();
+            }
         }
     }
 }
