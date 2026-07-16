@@ -109,6 +109,8 @@ namespace Application.Riskeer
             gui = new GuiCore(mainWindow, new TestStoreProject(), new TestMigrateProject(), new TestProjectFactory(), settings);
 
             RunRiskeer();
+
+            gui.ViewHost.AddDocumentView(new TestMapView(), "Test map view", "", new FontFamily());
         }
 
         private void RunRiskeer()
@@ -292,43 +294,6 @@ namespace Application.Riskeer
                        : Path.GetDirectoryName(fileAppender.File);
         }
 
-        private class TestSettingsHelper : SettingsHelper
-        {
-            
-        }
-
-        private class TestStoreProject : IStoreProject
-        {
-            public string OpenProjectFileFilter { get; }
-
-            public string SaveProjectFileFilter { get; }
-
-            public bool HasStagedProject { get; }
-
-            public void SaveProjectAs(string databaseFilePath)
-            {
-                
-            }
-
-            public IProject LoadProject(string databaseFilePath)
-            {
-                return new TestProject();
-            }
-            
-            public void StageProject(IProject project)
-            {
-            }
-            
-            public void UnstageProject()
-            {
-            }
-            
-            public bool HasStagedProjectChanges(string filePath)
-            {
-                return false;
-            }
-        }
-
         private class TestMigrateProject : IMigrateProject
         {
             public MigrationRequired ShouldMigrate(string filePath)
@@ -346,29 +311,20 @@ namespace Application.Riskeer
                 return true;
             }
         }
-        
+
         private class TestProject : IProject
         {
             public IEnumerable<IObserver> Observers { get; }
-            
-            public void Attach(IObserver observer)
-            {
-                
-            }
-            
-            public void Detach(IObserver observer)
-            {
-                
-            }
-            
-            public void NotifyObservers()
-            {
-                
-            }
 
             public string Name { get; set; }
-            
+
             public string Description { get; set; }
+
+            public void Attach(IObserver observer) {}
+
+            public void Detach(IObserver observer) {}
+
+            public void NotifyObservers() {}
         }
 
         private class TestProjectFactory : IProjectFactory
@@ -376,6 +332,33 @@ namespace Application.Riskeer
             public IProject CreateNewProject()
             {
                 return new TestProject();
+            }
+        }
+
+        private class TestSettingsHelper : SettingsHelper {}
+
+        private class TestStoreProject : IStoreProject
+        {
+            public string OpenProjectFileFilter { get; }
+
+            public string SaveProjectFileFilter { get; }
+
+            public bool HasStagedProject { get; }
+
+            public void SaveProjectAs(string databaseFilePath) {}
+
+            public IProject LoadProject(string databaseFilePath)
+            {
+                return new TestProject();
+            }
+
+            public void StageProject(IProject project) {}
+
+            public void UnstageProject() {}
+
+            public bool HasStagedProjectChanges(string filePath)
+            {
+                return false;
             }
         }
     }
