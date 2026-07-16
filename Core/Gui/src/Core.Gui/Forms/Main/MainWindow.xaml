@@ -129,13 +129,6 @@ All rights reserved.
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMap">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE907;"/>
                     </ToggleButton>
-                    <ToggleButton Name="ButtonShowChartLegendView"
-                                  Style="{StaticResource ViewStateBarToggleButtonStyle}"
-                                  ToolTip="{x:Static properties:Resources.ViewStateBar_Chart_ToolTip}"
-                                  Command="{Binding Path=ToggleChartLegendViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
-                                  AutomationProperties.AutomationId="ViewStateButtonBarShowChart">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE908;"/>
-                    </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Messages_ToolTip}"

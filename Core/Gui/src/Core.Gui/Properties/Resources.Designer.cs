@@ -149,8 +149,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead {
             get {
-                return ResourceManager.GetString("ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Ope" +
-                        "ning_log_file_directory_instead", resourceCulture);
+                return ResourceManager.GetString(("ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Ope" +
+                        "ning_log_file_directory_instead"), resourceCulture);
             }
         }
         
@@ -282,8 +282,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_ {
             get {
-                return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_" +
-                        "0_Value_1_", resourceCulture);
+                return ResourceManager.GetString(("CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_" +
+                        "0_Value_1_"), resourceCulture);
             }
         }
         
@@ -292,307 +292,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_ {
             get {
-                return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
-                        "e_0_Value_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartAreaData_FillColor_Description {
-            get {
-                return ResourceManager.GetString("ChartAreaData_FillColor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartAreaData_StrokeColor_Description {
-            get {
-                return ResourceManager.GetString("ChartAreaData_StrokeColor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartAreaData_StrokeThickness_Description {
-            get {
-                return ResourceManager.GetString("ChartAreaData_StrokeThickness_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kleur.
-        /// </summary>
-        public static string ChartData_Color_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartData_Color_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijnkleur.
-        /// </summary>
-        public static string ChartData_StrokeColor_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartData_StrokeColor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijndikte.
-        /// </summary>
-        public static string ChartData_StrokeThickness_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartData_StrokeThickness_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of de gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartDataProperties_IsVisible_Description {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_IsVisible_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weergeven.
-        /// </summary>
-        public static string ChartDataProperties_IsVisible_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_IsVisible_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van deze gegevensreeks..
-        /// </summary>
-        public static string ChartDataProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string ChartDataProperties_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vlakken.
-        /// </summary>
-        public static string ChartDataProperties_Type_Areas {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Type_Areas", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het type van de data die wordt weergegeven in de gegevensreeks..
-        /// </summary>
-        public static string ChartDataProperties_Type_Description {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Type_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        public static string ChartDataProperties_Type_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Type_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijnen.
-        /// </summary>
-        public static string ChartDataProperties_Type_Lines {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Type_Lines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Punten.
-        /// </summary>
-        public static string ChartDataProperties_Type_Points {
-            get {
-                return ResourceManager.GetString("ChartDataProperties_Type_Points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string ChartLegendView_Chart_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartLegendView_Chart_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisab" +
-                        "led_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Too" +
-                        "ltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de gegevensreeks zichtbaar zijn..
-        /// </summary>
-        public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartLineData_Color_Description {
-            get {
-                return ResourceManager.GetString("ChartLineData_Color_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartLineData_DashStyle_Description {
-            get {
-                return ResourceManager.GetString("ChartLineData_DashStyle_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijnstijl.
-        /// </summary>
-        public static string ChartLineData_DashStyle_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartLineData_DashStyle_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartLineData_Width_Description {
-            get {
-                return ResourceManager.GetString("ChartLineData_Width_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartPointData_Color_Description {
-            get {
-                return ResourceManager.GetString("ChartPointData_Color_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartPointData_Size_Description {
-            get {
-                return ResourceManager.GetString("ChartPointData_Size_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grootte.
-        /// </summary>
-        public static string ChartPointData_Size_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartPointData_Size_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartPointData_StrokeColor_Description {
-            get {
-                return ResourceManager.GetString("ChartPointData_StrokeColor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartPointData_StrokeThickness_Description {
-            get {
-                return ResourceManager.GetString("ChartPointData_StrokeThickness_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het symbool waarmee deze gegevensreeks wordt weergegeven..
-        /// </summary>
-        public static string ChartPointData_Symbol_Description {
-            get {
-                return ResourceManager.GetString("ChartPointData_Symbol_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Symbool.
-        /// </summary>
-        public static string ChartPointData_Symbol_DisplayName {
-            get {
-                return ResourceManager.GetString("ChartPointData_Symbol_DisplayName", resourceCulture);
+                return ResourceManager.GetString(("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
+                        "e_0_Value_1_"), resourceCulture);
             }
         }
         
@@ -656,8 +357,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control {
             get {
-                return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_contro" +
-                        "l", resourceCulture);
+                return ResourceManager.GetString(("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_contro" +
+                        "l"), resourceCulture);
             }
         }
         
@@ -767,8 +468,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_" +
-                        "argument_on_Class_0_", resourceCulture);
+                return ResourceManager.GetString(("DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_" +
+                        "argument_on_Class_0_"), resourceCulture);
             }
         }
         
@@ -813,8 +514,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argum" +
-                        "ent_on_Class_0_", resourceCulture);
+                return ResourceManager.GetString(("DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argum" +
+                        "ent_on_Class_0_"), resourceCulture);
             }
         }
         
@@ -859,8 +560,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argume" +
-                        "nt_on_Class_0_", resourceCulture);
+                return ResourceManager.GetString(("DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argume" +
+                        "nt_on_Class_0_"), resourceCulture);
             }
         }
         
@@ -1152,8 +853,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler {
             get {
-                return ResourceManager.GetString("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_ha" +
-                        "ndler", resourceCulture);
+                return ResourceManager.GetString(("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_ha" +
+                        "ndler"), resourceCulture);
             }
         }
         
@@ -1171,8 +872,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler {
             get {
-                return ResourceManager.GetString("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_ha" +
-                        "ndler", resourceCulture);
+                return ResourceManager.GetString(("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_ha" +
+                        "ndler"), resourceCulture);
             }
         }
         
@@ -1181,8 +882,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler {
             get {
-                return ResourceManager.GetString("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_ha" +
-                        "ndler", resourceCulture);
+                return ResourceManager.GetString(("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_ha" +
+                        "ndler"), resourceCulture);
             }
         }
         
@@ -1191,8 +892,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands {
             get {
-                return ResourceManager.GetString("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_comm" +
-                        "ands", resourceCulture);
+                return ResourceManager.GetString(("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_comm" +
+                        "ands"), resourceCulture);
             }
         }
         
@@ -1264,8 +965,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available {
             get {
-                return ResourceManager.GetString("GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item" +
-                        "_0_available", resourceCulture);
+                return ResourceManager.GetString(("GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item" +
+                        "_0_available"), resourceCulture);
             }
         }
         
@@ -1274,8 +975,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available {
             get {
-                return ResourceManager.GetString("GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item" +
-                        "_available", resourceCulture);
+                return ResourceManager.GetString(("GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item" +
+                        "_available"), resourceCulture);
             }
         }
         
@@ -1356,8 +1057,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item {
             get {
-                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
-                        "tem", resourceCulture);
+                return ResourceManager.GetString(("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
+                        "tem"), resourceCulture);
             }
         }
         
@@ -1366,8 +1067,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item_0_ {
             get {
-                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
-                        "tem_0_", resourceCulture);
+                return ResourceManager.GetString(("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
+                        "tem_0_"), resourceCulture);
             }
         }
         
@@ -1631,8 +1332,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
             get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisab" +
-                        "led_Tooltip", resourceCulture);
+                return ResourceManager.GetString(("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisab" +
+                        "led_Tooltip"), resourceCulture);
             }
         }
         
@@ -1650,8 +1351,7 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip {
             get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip", resourceCulture);
             }
         }
         
@@ -1859,8 +1559,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log {
             get {
-                return ResourceManager.GetString("MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_informatio" +
-                        "n_Home_Show_Log", resourceCulture);
+                return ResourceManager.GetString(("MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_informatio" +
+                        "n_Home_Show_Log"), resourceCulture);
             }
         }
         
@@ -2151,8 +1851,8 @@ namespace Core.Gui.Properties {
         /// </summary>
         public static string PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo {
             get {
-                return ResourceManager.GetString("PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_" +
-                        "PropertyInfo", resourceCulture);
+                return ResourceManager.GetString(("PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_" +
+                        "PropertyInfo"), resourceCulture);
             }
         }
         
@@ -2444,15 +2144,6 @@ namespace Core.Gui.Properties {
         public static string Version_DisplayName {
             get {
                 return ResourceManager.GetString("Version_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string ViewStateBar_Chart_ToolTip {
-            get {
-                return ResourceManager.GetString("ViewStateBar_Chart_ToolTip", resourceCulture);
             }
         }
         

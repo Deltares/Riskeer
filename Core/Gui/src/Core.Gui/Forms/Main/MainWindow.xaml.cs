@@ -34,11 +34,9 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Settings;
-using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Backstage;
-using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.Project;
@@ -78,7 +76,6 @@ namespace Core.Gui.Forms.Main
 
         private PropertyGridView propertyGrid;
         private IMapView currentMapView;
-        private IChartView currentChartView;
 
         /// <summary>
         /// Creates a new instance of <see cref="MainWindow"/>.
@@ -100,7 +97,6 @@ namespace Core.Gui.Forms.Main
             ToggleBackstageCommand = new RelayCommand(OnToggleBackstage);
             ToggleProjectExplorerCommand = new RelayCommand(OnToggleProjectExplorer);
             ToggleMapLegendViewCommand = new RelayCommand(OnToggleMapLegendView);
-            ToggleChartLegendViewCommand = new RelayCommand(OnToggleChartLegendView);
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
@@ -171,11 +167,6 @@ namespace Core.Gui.Forms.Main
         /// </summary>
         public MapLegendView MapLegendView { get; private set; }
 
-        /// <summary>
-        /// Gets the <see cref="Core.Gui.Forms.Chart.ChartLegendView"/>
-        /// </summary>
-        public ChartLegendView ChartLegendView { get; private set; }
-
         public IView PropertyGrid => propertyGrid;
 
         public IntPtr Handle => windowInteropHelper.Handle;
@@ -241,7 +232,6 @@ namespace Core.Gui.Forms.Main
 
             InitProjectExplorerWindow();
             InitMapLegendWindow();
-            InitChartLegendWindow();
             InitMessagesWindow();
             InitPropertiesWindowOrBringToFront();
 
@@ -419,11 +409,6 @@ namespace Core.Gui.Forms.Main
         public ICommand ToggleMapLegendViewCommand { get; }
 
         /// <summary>
-        /// Gets the command to toggle the <see cref="ChartLegendView"/>.
-        /// </summary>
-        public ICommand ToggleChartLegendViewCommand { get; }
-
-        /// <summary>
         /// Gets the command to toggle the <see cref="PropertyGridView"/>.
         /// </summary>
         public ICommand TogglePropertyGridViewCommand { get; }
@@ -521,11 +506,6 @@ namespace Core.Gui.Forms.Main
             ToggleToolWindow(MapLegendView, InitMapLegendWindow, ButtonShowMapLegendView);
         }
 
-        private void OnToggleChartLegendView(object obj)
-        {
-            ToggleToolWindow(ChartLegendView, InitChartLegendWindow, ButtonShowChartLegendView);
-        }
-
         private void OnTogglePropertyGridView(object obj)
         {
             ToggleToolWindow(PropertyGrid, InitPropertiesWindowOrBringToFront, ButtonShowProperties);
@@ -592,7 +572,6 @@ namespace Core.Gui.Forms.Main
             ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
             ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
             ButtonShowMapLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(MapLegendView);
-            ButtonShowChartLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
         }
 
         private void InitProjectExplorerWindow()
@@ -632,13 +611,6 @@ namespace Core.Gui.Forms.Main
             viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, Properties.Resources.MapLegendView_Map_DisplayName, "\uE907", toolViewFontFamily);
         }
 
-        private void InitChartLegendWindow()
-        {
-            ChartLegendView = new ChartLegendView(gui);
-
-            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, Properties.Resources.ChartLegendView_Chart_DisplayName, "\uE908", toolViewFontFamily);
-        }
-
         #endregion
 
         #region Events
@@ -653,10 +625,7 @@ namespace Core.Gui.Forms.Main
 
             UpdateComponentsForMapView(mapView);
 
-            var chartView = e.View as IChartView;
-            UpdateComponentsForChartView(chartView);
-
-            if (e.View is MapLegendView || e.View is ChartLegendView)
+            if (e.View is MapLegendView)
             {
                 UpdateComponentsForView(viewController.ViewHost.ActiveDocumentView);
             }
@@ -696,12 +665,6 @@ namespace Core.Gui.Forms.Main
             {
                 UpdateComponentsForMapView(mapView);
             }
-
-            var chartView = view as IChartView;
-            if (!ReferenceEquals(currentChartView, chartView))
-            {
-                UpdateComponentsForChartView(chartView);
-            }
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
@@ -726,19 +689,9 @@ namespace Core.Gui.Forms.Main
                 MapLegendView = null;
             }
 
-            if (ReferenceEquals(e.View, ChartLegendView))
-            {
-                ChartLegendView = null;
-            }
-
             if (ReferenceEquals(e.View, currentMapView))
             {
                 UpdateComponentsForMapView(null);
-            }
-
-            if (ReferenceEquals(e.View, currentChartView))
-            {
-                UpdateComponentsForChartView(null);
             }
         }
 
@@ -749,16 +702,6 @@ namespace Core.Gui.Forms.Main
             if (MapLegendView != null)
             {
                 MapLegendView.MapControl = mapView?.Map;
-            }
-        }
-
-        private void UpdateComponentsForChartView(IChartView chartView)
-        {
-            currentChartView = chartView;
-
-            if (ChartLegendView != null)
-            {
-                ChartLegendView.ChartControl = chartView?.Chart;
             }
         }
 
