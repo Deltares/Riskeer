@@ -143,9 +143,6 @@ All rights reserved.
     <Compile Update="Forms\Map\MapLegendView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\Chart\ChartLegendView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Forms\Log\MessageWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,8 +167,6 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
