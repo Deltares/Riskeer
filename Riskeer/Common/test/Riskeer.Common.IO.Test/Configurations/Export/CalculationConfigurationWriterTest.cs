@@ -262,7 +262,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             xmlWriter.Flush();
 
             // Assert
-            Assert.Equals(stringBuilder.ToString(), "<someName>some value</someName>");
+            Assert.AreEqual("<someName>some value</someName>", stringBuilder.ToString());
         }
 
         [Test]
@@ -307,7 +307,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
                 (double?) null);
 
             // Assert
-            Assert.Equals(xmlWriter.ReceivedCalls(), 0);
+            Assert.AreEqual(0, xmlWriter.ReceivedCalls().Count());
         }
 
         [Test]

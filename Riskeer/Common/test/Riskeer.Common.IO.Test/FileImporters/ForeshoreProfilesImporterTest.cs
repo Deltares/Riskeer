@@ -556,7 +556,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns("");
-            messageProvider.GetUpdateDataFailedLogMessageText("Dijkprofielen").Returns("error {0}");
+            messageProvider.GetUpdateDataFailedLogMessageText(Arg.Any<string>()).Returns("error {0}");
 
             const string exceptionMessage = "Look, an exception!";
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();

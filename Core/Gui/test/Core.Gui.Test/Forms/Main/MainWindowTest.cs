@@ -241,20 +241,19 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Setup
             var viewHost = Substitute.For<IViewHost>();
-            EventHandler opened = null;
-            EventHandler front = null;
-            EventHandler closed = null;
-            EventHandler changed = null;
-
+            EventHandler<ViewChangeEventArgs> opened = null;
+            EventHandler<ViewChangeEventArgs> front = null;
+            EventHandler<ViewChangeEventArgs> closed = null;
+            EventHandler<EventArgs> changed = null;
             viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => opened = ci.Arg<EventHandler>());
+                    .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => front = ci.Arg<EventHandler>());
+                    .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => closed = ci.Arg<EventHandler>());
+                    .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
-                    .Do(ci => changed = ci.Arg<EventHandler>());
-            
+                    .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
+
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
             gui.FixedSettings.Returns(new GuiCoreSettings());
@@ -295,20 +294,19 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Setup
             var viewHost = Substitute.For<IViewHost>();
-            EventHandler opened = null;
-            EventHandler front = null;
-            EventHandler closed = null;
-            EventHandler changed = null;
+            EventHandler<ViewChangeEventArgs> opened = null;
+            EventHandler<ViewChangeEventArgs> front = null;
+            EventHandler<ViewChangeEventArgs> closed = null;
+            EventHandler<EventArgs> changed = null;
 
             viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => opened = ci.Arg<EventHandler>());
+                    .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => front = ci.Arg<EventHandler>());
+                    .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => closed = ci.Arg<EventHandler>());
+                    .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
-                    .Do(ci => changed = ci.Arg<EventHandler>());
-
+                    .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
             viewHost.When(x => x.ViewOpened -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => opened = null);
             viewHost.When(x => x.ViewBroughtToFront -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
@@ -1018,8 +1016,7 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
-                
-                
+
                 projectStore.Received().SaveProjectAs(someValidFilePath);
                 projectStore.Received().StageProject(project);
             }
@@ -1140,7 +1137,7 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
-                
+
                 projectStore.Received().SaveProjectAs(someValidFilePath);
                 projectStore.Received().StageProject(project);
             }
@@ -1195,7 +1192,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
-            
+
             projectStore.Received().LoadProject(filePath);
         }
 

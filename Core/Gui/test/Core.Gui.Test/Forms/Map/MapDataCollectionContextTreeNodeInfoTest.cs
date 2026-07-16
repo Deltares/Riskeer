@@ -523,7 +523,7 @@ namespace Core.Gui.Test.Forms.Map
 
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var importCommandHandler = Substitute.For<IImportCommandHandler>();
-            importCommandHandler.GetSupportedImportInfos(Arg.Any<IEnumerable<ImportInfo>>()).Returns(new[]
+            importCommandHandler.GetSupportedImportInfos(Arg.Any<object>()).Returns(new[]
             {
                 new ImportInfo()
             });

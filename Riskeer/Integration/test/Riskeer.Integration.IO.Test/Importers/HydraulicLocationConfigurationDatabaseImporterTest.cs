@@ -233,18 +233,19 @@ namespace Riskeer.Integration.IO.Test.Importers
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
+            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
-            handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                                    x == new Dictionary<HydraulicBoundaryDatabase, long>
-                                                                                    {
-                                                                                        {
-                                                                                            hydraulicBoundaryData.HydraulicBoundaryDatabases.First(), 13
-                                                                                        }
-                                                                                    }),
-                           hlcdFilePath).Returns(Enumerable.Empty<IObservable>());
+            handler.Update(
+                       Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                       Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
+                                                                                x.Count == 1 &&
+                                                                                x.ContainsKey(expectedDatabase) &&
+                                                                                x[expectedDatabase] == 13),
+                       hlcdFilePath)
+                   .Returns(Enumerable.Empty<IObservable>());
             var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, hlcdFilePath);
 
@@ -256,15 +257,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hlcdFilePath}'.", 1);
             Assert.IsTrue(importResult);
             handler.Received().InquireConfirmation();
-            handler.Received().Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                                      Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                                               x == new Dictionary<HydraulicBoundaryDatabase, long>
-                                                                                               {
-                                                                                                   {
-                                                                                                       hydraulicBoundaryData.HydraulicBoundaryDatabases.First(), 13
-                                                                                                   }
-                                                                                               }),
-                                      hlcdFilePath);
+            handler.Received().Update(
+                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
+                                                                         x.Count == 1 &&
+                                                                         x.ContainsKey(expectedDatabase) &&
+                                                                         x[expectedDatabase] == 13),
+                hlcdFilePath);
         }
 
         [Test]
@@ -277,16 +276,15 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
             handler.InquireConfirmation().Returns(true);
-            handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                                    x == new Dictionary<HydraulicBoundaryDatabase, long>
-                                                                                    {
-                                                                                        {
-                                                                                            hydraulicBoundaryData.HydraulicBoundaryDatabases.First(), 13
-                                                                                        }
-                                                                                    }),
-                           filePath).Returns(Enumerable.Empty<IObservable>());
+            handler.Update(
+                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
+                                                                         x.Count == 1 &&
+                                                                         x.ContainsKey(expectedDatabase) &&
+                                                                         x[expectedDatabase] == 13),
+                filePath).Returns(Enumerable.Empty<IObservable>());
             var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, filePath);
 
@@ -298,15 +296,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             handler.Received().InquireConfirmation();
-            handler.Received().Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                                      Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                                               x == new Dictionary<HydraulicBoundaryDatabase, long>
-                                                                                               {
-                                                                                                   {
-                                                                                                       hydraulicBoundaryData.HydraulicBoundaryDatabases.First(), 13
-                                                                                                   }
-                                                                                               }),
-                                      filePath);
+            handler.Received().Update(
+                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
+                                                                         x.Count == 1 &&
+                                                                         x.ContainsKey(expectedDatabase) &&
+                                                                         x[expectedDatabase] == 13),
+                filePath);
         }
 
         [Test]

@@ -407,7 +407,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
-
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -416,18 +415,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism>();
             failureMechanism.InAssembly.Returns(inAssembly);
-            failureMechanism.When(fp => fp.InAssembly = !inAssembly).Do(_ => failureMechanism.InAssembly = !inAssembly);
 
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);
+
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem =
+                RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(
+                    failureMechanismContext,
+                    context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, actionCounter);
+
+            failureMechanism.Received().InAssembly = !inAssembly;
             failureMechanism.Received().NotifyObservers();
         }
 

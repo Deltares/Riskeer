@@ -495,7 +495,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
             var migrateProject = Substitute.For<IMigrateProject>();
-            migrateProject.Migrate(null, null)
+            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>())
                           .Returns(true);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {

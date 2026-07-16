@@ -931,13 +931,14 @@ namespace Core.Gui.Test
                 // Assert
                 IEnumerable<TreeNodeInfo> expected = nodesPluginA.Concat(nodesPluginB).Concat(nodesPluginC);
                 CollectionAssert.AreEquivalent(expected, result);
-                pluginA.Received().Dispose();
-                pluginA.Received().Deactivate();
-                pluginB.Received().Dispose();
-                pluginB.Received().Deactivate();
-                pluginC.Received().Dispose();
-                pluginC.Received().Deactivate();
             }
+
+            pluginA.Received().Dispose();
+            pluginA.Received().Deactivate();
+            pluginB.Received().Dispose();
+            pluginB.Received().Deactivate();
+            pluginC.Received().Dispose();
+            pluginC.Received().Deactivate();
         }
 
         [Test]

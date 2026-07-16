@@ -171,14 +171,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(x => x.ChangeProbability(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
-
             const double newValue = 0.001;
 
             // When
@@ -186,7 +185,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
-            failureMechanismContributionNormChangeHandler.Received().ChangeNormativeProbability(Arg.Any<Action>());
+            failureMechanismContributionNormChangeHandler.Received().ChangeProbability(Arg.Any<Action>());
         }
 
         [Test]

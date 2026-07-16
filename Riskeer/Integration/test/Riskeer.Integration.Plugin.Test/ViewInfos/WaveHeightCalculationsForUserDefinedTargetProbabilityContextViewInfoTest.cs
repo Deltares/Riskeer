@@ -221,7 +221,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
@@ -246,7 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             double actualNormValue = double.NaN;
             IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
-            guiService.When(service => service.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
+            guiService.When(service => service.CalculateWaveHeights(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
                       .Do(invocation =>
                       {
                           performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();

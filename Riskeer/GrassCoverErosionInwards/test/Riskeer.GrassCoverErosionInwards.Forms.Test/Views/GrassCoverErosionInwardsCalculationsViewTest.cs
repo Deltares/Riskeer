@@ -548,7 +548,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.01, 0.001));
             ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = Substitute.For<IObserver>();
-            observer.Received().UpdateObserver();
             const string arbitraryFilePath = "path";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
@@ -575,6 +574,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             button.Click();
 
             // Then
+            observer.Received().UpdateObserver();
         }
 
         [Test]

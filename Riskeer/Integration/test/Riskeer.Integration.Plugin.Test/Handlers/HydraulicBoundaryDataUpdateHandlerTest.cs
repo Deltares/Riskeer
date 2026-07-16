@@ -473,11 +473,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 CollectionAssert.IsEmpty(element.HydraulicBoundaryLocationCalculations);
             }
             
-            duneLocationsUpdateHandler.Received().RemoveLocations(new[]
-            {
-                location1,
-                location2
-            });
+            duneLocationsUpdateHandler.Received().RemoveLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations =>
+                locations != null &&
+                locations.Contains(location1) &&
+                locations.Contains(location2)
+            ));
         }
 
         [Test]

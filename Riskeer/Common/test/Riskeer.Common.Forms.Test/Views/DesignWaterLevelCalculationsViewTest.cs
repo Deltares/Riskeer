@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var guiService = Substitute.For<IHydraulicBoundaryLocationCalculationGuiService>();
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>()))
+            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
                       .Do(callInfo =>
                       {
                           performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray();
@@ -279,7 +279,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>());
+            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
         }
 
         [Test]
@@ -317,7 +317,7 @@ namespace Riskeer.Common.Forms.Test.Views
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double targetProbabilityValue = double.NaN;
             string calculationIdentifierValue = null;
-            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>()))
+            guiService.When(_ => _.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
                       .Do(callInfo =>
                       {
                           performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray();
@@ -347,7 +347,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(targetProbability, targetProbabilityValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<int>(), Arg.Any<string>());
+            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
         }
 
         private DataGridView GetCalculationsDataGridView()

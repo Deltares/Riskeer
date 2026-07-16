@@ -585,12 +585,12 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
 
             updateStrategy.UpdateModelWithImportedData(
-                Arg.Is<IMechanismStochasticSoilModel[]>(arr =>
+                Arg.Is<IEnumerable<IMechanismStochasticSoilModel>>(arr =>
                                                             arr.Contains(transformedModel)),
                 validFilePath);
 
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
-            filter.IsValidForFailureMechanism(null)
+            filter.IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>())
                   .Returns(true);
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
                 stochasticSoilModelCollection,
@@ -611,7 +611,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 2);
             Assert.IsTrue(importResult);
-            filter.Received().IsValidForFailureMechanism(null);
+            filter.Received().IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>());
         }
 
         [Test]
@@ -668,9 +668,9 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataProgressText);
             messageProvider.GetUpdateDataFailedLogMessageText("Stochastische ondergrondmodellen").Returns(exceptionMessage);
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.UpdateModelWithImportedData(Arg.Any<IMechanismStochasticSoilModel[]>(), Arg.Any<string>()).Returns(_ => throw updateDataException);
+            updateStrategy.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()).Returns(_ => throw updateDataException);
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
-            filter.IsValidForFailureMechanism(null).Returns(true);
+            filter.IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>()).Returns(true);
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -714,7 +714,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns("");
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.UpdateModelWithImportedData(Arg.Any<IMechanismStochasticSoilModel[]>(), Arg.Any<string>())
+            updateStrategy.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>())
                           .Returns(new[]
                           {
                               observableA,
@@ -738,6 +738,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Call
             importer.DoPostImport();
 
+            filter.Received().IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>());
             observableA.Received().NotifyObservers();
             observableB.Received().NotifyObservers();
         }

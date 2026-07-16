@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Components.OxyPlot.CustomSeries;
 using NSubstitute;
 using NUnit.Framework;
@@ -143,7 +144,11 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<double[]>(d => Equals(d, expectedDashes)),
+                Arg.Is<double[]>(d =>
+                                     d == expectedDashes ||
+                                     (d != null &&
+                                      expectedDashes != null &&
+                                      d.SequenceEqual(expectedDashes))),
                 Arg.Any<LineJoin>(),
                 Arg.Any<bool>());
         }
@@ -197,7 +202,10 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<double[]>(d => Equals(d, expectedDashes)),
+                Arg.Is<double[]>(d => d == expectedDashes ||
+                                      (d != null &&
+                                       expectedDashes != null &&
+                                       d.SequenceEqual(expectedDashes))),
                 Arg.Any<LineJoin>(),
                 Arg.Any<bool>());
         }

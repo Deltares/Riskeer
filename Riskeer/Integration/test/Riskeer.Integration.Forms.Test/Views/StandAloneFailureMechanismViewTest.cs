@@ -229,7 +229,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
                 IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
-                observers[referenceLineIndex].Received().UpdateObserver();
                 var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
@@ -241,6 +240,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Assert
                 MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                observers[referenceLineIndex].Received().UpdateObserver();
             }
         }
 

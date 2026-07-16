@@ -348,7 +348,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -378,7 +378,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             // Then
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -407,7 +407,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[stochasticSoilModelsIndex].Received().UpdateObserver();
         }
 
         [Test]

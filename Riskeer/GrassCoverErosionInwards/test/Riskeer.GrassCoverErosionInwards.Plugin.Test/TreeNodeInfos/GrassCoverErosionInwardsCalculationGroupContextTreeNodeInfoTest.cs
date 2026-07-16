@@ -1385,7 +1385,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();

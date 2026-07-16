@@ -372,13 +372,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(mainWindow);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 				
                 calculatorFactory
-                    .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                    .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
                     .Returns(callInfo =>
                     {
                         HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -423,7 +422,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                     });
                 }
                 
-                calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null));
             }
         }
 

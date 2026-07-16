@@ -808,7 +808,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            importCommandHandler.Received(1).ImportOn(nodeData, importInfos);
+            importCommandHandler.Received(1).ImportOn(nodeData, Arg.Is<ImportInfo[]>(x => x.SequenceEqual(importInfos)));
         }
 
         [Test]

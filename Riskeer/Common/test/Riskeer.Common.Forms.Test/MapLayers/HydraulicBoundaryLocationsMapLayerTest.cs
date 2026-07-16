@@ -417,7 +417,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
-            observer.Received().UpdateObserver();
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

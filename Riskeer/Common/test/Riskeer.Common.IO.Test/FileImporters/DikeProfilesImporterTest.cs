@@ -510,7 +510,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             const string exceptionMessage = "Look, an exception!";
             var strategy = Substitute.For<IDikeProfileUpdateDataStrategy>();
-            strategy.UpdateDikeProfilesWithImportedData(null, null)
+            strategy.UpdateDikeProfilesWithImportedData(Arg.Any<IEnumerable<DikeProfile>>(), Arg.Any<string>())
                     .Returns(_ => throw new UpdateDataException(exceptionMessage));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));

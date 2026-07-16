@@ -127,17 +127,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             if (!hydraulicBoundaryDataLinked)
             {
-                menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>());
+                menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>()).Returns(menuBuilder);
             }
             else
             {
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
             }
 
-            menuBuilder.AddSeparator();
-            menuBuilder.AddCollapseAllItem();
-            menuBuilder.AddExpandAllItem();
-            menuBuilder.AddPropertiesItem();
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -185,7 +185,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var importCommandHandler = Substitute.For<IImportCommandHandler>();
-            importCommandHandler.GetSupportedImportInfos(null).Returns(new[]
+            importCommandHandler.GetSupportedImportInfos(Arg.Any<object>()).Returns(new[]
             {
                 new ImportInfo()
             });
@@ -224,8 +224,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
         }
 
         [Test]

@@ -134,11 +134,9 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(hydraulicLocationName);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestDesignWaterLevelCalculator());
-
             calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .CreateDesignWaterLevelCalculator(
+                    Arg.Is<HydraRingCalculationSettings>(settings => settings != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -147,9 +145,9 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                             hydraulicBoundaryLocation),
                         callInfo.Arg<HydraRingCalculationSettings>());
 
-                    return new TestWaveHeightCalculator();
+                    return new TestDesignWaterLevelCalculator();
                 });
-            
+
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
@@ -196,6 +194,10 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                     Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
                 });
             }
+
+            calculatorFactory.Received(1)
+                             .CreateDesignWaterLevelCalculator(
+                                 Arg.Is<HydraRingCalculationSettings>(settings => settings != null));
         }
 
         [Test]

@@ -402,9 +402,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     var tester = new MessageBoxTester(wnd);
                     tester.ClickOk();
                 };
-
             }
-
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
@@ -430,7 +428,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsNull(calculation.Output);
-            calculationObserver.Received().UpdateObserver();
+            if (useCalculationWithOutput)
+            {
+                calculationObserver.Received().UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+            }
+
             calculationInputObserver.Received().UpdateObserver();
         }
 

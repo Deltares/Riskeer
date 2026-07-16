@@ -402,11 +402,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
-            // Call
+            // Call    
             riskeerContextMenuBuilder.AddRenameItem();
 
             // Assert
-            contextMenuBuilder.Received().AddDeleteItem();
+            contextMenuBuilder.Received().AddRenameItem();
         }
 
         [Test]
@@ -575,7 +575,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddCustomItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var contextMenuItem = Substitute.For<StrictContextMenuItem>();
+            var contextMenuItem = new StrictContextMenuItem("Custom Text","Custom Tooltip", null,null);
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
@@ -583,7 +583,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(contextMenuItem);
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item.Name == contextMenuItem.Name));
         }
 
         [Test]

@@ -179,6 +179,8 @@ namespace Riskeer.Integration.Service.Test
             {
                 calculatorFactory.CreatePipingCalculator(
                     Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreatePipingCalculator(
+                    Arg.Any<HydraRingCalculationSettings>());
                 calculatorFactory.CreateOvertoppingCalculator(
                     Arg.Any<HydraRingCalculationSettings>());
                 calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(

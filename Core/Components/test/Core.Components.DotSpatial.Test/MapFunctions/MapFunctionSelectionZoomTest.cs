@@ -152,9 +152,10 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             double geoStartPointX = startPointX;
             double geoStartPointY = startPointY;
-            
-            map.Received().PixelToProj(new Point(startPointX, startPointY));
-            
+
+            map.PixelToProj(Arg.Is<Point>(p => p.X == startPointX && p.Y == startPointY))
+               .Returns(new Coordinate(geoStartPointX, geoStartPointY));
+
             var mapFunction = new MapFunctionSelectionZoom(map);
 
             // Call
@@ -170,20 +171,42 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnDraw_NotDragging_NoDrawing()
         {
             // Setup
+            var random = new Random(21);
+            int startX = random.Next(1, 100);
+            int startY = random.Next(1, 100);
+            int endX = random.Next(1, 100);
+            int endY = random.Next(1, 100);
+            Rectangle rectangle = Opp.RectangleFromPoints(new Point(startX, startY), new Point(endX, endY));
+            rectangle.Width -= 1;
+            rectangle.Height -= 1;
+
             var map = Substitute.For<IMap>();
             var mapFrame = Substitute.For<IMapFrame>();
-            var inGraphics = Substitute.For<Graphics>();
             var mapFunction = new MapFunctionSelectionZoom(map);
-
             var clipRectangle = new Rectangle(0, 0, 0, 0);
 
-            // Call
-            mapFunction.Draw(new MapDrawArgs(inGraphics, clipRectangle, mapFrame));
+            var bitmap = new Bitmap(200, 200);
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(Color.Magenta);
 
-            // Assert
-            inGraphics.DidNotReceive().DrawRectangle(Arg.Any<Pen>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>());
+            mapFunction.DoMouseMove(
+                new GeoMouseArgs(
+                    new MouseEventArgs(MouseButtons.None, 0, endX, endY, 0),
+                    map));
+            // Call
+            mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
+
+            // Assert unchanged colors on edges
+            Assert.AreEqual(Color.Magenta.ToArgb(),
+                            bitmap.GetPixel(rectangle.Left, rectangle.Top).ToArgb());
+            Assert.AreEqual(Color.Magenta.ToArgb(),
+                            bitmap.GetPixel(rectangle.Right, rectangle.Top).ToArgb());
+            Assert.AreEqual(Color.Magenta.ToArgb(),
+                            bitmap.GetPixel(rectangle.Left, rectangle.Bottom).ToArgb());
+            Assert.AreEqual(Color.Magenta.ToArgb(),
+                            bitmap.GetPixel(rectangle.Right, rectangle.Bottom).ToArgb());
         }
-        
+
         [Test]
         public void OnDraw_Dragging_DrawRectangle()
         {
@@ -191,25 +214,38 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var random = new Random(21);
             int startX = random.Next(1, 100);
             int startY = random.Next(1, 100);
-            Rectangle rectangleFromPoints = Opp.RectangleFromPoints(new Point(startX, startY), new Point(startX, startY));
-            rectangleFromPoints.Width -= 1;
-            rectangleFromPoints.Height -= 1;
+            int endX = random.Next(1, 100);
+            int endY = random.Next(1, 100);
+            Rectangle rectangle = Opp.RectangleFromPoints(new Point(startX, startY), new Point(endX, endY));
+            rectangle.Width -= 1;
+            rectangle.Height -= 1;
 
             var map = Substitute.For<IMap>();
             var mapFrame = Substitute.For<IMapFrame>();
-            var inGraphics = Substitute.For<Graphics>();
             var mapFunction = new MapFunctionSelectionZoom(map);
             var clipRectangle = new Rectangle(0, 0, 0, 0);
+
+            var bitmap = new Bitmap(200, 200);
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(Color.Magenta);
+
             mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startX, startY, 0), map));
-
+            mapFunction.DoMouseMove(
+                new GeoMouseArgs(
+                    new MouseEventArgs(MouseButtons.None, 0, endX, endY, 0),
+                    map));
             // Call
-            mapFunction.Draw(new MapDrawArgs(inGraphics, clipRectangle, mapFrame));
+            mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
 
-            // Assert
-            inGraphics.Received().DrawRectangle(
-                Arg.Is<Pen>(p => p.Color == Color.Black &&
-                                 p.DashStyle == DashStyle.Dash),
-                Arg.Is<Rectangle>(r => r.Equals(rectangleFromPoints)));
+            // Assert changed color on edges
+            Assert.AreNotEqual(Color.Magenta.ToArgb(),
+                               bitmap.GetPixel(rectangle.Left, rectangle.Top).ToArgb());
+            Assert.AreNotEqual(Color.Magenta.ToArgb(),
+                               bitmap.GetPixel(rectangle.Right, rectangle.Top).ToArgb());
+            Assert.AreNotEqual(Color.Magenta.ToArgb(),
+                               bitmap.GetPixel(rectangle.Left, rectangle.Bottom).ToArgb());
+            Assert.AreNotEqual(Color.Magenta.ToArgb(),
+                               bitmap.GetPixel(rectangle.Right, rectangle.Bottom).ToArgb());
         }
 
         [Test]

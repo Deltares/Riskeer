@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
             assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>()).Returns(_ => throw new AssessmentSectionProviderException());
-            
+
             var comparer = Substitute.For<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = Substitute.For<IAssessmentSectionMergeDataProvider>();
             var mergeHandler = Substitute.For<IAssessmentSectionMergeHandler>();
@@ -240,8 +240,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                      .Returns(new AssessmentSection(AssessmentSectionComposition.Dike));
             var comparer = Substitute.For<IAssessmentSectionMergeComparer>();
             comparer.Compare(Arg.Any<AssessmentSection>(), Arg.Any<AssessmentSection>()).Returns(true);
-            var mergeDataProvider = Substitute.For<IAssessmentSectionMergeDataProvider>();  
-            mergeDataProvider.GetMergeData(Arg.Any<AssessmentSection>()).Returns((AssessmentSectionMergeData)null);
+            var mergeDataProvider = Substitute.For<IAssessmentSectionMergeDataProvider>();
+            mergeDataProvider.GetMergeData(Arg.Any<AssessmentSection>()).Returns((AssessmentSectionMergeData) null);
             var mergeHandler = Substitute.For<IAssessmentSectionMergeHandler>();
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
@@ -305,7 +305,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mergeDataProvider.GetMergeData(Arg.Any<AssessmentSection>()).Returns(mergeData);
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = Substitute.For<IAssessmentSectionMergeHandler>();
-            mergeHandler.When(x=>x.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler)).Do(_=>new Exception());
+            mergeHandler.When(x => x.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler)).Do(_ => throw new Exception());
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
@@ -314,6 +314,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
             {
+                mergeHandler.Received().PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
+
                 Assert.AreEqual(3, messages.Count());
 
                 Assert.AreEqual("Samenvoegen van trajectinformatie is gestart.", messages.ElementAt(0).Item1);
@@ -326,8 +328,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
                 Assert.AreEqual("Samenvoegen van trajectinformatie is mislukt.", messages.ElementAt(2).Item1);
             });
-            
-            mergeHandler.Received().PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
         }
 
         private static AssessmentSectionMergeData.ConstructionProperties CreateDefaultConstructionProperties()
