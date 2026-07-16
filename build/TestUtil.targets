@@ -1,9 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)build\Base.targets" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
-    <DebugType>none</DebugType>
-  </PropertyGroup>
-</Project>
