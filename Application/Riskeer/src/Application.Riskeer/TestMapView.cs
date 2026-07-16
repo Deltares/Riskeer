@@ -42,7 +42,8 @@ namespace Application.Riskeer
             mapControl = new MapControl
             {
                 Data = mapDataCollection,
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                BackgroundMapData = new WmtsMapData("ESRI luchtfoto", "http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/WMTS?", "World_Imagery(default028mm)", "image/jpeg")
             };
 
             Controls.Add(mapControl);
