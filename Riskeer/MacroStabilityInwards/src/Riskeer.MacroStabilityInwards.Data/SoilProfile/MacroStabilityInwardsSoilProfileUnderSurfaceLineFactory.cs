@@ -84,8 +84,8 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
             IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(layer => As2DGeometry(
                                                                                                layer,
                                                                                                soilProfile,
-                                                                                               localizedSurfaceLine.First().X,
-                                                                                               localizedSurfaceLine.Last().X))
+                                                                                               localizedSurfaceLine[0].X,
+                                                                                               localizedSurfaceLine[localizedSurfaceLine.Length - 1].X))
                                                                             .ToArray();
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);
