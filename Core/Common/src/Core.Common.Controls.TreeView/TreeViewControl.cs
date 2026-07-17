@@ -140,6 +140,7 @@ namespace Core.Common.Controls.TreeView
         /// an <see cref="InvalidOperationException"/>. Take notice of the fact that these kind of
         /// exceptions might not directly occur after setting the data.
         /// </remarks>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get
