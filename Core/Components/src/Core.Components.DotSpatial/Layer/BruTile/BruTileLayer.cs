@@ -66,7 +66,7 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using BruTileExtent = BruTile.Extent;
 using DotSpatialExtent = DotSpatial.Data.Extent;
 using DotSpatialLayer = DotSpatial.Symbology.Layer;

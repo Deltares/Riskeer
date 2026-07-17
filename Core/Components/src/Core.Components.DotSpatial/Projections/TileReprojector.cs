@@ -27,7 +27,7 @@ using Core.Common.Util.Drawing;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
 
 namespace Core.Components.DotSpatial.Projections

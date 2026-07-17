@@ -21,7 +21,6 @@
 
 using System;
 using Core.Components.DotSpatial.Properties;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using Point = System.Drawing.Point;
 

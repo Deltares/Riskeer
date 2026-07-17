@@ -31,7 +31,6 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 
 namespace Core.Components.DotSpatial.Converter
