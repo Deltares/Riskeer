@@ -25,8 +25,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.TestUtil;
@@ -135,10 +135,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
         public void C_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var roundedValue = (RoundedDouble) value;
 
@@ -159,8 +156,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             const string expectedMessage = "De waarde van parameter 'c' moet binnen het bereik [0,00, 2,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
+            observable.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -170,10 +166,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
         public void C_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var roundedValue = (RoundedDouble) value;
@@ -195,8 +188,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             Assert.AreEqual(value, failureMechanism.GeneralInput.C,
                             failureMechanism.GeneralInput.C.GetAccuracy());
             Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

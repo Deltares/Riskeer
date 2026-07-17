@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using Core.Gui.Forms.Main;
 using NSubstitute;
-using NSubstitute;
 
 namespace Core.Gui.TestUtil
 {
