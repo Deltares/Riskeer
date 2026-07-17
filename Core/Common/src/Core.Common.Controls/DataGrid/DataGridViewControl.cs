@@ -128,6 +128,7 @@ namespace Core.Common.Controls.DataGrid
         /// one cell, row, or column of the <see cref="DataGridViewControl"/> at a time.
         /// </summary>
         /// <remarks>See <see cref="DataGridView.MultiSelect"/>.</remarks>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool MultiSelect
         {
             get
@@ -149,6 +150,7 @@ namespace Core.Common.Controls.DataGrid
         /// <exception cref="InvalidOperationException">Thrown when the specified value to set is 
         /// <see cref="DataGridViewSelectionMode.FullColumnSelect"/> or <see cref="DataGridViewSelectionMode.ColumnHeaderSelect"/> 
         /// and the SortMode property of one or more columns is set to <c>Automatic</c>.</exception>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DataGridViewSelectionMode SelectionMode
         {
             get

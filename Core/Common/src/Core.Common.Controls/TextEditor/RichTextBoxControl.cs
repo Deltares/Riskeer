@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -54,6 +55,7 @@ namespace Core.Common.Controls.TextEditor
         /// <summary>
         /// Gets or sets the Rtf from the <see cref="RichTextBox"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Rtf
         {
             get
