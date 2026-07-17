@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -52,6 +53,7 @@ namespace Application.Riskeer
             Controls.Add(mapControl);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         public IMapControl Map => mapControl;
