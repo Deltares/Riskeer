@@ -13,6 +13,7 @@
     <Version>26.1.1</Version>
     <Configurations>Debug;Release;Coverage</Configurations>
     <UseWpf>true</UseWpf>
+    <UseWindowsForms>true</UseWindowsForms>
     <EnableDefaultPageItems>false</EnableDefaultPageItems>
     <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
