@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Core.Components.DotSpatial.Forms;
@@ -37,7 +39,8 @@ namespace Application.Riskeer
         {
             var mapDataCollection = new MapDataCollection("test");
 
-            new FeatureBasedMapDataImporter(mapDataCollection, GetFilePath("traject_6-3.shp")).Import();
+            AddMapLineData(mapDataCollection);
+            AddMapPointData(mapDataCollection);
 
             mapControl = new MapControl
             {
@@ -61,6 +64,22 @@ namespace Application.Riskeer
         private static string GetThisFilePath([CallerFilePath] string path = null)
         {
             return path;
+        }
+
+        private static void AddMapLineData(MapDataCollection mapDataCollection)
+        {
+            new FeatureBasedMapDataImporter(mapDataCollection, GetFilePath("traject_6-3.shp")).Import();
+            var mapLineData = (MapLineData) mapDataCollection.Collection.Last();
+            mapLineData.Style.Color = Color.CadetBlue;
+            mapLineData.Style.Width = 3;
+        }
+
+        private static void AddMapPointData(MapDataCollection mapDataCollection)
+        {
+            new FeatureBasedMapDataImporter(mapDataCollection, GetFilePath("kunstwerken_6_3_hoogte.shp")).Import();
+            var mapPointData = (MapPointData) mapDataCollection.Collection.Last();
+            mapPointData.Style.Color = Color.CornflowerBlue;
+            mapPointData.Style.Size = 8;
         }
     }
 }
