@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -227,7 +227,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 "ID",
                 "HRD bestand",
                 "Kustvaknummer",
-                "Metrering [dam]",
+                "Metrering [m]",
                 "Rekenwaarde waterstand [m+NAP]",
                 "Rekenwaarde Hs [m]",
                 "Rekenwaarde Tp [s]",
@@ -314,7 +314,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 "0",
                 "HRD dutch coast south",
                 "50",
-                "320",
+                "3200",
                 "-",
                 "-",
                 "-",
@@ -331,7 +331,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 "0",
                 "HRD dutch coast south",
                 "60",
-                "230",
+                "2300",
                 1.23.ToString(CultureInfo.CurrentCulture),
                 2.34.ToString(CultureInfo.CurrentCulture),
                 3.45.ToString(CultureInfo.CurrentCulture),
@@ -571,7 +571,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 "10",
                 "HRD",
                 "3",
-                "80",
+                "800",
                 3.21.ToString(CultureInfo.CurrentCulture),
                 4.32.ToString(CultureInfo.CurrentCulture),
                 5.43.ToString(CultureInfo.CurrentCulture),

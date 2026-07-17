@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -555,6 +555,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("  + De assemblagemethode 'Automatisch berekenen o.b.v. slechtste doorsnede of vak' is vervangen door 'Automatisch berekenen o.b.v. slechtste vak'.");
                 migrationLog.AppendLine("* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 24.1 naar versie 25.1:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 25.1 naar versie 26.1:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =

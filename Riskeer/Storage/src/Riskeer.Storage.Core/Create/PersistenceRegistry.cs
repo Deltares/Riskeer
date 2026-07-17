@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Create
             return new Dictionary<TEntity, TModel>(new ReferenceEqualityComparer<TEntity>());
         }
 
-        private bool ContainsValue<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
+        private static bool ContainsValue<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
             where TModel : class
         {
             if (model == null)
@@ -117,7 +117,7 @@ namespace Riskeer.Storage.Core.Create
             return collection.Values.Contains(model, new ReferenceEqualityComparer<TModel>());
         }
 
-        private void Register<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TEntity entity, TModel model)
+        private static void Register<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TEntity entity, TModel model)
             where TEntity : class
             where TModel : class
         {
@@ -134,7 +134,7 @@ namespace Riskeer.Storage.Core.Create
             collection[entity] = model;
         }
 
-        private TEntity Get<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
+        private static TEntity Get<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
             where TModel : class
         {
             if (model == null)

@@ -6,20 +6,21 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
 using System;
+using System.Text.RegularExpressions;
 using Riskeer.Common.Util.Properties;
 
 namespace Riskeer.Common.Util
@@ -30,7 +31,8 @@ namespace Riskeer.Common.Util
     public static class ProjectVersionHelper
     {
         private const string validDatabaseVersion = "5";
-        private const string currentDatabaseVersion = "25.1";
+        private const string currentDatabaseVersion = "26.1";
+        private const string pattern = @"^[1-9][0-9]*(.?[0-9]+)*$";
 
         /// <summary>
         /// Gets the current database version.
@@ -59,9 +61,15 @@ namespace Riskeer.Common.Util
         /// <param name="version">The version to compare.</param>
         /// <returns><c>true</c> if <paramref name="version"/> is a valid database version, 
         /// <c>false</c> otherwise.</returns>
-        /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.</remarks>
+        /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.
+        /// A valid version matches pattern #(.#)*.</remarks>
         public static bool IsValidVersion(string version)
         {
+            if (!Regex.IsMatch(version, pattern))
+            {
+                return false;
+            }
+
             var versionComparer = new ProjectVersionComparer();
             return versionComparer.Compare(version, validDatabaseVersion) >= 0;
         }

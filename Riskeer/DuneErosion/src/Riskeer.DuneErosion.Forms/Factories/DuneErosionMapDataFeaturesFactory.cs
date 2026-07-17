@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Factories;
@@ -63,8 +64,9 @@ namespace Riskeer.DuneErosion.Forms.Factories
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RiskeerDuneErosionDataResources.DuneLocation_Offset_format,
-                                                                                   CultureInfo.CurrentCulture);
+            RoundedDouble offsetInMeters = location.Offset * 10;
+            feature.MetaData[Resources.MetaData_Offset] = offsetInMeters.ToString(RiskeerDuneErosionDataResources.DuneLocation_OffsetInMeter_format,
+                                                                                  CultureInfo.CurrentCulture);
 
             HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities,
                                                                                          Resources.MetaData_WaterLevel_TargetProbability_0);

@@ -1394,6 +1394,7 @@
           <Property Name="WaveImpactAsphaltCoverFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ParameterC" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
           <Key>
@@ -5957,6 +5958,7 @@
           <Property Name="WaveImpactAsphaltCoverFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterC" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverFailureMechanismMetaEntity_0_0" FromRole="WaveImpactAsphaltCoverFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
@@ -8908,6 +8910,7 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverFailureMechanismMetaEntity">
                 <ScalarProperty Name="ForeshoreProfileCollectionSourcePath" ColumnName="ForeshoreProfileCollectionSourcePath" />
+                <ScalarProperty Name="ParameterC" ColumnName="ParameterC" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverFailureMechanismMetaEntityId" ColumnName="WaveImpactAsphaltCoverFailureMechanismMetaEntityId" />
               </MappingFragment>

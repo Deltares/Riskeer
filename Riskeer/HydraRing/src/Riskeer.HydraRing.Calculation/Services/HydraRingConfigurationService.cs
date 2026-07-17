@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -86,7 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Services
         /// Adds Hydra-Ring calculation input to the configuration.
         /// </summary>
         /// <param name="input">The calculation input to add to the configuration.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> is not unique.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
@@ -98,7 +98,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 throw new ArgumentException(@"Section id is not unique", nameof(input));
             }
 
-            if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)
+            if (hydraRingInputs.Count > 0 && hydraRingInputs[0].FailureMechanismType != input.FailureMechanismType)
             {
                 throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
@@ -132,9 +132,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["ForelandModels"] = GetForelandModelsConfiguration(),
                 ["Forelands"] = GetForelandsConfiguration(),
                 ["ProbabilityAlternatives"] = new List<OrderedDictionary>(),
-                ["SetUpHeights"] = new List<OrderedDictionary>(),
                 ["CalcWindDirections"] = new List<OrderedDictionary>(),
-                ["WaveReductions"] = new List<OrderedDictionary>(),
                 ["Areas"] = GetAreasConfiguration(),
                 ["Projects"] = GetProjectsConfiguration(),
                 ["Breakwaters"] = GetBreakWatersConfiguration()
@@ -756,9 +754,9 @@ namespace Riskeer.HydraRing.Calculation.Services
                             continue;
                         }
 
-                        if (val is double)
+                        if (val is double d)
                         {
-                            valueStrings.Add(((double) val).ToString(CultureInfo.InvariantCulture));
+                            valueStrings.Add(d.ToString(CultureInfo.InvariantCulture));
                             continue;
                         }
 

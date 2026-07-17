@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -952,7 +952,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => ((FailureMechanismEntity) null).ReadAsPipingFailureMechanism(failureMechanism, collector);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
@@ -966,7 +966,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsPipingFailureMechanism(null, new ReadConversionCollector());
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
@@ -980,7 +980,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsPipingFailureMechanism(new PipingFailureMechanism(), null);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
@@ -1317,7 +1317,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
@@ -1331,7 +1331,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsMacroStabilityInwardsFailureMechanism(null, new ReadConversionCollector());
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
@@ -1345,7 +1345,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsMacroStabilityInwardsFailureMechanism(new MacroStabilityInwardsFailureMechanism(), null);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
@@ -2415,6 +2415,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random(20);
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
@@ -2425,9 +2426,13 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        ParameterC = random.NextDouble(0.0, 2.0)
+                    }
                 }
             };
+
             var collector = new ReadConversionCollector();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -2442,8 +2447,9 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+            Assert.AreEqual(entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().ParameterC,
+                            failureMechanism.GeneralInput.C, failureMechanism.GeneralInput.C.GetAccuracy());
         }
 
         [Test]
@@ -2504,7 +2510,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
                     }
                 }
             };
@@ -3593,7 +3599,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => ((FailureMechanismEntity) null).ReadAsPipingStructureFailureMechanism(failureMechanism, collector);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
@@ -3607,7 +3613,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsPipingStructureFailureMechanism(null, new ReadConversionCollector());
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
@@ -3621,7 +3627,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Call
             void Call() => entity.ReadAsPipingStructureFailureMechanism(new PipingStructureFailureMechanism(), null);
 
-            // Assert 
+            // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }

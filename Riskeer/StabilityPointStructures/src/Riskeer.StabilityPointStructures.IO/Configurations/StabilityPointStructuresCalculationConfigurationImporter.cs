@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -155,8 +155,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             return true;
         }
 
-        private bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                     StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 readCalculation,
@@ -334,8 +334,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                         StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static void SetFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                                StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {
@@ -348,8 +348,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static void SetVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                  StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.VolumicWeightWater.HasValue)
             {

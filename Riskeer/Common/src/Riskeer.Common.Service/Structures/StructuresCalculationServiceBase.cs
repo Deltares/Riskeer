@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Service.Structures
             {
                 PerformCalculation(calculation, input);
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Service.Structures
                                          ? messageProvider.GetCalculationFailedMessage(calculationName)
                                          : messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent);
 
-                    log.Error(message);
+                    log.Error(message, e);
 
                     exceptionThrown = true;
                     throw;
@@ -268,9 +268,8 @@ namespace Riskeer.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       calculation.Name,
-                                       e.Message));
+                log.WarnFormat(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                               calculation.Name, e.Message);
             }
 
             calculation.Output = new StructuresOutput(reliability, generalResult);

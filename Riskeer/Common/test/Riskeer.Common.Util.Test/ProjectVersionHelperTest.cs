@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -35,12 +35,12 @@ namespace Riskeer.Common.Util.Test
             string currentVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
-            Assert.AreEqual("25.1", currentVersion);
+            Assert.AreEqual("26.1", currentVersion);
         }
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("25.2")]
+        [TestCase("26.2")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
@@ -91,10 +91,10 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
             // Call
-            bool isNewer = ProjectVersionHelper.IsValidVersion(validVersion);
+            bool isValidVersion = ProjectVersionHelper.IsValidVersion(validVersion);
 
             // Assert
-            Assert.IsTrue(isNewer);
+            Assert.IsTrue(isValidVersion);
         }
 
         [Test]
@@ -102,10 +102,10 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
-            bool isNewer = ProjectVersionHelper.IsValidVersion(invalidVersion);
+            bool isValidVersion = ProjectVersionHelper.IsValidVersion(invalidVersion);
 
             // Assert
-            Assert.IsFalse(isNewer);
+            Assert.IsFalse(isValidVersion);
         }
 
         [Test]
@@ -137,15 +137,8 @@ namespace Riskeer.Common.Util.Test
             {
                 new TestCaseData("5"),
                 new TestCaseData("17.1"),
-                new TestCaseData("17.2"),
-                new TestCaseData("17.3"),
-                new TestCaseData("18.1"),
-                new TestCaseData("19.1"),
-                new TestCaseData("21.1"),
-                new TestCaseData("22.1"),
-                new TestCaseData("23.1"),
-                new TestCaseData("24.1"),
-                new TestCaseData("25.1")
+                new TestCaseData("6.1.2"),
+                new TestCaseData("18.1.2.4")
             };
         }
 
@@ -154,8 +147,11 @@ namespace Riskeer.Common.Util.Test
             return new[]
             {
                 new TestCaseData("4"),
+                new TestCaseData("4.8"),
                 new TestCaseData("5a"),
-                new TestCaseData("..")
+                new TestCaseData(".."),
+                new TestCaseData("18.-3"),
+                new TestCaseData("5.a")
             };
         }
     }

@@ -6,14 +6,14 @@
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -48,7 +48,6 @@ using Core.Gui.Plugin.Map;
 using Core.Gui.Properties;
 using Core.Gui.Settings;
 using log4net;
-using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using WindowsApplication = System.Windows.Forms.Application;
 
@@ -357,7 +356,7 @@ namespace Core.Gui
         {
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
-            if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
+            if (!rootLogger.Appenders.Any(a => a is MessageWindowLogAppender))
             {
                 rootLogger.AddAppender(new MessageWindowLogAppender());
                 rootLogger.Repository.Configured = true;
@@ -367,7 +366,7 @@ namespace Core.Gui
         private static void RemoveLogging()
         {
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
-            MessageWindowLogAppender messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
+            MessageWindowLogAppender messageWindowLogAppender = rootLogger.Appenders.OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
                 rootLogger.RemoveAppender(messageWindowLogAppender);

@@ -4,7 +4,7 @@
     <OutDir>$(OutputPath)</OutDir>
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <TargetFramework>net481</TargetFramework>
     <LangVersion>7.3</LangVersion>
     <FileAlignment>512</FileAlignment>

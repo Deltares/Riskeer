@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
@@ -119,7 +120,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(duneLocation.Id, properties.Id);
             Assert.AreEqual(duneLocation.Name, properties.Name);
             Assert.AreEqual(duneLocation.CoastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
+            Assert.AreEqual(duneLocation.Offset.ToString("0", CultureInfo.InvariantCulture), properties.Offset);
             Assert.AreEqual(duneLocation.Location, properties.Location);
             Assert.AreEqual(hrdFileName, properties.HRDFileName);
 
@@ -231,10 +232,12 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
             // Assert
+            RoundedDouble expectedOffsetInMeters = duneLocation.Offset * 10;
+
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
+            Assert.AreEqual(expectedOffsetInMeters.ToString("0", CultureInfo.InvariantCulture), properties.Offset);
             Assert.AreEqual(hrdFileName, properties.HRDFileName);
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
@@ -296,7 +299,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertyDescriptor offsetProperty = dynamicProperties[requiredOffSetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(offsetProperty,
                                                                             "Algemeen",
-                                                                            "Metrering [dam]",
+                                                                            "Metrering [m]",
                                                                             "Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.",
                                                                             true);
 
@@ -393,9 +396,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(3.0, "3")]
-        [TestCase(3.1, "3.1")]
-        public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
+        [TestCase(3.0, "30")]
+        [TestCase(3.1, "31")]
+        public void Offset_Always_ConvertToMetersAndFormatToString(double offset, string expectedPropertyValue)
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();

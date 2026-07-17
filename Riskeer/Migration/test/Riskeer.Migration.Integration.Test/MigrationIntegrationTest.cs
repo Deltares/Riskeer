@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -103,7 +103,7 @@ namespace Riskeer.Migration.Integration.Test
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(20, messages.Count);
+                    Assert.AreEqual(22, messages.Count);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                         messages[0]);
@@ -164,11 +164,17 @@ namespace Riskeer.Migration.Integration.Test
                                                 "* Voor HLCD bestanden waarbij geen tabel 'ScenarioInformation' aanwezig is, worden niet langer standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                         messages[17]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("24.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 24.1 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("24.1", "25.1", "Gevolgen van de migratie van versie 24.1 naar versie 25.1:"),
                         messages[18]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("24.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        new MigrationLogMessage("24.1", "25.1", "* Geen aanpassingen."),
                         messages[19]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("25.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 25.1 naar versie {latestVersion}:"),
+                        messages[20]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("25.1", $"{latestVersion}", "* Geen aanpassingen."),
+                        messages[21]);
                 }
             }
         }
@@ -194,6 +200,7 @@ namespace Riskeer.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 22.1.risk", "23.1");
             yield return new FileToMigrate("Empty valid Release 23.1.risk", "24.1");
             yield return new FileToMigrate("Empty valid Release 24.1.risk", "25.1");
+            yield return new FileToMigrate("Empty valid Release 25.1.risk", "26.1");
         }
 
         private class FileToMigrate

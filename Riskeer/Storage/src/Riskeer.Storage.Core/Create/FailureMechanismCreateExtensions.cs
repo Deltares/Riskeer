@@ -6,14 +6,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<FailureMechanismEntity>(mechanism, registry);
+            var entity = mechanism.Create<FailureMechanismEntity>(registry);
             entity.FailureMechanismType = (short) type;
             return entity;
         }
@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<FailureMechanismEntity>(mechanism, registry);
+            var entity = mechanism.Create<FailureMechanismEntity>(registry);
             entity.FailureMechanismType = (short) type;
             entity.CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone();
 
@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = Create<SpecificFailureMechanismEntity>(specificFailureMechanism, registry);
+            var entity = specificFailureMechanism.Create<SpecificFailureMechanismEntity>(registry);
             AddEntitiesForSectionResults(specificFailureMechanism.SectionResults, registry);
             entity.Name = specificFailureMechanism.Name.DeepClone();
             entity.Code = specificFailureMechanism.Code.DeepClone();
@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Create
                 FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = assemblyResult.ManualFailureMechanismAssemblyProbability.ToNaNAsNull()
             };
 
-            AddEntitiesForFailureMechanismSections(failureMechanism, registry, entity);
+            failureMechanism.AddEntitiesForFailureMechanismSections(registry, entity);
 
             return entity;
         }
