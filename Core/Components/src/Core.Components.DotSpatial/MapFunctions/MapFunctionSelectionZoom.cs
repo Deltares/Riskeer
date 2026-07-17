@@ -26,7 +26,8 @@ using System.Windows.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using NetTopologySuite.Geometries;
+using Coordinate = NetTopologySuite.Geometries.Coordinate;
+using Envelope = NetTopologySuite.Geometries.Envelope;
 
 namespace Core.Components.DotSpatial.MapFunctions
 {
