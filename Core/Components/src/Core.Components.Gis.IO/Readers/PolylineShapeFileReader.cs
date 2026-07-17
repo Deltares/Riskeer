@@ -177,7 +177,7 @@ namespace Core.Components.Gis.IO.Readers
 
             for (var i = 0; i < lineFeature.Geometry.NumGeometries; i++)
             {
-                IGeometry polylineGeometry = lineFeature.Geometry.GetGeometryN(i);
+                Geometry polylineGeometry = lineFeature.Geometry.GetGeometryN(i);
 
                 var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polylineGeometry.Coordinates));
                 geometries.Add(mapGeometry);

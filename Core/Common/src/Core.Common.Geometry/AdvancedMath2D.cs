@@ -207,7 +207,7 @@ namespace Core.Common.Geometry
             return new Polygon(new LinearRing(coordinates));
         }
 
-        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(Geometry geometry)
+        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(NetTopologySuite.Geometries.Geometry geometry)
         {
             var geometryCollection = geometry as GeometryCollection;
             if (geometryCollection == null)

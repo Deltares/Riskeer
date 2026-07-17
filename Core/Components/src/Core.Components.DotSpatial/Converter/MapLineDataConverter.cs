@@ -77,7 +77,7 @@ namespace Core.Components.DotSpatial.Converter
                                     LineCap.Round);
         }
 
-        private static IGeometry GetGeometry(MapFeature mapFeature)
+        private static Geometry GetGeometry(MapFeature mapFeature)
         {
             var factory = new GeometryFactory();
 
@@ -97,7 +97,7 @@ namespace Core.Components.DotSpatial.Converter
             return GetLineString(factory, pointsToConvert);
         }
 
-        private static ILineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
+        private static LineString GetLineString(GeometryFactory factory, IEnumerable<Point2D> points)
         {
             Coordinate[] coordinates = ConvertPoint2DElementsToCoordinates(points);
             return factory.CreateLineString(coordinates);

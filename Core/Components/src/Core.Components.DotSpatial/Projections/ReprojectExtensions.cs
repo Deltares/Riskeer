@@ -39,19 +39,19 @@ namespace Core.Components.DotSpatial.Projections
     internal static class ReprojectExtensions
     {
         /// <summary>
-        /// Reprojects a <see cref="ILinearRing"/>.
+        /// Reprojects a <see cref="LinearRing"/>.
         /// </summary>
         /// <param name="ring">The object to be reprojected.</param>
         /// <param name="source">The coordinate system corresponding to <paramref name="ring"/>.</param>
         /// <param name="target">The target coordinate system.</param>
-        /// <returns>The reprojected <see cref="ILinearRing"/>.</returns>
+        /// <returns>The reprojected <see cref="LinearRing"/>.</returns>
         /// <remarks>The returned object is specified in a higher resolution than <paramref name="ring"/>.
         /// This is done as a straight edge in <paramref name="source"/> can lead to a curved
         /// edge in <paramref name="target"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="ring"/> has less
         /// than 3 coordinates.</exception>
-        public static ILinearRing Reproject(this ILinearRing ring, ProjectionInfo source, ProjectionInfo target)
+        public static LinearRing Reproject(this LinearRing ring, ProjectionInfo source, ProjectionInfo target)
         {
             if (ring == null)
             {
