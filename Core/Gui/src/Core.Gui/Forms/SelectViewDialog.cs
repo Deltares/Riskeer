@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
@@ -57,6 +58,7 @@ namespace Core.Gui.Forms
         /// <summary>
         /// Gets or sets the items to select from.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> Items
         {
             get
@@ -85,6 +87,7 @@ namespace Core.Gui.Forms
         /// <summary>
         /// Gets or sets the name of the default view for the data.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string DefaultViewName { get; set; }
 
         protected override Button GetCancelButton()

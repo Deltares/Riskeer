@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
@@ -73,6 +74,7 @@ namespace Core.Gui.Forms.Project
 
         public object Selection => treeViewControl.SelectedData;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get => treeViewControl.Data;
