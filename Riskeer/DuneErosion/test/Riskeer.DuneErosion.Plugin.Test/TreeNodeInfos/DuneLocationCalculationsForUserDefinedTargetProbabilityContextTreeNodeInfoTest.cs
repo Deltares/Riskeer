@@ -280,9 +280,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
-
-            // Assert
-            // Done in tearDown
         }
 
         [Test]
@@ -514,7 +511,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                             callInfo.Arg<HydraRingCalculationSettings>());
                         return dunesBoundaryConditionsCalculator;
                     });
-                
+
                 plugin.Gui = gui;
                 plugin.Activate();
 

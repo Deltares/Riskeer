@@ -45,6 +45,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             log.LogOutOfRangeException(message, calculationName, exception);
 
             // Assert
+            log.Received().ErrorFormat("{0} Berekening '{1}' is overgeslagen.", $"{message} {innerMessage}", calculationName);
         }
 
         [Test]
@@ -55,10 +56,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculationA";
             var log = Substitute.For<ILog>();
             log.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName);
+            
             // Call
             log.LogCalculationConversionError(message, calculationName);
 
             // Assert
+            log.Received().ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName);
         }
     }
 }

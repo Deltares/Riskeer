@@ -271,6 +271,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
+            calculationWithoutOutput.DidNotReceive().ClearOutput();
+            calculationWithOutputMock1.DidNotReceive().ClearOutput();
+            calculationWithOutputMock2.DidNotReceive().ClearOutput();
         }
 
         [Test]
@@ -384,6 +387,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
+            calculationWithOutputMock1.DidNotReceive().ClearOutput();
+            calculationWithOutputMock2.DidNotReceive().ClearOutput();
         }
 
         [Test]

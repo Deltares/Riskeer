@@ -2284,6 +2284,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             }
 
             // Assert
+            calculatorFactory.Received().CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received().CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received().CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         private static DikeProfile GetDikeProfile()

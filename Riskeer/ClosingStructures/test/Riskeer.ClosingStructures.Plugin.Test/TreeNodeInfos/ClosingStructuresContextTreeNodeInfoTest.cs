@@ -182,24 +182,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
             menuBuilder.AddImportItem().Returns(menuBuilder);
-
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {

@@ -1036,24 +1036,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             return configuration;
         }
 
-        private sealed class MockRepository
-        {
-            public T Stub<T>() where T : class => Substitute.For<T>();
-
-            public T StrictMock<T>() where T : class => Substitute.For<T>();
-
-            public IDisposable Ordered() => new NoOpDisposable();
-
-            public void ReplayAll() {}
-
-            public void VerifyAll() {}
-
-            private sealed class NoOpDisposable : IDisposable
-            {
-                public void Dispose() {}
-            }
-        }
-
         private static ProjectionInfo GetCorrectedWgs84Projection()
         {
             ProjectionInfo wgs84 = AuthorityCodeHandler.Instance["EPSG:3857"];

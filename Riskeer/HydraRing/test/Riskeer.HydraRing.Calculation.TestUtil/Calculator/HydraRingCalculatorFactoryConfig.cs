@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
     /// The following is an example for how to use this class:
     /// <code>
     /// using NSubstitute;
-    /// var calculatorFactory = Substitute.For&lt;IHydraRingCalculatorFactory&gt;();
+    /// var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
     /// 
     /// using(new HydraRingCalculatorFactoryConfig(calculatorFactory))
     /// {

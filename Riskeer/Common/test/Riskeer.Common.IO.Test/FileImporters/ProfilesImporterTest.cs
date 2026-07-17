@@ -611,7 +611,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             testProfilesImporter.Import();
 
             // Assert
-            // Assert done in TearDown
+            messageProvider.Received().GetAddDataToModelProgressText();
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()

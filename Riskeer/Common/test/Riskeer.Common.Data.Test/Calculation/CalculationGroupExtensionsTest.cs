@@ -109,11 +109,6 @@ namespace Riskeer.Common.Data.Test.Calculation
             calculation3.HasOutput.Returns(false);
             calculation4.HasOutput.Returns(false);
 
-            calculation1.ClearOutput();
-            calculation2.ClearOutput();
-            calculation1.NotifyObservers();
-            calculation2.NotifyObservers();
-
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
@@ -133,6 +128,10 @@ namespace Riskeer.Common.Data.Test.Calculation
             rootGroup.ClearCalculationOutput();
 
             // Assert
+            calculation1.Received().ClearOutput();
+            calculation2.Received().ClearOutput();
+            calculation1.Received().NotifyObservers();
+            calculation2.Received().NotifyObservers();
         }
 
         [Test]

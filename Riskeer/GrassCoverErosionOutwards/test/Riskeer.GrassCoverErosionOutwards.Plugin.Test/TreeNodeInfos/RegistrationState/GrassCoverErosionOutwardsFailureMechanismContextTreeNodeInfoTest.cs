@@ -187,7 +187,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.Registrati
                 menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
@@ -232,7 +231,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.Registrati
                 menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);

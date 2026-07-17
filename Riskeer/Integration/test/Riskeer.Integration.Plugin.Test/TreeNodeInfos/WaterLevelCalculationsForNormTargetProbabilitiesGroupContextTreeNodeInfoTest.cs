@@ -253,8 +253,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
         }
 
         [Test]

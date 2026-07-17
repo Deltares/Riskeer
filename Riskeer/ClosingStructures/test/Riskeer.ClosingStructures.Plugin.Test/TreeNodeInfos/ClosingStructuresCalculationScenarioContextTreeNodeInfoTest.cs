@@ -157,45 +157,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
             menuBuilder.AddExportItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddRenameItem().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
             menuBuilder.AddDeleteItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
-
+        
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
@@ -207,8 +176,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddExportItem();
@@ -448,8 +415,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
 
@@ -511,10 +476,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
+                   
                 }
             }
+
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -572,8 +539,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
 

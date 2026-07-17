@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -112,7 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-           
+
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
@@ -169,9 +170,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                            }))
                        .Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            menuBuilder.Build();
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
@@ -191,6 +190,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddImportItem(Arg.Any<IEnumerable<ImportInfo>>());
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]

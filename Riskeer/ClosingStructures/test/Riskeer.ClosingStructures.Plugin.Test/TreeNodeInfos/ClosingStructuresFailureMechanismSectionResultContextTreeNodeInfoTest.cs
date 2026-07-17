@@ -102,8 +102,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);
 
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
@@ -116,8 +114,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received().AddOpenItem();
-            menuBuilder.Received().Build();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

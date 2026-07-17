@@ -108,10 +108,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-            {
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((ContextMenuStrip) null);
-            }
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -128,6 +125,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin guiPlugin)

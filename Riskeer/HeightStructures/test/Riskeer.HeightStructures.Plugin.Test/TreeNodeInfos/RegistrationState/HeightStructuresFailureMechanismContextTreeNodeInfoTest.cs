@@ -191,7 +191,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.RegistrationState
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
                 menuBuilder.AddSeparator().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((object) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
@@ -238,7 +237,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.RegistrationState
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
                 menuBuilder.AddSeparator().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((object) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);

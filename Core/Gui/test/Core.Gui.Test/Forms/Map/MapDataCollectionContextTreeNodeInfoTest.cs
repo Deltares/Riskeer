@@ -501,8 +501,6 @@ namespace Core.Gui.Test.Forms.Map
             info.ContextMenuStrip(context, null, null);
 
             // Assert
-            // Assert expectancies are called in TearDown()
-
             Received.InOrder(() =>
             {
                 builder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>());

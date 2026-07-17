@@ -110,7 +110,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);

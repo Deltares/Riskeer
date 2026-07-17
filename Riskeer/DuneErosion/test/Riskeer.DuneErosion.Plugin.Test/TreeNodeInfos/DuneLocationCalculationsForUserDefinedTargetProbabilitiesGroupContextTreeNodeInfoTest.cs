@@ -266,8 +266,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
         }
 
         [Test]

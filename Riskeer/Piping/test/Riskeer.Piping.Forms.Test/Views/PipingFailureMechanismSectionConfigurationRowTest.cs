@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -125,6 +126,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             sectionRow.A = originalValue;
 
             // Assert
+            Assert.AreEqual(0, changeHandler.ReceivedCalls().Count());
         }
 
         private static void SetPropertyAndVerifyNotifications(

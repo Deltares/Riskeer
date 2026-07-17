@@ -85,8 +85,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationBreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
         [TestCase(ConfigurationBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
         [TestCase(ConfigurationBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
-        public void ConvertTo_VariousCases_ReturnExpectedText(ConfigurationBreakWaterType value,
-                                                              string expectedResult)
+        public void ConvertTo_String_ReturnExpectedText(ConfigurationBreakWaterType value,
+                                                        string expectedResult)
         {
             // Setup
             var converter = new ConfigurationBreakWaterTypeConverter();

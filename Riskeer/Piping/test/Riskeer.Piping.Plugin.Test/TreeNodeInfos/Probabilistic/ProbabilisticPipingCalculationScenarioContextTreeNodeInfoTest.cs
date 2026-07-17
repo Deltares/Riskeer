@@ -736,6 +736,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
                 inputObserver.DidNotReceive().UpdateObserver();
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

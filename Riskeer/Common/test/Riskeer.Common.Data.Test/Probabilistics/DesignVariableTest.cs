@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using NSubstitute;
@@ -37,10 +38,9 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = Substitute.For<IDistribution>();
             // Call
             var designVariable = new SimpleDesignVariable(distribution);
-
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
-            // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
-            // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleDesignVariable : DesignVariable<IDistribution>

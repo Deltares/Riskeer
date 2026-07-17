@@ -456,6 +456,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
+            observable.DidNotReceive().NotifyObservers();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(

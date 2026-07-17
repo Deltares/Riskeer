@@ -210,16 +210,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-            {
-                menuBuilder.AddImportItem().Returns(menuBuilder);
-                menuBuilder.AddUpdateItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((ContextMenuStrip) null);
-            }
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -235,6 +231,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddImportItem();
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)

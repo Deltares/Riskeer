@@ -2322,6 +2322,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+                calculation1Observer.DidNotReceive().UpdateObserver();
+                calculation1InputObserver.DidNotReceive().UpdateObserver();
+                calculation2Observer.DidNotReceive().UpdateObserver();
+                calculation2InputObserver.DidNotReceive().UpdateObserver();
             }
         }
 

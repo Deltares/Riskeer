@@ -103,10 +103,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-            {
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((ContextMenuStrip) null);
-            }
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.Build();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -120,7 +118,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            menuBuilder.Received().AddOpenItem();
+            menuBuilder.Received().Build();
         }
     }
 }

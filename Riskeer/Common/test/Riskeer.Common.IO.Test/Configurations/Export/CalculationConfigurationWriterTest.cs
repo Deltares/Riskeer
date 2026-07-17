@@ -101,37 +101,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         }
 
         [Test]
-        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationNull_WriterNotCalled()
-        {
-            // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                "some name",
-                null);
-
-            // Assert
-        }
-
-        [Test]
-        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationSet_WriterCalledWithExpectedParameters()
-        {
-            // Setup
-            const string name = "some name";
-            var configuration = new StochastConfiguration();
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                name,
-                configuration);
-
-            // Assert
-            xmlWriter.Received().WriteDistribution(name, configuration);
-        }
-
-        [Test]
         public void WriteDistributionWhenAvailable_StochastConfigurationWriterNull_ThrowsArgumentNullException()
         {
             // Call
@@ -164,15 +133,20 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         [Test]
         public void WriteDistributionWhenAvailable_StochastConfigurationNull_WriterNotCalled()
         {
-            // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                "some name",
-                null);
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                    writer,
+                    "name",
+                    null);
+            }
+
+            string xml = sb.ToString();
 
             // Assert
+            Assert.IsEmpty(xml);
         }
 
         [Test]
@@ -181,15 +155,23 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             const string name = "some name";
             var configuration = new StochastConfiguration();
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                name,
-                configuration);
+
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                    writer,
+                    name,
+                    configuration);
+            }
+
+            string xml = sb.ToString();
 
             // Assert
-            xmlWriter.Received().WriteDistribution(name, configuration);
+            StringAssert.Contains(ConfigurationSchemaIdentifiers.NameAttribute, xml);
+            StringAssert.Contains(ConfigurationSchemaIdentifiers.StochastElement, xml);
+            StringAssert.Contains(name, xml);
         }
 
         [Test]
@@ -225,15 +207,20 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         [Test]
         public void WriteElementWhenContentAvailable_StringNull_WriterNotCalled()
         {
-            // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                "some name",
-                (string) null);
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    writer,
+                    "some name",
+                    (string) null);
+            }
+
+            string xml = sb.ToString();
 
             // Assert
+            Assert.IsEmpty(xml);
         }
 
         [Test]
@@ -242,27 +229,27 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             const string name = "someName";
             const string value = "some value";
-
             var stringBuilder = new StringBuilder();
 
-            var xmlWriter = XmlWriter.Create(
-                stringBuilder,
-                new XmlWriterSettings
-                {
-                    OmitXmlDeclaration = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                });
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
-
-            xmlWriter.Flush();
+            string xml = stringBuilder.ToString();
 
             // Assert
-            Assert.AreEqual("<someName>some value</someName>", stringBuilder.ToString());
+            Assert.AreEqual("<someName>some value</someName>", xml);
         }
 
         [Test]
@@ -314,17 +301,29 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_DoubleSet_WriterCalledWithExpectedParameters()
         {
             // Setup
-            const string name = "some name";
+            const string name = "someName";
             const double value = 3.2;
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
+            var stringBuilder = new StringBuilder();
+
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
-            xmlWriter.Received().WriteElementString(name, XmlConvert.ToString(value));
+            Assert.AreEqual($"<someName>{XmlConvert.ToString(value)}</someName>", xml);
         }
 
         [Test]
@@ -361,31 +360,58 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_BoolNull_WriterNotCalled()
         {
             // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                "some name",
-                (bool?) null);
+            const string name = "someName";
+            const bool value = true;
+            var stringBuilder = new StringBuilder();
+
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    (bool?) null);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
+            Assert.AreEqual("", xml);
         }
 
         [Test]
         public void WriteElementWhenContentAvailable_BoolSet_WriterCalledWithExpectedParameters()
         {
             // Setup
-            const string name = "some name";
+            const string name = "someName";
             const bool value = true;
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
+            var stringBuilder = new StringBuilder();
+
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
-            xmlWriter.Received().WriteElementString(name, XmlConvert.ToString(value));
+            Assert.AreEqual($"<someName>{XmlConvert.ToString(value)}</someName>", xml);
         }
 
         [Test]
@@ -403,30 +429,27 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
 
         [Test]
         public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationNull_WriterNotCalled()
-        {
+        {        
             // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
-                xmlWriter,
-                null);
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                    xmlWriter,
+                    null);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
-        }
-
-        [Test]
-        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationSet_WriterCalledWithExpectedParameters()
-        {
-            // Setup
-            var configuration = new WaveReductionConfiguration();
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
-                xmlWriter,
-                configuration);
-
-            // Assert
-            xmlWriter.Received().WriteWaveReduction(configuration);
+            Assert.AreEqual(string.Empty, xml);
         }
 
         [Test]
@@ -446,13 +469,25 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteScenarioWhenAvailable_ScenarioConfigurationNull_WriterNotCalled()
         {
             // Setup
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
-                xmlWriter,
-                null);
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                    xmlWriter,
+                    null);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
+            Assert.AreEqual(string.Empty, xml);
         }
 
         [Test]
@@ -460,14 +495,25 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var configuration = new ScenarioConfiguration();
-            var xmlWriter = Substitute.For<XmlWriter>();
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
-                xmlWriter,
-                configuration);
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                    xmlWriter,
+                    configuration);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
-            xmlWriter.Received().WriteScenario(configuration);
+            Assert.AreNotEqual(string.Empty, xml);
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

@@ -107,7 +107,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 menuBuilder.AddOpenItem().Returns(menuBuilder);
                 menuBuilder.AddSeparator().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);

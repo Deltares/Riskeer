@@ -202,6 +202,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 failureMechanismToRemove.NotifyObservers();
 
                 // Then
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -226,6 +227,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 oldFailureMechanism.NotifyObservers();
 
                 // Then
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 

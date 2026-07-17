@@ -231,7 +231,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -360,7 +359,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {

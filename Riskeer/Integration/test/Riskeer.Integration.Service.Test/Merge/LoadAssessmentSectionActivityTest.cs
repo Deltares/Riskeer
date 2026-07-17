@@ -103,6 +103,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             activity.Run();
 
             // Assert
+            service.Received(1).LoadAssessmentSection(filePath);
         }
 
         [Test]

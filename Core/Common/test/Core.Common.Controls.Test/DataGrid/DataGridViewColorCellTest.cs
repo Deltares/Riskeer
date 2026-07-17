@@ -46,7 +46,6 @@ namespace Core.Common.Controls.Test.DataGrid
         [TestCaseSource(nameof(GetColors))]
         public void GivenGridWithColorCell_WhenGridCellIsMadeVisibleAndUnselected_ThenOutlinedSquareOfColorDrawnAsExpected(Color expectedColor)
         {
-            // TODO: This test seems to not exit, but passes when exited manually
             // Given
             var view = new DataGridView
             {
@@ -82,6 +81,7 @@ namespace Core.Common.Controls.Test.DataGrid
                                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
                             }
                         }
+                        f.Close();
                     });
             }
         }

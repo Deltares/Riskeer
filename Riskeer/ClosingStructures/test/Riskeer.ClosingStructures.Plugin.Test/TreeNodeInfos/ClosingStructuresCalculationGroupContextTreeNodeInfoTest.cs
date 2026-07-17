@@ -183,56 +183,15 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                             assessmentSection);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
             menuBuilder.AddOpenItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddImportItem().Returns(menuBuilder);
-
             menuBuilder.AddExportItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
             menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -247,8 +206,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddOpenItem();
@@ -408,54 +365,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                                   assessmentSection);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
             menuBuilder.AddImportItem().Returns(menuBuilder);
-
             menuBuilder.AddExportItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddRenameItem().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
             menuBuilder.AddDeleteItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -468,8 +388,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddImportItem();
@@ -1467,10 +1385,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
-
             inputObserver.Received().UpdateObserver();
         }
 
@@ -1529,10 +1445,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
+            
+            inputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1591,8 +1508,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
 

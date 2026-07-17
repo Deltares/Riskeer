@@ -132,10 +132,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+			menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+			menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+			menuBuilder.AddSeparator().Returns(menuBuilder);
+			menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -147,6 +147,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(model, null, treeViewControl);
             }
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddCollapseAllItem();
@@ -155,7 +156,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 menuBuilder.AddPropertiesItem();
                 menuBuilder.Build();
             });
-            // Assert
         }
     }
 }

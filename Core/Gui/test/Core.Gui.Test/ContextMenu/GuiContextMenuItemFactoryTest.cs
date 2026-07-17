@@ -36,23 +36,6 @@ namespace Core.Gui.Test.ContextMenu
     [TestFixture]
     public class ContextMenuItemFactoryTest
     {
-        private sealed class MockRepository
-        {
-            public T StrictMock<T>() where T : class
-            {
-                return Substitute.For<T>();
-            }
-
-            public T Stub<T>() where T : class
-            {
-                return Substitute.For<T>();
-            }
-
-            public void ReplayAll() {}
-
-            public void VerifyAll() {}
-        }
-
         [SetUp]
         public void SetUp() {}
 

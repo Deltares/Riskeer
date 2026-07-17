@@ -109,7 +109,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {

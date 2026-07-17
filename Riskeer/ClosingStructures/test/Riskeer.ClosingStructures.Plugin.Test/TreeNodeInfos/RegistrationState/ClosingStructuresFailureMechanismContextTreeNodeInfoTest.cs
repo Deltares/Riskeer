@@ -181,26 +181,15 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
                 menuBuilder.AddOpenItem().Returns(menuBuilder);
-
                 menuBuilder.AddSeparator().Returns(menuBuilder);
-
                 menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
                 menuBuilder.AddSeparator().Returns(menuBuilder);
-
                 menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
                 menuBuilder.AddSeparator().Returns(menuBuilder);
-
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
@@ -241,20 +230,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
                 var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
                 menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
                 menuBuilder.AddSeparator().Returns(menuBuilder);
-
                 menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
                 menuBuilder.AddSeparator().Returns(menuBuilder);
-
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);

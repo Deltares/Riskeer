@@ -189,6 +189,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
+						// Assert
                         Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,
@@ -198,8 +199,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
         }
 
         [Test]

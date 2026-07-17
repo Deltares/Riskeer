@@ -119,9 +119,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
 
-            menuBuilder.Received().Build();
-
             // Assert
+            Received.InOrder(() =>
+            {
+				menuBuilder.Received().AddPropertiesItem();
+				menuBuilder.Received().Build();
+            });
         }
     }
 }

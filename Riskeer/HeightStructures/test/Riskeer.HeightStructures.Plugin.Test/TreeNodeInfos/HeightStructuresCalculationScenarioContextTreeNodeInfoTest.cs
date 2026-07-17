@@ -160,23 +160,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExportItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddRenameItem().Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
             menuBuilder.AddDeleteItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            menuBuilder.Build().Returns((ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -504,6 +492,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
             }
+            inputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

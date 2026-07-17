@@ -836,6 +836,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
+            viewHost.DidNotReceive().Remove(Arg.Any<IView>());
         }
 
         [Test]

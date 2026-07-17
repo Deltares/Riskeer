@@ -171,30 +171,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
             menuBuilder.AddOpenItem().Returns(menuBuilder);
-
             menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -210,8 +191,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             }
 
             // Assert
-            // Assert is done in TearDown
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddOpenItem();

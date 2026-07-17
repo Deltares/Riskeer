@@ -186,17 +186,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                {
-                    menuBuilder.AddOpenItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                    menuBuilder.Build().Returns((ContextMenuStrip) null);
-                }
+				menuBuilder.AddOpenItem().Returns(menuBuilder);
+				menuBuilder.AddSeparator().Returns(menuBuilder);
+				menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+				menuBuilder.AddSeparator().Returns(menuBuilder);
+				menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+				menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+				menuBuilder.AddSeparator().Returns(menuBuilder);
+				menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
@@ -205,9 +202,21 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
-            }
 
-            // Assert
+				// Assert
+				Received.InOrder(() =>
+				{
+					menuBuilder.AddOpenItem();
+					menuBuilder.AddSeparator();
+					menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+					menuBuilder.AddSeparator();
+					menuBuilder.AddCollapseAllItem();
+					menuBuilder.AddExpandAllItem();
+					menuBuilder.AddSeparator();
+					menuBuilder.AddPropertiesItem();
+					menuBuilder.Build();
+				});
+            }
         }
 
         [Test]
@@ -225,15 +234,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                {
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                    menuBuilder.Build().Returns((ContextMenuStrip) null);
-                }
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);
@@ -242,9 +248,19 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
+                
+                // Assert
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
             }
-
-            // Assert
         }
 
         [TestFixture]

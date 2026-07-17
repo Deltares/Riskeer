@@ -104,8 +104,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            menuBuilder.Build().Returns((System.Windows.Forms.ContextMenuStrip) null);
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
@@ -118,8 +116,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddPropertiesItem();

@@ -769,10 +769,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
                 }
             }
+            calculation1InputObserver.DidNotReceive().UpdateObserver();
+            calculation2InputObserver.DidNotReceive().UpdateObserver();
+            calculation1Observer.DidNotReceive().UpdateObserver();
+            calculation2Observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

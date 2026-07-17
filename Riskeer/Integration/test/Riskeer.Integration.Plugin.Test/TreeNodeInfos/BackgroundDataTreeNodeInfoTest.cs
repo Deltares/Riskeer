@@ -251,6 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
                     {
+						// Assert
                         const string expectedItemText = "&Selecteren...";
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
@@ -259,8 +260,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
         }
 
         [Test]
@@ -379,6 +378,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
+            assessmentSectionObserver.DidNotReceive().UpdateObserver();
+            backgroundDataObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

@@ -195,7 +195,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
                 menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
                 menuBuilder.AddExpandAllItem().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-                menuBuilder.Build().Returns((ContextMenuStrip) null);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(context, treeViewControl).Returns(menuBuilder);

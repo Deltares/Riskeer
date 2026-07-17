@@ -843,7 +843,6 @@ namespace Core.Gui.Test
             // Setup
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
             var storeProject = Substitute.For<IStoreProject>();
             var migrateProject = Substitute.For<IMigrateProject>();
             migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
@@ -877,6 +876,7 @@ namespace Core.Gui.Test
             activity.Finish();
 
             // Assert
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
