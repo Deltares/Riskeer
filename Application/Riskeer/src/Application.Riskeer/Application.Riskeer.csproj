@@ -102,6 +102,9 @@ All rights reserved.
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Runtime.Loader">
+      <Version>4.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MadeBy.png" />

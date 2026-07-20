@@ -66,6 +66,12 @@ namespace Application.Riskeer
 
         private delegate void ExceptionDelegate(Exception exception);
 
+        // Create a static instance of the App class to ensure that the AssemblyResolve event is subscribed to before any assemblies are loaded.
+        static App()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.ResolveAssembly;
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="App"/>.
         /// </summary>
