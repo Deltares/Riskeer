@@ -25,8 +25,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -89,12 +89,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -102,19 +99,15 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -122,7 +115,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -139,12 +131,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var importTarget = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -152,7 +141,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

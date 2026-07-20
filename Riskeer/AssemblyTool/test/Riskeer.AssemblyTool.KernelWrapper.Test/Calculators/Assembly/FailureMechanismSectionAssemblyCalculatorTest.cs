@@ -25,8 +25,8 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
@@ -57,25 +57,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             // Call
             var calculator = new FailureMechanismSectionAssemblyCalculator(kernelFactory);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AssembleFailureMechanismSection_InputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
+            var kernelFactory = Substitute.For<IAssemblyToolKernelFactory>();
 
             var calculator = new FailureMechanismSectionAssemblyCalculator(kernelFactory);
 

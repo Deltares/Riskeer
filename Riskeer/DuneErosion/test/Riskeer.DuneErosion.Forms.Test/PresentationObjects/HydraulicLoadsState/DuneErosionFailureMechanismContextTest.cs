@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
@@ -35,10 +35,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
             Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
-            mocks.VerifyAll();
         }
     }
 }

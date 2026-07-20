@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Structures;
@@ -56,10 +56,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         public void Constructor_WithoutCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>("name");
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>("name");
             // Call
             TestDelegate test = () => new SimpleStructuresCalculationStochastAssigner(
                 configuration,
@@ -68,17 +65,13 @@ namespace Riskeer.Common.IO.Test.Configurations
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithParameters_ReturnsNewInstance()
         {
             // Setup
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>("name");
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>("name");
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
             // Call
@@ -88,17 +81,13 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Assert
             Assert.NotNull(assigner);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ValidateSpecificStochasts_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>("name");
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>("name");
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
             var assigner = new SimpleStructuresCalculationStochastAssigner(
@@ -110,7 +99,6 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -119,10 +107,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "name";
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>(calculationName);
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
             modify(configuration);
@@ -139,7 +124,6 @@ namespace Riskeer.Common.IO.Test.Configurations
             string expectedMessage = $"Er kan geen spreiding voor stochast '{stochastName}' opgegeven worden. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -147,10 +131,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "name";
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>(calculationName);
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
             var assigner = new SimpleStructuresCalculationStochastAssigner(
@@ -165,7 +146,6 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Assert
             Assert.IsFalse(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -180,10 +160,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "name";
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>(calculationName);
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
             var standardDeviationStochastConfiguration = new StochastConfiguration();
             var variationCoefficientStochastConfiguration = new StochastConfiguration();
@@ -219,7 +196,6 @@ namespace Riskeer.Common.IO.Test.Configurations
             string expectedMessage = $"Er is geen kunstwerk opgegeven om de stochast '{stochastName}' aan toe te voegen. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -234,10 +210,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "name";
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>(calculationName);
             configuration.StructureId = "some ID";
 
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
@@ -273,7 +246,6 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Assert
             Assert.IsTrue(valid);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -287,10 +259,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "name";
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
-            mocks.ReplayAll();
-
+            var configuration = Substitute.For<StructuresCalculationConfiguration>(calculationName);
             configuration.StructureId = "some ID";
 
             var random = new Random(21);
@@ -364,8 +333,6 @@ namespace Riskeer.Common.IO.Test.Configurations
                                 calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
                                 calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.GetAccuracy());
             }
-
-            mocks.VerifyAll();
         }
 
         #region StandardDeviationDefinition

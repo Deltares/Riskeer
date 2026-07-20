@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -51,10 +51,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
@@ -64,7 +61,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<DuneLocationCalculation>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
     }
 }

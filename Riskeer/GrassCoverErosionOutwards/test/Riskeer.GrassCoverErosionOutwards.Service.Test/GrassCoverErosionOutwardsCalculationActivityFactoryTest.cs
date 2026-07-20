@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -53,9 +53,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(null,
@@ -65,16 +63,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivity_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
@@ -84,7 +79,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -136,9 +130,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateWaveConditionsCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
@@ -147,16 +139,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateWaveConditionsCalculationActivitiesForCalculationGroup_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
@@ -165,7 +154,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -248,23 +236,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                              RoundedDouble assessmentLevel,
                                                                                              HydraulicBoundaryData hydraulicBoundaryData)
         {
-            var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                          hydraulicBoundaryData,
                                          calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(testCalculator)
-                             .Repeat
-                             .Times(nrOfCalculations);
-            mocks.ReplayAll();
+                                     callInfo.ArgAt<HydraRingCalculationSettings>(0));
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -277,7 +262,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
             }
 
-            mocks.VerifyAll();
+            calculatorFactory.Received(nrOfCalculations)
+                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
     }
 }

@@ -28,8 +28,8 @@ using Core.Components.Chart.Styles;
 using Core.Gui.Converters;
 using Core.Gui.PropertyClasses.Chart;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Chart
 {
@@ -152,10 +152,7 @@ namespace Core.Gui.Test.PropertyClasses.Chart
         {
             // Setup
             const int numberOfChangedProperties = 5;
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var chartPointData = new ChartPointData("Test", new ChartPointStyle
             {
@@ -192,7 +189,7 @@ namespace Core.Gui.Test.PropertyClasses.Chart
             Assert.AreEqual(newSymbol, chartPointData.Style.Symbol);
             Assert.AreEqual(newStrokeColor, chartPointData.Style.StrokeColor);
             Assert.AreEqual(newStrokeThickness, chartPointData.Style.StrokeThickness);
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
     }
 }

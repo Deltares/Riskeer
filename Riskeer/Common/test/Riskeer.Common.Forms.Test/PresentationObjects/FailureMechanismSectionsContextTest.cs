@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -51,13 +51,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
                     new Point2D(5, 6)
                 })
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            failureMechanism.Stub(fm => fm.Sections).Return(sectionsSequence);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            failureMechanism.Sections.Returns(sectionsSequence);
             // Call
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -65,23 +61,19 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism<FailureMechanismSectionResult>>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
 
             // Call
             void Call() => new FailureMechanismSectionsContext(failureMechanism, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(Call);
-            mocks.VerifyAll();
         }
     }
 }

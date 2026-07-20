@@ -23,8 +23,8 @@ using System.Linq;
 using System.Threading;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -138,16 +138,13 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
 
             using (IView view = GetView(failureMechanism.Calculations.First()))
             {
@@ -157,24 +154,19 @@ namespace Riskeer.Common.Plugin.TestUtil
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
 
             using (IView view = GetView(GetCalculation()))
             {
@@ -184,8 +176,6 @@ namespace Riskeer.Common.Plugin.TestUtil
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         /// <summary>

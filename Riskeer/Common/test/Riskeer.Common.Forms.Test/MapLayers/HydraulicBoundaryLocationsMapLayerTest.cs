@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
@@ -76,11 +76,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryDatabaseAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
@@ -124,18 +120,14 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenFailureMechanismContributionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -176,7 +168,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -185,11 +177,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -228,7 +216,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -237,11 +225,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -283,7 +267,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -292,11 +276,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -335,7 +315,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -344,11 +324,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -395,7 +371,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -404,10 +380,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -451,7 +424,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -460,11 +433,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -508,7 +477,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -517,11 +486,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -567,7 +532,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -576,11 +541,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
@@ -624,7 +585,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -634,11 +595,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             string selectedTargetProbabilityFormat, string expectedSelectedTargetProbabilityFormat)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const double targetProbability = 0.001;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
@@ -696,7 +653,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -706,11 +663,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             string selectedTargetProbabilityFormat, string expectedSelectedTargetProbabilityFormat)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const double targetProbability = 0.001;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
@@ -768,38 +721,30 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationFuncs()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
-                                                                                    .HydraulicBoundaryLocationCalculations.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
-                                                                                    .HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(assessmentSection => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(assessmentSection => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
+                                                                                                                                                   .HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
+                                                                                                                                                   .HydraulicBoundaryLocationCalculations.First()));
         }
 
         private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncs()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
-            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
-                                              assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
         }
 
         private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncsWithDisplayNameFormat()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities),
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities),
                                           waterLevelDisplayNameFormat);
-            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
-                                              assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities),
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities),
                                           waveHeightDisplayNameFormat);
         }
 

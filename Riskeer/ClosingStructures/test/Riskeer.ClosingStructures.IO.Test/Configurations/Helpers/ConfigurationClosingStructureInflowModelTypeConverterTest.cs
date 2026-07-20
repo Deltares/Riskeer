@@ -85,8 +85,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationClosingStructureInflowModelType.FloodedCulvert, ClosingStructuresConfigurationSchemaIdentifiers.FloodedCulvert)]
         [TestCase(ConfigurationClosingStructureInflowModelType.LowSill, ClosingStructuresConfigurationSchemaIdentifiers.LowSill)]
         [TestCase(ConfigurationClosingStructureInflowModelType.VerticalWall, ClosingStructuresConfigurationSchemaIdentifiers.VerticalWall)]
-        public void ConvertTo_VariousCases_ReturnExpectedText(ConfigurationClosingStructureInflowModelType value,
-                                                              string expectedResult)
+        public void ConvertTo_String_ReturnExpectedText(ConfigurationClosingStructureInflowModelType value,
+                                                        string expectedResult)
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();

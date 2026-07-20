@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -55,12 +55,9 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         public void CreateFailureMechanismSectionsUpdateInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -74,20 +71,15 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, updateInfo.Image);
             Assert.IsNull(updateInfo.VerifyUpdates);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithArguments_ReturnsExpectedCreatedFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -95,20 +87,15 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(failureMechanismSectionsContext, ""));
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithSourcePath_ReturnsIsEnabledTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -118,19 +105,15 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             testFailureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(testFailureMechanism, assessmentSection);
             Assert.IsTrue(updateInfo.IsEnabled(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithSourcePath_ReturnsSourcePath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -141,19 +124,15 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(testFailureMechanism, assessmentSection);
             Assert.AreEqual(testFailureMechanism.FailureMechanismSectionSourcePath,
                             updateInfo.CurrentPath(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsIsEnabledFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -161,19 +140,15 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
             Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsNullPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -181,7 +156,6 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
             Assert.IsNull(updateInfo.CurrentPath(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -199,17 +173,13 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         public void CreateFailureMechanismSectionsUpdateInfoWithCreateSectionUpdateStrategy_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             Assert.AreEqual("Vakindeling", updateInfo.Name);
@@ -220,31 +190,23 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
 
             TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, updateInfo.Image);
             Assert.IsNull(updateInfo.VerifyUpdates);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfoWithCreateSectionUpdateStrategy_WithArguments_ReturnsExpectedCreatedFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
             Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(failureMechanismSectionsContext, ""));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,23 +214,17 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
             Assert.IsTrue(updateInfo.IsEnabled(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -276,24 +232,18 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath,
                             updateInfo.CurrentPath(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -301,22 +251,16 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
             Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -324,22 +268,16 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, FailureMechanismSectionResult>(
-                c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
+                FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
             Assert.IsNull(updateInfo.CurrentPath(failureMechanismSectionsContext));
-            mocks.VerifyAll();
         }
     }
 }

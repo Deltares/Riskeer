@@ -24,8 +24,8 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -51,10 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationGroupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
 
             // Call
@@ -63,17 +60,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>>(properties);
             Assert.AreEqual(calculationGroupContext, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnTheSameValueAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationGroup = new CalculationGroup();
 
             // Call
@@ -81,19 +74,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(calculationGroup.Name, properties.Name);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SetProperties_WithData_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationGroup = new CalculationGroup();
             var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism);
 
@@ -106,17 +94,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const string name = "cool new name!";
             properties.Name = name;
             Assert.AreEqual(name, calculationGroup.Name);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             // Call
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    new CalculationGroup(),
@@ -137,10 +122,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidator_WithParentCalculationGroup_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    new CalculationGroup(),
                                                                                                    failureMechanism));
@@ -156,10 +138,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidator_WithoutParentCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    null,
                                                                                                    failureMechanism));

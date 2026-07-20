@@ -70,9 +70,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             TopLevelSubMechanismIllustrationPoint[] subMechanismIllustrationPoints = subMechanismOutput.GeneralResult.TopLevelIllustrationPoints.ToArray();
             IEnumerable<string> closingSituations = subMechanismIllustrationPoints.Select(p => p.ClosingSituation);
 
-            return subMechanismIllustrationPoints.Select(
-                point => new TopLevelSubMechanismIllustrationPointProperties(
-                    point, closingSituations)).ToArray();
+            return subMechanismIllustrationPoints.Select(point => new TopLevelSubMechanismIllustrationPointProperties(
+                                                             point, closingSituations)).ToArray();
         }
 
         private Stochast[] GetStochasts()

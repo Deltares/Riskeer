@@ -29,9 +29,9 @@ using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.TestUtil;
@@ -62,10 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void GetAssessmentSectionFromFile_InvalidDirectory_ThrowsCriticalFileReadException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
@@ -78,17 +75,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var expectedMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
             var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_ShowsWarningDialogAndThrowsCriticalFileReadException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
@@ -110,17 +103,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(expectedMessage, messageText);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ReturnsNull()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
@@ -137,17 +126,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsNull(assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_ValidDirectoryOkClicked_ReturnsFirstReadAssessmentSection()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
@@ -168,17 +153,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             Assert.AreEqual(3, rowCount);
             AssertAssessmentSection(TestAssessmentSection1_2(true), assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_ReturnsFirstReadAssessmentSectionWithLowLimit()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
@@ -197,17 +178,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             AssertAssessmentSection(TestAssessmentSection1_2(false), assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_SecondRowSelectedOkClicked_ReturnsSecondReadAssessmentSection()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
@@ -231,17 +208,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             Assert.AreEqual(3, rowCount);
             AssertAssessmentSection(TestAssessmentSection2_1(), assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_ThirdRowSelectedOkClicked_ReturnsThirdReadAssessmentSection()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
@@ -263,17 +236,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection3_3(), assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSectionFromFile_ShapeWithoutPointsOkClicked_LogsAndReturnsAssessmentSectionWithoutReferenceLine()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ShapeWithoutPoints");
@@ -303,7 +272,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             expectedAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
 
             AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -311,10 +279,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void GetAssessmentSectionFromFile_ShapeWithInvalidNorm_ThrowsCriticalFileValidationException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var parentDialog = Substitute.For<IWin32Window>();
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "InvalidNorm");
@@ -340,7 +305,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
-            mockRepository.VerifyAll();
         }
 
         private static void SetShapeFileDirectory(AssessmentSectionFromFileHandler handler, string nonExistingFolder)

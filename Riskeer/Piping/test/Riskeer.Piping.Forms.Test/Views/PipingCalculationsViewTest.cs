@@ -27,9 +27,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -120,11 +120,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsView_FailureMechanismWithStochasticSoilModels_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -144,19 +141,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
             Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
             Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_FailureMechanismWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -176,19 +168,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(2, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
             Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -226,8 +213,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
             Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -242,11 +227,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
@@ -259,8 +241,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -281,11 +261,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -299,19 +276,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSurfaceLines_ButtonDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -327,18 +299,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSoilModels_ButtonDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -354,18 +322,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithSurfaceLinesAndSoilModels_ButtonEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const string arbitrarySourcePath = "path";
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -386,18 +350,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -411,18 +371,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndNotify_ThenButtonDisabled()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -436,18 +392,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenStochasticSoilModelsUpdatedAndNotified_ThenStochasticSoilModelsAndStochasticSoilProfilesComboboxCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
@@ -503,8 +455,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Profile 4", soilProfileItems[4].ToString());
             Assert.AreEqual("Profile 5", soilProfileItems[5].ToString());
             Assert.AreEqual("Profile 6", soilProfileItems[6].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -515,13 +465,10 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -539,7 +486,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
@@ -551,13 +498,10 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var pipingCalculationObserver = Substitute.For<IObserver>();
+            var pipingCalculationInputObserver = Substitute.For<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -576,19 +520,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
             Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
-
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
         public void Selection_SemiProbabilisticPipingCalculationScenario_ReturnsTheSelectedRowObject()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const int selectedRow = 0;
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -607,19 +547,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsInstanceOf<SemiProbabilisticPipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((SemiProbabilisticPipingInputContext) selection).PipingCalculation);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Selection_ProbabilisticPipingCalculationScenario_ReturnsTheSelectedRowObject()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const int selectedRow = 1;
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -638,8 +573,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsInstanceOf<ProbabilisticPipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((ProbabilisticPipingInputContext) selection).PipingCalculation);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -661,9 +594,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             bool useCalculationWithOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
 
             if (useCalculationWithOutput)
             {
@@ -672,18 +604,12 @@ namespace Riskeer.Piping.Forms.Test.Views
                     var tester = new MessageBoxTester(wnd);
                     tester.ClickOk();
                 };
-
-                calculationObserver.Expect(o => o.UpdateObserver());
             }
 
-            calculationInputObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            mocks.ReplayAll();
-
+            assessmentSection.Attach(Arg.Any<IObserver>());
+            assessmentSection.Detach(Arg.Any<IObserver>());
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -706,18 +632,20 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mocks.VerifyAll();
+            if (useCalculationWithOutput)
+            {
+                calculationObserver.Received(1).UpdateObserver();
+            }
+
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -745,19 +673,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(1, refreshed);
             var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
             Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const string arbitraryFilePath = "path";
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -793,20 +716,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.NotNull(selectionDialog);
             Assert.NotNull(grid);
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, rows);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const string arbitraryFilePath = "path";
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -837,7 +755,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             button.Click();
 
             // Then
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -848,11 +766,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
 
             ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
@@ -901,20 +816,15 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
                 Assert.AreEqual("Surface line 1 B", probabilisticPipingCalculationScenarios[1].Name);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_ThenCalculationsNotUpdatedAndCalculationGroupNotNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
             ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -936,18 +846,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
         public void CalculationsViewWithHydraulicLocation_ProbabilisticCalculationScenario_SelectableHydraulicLocationAlwaysReadonlyFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -958,19 +865,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(dataGridView.Rows[1].ReadOnly);
             var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             Assert.IsFalse(selectableHydraulicLocationCell.ReadOnly);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateSelectedItemFromCurrentRow_UnsupportedCalculationType_ThrowsNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
@@ -978,17 +880,13 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateRow_UnsupportedCalculationType_ThrowsNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var view = new TestPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection);
 
             // Call
@@ -996,7 +894,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -1004,11 +901,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void CalculationsViewWithHydraulicLocation_SemiProbabilisticCalculationScenario_SelectableHydraulicLocationReadonlyAsExpected(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -1023,8 +917,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
             var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             Assert.AreEqual(useAssessmentLevelManualInput, selectableHydraulicLocationCell.ReadOnly);
-
-            mocks.VerifyAll();
         }
 
         public override void Setup()
@@ -1043,7 +935,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {

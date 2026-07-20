@@ -30,8 +30,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -52,10 +52,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
-
+            var persistenceFactory = Substitute.For<IPersistenceFactory>();
             // Call
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
                                                                              persistenceFactory, "ValidFolderPath", "extension",
@@ -63,16 +60,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
+            var persistenceFactory = Substitute.For<IPersistenceFactory>();
 
             // Call
             void Call() => new MacroStabilityInwardsCalculationGroupExporter(null, new GeneralMacroStabilityInwardsInput(), persistenceFactory,
@@ -81,16 +75,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
+            var persistenceFactory = Substitute.For<IPersistenceFactory>();
 
             // Call
             void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null, persistenceFactory,
@@ -99,7 +90,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -118,9 +108,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
+            var persistenceFactory = Substitute.For<IPersistenceFactory>();
 
             // Call
             void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
@@ -129,7 +117,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -137,9 +124,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_InvalidFilePath_ThrowsArgumentException(string filePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
+            var persistenceFactory = Substitute.For<IPersistenceFactory>();
 
             // Call
             void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), persistenceFactory,
@@ -147,7 +132,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
-            mocks.VerifyAll();
         }
 
         [Test]

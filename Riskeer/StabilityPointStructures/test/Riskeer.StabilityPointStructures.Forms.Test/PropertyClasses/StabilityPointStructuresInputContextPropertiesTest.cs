@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
@@ -46,22 +46,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityPointStructuresInputContextPropertiesTest
     {
-        private MockRepository mockRepository;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection = Substitute.For<IAssessmentSection>();
         }
 
         [Test]
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null, handler);
@@ -69,14 +66,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -97,15 +92,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("propertyChangeHandler", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithData_ExpectedValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -159,8 +152,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<StabilityPointStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(StabilityPointStructuresInputContextProperties.ProbabilityCollisionSecondaryStructure));
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -171,8 +162,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             GeneralPropertyIndices generalPropertyIndices)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -309,8 +299,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_LinearLowSillStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -514,16 +503,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_QuadraticLowSillStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -727,16 +713,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_LinearFloodedCulvertStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -960,16 +943,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_QuadraticFloodedCulvertStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -1193,16 +1173,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutStructure_CorrectReadOnlyForStructureDependentProperties()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -1263,8 +1240,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
@@ -1283,15 +1259,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.StabilityPointStructures.AddRange(new[]
@@ -1310,7 +1284,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.StabilityPointStructures, availableStructures);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1320,11 +1293,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var random = new Random(21);
             bool newBoolean = random.NextBoolean();
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1341,7 +1312,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1614,8 +1584,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_StructureTypeUnknown_ReturnExpectedValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -1639,8 +1608,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_LowSillStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -1671,8 +1639,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_FloodedCulvertStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -1703,8 +1670,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_LinearModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -1736,8 +1702,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_QuadraticModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -1766,9 +1731,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<StabilityPointStructuresInputContextProperties> setProperty)
         {
             // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -1792,8 +1755,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
-
-            mockRepository.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetGeneralPropertyIndices()

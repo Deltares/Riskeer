@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
@@ -84,11 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenRow_WhenParameterAChanged_ThenValueSetAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(39);
             FailureMechanismSectionConfiguration sectionConfiguration = GetTestFailureMechanismSectionConfiguration();
             sectionConfiguration.Attach(observer);
@@ -101,17 +97,14 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenRow_WhenParameterAChangedToSameValue_ThenObserversNotNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             FailureMechanismSectionConfiguration sectionConfiguration = GetTestFailureMechanismSectionConfiguration();
             sectionConfiguration.Attach(observer);
 
@@ -121,7 +114,7 @@ namespace Riskeer.Common.Forms.Test.Views
             sectionRow.A = sectionConfiguration.A;
 
             // Then
-            mocks.VerifyAll();
+            observer.DidNotReceive().UpdateObserver();
         }
 
         private static FailureMechanismSectionConfiguration GetTestFailureMechanismSectionConfiguration()

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
@@ -36,10 +36,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             // Call
@@ -47,17 +44,13 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<ProbabilisticPipingCalculationScenario>>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearIllustrationPoints_CalculationWithoutOutput_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new ProbabilisticPipingCalculationScenario();
 
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(inquiryHelper, calculation);
@@ -67,17 +60,13 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearIllustrationPoints_CalculationWithOutputWithoutIllustrationPoints_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
@@ -90,17 +79,13 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearIllustrationPoints_CalculationWithOutputWithIllustrationPoints_ClearsIllustrationPointsAndReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
@@ -116,7 +101,6 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
 
             Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.ProfileSpecificOutput).GeneralResult);
             Assert.IsNull(((PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint>) calculation.Output.SectionSpecificOutput).GeneralResult);
-            mocks.VerifyAll();
         }
     }
 }

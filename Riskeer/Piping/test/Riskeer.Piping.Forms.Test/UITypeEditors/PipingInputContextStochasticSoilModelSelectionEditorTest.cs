@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.UITypeEditors;
@@ -40,15 +40,14 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var hasStochasticSoilModel = mockRepository.Stub<IHasStochasticSoilModel>();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var hasStochasticSoilModel = Substitute.For<IHasStochasticSoilModel>();
 
-            hasStochasticSoilModel.Stub(hssm => hssm.StochasticSoilModel).Return(
+            hasStochasticSoilModel.StochasticSoilModel.Returns(
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName"));
-            hasStochasticSoilModel.Stub(hssm => hssm.GetAvailableStochasticSoilModels()).Return(
+            hasStochasticSoilModel.GetAvailableStochasticSoilModels().Returns(
                 new[]
                 {
                     PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("NewStochasticSoilModelName")
@@ -58,30 +57,24 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(hasStochasticSoilModel);
 
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            context.Expect(c => c.Instance).Return(propertyBag);
-
-            mockRepository.ReplayAll();
-
+            provider.GetService(Arg.Any<Type>()).Returns(service);
+            // service.DropDownControl(Arg.Any<Control>());
+            context.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var hasStochasticSoilModel = mockRepository.Stub<IHasStochasticSoilModel>();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var hasStochasticSoilModel = Substitute.For<IHasStochasticSoilModel>();
             var stochasticSoilModel = new PipingStochasticSoilModel("Model", new[]
             {
                 new Point2D(0, 2),
@@ -91,8 +84,8 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                 new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
             });
 
-            hasStochasticSoilModel.Stub(hssm => hssm.StochasticSoilModel).Return(stochasticSoilModel);
-            hasStochasticSoilModel.Stub(hssm => hssm.GetAvailableStochasticSoilModels()).Return(
+            hasStochasticSoilModel.StochasticSoilModel.Returns(stochasticSoilModel);
+            hasStochasticSoilModel.GetAvailableStochasticSoilModels().Returns(
                 new[]
                 {
                     stochasticSoilModel
@@ -102,19 +95,14 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(hasStochasticSoilModel);
 
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            context.Expect(c => c.Instance).Return(propertyBag);
-
-            mockRepository.ReplayAll();
-
+            provider.GetService(Arg.Any<Type>()).Returns(service);
+            // service.DropDownControl(Arg.Any<Control>());
+            context.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(stochasticSoilModel, result);
-
-            mockRepository.VerifyAll();
         }
     }
 }

@@ -27,8 +27,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.Gis.IO.Test.Importers
 {
@@ -155,10 +155,7 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void DoPostImportUpdates_ImportSuccessful_NotifiesMapDataCollection()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
             var mapDataCollection = new MapDataCollection("test");
@@ -172,7 +169,7 @@ namespace Core.Components.Gis.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

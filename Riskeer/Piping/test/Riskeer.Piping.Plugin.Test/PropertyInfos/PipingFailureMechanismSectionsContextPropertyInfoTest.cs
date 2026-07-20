@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -62,19 +62,15 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void CreateInstance_WithValidArguments_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(),
                                                                                             assessmentSection);
-            mocks.ReplayAll();
-
             // Call
             IObjectProperties objectProperties = info.CreateInstance(failureMechanismSectionsContext);
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanismSectionConfigurationsProperties>(objectProperties);
             Assert.AreSame(failureMechanismSectionsContext.WrappedData, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }

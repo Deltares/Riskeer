@@ -30,9 +30,9 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Common.Util.Reflection;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -76,9 +76,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestFailureMechanismResultView(null, new TestFailureMechanism(), assessmentSection, (mechanism, section) => null);
@@ -86,16 +84,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null, assessmentSection, (mechanism, section) => null);
@@ -103,7 +98,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,9 +115,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_PerformFailureMechanismAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), assessmentSection, null);
@@ -131,7 +123,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("performFailureMechanismAssemblyFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -642,10 +633,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -670,8 +658,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreSame(failureMechanism, failureMechanismInput);
                 Assert.AreSame(assessmentSection, assessmentSectionInput);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -695,10 +681,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType, double assemblyResult, string expectedString)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -719,8 +702,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
                 Assert.AreEqual(expectedString, failureMechanismAssemblyProbabilityTextBox.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -729,11 +710,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             const string exceptionMessage = "Message";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -759,8 +736,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(exceptionMessage, errorMessage);
                 Assert.AreEqual(errorIconPadding, errorProvider.GetIconPadding(failureMechanismAssemblyProbabilityTextBox));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -769,11 +744,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             const string exceptionMessage = "Message";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -812,8 +783,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -822,11 +791,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             const string exceptionMessage = "Message";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -859,19 +824,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismResultViewAndProbabilityResultTypeNotManual_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -907,7 +866,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -917,10 +876,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismAssemblyProbabilityResultType targetResultType)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const double manualProbability = 0.3;
             const double calculatableProbability = 0.1;
 
@@ -947,8 +903,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.AreEqual(ProbabilityFormattingHelper.FormatWithDiscreteNumbers(calculatableProbability), failureMechanismAssemblyProbabilityTextBox.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -963,11 +917,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             const double manualProbability = 0.2;
             const string manualProbabilityText = "1/5";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -991,8 +941,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1007,11 +955,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             const double manualProbability = 0.2;
             const string manualProbabilityText = "1/5";
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -1047,8 +991,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1057,12 +999,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             const double manualProbability = 0.2;
             const string manualProbabilityText = "1/5";
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -1099,7 +1036,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -1112,12 +1049,7 @@ namespace Riskeer.Common.Forms.Test.Views
             double expectedProbability)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver())
-                    .Repeat.Twice();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -1155,7 +1087,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
-            mocks.VerifyAll();
+            observer.Received(2).UpdateObserver();
         }
 
         [Test]
@@ -1195,10 +1127,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailureMechanismAssemblyProbabilitySetToInitialValue()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const double initialValue = 0.1;
             const string initialValueText = "1/10";
             var failureMechanism = new TestFailureMechanism
@@ -1233,8 +1162,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
                 Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion

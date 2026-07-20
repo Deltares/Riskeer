@@ -25,7 +25,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
@@ -44,14 +44,12 @@ namespace Riskeer.Common.Data.TestUtil
         /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/> with <see cref="HydraulicBoundaryData"/> that is not linked.
         /// </summary>
-        /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository)
+        public static IAssessmentSection CreateAssessmentSectionStub()
         {
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            assessmentSection.Replay();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
 
             return assessmentSection;
         }
@@ -60,7 +58,6 @@ namespace Riskeer.Common.Data.TestUtil
         /// Creates a stub of <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
-        /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <param name="hrdFilePath">The path to the hydraulic boundary database (optional).</param>
         /// <param name="usePreprocessorClosure">Whether or not to use preprocessor closure (optional).</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
@@ -71,19 +68,17 @@ namespace Riskeer.Common.Data.TestUtil
         /// </list>
         /// </remarks>
         public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
-                                                                     MockRepository mockRepository,
                                                                      string hrdFilePath = null,
                                                                      bool usePreprocessorClosure = false)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("21");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(hrdFilePath, usePreprocessorClosure));
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            assessmentSection.Replay();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("21");
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 1.0 / 30000));
+            assessmentSection.GetFailureMechanisms().Returns(failureMechanisms);
+            assessmentSection.HydraulicBoundaryData.Returns(GetHydraulicBoundaryData(hrdFilePath, usePreprocessorClosure));
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
 
             return assessmentSection;
         }

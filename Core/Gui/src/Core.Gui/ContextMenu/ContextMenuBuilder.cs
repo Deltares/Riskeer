@@ -54,14 +54,14 @@ namespace Core.Gui.ContextMenu
         /// <param name="viewCommands">The <see cref="IViewCommands"/> from which to obtain information to render
         /// and bind actions to the items of the <see cref="ContextMenu"/>.</param>
         /// <param name="dataValue">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
-        /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
+        /// <param name="treeViewControl">The <see cref="ITreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when any input argument is <c>null</c>.</exception>
         public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler,
                                   IImportCommandHandler importCommandHandler,
                                   IExportCommandHandler exportCommandHandler,
                                   IUpdateCommandHandler updateCommandHandler,
                                   IViewCommands viewCommands, object dataValue,
-                                  TreeViewControl treeViewControl)
+                                  ITreeViewControl treeViewControl)
         {
             try
             {

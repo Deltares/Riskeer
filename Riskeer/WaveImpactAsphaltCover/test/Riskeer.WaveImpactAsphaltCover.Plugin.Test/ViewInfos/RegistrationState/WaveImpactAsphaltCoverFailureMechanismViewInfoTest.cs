@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismView));
         }
@@ -64,8 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
@@ -83,8 +80,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
@@ -98,7 +94,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,8 +118,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -135,8 +129,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.IsFalse(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -153,8 +145,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.IsTrue(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]

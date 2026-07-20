@@ -23,8 +23,8 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -77,10 +77,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
         public void CreateFileExporter_WithData_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
@@ -95,18 +92,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationsExporter>(fileExporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_CalculationsWithoutOutput_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
@@ -129,18 +121,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_CalculationsWithOutput_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
@@ -166,8 +153,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(DuneErosionPlugin plugin)

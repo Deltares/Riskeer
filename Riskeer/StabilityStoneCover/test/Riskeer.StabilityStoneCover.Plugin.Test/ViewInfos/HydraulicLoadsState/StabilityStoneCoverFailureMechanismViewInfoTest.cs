@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailureMechanismView));
         }
@@ -64,8 +62,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);

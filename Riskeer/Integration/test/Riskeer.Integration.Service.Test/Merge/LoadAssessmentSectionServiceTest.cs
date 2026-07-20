@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Exceptions;
@@ -49,16 +49,12 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
             // Call
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Assert
             Assert.IsInstanceOf<ILoadAssessmentSectionService>(service);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,19 +62,15 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             const string filePath = "Some\\path";
-
-            var mocks = new MockRepository();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(CreateProject());
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(filePath).Returns(CreateProject());
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
             service.LoadAssessmentSection(filePath);
 
             // Assert
-            mocks.VerifyAll();
+            storeProject.Received(1).LoadProject(filePath);
         }
 
         [Test]
@@ -86,14 +78,8 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             RiskeerProject project = CreateProject();
-
-            var mocks = new MockRepository();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(null))
-                        .IgnoreArguments()
-                        .Return(project);
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
@@ -101,20 +87,14 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             Assert.AreSame(project.AssessmentSection, assessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void LoadAssessmentSection_LoadedProjectNull_ThrowsLoadAssessmentSectionException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(null))
-                        .IgnoreArguments()
-                        .Return(null);
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns((RiskeerProject) null);
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
@@ -122,7 +102,6 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             Assert.Throws<LoadAssessmentSectionException>(Call);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -131,14 +110,8 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             const string exceptionMessage = "StorageException";
             var storageException = new StorageException(exceptionMessage);
-
-            var mocks = new MockRepository();
-            var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(null))
-                        .IgnoreArguments()
-                        .Throw(storageException);
-            mocks.ReplayAll();
-
+            var storeProject = Substitute.For<IStoreProject>();
+            storeProject.LoadProject(Arg.Any<string>()).Returns(_ => throw storageException);
             var service = new LoadAssessmentSectionService(storeProject);
 
             LoadAssessmentSectionException exception = null;
@@ -161,7 +134,6 @@ namespace Riskeer.Integration.Service.Test.Merge
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedLogMessage);
             Assert.AreEqual(storageException, exception.InnerException);
             Assert.AreEqual(storageException.Message, exception.Message);
-            mocks.VerifyAll();
         }
 
         private static RiskeerProject CreateProject()

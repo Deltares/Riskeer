@@ -23,8 +23,8 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -53,11 +53,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             const string name = "<very cool name>";
             var calculation = new TestCalculation(name);
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var properties = new CalculationContextProperties
             {
                 Data = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism)
@@ -65,20 +61,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.AreEqual(name, properties.Name);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var observer = Substitute.For<IObserver>();
             const int numberOfChangedProperties = 1;
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculation = new TestCalculation();
             var testCalculationContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
 
@@ -95,8 +86,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newName, calculation.Name);
-
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]

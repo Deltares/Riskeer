@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.DataGrid
 {
@@ -88,15 +88,13 @@ namespace Core.Common.Controls.Test.DataGrid
                 Style = cellStyle
             };
 
-            var mocks = new MockRepository();
-            var row = mocks.Stub<IHasColumnStateDefinitions>();
-            row.Stub(r => r.ColumnStateDefinitions).Return(new Dictionary<int, DataGridViewColumnStateDefinition>
+            var row = Substitute.For<IHasColumnStateDefinitions>();
+            row.ColumnStateDefinitions.Returns(new Dictionary<int, DataGridViewColumnStateDefinition>
             {
                 {
                     0, definition
                 }
             });
-            mocks.ReplayAll();
 
             using (var form = new Form())
             using (var dataGridViewControl = new DataGridViewControl())
@@ -119,8 +117,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(errorText, cell.ErrorText);
                 Assert.AreEqual(cellStyle.BackgroundColor, cell.Style.BackColor);
                 Assert.AreEqual(cellStyle.TextColor, cell.Style.ForeColor);
-
-                mocks.VerifyAll();
             }
         }
     }

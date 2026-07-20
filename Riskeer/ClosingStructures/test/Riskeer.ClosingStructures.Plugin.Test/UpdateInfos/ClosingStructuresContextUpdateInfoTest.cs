@@ -27,9 +27,9 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.IO;
@@ -81,10 +81,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
         public void IsEnabled_SourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var structures = new StructureCollection<ClosingStructure>();
 
@@ -95,17 +92,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_SourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.ClosingStructures.AddRange(Enumerable.Empty<ClosingStructure>(), "some path");
 
@@ -118,7 +111,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -135,10 +127,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
         public void CurrentPath_StructureCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string expectedFilePath = "some/path";
             var structures = new StructureCollection<ClosingStructure>();
             structures.AddRange(Enumerable.Empty<ClosingStructure>(), expectedFilePath);
@@ -151,17 +140,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual(expectedFilePath, currentPath);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_ValidInput_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var structures = new StructureCollection<ClosingStructure>();
@@ -173,19 +159,16 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresImporter>(importer);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
             plugin.Gui = gui;
 
@@ -200,7 +183,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -209,12 +191,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
             plugin.Gui = gui;
 
@@ -252,7 +232,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
                                             $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
-            mocks.VerifyAll();
         }
 
         public override void Setup()

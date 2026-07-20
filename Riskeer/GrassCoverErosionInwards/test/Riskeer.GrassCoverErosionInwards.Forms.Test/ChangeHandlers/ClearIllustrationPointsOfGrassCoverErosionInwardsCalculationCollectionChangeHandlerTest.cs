@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -42,9 +42,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             // Call
             void Call() => new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, null);
@@ -52,24 +50,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -78,12 +71,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             // Setup
             var random = new Random(21);
             bool expectedConfirmation = random.NextBoolean();
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?").Returns(expectedConfirmation);
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
@@ -92,7 +81,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -140,11 +128,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
                 calculationWithDikeHeightWithIllustrationPoints,
                 new GrassCoverErosionInwardsCalculation()
             };
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
                 inquiryHelper, calculations);
 
@@ -176,7 +160,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
                        && output.DikeHeightOutput?.GeneralResult == null
                        && output.OvertoppingRateOutput?.GeneralResult == null;
             }));
-            mocks.VerifyAll();
         }
     }
 }

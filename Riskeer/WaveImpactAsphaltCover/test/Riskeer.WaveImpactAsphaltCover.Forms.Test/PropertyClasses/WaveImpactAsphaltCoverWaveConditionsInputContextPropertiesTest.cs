@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -42,10 +42,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
@@ -63,17 +61,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 WaveConditionsInput, string>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Asfalt", properties.RevetmentType);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RevetmentType_SetNewValue_ThrowsInvalidOperationException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
@@ -90,7 +85,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
-            mockRepository.VerifyAll();
         }
     }
 }

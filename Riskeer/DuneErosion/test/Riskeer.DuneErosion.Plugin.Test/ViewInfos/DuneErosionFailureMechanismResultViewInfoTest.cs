@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -39,14 +39,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
     [TestFixture]
     public class DuneErosionFailureMechanismResultViewInfoTest
     {
-        private MockRepository mocks;
         private DuneErosionPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>));
         }
@@ -69,19 +67,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismSectionResultContext(failureMechanism.SectionResults,
                                                                               failureMechanism,
                                                                               assessmentSection);
-            mocks.ReplayAll();
-
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,13 +93,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-
-            mocks.ReplayAll();
-
+            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -114,7 +106,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -122,17 +113,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
+            var otherFailureMechanism = Substitute.For<IFailureMechanism>();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 otherFailureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -142,7 +130,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -150,16 +137,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -169,7 +153,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -177,9 +160,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
@@ -192,17 +173,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
@@ -215,17 +192,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -238,7 +211,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -246,9 +218,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
             var failureMechanism = new DuneErosionFailureMechanism();
 
@@ -261,7 +231,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -269,9 +238,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismSectionResultContext(failureMechanism.SectionResults,
                                                                               failureMechanism,
@@ -282,8 +249,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>>(view);
-
-            mocks.VerifyAll();
         }
     }
 }

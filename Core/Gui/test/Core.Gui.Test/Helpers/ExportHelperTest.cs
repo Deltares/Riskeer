@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Util;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Helpers
 {
@@ -45,9 +45,7 @@ namespace Core.Gui.Test.Helpers
         public void GetFilePath_FileFilterGeneratorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             // Call
             void Call() => ExportHelper.GetFilePath(inquiryHelper, null);
@@ -55,7 +53,6 @@ namespace Core.Gui.Test.Helpers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("fileFilterGenerator", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,18 +63,15 @@ namespace Core.Gui.Test.Helpers
             // Setup
             var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetTargetFileLocation(fileFilterGenerator.Filter, null))
-                         .Return(expectedFilePath);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, null).Returns(expectedFilePath);
 
             // Call
             string filePath = ExportHelper.GetFilePath(inquiryHelper, fileFilterGenerator);
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            mocks.VerifyAll();
+            inquiryHelper.Received().GetTargetFileLocation(fileFilterGenerator.Filter, null);
         }
 
         [Test]
@@ -88,18 +82,15 @@ namespace Core.Gui.Test.Helpers
             // Setup
             var fileFilterGenerator = new FileFilterGenerator("testExtension", "testDescription");
 
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName))
-                         .Return(expectedFilePath);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName).Returns(expectedFilePath);
 
             // Call
             string filePath = ExportHelper.GetFilePath(inquiryHelper, fileFilterGenerator, suggestedFileName);
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            mocks.VerifyAll();
+            inquiryHelper.Received().GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName);
         }
 
         [Test]
@@ -119,18 +110,15 @@ namespace Core.Gui.Test.Helpers
         public void GetFolderPath_Always_ReturnsSelectedFolderPath(string expectedFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetTargetFolderLocation())
-                         .Return(expectedFilePath);
-            mocks.ReplayAll();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetTargetFolderLocation().Returns(expectedFilePath);
 
             // Call
             string filePath = ExportHelper.GetFolderPath(inquiryHelper);
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            mocks.VerifyAll();
+            inquiryHelper.Received().GetTargetFolderLocation();
         }
     }
 }

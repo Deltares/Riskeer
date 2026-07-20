@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.PresentationObjects
 {
@@ -61,10 +61,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void NotifyObservers_ObserverAttached_ObserverIsNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
@@ -76,16 +73,14 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll(); // Expect call UpdateObserver on 'observer'
+            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
         }
 
         [Test]
         public void NotifyObservers_ObserverDetached_ObserverIsNoLongerNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
@@ -98,17 +93,14 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll(); // Expect no UpdateObserver calls on 'observer'
+            observer.DidNotReceive().UpdateObserver(); // Expect no UpdateObserver calls on 'observer'
         }
 
         [Test]
         public void NotifyObservers_ObserverAttachedToWrappedData_ObserverIsNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
@@ -120,17 +112,14 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll(); // Expect call UpdateObserver on 'observer'
+            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
         }
 
         [Test]
         public void GivenContextWithAttachedObserver_WhenWrappedDataNotifiesObservers_ThenObserverIsNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
@@ -142,7 +131,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             sourceObject.NotifyObservers();
 
             // Then
-            mocks.VerifyAll(); // Expect call UpdateObserver on 'observer'
+            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
         }
 
         private class SimpleObservableWrappedObjectContext : ObservableWrappedObjectContextBase<IObservable>

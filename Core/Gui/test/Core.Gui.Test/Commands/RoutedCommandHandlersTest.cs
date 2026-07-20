@@ -24,8 +24,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Core.Gui.Commands;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Commands
 {
@@ -86,11 +86,8 @@ namespace Core.Gui.Test.Commands
             // Given
             var parameter = new object();
 
-            var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.CanExecute(parameter)).Return(true);
-            command.Expect(c => c.Execute(parameter));
-            mocks.ReplayAll();
+            var command = Substitute.For<ICommand>();
+            command.CanExecute(parameter).Returns(true);
 
             var frameworkElement = new FrameworkElement();
             RoutedCommandHandlers handlers = RoutedCommandHandlers.GetCommands(frameworkElement);
@@ -107,7 +104,8 @@ namespace Core.Gui.Test.Commands
             routedCommand.Execute(parameter, frameworkElement);
 
             // Then
-            mocks.VerifyAll();
+            command.Received().CanExecute(parameter);
+            command.Received().Execute(parameter);
         }
 
         [Test]
@@ -116,10 +114,8 @@ namespace Core.Gui.Test.Commands
             // Given
             var parameter = new object();
 
-            var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.CanExecute(parameter)).Return(false);
-            mocks.ReplayAll();
+            var command = Substitute.For<ICommand>();
+            command.CanExecute(parameter).Returns(false);
 
             var frameworkElement = new FrameworkElement();
             RoutedCommandHandlers handlers = RoutedCommandHandlers.GetCommands(frameworkElement);
@@ -136,7 +132,8 @@ namespace Core.Gui.Test.Commands
             routedCommand.Execute(parameter, frameworkElement);
 
             // Then
-            mocks.VerifyAll();
+            command.Received().CanExecute(parameter);
+            command.DidNotReceive().Execute(parameter);
         }
 
         [Test]

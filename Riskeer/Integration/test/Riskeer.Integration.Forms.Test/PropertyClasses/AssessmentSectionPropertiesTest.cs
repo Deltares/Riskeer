@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -48,12 +48,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.Id).Return("1");
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("1");
+            assessmentSection.Composition.Returns(AssessmentSectionComposition.Dike);
             assessmentSection.Name = "test";
 
             // Call
@@ -64,17 +61,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreSame(assessmentSection, properties.Data);
             Assert.AreEqual(assessmentSection.Id, properties.Id);
             Assert.AreEqual(assessmentSection.Name, properties.Name);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             var properties = new AssessmentSectionProperties(assessmentSection);
 
@@ -97,7 +90,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategoryName,
                                                                             "Naam",
                                                                             "Naam van het traject.");
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -105,12 +97,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             const string newName = "Test";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var properties = new AssessmentSectionProperties(assessmentSection);
 
             // When
@@ -118,7 +105,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newName, assessmentSection.Name);
-            mocks.VerifyAll();
+            assessmentSection.Received().NotifyObservers();
         }
     }
 }

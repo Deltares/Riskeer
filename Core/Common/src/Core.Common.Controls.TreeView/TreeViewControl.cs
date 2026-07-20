@@ -75,7 +75,7 @@ namespace Core.Common.Controls.TreeView
     /// <see cref="Data"/>, only contains uniquely identifiable data objects. Additionally, only one
     /// <see cref="TreeNodeInfo"/> object can be registered per <see cref="TreeNodeInfo.TagType"/>.
     /// </remarks>
-    public partial class TreeViewControl : UserControl
+    public partial class TreeViewControl : UserControl, ITreeViewControl
     {
         private const int maximumTextLength = 259;
         private const string stateImageLocationString = "StateImage";
@@ -187,6 +187,30 @@ namespace Core.Common.Controls.TreeView
         public void RegisterTreeNodeInfo(TreeNodeInfo treeNodeInfo)
         {
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
+        }
+
+        /// <summary>
+        /// This method tries to select the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <remarks>
+        /// The tree node selection is set to <c>null</c> when no corresponding tree node is found.
+        /// </remarks>
+        public void TrySelectNodeForData(object dataObject)
+        {
+            treeView.SelectedNode = GetNodeByTag(dataObject);
+        }
+
+        /// <summary>
+        /// This method tries to return the path of the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>The path of the tree node or <c>null</c> when no corresponding tree node is found.</returns>
+        public string TryGetPathForData(object dataObject)
+        {
+            TreeNode treeNode = GetNodeByTag(dataObject);
+
+            return treeNode?.FullPath;
         }
 
         /// <summary>
@@ -321,30 +345,6 @@ namespace Core.Common.Controls.TreeView
             {
                 ExpandAll(treeNode);
             }
-        }
-
-        /// <summary>
-        /// This method tries to select the tree node corresponding to the <paramref name="dataObject"/>.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <remarks>
-        /// The tree node selection is set to <c>null</c> when no corresponding tree node is found.
-        /// </remarks>
-        public void TrySelectNodeForData(object dataObject)
-        {
-            treeView.SelectedNode = GetNodeByTag(dataObject);
-        }
-
-        /// <summary>
-        /// This method tries to return the path of the tree node corresponding to the <paramref name="dataObject"/>.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <returns>The path of the tree node or <c>null</c> when no corresponding tree node is found.</returns>
-        public string TryGetPathForData(object dataObject)
-        {
-            TreeNode treeNode = GetNodeByTag(dataObject);
-
-            return treeNode?.FullPath;
         }
 
         protected override void Dispose(bool disposing)

@@ -28,9 +28,9 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -69,12 +69,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var calculationObserver = Substitute.For<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             var data = (CalculationGroup) calculationsView.Data;
@@ -88,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
 
             // Assert
-            mocks.VerifyAll();
+            calculationObserver.Received().UpdateObserver();
         }
 
         #endregion
@@ -122,10 +118,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculationsView_ChangingSubscribedRow_ListenerCorrectlyNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -138,12 +131,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
-            mocks.VerifyAll();
         }
 
         private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -314,9 +306,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestCalculationsView(null, new TestCalculatableFailureMechanism(), assessmentSection);
@@ -324,16 +314,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new TestCalculationsView(new CalculationGroup(), null, assessmentSection);
@@ -341,7 +328,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -374,11 +360,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
@@ -408,18 +391,14 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(2, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2 (6 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_HydraulicBoundaryDataWithDatabase_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
@@ -433,7 +412,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
             Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
             Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -490,10 +468,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             var selectionChangedCount = 0;
@@ -506,7 +481,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, selectionChangedCount);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -515,10 +489,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Selection_DataGridViewCellSelected_ReturnsTheSelectedRowObject(int selectedRow)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             // Call
@@ -526,7 +497,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<TestCalculationRow>(selection);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -537,11 +507,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenCalculationsView_WhenHydraulicBoundaryDataWithDatabasesUpdatedAndNotified_ThenSelectableHydraulicBoundaryLocationsComboboxCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -570,18 +537,14 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
             Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
             Assert.AreEqual("Location 3 (7 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenCalculationInputUpdatedAndNotified_ThenDataGridViewCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
             ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
@@ -597,7 +560,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             Assert.AreEqual(1, dataSourceUpdated);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -605,12 +567,8 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             const string calculationName = "New name";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
             ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
@@ -627,18 +585,14 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             Assert.AreEqual(calculationName, dataGridView.Rows[0].Cells[nameColumnIndex].Value);
             Assert.AreEqual(1, invalidated);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenCalculationGroupUpdatedAndNotified_ThenDataGridViewCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
             ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
@@ -658,7 +612,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             Assert.AreEqual(3, rows.Count);
             Assert.AreEqual(1, dataSourceUpdated);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -731,10 +684,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenCalculationsViewWithoutColumnStateDefinitions_ThenColumnStatesAsExpected()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -750,10 +700,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenCalculationsViewWithColumnStateDefinitions_ThenColumnStatesAsExpected(bool initialReadOnlyState)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection, initialReadOnlyState);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -769,10 +716,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenCalculationsViewWithColumnStateDefinitions_WhenColumnStateChangedAndCalculationInputObserversNotifiedDuringEditAction_ThenColumnStatesAsExpected(bool initialReadOnlyState)
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection, initialReadOnlyState);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;

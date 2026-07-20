@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -52,9 +52,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void ConstructorWithErrorMessage_ErrorMessageNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismAssemblyResultRow(failureMechanism, null);
@@ -62,7 +60,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("errorMessage", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -72,13 +69,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
             const string errorMessage = "Error";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
             // Call
             var row = new FailureMechanismAssemblyResultRow(failureMechanism, errorMessage);
 
@@ -97,8 +90,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.IsNaN(row.Probability);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,13 +112,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
             var random = new Random(21);
             double assemblyResult = random.NextDouble();
 
@@ -143,8 +130,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(assemblyResult, row.Probability);
-
-            mocks.VerifyAll();
         }
     }
 }

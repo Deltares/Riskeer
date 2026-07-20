@@ -752,8 +752,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(
-                fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2);
             return assessmentSection;
         }
 

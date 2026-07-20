@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -48,28 +48,18 @@ namespace Riskeer.Common.IO.Test.FileImporters
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        private MockRepository mocks;
-
         [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
+        public void Setup() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             var importer = new TestStructuresImporter(testImportTarget,
                                                       testReferenceLine,
@@ -85,10 +75,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             TestDelegate call = () => new TestStructuresImporter(null,
                                                                  testReferenceLine,
@@ -105,10 +93,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             TestDelegate call = () => new TestStructuresImporter(testImportTarget,
                                                                  null,
@@ -125,10 +111,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             TestDelegate call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
@@ -145,9 +129,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_StructureUpdateStrategyNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
@@ -164,9 +146,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ImporterMessageProviderNull_ThrowsArgumentNullException()
         {
             // Setup
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             TestDelegate call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
@@ -185,10 +165,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromInvalidEmptyPath_FalseAndLogError(string filePath)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             var testStructuresImporter = new TestStructuresImporter(testImportTarget,
                                                                     testReferenceLine,
                                                                     filePath,
@@ -214,10 +192,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromPathContainingInvalidPathCharacters_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             const string filePath = "c:\\Invalid_Characters.shp";
 
             char[] invalidPathChars = Path.GetInvalidPathChars();
@@ -247,10 +223,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromDirectoryPath_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string folderPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO) + Path.DirectorySeparatorChar;
 
             var testStructuresImporter = new TestStructuresImporter(testImportTarget,
@@ -280,10 +254,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithNonPointFeatures_FalseAndLogError(string shapeFileName)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          shapeFileName);
 
@@ -307,10 +279,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_InvalidShapefile_ReturnsFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
@@ -331,10 +301,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_InvalidCsvFile_ReturnsFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("Structures", "CorrectShpIncorrectCsv", "CorrectKunstwerken_IncorrectCsv.shp"));
 
@@ -357,11 +325,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string messageText = "importeren is afgebroken";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Kunstwerken").Returns(messageText);
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -395,11 +361,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string addDataToModelProgressText = "addDataToModelProgressText";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(addDataToModelProgressText);
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(addDataToModelProgressText);
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -434,11 +398,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string messageText = "importeren is afgebroken";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Kunstwerken").Returns(messageText);
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -471,10 +433,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_ReturnsTrue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -504,10 +464,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_LocationOutsideReferenceLine_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -541,10 +499,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_DuplicateLocation_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "DuplicateLocation", "Kunstwerken.shp"));
 
@@ -569,10 +525,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_LocationKWKIDENTNull_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresWithNullKWKident", "Kunstwerken.shp"));
 
@@ -607,11 +561,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 new TestStructure()
             };
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(createdStructures, filePath));
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>());
             ReferenceLine referenceLine = CreateReferenceLine();
 
             var importer = new TestStructuresImporter(targetCollection,
@@ -636,10 +588,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_IllegalCsvFile_ReturnsFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "IllegalCsv", "Kunstwerken.shp"));
 
@@ -661,15 +611,12 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_UpdateWithCreatedStructuresThrowsUpdateDataException_ReturnFalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
-            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Kunstwerken")).Return("error {0}");
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(us => us.UpdateStructuresWithImportedData(null, null))
-                          .IgnoreArguments()
-                          .Throw(new UpdateDataException("Exception message"));
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns("");
+            messageProvider.GetUpdateDataFailedLogMessageText("Kunstwerken").Returns("error {0}");
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>())
+                          .Returns(_ => throw new UpdateDataException("Exception message"));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));
@@ -696,23 +643,18 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void DoPostImport_UpdateWithCreatedStructuresReturnsObservables_ObservablesNotified()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
 
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null))
-                          .IgnoreArguments()
-                          .Return(new[]
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>())
+                          .Returns(new[]
                           {
                               observableA,
                               observableB
                           });
-            mocks.ReplayAll();
-
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));
@@ -731,17 +673,16 @@ namespace Riskeer.Common.IO.Test.FileImporters
             importer.DoPostImport();
 
             // Then
-            // Assertions performed in TearDown
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();
         }
 
         [Test]
         public void GetStandardDeviation_RowHasStandardDeviation_ReturnVarianceValue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -778,10 +719,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void GetStandardDeviation_RowHasCoefficientOfVariation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -824,10 +763,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void GetCoefficientOfVariation_RowHasCoefficientOfVariation_ReturnVarianceValue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -864,10 +801,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void GetCoefficientOfVariation_RowHasStandardDeviation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 

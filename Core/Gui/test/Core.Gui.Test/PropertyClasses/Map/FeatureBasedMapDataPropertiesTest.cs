@@ -33,8 +33,8 @@ using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
 using Core.Gui.UITypeEditors;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Map
 {
@@ -177,10 +177,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         {
             // Setup
             const int numberOfChangedProperties = 2;
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapData = new TestFeatureBasedMapData
             {
@@ -198,17 +195,15 @@ namespace Core.Gui.Test.PropertyClasses.Map
             // Assert
             Assert.IsFalse(mapData.ShowLabels);
             Assert.AreEqual("ID", mapData.SelectedMetaDataAttribute);
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
         public void IsVisible_SetNewValue_UpdateDataAndNotifyObserversOfDataAndParents()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(4);
-            mocks.ReplayAll();
+            const int numberOfExpectedNotifications = 4;
+            var observer = Substitute.For<IObserver>();
 
             var mapData = new TestFeatureBasedMapData();
             var parents = new[]
@@ -228,7 +223,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
 
             // Assert
             Assert.IsFalse(properties.IsVisible);
-            mocks.VerifyAll();
+            observer.Received(numberOfExpectedNotifications).UpdateObserver();
         }
 
         [Test]

@@ -201,8 +201,7 @@ namespace Riskeer.Integration.Plugin.Merge
                                        .Where(hbd => !existingHydraulicBoundaryDatabaseFileNames.Contains(
                                                          Path.GetFileNameWithoutExtension(hbd.FilePath)));
 
-            hydraulicBoundaryDatabasesToAdd.ForEachElementDo(
-                hbd => changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hbd)));
+            hydraulicBoundaryDatabasesToAdd.ForEachElementDo(hbd => changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hbd)));
 
             return changedObjects;
         }
@@ -241,9 +240,8 @@ namespace Riskeer.Integration.Plugin.Merge
 
             if (targetProbabilitiesToAdd.Any())
             {
-                targetProbabilitiesToAdd.ForEachElementDo(
-                    tp => targetCalculationsForTargetProbabilities.Add(
-                        HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(targetAssessmentSection, tp)));
+                targetProbabilitiesToAdd.ForEachElementDo(tp => targetCalculationsForTargetProbabilities.Add(
+                                                              HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(targetAssessmentSection, tp)));
 
                 yield return targetCalculationsForTargetProbabilities;
             }
@@ -307,8 +305,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceCalculationsForTargetProbability in sourceCalculations)
             {
-                HydraulicBoundaryLocationCalculationsForTargetProbability targetCalculationsForTargetProbability = targetCalculations.First(
-                    c => c.TargetProbability.Equals(sourceCalculationsForTargetProbability.TargetProbability));
+                HydraulicBoundaryLocationCalculationsForTargetProbability targetCalculationsForTargetProbability = targetCalculations.First(c => c.TargetProbability.Equals(sourceCalculationsForTargetProbability.TargetProbability));
 
                 changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationData(
                                             targetCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
@@ -362,9 +359,8 @@ namespace Riskeer.Integration.Plugin.Merge
 
             if (targetProbabilitiesToAdd.Any())
             {
-                targetProbabilitiesToAdd.ForEachElementDo(
-                    tp => targetCalculationsForTargetProbabilities.Add(
-                        CreateDuneLocationCalculationsForTargetProbability(targetAssessmentSection.DuneErosion, tp)));
+                targetProbabilitiesToAdd.ForEachElementDo(tp => targetCalculationsForTargetProbabilities.Add(
+                                                              CreateDuneLocationCalculationsForTargetProbability(targetAssessmentSection.DuneErosion, tp)));
 
                 yield return targetCalculationsForTargetProbabilities;
             }
@@ -391,8 +387,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             foreach (DuneLocationCalculationsForTargetProbability sourceCalculationsForTargetProbability in sourceCalculations)
             {
-                DuneLocationCalculationsForTargetProbability targetCalculationsForTargetProbability = targetCalculations.First(
-                    c => c.TargetProbability.Equals(sourceCalculationsForTargetProbability.TargetProbability));
+                DuneLocationCalculationsForTargetProbability targetCalculationsForTargetProbability = targetCalculations.First(c => c.TargetProbability.Equals(sourceCalculationsForTargetProbability.TargetProbability));
 
                 changedObjects.AddRange(MergeDuneLocationCalculationData(
                                             targetCalculationsForTargetProbability.DuneLocationCalculations

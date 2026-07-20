@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Data;
@@ -35,9 +35,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects.Registratio
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -48,7 +46,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects.Registratio
             Assert.IsInstanceOf<FailureMechanismContext<StabilityStoneCoverFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
-            mocks.VerifyAll();
         }
     }
 }

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using log4net;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -42,10 +42,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void TrySetStandardDeviationStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setStandardDeviation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var log = mocks.StrictMockWithRemoting<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             var configuration = new StochastConfiguration();
             var input = new TestInputWithStochasts();
 
@@ -82,8 +79,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 setStandardDeviation ? standardDeviation : defaultLogNormal.StandardDeviation,
                 input.Distribution.StandardDeviation,
                 input.Distribution.StandardDeviation.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -96,12 +91,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             const string expectedFormat = "{0} Berekening '{1}' is overgeslagen.";
             string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
                                    $"Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden.";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMockWithRemoting<ILog>();
-            log.Expect(l => l.ErrorFormat(expectedFormat, expectedError, calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat(expectedFormat, expectedError, calculationName);
             var configuration = new StochastConfiguration
             {
                 VariationCoefficient = new Random(21).NextDouble()
@@ -120,8 +111,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsFalse(valid);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -132,10 +121,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void TrySetVariationCoefficientStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setVariationCoefficient)
         {
             // Setup
-            var mocks = new MockRepository();
-            var log = mocks.StrictMockWithRemoting<ILog>();
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
             var configuration = new StochastConfiguration();
 
             var random = new Random(21);
@@ -173,8 +159,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 setVariationCoefficient ? variationCoefficient : defaultLogNormal.CoefficientOfVariation,
                 input.VariationCoefficientDistribution.CoefficientOfVariation,
                 input.VariationCoefficientDistribution.CoefficientOfVariation.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -187,12 +171,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             const string expectedFormat = "{0} Berekening '{1}' is overgeslagen.";
             string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
                                    $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
-
-            var mocks = new MockRepository();
-            var log = mocks.StrictMockWithRemoting<ILog>();
-            log.Expect(l => l.ErrorFormat(expectedFormat, expectedError, calculationName));
-            mocks.ReplayAll();
-
+            var log = Substitute.For<ILog>();
+            log.ErrorFormat(expectedFormat, expectedError, calculationName);
             var configuration = new StochastConfiguration
             {
                 StandardDeviation = new Random(21).NextDouble()
@@ -211,8 +191,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsFalse(valid);
-
-            mocks.VerifyAll();
         }
 
         private class TestInputWithStochasts : CloneableObservable, ICalculationInput

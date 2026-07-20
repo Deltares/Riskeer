@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
@@ -52,26 +52,19 @@ namespace Riskeer.Common.Service.Test
         public void ClearHydraulicBoundaryLocation_InputWithoutHydraulicBoundaryLocation_ReturnsNoAffectedObjects()
         {
             // Setup
-            var mocks = new MockRepository();
-            var input = mocks.Stub<ICalculationInputWithHydraulicBoundaryLocation>();
-            mocks.ReplayAll();
-
+            var input = Substitute.For<ICalculationInputWithHydraulicBoundaryLocation>();
             // Call
             IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(input);
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearHydraulicBoundaryLocation_InputWithHydraulicBoundaryLocation_ClearsLocationAndReturnsAffectedInput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var input = mocks.Stub<ICalculationInputWithHydraulicBoundaryLocation>();
-            mocks.ReplayAll();
-
+            var input = Substitute.For<ICalculationInputWithHydraulicBoundaryLocation>();
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
@@ -83,7 +76,6 @@ namespace Riskeer.Common.Service.Test
             {
                 input
             }, affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -308,20 +300,15 @@ namespace Riskeer.Common.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation>();
-            calculation.Expect(c => c.HasOutput).Return(true);
-            calculation.Expect(c => c.ClearOutput());
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            calculation.HasOutput.Returns(true);
             // Call
             IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            mocks.VerifyAll();
-
+            calculation.Received().ClearOutput();
             CollectionAssert.AreEqual(new[]
             {
                 calculation
@@ -332,18 +319,13 @@ namespace Riskeer.Common.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation>();
-            calculation.Expect(c => c.HasOutput).Return(false);
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            calculation.HasOutput.Returns(false);
             // Call
             IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-
-            mocks.VerifyAll();
         }
 
         [Test]

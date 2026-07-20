@@ -27,9 +27,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -105,11 +105,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void CalculationsView_FailureMechanismWithCorrespondingStochasticSoilModels_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -129,19 +126,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
             Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
             Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_FailureMechanismWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -161,19 +153,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(2, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
             Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -201,19 +188,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual(GetFormattedProbabilityValue(30), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSurfaceLines_ButtonDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -229,18 +211,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSoilModels_ButtonDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -256,18 +234,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithSurfaceLinesAndSoilModels_ButtonEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const string arbitrarySourcePath = "path";
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -288,18 +262,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -313,18 +283,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndNotify_ThenButtonDisabled()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -338,18 +304,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenStochasticSoilModelsUpdatedAndNotified_ThenStochasticSoilModelsAndStochasticSoilProfilesComboboxCorrectlyUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
@@ -391,8 +353,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Profile 4", soilProfileItems[4].ToString());
             Assert.AreEqual("Profile 5", soilProfileItems[5].ToString());
             Assert.AreEqual("A", soilProfileItems[6].ToString());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -401,11 +361,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             MacroStabilityInwardsCalculationsView view = ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
@@ -422,8 +379,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsInstanceOf<MacroStabilityInwardsInputContext>(selection);
             var dataRow = (MacroStabilityInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((MacroStabilityInwardsInputContext) selection).MacroStabilityInwardsCalculation);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -437,9 +392,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             bool useCalculationWithOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationInputObserver = Substitute.For<IObserver>();
 
             if (useCalculationWithOutput)
             {
@@ -448,18 +402,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     var tester = new MessageBoxTester(wnd);
                     tester.ClickOk();
                 };
-
-                calculationObserver.Expect(o => o.UpdateObserver());
             }
 
-            calculationInputObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -482,18 +428,24 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mocks.VerifyAll();
+            if (useCalculationWithOutput)
+            {
+                calculationObserver.Received().UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+            }
+
+            calculationInputObserver.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -521,19 +473,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(1, refreshed);
             var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
             Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             const string arbitraryFilePath = "path";
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -569,20 +516,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.NotNull(selectionDialog);
             Assert.NotNull(grid);
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, rows);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             const string arbitraryFilePath = "path";
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -613,18 +555,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             button.Click();
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
 
             ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
@@ -653,19 +592,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             Assert.AreEqual(2, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_ThenCalculationsNotUpdatedAndCalculationGroupNotNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
             ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
@@ -687,7 +622,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [TestCase(true)]
@@ -695,11 +630,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -718,8 +650,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
-
-            mocks.VerifyAll();
         }
 
         public override void Setup()
@@ -738,7 +668,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {

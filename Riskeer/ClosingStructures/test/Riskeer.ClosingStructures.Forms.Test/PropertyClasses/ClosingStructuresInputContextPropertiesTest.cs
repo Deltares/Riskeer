@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
@@ -46,38 +46,31 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class ClosingStructuresInputContextPropertiesTest
     {
-        private MockRepository mockRepository;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection = Substitute.For<IAssessmentSection>();
         }
 
         [Test]
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new ClosingStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -97,16 +90,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("propertyChangeHandler", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -183,8 +173,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, false);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -194,9 +182,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             GeneralPropertyIndices generalPropertyIndices)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -333,9 +319,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_VerticalWallStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -414,17 +398,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationIncomingFlowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_FloodedCulvertStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -511,17 +491,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationIncomingFlowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_LowSillStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -599,17 +575,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationIncomingFlowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutStructure_CorrectReadOnlyForStructureDependentProperties()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
@@ -649,9 +621,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
@@ -670,16 +640,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.ClosingStructures.AddRange(new[]
             {
@@ -697,7 +664,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.ClosingStructures, availableStructures);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -886,9 +852,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_StructureIsVerticalWall_ReturnExpectedVisibility()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -920,9 +884,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_StructureIsLowSill_ReturnExpectedVisibility()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -954,9 +916,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_StructureIsFloodedCulvert_ReturnExpectedVisibility()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -988,15 +948,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_StructureTypeUnknown_ReturnExpectedVisibility()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSection);
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
@@ -1015,9 +973,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<ClosingStructuresInputContextProperties> setProperty)
         {
             // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
@@ -1042,7 +998,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(calculation.HasOutput);
 
-            mockRepository.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         private static IEnumerable<TestCaseData> GetGeneralPropertyIndices()

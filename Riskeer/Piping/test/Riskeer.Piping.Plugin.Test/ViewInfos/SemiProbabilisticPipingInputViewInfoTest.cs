@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data;
@@ -39,14 +39,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
     [TestFixture]
     public class SemiProbabilisticPipingInputViewInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(SemiProbabilisticPipingInputContext) && tni.ViewType == typeof(PipingInputView));
         }
@@ -78,9 +76,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedCalculation()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingInput = new SemiProbabilisticPipingInput();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
@@ -94,16 +90,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculation, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario();
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(pipingCalculation,
                                                                                                          new CalculationGroup(),
@@ -122,7 +115,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -130,9 +122,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario();
             var calculationToRemove = new SemiProbabilisticPipingCalculationScenario();
 
@@ -153,7 +143,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -161,9 +150,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -184,7 +171,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -192,9 +178,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -215,7 +199,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -223,9 +206,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -248,7 +229,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -256,9 +236,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -281,7 +259,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -289,9 +266,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -308,7 +283,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -316,9 +290,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -335,7 +307,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -343,9 +314,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -365,7 +334,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -373,9 +341,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -395,7 +361,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -407,14 +372,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -425,7 +387,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -437,14 +398,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new PipingInputView
             {
                 Data = new SemiProbabilisticPipingCalculationScenario()
@@ -455,7 +413,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -470,14 +427,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -488,7 +442,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -503,14 +456,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-
-            mocks.ReplayAll();
-
             using (var view = new PipingInputView
             {
                 Data = new SemiProbabilisticPipingCalculationScenario()
@@ -521,7 +471,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
     }

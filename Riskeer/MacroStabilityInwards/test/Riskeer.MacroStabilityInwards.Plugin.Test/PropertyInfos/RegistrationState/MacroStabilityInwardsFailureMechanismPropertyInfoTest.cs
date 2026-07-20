@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
@@ -62,10 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationSt
         public void CreateInstance_WithContext_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -75,7 +72,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationSt
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }

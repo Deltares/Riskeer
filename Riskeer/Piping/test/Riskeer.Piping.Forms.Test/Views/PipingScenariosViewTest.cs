@@ -32,9 +32,9 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -81,9 +81,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new PipingScenariosView(null, new PipingFailureMechanism(), assessmentSection);
@@ -91,16 +89,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new PipingScenariosView(new CalculationGroup(), null, assessmentSection);
@@ -108,7 +103,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -126,10 +120,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
 
             // Call
@@ -140,8 +131,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(pipingScenarioView);
                 Assert.AreSame(calculationGroup, pipingScenarioView.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -536,11 +525,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataSetAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingScenariosView(failureMechanism);
 
@@ -556,7 +541,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newValue, failureMechanism.ScenarioConfigurationType);
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -611,11 +596,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenPipingScenarioViewWithSections_WhenSelectingRadioButton_ThenDataSetAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingFailureMechanismScenarioConfigurationType.PerFailureMechanismSection
@@ -636,7 +617,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.AreEqual(PipingFailureMechanismSectionScenarioConfigurationType.Probabilistic,
                             sectionConfiguration.ScenarioConfigurationType);
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -776,11 +757,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PipingScenariosView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var calculationObserver = Substitute.For<IObserver>();
             var failureMechanism = new PipingFailureMechanism();
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
@@ -793,7 +770,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
-            mocks.VerifyAll();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]

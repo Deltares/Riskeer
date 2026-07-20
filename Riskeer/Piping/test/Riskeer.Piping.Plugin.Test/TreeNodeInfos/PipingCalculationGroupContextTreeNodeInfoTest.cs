@@ -36,9 +36,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -46,6 +46,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -107,17 +108,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -144,9 +140,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  null,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
@@ -165,7 +159,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var calculationItem = mocks.StrictMock<ICalculationBase>();
+            var calculationItem = Substitute.For<ICalculationBase>();
 
             var semiProbabilisticPipingCalculationScenario = new SemiProbabilisticPipingCalculationScenario();
             var probabilisticPipingCalculationScenario = new ProbabilisticPipingCalculationScenario();
@@ -179,10 +173,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             group.Children.Add(childGroup);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -224,7 +215,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             group.Children.Add(new TestPipingCalculationScenario(true));
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -238,17 +229,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                    pipingFailureMechanism,
                                                                    assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            exportHandler.CanExportFrom(nodeData).Returns(true);
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var treeViewControl = Substitute.For<ITreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
@@ -258,16 +249,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                      nodeData,
                                                      treeViewControl);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-            gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, Arg.Any<ITreeViewControl>()).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
-
-            mocks.ReplayAll();
-
+            treeViewControl.CanRemoveNodeForData(nodeData).Returns(true);
+            treeViewControl.CanRenameNodeForData(nodeData).Returns(true);
+            treeViewControl.CanExpandOrCollapseForData(nodeData).Returns(false, false);
             plugin.Gui = gui;
 
             // Call
@@ -367,7 +355,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             group.Children.Add(new TestPipingCalculationScenario(true));
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -375,18 +363,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.StrictMock<IImportCommandHandler>();
-            importHandler.Expect(ih => ih.GetSupportedImportInfos(nodeData)).Return(new[]
+            var applicationFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(nodeData).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
-            exportHandler.Expect(eh => eh.CanExportFrom(nodeData)).Return(true);
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            exportHandler.CanExportFrom(nodeData).Returns(true);
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
 
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
+            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            viewCommandsHandler.CanOpenViewFor(nodeData).Returns(true);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -398,13 +386,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                          nodeData,
                                                          treeViewControl);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -496,7 +481,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
@@ -510,12 +495,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -538,7 +522,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
@@ -554,12 +538,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -582,7 +564,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
@@ -601,12 +583,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -625,7 +605,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingFailureMechanism = new PipingFailureMechanism();
             var group = new CalculationGroup
             {
@@ -646,11 +626,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -676,7 +654,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var group = new CalculationGroup();
 
             var nodeData = new PipingCalculationGroupContext(group,
@@ -688,11 +666,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -714,7 +690,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var group = new CalculationGroup
             {
                 Children =
@@ -732,11 +708,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -757,7 +731,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithSurfaceLineAndInputInSync_ContextMenuItemUpdateEntryAndExitPointsDisabledAndToolTipSet()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             IPipingCalculationScenario<PipingInput> calculation = new TestPipingCalculationScenario
@@ -785,11 +759,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -810,7 +782,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithSurfaceLineAndInputOutOfSync_ContextMenuItemUpdateEntryAndExitPointsEnabledAndToolTipSet()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
             IPipingCalculationScenario<PipingInput> calculation = new TestPipingCalculationScenario
@@ -838,11 +810,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 ChangeSurfaceLine(calculation.InputParameters.SurfaceLine);
@@ -869,15 +839,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
                                                              new PipingFailureMechanism(),
-                                                             mocks.Stub<IAssessmentSection>());
+                                                             Substitute.For<IAssessmentSection>());
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -919,15 +887,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
                                                              new TestPipingFailureMechanism(),
-                                                             mocks.Stub<IAssessmentSection>());
+                                                             Substitute.For<IAssessmentSection>());
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -968,14 +934,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
                                                              new PipingFailureMechanism(),
-                                                             mocks.Stub<IAssessmentSection>());
+                                                             Substitute.For<IAssessmentSection>());
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 // Call
@@ -999,7 +963,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -1017,14 +981,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var calculationItem = new CalculationGroup
@@ -1050,6 +1011,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
+
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -1060,7 +1023,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -1078,14 +1041,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
@@ -1110,6 +1070,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
                 }
+
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -1120,7 +1082,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -1137,11 +1099,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
@@ -1174,7 +1134,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -1192,14 +1152,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
@@ -1224,6 +1181,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
                 }
+
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -1234,7 +1193,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              parentGroup,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -1252,14 +1211,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
@@ -1284,6 +1240,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
                 }
+
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -1356,11 +1314,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -1392,7 +1348,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var failureMechanism = new PipingFailureMechanism();
                 var calculationGroup = new CalculationGroup
                 {
@@ -1411,12 +1367,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1504,19 +1457,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = Substitute.For<IGui>();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreatePipingCalculator(null))
-                                 .IgnoreArguments()
-                                 .Return(new TestPipingCalculator());
-
-                mocks.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+                calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
                 plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -1575,7 +1523,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var failureMechanism = new PipingFailureMechanism();
                 var calculationGroup = new CalculationGroup
                 {
@@ -1592,15 +1540,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                  failureMechanism,
                                                                  assessmentSection);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
+                var mainWindow = Substitute.For<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1620,16 +1565,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            if (confirm)
-            {
-                calculation1Observer.Expect(o => o.UpdateObserver());
-                calculation2Observer.Expect(o => o.UpdateObserver());
-            }
+            var calculation1Observer = Substitute.For<IObserver>();
+            var calculation2Observer = Substitute.For<IObserver>();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation1 = new TestPipingCalculationScenario(true);
             calculation1.Attach(calculation1Observer);
@@ -1665,11 +1605,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 string messageBoxTitle = null, messageBoxText = null;
@@ -1703,6 +1641,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
                 }
             }
+
+            if (confirm)
+            {
+                calculation1Observer.Received().UpdateObserver();
+                calculation2Observer.Received().UpdateObserver();
+            }
+            else
+            {
+                calculation1Observer.DidNotReceive().UpdateObserver();
+                calculation2Observer.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]
@@ -1711,16 +1660,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnIllustrationPointsItem_ClearIllustrationPointsChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            if (confirm)
-            {
-                calculation1Observer.Expect(o => o.UpdateObserver());
-                calculation2Observer.Expect(o => o.UpdateObserver());
-            }
+            var calculation1Observer = Substitute.For<IObserver>();
+            var calculation2Observer = Substitute.For<IObserver>();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation1 = new ProbabilisticPipingCalculationScenario
             {
@@ -1762,11 +1706,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 plugin.Gui = gui;
 
                 string messageBoxTitle = null, messageBoxText = null;
@@ -1803,6 +1745,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
                 }
             }
+
+            if (confirm)
+            {
+                calculation1Observer.Received().UpdateObserver();
+                calculation2Observer.Received().UpdateObserver();
+            }
+            else
+            {
+                calculation1Observer.DidNotReceive().UpdateObserver();
+                calculation2Observer.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]
@@ -1814,7 +1767,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var surfaceLines = new[]
                 {
@@ -1831,14 +1784,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 PipingSurfaceLineSelectionDialog selectionDialog = null;
@@ -1876,7 +1827,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
                 {
@@ -1941,14 +1892,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -2008,7 +1957,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
                 {
@@ -2068,14 +2017,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                  assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
+                var mainWindow = Substitute.For<IMainWindow>();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Precondition
@@ -2106,13 +2053,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
             var group = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -2138,14 +2082,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
             var group = new CalculationGroup();
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
@@ -2160,9 +2104,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(calculation);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             CalculationGroup parentGroup = pipingFailureMechanism.CalculationsGroup;
             parentGroup.Children.Add(group);
 
@@ -2188,6 +2130,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -2196,13 +2139,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation1InputObserver = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
-                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
+                var calculation1Observer = Substitute.For<IObserver>();
+                var calculation1InputObserver = Substitute.For<IObserver>();
+                var calculation2Observer = Substitute.For<IObserver>();
+                var calculation2InputObserver = Substitute.For<IObserver>();
 
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
@@ -2243,7 +2183,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -2260,13 +2200,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -2280,6 +2218,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
                     Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
                 }
+
+                calculation1InputObserver.Received().UpdateObserver();
+                calculation2InputObserver.Received().UpdateObserver();
             }
         }
 
@@ -2289,10 +2230,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation1InputObserver = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                var calculation2InputObserver = mocks.StrictMock<IObserver>();
+                var calculation1Observer = Substitute.For<IObserver>();
+                var calculation1InputObserver = Substitute.For<IObserver>();
+                var calculation2Observer = Substitute.For<IObserver>();
+                var calculation2InputObserver = Substitute.For<IObserver>();
 
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
@@ -2333,7 +2274,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -2350,13 +2291,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 string textBoxMessage = null;
@@ -2384,6 +2323,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+
+                calculation1Observer.DidNotReceive().UpdateObserver();
+                calculation1InputObserver.DidNotReceive().UpdateObserver();
+                calculation2Observer.DidNotReceive().UpdateObserver();
+                calculation2InputObserver.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -2393,15 +2337,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation1InputObserver = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-                calculation1Observer.Expect(obs => obs.UpdateObserver());
-                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
-                calculation2Observer.Expect(obs => obs.UpdateObserver());
-                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
+                var calculation1Observer = Substitute.For<IObserver>();
+                var calculation1InputObserver = Substitute.For<IObserver>();
+                var calculation2Observer = Substitute.For<IObserver>();
+                var calculation2InputObserver = Substitute.For<IObserver>();
 
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
@@ -2442,7 +2381,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -2459,13 +2398,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 string textBoxMessage = null;
@@ -2493,12 +2430,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+
+                calculation1Observer.Received().UpdateObserver();
+                calculation1InputObserver.Received().UpdateObserver();
+                calculation2Observer.Received().UpdateObserver();
+                calculation2InputObserver.Received().UpdateObserver();
             }
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationGroupContext));
         }
@@ -2506,8 +2447,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public override void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
-
             base.TearDown();
         }
 

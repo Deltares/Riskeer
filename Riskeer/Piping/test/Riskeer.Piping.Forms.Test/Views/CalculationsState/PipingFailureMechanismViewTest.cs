@@ -31,8 +31,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -90,9 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new PipingFailureMechanismView(null, assessmentSection);
@@ -100,7 +98,6 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -290,12 +287,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             PipingFailureMechanismView view = CreateView(new PipingFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -307,7 +299,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -329,12 +321,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             PipingFailureMechanismView view = CreateView(new PipingFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -350,7 +337,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -372,12 +359,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             });
 
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -387,7 +369,8 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            mocks.VerifyAll();
+
+            observers[surfaceLinesIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -405,12 +388,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             PipingFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             surfaceLine.SetGeometry(new[]
             {
@@ -422,7 +400,8 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            mocks.VerifyAll();
+
+            observers[surfaceLinesIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -440,14 +419,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -463,7 +435,10 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            mocks.VerifyAll();
+
+            observers[sectionsObserverIndex].Received().UpdateObserver();
+            observers[sectionsStartPointObserverIndex].Received().UpdateObserver();
+            observers[sectionsEndPointObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -484,12 +459,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             });
 
             var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -499,7 +469,8 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
-            mocks.VerifyAll();
+
+            observers[stochasticSoilModelsIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -544,13 +515,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var probabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
             var semiProbabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[semiProbabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
@@ -558,7 +523,9 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), semiProbabilisticCalculationMapData);
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), probabilisticCalculationMapData);
-            mocks.VerifyAll();
+
+            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -596,19 +563,14 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[semiProbabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationScenario.InputParameters.SurfaceLine = surfaceLineB;
             calculationScenario.InputParameters.NotifyObservers();
 
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -646,19 +608,14 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationScenario.InputParameters.SurfaceLine = surfaceLineB;
             calculationScenario.InputParameters.NotifyObservers();
 
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -696,19 +653,14 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[semiProbabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationScenario.Name = "new name";
             calculationScenario.NotifyObservers();
 
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -746,19 +698,14 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[probabilisticCalculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationScenario.Name = "new name";
             calculationScenario.NotifyObservers();
 
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -977,37 +924,36 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var stochasticSoilModelsMapDataObserver = mocks.StrictMock<IObserver>();
+            var stochasticSoilModelsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelsMapDataObserver);
 
-            var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
+            var surfaceLinesMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
-            var probabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var probabilisticCalculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[probabilisticCalculationsIndex].Attach(probabilisticCalculationsMapDataObserver);
 
-            var semiProbabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var semiProbabilisticCalculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[semiProbabilisticCalculationsIndex].Attach(semiProbabilisticCalculationsMapDataObserver);
 
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
 
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsStartPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
 
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            var sectionsEndPointMapDataObserver = Substitute.For<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
             return new[]

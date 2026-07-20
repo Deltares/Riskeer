@@ -31,8 +31,8 @@ using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.BruTile.Test.Configurations
 {
@@ -94,10 +94,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             const string url = "url";
             const string id = "id";
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(url).Returns(Enumerable.Empty<ITileSource>());
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -110,8 +108,6 @@ namespace Core.Components.BruTile.Test.Configurations
                 string expectedMessage = $"Niet in staat om de databron met naam '{id}' te kunnen vinden bij de WMTS URL '{url}'.";
                 Assert.AreEqual(expectedMessage, message);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,14 +119,12 @@ namespace Core.Components.BruTile.Test.Configurations
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                 (IRequest) null);
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl))
-                   .Return(new[]
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)
+                   .Returns(new[]
                    {
                        tileSource
                    });
-            mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -154,8 +148,6 @@ namespace Core.Components.BruTile.Test.Configurations
                     directoryDisposeHelper.UnlockDirectory();
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -174,10 +166,8 @@ namespace Core.Components.BruTile.Test.Configurations
                 tileSource2
             };
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl).Returns(tileSources);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -193,8 +183,6 @@ namespace Core.Components.BruTile.Test.Configurations
                     Assert.AreSame(tileSource2.Schema, configuration.TileSchema);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,10 +198,8 @@ namespace Core.Components.BruTile.Test.Configurations
                 tileSource
             };
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl).Returns(tileSources);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -232,8 +218,6 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
                 Assert.IsNull(clone.TileSchema, "TileSchema should be null because the clone hasn't been initialized yet.");
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -249,10 +233,8 @@ namespace Core.Components.BruTile.Test.Configurations
                 tileSource
             };
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl).Returns(tileSources);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -269,8 +251,6 @@ namespace Core.Components.BruTile.Test.Configurations
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
                 Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -286,10 +266,8 @@ namespace Core.Components.BruTile.Test.Configurations
                 tileSource
             };
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl).Returns(tileSources);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -306,8 +284,6 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.IsTrue(clone.TileFetcher.IsReady());
                 Assert.AreSame(configuration.TileSchema, clone.TileSchema);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -323,10 +299,8 @@ namespace Core.Components.BruTile.Test.Configurations
                 tileSource
             };
 
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
-            mocks.ReplayAll();
+            var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl).Returns(tileSources);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -343,8 +317,6 @@ namespace Core.Components.BruTile.Test.Configurations
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
                 Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
-
-            mocks.VerifyAll();
         }
 
         [OneTimeSetUp]

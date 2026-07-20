@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
@@ -79,10 +79,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(null,
                                                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel,
@@ -91,18 +88,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -119,17 +112,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -148,17 +137,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -217,8 +202,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableProperties>(properties.SaturatedVolumicWeightOfCoverageLayerDistribution);
             TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(SemiProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayerDistribution));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -227,10 +210,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void Constructor_ValidDataWithOrWithoutCoverageLayer_PropertiesHaveExpectedAttributesValues(bool withCoverageLayer)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
 
@@ -416,8 +396,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             {
                 Assert.IsNotInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -426,11 +404,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void Constructor_WithOrWithoutSurfaceLine_EntryAndExitPointPropertyReadOnlyWithoutSurfaceLine(bool withSurfaceLine)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -477,8 +452,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 "Uittredepunt",
                 "De positie in het dwarsprofiel van het uittredepunt.",
                 !withSurfaceLine);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -487,10 +460,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void GetProperties_UseAssessmentLevelManualInput_ReturnsExpectedAttributeValues(bool useManualAssessmentLevelInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -545,8 +515,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     "Waterstand [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.");
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -555,11 +523,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void GetProperties_WithData_ReturnExpectedValues(bool useManualAssessmentLevelInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(22);
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -667,18 +632,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -739,7 +699,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -883,13 +842,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void SeepageLength_ExitPointAndEntryPointSet_ExpectedValue(double entryPoint, double exitPoint, double seepageLength)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var inputObserver = Substitute.For<IObserver>();
             const int numberOfChangedProperties = 2;
-            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
-
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
@@ -919,21 +874,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
-
-            mocks.VerifyAll();
+            inputObserver.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
         public void SeepageLength_EntryPointAndThenExitPointSet_ExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var inputObserver = Substitute.For<IObserver>();
             const int numberOfChangedProperties = 2;
-            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
-
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
@@ -963,8 +913,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
-
-            mocks.VerifyAll();
+            inputObserver.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
@@ -973,11 +922,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void ExitPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newExitPoint)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
@@ -1012,7 +958,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
@@ -1021,11 +967,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void EntryPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newEntryPoint)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             var entryPoint = (RoundedDouble) newEntryPoint;
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -1062,7 +1005,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
@@ -1070,11 +1013,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
@@ -1110,7 +1050,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
@@ -1118,11 +1058,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
@@ -1157,17 +1094,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+            // No observer notified
         }
 
         [Test]
         public void SurfaceLine_NewSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 InputParameters =
@@ -1202,18 +1136,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SurfaceLine_SameSurfaceLine_StochasticSoilModelAndSoilProfileUnchanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             PipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
@@ -1254,17 +1184,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SurfaceLine_DifferentSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
             {
@@ -1307,18 +1233,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableSurfaceLines_Always_ReturnAllPipingSurfaceLines()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
@@ -1333,18 +1255,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             Assert.AreSame(context.AvailablePipingSurfaceLines, surfaceLines);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilModels_NoSurfaceLineAssigned_ReturnAllStochasticSoilModels()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
@@ -1362,18 +1280,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             Assert.AreSame(context.AvailableStochasticSoilModels, soilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilModels_SurfaceLineAssigned_ReturnMatchingSubsetOfStochasticSoilModels()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
@@ -1435,18 +1349,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 failureMechanism.StochasticSoilModels[0],
                 failureMechanism.StochasticSoilModels[2]
             }, availableStochasticSoilModels);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilProfiles_NoStochasticSoilModel_ReturnEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
@@ -1464,18 +1374,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             CollectionAssert.IsEmpty(profiles);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStochasticSoilProfiles_StochasticSoilModel_ReturnAssignedSoilModelProfiles()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
@@ -1504,18 +1410,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             CollectionAssert.AreEqual(model.StochasticSoilProfiles, profiles);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
@@ -1533,19 +1435,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             Assert.DoesNotThrow(call);
             Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPropertiesWithSurfaceLineAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -1558,9 +1458,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
 
             PipingStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
@@ -1592,17 +1489,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1620,10 +1514,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
@@ -1643,16 +1534,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                      .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                      .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsAndSurfaceLine_ReturnLocationsSortedByDistanceThenById()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1672,10 +1561,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new PipingFailureMechanism();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -1706,16 +1592,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingSurfaceLine_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1735,11 +1619,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            observable.Expect(o => o.NotifyObservers());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var failureMechanism = new PipingFailureMechanism();
 
             PipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -1787,7 +1667,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         [Test]
@@ -1796,11 +1676,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario
@@ -1831,11 +1708,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void DynamicReadOnlyValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
@@ -1854,7 +1728,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             Assert.IsTrue(result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1863,11 +1736,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario
@@ -1900,11 +1770,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void DynamicVisibleValidationMethod_CoverageLayerDependentProperties_DependsOnHavingCoverageLayerOrNot(bool withCoverageLayer)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
@@ -1935,11 +1802,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
@@ -1965,12 +1829,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingCalculationScenario calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             SemiProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1996,7 +1856,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         private static PipingStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)

@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -61,10 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithStochasticSoilprofile_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call
@@ -73,8 +70,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilProfileProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

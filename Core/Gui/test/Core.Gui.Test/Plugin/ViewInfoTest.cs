@@ -23,8 +23,8 @@ using System;
 using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -56,9 +56,7 @@ namespace Core.Gui.Test.Plugin
         public void SimpleProperties_SetNewValues_GetNewlySetValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewInstance = mocks.Stub<IView>();
-            mocks.ReplayAll();
+            var viewInstance = Substitute.For<IView>();
 
             var viewInfo = new ViewInfo();
 

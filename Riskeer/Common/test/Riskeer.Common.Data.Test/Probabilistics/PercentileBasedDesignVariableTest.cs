@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Common.Data.Test.Probabilistics
@@ -34,10 +35,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             // Call
             var designVariable = new SimpleDesignVariable(distribution);
 
@@ -45,7 +43,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             Assert.IsInstanceOf<DesignVariable<IDistribution>>(designVariable);
             Assert.AreSame(distribution, designVariable.Distribution);
             Assert.AreEqual(0.5, designVariable.Percentile);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -58,10 +56,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Percentile_SettingInvalidValue_ThrowArgumentOutOfRangeException(double invalidPercentile)
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             var designVariable = new SimpleDesignVariable(distribution);
 
             // Call
@@ -74,7 +69,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.RemoveEmptyEntries)[0];
             Assert.AreEqual("Percentiel moet in het bereik [0,0, 1,0] liggen.", customMessagePart);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -84,10 +79,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Percentile_SettingValidValue_PropertySet(double validPercentile)
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             var designVariable = new SimpleDesignVariable(distribution);
 
             // Call
@@ -95,7 +87,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(validPercentile, designVariable.Percentile);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleDesignVariable : PercentileBasedDesignVariable<IDistribution>

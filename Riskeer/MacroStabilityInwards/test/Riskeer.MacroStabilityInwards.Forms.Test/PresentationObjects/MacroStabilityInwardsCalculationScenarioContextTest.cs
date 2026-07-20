@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -42,10 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var surfaceLines = new[]
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
@@ -75,17 +72,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var surfaceLines = new[]
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
@@ -108,7 +101,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [TestFixture]
@@ -116,9 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             : EqualsTestFixture<MacroStabilityInwardsCalculationScenarioContext,
                 DerivedMacroStabilityInwardsCalculationScenarioContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly MacroStabilityInwardsCalculationScenario calculation = new MacroStabilityInwardsCalculationScenario();
             private static readonly IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
             private static readonly IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
@@ -126,16 +116,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             private static readonly CalculationGroup parent = new CalculationGroup();
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             protected override MacroStabilityInwardsCalculationScenarioContext CreateObject()
             {

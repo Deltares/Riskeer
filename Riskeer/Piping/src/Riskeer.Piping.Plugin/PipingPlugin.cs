@@ -180,13 +180,12 @@ namespace Riskeer.Piping.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>(
-                (context, filePath) =>
-                    new PipingCalculationConfigurationImporter(
-                        filePath,
-                        context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
-                        context.FailureMechanism));
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>((context, filePath) =>
+                                                                                                                              new PipingCalculationConfigurationImporter(
+                                                                                                                                  filePath,
+                                                                                                                                  context.WrappedData,
+                                                                                                                                  context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
+                                                                                                                                  context.FailureMechanism));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -705,7 +704,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingFailureMechanismSectionsContext TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(PipingFailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(PipingFailureMechanismSectionsContext nodeData, object parentData, ITreeViewControl treeViewControl)
         {
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
@@ -726,7 +725,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, ITreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -743,7 +742,7 @@ namespace Riskeer.Piping.Plugin
 
         #region StochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(PipingStochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(PipingStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -793,7 +792,7 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   TreeViewControl treeViewControl)
+                                                                                   ITreeViewControl treeViewControl)
         {
             IEnumerable<ProbabilisticPipingCalculationScenario> calculations = context.WrappedData
                                                                                       .Calculations
@@ -896,7 +895,7 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -913,7 +912,7 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -978,7 +977,7 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData,
                                                                          object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                                         ITreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -1235,7 +1234,7 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip SemiProbabilisticPipingCalculationScenarioContextContextMenuStrip(SemiProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                                   object parentData, TreeViewControl treeViewControl)
+                                                                                                   object parentData, ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1311,7 +1310,7 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                               object parentData, TreeViewControl treeViewControl)
+                                                                                               object parentData, ITreeViewControl treeViewControl)
         {
             ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(GetInquiryHelper(),

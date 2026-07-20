@@ -24,8 +24,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -37,14 +37,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class SpecificFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(SpecificFailureMechanismView));
         }
@@ -67,9 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -126,11 +122,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            otherAssessmentSection.Stub(ass => ass.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
-            otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
+            otherAssessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+            otherAssessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
@@ -140,7 +134,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -162,16 +155,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedContext_ReturnsFalse()
         {
             // Setup
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
@@ -183,7 +173,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -201,7 +190,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -217,7 +205,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -233,7 +220,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
     }
 }

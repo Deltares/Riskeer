@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -70,10 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsFailureMechanismSections()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -82,7 +79,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(failureMechanism.Sections, viewData);
-            mocks.VerifyAll();
         }
 
         [TestFixture]

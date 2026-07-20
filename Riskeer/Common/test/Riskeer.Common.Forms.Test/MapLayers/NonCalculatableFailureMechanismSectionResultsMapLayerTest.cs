@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil;
@@ -87,11 +87,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingSectionResultsDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(new[]
@@ -118,20 +114,15 @@ namespace Riskeer.Common.Forms.Test.MapLayers
 
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
+                observer.Received().UpdateObserver();
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMapLayerWithFailureMechanismSectionAssemblyResults_WhenChangingFailureMechanismDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(new[]
             {
@@ -168,7 +159,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

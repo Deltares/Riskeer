@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -33,21 +33,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
     [TestFixture]
     public class WaveImpactAsphaltCoverContextTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var target = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var target = Substitute.For<IObservable>();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -60,16 +51,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var observableObject = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observableObject = Substitute.For<IObservable>();
 
             // Call
             TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, null, assessmentSection);
@@ -77,15 +66,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var observableObject = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
+            var observableObject = Substitute.For<IObservable>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
@@ -94,7 +81,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         private class SimpleWaveImpactAsphaltCoverContext<T> : WaveImpactAsphaltCoverContext<T> where T : class, IObservable

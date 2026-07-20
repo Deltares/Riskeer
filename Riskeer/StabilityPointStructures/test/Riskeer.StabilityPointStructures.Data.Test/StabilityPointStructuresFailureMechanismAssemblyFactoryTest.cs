@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -42,9 +42,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, assessmentSection);
@@ -52,8 +50,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]

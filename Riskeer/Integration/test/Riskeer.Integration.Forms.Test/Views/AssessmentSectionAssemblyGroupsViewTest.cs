@@ -25,8 +25,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -83,12 +83,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.Attach(observer);
 
@@ -115,9 +110,8 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(newOutput.Length, groupsTable.Rows.Count);
+                observer.Received().UpdateObserver();
             }
-
-            mocks.VerifyAll();
         }
 
         private static AssemblyGroupsTable<AssessmentSectionAssemblyGroup> GetCategoriesTable(AssessmentSectionAssemblyGroupsView view)

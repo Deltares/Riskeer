@@ -58,8 +58,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                 {
                                     Tuple<double, DuneLocationCalculation>[] calculationsForLocation =
                                         calculationsForTargetProbabilities.Select(c => new Tuple<double, DuneLocationCalculation>(
-                                                                                      c.TargetProbability, c.DuneLocationCalculations.Single(
-                                                                                          tp => tp.DuneLocation.Equals(location))))
+                                                                                      c.TargetProbability, c.DuneLocationCalculations.Single(tp => tp.DuneLocation.Equals(location))))
                                                                           .ToArray();
                                     return new AggregatedDuneLocation(
                                         location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset,

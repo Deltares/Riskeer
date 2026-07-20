@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -51,9 +51,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         public void CreateRow_PerformAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, null);
@@ -61,7 +59,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("performAssemblyFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -70,13 +67,9 @@ namespace Riskeer.Integration.Forms.Test.Factories
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
             failureMechanism.InAssembly = false;
 
             // Call
@@ -88,8 +81,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.IsNaN(row.Probability);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,17 +89,13 @@ namespace Riskeer.Integration.Forms.Test.Factories
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
+            failureMechanism.AssemblyResult.Returns(new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             });
-            mocks.ReplayAll();
-
             failureMechanism.InAssembly = true;
 
             var random = new Random(21);
@@ -124,8 +111,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(assemblyResult, row.Probability);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -135,17 +120,13 @@ namespace Riskeer.Integration.Forms.Test.Factories
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
             const string errorMessage = "I am an error";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
+            failureMechanism.AssemblyResult.Returns(new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.P2
             });
-            mocks.ReplayAll();
-
             failureMechanism.InAssembly = true;
 
             // Call
@@ -158,8 +139,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.IsNaN(row.Probability);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -171,18 +150,14 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             var random = new Random(21);
             double assemblyResult = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
+            failureMechanism.AssemblyResult.Returns(new FailureMechanismAssemblyResult
             {
                 ManualFailureMechanismAssemblyProbability = assemblyResult,
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
             });
-            mocks.ReplayAll();
-
             failureMechanism.InAssembly = true;
 
             // Call
@@ -194,8 +169,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(assemblyResult, row.Probability);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -204,18 +177,14 @@ namespace Riskeer.Integration.Forms.Test.Factories
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
-            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.Name.Returns(failureMechanismName);
+            failureMechanism.Code.Returns(failureMechanismCode);
+            failureMechanism.AssemblyResult.Returns(new FailureMechanismAssemblyResult
             {
                 ManualFailureMechanismAssemblyProbability = double.NaN,
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
             });
-            mocks.ReplayAll();
-
             failureMechanism.InAssembly = true;
 
             // Call
@@ -227,8 +196,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.IsNaN(row.Probability);
-
-            mocks.VerifyAll();
         }
     }
 }

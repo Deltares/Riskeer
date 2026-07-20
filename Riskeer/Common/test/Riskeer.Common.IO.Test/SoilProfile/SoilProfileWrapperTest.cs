@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -52,18 +52,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             // Call
             var wrapper = new SoilProfileWrapper<ISoilProfile>(soilProfile, failureMechanismType);
 
             // Assert
             Assert.AreSame(soilProfile, wrapper.SoilProfile);
             Assert.AreEqual(failureMechanismType, wrapper.FailureMechanismType);
-            mocks.VerifyAll();
         }
     }
 }

@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -66,39 +66,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int overtoppingRateTargetProbabilityPropertyIndex = 14;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 15;
 
-        private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            handler = Substitute.For<IObservablePropertyChangeHandler>();
+            assessmentSection = Substitute.For<IAssessmentSection>();
         }
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
-            // Setup
-            mockRepository.ReplayAll();
-
             // Call
             void Call() => new GrassCoverErosionInwardsInputContextProperties(null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_HandlerNull_ThrowArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -115,15 +107,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -152,8 +141,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
@@ -182,16 +169,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
             Assert.AreEqual(input.OvertoppingRateTargetProbability, properties.OvertoppingRateTargetProbability);
             Assert.AreEqual(input.ShouldOvertoppingRateIllustrationPointsBeCalculated, properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithInputContextInstanceWithDikeProfile_ReturnCorrectPropertyValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
@@ -224,7 +207,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
             Assert.AreEqual(input.OvertoppingRateTargetProbability, properties.OvertoppingRateTargetProbability);
             Assert.AreEqual(input.ShouldOvertoppingRateIllustrationPointsBeCalculated, properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -312,10 +294,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 3;
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
@@ -336,16 +315,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsTrue(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.IsTrue(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-
-            mockRepository.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var calculationInput = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -363,7 +339,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.DoesNotThrow(call);
             Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -372,7 +347,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -385,9 +360,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(200620.173572981, 503401.652985217))
@@ -412,8 +384,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
             Assert.AreEqual(distanceToDikeProfileWorldReferencePoint, itemDistance, itemDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -421,9 +391,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -447,8 +414,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
             Assert.AreEqual(distanceToDikeProfileWorldReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -457,7 +422,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -470,9 +435,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -492,15 +454,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetSelectableLocations_InputWithLocationsNoDikeProfile_ReturnsLocationsSortedById()
         {
             // Setup
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -516,9 +476,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -536,14 +493,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                              new SelectableHydraulicBoundaryLocation(location, null))
                                  .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByDistanceThenById()
         {
             // Setup
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -561,9 +517,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
@@ -586,14 +539,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                  .OrderBy(hbl => hbl.Distance)
                                  .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingDikeProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -611,9 +563,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
@@ -646,15 +595,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                  .OrderBy(hbl => hbl.Distance)
                                  .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAvailableDikeProfiles_InputWithDikeProfiles_ReturnsDikeProfiles()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var input = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
@@ -673,7 +619,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             DikeProfileCollection expectedHydraulicBoundaryLocations = failureMechanism.DikeProfiles;
             Assert.AreSame(expectedHydraulicBoundaryLocations, availableDikeProfiles);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -682,8 +627,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                               [Values(true, false)] bool calculationsEnabled)
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
@@ -813,7 +756,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Illustratiepunten inlezen  ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
                                                                             !calculationsEnabled);
-            mockRepository.VerifyAll();
         }
 
         [TestCase(true)]
@@ -821,9 +763,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnly_CalculateDikeHeightProperties_ReturnsExpectedResult(bool shouldDikeHeightBeCalculated)
         {
             // Setup
-            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
@@ -852,9 +792,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnly_CalculateOvertoppingRateProperties_ReturnsExpectedResult(bool shouldOvertoppingRateBeCalculated)
         {
             // Setup
-            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
@@ -883,9 +821,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnly_Orientation_ReturnsExpectedResult(bool hasDikeProfile)
         {
             // Setup
-            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
@@ -914,9 +850,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnly_DikeHeight_ReturnsExpectedResult(bool hasDikeProfile)
         {
             // Setup
-            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput
@@ -943,10 +877,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
         {
             // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();
@@ -966,8 +897,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
-
-            mockRepository.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

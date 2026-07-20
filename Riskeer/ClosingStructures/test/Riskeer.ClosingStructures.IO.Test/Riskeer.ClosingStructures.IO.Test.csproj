@@ -26,6 +26,7 @@ All rights reserved.
     <Compile Remove="test-data\**" />
     <EmbeddedResource Remove="test-data\**" />
     <None Remove="test-data\**" />
+      <PackageReference Include="NSubstitute" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,9 +53,6 @@ All rights reserved.
   <ItemGroup>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
-    </PackageReference>
-    <PackageReference Include="RhinoMocks">
-      <Version>3.6.1</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

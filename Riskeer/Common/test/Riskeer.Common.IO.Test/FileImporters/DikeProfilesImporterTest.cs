@@ -25,8 +25,8 @@ using System.IO;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -40,27 +40,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class DikeProfilesImporterTest
     {
-        private MockRepository mocks;
-
         [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
+        public void Setup() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_WithValidParameters_ReturnsNewInstance()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             var importTarget = new DikeProfileCollection();
             var referenceLine = new ReferenceLine();
 
@@ -75,9 +65,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -90,9 +78,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), null, "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -105,9 +91,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), null, new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -120,9 +104,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty, null, messageProvider);
 
@@ -147,9 +129,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithUnmatchableId_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
@@ -173,9 +153,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ThreeDikeProfilesWithInvalidDefinitions_TrueAndLogWarning()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
@@ -210,9 +188,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -249,10 +225,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string expectedAddDataToModelProgressText = "Adding data";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -299,9 +273,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_AllOkTestData_CorrectDikeProfileProperties()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -352,10 +324,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string expectedAddDataToModelProgressText = "Adding data";
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
@@ -401,10 +371,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
 
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Dijkprofielen")).Return(cancelledLogMessage);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Dijkprofielen").Returns(cancelledLogMessage);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -438,10 +406,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Dijkprofielen")).Return(cancelledLogMessage);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetCancelledLogMessageText("Dijkprofielen").Returns(cancelledLogMessage);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -474,9 +440,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -506,13 +470,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void DoPostImport_AfterImport_ObserversNotified()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
             var updateDataStrategy = new TestDikeProfileUpdateStrategy();
             updateDataStrategy.UpdatedInstances = new[]
             {
@@ -534,27 +494,24 @@ namespace Riskeer.Common.IO.Test.FileImporters
             importer.DoPostImport();
 
             // Assert
-            // Asserts done in TearDown()
+            observableA.NotifyObservers();
+            observableB.NotifyObservers();
         }
 
         [Test]
         public void Import_ThrowsUpdateDataException_ReturnsFalseAndLogsError()
         {
             // Setup
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
-                           .Return("");
-            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Dijkprofielen"))
-                           .IgnoreArguments()
-                           .Return("error {0}");
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText()
+                           .Returns("");
+            messageProvider.GetUpdateDataFailedLogMessageText("Dijkprofielen")
+                           .Returns("error {0}");
 
             const string exceptionMessage = "Look, an exception!";
-            var strategy = mocks.StrictMock<IDikeProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateDikeProfilesWithImportedData(null, null))
-                    .IgnoreArguments()
-                    .Throw(new UpdateDataException(exceptionMessage));
-            mocks.ReplayAll();
-
+            var strategy = Substitute.For<IDikeProfileUpdateDataStrategy>();
+            strategy.UpdateDikeProfilesWithImportedData(Arg.Any<IEnumerable<DikeProfile>>(), Arg.Any<string>())
+                    .Returns(_ => throw new UpdateDataException(exceptionMessage));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

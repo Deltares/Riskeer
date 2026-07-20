@@ -24,8 +24,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -70,9 +70,7 @@ namespace Core.Gui.Test.Plugin
         public void ImplicitOperator_OptionalDelegatesAndPropertiesSet_ExportInfoFullyConverted()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileExporter = mocks.StrictMock<IFileExporter>();
-            mocks.ReplayAll();
+            var fileExporter = Substitute.For<IFileExporter>();
 
             const string name = "name";
             const string extension = ".txt";
@@ -109,8 +107,6 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
             Assert.AreEqual(exportPath, info.GetExportPath(12));
-
-            mocks.VerifyAll();
         }
 
         [Test]

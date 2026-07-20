@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -36,13 +36,10 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var input = mockRepository.Stub<ICalculationInput>();
-            var calculation = mockRepository.Stub<ICalculation>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var input = Substitute.For<ICalculationInput>();
+            var calculation = Substitute.For<ICalculation>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, calculation, failureMechanism, assessmentSection);
 
@@ -52,26 +49,21 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_CalculationIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var input = mockRepository.Stub<ICalculationInput>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var input = Substitute.For<ICalculationInput>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         private class SimpleInputContext<TInput, TCalculation, TFailureMechanism> : InputContextBase<TInput, TCalculation, TFailureMechanism>

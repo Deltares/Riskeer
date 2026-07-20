@@ -24,9 +24,9 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Gui.Forms;
 using Core.Gui.Test.Properties;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms
 {
@@ -48,9 +48,7 @@ namespace Core.Gui.Test.Forms
         public void Constructor_WithDialogParent_SetProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             // Call
             using (var dialog = new SelectItemDialog(parent, "Dialog text"))
@@ -60,17 +58,13 @@ namespace Core.Gui.Test.Forms
                 Assert.IsNull(dialog.SelectedItemTag);
                 Assert.IsNull(dialog.SelectedItemTypeName);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_SetMinimumSize()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             using (var dialog = new SelectItemDialog(parent, "Dialog text"))
             {
@@ -81,17 +75,13 @@ namespace Core.Gui.Test.Forms
                 Assert.AreEqual(320, dialog.MinimumSize.Width);
                 Assert.AreEqual(220, dialog.MinimumSize.Height);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void OnLoad_Text_SetsText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
             const string text = "Dialog text";
 
             using (var dialog = new SelectItemDialog(parent, text))
@@ -102,17 +92,13 @@ namespace Core.Gui.Test.Forms
                 // Assert
                 Assert.AreEqual(text, dialog.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonOkClick_NoItemSelected_ShowDialogWithText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             string messageText = null;
             DialogBoxHandler = (name, wnd) =>
@@ -136,17 +122,13 @@ namespace Core.Gui.Test.Forms
                 Assert.AreEqual("Kies een type", messageText);
                 Assert.AreEqual(DialogResult.None, dialog.DialogResult);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SelectedItemTag_ItemSelected_ReturnsSelectedItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             using (var dialog = new SelectItemDialog(parent, "Dialog text"))
             {
@@ -162,8 +144,6 @@ namespace Core.Gui.Test.Forms
                 Assert.AreEqual(tag, dialog.SelectedItemTag);
                 Assert.AreEqual("aName", dialog.SelectedItemTypeName);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

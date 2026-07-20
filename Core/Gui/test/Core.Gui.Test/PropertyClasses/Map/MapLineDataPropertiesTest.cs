@@ -36,8 +36,8 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Map
 {
@@ -204,10 +204,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             // Given
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapLineData = new MapLineData("Test",
                                               new LineStyle(),
@@ -224,7 +221,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             categoryThemeProperties.Width = random.Next(1, 48);
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -232,10 +229,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         {
             // Setup
             const int numberOfChangedProperties = 3;
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapLineData = new MapLineData("Test", new LineStyle
             {
@@ -261,7 +255,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(newColor, mapLineData.Style.Color);
             Assert.AreEqual(newWidth, mapLineData.Style.Width);
             Assert.AreEqual(newDashStyle, mapLineData.Style.DashStyle);
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]

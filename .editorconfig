@@ -1,0 +1,32 @@
+
+[*.cs]
+
+# NS1000: Non-substitutable member.
+# Raised when configuring behavior, e.g. Returns(), Throws(), etc.,
+# on a non-virtual class member. NSubstitute cannot intercept these calls.
+dotnet_diagnostic.NS1000.severity = error
+
+# NS1001: Non-substitutable member.
+# Raised when checking received calls on a non-virtual class member,
+# extension method, or other member NSubstitute cannot intercept.
+dotnet_diagnostic.NS1001.severity = error
+
+# NS1002: Non-substitutable member.
+# Raised when substituting/configuring a non-virtual class member.
+# Similar family as NS1000, protects against setups that look valid
+# but will not be intercepted by NSubstitute.
+dotnet_diagnostic.NS1002.severity = error
+
+# NS1003: Non-substitutable member.
+# Raised when substituting/configuring an internal member of a class
+# while the dynamic proxy assembly does not have visibility into internals.
+# Usually fixed with InternalsVisibleTo for DynamicProxyGenAssembly2,
+# or by testing through an interface/public virtual member instead.
+dotnet_diagnostic.NS1003.severity = error
+
+# NS5000: Usage.
+# Raised when Received(), DidNotReceive(), ReceivedWithAnyArgs(), etc.
+# are used without a valid member call afterwards.
+# Example bad:  sub.Received();
+# Example good: sub.Received().SomeCall();
+dotnet_diagnostic.NS5000.severity = error

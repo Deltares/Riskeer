@@ -23,8 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
@@ -48,10 +48,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void GivenContext_WhenObserverAttached_ThenExpectedValues()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var context = new TestLocationCalculationsContext(new object(), new ObservableList<IObservable>());
 
             // When
@@ -60,17 +57,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Then
             Assert.AreEqual(1, context.Observers.Count());
             Assert.AreSame(observer, context.Observers.ElementAt(0));
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenContext_WhenDetachingAttachedObserver_ThenExpectedValues()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var context = new TestLocationCalculationsContext(new object(), new ObservableList<IObservable>());
 
             context.Attach(observer);
@@ -80,18 +73,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             // Then
             Assert.IsEmpty(context.Observers);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GivenContextWithObserverAttached_WhenNotifyingLocationCalculationsEnumerationToObserve_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>();
             var context = new TestLocationCalculationsContext(new object(), locationCalculationsEnumerationToObserve);
 
@@ -101,18 +89,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             locationCalculationsEnumerationToObserve.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenContextWithObserverAttached_WhenNotifyingLocationCalculationsElementInEnumerationToObserve_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var observable = new TestObservable();
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>
             {
@@ -127,18 +111,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             observable.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenContextWithObserverAttachedThatThrowsInvalidOperationException_WhenNotifyingLocationCalculationsEnumerationToObserve_ThenNoExceptionThrown()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Do((Action) (() => throw new InvalidOperationException()));
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            observer.When(o => o.UpdateObserver()).Do(_ => throw new InvalidOperationException());
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>();
             var context = new TestLocationCalculationsContext(new object(), locationCalculationsEnumerationToObserve);
 
@@ -148,18 +129,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             locationCalculationsEnumerationToObserve.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenContextWithObserverAttachedThatThrowsInvalidOperationException_WhenNotifyingLocationCalculationsElementInEnumerationToObserve_ThenNoExceptionThrown()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Do((Action) (() => throw new InvalidOperationException()));
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            observer.When(o => o.UpdateObserver()).Do(_ => throw new InvalidOperationException());
             var observable = new TestObservable();
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>
             {
@@ -174,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             observable.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private class TestLocationCalculationsContext : LocationCalculationsContext<object, IObservable>

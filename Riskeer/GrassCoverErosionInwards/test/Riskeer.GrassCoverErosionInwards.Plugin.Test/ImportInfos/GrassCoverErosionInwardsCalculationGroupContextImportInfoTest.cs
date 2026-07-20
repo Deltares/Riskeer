@@ -25,8 +25,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -112,12 +112,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.01, 0.001));
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
                                                                               null,
                                                                               failureMechanism,
@@ -128,7 +124,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationConfigurationImporter>(importer);
-            mocks.VerifyAll();
         }
     }
 }

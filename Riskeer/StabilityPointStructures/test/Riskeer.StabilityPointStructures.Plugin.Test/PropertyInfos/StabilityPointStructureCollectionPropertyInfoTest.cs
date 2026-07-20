@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -63,9 +63,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
@@ -78,8 +76,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<StructureCollectionProperties<StabilityPointStructure>>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

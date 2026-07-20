@@ -27,8 +27,8 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -48,10 +48,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsInputContext(
@@ -69,17 +67,14 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                 StabilityStoneCoverWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual(calculation.InputParameters.CalculationType, properties.RevetmentType);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsInputContext(
@@ -102,18 +97,14 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Modelinstellingen",
                                                                             "Type bekleding",
                                                                             "Het type van de bekleding waarvoor berekend wordt.");
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RevetmentType_Always_InputChangedAndObservablesNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsInputContext(
@@ -137,7 +128,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(customHandler.Called);
-            mocks.VerifyAll();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

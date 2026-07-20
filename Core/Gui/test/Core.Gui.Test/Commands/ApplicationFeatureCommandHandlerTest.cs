@@ -23,8 +23,8 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Commands
 {
@@ -35,11 +35,8 @@ namespace Core.Gui.Test.Commands
         public void ShowPropertiesFor_Always_PropertiesInitializedOrBroughtToFront()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Expect(w => w.InitPropertiesWindowOrBringToFront());
-            mocks.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            var mainWindow = Substitute.For<IMainWindow>();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
@@ -47,7 +44,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.ShowPropertiesForSelection();
 
             // Assert
-            mocks.VerifyAll();
+            mainWindow.Received().InitPropertiesWindowOrBringToFront();
         }
 
         [Test]
@@ -56,12 +53,9 @@ namespace Core.Gui.Test.Commands
             // Setup
             var target = new object();
 
-            var mocks = new MockRepository();
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Expect(r => r.GetObjectProperties(target))
-                            .Return(mocks.Stub<IObjectProperties>());
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mocks.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(target).Returns(Substitute.For<IObjectProperties>());
+            var mainWindow = Substitute.For<IMainWindow>();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
@@ -70,7 +64,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(result);
-            mocks.VerifyAll();
+            propertyResolver.Received().GetObjectProperties(target);
         }
 
         [Test]
@@ -79,12 +73,9 @@ namespace Core.Gui.Test.Commands
             // Setup
             var target = new object();
 
-            var mocks = new MockRepository();
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Expect(r => r.GetObjectProperties(target))
-                            .Return(null);
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mocks.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(target).Returns((IObjectProperties) null);
+            var mainWindow = Substitute.For<IMainWindow>();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
@@ -93,7 +84,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(result);
-            mocks.VerifyAll();
+            propertyResolver.Received().GetObjectProperties(target);
         }
     }
 }

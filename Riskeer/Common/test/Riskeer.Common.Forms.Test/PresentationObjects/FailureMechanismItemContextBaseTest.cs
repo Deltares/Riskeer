@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -37,12 +37,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var observable = mockRepository.Stub<IObservable>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, assessmentSection);
 
@@ -51,43 +48,34 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.AreSame(observable, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var observable = mockRepository.Stub<IObservable>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var observable = Substitute.For<IObservable>();
             // Call
             TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observable = mockRepository.Stub<IObservable>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         private class SimpleFailureMechanismItemContext<TData, TFailureMechanism> : FailureMechanismItemContextBase<TData, TFailureMechanism>

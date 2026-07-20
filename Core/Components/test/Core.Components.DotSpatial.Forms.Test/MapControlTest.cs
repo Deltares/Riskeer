@@ -46,9 +46,9 @@ using Core.Components.Gis.TestUtil;
 using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Extent = DotSpatial.Data.Extent;
 using IMapView = DotSpatial.Controls.IMap;
 
@@ -1603,13 +1603,12 @@ namespace Core.Components.DotSpatial.Forms.Test
         /// as these test runners to not display tests in hierarchical form.</remarks>
         private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
         {
-            var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                            .Return(Enumerable.Empty<ITileSource>());
+            var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
+            factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>()).Returns(Enumerable.Empty<ITileSource>());
 
-            var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                                        .Throw(new CannotFindTileSourceException());
+            var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
+            factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())
+                                                        .Returns(_ => throw new CannotFindTileSourceException());
 
             yield return new TestCaseData(factoryWithoutRequiredTileSource)
                 .SetName($"{prefix}: Required tile source not returned by factory.");
@@ -2074,9 +2073,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static IEnumerable<TestCaseData> GetProblematicKnownTileSourceFactoryTestCaseData(string prefix)
         {
-            var factoryThrowingNotSupportedException = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryThrowingNotSupportedException.Stub(f => f.GetKnownTileSource(Arg<KnownTileSource>.Is.NotNull))
-                                                .Throw(new NotSupportedException());
+            var factoryThrowingNotSupportedException = Substitute.For<ITileSourceFactory>();
+            factoryThrowingNotSupportedException.GetKnownTileSource(Arg.Any<KnownTileSource>())
+                                                .Returns(_ => throw new NotSupportedException());
 
             yield return new TestCaseData(factoryThrowingNotSupportedException)
                 .SetName($"{prefix}: Tile source factory throws NotSupportedException.");

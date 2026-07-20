@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -218,10 +218,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
         public void UpdateObserver_ForeshoreProfileUpdated_ChartDataUpdatedAndObserversNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChartDataLayers);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var assessmentLevel = (RoundedDouble) 6;
             var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput())
@@ -315,7 +312,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
 
-            mocks.VerifyAll();
+            observer.Received(numberOfChartDataLayers).UpdateObserver();
         }
 
         [Test]

@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -93,10 +93,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithBreakWaterAndCalculationUseBreakWater_ReturnExpectedProperties(bool useBreakWater)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var testUseBreakWater = new TestUseBreakWater
             {
                 UseBreakWater = useBreakWater
@@ -130,24 +127,19 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Hoogte [m+NAP]",
                                                                             "De hoogte van de dam.",
                                                                             !useBreakWater);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new UseBreakWaterProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("useBreakWaterData", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -168,10 +160,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithUseBreakWaterData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var useBreakWaterData = new TestUseBreakWater
             {
                 UseBreakWater = true,
@@ -186,7 +175,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
             Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
             Assert.IsEmpty(properties.ToString());
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -229,11 +217,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             TestUseBreakWater input)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
@@ -246,7 +230,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

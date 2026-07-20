@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
@@ -49,19 +49,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
+            var soilProfile = Substitute.For<ISoilProfile>();
             // Call
             var profile = new StochasticSoilProfile(probability, soilProfile);
 
             // Assert
             Assert.AreEqual(probability, profile.Probability);
             Assert.AreSame(soilProfile, profile.SoilProfile);
-
-            mockRepository.VerifyAll();
         }
     }
 }

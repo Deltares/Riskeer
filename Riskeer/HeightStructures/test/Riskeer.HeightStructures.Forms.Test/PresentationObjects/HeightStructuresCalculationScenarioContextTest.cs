@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
@@ -37,9 +37,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -54,16 +52,13 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void Equals_ToDerivedObject_ReturnsFalse()
         {
             // Setup  
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -76,7 +71,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsFalse(isEqual);
-            mocksRepository.VerifyAll();
         }
 
         private class DerivedHeightStructuresCalculationScenarioContext : HeightStructuresCalculationScenarioContext

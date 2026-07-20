@@ -28,8 +28,8 @@ using Core.Common.Util.Enums;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -327,11 +327,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void ShouldIllustrationPointsBeCalculated_SetNewValue_NotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
@@ -349,7 +345,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private class TestHydraulicBoundaryLocationCalculationBaseProperties : HydraulicBoundaryLocationCalculationBaseProperties

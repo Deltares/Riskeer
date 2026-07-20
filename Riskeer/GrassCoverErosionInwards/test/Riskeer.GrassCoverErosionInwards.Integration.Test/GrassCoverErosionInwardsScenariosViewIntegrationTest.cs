@@ -25,9 +25,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -88,10 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
-                var mocks = new MockRepository();
-                var messageProvider = mocks.Stub<IImporterMessageProvider>();
-                mocks.ReplayAll();
-
+                var messageProvider = Substitute.For<IImporterMessageProvider>();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -142,8 +139,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
                 Assert.AreEqual("profiel63p1Naam", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -153,10 +148,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
-                var mocks = new MockRepository();
-                var messageProvider = mocks.Stub<IImporterMessageProvider>();
-                mocks.ReplayAll();
-
+                var messageProvider = Substitute.For<IImporterMessageProvider>();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -208,8 +200,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 // Assert
                 Assert.AreEqual("profiel63p1Naam_changed", cells[nameColumnIndex].FormattedValue);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -219,10 +209,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
-                var mocks = new MockRepository();
-                var messageProvider = mocks.Stub<IImporterMessageProvider>();
-                mocks.ReplayAll();
-
+                var messageProvider = Substitute.For<IImporterMessageProvider>();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -271,8 +258,6 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(2, rows.Count);
                 Assert.AreEqual("profiel63p1NaamCalculation", rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("profiel63p2NaamCalculation", rows[1].Cells[nameColumnIndex].FormattedValue);
-
-                mocks.VerifyAll();
             }
         }
     }

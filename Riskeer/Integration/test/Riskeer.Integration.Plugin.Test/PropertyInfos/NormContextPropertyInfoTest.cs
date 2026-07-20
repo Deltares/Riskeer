@@ -24,8 +24,8 @@ using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
@@ -57,13 +57,10 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsFailureMechanismContributionAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.ViewCommands.Returns(viewCommands);
             using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
@@ -80,8 +77,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<NormProperties>(objectProperties);
                 Assert.AreSame(failureMechanismContribution, objectProperties.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RiskeerPlugin plugin)

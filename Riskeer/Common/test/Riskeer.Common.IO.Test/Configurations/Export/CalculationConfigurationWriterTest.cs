@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
-using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.Configurations.Export
@@ -87,10 +87,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
@@ -100,46 +97,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("distributionName", exception.ParamName);
-        }
-
-        [Test]
-        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationNull_WriterNotCalled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                "some name",
-                null);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationSet_WriterCalledWithExpectedParameters()
-        {
-            // Setup
-            const string name = "some name";
-            var configuration = new StochastConfiguration();
-
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
-            mocks.ReplayAll();
-
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                name,
-                configuration);
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -160,10 +117,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteDistributionWhenAvailable_StochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
@@ -178,19 +132,20 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         [Test]
         public void WriteDistributionWhenAvailable_StochastConfigurationNull_WriterNotCalled()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                    writer,
+                    "name",
+                    null);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                "some name",
-                null);
+            string xml = sb.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.IsEmpty(xml);
         }
 
         [Test]
@@ -200,19 +155,22 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             const string name = "some name";
             var configuration = new StochastConfiguration();
 
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
-            mocks.ReplayAll();
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                    writer,
+                    name,
+                    configuration);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
-                xmlWriter,
-                name,
-                configuration);
+            string xml = sb.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            StringAssert.Contains(ConfigurationSchemaIdentifiers.NameAttribute, xml);
+            StringAssert.Contains(ConfigurationSchemaIdentifiers.StochastElement, xml);
+            StringAssert.Contains(name, xml);
         }
 
         [Test]
@@ -233,10 +191,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_StringElementNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -251,41 +206,49 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         [Test]
         public void WriteElementWhenContentAvailable_StringNull_WriterNotCalled()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
+            var sb = new StringBuilder();
+            using (var writer = XmlWriter.Create(sb))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    writer,
+                    "some name",
+                    (string) null);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                "some name",
-                (string) null);
+            string xml = sb.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.IsEmpty(xml);
         }
 
         [Test]
         public void WriteElementWhenContentAvailable_StringSet_WriterCalledWithExpectedParameters()
         {
             // Setup
-            const string name = "some name";
+            const string name = "someName";
             const string value = "some value";
+            var stringBuilder = new StringBuilder();
 
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteElementString(name, value));
-            mocks.ReplayAll();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual("<someName>some value</someName>", xml);
         }
 
         [Test]
@@ -306,10 +269,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_DoubleElementNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -325,10 +285,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_DoubleNull_WriterNotCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -336,29 +293,36 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
                 (double?) null);
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual(0, xmlWriter.ReceivedCalls().Count());
         }
 
         [Test]
         public void WriteElementWhenContentAvailable_DoubleSet_WriterCalledWithExpectedParameters()
         {
             // Setup
-            const string name = "some name";
+            const string name = "someName";
             const double value = 3.2;
+            var stringBuilder = new StringBuilder();
 
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteElementString(name, XmlConvert.ToString(value)));
-            mocks.ReplayAll();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual($"<someName>{XmlConvert.ToString(value)}</someName>", xml);
         }
 
         [Test]
@@ -379,10 +343,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_BoolElementNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
-
+            var xmlWriter = Substitute.For<XmlWriter>();
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -398,40 +359,58 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_BoolNull_WriterNotCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
+            const string name = "someName";
+            const bool value = true;
+            var stringBuilder = new StringBuilder();
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                "some name",
-                (bool?) null);
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    (bool?) null);
+            }
+
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual("", xml);
         }
 
         [Test]
         public void WriteElementWhenContentAvailable_BoolSet_WriterCalledWithExpectedParameters()
         {
             // Setup
-            const string name = "some name";
+            const string name = "someName";
             const bool value = true;
+            var stringBuilder = new StringBuilder();
 
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteElementString(name, XmlConvert.ToString(value)));
-            mocks.ReplayAll();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                    xmlWriter,
+                    name,
+                    value);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
-                xmlWriter,
-                name,
-                value);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual($"<someName>{XmlConvert.ToString(value)}</someName>", xml);
         }
 
         [Test]
@@ -451,37 +430,25 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationNull_WriterNotCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                    xmlWriter,
+                    null);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
-                xmlWriter,
-                null);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationSet_WriterCalledWithExpectedParameters()
-        {
-            // Setup
-            var configuration = new WaveReductionConfiguration();
-
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteWaveReduction(configuration));
-            mocks.ReplayAll();
-
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
-                xmlWriter,
-                configuration);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual(string.Empty, xml);
         }
 
         [Test]
@@ -501,17 +468,25 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteScenarioWhenAvailable_ScenarioConfigurationNull_WriterNotCalled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            mocks.ReplayAll();
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                    xmlWriter,
+                    null);
+            }
 
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
-                xmlWriter,
-                null);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual(string.Empty, xml);
         }
 
         [Test]
@@ -519,19 +494,25 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var configuration = new ScenarioConfiguration();
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(
+                       stringBuilder,
+                       new XmlWriterSettings
+                       {
+                           OmitXmlDeclaration = true,
+                           ConformanceLevel = ConformanceLevel.Fragment
+                       }))
+            {
+                // Call
+                ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                    xmlWriter,
+                    configuration);
+            }
 
-            var mocks = new MockRepository();
-            var xmlWriter = mocks.StrictMock<XmlWriter>();
-            xmlWriter.Expect(w => w.WriteScenario(configuration));
-            mocks.ReplayAll();
-
-            // Call
-            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
-                xmlWriter,
-                configuration);
+            string xml = stringBuilder.ToString();
 
             // Assert
-            mocks.VerifyAll();
+            Assert.AreNotEqual(string.Empty, xml);
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

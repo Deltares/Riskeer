@@ -29,8 +29,8 @@ using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -158,10 +158,7 @@ namespace Riskeer.Common.Forms.Test.Views
             BackgroundData newBackgroundData)
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new TestTileSourceFactory(BackgroundDataConverter.ConvertFrom(originalBackgroundData))))
             {
@@ -184,7 +181,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNotNull(riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreNotSame(oldMapData, riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreNotEqual(oldMapData.GetType(), riskeerMapControl.MapControl.BackgroundMapData.GetType());
-                mocks.VerifyAll(); // Expect no observers notified
+                // Expect no observers notified
             }
         }
 
@@ -192,11 +189,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenBackgroundData_WhenBackgroundDataChangedButSameTypeAndNotified_ThenBackgroundMapDataUpdatedAndNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
             var mapDataCollection = new MapDataCollection("Collection");
@@ -217,19 +210,16 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.AreSame(oldBackgroundMapData, riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreEqual(0.3, riskeerMapControl.MapControl.BackgroundMapData.Transparency.Value);
-                mocks.VerifyAll();
             }
+
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenConfiguredWmtsBackgroundData_WhenWmtsConfigurationSetToFalseAndNotified_ThenBackgroundMapDataConfigurationRemovedAndNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
             var mapDataCollection = new MapDataCollection("Collection");
@@ -254,19 +244,16 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNull(newWmtsMapData.SourceCapabilitiesUrl);
                 Assert.IsNull(newWmtsMapData.SelectedCapabilityIdentifier);
                 Assert.IsNull(newWmtsMapData.PreferredFormat);
-                mocks.VerifyAll();
             }
+
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenConfiguredWellKnownBackgroundData_WhenTileSourceChangedAndNotified_ThenBackgroundMapDataUpdatedAndNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
             var mapDataCollection = new MapDataCollection("Collection");
@@ -289,8 +276,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var newWellKnownMapData = (WellKnownTileSourceMapData) riskeerMapControl.MapControl.BackgroundMapData;
                 Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
-                mocks.VerifyAll();
             }
+
+            observer.Received().UpdateObserver();
         }
 
         [OneTimeSetUp]

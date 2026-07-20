@@ -21,8 +21,8 @@
 
 using System;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Integration.Forms.Merge;
 
 namespace Riskeer.Integration.Forms.Test.Merge
@@ -45,16 +45,12 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             var provider = new AssessmentSectionMergeFilePathProvider(inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionMergeFilePathProvider>(provider);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -63,11 +59,8 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GetFilePath_Always_ReturnFilePathFromInquiryHelper(string expectedFilePath)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Riskeerproject (*.risk)|*.risk")).Return(expectedFilePath);
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
+            inquiryHelper.GetSourceFileLocation("Riskeerproject (*.risk)|*.risk").Returns(expectedFilePath);
             var provider = new AssessmentSectionMergeFilePathProvider(inquiryHelper);
 
             // Call
@@ -75,7 +68,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            mocks.VerifyAll();
         }
     }
 }

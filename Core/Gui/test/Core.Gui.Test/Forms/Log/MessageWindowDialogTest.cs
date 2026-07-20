@@ -23,8 +23,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Gui.Forms.Log;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Log
 {
@@ -35,9 +35,7 @@ namespace Core.Gui.Test.Forms.Log
         public void MessageWindowDialog_Always_SetProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
+            var parent = Substitute.For<IWin32Window>();
 
             const string testText = "Some text for the dialog";
 
@@ -51,8 +49,6 @@ namespace Core.Gui.Test.Forms.Log
             Assert.AreEqual(testText, textBox.Text);
             Assert.IsFalse(textBox.TabStop);
             Assert.IsTrue(textBox.ReadOnly);
-
-            mocks.VerifyAll();
         }
     }
 }

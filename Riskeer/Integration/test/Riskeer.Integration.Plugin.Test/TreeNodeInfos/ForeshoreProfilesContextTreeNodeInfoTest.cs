@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -105,11 +105,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_CollectionIsEmpty_ReturnGrayText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var emptyCollection = new ForeshoreProfileCollection();
             var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
@@ -118,18 +115,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
-            mocks.ReplayAll();
         }
 
         [Test]
         public void ForeColor_CollectionHasElements_ReturnControlText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var collection = new ForeshoreProfileCollection();
             collection.AddRange(new[]
             {
@@ -143,18 +136,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            mocks.ReplayAll();
         }
 
         [Test]
         public void ChildNodeObjects_Always_ReturnChildrenOfCollection()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             ForeshoreProfile profile1 = new TestForeshoreProfile("A", "ID A");
             ForeshoreProfile profile2 = new TestForeshoreProfile("B", "ID B");
             ForeshoreProfile profile3 = new TestForeshoreProfile("C", "ID C");
@@ -179,39 +168,30 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 profile3
             };
             CollectionAssert.AreEqual(expectedChildren, children);
-            mocks.ReplayAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_ReturnContextMenuStrip()
         {
             // Setup
-            var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
+                var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
                 var emptyCollection = new ForeshoreProfileCollection();
                 var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
-                var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddUpdateItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddExpandAllItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddPropertiesItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.Build()).Return(null);
-                }
+                var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+                contextMenuBuilder.AddImportItem().Returns(contextMenuBuilder);
+                contextMenuBuilder.AddUpdateItem().Returns(contextMenuBuilder);
+                contextMenuBuilder.AddSeparator().Returns(contextMenuBuilder);
+                contextMenuBuilder.AddCollapseAllItem().Returns(contextMenuBuilder);
+                contextMenuBuilder.AddExpandAllItem().Returns(contextMenuBuilder);
+                contextMenuBuilder.AddPropertiesItem().Returns(contextMenuBuilder);
 
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(contextMenuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(contextMenuBuilder);
                 plugin.Gui = gui;
 
                 // Call
@@ -219,7 +199,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 plugin.Dispose();
-                mocks.VerifyAll();
+                Received.InOrder(() =>
+                {
+                    contextMenuBuilder.AddImportItem();
+                    contextMenuBuilder.AddUpdateItem();
+                    contextMenuBuilder.AddSeparator();
+                    contextMenuBuilder.AddCollapseAllItem();
+                    contextMenuBuilder.AddExpandAllItem();
+                    contextMenuBuilder.AddSeparator();
+                    contextMenuBuilder.AddPropertiesItem();
+                    contextMenuBuilder.Build();
+                });
             }
         }
     }

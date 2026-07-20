@@ -27,8 +27,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -43,17 +43,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_UseForeshoreDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             TestDelegate test = () => new UseForeshoreProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("useForeshoreData", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -61,10 +57,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var testUseForeshore = new TestUseForeshore();
-
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => new UseForeshoreProperties(testUseForeshore, null);
 
@@ -77,10 +69,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithDataWithoutForeshoreGeometry_CoordinatesNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var useForeshoreData = new TestUseForeshore();
 
             // Call
@@ -95,10 +84,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var useForeshoreData = new TestUseForeshore
             {
                 UseForeshore = true
@@ -117,10 +103,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GetProperties_ValidUseForeshore_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var geometry = new[]
             {
                 new Point2D(1, 1)
@@ -153,10 +136,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithDataWithForeshoreGeometryVariousNumberOfElements_ReturnExpectedValues(int numberOfPoint2D, bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var useForeshoreData = new TestUseForeshore
             {
                 ForeshoreGeometry = new RoundedPoint2DCollection(
@@ -190,11 +170,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             TestUseForeshore input)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
@@ -207,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         private class TestUseForeshore : CloneableObservable, ICalculationInput, IUseForeshore

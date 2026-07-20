@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailureMechanismView));
         }
@@ -64,8 +62,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -83,8 +80,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
@@ -98,7 +94,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -106,8 +101,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
@@ -118,8 +112,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
 
             // Assert
             Assert.IsFalse(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]

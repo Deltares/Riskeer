@@ -22,8 +22,8 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 
@@ -47,10 +47,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             var view = new TestCloseForFailureMechanismView(failureMechanism);
 
@@ -60,8 +57,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             CollectionAssert.IsEmpty(view.Controls);
-
-            mocks.VerifyAll();
         }
 
         private class TestCloseForFailureMechanismView : CloseForFailureMechanismView

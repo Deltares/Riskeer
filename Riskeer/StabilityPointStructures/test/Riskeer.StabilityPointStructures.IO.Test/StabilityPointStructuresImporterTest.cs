@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
@@ -48,27 +48,18 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        private MockRepository mocks;
-
         [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
+        public void Setup() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
 
             // Call
             var importer = new StabilityPointStructuresImporter(testImportTarget,
@@ -85,9 +76,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
 
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
@@ -112,6 +102,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            updateStrategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -122,13 +113,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())
+                          .Returns(Enumerable.Empty<IObservable>());
+            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
-                var structures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
+                var structures = (IEnumerable<StabilityPointStructure>) i[0];
 
                 Assert.AreEqual(1, structures.Count());
                 StabilityPointStructure structure = structures.First();
@@ -151,7 +144,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
                 Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,
@@ -188,15 +180,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
         public void Import_InvalidCsvFile_LogAndTrue()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
 
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv", "Kunstwerken.shp");
 
@@ -235,14 +227,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())
+                          .Returns(Enumerable.Empty<IObservable>());
+            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
-                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i.Arguments[0]).Count());
+                Assert.AreEqual(filePath, i[1]);
+                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i[0]).Count());
             });
-            mocks.ReplayAll();
 
             var referencePoints = new List<Point2D>
             {
@@ -267,6 +260,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 9);
             Assert.IsTrue(importResult);
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -278,13 +272,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())
+                          .Returns(Enumerable.Empty<IObservable>());
+            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
+                var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
 
                 Assert.AreEqual(1, readStructures.Count());
                 StabilityPointStructure importedStructure = readStructures.First();
@@ -300,7 +296,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
                 DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,
@@ -329,6 +324,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -340,13 +336,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())
+                          .Returns(Enumerable.Empty<IObservable>());
+            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
+                var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
 
                 Assert.AreEqual(1, readStructures.Count());
                 StabilityPointStructure importedStructure = readStructures.First();
@@ -362,7 +360,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
                 DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,
@@ -391,6 +388,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -401,18 +399,18 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())
+                    .Returns(Enumerable.Empty<IObservable>());
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+                        Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation.Arguments[0];
+                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation[0];
                         Assert.AreEqual(1, readStructures.Count());
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                    });
 
             var referencePoints = new List<Point2D>
             {
@@ -432,6 +430,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -442,9 +441,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithOnlyDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
 
             var referencePoints = new List<Point2D>
             {
@@ -480,21 +478,18 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         [Test]
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+            var observableB = Substitute.For<IObservable>();
             IObservable[] observables =
             {
                 observableA,
                 observableB
             };
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()).Returns(observables);
 
             string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),
                                            "MissingParameters", "Kunstwerken.shp")
@@ -513,6 +508,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             // Assert
             // Assertions performed in TearDown
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

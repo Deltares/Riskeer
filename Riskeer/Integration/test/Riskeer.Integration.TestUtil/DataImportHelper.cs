@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.Util.IO;
 using Core.Gui.Commands;
-using Rhino.Mocks;
+using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -73,16 +73,13 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "traject_6-3.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
-                var mocks = new MockRepository();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                mocks.ReplayAll();
+                var viewCommands = Substitute.For<IViewCommands>();
                 var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection.ReferenceLine,
                                                                                 new ReferenceLineUpdateHandler(assessmentSection, viewCommands),
                                                                                 filePath),
                                                       "ReferenceLineImporter");
                 activity.Run();
                 activity.Finish();
-                mocks.VerifyAll();
             }
         }
 
@@ -190,9 +187,7 @@ namespace Riskeer.Integration.TestUtil
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             var hydraulicLocationConfigurationDatabaseImporter = new HydraulicLocationConfigurationDatabaseImporter(
                 assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
@@ -208,8 +203,6 @@ namespace Riskeer.Integration.TestUtil
                     new DuneLocationsUpdateHandler(viewCommands, assessmentSection.DuneErosion)),
                 hrdFilePath);
             hydraulicBoundaryDatabaseImporter.Import();
-
-            mocks.VerifyAll();
         }
 
         private static FailureMechanismSection DeepCloneSection(FailureMechanismSection section)

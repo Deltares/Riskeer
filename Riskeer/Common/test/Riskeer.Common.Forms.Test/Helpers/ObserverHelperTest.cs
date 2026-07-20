@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
@@ -47,17 +47,13 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void CreateHydraulicBoundaryLocationCalculationsObserver_UpdateObserverActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculations = mocks.Stub<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
-            mocks.ReplayAll();
-
+            var calculations = Substitute.For<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
             // Call
             TestDelegate call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("updateObserverAction", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Configurations;
 using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
@@ -57,17 +57,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
             RoundedDouble phreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
             RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
-
-            var mockRepository = new MockRepository();
-            var inputDaily = mockRepository.Stub<IMacroStabilityInwardsLocationInputDaily>();
+            var inputDaily = Substitute.For<IMacroStabilityInwardsLocationInputDaily>();
             inputDaily.UseDefaultOffsets = useDefaultOffsets;
             inputDaily.WaterLevelPolder = waterLevelPolder;
             inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver = phreaticLineOffsetBelowDikeTopAtRiver;
             inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder;
             inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside;
             inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
-            mockRepository.ReplayAll();
-
             // Call
             MacroStabilityInwardsLocationInputConfiguration configuration = inputDaily.ToMacroStabilityInwardsLocationInputConfiguration();
 
@@ -85,7 +81,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
                             configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
                             phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -112,9 +107,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
             RoundedDouble phreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
             RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
-
-            var mockRepository = new MockRepository();
-            var inputExtreme = mockRepository.Stub<IMacroStabilityInwardsLocationInputExtreme>();
+            var inputExtreme = Substitute.For<IMacroStabilityInwardsLocationInputExtreme>();
             inputExtreme.PenetrationLength = penetrationLength;
             inputExtreme.UseDefaultOffsets = useDefaultOffsets;
             inputExtreme.WaterLevelPolder = waterLevelPolder;
@@ -122,8 +115,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder;
             inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside;
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
-            mockRepository.ReplayAll();
-
             // Call
             MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
 
@@ -144,7 +135,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
                             configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
                             phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
-            mockRepository.VerifyAll();
         }
     }
 }

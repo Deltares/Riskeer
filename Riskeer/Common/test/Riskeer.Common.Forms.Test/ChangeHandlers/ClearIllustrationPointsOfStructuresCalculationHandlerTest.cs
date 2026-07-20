@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -37,10 +37,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new TestStructuresCalculation();
 
             // Call
@@ -48,7 +45,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<IStructuresCalculation>>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -57,10 +53,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             TestStructuresCalculation calculation, bool expectedResult)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
 
             bool hasOutput = calculation.HasOutput;
@@ -73,7 +66,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             Assert.AreEqual(hasOutput, calculation.HasOutput);
 
             Assert.IsNull(calculation.Output?.GeneralResult);
-            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

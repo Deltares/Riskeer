@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Service;
@@ -85,12 +85,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -129,7 +125,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -147,12 +143,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -180,22 +172,17 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
         public void Finish_ValidCalculationAndRan_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -226,7 +213,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -238,20 +226,15 @@ namespace Riskeer.ClosingStructures.Integration.Test
                                                                                                     string lastErrorFileContent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -283,7 +266,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -318,20 +302,18 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 }
             };
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        assessmentSection.HydraulicBoundaryData,
+                        hydraulicBoundaryLocation),
+                    (HydraRingCalculationSettings) invocation[0]);
+            });
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -353,7 +335,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>());
         }
     }
 }

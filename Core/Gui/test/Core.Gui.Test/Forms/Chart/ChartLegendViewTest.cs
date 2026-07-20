@@ -33,8 +33,8 @@ using Core.Components.Chart.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Chart;
 using Core.Gui.PresentationObjects.Chart;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Chart
 {
@@ -56,9 +56,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void Constructor_WithBuilderProvider_CreatesUserControl()
         {
             // Setup 
-            var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             // Call 
             using (var view = new ChartLegendView(menuBuilderProvider))
@@ -69,17 +67,13 @@ namespace Core.Gui.Test.Forms.Chart
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_ChartDataCollection_DataSet()
         {
             // Setup 
-            var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))
             {
@@ -91,17 +85,13 @@ namespace Core.Gui.Test.Forms.Chart
                 // Assert
                 Assert.AreSame(chartDataCollection, view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_ForNull_NullSet()
         {
             // Setup 
-            var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))
             {
@@ -111,17 +101,13 @@ namespace Core.Gui.Test.Forms.Chart
                 // Assert
                 Assert.IsNull(view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
             // Setup 
-            var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))
             {
@@ -131,8 +117,6 @@ namespace Core.Gui.Test.Forms.Chart
                 // Assert
                 Assert.Throws<InvalidCastException>(Call);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -140,9 +124,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void Selection_NestedNodeData_ReturnsWrappedObjectData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             ChartData chartData = CreateChartData();
             var chartDataCollection = new ChartDataCollection("collection");
@@ -167,8 +149,6 @@ namespace Core.Gui.Test.Forms.Chart
             }
 
             WindowsFormsTestHelper.CloseAll();
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -176,9 +156,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void Selection_RootNodeData_ReturnsObjectData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             ChartData chartData = CreateChartData();
             var chartDataCollection = new ChartDataCollection("collection");
@@ -201,8 +179,6 @@ namespace Core.Gui.Test.Forms.Chart
             }
 
             WindowsFormsTestHelper.CloseAll();
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -214,9 +190,7 @@ namespace Core.Gui.Test.Forms.Chart
             var chartDataCollection = new ChartDataCollection("collection");
             chartDataCollection.Add(chartData);
 
-            var mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(contextMenuBuilderProvider)
             {
@@ -238,7 +212,6 @@ namespace Core.Gui.Test.Forms.Chart
             }
 
             WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -246,9 +219,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void GivenChartLegendView_WhenSettingData_ThenSelectionChangedFired()
         {
             // Given
-            var mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(contextMenuBuilderProvider)
             {
@@ -269,7 +240,6 @@ namespace Core.Gui.Test.Forms.Chart
             }
 
             WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -279,9 +249,7 @@ namespace Core.Gui.Test.Forms.Chart
         public void GivenChartDataContainingCollection_WhenDragDroppingFromRootToRoot_ThenDataPositionChanged(int index)
         {
             // Given
-            var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             ChartData chartData = CreateChartData();
             var rootCollection = new ChartDataCollection("test data");
@@ -307,8 +275,6 @@ namespace Core.Gui.Test.Forms.Chart
                 // Then
                 Assert.AreEqual(2 - index, rootCollection.Collection.ToList().IndexOf(chartData));
             }
-
-            mocks.VerifyAll();
         }
 
         private static ChartData CreateChartData()

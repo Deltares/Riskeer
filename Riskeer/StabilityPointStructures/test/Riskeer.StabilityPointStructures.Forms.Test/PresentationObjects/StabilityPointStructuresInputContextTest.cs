@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -32,20 +32,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
     [TestFixture]
     public class StabilityPointStructuresInputContextTest
     {
-        private MockRepository mocksRepository;
-
         [SetUp]
-        public void SetUp()
-        {
-            mocksRepository = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var input = new StabilityPointStructuresInput();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -60,7 +54,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
     }
 }

@@ -28,9 +28,9 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -141,12 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
-            observer.Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver observer = AttachReferenceLineMapDataObserver(map.Data.Collection);
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -160,7 +155,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Assert
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -182,12 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
-            observer.Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver observer = AttachReferenceLineMapDataObserver(map.Data.Collection);
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
@@ -205,7 +195,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Assert
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
@@ -237,11 +227,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private static IObserver AttachReferenceLineMapDataObserver(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver AttachReferenceLineMapDataObserver(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
             return referenceLineMapDataObserver;
         }

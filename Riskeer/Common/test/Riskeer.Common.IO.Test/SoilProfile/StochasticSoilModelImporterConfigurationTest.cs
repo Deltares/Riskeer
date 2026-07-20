@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.IO.SoilProfile;
 
@@ -34,12 +34,9 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_ValidParameters_ValuesAsExpected()
         {
             // Setup
-            var mocks = new MockRepository();
-            var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
-            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
-            var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            mocks.ReplayAll();
-
+            var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
+            var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             // Call
             var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, strategy);
 
@@ -47,61 +44,48 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreSame(transformer, configuration.Transformer);
             Assert.AreSame(filter, configuration.MechanismFilter);
             Assert.AreSame(strategy, configuration.UpdateStrategy);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_TransformerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
-            var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            mocks.ReplayAll();
-
+            var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
+            var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             // Call
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("transformer", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FilterNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
-            var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            mocks.ReplayAll();
-
+            var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             // Setup
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("mechanismFilter", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
-            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
-            mocks.ReplayAll();
-
+            var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             // Call
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("updateStrategy", exception.ParamName);
-            mocks.VerifyAll();
         }
     }
 }

@@ -30,8 +30,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -75,9 +75,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new GrassCoverErosionInwardsFailureMechanismView(null, assessmentSection);
@@ -85,7 +83,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -250,12 +247,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // Precondition
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
 
@@ -265,7 +257,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -290,12 +282,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // Precondition
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
@@ -309,7 +296,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
+            observers[referenceLineIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -328,12 +315,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // Precondition
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
@@ -346,7 +328,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            mocks.VerifyAll();
+            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -366,13 +349,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // Precondition
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
@@ -383,7 +360,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            mocks.VerifyAll();
+            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -407,13 +385,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // Precondition
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
 
@@ -428,7 +400,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
-            mocks.VerifyAll();
+            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -460,18 +433,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -496,19 +465,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationA.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
             calculationA.InputParameters.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -533,19 +497,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
             // When
             calculationA.Name = "new name";
             calculationA.NotifyObservers();
 
             // Then 
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            mocks.VerifyAll();
+            observers[calculationObserverIndex].Received().UpdateObserver();
         }
 
         [Test]
@@ -704,24 +663,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            var referenceLineMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var dikeProfilesObserver = mocks.StrictMock<IObserver>();
+            var dikeProfilesObserver = Substitute.For<IObserver>();
             mapDataArray[dikeProfilesIndex].Attach(dikeProfilesObserver);
 
-            var foreshoreProfilesObserver = mocks.StrictMock<IObserver>();
+            var foreshoreProfilesObserver = Substitute.For<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesObserver);
 
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            var calculationsMapDataObserver = Substitute.For<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
             return new[]

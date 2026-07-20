@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -70,11 +70,7 @@ namespace Riskeer.Common.Forms.Test.Views
             [Values(true, false)] bool setIllustrationPoints)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation, string.Empty);
@@ -88,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(setIllustrationPoints, row.IncludeIllustrationPoints);
             Assert.AreEqual(setIllustrationPoints, hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]

@@ -24,8 +24,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -40,13 +40,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int coordinatesPropertyIndex = 0;
         private const int roughnessesPropertyIndex = 1;
-        private MockRepository mockRepository;
 
         [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -64,9 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
@@ -78,16 +72,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
             CollectionAssert.IsEmpty(properties.Roughnesses);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
             {
@@ -121,16 +112,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 new RoundedDouble(2, 0.6)
             };
             CollectionAssert.AreEqual(expectedRoughness, properties.Roughnesses);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
@@ -158,8 +146,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Ruwheid invloedsfactoren [-]",
                                                                             "Lijst met invloedsfactoren voor ruwheid op het talud van elk onderdeel.",
                                                                             true);
-
-            mockRepository.VerifyAll();
         }
     }
 }

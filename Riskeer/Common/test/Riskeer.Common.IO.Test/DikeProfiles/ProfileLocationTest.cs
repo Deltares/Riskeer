@@ -107,7 +107,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Constructor_InitializedWithInvalidId_ThrowArgumentException(double x0)
+        public void Constructor_InitializedWithInvalidOffset_ThrowArgumentException(double x0)
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);

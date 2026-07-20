@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -36,20 +36,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class CategoryTreeFolderTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
         [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -74,16 +67,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
-            mocks.ReplayAll();
-
             const string testname = "testName";
             var categoryTreeFolder = new CategoryTreeFolder(testname, new object[0]);
 
@@ -97,16 +86,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(testname, text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryGeneral_ReturnsGeneralFolderIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0]);
 
             using (var plugin = new RiskeerPlugin())
@@ -119,16 +104,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryInput_ReturnsInputFolderIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Input);
 
             using (var plugin = new RiskeerPlugin())
@@ -141,16 +122,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.InputFolderIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryOutput_ReturnsOutputFolderIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Output);
 
             using (var plugin = new RiskeerPlugin())
@@ -163,16 +140,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.OutputFolderIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            mocks.ReplayAll();
-
             var object1 = new object();
             var object2 = new object();
             var categoryTreeFolder = new CategoryTreeFolder("", new[]
@@ -195,28 +168,20 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     object2
                 }, objects);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(null, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -229,7 +194,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.Build();
+            });
         }
 
         private TreeNodeInfo GetInfo(RiskeerPlugin plugin)

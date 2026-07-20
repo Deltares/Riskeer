@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -66,10 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
@@ -90,17 +87,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 nameof(MacroStabilityInwardsWaterStressesProperties.LocationExtreme));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
                 nameof(MacroStabilityInwardsWaterStressesProperties.WaterStressLines));
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             void Call() => new MacroStabilityInwardsWaterStressesProperties(null, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
@@ -108,7 +101,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -116,9 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             void Call() => new MacroStabilityInwardsWaterStressesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel(), propertyChangeHandler);
@@ -126,7 +116,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -147,10 +136,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
@@ -274,18 +260,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Waterspanningslijnen",
                 "Eigenschappen van de waterspanningslijnen.",
                 true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             MacroStabilityInwardsInput input = calculation.InputParameters;
@@ -321,7 +302,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, properties.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, properties.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, properties.PiezometricHeadPhreaticLine2Inwards);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -487,10 +467,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_DikeSoilScenarioSandDikeOnSand_ReturnsExpectedReadOnly()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand
@@ -517,10 +494,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_DikeSoilScenarioClayDikeOnSand_ReturnsExpectedReadOnly()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
@@ -549,10 +523,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_OtherDikeSoilScenario_ReturnsExpectedReadOnly(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DikeSoilScenario = dikeSoilScenario
@@ -579,10 +550,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnEmptyString()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
                                                                               new GeneralMacroStabilityInwardsInput(),
@@ -600,11 +568,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             MacroStabilityInwardsCalculation calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             var propertyChangeHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
@@ -622,7 +586,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(propertyChangeHandler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

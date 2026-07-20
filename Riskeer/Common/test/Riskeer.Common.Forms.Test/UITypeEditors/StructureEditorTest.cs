@@ -25,8 +25,8 @@ using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.UITypeEditors;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.UITypeEditors;
 
@@ -35,13 +35,8 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
     [TestFixture]
     public class StructureEditorTest
     {
-        private MockRepository mockRepository;
-
         [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()
@@ -62,19 +57,16 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
-            var serviceProvider = mockRepository.Stub<IServiceProvider>();
-            var service = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -89,19 +81,16 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
-            var serviceProvider = mockRepository.Stub<IServiceProvider>();
-            var service = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(simpleStructure, result);
-            mockRepository.VerifyAll();
         }
 
         private class ObjectPropertiesWithStructure : ObjectProperties<object>, IHasStructureProperty<TestStructure>

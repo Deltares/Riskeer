@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
@@ -59,10 +59,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
 
@@ -73,16 +70,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Construction_SectionConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new SemiProbabilisticPipingScenarioRow(new SemiProbabilisticPipingCalculationScenario(),
@@ -91,7 +85,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionConfiguration", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -99,11 +92,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
@@ -130,11 +119,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
@@ -159,17 +144,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.PipingProbability * sectionConfiguration.GetN(
                                               failureMechanism.GeneralInput.B)),
                             row.SectionFailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationWithoutOutput_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
@@ -183,7 +164,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilityHeave);
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
             Assert.IsNaN(row.SectionFailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -191,11 +171,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(failureMechanismSection);
@@ -222,7 +198,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.PipingProbability * sectionConfiguration.GetN(
                                 failureMechanism.GeneralInput.B),
                             row.SectionFailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -230,11 +205,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
@@ -264,7 +235,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilityHeave);
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
             Assert.IsNaN(row.SectionFailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -272,11 +242,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
@@ -311,7 +277,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(newExpectedDerivedOutput.PipingProbability * sectionConfiguration.GetN(
                                 failureMechanism.GeneralInput.B),
                             row.SectionFailureProbability);
-            mocks.VerifyAll();
         }
     }
 }

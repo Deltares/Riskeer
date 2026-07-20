@@ -26,9 +26,9 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.Commands;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -46,10 +46,7 @@ namespace Riskeer.Integration.Test
         public void GivenReferenceLineWithGeometry_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
             // Given
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
             Point2D[] originalReferenceLineGeometry = assessmentSection.ReferenceLine.Points.ToArray();
@@ -80,7 +77,6 @@ namespace Riskeer.Integration.Test
             string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                                   Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -88,20 +84,11 @@ namespace Riskeer.Integration.Test
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var failureMechanismObserver = mocks.StrictMock<IObserver>();
-            failureMechanismObserver.Expect(o => o.UpdateObserver())
-                                    .Repeat.Times(assessmentSection.GetFailureMechanisms().Count());
-            var referenceLineObserver = mocks.StrictMock<IObserver>();
-            referenceLineObserver.Expect(o => o.UpdateObserver());
-            var surfaceLinesObserver = mocks.StrictMock<IObserver>();
-            surfaceLinesObserver.Expect(o => o.UpdateObserver());
-            var stochasticSoilModelsObserver = mocks.StrictMock<IObserver>();
-            stochasticSoilModelsObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanismObserver = Substitute.For<IObserver>();
+            var referenceLineObserver = Substitute.For<IObserver>();
+            var surfaceLinesObserver = Substitute.For<IObserver>();
+            var stochasticSoilModelsObserver = Substitute.For<IObserver>();
             DataImportHelper.ImportReferenceLine(assessmentSection);
             DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms()
                                                                                                 .Cast<IFailureMechanism<FailureMechanismSectionResult>>());
@@ -163,8 +150,10 @@ namespace Riskeer.Integration.Test
             string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                                   Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
-
-            mocks.VerifyAll();
+            failureMechanismObserver.Received(assessmentSection.GetFailureMechanisms().Count()).UpdateObserver();
+            referenceLineObserver.Received().UpdateObserver();
+            surfaceLinesObserver.Received().UpdateObserver();
+            stochasticSoilModelsObserver.Received().UpdateObserver();
         }
     }
 }

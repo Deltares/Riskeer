@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
@@ -79,30 +79,23 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Setup
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(hydraulicBoundaryLocationCalculations);
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Returns(hydraulicBoundaryLocationCalculations);
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Returns(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2)
                 });
-
-            mockRepository.ReplayAll();
-
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -113,30 +106,23 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Setup
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(hydraulicBoundaryLocationCalculations);
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Returns(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Returns(hydraulicBoundaryLocationCalculations);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2)
                 });
-
-            mockRepository.ReplayAll();
-
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -151,30 +137,23 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Setup
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Returns(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Returns(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     calculationsForTargetProbability
                 });
-
-            mockRepository.ReplayAll();
-
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

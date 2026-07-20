@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Migration.Scripts.Data.Test
 {
@@ -95,10 +95,8 @@ namespace Migration.Scripts.Data.Test
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
 
-            var mockRepository = new MockRepository();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.Location).Return(filePath);
-            mockRepository.ReplayAll();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(filePath);
 
             var createScript = new TestCreateScript("2");
             var upgradeScript = new TestUpgradeScript("1", "2");
@@ -113,7 +111,7 @@ namespace Migration.Scripts.Data.Test
                 Assert.IsNotNull(upgradedFile);
             }
 
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
         }
     }
 }

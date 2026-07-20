@@ -34,9 +34,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -64,17 +64,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         private const int contextMenuCalculateIndex = 8;
         private const int contextMenuClearIndex = 10;
 
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -98,9 +93,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Image_Always_ReturnsPipingIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -118,9 +110,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                          new CalculationGroup(),
                                                                                                          new[]
@@ -158,9 +148,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                                          new CalculationGroup(),
                                                                                                          Enumerable.Empty<PipingSurfaceLine>(),
@@ -192,7 +180,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -200,10 +188,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -231,7 +217,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -239,10 +225,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -266,7 +250,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -274,10 +258,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -306,7 +288,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -314,10 +296,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -368,7 +348,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(),
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -376,41 +356,46 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddExportItem().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
-            }
 
-            // Assert
-            // Assert expectancies are called in TearDown()
+                // Assert
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddExportItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddRenameItem();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddDeleteItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCollapseAllItem();
+                    menuBuilder.AddExpandAllItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         [Test]
@@ -421,7 +406,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -429,10 +414,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -469,7 +452,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     }
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -477,10 +460,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 // Call
@@ -517,7 +498,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     }
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -525,10 +506,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
                 plugin.Gui = gui;
 
                 ChangeSurfaceLine(surfaceLine);
@@ -555,7 +534,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 CreateCalculationWithSurfaceLine(out SemiProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -563,19 +542,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var inputObserver = mocks.StrictMock<IObserver>();
-                inputObserver.Expect(obs => obs.UpdateObserver());
+                var inputObserver = Substitute.For<IObserver>();
+
                 calculation.InputParameters.Attach(inputObserver);
 
-                var calculationObserver = mocks.StrictMock<IObserver>();
+                var calculationObserver = Substitute.For<IObserver>();
                 calculation.Attach(calculationObserver);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
                 plugin.Gui = gui;
 
                 ChangeSurfaceLine(surfaceLine);
@@ -588,7 +565,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    // Note: observer assertions are verified in TearDown
+                    inputObserver.Received().UpdateObserver();
                 }
             }
         }
@@ -603,7 +580,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -611,18 +588,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var inputObserver = mocks.StrictMock<IObserver>();
+                var inputObserver = Substitute.For<IObserver>();
                 calculation.InputParameters.Attach(inputObserver);
 
-                var calculationObserver = mocks.StrictMock<IObserver>();
+                var calculationObserver = Substitute.For<IObserver>();
                 calculation.Attach(calculationObserver);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
                 plugin.Gui = gui;
 
                 string textBoxMessage = null;
@@ -647,9 +622,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in TearDown
                 }
+
+                calculationObserver.DidNotReceive().UpdateObserver();
+                inputObserver.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -663,7 +639,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var nodeData = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
@@ -671,20 +647,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      pipingFailureMechanism,
                                                                                      assessmentSection);
 
-                var inputObserver = mocks.StrictMock<IObserver>();
-                inputObserver.Expect(obs => obs.UpdateObserver());
+                var inputObserver = Substitute.For<IObserver>();
                 calculation.InputParameters.Attach(inputObserver);
 
-                var calculationObserver = mocks.StrictMock<IObserver>();
-                calculationObserver.Expect(obs => obs.UpdateObserver());
+                var calculationObserver = Substitute.For<IObserver>();
                 calculation.Attach(calculationObserver);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
+                var mainWindow = Substitute.For<IMainWindow>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
                 plugin.Gui = gui;
 
                 string textBoxMessage = null;
@@ -710,7 +682,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in TearDown
+                    inputObserver.Received().UpdateObserver();
+                    calculationObserver.Received().UpdateObserver();
                 }
             }
         }
@@ -719,8 +692,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
             var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario();
 
@@ -730,9 +702,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             group.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationContext = new SemiProbabilisticPipingCalculationScenarioContext(elementToBeRemoved,
                                                                                            group,
                                                                                            Enumerable.Empty<PipingSurfaceLine>(),
@@ -756,6 +726,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -774,17 +745,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                                              failureMechanism,
                                                                                                              assessmentSection);
 
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = Substitute.For<IGui>();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(pipingCalculationScenarioContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 calculation.Attach(observer);
@@ -817,6 +784,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[8]);
                     });
                     Assert.IsNull(calculation.Output);
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -838,14 +806,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                                              pipingFailureMechanism,
                                                                                                              assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = Substitute.For<IGui>();
+                gui.Get(pipingCalculationScenarioContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 calculation.Attach(observer);
@@ -899,17 +863,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                                              failureMechanism,
                                                                                                              assessmentSection);
 
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = Substitute.For<IGui>();
+                gui.MainWindow.Returns(mainWindow);
+                gui.Get(pipingCalculationScenarioContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 calculationScenario.Attach(observer);
@@ -939,6 +899,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                         Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gelukt.", msgs[5]);
                     });
                     Assert.IsNotNull(calculationScenario.Output);
+                    observer.Received().UpdateObserver();
                 }
             }
         }
@@ -953,7 +914,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             {
                 var calculation = new SemiProbabilisticPipingCalculationScenario();
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
 
                 var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                              new CalculationGroup(),
@@ -962,17 +923,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                                              pipingFailureMechanism,
                                                                                                              assessmentSection);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(pipingCalculationScenarioContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = Substitute.For<IGui>();
+                gui.Get(pipingCalculationScenarioContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-                var observer = mocks.StrictMock<IObserver>();
-                if (confirm)
-                {
-                    observer.Expect(o => o.UpdateObserver());
-                }
-
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 plugin.Gui = gui;
 
                 calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
@@ -1004,12 +958,20 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
+
+                if (confirm)
+                {
+                    observer.Received().UpdateObserver();
+                }
+                else
+                {
+                    observer.DidNotReceive().UpdateObserver();
+                }
             }
         }
 
         public override void Setup()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingCalculationScenarioContext));
         }
@@ -1017,8 +979,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         public override void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
-
             base.TearDown();
         }
 

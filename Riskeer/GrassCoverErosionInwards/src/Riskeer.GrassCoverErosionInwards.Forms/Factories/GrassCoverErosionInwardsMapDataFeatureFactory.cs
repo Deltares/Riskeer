@@ -53,11 +53,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
                                         && c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
-                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new MapCalculationData(
-                        calculation.Name,
-                        calculation.InputParameters.DikeProfile.WorldReferencePoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(calculation => new MapCalculationData(
+                                                                                calculation.Name,
+                                                                                calculation.InputParameters.DikeProfile.WorldReferencePoint,
+                                                                                calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

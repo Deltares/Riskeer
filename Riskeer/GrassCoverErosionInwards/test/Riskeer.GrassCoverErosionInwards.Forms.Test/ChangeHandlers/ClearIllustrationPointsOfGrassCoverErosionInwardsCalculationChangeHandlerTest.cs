@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -39,10 +39,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
@@ -50,7 +47,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<GrassCoverErosionInwardsCalculation>>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -60,10 +56,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             bool expectedResult)
         {
             // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(inquiryHelper, calculation);
 
             // Call
@@ -75,7 +68,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             Assert.IsNull(calculation.Output?.OvertoppingOutput.GeneralResult);
             Assert.IsNull(calculation.Output?.OvertoppingRateOutput?.GeneralResult);
             Assert.IsNull(calculation.Output?.DikeHeightOutput?.GeneralResult);
-            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

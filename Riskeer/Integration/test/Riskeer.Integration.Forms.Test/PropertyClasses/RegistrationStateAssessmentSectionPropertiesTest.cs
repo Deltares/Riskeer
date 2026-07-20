@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -38,9 +38,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionCompositionChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new RegistrationStateAssessmentSectionProperties(assessmentSection, null);
@@ -48,20 +46,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("compositionChangeHandler", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.Id).Return("1");
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Id.Returns("1");
+            assessmentSection.Composition.Returns(AssessmentSectionComposition.Dike);
+            var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
             assessmentSection.Name = "test";
 
             // Call
@@ -73,18 +67,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.Id, properties.Id);
             Assert.AreEqual(assessmentSection.Name, properties.Name);
             Assert.AreEqual(assessmentSection.Composition, properties.Composition);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
             // Call
             var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
@@ -113,7 +103,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategoryName,
                                                                             "Trajecttype",
                                                                             "Het type van het geselecteerde traject.");
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,29 +110,23 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.Composition.Returns(AssessmentSectionComposition.Dike);
+            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 0.1));
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
-
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            var assessmentSectionCompositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
-            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ChangeComposition(assessmentSection, newComposition))
-                                                     .Return(new[]
-                                                     {
-                                                         observable
-                                                     });
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
+            var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
+            assessmentSectionCompositionChangeHandler.ChangeComposition(assessmentSection, newComposition).Returns(new[]
+            {
+                observable
+            });
             var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // When
             properties.Composition = newComposition;
 
             // Then
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

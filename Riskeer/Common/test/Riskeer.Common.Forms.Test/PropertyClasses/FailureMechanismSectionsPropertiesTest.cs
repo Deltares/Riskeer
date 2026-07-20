@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -95,10 +95,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
@@ -121,7 +118,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                                 "Vakindeling waarmee de waterkering voor dit faalmechanisme is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
                                                                                 true);
-                mocks.VerifyAll();
             }
         }
 

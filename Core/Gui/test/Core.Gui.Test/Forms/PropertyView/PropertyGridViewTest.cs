@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.PropertyView
 {
@@ -49,9 +49,7 @@ namespace Core.Gui.Test.Forms.PropertyView
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var propertyResolver = mockRepository.Stub<IPropertyResolver>();
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
 
             // Call
             using (var propertyGridView = new PropertyGridView(propertyResolver))
@@ -67,17 +65,13 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreEqual("Gecategoriseerd", toolStrip.Items[0].ToolTipText);
                 Assert.AreEqual("Alfabetisch", toolStrip.Items[1].ToolTipText);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Show_ValidParameter_ExpectedProperties()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var propertyResolver = mockRepository.Stub<IPropertyResolver>();
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
 
             using (var form = new Form())
             using (var propertyGridView = new PropertyGridView(propertyResolver))
@@ -96,8 +90,6 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.IsFalse(toolStrip.Items[3].Visible);
                 Assert.IsFalse(toolStrip.Items[4].Visible);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -106,11 +98,9 @@ namespace Core.Gui.Test.Forms.PropertyView
             // Setup
             var dataObject = new object();
 
-            var mockRepository = new MockRepository();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
-            propertyResolver.Expect(prs => prs.GetObjectProperties(null)).Return(null);
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns((object) null);
+            propertyResolver.GetObjectProperties(null).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -126,7 +116,8 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
 
-            mockRepository.VerifyAll();
+            propertyResolver.Received(1).GetObjectProperties(dataObject);
+            propertyResolver.Received(1).GetObjectProperties(null);
         }
 
         [Test]
@@ -135,10 +126,8 @@ namespace Core.Gui.Test.Forms.PropertyView
             // Setup
             var dataObject = new object();
 
-            var mockRepository = new MockRepository();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -154,26 +143,21 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
 
-            mockRepository.VerifyAll();
+            propertyResolver.Received(1).GetObjectProperties(dataObject);
         }
 
         [Test]
         public void GivenPropertyGridViewWithDisposableDataSet_WhenNewDataObjectSet_ThenPreviousDataDisposed()
         {
             // Given
-            var mockRepository = new MockRepository();
             var dataObject = new object();
-            object dataObjectProperties = mockRepository.StrictMultiMock(typeof(IDisposable), typeof(IObjectProperties));
-            dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
-            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
-            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
+            var dataObjectProperties = Substitute.For<IObjectProperties, IDisposable>();
+            dataObjectProperties.Data.Returns(dataObject);
 
             var newDataObject = new object();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(dataObjectProperties));
-            propertyResolver.Expect(prs => prs.GetObjectProperties(newDataObject)).Return(null);
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new DynamicPropertyBag(dataObjectProperties));
+            propertyResolver.GetObjectProperties(newDataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -184,25 +168,21 @@ namespace Core.Gui.Test.Forms.PropertyView
             }
 
             // Then
-            mockRepository.VerifyAll();
+            ((IDisposable) dataObjectProperties).Received(1).Dispose();
         }
 
         [Test]
         public void GivenPropertyGridViewWithObservableDataSet_WhenNewDataObjectSet_ThenPreviousDataObserverDetached()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observableDataObject = mockRepository.StrictMock<IObservable>();
-            observableDataObject.Expect(d => d.Attach(null)).IgnoreArguments();
-            observableDataObject.Expect(d => d.Detach(null)).IgnoreArguments();
-            var dataObjectProperties = mockRepository.Stub<IObjectProperties>();
+            var observableDataObject = Substitute.For<IObservable>();
+            var dataObjectProperties = Substitute.For<IObjectProperties>();
             dataObjectProperties.Data = observableDataObject;
 
             var newDataObject = new object();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(observableDataObject)).Return(new DynamicPropertyBag(dataObjectProperties));
-            propertyResolver.Expect(prs => prs.GetObjectProperties(newDataObject)).Return(null);
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(observableDataObject).Returns(new DynamicPropertyBag(dataObjectProperties));
+            propertyResolver.GetObjectProperties(newDataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -213,24 +193,20 @@ namespace Core.Gui.Test.Forms.PropertyView
             }
 
             // Then
-            mockRepository.VerifyAll();
+            observableDataObject.Received(1).Attach(Arg.Any<IObserver>());
+            observableDataObject.Received(1).Detach(Arg.Any<IObserver>());
         }
 
         [Test]
         public void GivenPropertyGridViewWithDisposableDataSet_WhenDisposing_ThenObjectPropertiesCorrectlyDisposed()
         {
             // Given
-            var mockRepository = new MockRepository();
             var dataObject = new object();
-            object dataObjectProperties = mockRepository.StrictMultiMock(typeof(IDisposable), typeof(IObjectProperties));
-            dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
-            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
-            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
+            var dataObjectProperties = Substitute.For<IObjectProperties, IDisposable>();
+            dataObjectProperties.Data.Returns(dataObject);
 
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(dataObjectProperties));
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new DynamicPropertyBag(dataObjectProperties));
 
             var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
             {
@@ -241,7 +217,7 @@ namespace Core.Gui.Test.Forms.PropertyView
             propertyGridView.Dispose();
 
             // Then
-            mockRepository.VerifyAll();
+            ((IDisposable) dataObjectProperties).Received(1).Dispose();
         }
 
         [Test]
@@ -250,11 +226,9 @@ namespace Core.Gui.Test.Forms.PropertyView
             // Given
             var dataObject = new object();
 
-            var mockRepository = new MockRepository();
-            var objectProperties = mockRepository.Stub<IObjectProperties>();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
-            mockRepository.ReplayAll();
+            var objectProperties = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new DynamicPropertyBag(objectProperties));
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
             {
@@ -262,15 +236,11 @@ namespace Core.Gui.Test.Forms.PropertyView
             })
             {
                 // When
-                objectProperties.Raise(p => p.RefreshRequired += null,
-                                       objectProperties,
-                                       EventArgs.Empty);
+                objectProperties.RefreshRequired += Raise.EventWith(EventArgs.Empty);
 
                 // Then
                 Assert.AreEqual(1, propertyGridView.RefreshCalled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -279,11 +249,9 @@ namespace Core.Gui.Test.Forms.PropertyView
             // Given
             var dataObject = new object();
 
-            var mockRepository = new MockRepository();
-            var objectProperties = mockRepository.Stub<IObjectProperties>();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
-            mockRepository.ReplayAll();
+            var objectProperties = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new DynamicPropertyBag(objectProperties));
 
             var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
             {
@@ -293,13 +261,10 @@ namespace Core.Gui.Test.Forms.PropertyView
             propertyGridView.Dispose();
 
             // When
-            objectProperties.Raise(p => p.RefreshRequired += null,
-                                   objectProperties,
-                                   EventArgs.Empty);
+            objectProperties.RefreshRequired += Raise.EventWith(EventArgs.Empty);
 
             // Then
             Assert.AreEqual(0, propertyGridView.RefreshCalled);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -309,13 +274,11 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject1 = new object();
             var dataObject2 = new object();
 
-            var mockRepository = new MockRepository();
-            var objectProperties1 = mockRepository.Stub<IObjectProperties>();
-            var objectProperties2 = mockRepository.Stub<IObjectProperties>();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject1)).Return(new DynamicPropertyBag(objectProperties1));
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject2)).Return(new DynamicPropertyBag(objectProperties2));
-            mockRepository.ReplayAll();
+            var objectProperties1 = Substitute.For<IObjectProperties>();
+            var objectProperties2 = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject1).Returns(new DynamicPropertyBag(objectProperties1));
+            propertyResolver.GetObjectProperties(dataObject2).Returns(new DynamicPropertyBag(objectProperties2));
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
             {
@@ -325,15 +288,11 @@ namespace Core.Gui.Test.Forms.PropertyView
                 propertyGridView.Data = dataObject2;
 
                 // When
-                objectProperties2.Raise(p => p.RefreshRequired += null,
-                                        objectProperties2,
-                                        EventArgs.Empty);
+                objectProperties2.RefreshRequired += Raise.EventWith(EventArgs.Empty);
 
                 // Then
                 Assert.AreEqual(1, propertyGridView.RefreshCalled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -343,13 +302,11 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject1 = new object();
             var dataObject2 = new object();
 
-            var mockRepository = new MockRepository();
-            var objectProperties1 = mockRepository.Stub<IObjectProperties>();
-            var objectProperties2 = mockRepository.Stub<IObjectProperties>();
-            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject1)).Return(new DynamicPropertyBag(objectProperties1));
-            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject2)).Return(new DynamicPropertyBag(objectProperties2));
-            mockRepository.ReplayAll();
+            var objectProperties1 = Substitute.For<IObjectProperties>();
+            var objectProperties2 = Substitute.For<IObjectProperties>();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject1).Returns(new DynamicPropertyBag(objectProperties1));
+            propertyResolver.GetObjectProperties(dataObject2).Returns(new DynamicPropertyBag(objectProperties2));
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
             {
@@ -359,24 +316,18 @@ namespace Core.Gui.Test.Forms.PropertyView
                 propertyGridView.Data = dataObject2;
 
                 // When
-                objectProperties1.Raise(p => p.RefreshRequired += null,
-                                        objectProperties1,
-                                        EventArgs.Empty);
+                objectProperties1.RefreshRequired += Raise.EventWith(EventArgs.Empty);
 
                 // Then
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var propertyResolver = mockRepository.Stub<IPropertyResolver>();
-            mockRepository.ReplayAll();
+            var propertyResolver = Substitute.For<IPropertyResolver>();
 
             // Call
             TestDelegate call = () =>
@@ -389,7 +340,6 @@ namespace Core.Gui.Test.Forms.PropertyView
 
             // Assert
             Assert.DoesNotThrow(call);
-            mockRepository.VerifyAll();
         }
 
         private class TestGuiPropertyGridView : PropertyGridView

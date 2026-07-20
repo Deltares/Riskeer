@@ -30,9 +30,9 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
@@ -46,8 +46,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuSelectDifferentFolderIndex = 0;
         private const int contextMenuImportHydraulicLocationConfigurationDatabaseIndex = 0;
-
-        private MockRepository mocks;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -126,33 +124,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            if (!hydraulicBoundaryDataLinked)
             {
-                if (!hydraulicBoundaryDataLinked)
-                {
-                    menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
-                }
-                else
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                }
-
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>()).Returns(menuBuilder);
             }
+            else
+            {
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            }
+
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -165,7 +156,24 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                if (!hydraulicBoundaryDataLinked)
+                {
+                    menuBuilder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>());
+                }
+                else
+                {
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                }
+
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -175,15 +183,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
-            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            importCommandHandler.GetSupportedImportInfos(Arg.Any<object>()).Returns(new[]
             {
                 new ImportInfo()
             });
-            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -195,11 +203,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                      context,
                                                      treeViewControl);
 
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(builder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -218,9 +224,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -236,11 +239,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -369,10 +370,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
         }
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-        }
+        public override void Setup() {}
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {

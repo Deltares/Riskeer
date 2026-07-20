@@ -24,8 +24,8 @@ using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Riskeer.Common.Plugin.Test
 {
@@ -84,10 +84,7 @@ namespace Riskeer.Common.Plugin.Test
         public void GetSymbol_ActiveStateInfoNull_ReturnsExpectedValue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
             var viewInfo = new RiskeerViewInfo<int, string, IView>(() => gui);
 
             // Call
@@ -95,7 +92,6 @@ namespace Riskeer.Common.Plugin.Test
 
             // Assert
             Assert.IsNull(symbol);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -103,12 +99,8 @@ namespace Riskeer.Common.Plugin.Test
         {
             // Setup
             const string expectedSymbol = "symbol";
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, expectedSymbol, new FontFamily(), p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, expectedSymbol, new FontFamily(), p => p));
             var viewInfo = new RiskeerViewInfo<int, string, IView>(() => gui);
 
             // Call
@@ -116,7 +108,6 @@ namespace Riskeer.Common.Plugin.Test
 
             // Assert
             Assert.AreEqual(expectedSymbol, actualSymbol);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -136,10 +127,7 @@ namespace Riskeer.Common.Plugin.Test
         public void GetFontFamily_ActiveStateInfoNull_ReturnsExpectedValue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
             var viewInfo = new RiskeerViewInfo<int, string, IView>(() => gui);
 
             // Call
@@ -147,7 +135,6 @@ namespace Riskeer.Common.Plugin.Test
 
             // Assert
             Assert.IsNull(fontFamily);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -155,12 +142,8 @@ namespace Riskeer.Common.Plugin.Test
         {
             // Setup
             var expectedFontFamily = new FontFamily();
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, string.Empty, expectedFontFamily, p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, string.Empty, expectedFontFamily, p => p));
             var viewInfo = new RiskeerViewInfo<int, string, IView>(() => gui);
 
             // Call
@@ -168,7 +151,6 @@ namespace Riskeer.Common.Plugin.Test
 
             // Assert
             Assert.AreSame(expectedFontFamily, actualFontFamily);
-            mockRepository.VerifyAll();
         }
     }
 }

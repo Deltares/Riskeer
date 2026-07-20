@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.Views.RegistrationState;
@@ -34,14 +34,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
     [TestFixture]
     public class ClosingStructuresFailureMechanismViewInfoTest
     {
-        private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new ClosingStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismView));
         }
@@ -64,9 +62,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
         public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -83,9 +79,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InAssembly = inAssembly
@@ -98,7 +92,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.AreEqual(inAssembly, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,9 +116,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection);
@@ -135,8 +126,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
 
             // Assert
             Assert.IsFalse(closeForData);
-
-            mocks.VerifyAll();
         }
 
         [Test]

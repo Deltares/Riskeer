@@ -73,9 +73,8 @@ namespace Riskeer.Piping.Plugin.FileImporter
             PipingFailureMechanism pipingFailureMechanism = GetPipingFailureMechanism();
             foreach (PipingFailureMechanismSectionConfiguration newSectionConfiguration in pipingFailureMechanism.SectionConfigurations)
             {
-                PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
-                    oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
-                                                && oldScenarioConfiguration.Section.EndPoint.Equals(newSectionConfiguration.Section.EndPoint));
+                PipingFailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
+                                                                                                                                                                           && oldScenarioConfiguration.Section.EndPoint.Equals(newSectionConfiguration.Section.EndPoint));
 
                 if (failureMechanismSectionConfigurationToCopy != null)
                 {

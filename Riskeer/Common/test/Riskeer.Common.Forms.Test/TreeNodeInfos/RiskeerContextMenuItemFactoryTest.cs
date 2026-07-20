@@ -27,9 +27,9 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -95,11 +95,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateAddCalculationItem_Always_CreatesDecoratedItem(CalculationType calculationType, Bitmap expectedImage)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
@@ -112,18 +108,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Voeg een nieuwe berekening toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(expectedImage, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateAddCalculationItem_PerformClickOnCreatedItem_AddCalculationMethodPerformed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             var counter = 0;
@@ -137,21 +128,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_GroupWithCalculationOutput_CreatesDecoratedAndEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -168,21 +153,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_GroupWithoutCalculationOutput_CreatesDecoratedAndDisabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-
-            mocks.ReplayAll();
-
+            calculationWithoutOutput.HasOutput.Returns(false);
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -199,8 +178,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -208,21 +185,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             var messageBoxText = "";
             var messageBoxTitle = "";
-            var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
+            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            calculationWithOutputMock1.Expect(c => c.ClearOutput());
-            calculationWithOutputMock1.Expect(c => c.NotifyObservers());
-            calculationWithOutputMock2.Expect(c => c.ClearOutput());
-            calculationWithOutputMock2.Expect(c => c.NotifyObservers());
-
-            mocks.ReplayAll();
+            calculationWithOutputMock1.HasOutput.Returns(true);
+            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithoutOutput.HasOutput.Returns(false);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -257,24 +226,22 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-
-            mocks.VerifyAll();
+            calculationWithOutputMock1.Received().ClearOutput();
+            calculationWithOutputMock1.Received().NotifyObservers();
+            calculationWithOutputMock2.Received().ClearOutput();
+            calculationWithOutputMock2.Received().NotifyObservers();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
-            var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
+            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            mocks.ReplayAll();
-
+            calculationWithOutputMock1.HasOutput.Returns(true);
+            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithoutOutput.HasOutput.Returns(false);
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -304,24 +271,22 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            calculationWithoutOutput.DidNotReceive().ClearOutput();
+            calculationWithOutputMock1.DidNotReceive().ClearOutput();
+            calculationWithOutputMock2.DidNotReceive().ClearOutput();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInFailureMechanismItem_FailureMechanismWithCalculationOutput_CreatesDecoratedAndEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
+            var calculationWithOutput = Substitute.For<ICalculation>();
+            calculationWithOutput.HasOutput.Returns(true);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithOutput
             });
-
-            mocks.ReplayAll();
-
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
@@ -330,24 +295,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInFailureMechanismItem_FailureMechanismWithoutCalculationOutput_CreatesDecoratedAndDisabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
+            calculationWithoutOutput.HasOutput.Returns(false);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithoutOutput
             });
-            mocks.ReplayAll();
-
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
@@ -356,27 +316,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
+            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            calculationWithOutputMock1.Expect(c => c.ClearOutput());
-            calculationWithOutputMock1.Expect(c => c.NotifyObservers());
-            calculationWithOutputMock2.Expect(c => c.ClearOutput());
-            calculationWithOutputMock2.Expect(c => c.NotifyObservers());
+            calculationWithOutputMock1.HasOutput.Returns(true);
+            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithoutOutput.HasOutput.Returns(false);
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
@@ -384,9 +336,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 calculationWithOutputMock2,
                 calculationWithoutOutput
             });
-
-            mocks.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -399,33 +348,32 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             toolStripItem.PerformClick();
 
-            // Assert
-            mocks.VerifyAll();
+            // Assert            
+            calculationWithOutputMock1.Received().ClearOutput();
+            calculationWithOutputMock1.Received().NotifyObservers();
+            calculationWithOutputMock2.Received().ClearOutput();
+            calculationWithOutputMock2.Received().NotifyObservers();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
-            var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
+            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
+            calculationWithOutputMock1.HasOutput.Returns(true);
+            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithoutOutput.HasOutput.Returns(false);
 
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithOutputMock1,
                 calculationWithOutputMock2,
                 calculationWithoutOutput
             });
-
-            mocks.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -439,7 +387,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            mocks.VerifyAll();
+            calculationWithOutputMock1.DidNotReceive().ClearOutput();
+            calculationWithOutputMock2.DidNotReceive().ClearOutput();
         }
 
         [Test]
@@ -448,12 +397,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateToggleInAssemblyOfFailureMechanismItem_InAssembly_CreateDecoratedItem(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fp => fp.InAssembly).Return(inAssembly);
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fpc => fpc.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.InAssembly.Returns(inAssembly);
+            var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.WrappedData.Returns(failureMechanism);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, null);
@@ -464,7 +411,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -473,38 +419,35 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateToggleInAssemblyOfFailureMechanismItem_PerformClickOnInAssemblyItem_RelevanceChangedAndObserversNotified(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fp => fp.InAssembly).Return(inAssembly);
-            failureMechanism.Expect(fp => fp.InAssembly).SetPropertyWithArgument(!inAssembly);
-            failureMechanism.Expect(fp => fp.NotifyObservers());
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.InAssembly.Returns(inAssembly);
 
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Stub(fmc => fmc.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
+            var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.WrappedData.Returns(failureMechanism);
 
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem =
+                RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(
+                    failureMechanismContext,
+                    context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, actionCounter);
-            mocks.VerifyAll();
+
+            failureMechanism.Received().InAssembly = !inAssembly;
+            failureMechanism.Received().NotifyObservers();
         }
 
         [Test]
         public void CreateClearCalculationOutputItem_CalculationWithOutput_CreatesDecoratedAndEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
@@ -513,21 +456,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Wis de uitvoer van deze berekening.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateClearCalculationOutputItem_CalculationWithoutOutput_CreatesDecoratedAndDisabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(false);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(false);
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
@@ -536,8 +473,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Deze berekening heeft geen uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -545,15 +480,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             var messageBoxText = "";
             var messageBoxTitle = "";
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutput.Expect(c => c.ClearOutput());
-            calculationWithOutput.Expect(c => c.NotifyObservers());
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -571,20 +500,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
-
-            mocks.VerifyAll();
+            calculationWithOutput.Received().ClearOutput();
+            calculationWithOutput.Received().NotifyObservers();
         }
 
         [Test]
         public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
-            var mocks = new MockRepository();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -596,8 +521,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             toolStripItem.PerformClick();
-
-            mocks.VerifyAll();
         }
 
         #region CreateDuplicateCalculationItem
@@ -656,12 +579,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateDuplicateCalculationItem_CalculationItemWithParent_CreatesDecoratedAndEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
-            calculationItemContext.Stub(ic => ic.Parent).Return(new CalculationGroup());
-            mocks.ReplayAll();
-
+            var calculationItem = Substitute.For<ICalculationBase>();
+            var calculationItemContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
+            calculationItemContext.Parent.Returns(new CalculationGroup());
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
@@ -670,18 +590,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Dupliceer dit element.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CopyHS, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateDuplicateCalculationItem_CalculationItemWithoutParent_ThrowsArgumentException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
-            mocks.ReplayAll();
+            var calculationItem = Substitute.For<ICalculationBase>();
+            var calculationItemContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
 
             // Call
             void Call() => RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
@@ -689,8 +605,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual($"{nameof(calculationItemContext.Parent)} should be set.", exception.Message);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -700,13 +614,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                                                                                   string expectedCalculationItemName)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
+            var calculationItemContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
 
-            calculationItemContext.Stub(c => c.Parent).Return(calculationGroup);
-
-            mocks.ReplayAll();
-
+            calculationItemContext.Parent.Returns(calculationGroup);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
             List<ICalculationBase> originalChildren = calculationGroup.Children.ToList();
@@ -719,8 +629,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(duplicatedItem);
             Assert.AreEqual(expectedCalculationItemName, duplicatedItem.Name);
             Assert.AreEqual(originalChildren.IndexOf(calculationItem) + 1, calculationGroup.Children.IndexOf(duplicatedItem));
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -731,15 +639,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateUpdateForeshoreProfileOfCalculationItem_NoForeshoreProfile_CreatesExpectedItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            input.Expect(ci => ci.ForeshoreProfile).Return(null);
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            input.ForeshoreProfile.Returns((ForeshoreProfile) null);
 
-            calculation.Stub(c => c.InputParameters).Return(input);
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            calculation.InputParameters.Returns(input);
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
@@ -751,8 +656,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -761,17 +664,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateUpdateForeshoreProfileOfCalculationItem_ForeshoreProfileIsSynchronizedStates_CreatesExpectedItem(bool isSynchronized)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
 
-            input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+            input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+            input.IsForeshoreProfileInputSynchronized.Returns(isSynchronized);
 
-            calculation.Expect(c => c.InputParameters).Return(input);
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            calculation.InputParameters.Returns(input);
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
@@ -791,8 +691,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Berekening bijwerken met het voorlandprofiel.", toolStripItem.ToolTipText);
                 Assert.IsTrue(toolStripItem.Enabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -804,21 +702,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             string inquireContinuationMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculation.Expect(c => c.InputParameters).Return(input);
-            calculation.Expect(c => c.HasOutput).Return(hasOutput);
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+            input.IsForeshoreProfileInputSynchronized.Returns(false);
+            calculation.InputParameters.Returns(input);
+            calculation.HasOutput.Returns(hasOutput);
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             if (hasOutput)
             {
-                inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
+                inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
             }
-
-            mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
             var actionPerformed = false;
@@ -845,8 +739,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.IsTrue(actionPerformed);
                 Assert.AreSame(calculation, actionCalculation);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -860,24 +752,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             [Values(true, false)] bool isSynchronized)
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
             if (hasForeshoreProfile)
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-                input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+                input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+                input.IsForeshoreProfileInputSynchronized.Returns(isSynchronized);
             }
             else
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(null);
+                input.ForeshoreProfile.Returns((ForeshoreProfile) null);
             }
 
-            calculation.Stub(c => c.InputParameters).Return(input);
+            calculation.InputParameters.Returns(input);
 
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
@@ -900,8 +789,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Er zijn geen berekeningen om bij te werken.", toolStripItem.ToolTipText);
                 Assert.IsFalse(toolStripItem.Enabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -913,28 +800,24 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             string inquireContinuationMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+            input.IsForeshoreProfileInputSynchronized.Returns(false);
+            calculation.InputParameters.Returns(input);
+            calculation.HasOutput.Returns(hasOutput);
 
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculation.Stub(c => c.InputParameters).Return(input);
-            calculation.Expect(c => c.HasOutput).Return(hasOutput);
+            var calculationWithoutChanges = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var inputWithoutChanges = Substitute.For<ICalculationInputWithForeshoreProfile>();
+            inputWithoutChanges.ForeshoreProfile.Returns(new TestForeshoreProfile());
+            inputWithoutChanges.IsForeshoreProfileInputSynchronized.Returns(true);
+            calculationWithoutChanges.InputParameters.Returns(inputWithoutChanges);
 
-            var calculationWithoutChanges = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputWithoutChanges = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputWithoutChanges.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChanges.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
-            calculationWithoutChanges.Stub(c => c.InputParameters).Return(inputWithoutChanges);
-
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             if (hasOutput)
             {
-                inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
+                inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
             }
-
-            mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
             var actionPerformed = false;
@@ -965,8 +848,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.IsTrue(actionPerformed);
                 Assert.AreSame(calculation, actionCalculation);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -977,11 +858,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreatePerformCalculationItem_AdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -995,19 +872,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Voer deze berekening uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformCalculationItem_AdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1023,19 +894,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1049,8 +914,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1061,10 +924,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateCalculationItem_AdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1077,18 +937,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Valideer de invoer voor deze berekening.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateCalculationItem_AdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1103,18 +958,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1127,8 +977,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1438,10 +1286,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestCalculation();
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
@@ -1457,17 +1302,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Voer alle berekeningen binnen dit faalmechanisme uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
 
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
@@ -1480,17 +1321,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestCalculation();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
@@ -1509,17 +1346,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -1533,18 +1366,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreatePerformAllCalculationsInFailureMechanismItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var calculation = Substitute.For<ICalculation>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var counter = 0;
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
@@ -1558,7 +1387,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1569,10 +1397,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestCalculation();
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
@@ -1591,17 +1416,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Valideer alle berekeningen binnen dit faalmechanisme.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -1613,17 +1434,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestCalculation();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
@@ -1645,17 +1462,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -1672,18 +1485,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateValidateAllCalculationsInFailureMechanismItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var calculation = mocks.StrictMock<ICalculation>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var calculation = Substitute.For<ICalculation>();
             var counter = 0;
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
@@ -1701,7 +1510,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1713,19 +1521,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
                                                                                                                                 handler);
-
             // Assert
             Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1734,10 +1536,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateClearIllustrationPointsOfCalculationsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
                                                                                                                                 handler);
@@ -1749,18 +1548,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 ? "Wis alle berekende illustratiepunten."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => true,
                                                                                                                                 handler);
 
@@ -1768,24 +1563,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
+            var observable = Substitute.For<IObservable>();
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(true);
+            handler.ClearIllustrationPoints().Returns(new[]
             {
                 observable
             });
-            mocks.ReplayAll();
-
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => true,
                                                                                                                                 handler);
 
@@ -1793,7 +1584,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
+            handler.Received().ClearIllustrationPoints();
         }
 
         #endregion
@@ -1805,19 +1597,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled,
                                                                                                                                        handler);
-
             // Assert
             Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1826,10 +1612,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateClearIllustrationPointsOfCalculationsInGroupItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled,
                                                                                                                                        handler);
@@ -1841,18 +1624,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 ? "Wis alle berekende illustratiepunten binnen deze map met berekeningen."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInGroupItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => true,
                                                                                                                                        handler);
 
@@ -1860,24 +1639,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInGroupItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
+            var observable = Substitute.For<IObservable>();
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(true);
+            handler.ClearIllustrationPoints().Returns(new[]
             {
                 observable
             });
-            mocks.ReplayAll();
-
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => true,
                                                                                                                                        handler);
 
@@ -1885,7 +1660,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            handler.Received().ClearIllustrationPoints();
+            observable.Received().NotifyObservers();
         }
 
         #endregion
@@ -1897,11 +1673,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => isEnabled, handler);
@@ -1909,7 +1681,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1918,10 +1689,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => isEnabled, handler);
@@ -1933,18 +1701,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 ? "Wis alle berekende illustratiepunten binnen dit faalmechanisme."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => true, handler);
 
@@ -1952,24 +1716,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
+            var observable = Substitute.For<IObservable>();
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.InquireConfirmation().Returns(true);
+            handler.ClearIllustrationPoints().Returns(new[]
             {
                 observable
             });
-            mocks.ReplayAll();
-
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => true, handler);
 
@@ -1977,7 +1737,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            observable.NotifyObservers();
+            handler.Received().ClearIllustrationPoints();
         }
 
         #endregion
@@ -1989,19 +1750,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
                                                                                                                                handler);
-
             // Assert
             Assert.AreEqual("Wis illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -2010,10 +1765,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateClearIllustrationPointsOfCalculationItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
                                                                                                                                handler);
@@ -2025,39 +1777,30 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 ? "Wis de berekende illustratiepunten van deze berekening."
                                                 : "Deze berekening heeft geen illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.InquireConfirmation().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
                                                                                                                                handler);
-
             // When
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionContinuedAndCalculationAffected_ThenIllustrationPointsClearedAndPostUpdates()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.ClearIllustrationPoints()).Return(true);
-            handler.Expect(h => h.DoPostUpdateActions());
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.InquireConfirmation().Returns(true);
+            handler.ClearIllustrationPoints().Returns(true);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
                                                                                                                                handler);
 
@@ -2065,19 +1808,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            handler.Received().ClearIllustrationPoints();
+            handler.Received().DoPostUpdateActions();
         }
 
         [Test]
         public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionContinuedAndCalculationUnaffected_ThenIllustrationPointsClearedAndNoPostUpdates()
         {
             // Given
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.ClearIllustrationPoints()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.InquireConfirmation().Returns(true);
+            handler.ClearIllustrationPoints().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
                                                                                                                                handler);
 
@@ -2085,7 +1826,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            handler.Received().ClearIllustrationPoints();
+            handler.DidNotReceive().DoPostUpdateActions();
         }
 
         #endregion

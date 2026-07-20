@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
@@ -42,19 +42,16 @@ namespace Riskeer.Common.Service.Test
         public void ParseForeshore_Use_ReturnCollection()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var foreshore = mockRepository.Stub<IUseForeshore>();
+            var foreshore = Substitute.For<IUseForeshore>();
             foreshore.UseForeshore = true;
 
             var pointOne = new Point2D(1, 1);
             var pointTwo = new Point2D(2, 2);
-            foreshore.Stub(call => call.ForeshoreGeometry).Return(new RoundedPoint2DCollection(2, new[]
+            foreshore.ForeshoreGeometry.Returns(new RoundedPoint2DCollection(2, new[]
             {
                 pointOne,
                 pointTwo
             }));
-            mockRepository.ReplayAll();
-
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
@@ -64,25 +61,19 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(pointOne.Y, actualForelandPoints[0].Z);
             Assert.AreEqual(pointTwo.X, actualForelandPoints[1].X);
             Assert.AreEqual(pointTwo.Y, actualForelandPoints[1].Z);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ParseForeshore_DoesNotUse_ReturnEmptyCollection()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var foreshore = mockRepository.Stub<IUseForeshore>();
+            var foreshore = Substitute.For<IUseForeshore>();
             foreshore.UseForeshore = false;
-            mockRepository.ReplayAll();
-
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
             // Assert 
             CollectionAssert.IsEmpty(parsedForeshore);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -94,21 +85,16 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var random = new Random(22);
             double breakWaterHeight = random.NextDouble();
-
-            var mockRepository = new MockRepository();
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater(breakWaterType, breakWaterHeight);
-            breakWater.Stub(call => call.BreakWater).Return(expectedBreakWater);
-            mockRepository.ReplayAll();
-
+            breakWater.BreakWater.Returns(expectedBreakWater);
             // Call
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert 
             Assert.AreEqual(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), parsedBreakWater.Type);
             Assert.AreEqual(expectedBreakWater.Height, parsedBreakWater.Height, expectedBreakWater.Height.GetAccuracy());
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -118,17 +104,13 @@ namespace Riskeer.Common.Service.Test
         public void ParseBreakWater_DoesNotUse_ReturnNull(BreakWaterType breakWaterType)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = false;
-            mockRepository.ReplayAll();
-
             // Call
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert
             Assert.IsNull(parsedBreakWater);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -136,21 +118,16 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var random = new Random(22);
-            var mockRepository = new MockRepository();
-            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater((BreakWaterType) 99, random.NextDouble());
-            breakWater.Stub(call => call.BreakWater).Return(expectedBreakWater);
-            mockRepository.ReplayAll();
-
+            breakWater.BreakWater.Returns(expectedBreakWater);
             // Call
             TestDelegate test = () => HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert
             string message = $"The value of argument 'type' ({99}) is invalid for Enum type '{typeof(BreakWaterType).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
-
-            mockRepository.VerifyAll();
         }
     }
 }

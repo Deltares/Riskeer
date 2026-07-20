@@ -67,9 +67,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = GetMacroStabilityInwardsFailureMechanism();
             foreach (FailureMechanismSectionConfiguration newSectionConfiguration in macroStabilityInwardsFailureMechanism.SectionConfigurations)
             {
-                FailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(
-                    oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
-                                                && oldScenarioConfiguration.Section.EndPoint.Equals(newSectionConfiguration.Section.EndPoint));
+                FailureMechanismSectionConfiguration failureMechanismSectionConfigurationToCopy = oldSectionConfiguration.FirstOrDefault(oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newSectionConfiguration.Section.StartPoint)
+                                                                                                                                                                     && oldScenarioConfiguration.Section.EndPoint.Equals(newSectionConfiguration.Section.EndPoint));
 
                 if (failureMechanismSectionConfigurationToCopy != null)
                 {

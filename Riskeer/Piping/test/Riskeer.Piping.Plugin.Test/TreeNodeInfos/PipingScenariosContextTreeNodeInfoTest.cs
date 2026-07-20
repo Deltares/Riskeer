@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Properties;
@@ -82,10 +82,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnScenarios()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var group = new CalculationGroup();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
@@ -95,17 +92,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Scenario's", text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var group = new CalculationGroup();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
@@ -115,31 +108,26 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.ScenariosIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
-            var gui = mocks.Stub<IGui>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            var gui = Substitute.For<IGui>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
 
                 // Assert
-                mocks.VerifyAll();
+                menuBuilder.Received().Build();
             }
         }
     }

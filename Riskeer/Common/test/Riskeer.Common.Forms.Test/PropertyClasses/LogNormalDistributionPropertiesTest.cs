@@ -21,8 +21,8 @@
 
 using System.ComponentModel;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -52,10 +52,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var distribution = new LogNormalDistribution();
 
             // Call
@@ -68,8 +65,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, false, false);
-
-            mocks.VerifyAll();
         }
 
         private static void AssertPropertiesInState(LogNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)

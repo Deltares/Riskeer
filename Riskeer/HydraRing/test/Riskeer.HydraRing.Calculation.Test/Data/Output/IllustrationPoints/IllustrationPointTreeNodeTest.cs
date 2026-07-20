@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
@@ -47,9 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithData_DataIsAssigned()
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IIllustrationPoint>();
-            mocks.ReplayAll();
+            var data = Substitute.For<IIllustrationPoint>();
 
             // Call
             var node = new IllustrationPointTreeNode(data);
@@ -57,16 +55,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Assert
             Assert.AreSame(data, node.Data);
             CollectionAssert.IsEmpty(node.Children);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void SetChildren_ChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IIllustrationPoint>();
-            mocks.ReplayAll();
+            var data = Substitute.For<IIllustrationPoint>();
 
             var treeNode = new IllustrationPointTreeNode(data);
 
@@ -76,8 +71,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("children", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -86,9 +79,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void SetChildren_InvalidNrOfChildren_ThrowsInvalidArgumentException(int nrOfChildren)
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IIllustrationPoint>();
-            mocks.ReplayAll();
+            var data = Substitute.For<IIllustrationPoint>();
 
             var treeNode = new IllustrationPointTreeNode(data);
             var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
@@ -101,7 +92,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             Assert.AreEqual("children", exception.ParamName);
             CollectionAssert.IsEmpty(treeNode.Children);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -110,9 +100,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void SetChildren_ValidNrOfChildren_ReturnsExpectedProperties(int nrOfChildren)
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IIllustrationPoint>();
-            mocks.ReplayAll();
+            var data = Substitute.For<IIllustrationPoint>();
 
             var treeNode = new IllustrationPointTreeNode(data);
             var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
@@ -124,7 +112,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             IEnumerable<IllustrationPointTreeNode> addedChildren = treeNode.Children;
             Assert.AreSame(childrenToBeAttached, addedChildren);
             Assert.AreEqual(nrOfChildren, addedChildren.Count());
-            mocks.VerifyAll();
         }
     }
 }

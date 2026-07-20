@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
@@ -83,11 +83,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
         public void GivenContextWithObserverAttached_WhenNotifyingObserversOfDuneLocationCalculationsForUserDefinedTargetProbabilities_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
@@ -101,18 +97,14 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void GivenContextWithObserverAttached_WhenNotifyingObserversOfDuneLocationCalculationsForUserDefinedTargetProbability_ThenObserverCorrectlyNotified()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
@@ -127,7 +119,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
 
             // Then
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

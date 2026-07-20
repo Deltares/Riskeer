@@ -27,8 +27,8 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.ReferenceLines;
@@ -42,17 +42,13 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         [Test]
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             // Call
             TestDelegate call = () => new ReferenceLineImporter(null, handler, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("importTarget", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -70,16 +66,12 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             // Call
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ReferenceLine>>(importer);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -87,23 +79,19 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
-                                         Arg<ReferenceLine>.Is.NotNull))
-                   .WhenCalled(invocation =>
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.Update(Arg.Is<ReferenceLine>(x => x != null),
+                           Arg.Is<ReferenceLine>(x => x != null))
+                   .Returns(callInfo =>
                    {
-                       Assert.AreSame(originalReferenceLine, invocation.Arguments[0]);
-                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
+                       Assert.AreSame(originalReferenceLine, callInfo.Args()[0]);
+                       var importedReferenceLine = (ReferenceLine) callInfo.Args()[1];
                        Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
                        Assert.AreEqual(803, point2Ds.Length);
                        Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
                        Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
-                   })
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
+                       return Enumerable.Empty<IObservable>();
+                   });
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
@@ -116,20 +104,15 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{path}'.", 1);
             Assert.IsTrue(importSuccessful);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Import_WhenSuccessful_GeneratedExpectedProgressMessages()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
-                                         Arg<ReferenceLine>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.Update(Arg.Is<ReferenceLine>(x => x != null), Arg.Is<ReferenceLine>(x => x != null))
+                   .Returns(Enumerable.Empty<IObservable>());
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
@@ -148,17 +131,13 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                 new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, 2)
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
@@ -172,17 +151,13 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                                      + $"{Environment.NewLine}Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Import_ShapefileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_dont_exist");
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
@@ -196,18 +171,14 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                                      + $"{Environment.NewLine}Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmUpdate()).Return(false);
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.ConfirmUpdate().Returns(false);
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
@@ -220,7 +191,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -228,11 +198,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -250,7 +216,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -258,14 +223,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.Update(Arg.Any<ReferenceLine>(),
+                           Arg.Any<ReferenceLine>())
+                   .Returns(Enumerable.Empty<IObservable>());
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -284,28 +245,24 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
             Assert.IsTrue(importResult);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Import_ReusingCanceledImporterForReferenceLineWithoutGeometry_ImportReferenceLine()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
-                                         Arg<ReferenceLine>.Is.NotNull))
-                   .WhenCalled(invocation =>
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.Update(Arg.Is<ReferenceLine>(x => x != null),
+                           Arg.Is<ReferenceLine>(x => x != null))
+                   .Returns(callInfo =>
                    {
-                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
+                       var importedReferenceLine = (ReferenceLine) callInfo.Args()[1];
                        Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
                        Assert.AreEqual(803, point2Ds.Length);
                        Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
                        Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);
-                   })
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
+                       return Enumerable.Empty<IObservable>();
+                   });
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
@@ -322,7 +279,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             // Assert
             Assert.IsTrue(importSuccessful);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -331,28 +287,20 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+            var referenceLineObserver = Substitute.For<IObserver>();
 
-            var mocks = new MockRepository();
-            var referenceLineObserver = mocks.Stub<IObserver>();
-            referenceLineObserver.Expect(o => o.UpdateObserver());
+            var observable1 = Substitute.For<IObservable>();
+            var observable2 = Substitute.For<IObservable>();
 
-            var observable1 = mocks.StrictMock<IObservable>();
-            observable1.Expect(o => o.NotifyObservers());
-            var observable2 = mocks.StrictMock<IObservable>();
-            observable2.Expect(o => o.NotifyObservers());
-
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmUpdate()).Return(true);
-            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.Same(referenceLine),
-                                         Arg<ReferenceLine>.Is.NotNull))
-                   .Return(new[]
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.ConfirmUpdate().Returns(true);
+            handler.Update(referenceLine,
+                           Arg.Is<ReferenceLine>(x => x != null))
+                   .Returns(new[]
                    {
                        observable1,
                        observable2
                    });
-            handler.Expect(h => h.DoPostUpdateActions());
-            mocks.ReplayAll();
-
             referenceLine.Attach(referenceLineObserver);
 
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
@@ -364,7 +312,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
+            referenceLineObserver.Received().UpdateObserver();
+            observable1.Received().NotifyObservers();
+            observable2.Received().NotifyObservers();
+            handler.Received().DoPostUpdateActions();
         }
 
         [Test]
@@ -373,18 +324,15 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "traject_10-2.shp");
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+            var observer = Substitute.For<IObserver>();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
-            handler.Expect(h => h.ConfirmUpdate())
-                   .WhenCalled(invocation => importer.Cancel())
-                   .Return(true);
-
-            mocks.ReplayAll();
-
+            handler.ConfirmUpdate().Returns(info =>
+            {
+                importer.Cancel();
+                return true;
+            });
             referenceLine.Attach(observer);
 
             // Precondition
@@ -394,7 +342,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect no NotifyObserver calls
+            // Expect no NotifyObserver calls
         }
 
         [Test]
@@ -403,28 +351,19 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var referenceLine = new ReferenceLine();
+            var referenceLineObserver = Substitute.For<IObserver>();
+            var observable1 = Substitute.For<IObservable>();
+            var observable2 = Substitute.For<IObservable>();
 
-            var mocks = new MockRepository();
-            var referenceLineObserver = mocks.Stub<IObserver>();
-            referenceLineObserver.Expect(o => o.UpdateObserver());
-
-            var observable1 = mocks.StrictMock<IObservable>();
-            observable1.Expect(o => o.NotifyObservers());
-            var observable2 = mocks.StrictMock<IObservable>();
-            observable2.Expect(o => o.NotifyObservers());
-
-            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.Same(referenceLine),
-                                         Arg<ReferenceLine>.Is.NotNull))
-                   .Return(new[]
+            var handler = Substitute.For<IReferenceLineUpdateHandler>();
+            handler.ConfirmUpdate().Returns(true);
+            handler.Update(referenceLine,
+                           Arg.Is<ReferenceLine>(x => x != null))
+                   .Returns(new[]
                    {
                        observable1,
                        observable2
                    });
-            handler.Expect(h => h.DoPostUpdateActions());
-
-            mocks.ReplayAll();
-
             referenceLine.Attach(referenceLineObserver);
 
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
@@ -440,7 +379,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
+            referenceLineObserver.Received().UpdateObserver();
+            observable1.Received().NotifyObservers();
+            observable2.Received().NotifyObservers();
+            handler.Received().DoPostUpdateActions();
         }
     }
 }

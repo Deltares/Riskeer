@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
@@ -51,10 +51,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfiguration_WithDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             var random = new Random(21);
             RoundedDouble mean = random.NextRoundedDouble();
             RoundedDouble standardDeviation = random.NextRoundedDouble();
@@ -88,10 +85,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfigurationWithMean_WithDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             var random = new Random(21);
             RoundedDouble mean = random.NextRoundedDouble();
 
@@ -123,10 +117,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfigurationWithStandardDeviation_WithDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             var random = new Random(21);
             RoundedDouble standardDeviation = random.NextRoundedDouble();
 
@@ -158,10 +149,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfiguration_WithVariationCoefficientDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var random = new Random(21);
             RoundedDouble mean = random.NextRoundedDouble();
             RoundedDouble variationCoefficient = random.NextRoundedDouble();
@@ -195,10 +183,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfigurationWithMean_WithVariationCoefficientDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var random = new Random(21);
             RoundedDouble mean = random.NextRoundedDouble();
 
@@ -230,10 +215,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToStochastConfigurationWithVariationCoefficient_WithDistribution_InstanceWithExpectedParametersSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var random = new Random(21);
             RoundedDouble variationCoefficient = random.NextRoundedDouble();
 
@@ -267,27 +249,19 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void TrySetMean_DistributionMeanNull_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             // Call
             bool result = distribution.TrySetMean(null, "A", "B");
 
             // Assert
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void TrySetMean_DistributionMeanValid_SetMeanAndReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             const double mean = 1.1;
 
             // Call
@@ -296,8 +270,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(mean, distribution.Mean);
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -305,13 +277,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            distribution.Expect(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
+            distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -328,8 +296,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -352,27 +318,19 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void TrySetStandardDeviation_DistributionStandardDeviationNull_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             // Call
             bool result = distribution.TrySetStandardDeviation(null, "A", "B");
 
             // Assert
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void TrySetStandardDeviation_DistributionStandardDeviationValid_SetStandardDeviationAndReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             const double standardDeviation = 1.1;
 
             // Call
@@ -381,8 +339,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(standardDeviation, distribution.StandardDeviation);
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -390,13 +346,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            distribution.Expect(d => d.StandardDeviation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
+            distribution.When(d => d.StandardDeviation = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int standardDeviation = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -413,8 +365,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -444,11 +394,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             var defaultMean = new RoundedDouble(2, -1.0);
             var defaultStandardDeviation = new RoundedDouble(2, -2.0);
-
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
             distribution.Mean = defaultMean;
             distribution.StandardDeviation = defaultStandardDeviation;
 
@@ -460,8 +406,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             Assert.AreEqual(mean ?? defaultMean.Value, distribution.Mean.Value);
             Assert.AreEqual(standardDeviation ?? defaultStandardDeviation.Value, distribution.StandardDeviation.Value);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -469,13 +413,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            distribution.Expect(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IDistribution>();
+            distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -492,8 +432,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -501,14 +439,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            distribution.Expect(d => d.StandardDeviation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            distribution.Stub(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument();
-            mocks.ReplayAll();
+            var distribution = Substitute.For<IDistribution>();
+            distribution.When(d => d.StandardDeviation = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
 
             const int standardDeviation = 5;
             const string stochastName = "B";
@@ -526,8 +459,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -550,27 +481,19 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void TrySetMean_VariationCoefficientDistributionMeanNull_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             // Call
             bool result = distribution.TrySetMean(null, "A", "B");
 
             // Assert
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void TrySetMean_VariationCoefficientDistributionMeanValid_SetMeanAndReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             const double mean = 1.1;
 
             // Call
@@ -579,8 +502,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(mean, distribution.Mean);
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -588,13 +509,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            distribution.Expect(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
+            distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -611,8 +528,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -635,27 +550,19 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void TrySetVariationCoefficient_VariationCoefficientDistributionVariationCoefficientNull_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             // Call
             bool result = distribution.TrySetVariationCoefficient(null, "A", "B");
 
             // Assert
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void TrySetVariationCoefficient_VariationCoefficientDistributionVariationCoefficientValid_SetVariationCoefficientAndReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             const double variationCoefficient = 1.1;
 
             // Call
@@ -664,8 +571,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(variationCoefficient, distribution.CoefficientOfVariation);
             Assert.IsTrue(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -673,13 +578,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            distribution.Expect(d => d.CoefficientOfVariation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
+            distribution.When(d => d.CoefficientOfVariation = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int variationCoefficient = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -696,8 +597,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -727,11 +626,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             var defaultMean = new RoundedDouble(2, -1.0);
             var defaultVariationCoefficient = new RoundedDouble(2, -2.0);
-
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.Mean = defaultMean;
             distribution.CoefficientOfVariation = defaultVariationCoefficient;
 
@@ -743,8 +638,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             Assert.AreEqual(mean ?? defaultMean.Value, distribution.Mean.Value);
             Assert.AreEqual(variationCoefficient ?? defaultVariationCoefficient.Value, distribution.CoefficientOfVariation.Value);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -752,13 +645,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            distribution.Expect(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
+            distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -775,8 +664,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -784,14 +671,9 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             const string exceptionMessage = "A";
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            distribution.Expect(d => d.CoefficientOfVariation)
-                        .SetPropertyAndIgnoreArgument()
-                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
-            distribution.Stub(d => d.Mean)
-                        .SetPropertyAndIgnoreArgument();
-            mocks.ReplayAll();
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
+            distribution.When(d => d.CoefficientOfVariation = Arg.Any<RoundedDouble>())
+                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
 
             const int variationCoefficient = 5;
             const string stochastName = "B";
@@ -809,8 +691,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
-
-            mocks.VerifyAll();
         }
     }
 }

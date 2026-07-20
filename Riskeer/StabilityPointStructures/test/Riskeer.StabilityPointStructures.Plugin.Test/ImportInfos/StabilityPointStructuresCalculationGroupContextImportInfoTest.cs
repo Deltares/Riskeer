@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
@@ -62,9 +61,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var context = new StabilityPointStructuresCalculationGroupContext(new CalculationGroup(),
                                                                               null,
@@ -81,8 +78,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<StabilityPointStructuresCalculationConfigurationImporter>(fileImporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

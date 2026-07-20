@@ -23,8 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
@@ -153,10 +153,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
         public void HasValidPop_MeanNaN_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var pop = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var pop = Substitute.For<IVariationCoefficientDistribution>();
             pop.Mean = RoundedDouble.NaN;
             pop.CoefficientOfVariation = new RoundedDouble(2);
 
@@ -165,17 +162,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
 
             // Assert
             Assert.IsFalse(hasValidPop);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void HasValidPop_CoefficientOfVariationNaN_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var pop = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var pop = Substitute.For<IVariationCoefficientDistribution>();
             pop.Mean = new RoundedDouble(2);
             pop.CoefficientOfVariation = RoundedDouble.NaN;
 
@@ -184,17 +177,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
 
             // Assert
             Assert.IsFalse(hasValidPop);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void HasValidPop_DistributionWithValidValues_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var pop = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var pop = Substitute.For<IVariationCoefficientDistribution>();
             pop.Mean = new RoundedDouble(2);
             pop.CoefficientOfVariation = new RoundedDouble(2);
 
@@ -203,16 +192,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
 
             // Assert
             Assert.IsTrue(hasValidPop);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetLayerForPreconsolidationStress_LayersNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var preconsolidationStress = mocks.Stub<IMacroStabilityInwardsPreconsolidationStress>();
-            mocks.ReplayAll();
+            var preconsolidationStress = Substitute.For<IMacroStabilityInwardsPreconsolidationStress>();
 
             // Call
             void Call() => PersistableStateHelper.GetLayerForPreconsolidationStress(null, preconsolidationStress);
@@ -220,7 +206,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("layers", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

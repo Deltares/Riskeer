@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -78,18 +78,12 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void GetRootData_OtherThanRiskeerProject_ReturnsNull()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<IProject>();
-
-            mockRepository.ReplayAll();
-
+            var project = Substitute.For<IProject>();
             // Call
             object rootData = info.GetRootData(project);
 
             // Assert
             Assert.IsNull(rootData);
-
-            mockRepository.VerifyAll();
         }
     }
 }

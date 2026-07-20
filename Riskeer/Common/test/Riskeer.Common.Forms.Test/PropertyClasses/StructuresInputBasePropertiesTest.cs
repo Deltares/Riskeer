@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -48,7 +48,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class StructuresInputBasePropertiesTest
     {
-        private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
         private IFailureMechanism failureMechanism;
@@ -56,18 +55,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            handler = Substitute.For<IObservablePropertyChangeHandler>();
+            assessmentSection = Substitute.For<IAssessmentSection>();
+            failureMechanism = Substitute.For<IFailureMechanism>();
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -79,15 +75,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("constructionProperties", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_DataIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
 
             // Call
@@ -96,7 +89,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("data", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -122,8 +114,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -264,8 +254,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Illustratiepunten inlezen", shouldIllustrationPointsBeCalculatedProperty.DisplayName);
             Assert.AreEqual("Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
                             shouldIllustrationPointsBeCalculatedProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -274,8 +262,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithOrWithoutStructure_CorrectReadOnlyForStructureDependentProperties(bool hasStructure)
         {
             // Setup
-            mockRepository.ReplayAll();
-
             StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -313,8 +299,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -333,7 +317,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.DoesNotThrow(call);
             Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -342,7 +325,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -355,9 +338,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
@@ -390,16 +370,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
             Assert.AreEqual(distanceToInputStructureLocation, itemDistance, itemDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_InputWithLocationsStructure_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -432,8 +408,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
             Assert.AreEqual(distanceToInputStructureLocation, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -442,7 +416,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -455,9 +429,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                     }
                 }
             });
-
-            mockRepository.ReplayAll();
-
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
@@ -485,8 +456,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -510,10 +479,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mockRepository.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
@@ -533,7 +499,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                      .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                      .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -559,10 +524,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mockRepository.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
@@ -591,7 +553,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -617,10 +578,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
-            mockRepository.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
@@ -662,7 +620,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -670,11 +627,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 6;
-            var observer = mockRepository.StrictMock<IObserver>();
-
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            mockRepository.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -718,7 +671,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreSame(newHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreSame(newForeshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(newShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
-            mockRepository.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
@@ -927,10 +880,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<SimpleStructuresInputProperties> setProperty)
         {
             // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             SimpleStructureInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
@@ -951,7 +901,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             setProperty(properties);
 
             // Assert
-            mockRepository.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         private static void AssertPropertiesInState(object properties, bool expectedReadOnly)

@@ -25,8 +25,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
@@ -58,10 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(21);
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
@@ -90,17 +87,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.FailureMechanismSensitiveSectionLength.NumberOfDecimalPlaces);
             Assert.AreEqual(sectionConfiguration.GetFailureMechanismSensitiveSectionLength(), properties.FailureMechanismSensitiveSectionLength,
                             properties.FailureMechanismSensitiveSectionLength.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var propertyChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
@@ -175,12 +168,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(21);
             RoundedDouble newValue = random.NextRoundedDouble();
-
-            var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new PipingFailureMechanismSectionConfiguration(section);
 
@@ -197,8 +185,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
             Assert.IsTrue(customHandler.Called);
-
-            mockRepository.VerifyAll();
+            observable.Received().NotifyObservers();
         }
     }
 }

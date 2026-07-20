@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 using Core.Gui.Forms.Main;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Core.Gui.TestUtil
 {
@@ -34,14 +34,13 @@ namespace Core.Gui.TestUtil
         /// <summary>
         /// Creates a new <see cref="IMainWindow"/> stub.
         /// </summary>
-        /// <param name="mockRepository">The <see cref="MockRepository"/> to use.</param>
         /// <returns>The <see cref="IMainWindow"/> stub.</returns>
-        public static IMainWindow CreateMainWindowStub(MockRepository mockRepository)
+        public static IMainWindow CreateMainWindowStub()
         {
-            var mainWindow = mockRepository.Stub<IMainWindow>();
+            var mainWindow = Substitute.For<IMainWindow>();
 
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(SystemIcons.Application);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
+            mainWindow.Handle.Returns(IntPtr.Zero);
 
             return mainWindow;
         }

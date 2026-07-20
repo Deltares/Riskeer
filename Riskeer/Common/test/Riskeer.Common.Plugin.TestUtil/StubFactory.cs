@@ -21,7 +21,7 @@
 
 using Core.Gui;
 using Core.Gui.Forms.ViewHost;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Riskeer.Common.Plugin.TestUtil
 {
@@ -33,17 +33,11 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Creates a basic stub of <see cref="IGui"/>.
         /// </summary>
-        /// <param name="mockRepository">The repository to use for creating the stub.</param>
         /// <returns>The created <see cref="IGui"/> stub.</returns>
-        public static IGui CreateGuiStub(MockRepository mockRepository)
+        public static IGui CreateGuiStub()
         {
-            var gui = mockRepository.Stub<IGui>();
-
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
-
-            gui.Replay();
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             return gui;
         }

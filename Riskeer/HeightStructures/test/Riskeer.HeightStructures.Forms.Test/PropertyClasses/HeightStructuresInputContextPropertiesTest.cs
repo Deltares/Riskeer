@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
@@ -70,22 +70,19 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
         private const int calculateIllustrationPointsPropertyIndex = 16;
 
-        private MockRepository mockRepository;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection = Substitute.For<IAssessmentSection>();
         }
 
         [Test]
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             TestDelegate test = () => new HeightStructuresInputContextProperties(null, handler);
@@ -99,7 +96,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -121,8 +117,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithData_ExpectedValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>
@@ -179,16 +174,13 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                 nameof(HeightStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
 
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -328,8 +320,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             outputSettingsCategory,
                                                                             "Illustratiepunten inlezen",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -338,8 +328,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithOrWithoutStructure_CorrectReadOnlyForStructureDependentProperties(bool hasStructure)
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -363,16 +352,13 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedReadOnly, failureProbabilityStructureWithErosionProperty.IsReadOnly);
 
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, expectedReadOnly, expectedReadOnly);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
@@ -392,15 +378,13 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
         {
             // Setup
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.AddRange(new[]
@@ -419,7 +403,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(failureMechanism.HeightStructures, availableStructures);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -429,11 +412,9 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var random = new Random(21);
             bool newBoolean = random.NextBoolean();
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -450,7 +431,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -561,9 +541,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutput(Action<HeightStructuresInputContextProperties> setProperty)
         {
             // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -587,8 +565,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
-
-            mockRepository.VerifyAll();
         }
     }
 }

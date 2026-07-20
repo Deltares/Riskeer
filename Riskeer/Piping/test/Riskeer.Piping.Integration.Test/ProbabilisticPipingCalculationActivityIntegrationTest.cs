@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
@@ -35,6 +35,7 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Piping;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
@@ -87,13 +88,8 @@ namespace Riskeer.Piping.Integration.Test
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestPipingCalculator())
-                             .Repeat.Twice();
-            mocks.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -126,24 +122,15 @@ namespace Riskeer.Piping.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenProbabilisticPipingCalculationActivity_WhenRunAndFinished_ThenOutputSetAndObserversNotified()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestPipingCalculator())
-                             .Repeat.Twice();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
@@ -167,21 +154,15 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.IsNotNull(calculation.Output);
             }
 
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
         public void Run_ValidCalculation_ProgressTextSetAccordingly()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestPipingCalculator())
-                             .Repeat.Twice();
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
@@ -207,8 +188,6 @@ namespace Riskeer.Piping.Integration.Test
 
                 Assert.AreEqual(expectedProgressTexts, progressTexts);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -225,21 +204,10 @@ namespace Riskeer.Piping.Integration.Test
                 LastErrorFileContent = lastErrorFileContent,
                 EndInFailure = true
             };
+            var observer = Substitute.For<IObserver>();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(profileSpecificCalculator)
-                             .Repeat.Once();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestPipingCalculator())
-                             .Repeat.Once();
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(profileSpecificCalculator, new TestPipingCalculator());
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
@@ -277,8 +245,6 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
             }
-
-            mocks.VerifyAll(); // No observers notified
         }
 
         [Test]
@@ -295,21 +261,10 @@ namespace Riskeer.Piping.Integration.Test
                 LastErrorFileContent = lastErrorFileContent,
                 EndInFailure = true
             };
+            var observer = Substitute.For<IObserver>();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestPipingCalculator())
-                             .Repeat.Once();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(sectionSpecificCalculator)
-                             .Repeat.Once();
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator(), sectionSpecificCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
@@ -348,28 +303,17 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
             }
-
-            mocks.VerifyAll(); // No observers notified
+            // No observers notified
         }
 
         [Test]
         public void Run_ValidCalculation_InputPropertiesCorrectlySentToService()
         {
             // Setup
-            var mocks = new MockRepository();
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(profileSpecificCalculator)
-                             .Repeat.Once();
-            calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(sectionSpecificCalculator)
-                             .Repeat.Once();
-            mocks.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(profileSpecificCalculator, sectionSpecificCalculator);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
@@ -396,16 +340,13 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(1, profileSpecificInputs.Length);
                 Assert.AreEqual(1, sectionSpecificInputs.Length);
 
-                PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single(
-                    c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
-                        Math2D.ConvertPointsToLineSegments(c.Section.Points)));
+                PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.Single(c => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
+                                                                                                                                    Math2D.ConvertPointsToLineSegments(c.Section.Points)));
                 double failureMechanismSensitiveSectionLength = sectionConfiguration.GetFailureMechanismSensitiveSectionLength();
 
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, failureMechanismSensitiveSectionLength, sectionSpecificInputs[0]);
             }
-
-            mocks.VerifyAll();
         }
 
         private static void AssertCalculatorInput(GeneralPipingInput generalInput, ProbabilisticPipingInput input, double sectionLength, PipingCalculationInput actualInput)

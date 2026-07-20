@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,8 +25,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -80,11 +80,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -114,8 +110,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -125,11 +119,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void Validate_InvalidLowSillLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
             // Setup 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -205,11 +195,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void Validate_InvalidLowSillQuadraticCalculation_LogsErrorAndReturnsFalse(double value)
         {
             // Setup 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -285,11 +271,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void Validate_InvalidFloodedCulvertLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
             // Setup 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -367,11 +349,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void Validate_InvalidQuadraticCulvertLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
             // Setup 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -448,11 +426,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -471,7 +445,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                     expectedMessage).ParamName;
             Assert.AreEqual("input", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -482,11 +455,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -506,16 +475,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                     expectedMessage).ParamName;
             Assert.AreEqual("input", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -542,8 +508,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("structureInput", paramName);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -554,9 +518,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -582,8 +544,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("structureInput", paramName);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -594,17 +554,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -701,8 +656,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -714,17 +667,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -823,8 +771,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -835,17 +781,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -942,8 +883,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -955,17 +894,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1064,8 +998,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1076,17 +1008,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1185,8 +1112,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1198,17 +1123,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1309,8 +1229,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1321,17 +1239,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1430,8 +1343,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1443,17 +1354,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1554,8 +1460,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1569,21 +1473,18 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Is<HydraRingCalculationSettings>(settings => settings != null)).Returns(calculator);
+            calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                       Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
+                             .Do(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+                                     calculationSettings, (HydraRingCalculationSettings) invocation[0]);
+                             });
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1602,7 +1503,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Is<HydraRingCalculationSettings>(settings => settings != null));
         }
 
         [Test]
@@ -1618,16 +1520,11 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1675,8 +1572,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1685,20 +1580,15 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1740,8 +1630,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1750,19 +1638,14 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1804,8 +1687,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1814,19 +1695,14 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validHrdFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred"
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
@@ -1871,8 +1747,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()

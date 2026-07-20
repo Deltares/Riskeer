@@ -28,9 +28,9 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data;
@@ -81,10 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void IsEnabled_SoilModelCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
 
@@ -95,17 +92,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_SoilModelCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
             stochasticSoilModel.AddRange(Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), "some/path");
@@ -117,7 +110,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -134,14 +126,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -155,7 +144,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsTrue(updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -164,14 +152,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -209,17 +194,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CurrentPath_StochasticSoilModelCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             const string expectedFilePath = "some/path";
             var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             stochasticSoilModelCollection.AddRange(new[]
@@ -236,17 +217,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual(expectedFilePath, currentPath);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var importTarget = new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
@@ -256,7 +233,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.IsInstanceOf<StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>>(importer);
-            mocks.VerifyAll();
         }
 
         public override void Setup()

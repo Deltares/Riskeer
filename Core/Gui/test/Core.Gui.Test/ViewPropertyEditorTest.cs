@@ -21,8 +21,8 @@
 
 using System.Drawing.Design;
 using Core.Gui.Commands;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test
 {
@@ -59,10 +59,7 @@ namespace Core.Gui.Test
             var editor = new ViewPropertyEditor();
             var data = new object();
 
-            var mocks = new MockRepository();
-            var commands = mocks.StrictMock<IViewCommands>();
-            commands.Expect(c => c.OpenView(data));
-            mocks.ReplayAll();
+            var commands = Substitute.For<IViewCommands>();
 
             IViewCommands originalValue = ViewPropertyEditor.ViewCommands;
             try
@@ -73,7 +70,7 @@ namespace Core.Gui.Test
                 editor.EditValue(null, null, data);
 
                 // Assert
-                mocks.VerifyAll(); // Expect 'OpenView' to be called.
+                commands.Received().OpenView(data); // Expect 'OpenView' to be called.
             }
             finally
             {

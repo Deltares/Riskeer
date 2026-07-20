@@ -25,8 +25,8 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -110,12 +110,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 2;
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var random = new Random(21);
             var failureMechanism = new SpecificFailureMechanism
             {
@@ -136,8 +131,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newName, failureMechanism.Name);
             Assert.AreEqual(newCode, failureMechanism.Code);
-
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
     }
 }

@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views;
@@ -59,10 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculationScenario = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call
@@ -85,7 +82,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, meanInsideWaterLevelColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, criticalOvertoppingDischargeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, allowedLevelIncreaseStorageColumnIndex);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -280,10 +276,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void InflowModelType_InputWithoutStructure_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(21);
             var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
@@ -296,18 +289,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call & Assert
             Assert.IsNull(row.InflowModelType);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void InflowModelType_InputWithStructure_ReturnsExpectedInflowModelType()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var random = new Random(21);
             var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
@@ -321,8 +309,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call & Assert
             Assert.AreEqual(inflowModelType, row.InflowModelType);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -351,10 +337,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(645);
 
-            var mocks = new MockRepository();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
-            mocks.ReplayAll();
-
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
@@ -370,7 +353,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, inflowModelTypeChangedCounter);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -422,10 +404,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -442,7 +421,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(0, inflowModelTypeChangedCounter);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -452,10 +430,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -472,7 +447,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(0, inflowModelTypeChangedCounter);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -579,10 +553,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             StructuresCalculationScenario<ClosingStructuresInput> calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
@@ -597,7 +568,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         /// <summary>
@@ -624,22 +595,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
+            var inputObserver = Substitute.For<IObserver>();
+            if (expectUpdates) {}
 
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
+            var calculationObserver = Substitute.For<IObserver>();
+            if (expectUpdates && hasOutput) {}
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             StructuresOutput assignedOutput = null;
 
             StructuresCalculationScenario<ClosingStructuresInput> calculation = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(new FailureMechanismSection("Section 1", new List<Point2D>
@@ -666,10 +628,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             if (expectUpdates)
             {
                 Assert.IsNull(calculation.Output);
+                inputObserver.Received().UpdateObserver();
+                calculationObserver.Received().UpdateObserver();
             }
             else
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
+                inputObserver.DidNotReceive().UpdateObserver();
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

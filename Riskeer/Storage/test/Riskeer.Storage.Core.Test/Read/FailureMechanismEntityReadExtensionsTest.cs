@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
@@ -63,9 +63,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadCommonFailureMechanismProperties_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => ((FailureMechanismEntity) null).ReadCommonFailureMechanismProperties(failureMechanism, new ReadConversionCollector());
@@ -73,7 +71,6 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,9 +91,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadCommonFailureMechanismProperties_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             var entity = new FailureMechanismEntity();
 
@@ -106,7 +101,6 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("collector", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

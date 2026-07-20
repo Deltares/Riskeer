@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
@@ -139,11 +139,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Finish_ValidPipingCalculationAndRan_NotifyObserversOfPipingCalculation()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             var validPipingCalculation =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestSemiProbabilisticPipingCalculation>(
                     new TestHydraulicBoundaryLocation());
@@ -160,7 +156,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             activity.Finish();
 
             // Assert
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection_WaveRunUpOutputNull_ThrowsArgumentNullException()
         {
-            //Setup
+            // Setup
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirection = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
@@ -183,7 +183,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection_WaveImpactWithWaveDirectionOutputNull_ThrowsArgumentNullException()
         {
-            //Setup
+            // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
@@ -217,15 +217,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection_WaveRunUpOutputNull_ThrowsArgumentNullException()
         {
-            //Setup
+            // Setup
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
             TestDelegate call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(null,
-                                                                                                                                       waveImpactOutput,
-                                                                                                                                       waveImpactWithWaveDirectionOutput);
+                                                                                                                                       waveImpactOutput, waveImpactWithWaveDirectionOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -235,7 +234,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection_WaveImpactOutputNull_ThrowsArgumentNullException()
         {
-            //Setup
+            // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = Enumerable.Empty<WaveConditionsOutput>();
 
@@ -253,7 +252,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection_WaveImpactWithWaveDirectionOutputNull_ThrowsArgumentNullException()
         {
-            //Setup
+            // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 

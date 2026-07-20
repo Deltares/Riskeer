@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -38,17 +38,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithoutCalculations_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
             TestDelegate test = () => new CalculationChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("calculations", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -68,10 +64,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithoutQuery_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
             TestDelegate test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                                    null,
@@ -86,10 +79,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithParameters_ImplementsExpectedInterface()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
             var handler = new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                        string.Empty,
@@ -97,17 +87,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_WithAllCalculationsWithoutOutput_ReturnFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             var calculations = new[]
             {
                 new TestCalculation("Test")
@@ -122,17 +108,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsFalse(requireConfirmation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_CalculationsWithOutput_ReturnTrue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
             ICalculation[] calculations =
             {
                 CalculationTestDataFactory.CreateCalculationWithOutput(),
@@ -148,7 +130,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsTrue(requireConfirmation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -161,11 +142,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(string message, bool expectedResult)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
-            mockRepository.ReplayAll();
-
+            var inquiryHandler = Substitute.For<IInquiryHelper>();
+            inquiryHandler.InquireContinuation(Arg.Any<string>()).Returns(expectedResult);
             var handler = new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                        message,
                                                        inquiryHandler);
@@ -175,7 +153,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedResult, result);
-            mockRepository.VerifyAll();
         }
     }
 }

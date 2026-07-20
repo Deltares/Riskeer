@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -40,10 +40,7 @@ namespace Riskeer.Piping.Data.Test
         public void CreateCalculateStrategy_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -53,18 +50,13 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculateStrategy_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
@@ -75,8 +67,6 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -102,10 +92,7 @@ namespace Riskeer.Piping.Data.Test
             PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionScenarioConfigurationType configurationType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             failureMechanism.SetSections(new[]
             {
@@ -131,10 +118,7 @@ namespace Riskeer.Piping.Data.Test
             PipingFailureMechanism failureMechanism, PipingFailureMechanismSectionScenarioConfigurationType configurationType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             failureMechanism.SetSections(new[]
             {

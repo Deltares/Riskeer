@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Commands;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -55,9 +55,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             // Call
             void Call() => new DuneLocationsUpdateHandler(viewCommands, null);
@@ -65,33 +63,25 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             // Call
             var handler = new DuneLocationsUpdateHandler(viewCommands, new DuneErosionFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<IDuneLocationsUpdateHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var handler = new DuneLocationsUpdateHandler(viewCommands, failureMechanism);
 
@@ -101,17 +91,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddLocations_AddedLocationIsDuneLocation_LocationAndCalculationsAdded()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -145,18 +131,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             DuneLocation duneLocation = failureMechanism.DuneLocations.Single();
             Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             AssertDuneLocationCalculations(duneLocation, failureMechanism);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddLocations_FailureMechanismHasDuneLocations_LocationsAndCalculationsAdded()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -197,18 +178,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             {
                 AssertDuneLocationCalculations(duneLocation, failureMechanism);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RemoveLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new DuneLocationsUpdateHandler(viewCommands, new DuneErosionFailureMechanism());
 
             // Call
@@ -223,10 +199,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         public void GivenFailureMechanismWithLocationsAndCalculations_WhenRemoveLocations_ThenExpectedLocationsRemoved()
         {
             // Given
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var failureMechanism = new DuneErosionFailureMechanism
@@ -259,7 +232,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             // Then
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsEmpty(duneLocationCalculationsForTargetProbability.DuneLocationCalculations);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -267,12 +239,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(failureMechanism));
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var handler = new DuneLocationsUpdateHandler(viewCommands, failureMechanism);
 
             // Precondition
@@ -282,17 +249,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            mocks.VerifyAll();
+            viewCommands.Received().RemoveAllViewsForItem(failureMechanism);
         }
 
         [Test]
         public void DoPostUpdateActions_FailureMechanismHasDuneLocations_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
+            var viewCommands = Substitute.For<IViewCommands>();
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism();
 
@@ -309,7 +273,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls in 'viewCommands'
+            Assert.AreEqual(0, viewCommands.ReceivedCalls().Count());
         }
 
         private static HydraulicBoundaryLocation CreateLocationThatIsDuneLocation(Random random)
@@ -322,9 +286,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             ObservableList<DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
                 failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
 
-            foreach (DuneLocationCalculation duneLocationCalculation in userDefinedTargetProbabilities.Select(
-                         userDefinedTargetProbability => userDefinedTargetProbability.DuneLocationCalculations.SingleOrDefault(
-                             c => c.DuneLocation == expectedDuneLocation)))
+            foreach (DuneLocationCalculation duneLocationCalculation in userDefinedTargetProbabilities.Select(userDefinedTargetProbability => userDefinedTargetProbability.DuneLocationCalculations.SingleOrDefault(c => c.DuneLocation == expectedDuneLocation)))
             {
                 Assert.IsNotNull(duneLocationCalculation);
                 Assert.IsNull(duneLocationCalculation.Output);

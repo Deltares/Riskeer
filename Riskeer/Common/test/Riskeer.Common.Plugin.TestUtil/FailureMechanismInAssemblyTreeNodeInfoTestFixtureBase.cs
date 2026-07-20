@@ -28,8 +28,8 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -56,25 +56,18 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ContextMenuStrip_FailureMechanismInAssemblyTrueAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyFalseAndRemovesAllViewsForItem()
         {
             // Setup
-            var mocks = new MockRepository();
-
             var failureMechanism = new TFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
                 using (var plugin = new TPlugin
                 {
@@ -89,39 +82,32 @@ namespace Riskeer.Common.Plugin.TestUtil
 
                         // Assert
                         Assert.IsFalse(failureMechanism.InAssembly);
+                        viewCommands.Received(1).RemoveAllViewsForItem(context);
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyFalseAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyTrueAndRemovesAllViewsForItem()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new TFailureMechanism
             {
                 InAssembly = false
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.ViewCommands.Returns(viewCommands);
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
                 using (var plugin = new TPlugin
                 {
@@ -136,31 +122,26 @@ namespace Riskeer.Common.Plugin.TestUtil
 
                         // Assert
                         Assert.IsTrue(failureMechanism.InAssembly);
+                        viewCommands.Received(1).RemoveAllViewsForItem(context);
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyTrue_AddCustomItems()
         {
             // Setup
-            var mocks = new MockRepository();
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var failureMechanism = new TFailureMechanism();
                 TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeView).Returns(menuBuilder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
                 using (var plugin = new TPlugin
                 {
@@ -180,18 +161,15 @@ namespace Riskeer.Common.Plugin.TestUtil
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_AddCustomItems()
         {
             // Setup
-            var mocks = new MockRepository();
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = Substitute.For<IAssessmentSection>();
                 var failureMechanism = new TFailureMechanism
                 {
                     InAssembly = false
@@ -200,12 +178,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeView).Returns(menuBuilder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
                 using (var plugin = new TPlugin
                 {
@@ -225,8 +200,6 @@ namespace Riskeer.Common.Plugin.TestUtil
                     }
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         /// <summary>

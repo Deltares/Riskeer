@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
@@ -53,10 +53,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState
         public void CreateInstance_WithContext_SetsFailureMechanismAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -71,8 +68,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState
                 Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)

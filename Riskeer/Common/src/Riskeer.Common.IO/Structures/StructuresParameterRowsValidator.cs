@@ -379,8 +379,7 @@ namespace Riskeer.Common.IO.Structures
                     continue;
                 }
 
-                List<string> validationMessages = rules[name](structureParameterRows.First(
-                                                                  row => GetMatchingStructuresParameterRow(row.ParameterId, name)));
+                List<string> validationMessages = rules[name](structureParameterRows.First(row => GetMatchingStructuresParameterRow(row.ParameterId, name)));
 
                 if (validationMessages.Count > 0)
                 {

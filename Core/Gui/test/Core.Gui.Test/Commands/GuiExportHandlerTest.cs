@@ -33,9 +33,9 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Commands
 {
@@ -48,10 +48,7 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_NoExporterAvailable_GivesMessageBoxAndLogsMessage(object source)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
             string messageBoxText = null;
             string messageBoxTitle = null;
 
@@ -75,7 +72,6 @@ namespace Core.Gui.Test.Commands
             TestHelper.AssertLogMessageIsGenerated(call, $"Het is niet mogelijk om de huidige selectie ({sourceTypeName}) te exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Het is niet mogelijk om de huidige selectie te exporteren.", messageBoxText);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -84,10 +80,7 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_NoSupportedExporterAvailable_GivesMessageBoxAndLogsMessage(object source)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
             string messageBoxText = null;
             string messageBoxTitle = null;
 
@@ -114,7 +107,6 @@ namespace Core.Gui.Test.Commands
             TestHelper.AssertLogMessageIsGenerated(call, $"Het is niet mogelijk om de huidige selectie ({sourceTypeName}) te exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Het is niet mogelijk om de huidige selectie te exporteren.", messageBoxText);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -122,11 +114,8 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_SupportedExporterAvailableNoFilePathGiven_AbortsExport()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter = mockRepository.StrictMock<IFileExporter>();
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var exporter = Substitute.For<IFileExporter>();
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
@@ -140,7 +129,7 @@ namespace Core.Gui.Test.Commands
             exportHandler.ExportFrom(1234);
 
             // Assert
-            mockRepository.VerifyAll(); // Expect no calls on exporter mock
+            // Expect no calls on exporter mock
         }
 
         [Test]
@@ -148,12 +137,9 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterRunsSuccessful_CallsExportAndLogsMessages()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter = mockRepository.StrictMock<IFileExporter>();
-            exporter.Stub(e => e.Export()).Return(true);
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var exporter = Substitute.For<IFileExporter>();
+            exporter.Export().Returns(true);
             const int expectedData = 1234;
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
 
@@ -187,7 +173,6 @@ namespace Core.Gui.Test.Commands
                 $"Gegevens zijn geëxporteerd naar bestand '{targetExportFileName}'.",
                 $"Exporteren van '{exportInfoName}' is gelukt."
             });
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -195,12 +180,9 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterFails_CallsExportAndLogsMessages()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter = mockRepository.StrictMock<IFileExporter>();
-            exporter.Stub(e => e.Export()).Return(false);
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var exporter = Substitute.For<IFileExporter>();
+            exporter.Export().Returns(false);
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
 
             const string exportInfoName = "Random data";
@@ -223,7 +205,6 @@ namespace Core.Gui.Test.Commands
                 $"Exporteren van '{exportInfoName}' is gestart.",
                 $"Exporteren van '{exportInfoName}' is mislukt."
             });
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -231,10 +212,7 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_MultipleSupportedExportersAvailableWithDefaultSelectionDialogStyling_GivesExpectedSelectionDialog()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
             var dialogText = "";
             TestListViewItem[] listViewItems = null;
 
@@ -270,18 +248,13 @@ namespace Core.Gui.Test.Commands
             Assert.AreEqual("Algemeen", listViewItems[0].Group);
             Assert.AreEqual("", listViewItems[1].Name);
             Assert.AreEqual("Algemeen", listViewItems[1].Group);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanExportFrom_HasNoFileExportersForTarget_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
             {
                 new ExportInfo<int>(), // Wrong object type
@@ -296,17 +269,13 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(isExportPossible);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanExportFrom_HasOneFileExporterForTarget_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
             {
                 new ExportInfo<object>()
@@ -317,17 +286,13 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(isExportPossible);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanExportFrom_HasMultipleFileExportersForTarget_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
             {
                 new ExportInfo<object>(),
@@ -339,7 +304,6 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(isExportPossible);
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -348,10 +312,7 @@ namespace Core.Gui.Test.Commands
         public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog(bool hasFileExtension)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
             var dialogText = "";
             TestListViewItem[] listViewItems = null;
 
@@ -411,8 +372,6 @@ namespace Core.Gui.Test.Commands
                                            : exportInfo2Name;
             Assert.AreEqual(expectedItemName2, listViewItems[1].Name);
             Assert.AreEqual(exportInfo2.Category, listViewItems[1].Group);
-
-            mockRepository.VerifyAll();
         }
 
         private class TestListViewItem

@@ -31,8 +31,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Settings;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -149,10 +149,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             string projectFilePath = GetRandomProjectFilePath();
             string expectedProjectName = Path.GetFileNameWithoutExtension(projectFilePath);
 
-            var mocks = new MockRepository();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(projectFilePath)).Return(MigrationRequired.No);
-            mocks.ReplayAll();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            projectMigrator.ShouldMigrate(projectFilePath).Returns(MigrationRequired.No);
 
             var projectStore = new StorageSqLite();
 
@@ -186,8 +184,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
                 AssertProjectsAreEqual(fullProject, (RiskeerProject) gui.Project);
             }
-
-            mocks.VerifyAll();
         }
 
         [OneTimeSetUp]

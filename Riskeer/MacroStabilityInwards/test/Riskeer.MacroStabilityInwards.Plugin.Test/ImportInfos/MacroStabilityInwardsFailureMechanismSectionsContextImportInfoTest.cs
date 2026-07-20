@@ -26,8 +26,8 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ImportInfos;
@@ -46,12 +46,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -64,20 +61,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", name);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -90,20 +82,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
                 // Assert
                 Assert.AreEqual("Algemeen", category);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -116,19 +103,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             ImportInfo importInfo = GetImportInfo();
@@ -138,18 +120,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             ImportInfo importInfo = GetImportInfo();
@@ -159,19 +137,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -184,22 +158,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -214,14 +183,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ImportInfo GetImportInfo()
         {
-            return RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<MacroStabilityInwardsFailureMechanismSectionsContext>(
-                c => new MacroStabilityInwardsFailureMechanismSectionReplaceStrategy((MacroStabilityInwardsFailureMechanism) c.WrappedData));
+            return RiskeerImportInfoFactory.CreateFailureMechanismSectionsImportInfo<MacroStabilityInwardsFailureMechanismSectionsContext>(c => new MacroStabilityInwardsFailureMechanismSectionReplaceStrategy((MacroStabilityInwardsFailureMechanism) c.WrappedData));
         }
     }
 }

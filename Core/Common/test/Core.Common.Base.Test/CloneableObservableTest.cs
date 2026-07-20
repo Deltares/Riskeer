@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Data.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Base.Test
 {
@@ -44,13 +44,10 @@ namespace Core.Common.Base.Test
         public void Clone_Always_ReturnNewInstanceWithEmptyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
             var original = new TestCloneableObservable();
-            var observer = mocks.Stub<IObserver>();
+            var observer = Substitute.For<IObserver>();
 
             original.Attach(observer);
-
-            mocks.ReplayAll();
 
             // Call
             object clone = original.Clone();
@@ -60,8 +57,6 @@ namespace Core.Common.Base.Test
             {
                 CollectionAssert.IsEmpty(c.Observers);
             });
-
-            mocks.VerifyAll();
         }
 
         private class TestCloneableObservable : CloneableObservable {}

@@ -30,8 +30,8 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -52,15 +52,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddCreateCalculationGroupItem_WhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculationGroup = new CalculationGroup();
@@ -85,8 +81,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                               RiskeerFormsResources.AddFolderIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,16 +88,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddCreateCalculationItem_WhenBuild_ItemAddedToContextMenu(CalculationType calculationType, Bitmap expectedImage)
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var parent = new CalculationGroup();
@@ -130,26 +120,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                               expectedImage);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearAllCalculationOutputInGroupItem_WhenBuildWithCalculationOutput_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -179,23 +163,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerFormsResources.ClearIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearAllCalculationOutputInGroupItem_WhenBuildWithoutCalculationOutput_ItemAddedToContextMenuDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var calculationGroup = new CalculationGroup();
 
             using (var treeViewControl = new TreeViewControl())
@@ -222,29 +200,24 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ClearIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearAllCalculationOutputInFailureMechanismItem_WhenBuildWithCalculationOutput_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
+            calculationWithOutput.HasOutput.Returns(true);
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new[]
             {
                 calculationWithOutput
             });
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -268,25 +241,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
                                                               RiskeerFormsResources.ClearIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearAllCalculationOutputInFailureMechanismItem_WhenBuildWithoutCalculationOutput_ItemAddedToContextMenuDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new List<ICalculation>());
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+            failureMechanism.Calculations.Returns(new List<ICalculation>());
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -311,8 +278,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ClearIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -321,18 +286,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddToggleInAssemblyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.InAssembly).Return(inAssembly);
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fmc => fmc.WrappedData).Return(failureMechanism);
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
+            failureMechanism.InAssembly.Returns(inAssembly);
+            var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.WrappedData.Returns(failureMechanism);
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -356,26 +318,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                               checkboxIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearCalculationOutputItem_WhenBuildWithCalculationWithOutput_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var calculationWithOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-
-            mocks.ReplayAll();
-
+            calculationWithOutput.HasOutput.Returns(true);
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -399,26 +355,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van deze berekening.",
                                                               RiskeerFormsResources.ClearIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddClearCalculationOutputItem_WhenBuildWithCalculationWithoutOutput_ItemAddedToContextMenuDisabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-
-            mocks.ReplayAll();
-
+            calculationWithoutOutput.HasOutput.Returns(false);
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -443,141 +393,104 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ClearIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddRenameItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddRenameItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
-            // Call
+            // Call    
             riskeerContextMenuBuilder.AddRenameItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddRenameItem();
         }
 
         [Test]
         public void AddDeleteItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddDeleteItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddDeleteItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddDeleteItem();
         }
 
         [Test]
         public void AddExpandAllItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddExpandAllItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddExpandAllItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddExpandAllItem();
         }
 
         [Test]
         public void AddCollapseAllItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(cmb => cmb.AddCollapseAllItem());
-
-            mocks.ReplayAll();
-
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(menuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddCollapseAllItem();
 
             // Assert
-            mocks.VerifyAll();
+            menuBuilder.Received().AddCollapseAllItem();
         }
 
         [Test]
         public void AddOpenItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddOpenItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddOpenItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddOpenItem();
         }
 
         [Test]
         public void AddExportItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddExportItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddExportItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddExportItem();
         }
 
         [Test]
         public void AddImportItemWithoutParameters_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddImportItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddImportItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddImportItem();
         }
 
         [Test]
@@ -585,20 +498,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
-
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(importInfos));
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddImportItem(importInfos);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddImportItem(importInfos);
         }
 
         [Test]
@@ -608,20 +515,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string text = "import";
             const string toolTip = "import tooltip";
             Bitmap image = RiskeerFormsResources.DatabaseIcon;
-
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image));
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddImportItem(text, toolTip, image);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddImportItem(text, toolTip, image);
         }
 
         [Test]
@@ -632,98 +533,71 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             const string toolTip = "import tooltip";
             Bitmap image = RiskeerFormsResources.DatabaseIcon;
             IEnumerable<ImportInfo> importInfos = Enumerable.Empty<ImportInfo>();
-
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddImportItem(text, toolTip, image, importInfos));
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddImportItem(text, toolTip, image, importInfos);
         }
 
         [Test]
         public void AddPropertiesItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddPropertiesItem());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddPropertiesItem();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddPropertiesItem();
         }
 
         [Test]
         public void AddSeparator_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddSeparator());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddSeparator();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddSeparator();
         }
 
         [Test]
         public void AddCustomItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuItem = mocks.StrictMock<StrictContextMenuItem>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(contextMenuItem));
-
-            mocks.ReplayAll();
-
+            var contextMenuItem = new StrictContextMenuItem("Custom Text", "Custom Tooltip", null, null);
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item.Name == contextMenuItem.Name));
         }
 
         [Test]
         public void Build_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilder.Expect(cmb => cmb.Build());
-
-            mocks.ReplayAll();
-
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.Build();
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().Build();
         }
 
         #region AddUpdateForeshoreProfileOfCalculationItem
@@ -735,30 +609,27 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             [Values(true, false)] bool isSynchronized)
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
 
             if (hasForeshoreProfile)
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-                input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+                input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+                input.IsForeshoreProfileInputSynchronized.Returns(isSynchronized);
             }
             else
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(null);
+                input.ForeshoreProfile.Returns((TestForeshoreProfile) null);
             }
 
-            calculation.Expect(c => c.InputParameters).Return(input);
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            calculation.InputParameters.Returns(input);
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -799,8 +670,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.UpdateItemIcon,
                                                               hasForeshoreProfile && !isSynchronized);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -814,29 +683,26 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             [Values(true, false)] bool isSynchronized)
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
             if (hasForeshoreProfile)
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-                input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+                input.ForeshoreProfile.Returns(new TestForeshoreProfile());
+                input.IsForeshoreProfileInputSynchronized.Returns(isSynchronized);
             }
             else
             {
-                input.Expect(ci => ci.ForeshoreProfile).Return(null);
+                input.ForeshoreProfile.Returns((TestForeshoreProfile) null);
             }
 
-            calculation.Stub(c => c.InputParameters).Return(input);
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            calculation.InputParameters.Returns(input);
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -872,8 +738,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.UpdateItemIcon,
                                                               hasForeshoreProfile && !isSynchronized);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -884,18 +748,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddDuplicateCalculationItem_WhenBuildWithCalculationItem_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
-            calculationItemContext.Stub(ci => ci.Parent).Return(new CalculationGroup());
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var calculationItem = Substitute.For<ICalculationBase>();
+            var calculationItemContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
+            calculationItemContext.Parent.Returns(new CalculationGroup());
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -919,8 +779,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Dupliceer dit element.",
                                                               RiskeerFormsResources.CopyHS);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -936,27 +794,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             string expectedToolTipMessage = isEnabled
                                                 ? "Wis alle berekende illustratiepunten."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
-
-            var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
-                              .WhenCalled(arg =>
+            var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+                              .Do(callinfo =>
                               {
-                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
-            mocks.ReplayAll();
-
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsItem(() => isEnabled, changeHandler);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -972,27 +826,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             string expectedToolTipMessage = isEnabled
                                                 ? "Wis alle berekende illustratiepunten binnen deze map met berekeningen."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
-
-            var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
-                              .WhenCalled(arg =>
+            var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+                              .Do(callinfo =>
                               {
-                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
-            mocks.ReplayAll();
-
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled, changeHandler);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -1008,27 +858,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             string expectedToolTipMessage = isEnabled
                                                 ? "Wis alle berekende illustratiepunten binnen dit faalmechanisme."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
-
-            var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
-                              .WhenCalled(arg =>
+            var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+                              .Do(callinfo =>
                               {
-                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
-            mocks.ReplayAll();
-
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => isEnabled, changeHandler);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -1044,27 +890,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             string expectedToolTipMessage = isEnabled
                                                 ? "Wis de berekende illustratiepunten van deze berekening."
                                                 : "Deze berekening heeft geen illustratiepunten om te wissen.";
-
-            var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
-                              .WhenCalled(arg =>
+            var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+                              .Do(callinfo =>
                               {
-                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
-            mocks.ReplayAll();
-
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationItem(() => isEnabled, changeHandler);
 
             // Assert
-            mocks.VerifyAll();
+            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -1075,16 +917,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddPerformCalculationItem_AdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1113,24 +951,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Voer deze berekening uit.",
                                                               RiskeerFormsResources.CalculateIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformCalculationItem_AdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1162,8 +994,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1174,16 +1004,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddValidateCalculationItem_AdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1211,24 +1037,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer de invoer voor deze berekening.",
                                                               RiskeerFormsResources.ValidateIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateCalculationItem_AdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageInTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var parent = new CalculationGroup();
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
@@ -1259,8 +1079,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1271,15 +1089,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddPerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var calculation = new TestCalculation();
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
@@ -1319,23 +1133,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                               RiskeerFormsResources.CalculateAllIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
@@ -1365,23 +1173,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var calculation = new TestCalculation();
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
@@ -1424,23 +1226,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
@@ -1472,8 +1268,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1484,15 +1278,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddValidateAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var calculation = new TestCalculation();
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
@@ -1532,23 +1322,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerFormsResources.ValidateAllIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
@@ -1578,23 +1362,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var calculation = new TestCalculation();
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
@@ -1637,23 +1415,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            mocks.ReplayAll();
-
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
@@ -1685,8 +1457,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1697,22 +1467,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1735,27 +1501,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                               RiskeerFormsResources.CalculateAllIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1779,30 +1539,24 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1828,27 +1582,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1874,8 +1622,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion
@@ -1886,22 +1632,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1924,27 +1666,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer alle berekeningen binnen dit faalmechanisme.",
                                                               RiskeerFormsResources.ValidateAllIcon);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -1968,30 +1704,24 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -2020,27 +1750,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
+            var importCommandHandler = Substitute.For<IImportCommandHandler>();
+            var exportCommandHandler = Substitute.For<IExportCommandHandler>();
+            var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -2069,8 +1793,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
-
-            mocks.VerifyAll();
         }
 
         #endregion

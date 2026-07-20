@@ -25,9 +25,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -52,16 +52,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismContributionNormChangeHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,10 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void ChangeNormativeProbabilityType_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -91,7 +84,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("action", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -108,11 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
                 tester.ClickCancel();
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -125,7 +113,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine
                                      + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -154,12 +141,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                 assessmentSection.FailureMechanismContribution
                                             })
                                             .ToArray();
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -176,7 +158,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
             Assert.IsTrue(actionPerformed);
             CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
-            mocks.VerifyAll();
+            observer.Received(expectedAffectedObjects.Count()).UpdateObserver();
         }
 
         [Test]
@@ -200,12 +182,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                    .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
 
             calculations.ForEachElementDo(c => c.ClearOutput());
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             assessmentSection.FailureMechanismContribution.Attach(observer);
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -217,17 +194,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
             Assert.IsTrue(actionPerformed);
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
         public void ChangeNormativeProbability_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -236,7 +210,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("action", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -253,11 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
                 tester.ClickCancel();
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -270,7 +239,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine
                                      + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -320,12 +288,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                              .Concat(expectedLocationCalculationsToClear)
                                                              .Concat(waveConditionsCalculations)
                                                              .ToArray();
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -351,7 +314,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(expectedAffectedSemiProbabilisticCalculations.Where(c => c.HasOutput));
             CollectionAssert.IsEmpty(expectedLocationCalculationsToClear.Where(c => c.HasOutput));
             CollectionAssert.IsEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
-            mocks.VerifyAll();
+            observer.Received(expectedAffectedObjects.Count()).UpdateObserver();
         }
 
         [Test]
@@ -390,12 +353,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                    .OfType<MacroStabilityInwardsCalculationScenario>()
                                                    .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
             calculations.AddRange(waveConditionsCalculations);
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             calculations.ForEachElementDo(c =>
             {
                 c.ClearOutput();
@@ -417,17 +375,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
             Assert.IsTrue(actionPerformed);
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
         public void ChangeProbability_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -436,7 +391,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("action", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -453,11 +407,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
                 tester.ClickCancel();
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
@@ -470,7 +420,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine
                                      + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -511,12 +460,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                .Concat(expectedCalculationsToClear)
                                                                .Concat(waveConditionsCalculations)
                                                                .ToArray();
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -539,7 +483,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(actionPerformed);
             CollectionAssert.IsEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
             CollectionAssert.IsEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
-            mocks.VerifyAll();
+            observer.Received(expectedAffectedObjects.Count()).UpdateObserver();
         }
 
         [Test]
@@ -567,12 +511,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                  .Cast<StabilityStoneCoverWaveConditionsCalculation>());
             waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
                                                                  .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             calculationsBelongingToNorm.ForEachElementDo(c =>
             {
                 c.Output = null;
@@ -596,30 +535,26 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
             Assert.IsTrue(actionPerformed);
-            mocks.VerifyAll();
+            observer.Received(1).UpdateObserver();
         }
 
         private static IEnumerable<TestCaseData> GetChangeNormativeProbabilityCases()
         {
             yield return new TestCaseData(
-                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
-                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(section => section.WaterLevelCalculationsForSignalFloodingProbability),
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability);
         }
 
         private static IEnumerable<TestCaseData> GetChangeProbabilityCases()
         {
             yield return new TestCaseData(
-                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(section => section.WaterLevelCalculationsForSignalFloodingProbability),
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
-                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
         }
     }

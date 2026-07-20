@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.IO.Readers;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
@@ -48,18 +48,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void PreconsolidationStressReadValues_ProfileNameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.Stub<IRowBasedDatabaseReader>();
-            mockRepository.ReplayAll();
-
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
             // Call
             TestDelegate call = () => new PreconsolidationStressReadValues(reader, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("profileName", exception.ParamName);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -73,17 +68,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             double preconsolidationStressMean = random.Next();
             double preconsolidationStressCoefficientOfVariation = random.Next();
             double preconsolidationStressShift = random.Next();
-
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.StrictMock<IRowBasedDatabaseReader>();
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate)).Return(xCoordinate);
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate)).Return(zCoordinate);
-            reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType)).Return(preconsolidationStressDistributionType);
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean)).Return(preconsolidationStressMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation)).Return(preconsolidationStressCoefficientOfVariation);
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressShift)).Return(preconsolidationStressShift);
-            mockRepository.ReplayAll();
-
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
+            reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate).Returns(xCoordinate);
+            reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate).Returns(zCoordinate);
+            reader.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType).Returns(preconsolidationStressDistributionType);
+            reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean).Returns(preconsolidationStressMean);
+            reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation).Returns(preconsolidationStressCoefficientOfVariation);
+            reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressShift).Returns(preconsolidationStressShift);
             // Call
             var properties = new PreconsolidationStressReadValues(reader, string.Empty);
 
@@ -94,7 +85,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreEqual(preconsolidationStressMean, properties.StressMean);
             Assert.AreEqual(preconsolidationStressCoefficientOfVariation, properties.StressCoefficientOfVariation);
             Assert.AreEqual(preconsolidationStressShift, properties.StressShift);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -106,22 +96,27 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const string profileName = "SomeProfile";
 
             var invalidCastException = new InvalidCastException();
+            var reader = Substitute.For<IRowBasedDatabaseReader>();
+            reader.ReadOrDefault<double?>(columnName).Returns(_ =>
+            {
+                throw invalidCastException;
+            });
+            reader.ReadOrDefault<long?>(columnName).Returns(_ =>
+            {
+                throw invalidCastException;
+            });
+            reader.ReadOrDefault<string>(columnName).Returns(_ =>
+            {
+                throw invalidCastException;
+            });
 
-            var mockRepository = new MockRepository();
-            var reader = mockRepository.Stub<IRowBasedDatabaseReader>();
-            reader.Stub(r => r.ReadOrDefault<double?>(columnName)).Throw(invalidCastException);
-            reader.Stub(r => r.ReadOrDefault<long?>(columnName)).Throw(invalidCastException);
-            reader.Stub(r => r.ReadOrDefault<string>(columnName)).Throw(invalidCastException);
-
-            reader.Stub(r => r.ReadOrDefault<double?>(Arg<string>.Matches(s => s != columnName)))
-                  .Return(0);
-            reader.Stub(r => r.ReadOrDefault<long?>(Arg<string>.Matches(s => s != columnName)))
-                  .Return(0);
-            reader.Stub(r => r.ReadOrDefault<string>(Arg<string>.Matches(s => s != columnName)))
-                  .Return("");
-            reader.Expect(r => r.Path).Return(path);
-            mockRepository.ReplayAll();
-
+            reader.ReadOrDefault<double?>(Arg.Is<string>(s => s != columnName))
+                  .Returns(0);
+            reader.ReadOrDefault<long?>(Arg.Is<string>(s => s != columnName))
+                  .Returns(0);
+            reader.ReadOrDefault<string>(Arg.Is<string>(s => s != columnName))
+                  .Returns("");
+            reader.Path.Returns(path);
             // Call
             TestDelegate test = () => new PreconsolidationStressReadValues(reader, profileName);
 
@@ -133,7 +128,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(profileName, exception.ProfileName);
             Assert.AreSame(invalidCastException, exception.InnerException);
-            mockRepository.VerifyAll();
         }
 
         private static IEnumerable<string> PreconsolidationStressProperties()

@@ -27,8 +27,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -65,9 +65,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new DuneLocationCalculationProperties(null, assessmentSection);
@@ -75,7 +73,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,10 +98,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             var duneLocation = new TestDuneLocation();
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -118,8 +113,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     }
                 }
             });
-            mocks.ReplayAll();
-
             // Call
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
@@ -167,8 +160,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             string convergenceValue = EnumDisplayNameHelper.GetDisplayName(CalculationConvergence.NotCalculated);
             Assert.AreEqual(convergenceValue, properties.Convergence);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -222,10 +213,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             {
                 Output = output
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
                 {
@@ -239,8 +228,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     }
                 }
             });
-            mocks.ReplayAll();
-
             // Call
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
@@ -269,18 +256,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
@@ -411,8 +393,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -421,10 +401,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Offset_Always_ConvertToMetersAndFormatToString(double offset, string expectedPropertyValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var duneLocation = new DuneLocation("test", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
@@ -437,17 +414,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(expectedPropertyValue, properties.Offset);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ToString_Always_ExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var duneLocation = new DuneLocation("Name", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
@@ -457,7 +430,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual($"{duneLocation.Name} {duneLocation.Location}", result);
-            mocks.VerifyAll();
         }
     }
 }

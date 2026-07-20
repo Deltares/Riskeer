@@ -33,8 +33,8 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Map
 {
@@ -126,10 +126,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             // Setup
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapData = new MapLineData("Name");
             mapData.Attach(observer);
@@ -154,7 +151,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(color, actualStyle.Color);
             Assert.AreEqual(dashStyle, actualStyle.DashStyle);
 
-            mocks.VerifyAll();
+            observer.Received(3).UpdateObserver();
         }
     }
 }

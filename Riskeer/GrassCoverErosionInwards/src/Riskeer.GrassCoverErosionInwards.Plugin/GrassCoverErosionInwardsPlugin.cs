@@ -116,13 +116,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
-                (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                    filePath,
-                    context.WrappedData,
-                    context.AssessmentSection.FailureMechanismContribution,
-                    context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
-                    context.AvailableDikeProfiles));
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>((context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                                                                                                                                                filePath,
+                                                                                                                                                context.WrappedData,
+                                                                                                                                                context.AssessmentSection.FailureMechanismContribution,
+                                                                                                                                                context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
+                                                                                                                                                context.AvailableDikeProfiles));
 
             yield return new ImportInfo<DikeProfilesContext>
             {
@@ -533,7 +532,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   TreeViewControl treeViewControl)
+                                                                                   ITreeViewControl treeViewControl)
         {
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = context.WrappedData
                                                                                    .Calculations
@@ -625,7 +624,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -642,7 +641,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -693,7 +692,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, ITreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
@@ -900,7 +899,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, ITreeViewControl treeViewControl)
         {
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(GetInquiryHelper(),

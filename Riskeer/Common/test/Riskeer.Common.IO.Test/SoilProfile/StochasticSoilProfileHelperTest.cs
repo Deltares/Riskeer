@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
@@ -60,11 +60,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void GetUniqueStochasticSoilProfiles_DistinctSoilProfiles_ReturnsExpectedSoilProfiles()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfileOne = mocks.Stub<ISoilProfile>();
-            var soilProfileTwo = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
-
+            var soilProfileOne = Substitute.For<ISoilProfile>();
+            var soilProfileTwo = Substitute.For<ISoilProfile>();
             var profileOne = new StochasticSoilProfile(0.5, soilProfileOne);
             var profileTwo = new StochasticSoilProfile(0.8, soilProfileTwo);
             StochasticSoilProfile[] stochasticSoilProfiles =
@@ -80,7 +77,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             // Assert
             CollectionAssert.AreEqual(stochasticSoilProfiles, profilesToTransform);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -89,12 +85,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             const string soilProfileName = "A profile name";
             const string soilModelName = "A model name";
-
-            var mocks = new MockRepository();
-            var profile = mocks.Stub<ISoilProfile>();
-            profile.Stub(p => p.Name).Return(soilProfileName);
-            mocks.ReplayAll();
-
+            var profile = Substitute.For<ISoilProfile>();
+            profile.Name.Returns(soilProfileName);
             const double probabilityOne = 0.5;
             const double probabilityTwo = 0.1;
             var profileOne = new StochasticSoilProfile(probabilityOne, profile);
@@ -123,8 +115,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreSame(profile, profileToTransform.SoilProfile);
             const double expectedProbability = probabilityOne + probabilityTwo;
             Assert.AreEqual(expectedProbability, profileToTransform.Probability, 1e-6);
-
-            mocks.VerifyAll();
         }
     }
 }

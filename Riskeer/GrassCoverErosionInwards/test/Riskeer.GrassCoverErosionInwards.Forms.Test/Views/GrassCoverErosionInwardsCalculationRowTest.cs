@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -54,10 +54,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
@@ -75,8 +72,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -416,11 +411,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsCalculationScenario calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
+            var observable = Substitute.For<IObservable>();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
@@ -434,7 +425,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+            observable.Received().NotifyObservers();
         }
 
         /// <summary>
@@ -461,22 +452,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
+            var inputObserver = Substitute.For<IObserver>();
 
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
+            var calculationObserver = Substitute.For<IObserver>();
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
             GrassCoverErosionInwardsOutput assignedOutput = null;
 
             GrassCoverErosionInwardsCalculationScenario calculation = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(new FailureMechanismSection("Section 1", new List<Point2D>
@@ -499,6 +479,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             setProperty(row);
 
             // Assert
+            if (expectUpdates)
+            {
+                inputObserver.Received().UpdateObserver();
+            }
+
+            if (expectUpdates && hasOutput)
+            {
+                calculationObserver.Received().UpdateObserver();
+            }
+
             assertions(calculation);
             if (expectUpdates)
             {

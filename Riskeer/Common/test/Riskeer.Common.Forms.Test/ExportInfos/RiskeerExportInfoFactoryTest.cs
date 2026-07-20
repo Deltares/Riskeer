@@ -24,8 +24,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.ExportInfos;
@@ -41,11 +41,8 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
         public void CreateCalculationConfigurationExportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileExporter>();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var fileImporter = Substitute.For<IFileExporter>();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             Func<ICalculationContext<ICalculation, ICalculatableFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
@@ -62,19 +59,14 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             Assert.IsTrue(exportInfo.IsEnabled(null));
 
             Assert.IsNotNull(exportInfo.GetExportPath);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationGroupConfigurationExportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileExporter>();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
+            var fileImporter = Substitute.For<IFileExporter>();
+            var inquiryHelper = Substitute.For<IInquiryHelper>();
             Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, bool> isEnabled = context => false;
             Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
@@ -92,8 +84,6 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, exportInfo.Image);
 
             Assert.IsNotNull(exportInfo.GetExportPath);
-
-            mocks.VerifyAll();
         }
     }
 }

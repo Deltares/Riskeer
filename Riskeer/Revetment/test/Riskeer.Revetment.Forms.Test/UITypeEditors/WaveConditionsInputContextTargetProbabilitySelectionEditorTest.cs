@@ -26,8 +26,8 @@ using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.UITypeEditors;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -65,20 +65,17 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             var editor = new WaveConditionsInputContextTargetProbabilitySelectionEditor();
             var someValue = new object();
 
-            var mocks = new MockRepository();
-            var serviceProvider = mocks.Stub<IServiceProvider>();
-            var service = mocks.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mocks.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mocks.ReplayAll();
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
 
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -102,20 +99,17 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             var editor = new WaveConditionsInputContextTargetProbabilitySelectionEditor();
             var someValue = new object();
 
-            var mocks = new MockRepository();
-            var serviceProvider = mocks.Stub<IServiceProvider>();
-            var service = mocks.Stub<IWindowsFormsEditorService>();
-            var descriptorContext = mocks.Stub<ITypeDescriptorContext>();
-            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
-            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
-            mocks.ReplayAll();
+            var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
+            descriptorContext.Instance.Returns(propertyBag);
 
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreEqual(selectableTargetProbability, result);
-            mocks.VerifyAll();
         }
 
         private class ObjectPropertiesWithSelectableTargetProbability : ObjectProperties<object>, IHasTargetProbabilityProperty

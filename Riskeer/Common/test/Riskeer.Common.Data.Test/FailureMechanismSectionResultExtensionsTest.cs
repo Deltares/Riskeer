@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -79,11 +79,8 @@ namespace Riskeer.Common.Data.Test
         public void GetRelevantCalculationScenarios_WithRelevantAndIrrelevantScenariosOfDifferentTypes_ReturnsRelevantCalculationScenarios()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioStub1 = mocks.Stub<ICalculationScenario>();
-            var calculationScenarioStub2 = mocks.Stub<ICalculationScenario>();
-            mocks.ReplayAll();
-
+            var calculationScenarioStub1 = Substitute.For<ICalculationScenario>();
+            var calculationScenarioStub2 = Substitute.For<ICalculationScenario>();
             calculationScenarioStub1.IsRelevant = true;
             calculationScenarioStub2.IsRelevant = false;
 
@@ -110,18 +107,14 @@ namespace Riskeer.Common.Data.Test
 
             // Assert
             Assert.AreEqual(calculationScenario1, relevantScenarios.Single());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetRelevantCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioStub1 = mocks.Stub<ICalculationScenario>();
-            var calculationScenarioStub2 = mocks.Stub<ICalculationScenario>();
-            mocks.ReplayAll();
-
+            var calculationScenarioStub1 = Substitute.For<ICalculationScenario>();
+            var calculationScenarioStub2 = Substitute.For<ICalculationScenario>();
             calculationScenarioStub1.IsRelevant = true;
             calculationScenarioStub2.IsRelevant = false;
 
@@ -148,7 +141,6 @@ namespace Riskeer.Common.Data.Test
 
             // Assert
             CollectionAssert.IsEmpty(relevantScenarios);
-            mocks.VerifyAll();
         }
     }
 }

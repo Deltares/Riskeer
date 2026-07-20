@@ -211,7 +211,7 @@ namespace Core.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(object value, TreeViewControl treeViewControl)
+        public IContextMenuBuilder Get(object value, ITreeViewControl treeViewControl)
         {
             if (applicationFeatureCommands == null)
             {

@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -44,9 +44,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
             void Call() => new PipingFailureMechanismSectionConfigurationsProperties(null, configuration => changeHandler);
@@ -54,7 +52,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -76,11 +73,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string sourcePath = "just//a//section//path";
-
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SetSections(new[]
@@ -122,10 +115,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -150,7 +140,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                                 "Vakindeling waarmee de waterkering voor dit faalmechanisme is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
                                                                                 true);
-                mocks.VerifyAll();
             }
         }
 
@@ -158,10 +147,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
             using (var properties = new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, configuration => changeHandler))
             {
@@ -180,10 +166,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismSectionConfigurationUpdated_ThenRefreshRequiredEventRaised()
         {
             // Given
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
+            var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]

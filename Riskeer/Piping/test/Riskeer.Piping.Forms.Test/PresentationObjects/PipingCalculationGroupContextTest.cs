@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -43,10 +43,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
             var surfaceLines = new[]
             {
@@ -73,7 +70,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [TestFixture(true)]
@@ -81,9 +77,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         private class PipingCalculationGroupContextEqualsTest
             : EqualsTestFixture<PipingCalculationGroupContext, DerivedPipingCalculationGroupContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
@@ -92,16 +86,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             private static CalculationGroup parent;
 
             [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
+            public void SetUp() {}
 
             [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
+            public void TearDown() {}
 
             public PipingCalculationGroupContextEqualsTest(bool hasParent)
             {

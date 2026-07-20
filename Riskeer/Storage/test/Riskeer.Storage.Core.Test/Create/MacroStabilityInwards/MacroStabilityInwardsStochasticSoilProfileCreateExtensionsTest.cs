@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -53,9 +53,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mockRepository.ReplayAll();
+            var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
 
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
 
@@ -65,8 +63,6 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

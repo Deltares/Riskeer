@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using Migration.Scripts.Data.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Migration.Core.Storage.Test
 {
@@ -52,9 +52,7 @@ namespace Migration.Core.Storage.Test
         public void IsVersionSupported_FromVersionIsNullOrWhiteSpace_ReturnsFalse(string fromVersion)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
@@ -62,7 +60,6 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.IsFalse(isSupported);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -71,9 +68,7 @@ namespace Migration.Core.Storage.Test
         public void IsVersionSupported_ValidFromVersion_ReturnsIfSupported(string fromVersion, bool shouldSupport)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
 
             const string toVersion = "1";
             var migrator = new SimpleVersionedFileMigrator(comparer)
@@ -93,16 +88,13 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.AreEqual(shouldSupport, isSupported);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void NeedsMigrate_VersionedFileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
@@ -111,17 +103,14 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("versionedFile", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void NeedsMigrate_ToVersionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
@@ -130,7 +119,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("toVersion", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -140,10 +128,8 @@ namespace Migration.Core.Storage.Test
         public void NeedsMigrate_ValidVersionedFile_ReturnsIfNeedsMigrate(string fromVersion, string toVersion, bool shouldMigrate)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
-            mockRepository.ReplayAll();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.GetVersion().Returns(fromVersion);
 
             var migrator = new SimpleVersionedFileMigrator(new SimpleVersionComparer())
             {
@@ -162,16 +148,14 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.AreEqual(shouldMigrate, needsMigrate);
-            mockRepository.VerifyAll();
+            versionedFile.Received().GetVersion();
         }
 
         [Test]
         public void Migrate_VersionedFileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
 
             const string toVersion = "toVersion";
             const string toLocation = "location";
@@ -184,17 +168,14 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("versionedFile", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Migrate_ToVersionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
 
             const string toLocation = "location";
 
@@ -206,17 +187,14 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("toVersion", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Migrate_NewFileLocationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
 
             const string toVersion = "toVersion";
 
@@ -228,7 +206,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("newFileLocation", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -238,11 +215,9 @@ namespace Migration.Core.Storage.Test
             const string toVersion = "toVersion";
             const string toLocation = "location";
 
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.Location).Return(toLocation);
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(toLocation);
 
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
@@ -252,7 +227,7 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.", exception.Message);
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
         }
 
         [Test]
@@ -264,12 +239,10 @@ namespace Migration.Core.Storage.Test
             const string toLocation = "location";
             const string incorrectVersion = "not supported";
 
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.Location).Return(fromLocation);
-            versionedFile.Expect(vf => vf.GetVersion()).Return(incorrectVersion);
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(fromLocation);
+            versionedFile.GetVersion().Returns(incorrectVersion);
 
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
@@ -279,7 +252,8 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{incorrectVersion}' naar versie '{toVersion}' is niet ondersteund.", exception.Message);
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
+            versionedFile.Received().GetVersion();
         }
 
         [Test]
@@ -292,12 +266,10 @@ namespace Migration.Core.Storage.Test
             const string toLocation = "location";
             const string incorrectVersion = "not supported";
 
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.Location).Return(fromLocation);
-            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(fromLocation);
+            versionedFile.GetVersion().Returns(fromVersion);
 
             var migrator = new SimpleVersionedFileMigrator(comparer)
             {
@@ -317,7 +289,8 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{fromVersion}' naar versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
+            versionedFile.Received().GetVersion();
         }
 
         [Test]
@@ -330,12 +303,10 @@ namespace Migration.Core.Storage.Test
 
             string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidMigration_CreatesNewVersion));
 
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
-            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(fromLocation);
+            versionedFile.GetVersion().Returns(fromVersion);
 
             var migrator = new SimpleVersionedFileMigrator(comparer)
             {
@@ -356,7 +327,8 @@ namespace Migration.Core.Storage.Test
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             using (new FileDisposeHelper(toLocation)) {}
 
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
+            versionedFile.Received().GetVersion();
         }
 
         [Test]
@@ -369,11 +341,9 @@ namespace Migration.Core.Storage.Test
 
             string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidChainingMigration_CreatesNewVersion));
 
-            var mockRepository = new MockRepository();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
-            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
-            mockRepository.ReplayAll();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(fromLocation);
+            versionedFile.GetVersion().Returns(fromVersion);
 
             var migrator = new SimpleVersionedFileMigrator(new SimpleVersionComparer())
             {
@@ -396,7 +366,8 @@ namespace Migration.Core.Storage.Test
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             File.Delete(toLocation);
 
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
+            versionedFile.Received().GetVersion();
         }
 
         [Test]
@@ -409,12 +380,10 @@ namespace Migration.Core.Storage.Test
 
             string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidMigrationFileInUse_ThrowsCriticalMigrationException));
 
-            var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
-            var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
-            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
-            mockRepository.ReplayAll();
+            var comparer = Substitute.For<IComparer>();
+            var versionedFile = Substitute.For<IVersionedFile>();
+            versionedFile.Location.Returns(fromLocation);
+            versionedFile.GetVersion().Returns(fromVersion);
 
             using (var fileDisposeHelper = new FileDisposeHelper(toLocation))
             {
@@ -441,7 +410,8 @@ namespace Migration.Core.Storage.Test
                                       exception.Message);
             }
 
-            mockRepository.VerifyAll();
+            _ = versionedFile.Received().Location;
+            versionedFile.Received().GetVersion();
         }
 
         private class SimpleVersionComparer : IComparer

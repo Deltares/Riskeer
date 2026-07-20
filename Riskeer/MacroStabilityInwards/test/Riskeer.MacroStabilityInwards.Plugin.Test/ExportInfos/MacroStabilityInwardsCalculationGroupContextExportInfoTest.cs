@@ -25,8 +25,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
@@ -44,17 +44,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
     {
         private MacroStabilityInwardsPlugin plugin;
         private ExportInfo info;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.Replay(gui);
-            mocks.Replay(mainWindow);
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
 
             plugin = new MacroStabilityInwardsPlugin
             {
@@ -69,7 +65,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -88,9 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void CreateFileExporter_WithContext_ReturnFileExporter()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
                                                                            null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -109,9 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupNoChildren_ReturnFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
                                                                            null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -130,9 +121,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupChildIsNestedGroup_ReturnFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new CalculationGroup());
 
@@ -154,9 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupChildIsCalculationWithoutOutput_ReturnFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
@@ -178,9 +165,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupChildIsCalculationWithOutput_ReturnTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
@@ -207,9 +192,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupChildIsNestedGroupWithCalculationWithAndWithoutOutput_ReturnTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()

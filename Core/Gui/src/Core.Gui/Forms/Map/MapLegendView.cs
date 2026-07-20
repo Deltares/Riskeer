@@ -270,7 +270,7 @@ namespace Core.Gui.Forms.Map
             }
         }
 
-        private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, TreeViewControl treeView)
+        private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, ITreeViewControl treeView)
         {
             return contextMenuBuilderProvider.Get(mapDataContext, treeView)
                                              .AddCustomItem(CreateZoomToExtentsItem(mapDataContext))
@@ -376,7 +376,7 @@ namespace Core.Gui.Forms.Map
             return draggedDataContext.ParentMapData.WrappedData.Equals(targetDataObject);
         }
 
-        private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl control)
         {
             var mapDataContext = (MapDataContext) droppedData;
             MapData mapData = mapDataContext.WrappedData;
@@ -389,7 +389,7 @@ namespace Core.Gui.Forms.Map
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollectionContext context, object parentData, TreeViewControl treeView)
+        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollectionContext context, object parentData, ITreeViewControl treeView)
         {
             return contextMenuBuilderProvider.Get(context, treeView)
                                              .AddImportItem(

@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
@@ -60,9 +60,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void Instance_WhenSetToInstance_ReturnsThatInstance()
         {
             // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IAssemblyToolCalculatorFactory>();
-            mocks.ReplayAll();
+            var factory = Substitute.For<IAssemblyToolCalculatorFactory>();
 
             AssemblyToolCalculatorFactory.Instance = factory;
 
@@ -71,7 +69,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
 
             // Assert
             Assert.AreSame(factory, secondFactory);
-            mocks.VerifyAll();
         }
 
         [Test]

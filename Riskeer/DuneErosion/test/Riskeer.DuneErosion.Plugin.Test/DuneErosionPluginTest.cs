@@ -35,8 +35,8 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -140,13 +140,9 @@ namespace Riskeer.DuneErosion.Plugin.Test
             // Setup
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-
-            var mockRepository = new MockRepository();
-            var gui = mockRepository.Stub<IGui>();
-            gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
-            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
-            mockRepository.ReplayAll();
-
+            var gui = Substitute.For<IGui>();
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             using (var plugin = new DuneErosionPlugin
             {
                 Gui = gui
@@ -186,8 +182,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -226,15 +220,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var project = Substitute.For<IProject>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -270,7 +261,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/100"));
-                mocks.VerifyAll();
             }
         }
 
@@ -279,15 +269,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var project = Substitute.For<IProject>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -327,7 +314,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -336,15 +322,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenUserDefinedTargetProbabilityRemovedFromCollectionAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var project = Substitute.For<IProject>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -384,7 +367,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10"));
-                mocks.VerifyAll();
             }
         }
 
@@ -393,15 +375,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
         public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenRemovingDataForOpenedViewAndObserversNotified_ThenNoExceptionThrown()
         {
             // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var projectStore = Substitute.For<IStoreProject>();
+            var projectMigrator = Substitute.For<IMigrateProject>();
+            var projectFactory = Substitute.For<IProjectFactory>();
+            var project = Substitute.For<IProject>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -438,7 +417,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Then
                 Assert.DoesNotThrow(Call);
-                mocks.VerifyAll();
             }
         }
     }

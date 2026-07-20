@@ -27,8 +27,8 @@ using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
@@ -146,18 +146,16 @@ namespace Riskeer.Common.Service.Test
 
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
                                                                                validHrdFileVersion, usePreprocessorClosure);
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        calculationSettings,
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return calculator;
+                });
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
@@ -177,8 +175,8 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
+            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -193,14 +191,9 @@ namespace Riskeer.Common.Service.Test
             {
                 Converged = true
             };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                             .Returns(calculator);
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
@@ -227,8 +220,8 @@ namespace Riskeer.Common.Service.Test
                 });
             }
 
+            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -250,13 +243,9 @@ namespace Riskeer.Common.Service.Test
                 calculator.IllustrationPointsResult = new TestGeneralResult();
             }
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
                                                              targetProbability,
@@ -273,7 +262,6 @@ namespace Riskeer.Common.Service.Test
             Assert.IsNotNull(calculationOutput);
             Assert.AreEqual(expectedWaveHeight, calculationOutput.Result, calculationOutput.Result.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -292,14 +280,9 @@ namespace Riskeer.Common.Service.Test
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
             var output = new TestHydraulicBoundaryLocationCalculationOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
             {
@@ -342,9 +325,8 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
                 Assert.AreEqual(ActivityState.Failed, activity.State);
+                calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -359,14 +341,8 @@ namespace Riskeer.Common.Service.Test
                 Converged = false,
                 IllustrationPointsResult = new TestGeneralResult()
             };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
             {
                 InputParameters =
@@ -396,7 +372,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -410,13 +386,8 @@ namespace Riskeer.Common.Service.Test
             const string calculationIdentifier = "1/100";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observer = Substitute.For<IObserver>();
             hydraulicBoundaryLocationCalculation.Attach(observer);
-            mockRepository.ReplayAll();
-
             var activity = new TestWaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                  CreateCalculationSettings(),
                                                                  0.01,
@@ -427,7 +398,7 @@ namespace Riskeer.Common.Service.Test
             activity.Finish();
 
             // Assert
-            mockRepository.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private static string GetActivityDescription(string locationName, string calculationIdentifier)

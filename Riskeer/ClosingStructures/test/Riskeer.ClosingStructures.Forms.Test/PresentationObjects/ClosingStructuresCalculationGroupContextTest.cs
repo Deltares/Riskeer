@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
@@ -40,10 +40,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
@@ -61,7 +58,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.AvailableForeshoreProfiles);
             Assert.AreSame(failureMechanism.ClosingStructures, groupContext.AvailableStructures);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture(true)]
@@ -70,25 +66,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             : EqualsTestFixture<ClosingStructuresCalculationGroupContext,
                 DerivedClosingStructuresCalculationGroupContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly ClosingStructuresFailureMechanism failureMechanism = new ClosingStructuresFailureMechanism();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
 
             private static CalculationGroup parent;
-
-            [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
 
             public ClosingStructuresCalculationGroupContextEqualsTest(bool hasParent)
             {

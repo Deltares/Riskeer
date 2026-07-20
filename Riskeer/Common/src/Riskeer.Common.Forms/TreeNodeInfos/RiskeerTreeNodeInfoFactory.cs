@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationGroupContext> CreateCalculationGroupContextTreeNodeInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, object[]> childNodeObjects,
-            Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
+            Func<TCalculationGroupContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationGroupContext, object> onNodeRemoved)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Func<TCalculationContext, object[]> childNodeObjects,
-            Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
+            Func<TCalculationContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved,
             CalculationType calculationType)
             where TCalculationContext : ICalculationContext<ICalculation, ICalculatableFailureMechanism>
@@ -120,8 +120,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static TreeNodeInfo<TFailureMechanismContext> CreateRegistrationStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> enabledChildNodeObjects,
             Func<TFailureMechanismContext, object[]> disabledChildNodeObjects,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
+            Func<TFailureMechanismContext, object, ITreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
+            Func<TFailureMechanismContext, object, ITreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> childNodeObjects,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+            Func<TFailureMechanismContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                    && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>) targetData).FailureMechanism);
         }
 
-        private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl treeViewControl)
         {
             ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>) droppedData).WrappedData;
 
@@ -240,7 +240,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             /// <param name="calculationBase">The calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
             /// <param name="treeViewControl">The tree view control in which the drag and drop operation is performed.</param>
-            public virtual void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, TreeViewControl treeViewControl)
+            public virtual void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(calculationBase, newPosition);
 
@@ -302,7 +302,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             public DroppingCalculationToNewContainer(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup) :
                 base(sourceCalculationGroup, targetCalculationGroup) {}
 
-            public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, TreeViewControl treeViewControl)
+            public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(calculationBase, newPosition);
 

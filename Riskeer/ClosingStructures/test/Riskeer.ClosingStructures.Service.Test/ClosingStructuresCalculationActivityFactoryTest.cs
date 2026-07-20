@@ -25,8 +25,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -53,10 +53,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                             new ClosingStructuresFailureMechanism(),
@@ -65,17 +62,13 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivity_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<ClosingStructuresInput>(),
                                                                                                             null,
@@ -84,7 +77,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -108,12 +100,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mocks,
-                                                                                                           validHrdFilePath);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             StructuresCalculation<ClosingStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
@@ -124,17 +111,13 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             Assert.IsInstanceOf<ClosingStructuresCalculationActivity>(activity);
             AssertClosingStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                               new ClosingStructuresFailureMechanism(),
@@ -143,17 +126,13 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculationGroup", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivitiesForCalculationGroup_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                               null,
@@ -162,7 +141,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -184,12 +162,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mocks,
-                                                                                                           validHrdFilePath);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -215,24 +188,19 @@ namespace Riskeer.ClosingStructures.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
             AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,12 +220,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mocks,
-                                                                                                           validHrdFilePath);
-            mocks.ReplayAll();
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -280,7 +243,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
             AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
-            mocks.VerifyAll();
         }
 
         private static StructuresCalculation<ClosingStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -299,21 +261,19 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                        ICalculation<ClosingStructuresInput> calculation,
                                                                        HydraulicBoundaryData hydraulicBoundaryData)
         {
-            var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         hydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(testCalculator);
-            mocks.ReplayAll();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(testCalculator);
+            calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        hydraulicBoundaryData,
+                        calculation.InputParameters.HydraulicBoundaryLocation),
+                    (HydraRingCalculationSettings) invocation[0]);
+            });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -324,7 +284,8 @@ namespace Riskeer.ClosingStructures.Service.Test
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
-            mocks.VerifyAll();
+            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>());
         }
     }
 }

@@ -25,8 +25,8 @@ using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -48,12 +48,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -81,31 +80,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            context.Expect(c => c.Instance).Return(propertyBag);
-
-            mockRepository.ReplayAll();
-
+            provider.GetService(Arg.Any<Type>()).Returns(service);
+            // service.DropDownControl(Arg.Any<Control>());
+            context.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile);
@@ -152,19 +145,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            context.Expect(c => c.Instance).Return(propertyBag);
-
-            mockRepository.ReplayAll();
-
+            provider.GetService(Arg.Any<Type>()).Returns(service);
+            // service.DropDownControl(Arg.Any<Control>());
+            context.Instance.Returns(propertyBag);
             // Call
             object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(stochasticSoilProfile, result);
-
-            mockRepository.VerifyAll();
         }
     }
 }

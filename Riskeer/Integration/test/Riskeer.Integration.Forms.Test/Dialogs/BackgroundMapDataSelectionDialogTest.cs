@@ -34,9 +34,9 @@ using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Integration.Forms.Dialogs;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -45,7 +45,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     [TestFixture]
     public class BackgroundMapDataSelectionDialogTest : NUnitFormTest
     {
-        private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
         private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms);
 
@@ -53,9 +52,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void Constructor_MapDataNull_DefaultProperties()
         {
             // Setup
-            var dialogParent = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -83,7 +80,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void MapDataConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
             var imageBasedMapData = new TestImageBasedMapData("someMapData", true);
 
             // Call
@@ -98,9 +94,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void MapDataConstructor_WithWmtsMapData_DefaultProperties()
         {
             // Setup
-            var dialogParent = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -118,9 +112,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void MapDataConstructor_WithWellKnownMapData_DefaultProperties()
         {
             // Setup
-            var dialogParent = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            var dialogParent = Substitute.For<IWin32Window>();
             var random = new Random(124);
             var mapData = new WellKnownTileSourceMapData(random.NextEnumValue<WellKnownTileSource>());
 
@@ -145,8 +137,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void ShowDialog_Always_DefaultProperties()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -185,7 +175,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void GivenValidDialog_WhenCancelPressed_ThenSelectedMapDataNull()
         {
             // Given
-            mockRepository.ReplayAll();
             Button cancelButton = null;
 
             DialogBoxHandler = (name, wnd) =>
@@ -221,8 +210,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void GivenValidDialog_WhenSelectPressed_ThenSelectedMapDataSet()
         {
             // Given
-            mockRepository.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 using (new FormTester(name))
@@ -253,8 +240,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void GivenValidDialogWithoutMapData_WhenBackgroundMapDataSelectionControlSwitchedBackAndForth_ThenSelectButtonAsExpected()
         {
             // Given
-            mockRepository.ReplayAll();
-
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -303,9 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 new TestWmtsTileSource(activeWmtsMapData)
             };
 
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(activeWmtsMapData.SourceCapabilitiesUrl)).Return(capabilities);
-            mockRepository.ReplayAll();
-
+            tileFactory.GetWmtsTileSources(activeWmtsMapData.SourceCapabilitiesUrl).Returns(capabilities);
             var wmtsLocationControlSelectedMapDataChanged = 0;
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
@@ -352,8 +335,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-            mockRepository.ReplayAll();
-
             var wellKnownSelectedMapDataChanged = 0;
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
@@ -390,8 +371,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -415,13 +394,11 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
         public override void Setup()
         {
-            mockRepository = new MockRepository();
-            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory = Substitute.For<ITileSourceFactory>();
         }
 
         public override void TearDown()
         {
-            mockRepository.VerifyAll();
             base.TearDown();
         }
 

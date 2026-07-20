@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -54,11 +54,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new GrassCoverErosionInwardsFailureMechanism(), mockRepository);
-            mockRepository.ReplayAll();
-
+                new GrassCoverErosionInwardsFailureMechanism());
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -81,8 +78,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -90,13 +85,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            invalidFilePath);
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -120,8 +110,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -129,13 +117,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            invalidFilePath);
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -159,19 +142,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_NoDikeProfile_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validHrdFilePath);
-            mockRepository.ReplayAll();
-
+                new GrassCoverErosionInwardsFailureMechanism(), validHrdFilePath);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -195,8 +173,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -206,12 +182,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndInvalidBreakWaterHeight_LogsMessageAndReturnsFalse(double breakWaterHeight)
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            mockRepository.ReplayAll();
-
             GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(
                 breakWaterHeight, assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.UseBreakWater = true;
@@ -230,20 +202,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_ValidInputAndInvalidOrientation_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -272,8 +238,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -283,12 +247,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndInvalidDikeHeight_LogsMessageAndReturnsFalse(double dikeHeight)
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -317,8 +277,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -330,12 +288,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndValidBreakWaterHeight_ReturnsTrue(bool useBreakWater, double breakWaterHeight)
         {
             // Setup
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            mockRepository.ReplayAll();
-
             GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(
                 breakWaterHeight, assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.UseBreakWater = useBreakWater;
@@ -353,8 +307,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
             Assert.IsTrue(isValid);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -362,10 +314,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new GrassCoverErosionInwardsCalculationService().Calculate(null, assessmentSection, failureMechanism.GeneralInput);
@@ -373,7 +322,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -395,9 +343,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new GrassCoverErosionInwardsCalculationService().Calculate(new GrassCoverErosionInwardsCalculation(), assessmentSection, null);
@@ -405,7 +351,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -417,32 +362,24 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestOvertoppingCalculator
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestOvertoppingCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
                              });
-            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestHydraulicLoadsCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
                              });
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestHydraulicLoadsCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
                              });
-            mockRepository.ReplayAll();
-
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -513,8 +450,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 Assert.IsNull(calculation.Output.OvertoppingRateOutput);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -522,10 +457,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -533,15 +465,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -585,8 +513,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
             Assert.IsNotNull(calculation.Output);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -594,25 +520,18 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -656,8 +575,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
             Assert.IsNotNull(calculation.Output);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -665,18 +582,12 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -701,8 +612,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -713,22 +622,15 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -763,8 +665,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsTrue(dikeHeightCalculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -775,25 +675,17 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestHydraulicLoadsCalculator());
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -829,8 +721,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
                 Assert.IsTrue(overtoppingRateCalculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -838,22 +728,16 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -902,8 +786,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -911,21 +793,15 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -974,8 +850,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -983,22 +857,16 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = false
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1048,8 +916,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(overtoppingCalculator.LastErrorFileContent, exception.Message);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1057,10 +923,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1068,15 +931,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1120,8 +979,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1129,9 +986,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            validHrdFilePath);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -1139,15 +994,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1191,8 +1042,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1200,26 +1049,19 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = false
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            mockRepository.ReplayAll();
-
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1263,8 +1105,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1272,10 +1112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1283,15 +1120,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1335,8 +1168,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1344,9 +1175,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            validHrdFilePath);
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1354,15 +1183,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1406,8 +1231,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1415,26 +1238,19 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = false,
                 LastErrorFileContent = "An error occurred"
             };
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1478,8 +1294,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1489,9 +1303,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1505,19 +1317,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1563,8 +1369,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1574,9 +1378,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1590,19 +1392,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1649,8 +1445,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1660,9 +1454,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1676,19 +1468,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsParserErrorMessage = parserError
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1734,8 +1520,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1745,9 +1529,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1761,19 +1543,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsParserErrorMessage = parserError
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1820,8 +1596,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1831,9 +1605,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1847,19 +1619,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1905,8 +1671,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1916,9 +1680,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             const string parserError = "Parser error message";
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -1932,19 +1694,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -1991,8 +1747,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2000,10 +1754,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2017,18 +1768,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2078,8 +1824,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2087,9 +1831,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2103,18 +1845,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2165,8 +1902,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2174,10 +1909,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2191,18 +1923,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2252,8 +1979,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2261,9 +1986,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2277,18 +2000,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2339,8 +2057,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2348,10 +2064,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2365,18 +2078,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2426,8 +2134,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2435,9 +2141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
@@ -2451,18 +2155,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             };
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
-                             .IgnoreArguments()
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingRateCalculator);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
                 assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
@@ -2513,8 +2212,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(calculation.Output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -2524,10 +2221,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
                                                                                                            validHrdFilePath,
                                                                                                            usePreprocessorClosure);
 
@@ -2539,30 +2233,35 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(overtoppingRateCalculator);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            mockRepository.ReplayAll();
+            calculatorFactory
+                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        calculationSettings,
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return overtoppingCalculator;
+                });
+            calculatorFactory
+                .CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        calculationSettings,
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return dikeHeightCalculator;
+                });
+            calculatorFactory
+                .CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        calculationSettings,
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return overtoppingRateCalculator;
+                });
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -2584,7 +2283,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received().CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received().CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         private static DikeProfile GetDikeProfile()

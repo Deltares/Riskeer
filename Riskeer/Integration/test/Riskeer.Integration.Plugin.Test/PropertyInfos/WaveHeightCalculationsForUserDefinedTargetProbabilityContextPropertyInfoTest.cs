@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -52,10 +52,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
@@ -72,8 +69,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<WaveHeightCalculationsForUserDefinedTargetProbabilityProperties>(objectProperties);
                 Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, objectProperties.Data);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RiskeerPlugin plugin)

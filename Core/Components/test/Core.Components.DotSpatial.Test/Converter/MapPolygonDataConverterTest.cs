@@ -36,8 +36,8 @@ using DotSpatial.Data;
 using DotSpatial.Symbology;
 using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -231,10 +231,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Given
             const string metadataAttribute = "Meta";
 
-            var mocks = new MockRepository();
-            var categoryOne = mocks.Stub<IPolygonCategory>();
-            var categoryTwo = mocks.Stub<IPolygonCategory>();
-            mocks.ReplayAll();
+            var categoryOne = Substitute.For<IPolygonCategory>();
+            var categoryTwo = Substitute.For<IPolygonCategory>();
 
             var mapPolygonLayer = new MapPolygonLayer
             {
@@ -284,8 +282,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle);
             AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
-
-            mocks.VerifyAll();
         }
 
         [Test]

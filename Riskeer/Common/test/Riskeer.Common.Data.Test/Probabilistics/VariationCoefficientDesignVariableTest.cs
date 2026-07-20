@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Common.Data.Test.Probabilistics
@@ -34,16 +35,13 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             // Call
             var designVariable = new SimpleVariationCoefficientDesignVariable(distribution);
 
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -65,10 +63,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Distribution_SetToNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var designVariable = new SimpleVariationCoefficientDesignVariable(distribution);
 
             // Call
@@ -81,7 +76,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleVariationCoefficientDesignVariable : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>

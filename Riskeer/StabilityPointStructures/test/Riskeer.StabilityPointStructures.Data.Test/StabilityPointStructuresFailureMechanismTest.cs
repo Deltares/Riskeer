@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -62,7 +61,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void Calculations_MultipleChildrenAdded_ReturnStabilityPointStructuresCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 CalculationsGroup =
@@ -76,15 +74,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 }
             };
 
-            mocks.ReplayAll();
-
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculations, typeof(StructuresCalculation<StabilityPointStructuresInput>));
-            mocks.VerifyAll();
         }
     }
 }

@@ -22,8 +22,8 @@
 using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test
 {
@@ -67,14 +67,8 @@ namespace Core.Common.Controls.Test
         public void GivenToggleButtonWithCommandAndCanExecuteTrue_WhenButtonClicked_ThenCommandExecuted()
         {
             // Given
-            var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.CanExecuteChanged += null).IgnoreArguments();
-            command.Expect(c => c.CanExecute(null))
-                   .Return(true)
-                   .Repeat.Any();
-            command.Expect(c => c.Execute(null));
-            mocks.ReplayAll();
+            var command = Substitute.For<ICommand>();
+            command.CanExecute(null).Returns(true);
 
             var toggleButton = new TestOneWayToggleButton
             {
@@ -85,20 +79,15 @@ namespace Core.Common.Controls.Test
             toggleButton.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            command.Received().Execute(null);
         }
 
         [Test]
         public void GivenToggleButtonWithCommandAndCanExecuteFalse_WhenButtonClicked_ThenCommandNotExecuted()
         {
             // Given
-            var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.CanExecuteChanged += null).IgnoreArguments();
-            command.Expect(c => c.CanExecute(null))
-                   .Return(false)
-                   .Repeat.Any();
-            mocks.ReplayAll();
+            var command = Substitute.For<ICommand>();
+            command.CanExecute(null).Returns(false);
 
             var toggleButton = new TestOneWayToggleButton
             {
@@ -109,7 +98,7 @@ namespace Core.Common.Controls.Test
             toggleButton.PerformClick();
 
             // Then
-            mocks.VerifyAll();
+            command.DidNotReceive().Execute(null);
         }
 
         private class TestOneWayToggleButton : OneWayToggleButton

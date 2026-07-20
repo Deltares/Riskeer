@@ -341,17 +341,16 @@ namespace Riskeer.Common.Forms.Views
             if (hydraulicBoundaryLocationCalculation.HasOutput
                 && hydraulicBoundaryLocationCalculationOutput.HasGeneralResult)
             {
-                return hydraulicBoundaryLocationCalculationOutput.GeneralResult.TopLevelIllustrationPoints.Select(
-                    topLevelSubMechanismIllustrationPoint =>
-                    {
-                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
-                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
-                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                subMechanismIllustrationPoint.Stochasts,
-                                                                subMechanismIllustrationPoint.Beta);
-                    }).ToArray();
+                return hydraulicBoundaryLocationCalculationOutput.GeneralResult.TopLevelIllustrationPoints.Select(topLevelSubMechanismIllustrationPoint =>
+                {
+                    SubMechanismIllustrationPoint subMechanismIllustrationPoint =
+                        topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+                    return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                            topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                            topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                            subMechanismIllustrationPoint.Stochasts,
+                                                            subMechanismIllustrationPoint.Beta);
+                }).ToArray();
             }
 
             return Enumerable.Empty<IllustrationPointControlItem>();

@@ -22,8 +22,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using WinFormsTreeView = System.Windows.Forms.TreeView;
 
 namespace Core.Common.Controls.TreeView.Test
@@ -34,7 +34,6 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         public void HandleItemDrag_WithItemInTree_SelectsItem()
         {
-            // Setup
             using (var treeView = new WinFormsTreeView())
             {
                 var treeNode = new TreeNode();
@@ -58,7 +57,6 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         public void HandleItemDrag_WithItemNotInTree_SelectsNull()
         {
-            // Setup
             using (var treeView = new WinFormsTreeView())
             {
                 var treeNode = new TreeNode();
@@ -86,117 +84,109 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_TreeNodeDraggedToDroppableNode_DragDropEffectSetForEvent(bool canDrop, DragDropEffects dropEffect)
         {
             // Setup
-            const int targetHeight = 30;
-
-            var draggingNode = new TreeNode("DraggingNode");
-
-            var mocks = new MockRepository();
-
-            var data = mocks.Stub<IDataObject>();
-            data.Expect(d => d.GetData(d.GetType())).IgnoreArguments().Return(draggingNode);
-
-            var treeNode = mocks.Stub<TreeNode>();
-            treeNode.Stub(tn => tn.Parent).Return(null);
-            treeNode.Stub(tn => tn.Bounds).Return(new Rectangle(0, 0, 50, targetHeight));
-
-            var nodePoint = new Point(0, 10);
-            var graphics = mocks.Stub<Graphics>();
-
-            var treeView = mocks.Stub<WinFormsTreeView>();
-            treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
-            treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
-            mocks.ReplayAll();
-
-            var ddh = new DragDropHandler();
-
-            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
-            Func<object, TreeNodeInfo> action = o => new TreeNodeInfo
+            var data = Substitute.For<IDataObject>();
+            using (var treeView = CreateTreeViewWithTopLevelNodes(out TreeNode draggingNode, out TreeNode treeNode))
             {
-                CanDrop = (oo, op) => canDrop
-            };
+                data.GetData(typeof(TreeNode)).Returns(draggingNode);
 
-            // Call
-            ddh.HandleDragOver(treeView, dragEvent, action);
+                var ddh = new DragDropHandler();
+                Point originalCursorPosition = Cursor.Position;
 
-            // Assert
-            Assert.AreEqual(dragEvent.Effect, dropEffect);
-            mocks.VerifyAll();
+                try
+                {
+                    Point nodePoint = GetNodeMiddlePoint(treeNode);
+                    Point screenPoint = treeView.PointToScreen(nodePoint);
+                    Cursor.Position = screenPoint;
+
+                    var dragEvent = new DragEventArgs(data, 0, screenPoint.X, screenPoint.Y, DragDropEffects.All, DragDropEffects.None);
+                    Func<object, TreeNodeInfo> action = o => new TreeNodeInfo
+                    {
+                        CanDrop = (oo, op) => canDrop
+                    };
+
+                    // Call
+                    ddh.HandleDragOver(treeView, dragEvent, action);
+
+                    // Assert
+                    Assert.AreEqual(dropEffect, dragEvent.Effect);
+                }
+                finally
+                {
+                    ddh.HandleDragLeave(treeView);
+                    Cursor.Position = originalCursorPosition;
+                }
+            }
         }
 
         [Test]
         public void HandleDragOver_NoTreeNodeDraggedToDroppableNode_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            const int targetHeight = 30;
+            var data = Substitute.For<IDataObject>();
+            data.GetData(Arg.Any<Type>()).Returns(new object());
 
-            var mocks = new MockRepository();
+            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode treeNode))
+            {
+                Point nodePoint = GetNodeMiddlePoint(treeNode);
+                Point screenPoint = treeView.PointToScreen(nodePoint);
 
-            var data = mocks.Stub<IDataObject>();
-            data.Expect(d => d.GetData(d.GetType())).IgnoreArguments().Return(new object());
+                var ddh = new DragDropHandler();
+                var dragEvent = new DragEventArgs(data, 0, screenPoint.X, screenPoint.Y, DragDropEffects.All, DragDropEffects.None);
+                Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
-            var treeNode = mocks.Stub<TreeNode>();
-            treeNode.Stub(tn => tn.Parent).Return(null);
-            treeNode.Stub(tn => tn.Bounds).Return(new Rectangle(0, 0, 50, targetHeight));
+                // Call
+                ddh.HandleDragOver(treeView, dragEvent, action);
 
-            var nodePoint = new Point(0, 10);
-
-            var graphics = mocks.Stub<Graphics>();
-
-            var treeView = mocks.Stub<WinFormsTreeView>();
-            treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
-            treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
-            mocks.ReplayAll();
-
-            var ddh = new DragDropHandler();
-
-            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
-            Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
-
-            // Call
-            ddh.HandleDragOver(treeView, dragEvent, action);
-
-            // Assert
-            Assert.AreEqual(dragEvent.Effect, DragDropEffects.None);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(DragDropEffects.None, dragEvent.Effect);
+            }
         }
 
         [Test]
         public void HandleDragOver_DataDraggedThrowsInvalidCastException_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            const int targetHeight = 30;
+            var data = Substitute.For<IDataObject>();
+            data.GetData(Arg.Any<Type>()).Returns(_ => throw new InvalidCastException());
 
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IDataObject>();
-            data.Expect(d => d.GetData(d.GetType())).IgnoreArguments().Throw(new InvalidCastException());
+            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode treeNode))
+            {
+                Point nodePoint = GetNodeMiddlePoint(treeNode);
+                Point screenPoint = treeView.PointToScreen(nodePoint);
 
-            var treeNode = mocks.Stub<TreeNode>();
-            treeNode.Stub(tn => tn.Parent).Return(null);
-            treeNode.Stub(tn => tn.Bounds).Return(new Rectangle(0, 0, 50, targetHeight));
+                var ddh = new DragDropHandler();
+                var dragEvent = new DragEventArgs(data, 0, screenPoint.X, screenPoint.Y, DragDropEffects.All, DragDropEffects.None);
+                Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
-            var nodePoint = new Point(0, 10);
+                // Call
+                ddh.HandleDragOver(treeView, dragEvent, action);
 
-            var graphics = mocks.Stub<Graphics>();
+                // Assert
+                Assert.AreEqual(DragDropEffects.None, dragEvent.Effect);
+            }
+        }
 
-            var treeView = mocks.Stub<WinFormsTreeView>();
-            treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
-            treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
-            mocks.ReplayAll();
+        private static WinFormsTreeView CreateTreeViewWithTopLevelNodes(out TreeNode draggingNode, out TreeNode targetNode)
+        {
+            var treeView = new WinFormsTreeView
+            {
+                Size = new Size(200, 200)
+            };
 
-            var ddh = new DragDropHandler();
+            draggingNode = new TreeNode("DraggingNode");
+            targetNode = new TreeNode("TargetNode");
 
-            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
-            Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
+            treeView.Nodes.Add(draggingNode);
+            treeView.Nodes.Add(targetNode);
+            treeView.CreateControl();
 
-            // Call
-            ddh.HandleDragOver(treeView, dragEvent, action);
+            return treeView;
+        }
 
-            // Assert
-            Assert.AreEqual(dragEvent.Effect, DragDropEffects.None);
-            mocks.VerifyAll();
+        private static Point GetNodeMiddlePoint(TreeNode treeNode)
+        {
+            Rectangle bounds = treeNode.Bounds;
+            return new Point(bounds.Left + 1, bounds.Top + bounds.Height / 2);
         }
     }
 }

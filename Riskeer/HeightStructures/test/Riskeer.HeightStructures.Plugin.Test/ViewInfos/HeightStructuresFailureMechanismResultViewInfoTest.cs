@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -78,9 +78,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsSectionResults()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -92,17 +90,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
@@ -114,21 +109,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var otherFailureMechanism = Substitute.For<IFailureMechanism>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 otherFailureMechanism
             });
-            mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -141,7 +133,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -150,13 +141,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
                 failureMechanism
             });
-            mocks.ReplayAll();
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -167,16 +156,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -189,16 +175,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -211,16 +194,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -234,16 +214,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
@@ -257,7 +234,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -266,9 +242,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
 
             var context = new HeightStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
@@ -278,7 +252,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>>(view);
-            mocks.VerifyAll();
         }
     }
 }

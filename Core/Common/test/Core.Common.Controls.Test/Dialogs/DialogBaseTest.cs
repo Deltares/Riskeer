@@ -24,9 +24,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.Dialogs
 {
@@ -37,8 +37,7 @@ namespace Core.Common.Controls.Test.Dialogs
         public void Constructor_OwnerEqualsNull_ArgumentNullExceptionIsThrown()
         {
             // Setup
-            var mocks = new MockRepository();
-            var icon = mocks.Stub<Icon>();
+            Icon icon = SystemIcons.Application;
 
             // Call
             TestDelegate test = () => new TestDialog(null, icon, 1, 2);
@@ -52,8 +51,7 @@ namespace Core.Common.Controls.Test.Dialogs
         public void Constructor_IconEqualsNull_ArgumentNullExceptionIsThrown()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
+            var window = Substitute.For<IWin32Window>();
 
             // Call
             TestDelegate test = () => new TestDialog(window, (Icon) null, 1, 2);
@@ -67,8 +65,7 @@ namespace Core.Common.Controls.Test.Dialogs
         public void Constructor_BitmapEqualsNull_ArgumentNullExceptionIsThrown()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
+            var window = Substitute.For<IWin32Window>();
 
             // Call
             TestDelegate test = () => new TestDialog(window, (Bitmap) null, 1, 2);
@@ -84,9 +81,8 @@ namespace Core.Common.Controls.Test.Dialogs
         public void Constructor_IncorrectMinWidth_ArgumentExceptionIsThrown(int minWidth)
         {
             // Setup
-            var mocks = new MockRepository();
-            var icon = mocks.Stub<Icon>();
-            var window = mocks.Stub<IWin32Window>();
+            Icon icon = SystemIcons.Application;
+            var window = Substitute.For<IWin32Window>();
 
             TestDelegate test = () => new TestDialog(window, icon, minWidth, 1);
 
@@ -101,9 +97,8 @@ namespace Core.Common.Controls.Test.Dialogs
         public void Constructor_IncorrectMinHeight_ArgumentExceptionIsThrown(int minHeight)
         {
             // Setup
-            var mocks = new MockRepository();
-            var icon = mocks.Stub<Icon>();
-            var window = mocks.Stub<IWin32Window>();
+            Icon icon = SystemIcons.Application;
+            var window = Substitute.For<IWin32Window>();
 
             TestDelegate test = () => new TestDialog(window, icon, 1, minHeight);
 
@@ -116,11 +111,8 @@ namespace Core.Common.Controls.Test.Dialogs
         public void DefaultConstructor_ExpectedValue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-            var icon = mocks.Stub<Icon>();
-
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
+            Icon icon = SystemIcons.Application;
 
             // Call
             using (var dialog = new TestDialog(window, icon, 1, 2))
@@ -138,18 +130,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton); // Set during load
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShowDialog_TestDialog_MinimumSizeSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.StrictMock<IWin32Window>();
-            window.Expect(w => w.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
+            window.Handle.Returns(default(IntPtr));
 
             Icon icon = IconStub();
 
@@ -170,17 +158,15 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.AreEqual(2, dialog.MinimumSize.Height);
             }
 
-            mocks.VerifyAll();
+            _ = window.Received().Handle;
         }
 
         [Test]
         public void ShowDialog_TestDialog_CancelButtonSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.StrictMock<IWin32Window>();
-            window.Expect(w => w.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
-            mocks.ReplayAll();
+            var window = Substitute.For<IWin32Window>();
+            window.Handle.Returns(default(IntPtr));
 
             Icon icon = IconStub();
 
@@ -201,7 +187,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.AreSame("Test button", ((Button) dialog.CancelButton).Name);
             }
 
-            mocks.VerifyAll();
+            _ = window.Received().Handle;
         }
 
         private static Icon IconStub()

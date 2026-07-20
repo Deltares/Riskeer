@@ -25,8 +25,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -58,9 +58,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             var calculationScenario = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
@@ -84,7 +82,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, constructiveStrengthQuadraticLoadModelColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityLinearLoadModelColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityQuadraticLoadModelColumnIndex);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -471,10 +468,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            var observable = Substitute.For<IObservable>();
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
@@ -489,7 +483,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
         }
 
         /// <summary>
@@ -516,21 +509,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             bool expectUpdates)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var inputObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates)
-            {
-                inputObserver.Expect(o => o.UpdateObserver());
-            }
+            var inputObserver = Substitute.For<IObserver>();
+            if (expectUpdates) {}
 
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Expect(o => o.UpdateObserver());
-            }
+            var calculationObserver = Substitute.For<IObserver>();
+            if (expectUpdates && hasOutput) {}
 
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             StructuresOutput assignedOutput = null;
 

@@ -147,10 +147,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
                                                                               .ToArray();
 
-            IEnumerable<MacroStabilityInwardsCalculation> expectedAffectedCalculations = calculations.Where(
-                c => !c.InputParameters.UseAssessmentLevelManualInput
-                     && c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation
-                     && c.HasOutput).ToArray();
+            IEnumerable<MacroStabilityInwardsCalculation> expectedAffectedCalculations = calculations.Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                                                                 && c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation
+                                                                                                                 && c.HasOutput).ToArray();
 
             var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)

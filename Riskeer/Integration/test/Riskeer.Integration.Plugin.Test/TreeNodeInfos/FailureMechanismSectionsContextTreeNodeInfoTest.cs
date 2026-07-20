@@ -26,8 +26,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -39,20 +39,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class FailureMechanismSectionsContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
         [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
+        public void SetUp() {}
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -77,16 +70,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -97,16 +86,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnSectionsIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -117,36 +102,27 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddImportItem().Returns(menuBuilder);
+            menuBuilder.AddUpdateItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
@@ -159,18 +135,25 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddImportItem();
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ForeColor_NoSectionsOnFailureMechanism_ReturnGrayText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            failureMechanism.Sections.Returns(Enumerable.Empty<FailureMechanismSection>());
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -183,17 +166,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasSectionsOnFailureMechanism_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            failureMechanism.Stub(fm => fm.Sections).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            failureMechanism.Sections.Returns(new[]
             {
                 new FailureMechanismSection("A", new[]
                 {
@@ -201,8 +182,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     new Point2D(5, 6)
                 })
             });
-            mocks.ReplayAll();
-
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -215,8 +194,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-
-            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(RiskeerPlugin plugin)

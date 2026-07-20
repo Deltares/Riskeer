@@ -30,7 +30,7 @@ namespace Riskeer.Storage.Core
     public static class DoubleConversionExtensions
     {
         /// <summary>
-        /// Converts a <see cref="double"/> to a <see cref="Nullable{T}"/> <see cref="double"/>. If
+        /// Converts a <see cref="double"/> to a <see cref="T?"/> <see cref="double"/>. If
         /// <paramref name="value"/> is <see cref="double.NaN"/>, the result is <c>null</c>.
         /// </summary>
         /// <param name="value">The value to convert.</param>

@@ -132,8 +132,7 @@ namespace Riskeer.Piping.Data.SoilProfile
 
             foreach (PipingStochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
             {
-                PipingStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(
-                    sp => IsSame(sp, fromProfile)
+                PipingStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile)
                 );
                 if (sameProfile != null)
                 {
@@ -152,8 +151,7 @@ namespace Riskeer.Piping.Data.SoilProfile
                 newSoilProfiles.Add(fromProfile.SoilProfile);
             }
 
-            PipingStochasticSoilProfile[] remainingProfiles = StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray();
+            PipingStochasticSoilProfile[] remainingProfiles = StochasticSoilProfiles.Where(sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray();
             foreach (PipingStochasticSoilProfile profileToRemove in remainingProfiles)
             {
                 stochasticSoilProfiles.Remove(profileToRemove);

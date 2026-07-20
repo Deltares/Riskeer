@@ -148,15 +148,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverCalculationGroupContext>(
-                (context, filePath) =>
-                    new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
-                        filePath,
-                        context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
-                        context.ForeshoreProfiles,
-                        context.AssessmentSection.FailureMechanismContribution,
-                        context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverCalculationGroupContext>((context, filePath) =>
+                                                                                                                                              new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
+                                                                                                                                                  filePath,
+                                                                                                                                                  context.WrappedData,
+                                                                                                                                                  context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
+                                                                                                                                                  context.ForeshoreProfiles,
+                                                                                                                                                  context.AssessmentSection.FailureMechanismContribution,
+                                                                                                                                                  context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -344,7 +343,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
                                                                                      object parentData,
-                                                                                     TreeViewControl treeViewControl)
+                                                                                     ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -416,7 +415,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          TreeViewControl treeViewControl)
+                                                                                          ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -433,7 +432,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           TreeViewControl treeViewControl)
+                                                                                           ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -485,7 +484,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverCalculationGroupContext nodeData,
-                                                                         object parentData, TreeViewControl treeViewControl)
+                                                                         object parentData, ITreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -665,7 +664,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData,
-                                                                                  object parentData, TreeViewControl treeViewControl)
+                                                                                  object parentData, ITreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

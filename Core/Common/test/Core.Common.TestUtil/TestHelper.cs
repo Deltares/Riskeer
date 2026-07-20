@@ -653,6 +653,19 @@ namespace Core.Common.TestUtil
 
         private static void AssertContextMenuStripContainsItem(ToolStripItemCollection items, int position, string text, string toolTip, Image icon, bool enabled = true)
         {
+            Console.WriteLine("Checking context menu item at position " + position + " Looking for: " + text + " with tooltip " + toolTip);
+            foreach (ToolStripItem itemm in items)
+            {
+                Console.WriteLine(itemm.Text);
+                Console.WriteLine(itemm.ToolTipText);
+                if (text != itemm.Text)
+                    Console.WriteLine($"TEXT MISMATCH: Expected '{text}', Actual '{itemm.Text}'");
+                if (toolTip != itemm.ToolTipText)
+                    Console.WriteLine($"TOOLTIP MISMATCH: Expected '{toolTip}', Actual '{itemm.ToolTipText}'");
+                if (enabled != itemm.Enabled)
+                    Console.WriteLine($"ENABLED MISMATCH: Expected {enabled}, Actual {itemm.Enabled}");
+            }
+
             Assert.Less(position, items.Count);
 
             ToolStripItem item = items[position];

@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -35,11 +35,8 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.Mean = new RoundedDouble();
-            mocks.ReplayAll();
-
             // Call
             var designVariable = new VariationCoefficientDeterministicDesignVariable<IVariationCoefficientDistribution>(distribution);
 
@@ -47,7 +44,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             Assert.IsInstanceOf<VariationCoefficientDesignVariable<IVariationCoefficientDistribution>>(designVariable);
             Assert.AreSame(distribution, designVariable.Distribution);
             Assert.AreEqual(0, designVariable.GetDesignValue().Value);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -56,12 +52,8 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             // Setup
             double testValue = new Random(21).NextDouble();
             const int numberOfDecimalPlaces = 2;
-
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.Mean = new RoundedDouble(numberOfDecimalPlaces);
-            mocks.ReplayAll();
-
             var designVariable = new VariationCoefficientDeterministicDesignVariable<IVariationCoefficientDistribution>(distribution, testValue);
 
             // Call
@@ -70,7 +62,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(testValue, designValue.Value, designValue.GetAccuracy());
             Assert.AreEqual(numberOfDecimalPlaces, designValue.NumberOfDecimalPlaces);
-            mocks.VerifyAll();
         }
     }
 }

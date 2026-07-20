@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Service;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
@@ -38,9 +38,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
             void Call() => new ProbabilisticPipingCalculationActivity(new TestProbabilisticPipingCalculation(), null, assessmentSection);
@@ -48,7 +46,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,10 +63,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new TestProbabilisticPipingCalculation();
 
             // Call
@@ -80,7 +74,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            mocks.VerifyAll();
         }
     }
 }

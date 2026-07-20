@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -54,10 +54,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsDuneLocationCalculationAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
             var context = new DuneLocationCalculationContext(duneLocationCalculation, assessmentSection);
 
@@ -72,8 +69,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<DuneLocationCalculationProperties>(objectProperties);
                 Assert.AreSame(duneLocationCalculation, objectProperties.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)

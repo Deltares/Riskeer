@@ -362,8 +362,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         private IEnumerable<Tuple<int, WindDirection, int, string>> GetAllWindDirectionClosingSituationCombinations()
         {
             return windDirections.SelectMany(windDirection =>
-                                                 closingSituations.Select(
-                                                     closingSituation => Tuple.Create(windDirection.Key, windDirection.Value, closingSituation.Key, closingSituation.Value)))
+                                                 closingSituations.Select(closingSituation => Tuple.Create(windDirection.Key, windDirection.Value, closingSituation.Key, closingSituation.Value)))
                                  .ToArray();
         }
 

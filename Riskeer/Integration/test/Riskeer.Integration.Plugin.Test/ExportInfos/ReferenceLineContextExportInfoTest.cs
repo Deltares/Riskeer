@@ -23,8 +23,8 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -76,10 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
             const string filePath = "test";
 
@@ -93,19 +90,14 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<ReferenceLineExporter>(fileExporter);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var context = new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -118,19 +110,14 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.ReferenceLine.Returns(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var context = new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -143,8 +130,6 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(RiskeerPlugin plugin)

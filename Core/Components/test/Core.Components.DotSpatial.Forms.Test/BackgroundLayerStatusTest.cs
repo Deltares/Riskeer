@@ -26,8 +26,8 @@ using Core.Components.BruTile.IO;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
@@ -51,7 +51,6 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void HasSameConfiguration_MapDataNull_ThrowArgumentNullException()
         {
-            // Setup
             using (var layerStatus = new SimpleBackgroundLayerStatus())
             {
                 // Call
@@ -84,10 +83,8 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void LayerInitializationSuccessful_MapDataNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
-            mocks.ReplayAll();
+            var tileFetcher = Substitute.For<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(tileFetcher);
 
             using (var layer = new BruTileLayer(configuration))
             using (var layerStatus = new SimpleBackgroundLayerStatus())
@@ -116,17 +113,16 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        private static IConfiguration CreateStubConfiguration(MockRepository mocks, ITileFetcher tileFetcher)
+        private static IConfiguration CreateStubConfiguration(ITileFetcher tileFetcher)
         {
-            var schema = mocks.Stub<ITileSchema>();
-            schema.Stub(s => s.Srs).Return("EPSG:28992");
-            schema.Stub(s => s.Extent).Return(new Extent());
+            var schema = Substitute.For<ITileSchema>();
+            schema.Srs.Returns("EPSG:28992");
+            schema.Extent.Returns(new Extent());
 
-            var configuration = mocks.Stub<IConfiguration>();
-            configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.TileSchema).Return(schema);
-            configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
-            configuration.Stub(c => c.Dispose());
+            var configuration = Substitute.For<IConfiguration>();
+            configuration.Initialized.Returns(true);
+            configuration.TileSchema.Returns(schema);
+            configuration.TileFetcher.Returns(tileFetcher);
             return configuration;
         }
 

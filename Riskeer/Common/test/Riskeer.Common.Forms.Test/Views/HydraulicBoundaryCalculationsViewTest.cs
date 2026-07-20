@@ -30,9 +30,9 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
@@ -376,10 +376,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiService = mocks.Stub<IHydraulicBoundaryLocationCalculationGuiService>();
-            mocks.ReplayAll();
-
+            var guiService = Substitute.For<IHydraulicBoundaryLocationCalculationGuiService>();
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
             view.CalculationGuiService = guiService;
 
@@ -401,7 +398,6 @@ namespace Riskeer.Common.Forms.Test.Views
                                                                                        .Cast<HydraulicBoundaryLocationCalculationRow>()
                                                                                        .ToArray();
             Assert.AreEqual(rowsToBeCalculated.First().CalculatableObject, view.ObjectsToCalculate.First());
-            mocks.VerifyAll();
         }
 
         [Test]

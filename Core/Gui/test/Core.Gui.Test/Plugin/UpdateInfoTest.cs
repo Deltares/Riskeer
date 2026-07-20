@@ -25,8 +25,8 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -73,9 +73,7 @@ namespace Core.Gui.Test.Plugin
         public void ImplicitOperator_OptionalDelegatesAndPropertiesSet_UpdateInfoFullyConverted()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileUpdateer = mocks.StrictMock<IFileImporter>();
-            mocks.ReplayAll();
+            var fileUpdateer = Substitute.For<IFileImporter>();
 
             const string name = "name";
             const string category = "category";
@@ -116,8 +114,6 @@ namespace Core.Gui.Test.Plugin
             Assert.IsTrue(convertedInfo.VerifyUpdates(12));
             Assert.IsNotNull(convertedInfo.CurrentPath);
             Assert.AreEqual(path, convertedInfo.CurrentPath(12));
-
-            mocks.VerifyAll();
         }
 
         [Test]

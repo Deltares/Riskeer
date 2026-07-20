@@ -35,8 +35,8 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -57,7 +57,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuCalculateAllIndex = 4;
 
-        private MockRepository mocks;
         private DuneErosionPlugin plugin;
         private TreeNodeInfo info;
 
@@ -69,7 +68,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext));
         }
@@ -78,17 +76,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -145,9 +137,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -179,15 +168,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_WithContexts_RemovesItemAndNotifiesObservers()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
+            var calculationObserver = Substitute.For<IObserver>();
             var calculationForFirstTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
             var calculationForSecondTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
             var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>
@@ -212,6 +197,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, calculations.Count);
             CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
+            calculationObserver.Received().UpdateObserver();
         }
 
         [Test]
@@ -220,40 +206,42 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
                 var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                                  new DuneErosionFailureMechanism(),
                                                                                                  assessmentSection);
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
+                var menuBuilder = Substitute.For<IContextMenuBuilder>();
+                menuBuilder.AddOpenItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddExportItem().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
                 plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
-            }
 
-            // Assert
-            // Done in tearDown
+                // Assert
+                Received.InOrder(() =>
+                {
+                    menuBuilder.AddOpenItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddExportItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddDeleteItem();
+                    menuBuilder.AddSeparator();
+                    menuBuilder.AddPropertiesItem();
+                    menuBuilder.Build();
+                });
+            }
         }
 
         [Test]
@@ -271,12 +259,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
-
+                IGui gui = StubFactory.CreateGuiStub();
+                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
                 plugin.Gui = gui;
 
                 // Call
@@ -291,16 +277,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
-
-            // Assert
-            // Done in tearDown
         }
 
         [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
@@ -309,12 +292,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-
-                mocks.ReplayAll();
-
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(builder);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
                 plugin.Gui = gui;
 
                 // Call
@@ -380,15 +360,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-                assessmentSection.Stub(a => a.Id).Return("13-1");
-                assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+                var assessmentSection = Substitute.For<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+                assessmentSection.Id.Returns("13-1");
+                assessmentSection.GetFailureMechanisms().Returns(new[]
                 {
                     failureMechanism
                 });
-                assessmentSection.Stub(a => a.FailureMechanismContribution)
-                                 .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+                assessmentSection.FailureMechanismContribution
+                                 .Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
                 var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(duneLocationCalculationsForTargetProbability,
                                                                                                  failureMechanism,
@@ -396,24 +376,18 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                var calculationObserver = mocks.StrictMock<IObserver>();
-                calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(2);
-                var calculationsObserver = mocks.StrictMock<IObserver>();
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(builder);
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
+                var calculationObserver = Substitute.For<IObserver>();
+                var calculationsObserver = Substitute.For<IObserver>();
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(null))
-                                 .IgnoreArguments()
-                                 .Return(new TestDunesBoundaryConditionsCalculator())
-                                 .Repeat
-                                 .Times(2);
-                mocks.ReplayAll();
-
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+                calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                                 .Returns(new TestDunesBoundaryConditionsCalculator());
                 duneLocationCalculationsForTargetProbability.DuneLocationCalculations.Attach(calculationsObserver);
                 duneLocationCalculationsForTargetProbability.DuneLocationCalculations.ForEachElementDo(location => location.Attach(calculationObserver));
 
@@ -449,6 +423,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName2}' (1/100) is gelukt.", messageList[15]);
                     });
                 }
+
+                calculationObserver.Received(2).UpdateObserver();
             }
         }
 
@@ -496,15 +472,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Id).Return("13-1");
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+            assessmentSection.Id.Returns("13-1");
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.FailureMechanismContribution
+                             .Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(duneLocationCalculationsForTargetProbability,
                                                                                              failureMechanism,
@@ -512,25 +488,26 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                var gui = Substitute.For<IGui>();
+                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.MainWindow.Returns(mainWindow);
+                gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                                    hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(dunesBoundaryConditionsCalculator);
-                mocks.ReplayAll();
+                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
+                calculatorFactory
+                    .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                    .Returns(callInfo =>
+                    {
+                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                       hydraulicBoundaryLocation),
+                            callInfo.Arg<HydraRingCalculationSettings>());
+                        return dunesBoundaryConditionsCalculator;
+                    });
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -555,9 +532,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void CanDrag_Always_ReturnsTrue()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             bool canDrag = info.CanDrag(null, null);
 

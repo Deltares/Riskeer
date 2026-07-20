@@ -25,8 +25,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
@@ -152,12 +152,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(21);
             RoundedDouble newParameterAValue = random.NextRoundedDouble();
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionConfiguration = new FailureMechanismSectionConfiguration(section);
             sectionConfiguration.Attach(observer);
@@ -169,7 +164,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newParameterAValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
     }
 }

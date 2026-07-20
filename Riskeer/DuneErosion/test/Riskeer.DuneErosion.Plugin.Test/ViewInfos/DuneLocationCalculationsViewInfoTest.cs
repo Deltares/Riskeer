@@ -26,8 +26,8 @@ using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -51,10 +51,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                     string expectedProbabilityText)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -79,7 +76,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreEqual($"Hydraulische belastingen - {expectedProbabilityText}", viewName);
-                mocks.VerifyAll();
             }
         }
 
@@ -119,10 +115,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsDuneLocationCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
@@ -136,7 +129,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreSame(context.WrappedData.DuneLocationCalculations, viewData);
-                mocks.VerifyAll();
             }
         }
 
@@ -144,15 +136,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            var window = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(window);
-            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+            var window = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(window);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              failureMechanism,
@@ -173,23 +162,18 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                     Assert.AreSame(failureMechanism, view.FailureMechanism);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AfterCreate_Always_SetsExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            var window = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.MainWindow).Return(window);
-            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+            var window = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(window);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             var failureMechanism = new DuneErosionFailureMechanism();
             var data = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                           failureMechanism,
@@ -215,8 +199,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                     Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -224,18 +206,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
@@ -251,31 +227,24 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSectionA = Substitute.For<IAssessmentSection>();
+            assessmentSectionA.GetFailureMechanisms().Returns(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-            assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
-            assessmentSectionA.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
+            assessmentSectionA.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
 
-            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-            assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSectionB = Substitute.For<IAssessmentSection>();
+            assessmentSectionB.GetFailureMechanisms().Returns(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-            mocks.ReplayAll();
-
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
@@ -291,8 +260,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -343,17 +310,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
@@ -369,19 +331,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseViewForData_ViewDataNull_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
-            mocks.ReplayAll();
-
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
@@ -397,8 +354,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         private static ViewInfo GetInfo(DuneErosionPlugin plugin)

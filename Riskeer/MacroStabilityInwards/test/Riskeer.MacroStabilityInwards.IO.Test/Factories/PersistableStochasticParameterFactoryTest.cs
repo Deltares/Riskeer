@@ -22,8 +22,8 @@
 using System;
 using Components.Persistence.Stability.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
@@ -48,10 +48,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_WithDistribution_ReturnsPersistableStochasticParameter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var random = new Random(21);
             distribution.Mean = random.NextRoundedDouble();
             distribution.CoefficientOfVariation = random.NextRoundedDouble();
@@ -61,17 +58,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertStochasticParameter(distribution, stochasticParameter);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Create_WithDistributionAndIsProbabilistic_ReturnsPersistableStochasticParameter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
+            var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var random = new Random(21);
             distribution.Mean = random.NextRoundedDouble();
             distribution.CoefficientOfVariation = random.NextRoundedDouble();
@@ -83,7 +76,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertStochasticParameter(distribution, stochasticParameter, isProbabilistic);
-            mocks.VerifyAll();
         }
     }
 }

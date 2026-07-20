@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -48,10 +48,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var mockRepository = new MockRepository();
-            var input = mockRepository.Stub<IMacroStabilityInwardsLocationInput>();
-            mockRepository.ReplayAll();
-
+            var input = Substitute.For<IMacroStabilityInwardsLocationInput>();
             input.UseDefaultOffsets = true;
             input.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
             input.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
@@ -74,10 +71,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var mockRepository = new MockRepository();
-            var input = mockRepository.Stub<IMacroStabilityInwardsLocationInput>();
-            mockRepository.ReplayAll();
-
+            var input = Substitute.For<IMacroStabilityInwardsLocationInput>();
             input.UseDefaultOffsets = false;
             input.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
             input.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
@@ -93,8 +87,6 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtPolder, offsets.BelowDikeTopAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeToeAtPolder, offsets.BelowDikeToeAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowShoulderBaseInside, offsets.BelowShoulderBaseInside);
-
-            mockRepository.VerifyAll();
         }
     }
 }

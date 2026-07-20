@@ -28,8 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.DikeProfiles;
@@ -45,27 +45,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        private MockRepository mocks;
-
         [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
+        public void Setup() {}
 
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             var importer = new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
 
@@ -77,9 +67,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath, messageProvider);
 
@@ -92,9 +80,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new TestProfilesImporter(testImportTarget, null, testFilePath, messageProvider);
 
@@ -107,9 +93,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null, messageProvider);
 
@@ -133,9 +117,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_TypeDescriptorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider, null);
 
@@ -152,9 +134,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromInvalidPath_FalseAndLogError(string filePath, string errorMessage)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
@@ -178,9 +158,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithNonPointFeatures_FalseAndLogError(string shapeFileName)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          shapeFileName);
 
@@ -204,9 +182,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string shapeFileName, string missingColumnName)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", shapeFileName));
 
@@ -228,9 +204,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithIllegalCharactersInId_FalseAndLogError(string fileName)
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", fileName));
 
@@ -251,9 +225,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithEmptyEntryForId_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
@@ -274,9 +246,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithEmptyEntryForX0_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
@@ -297,9 +267,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_DikeProfileLocationsNotCloseEnoughToReferenceLine_FalseAndLogError()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -329,9 +297,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_InvalidDamType_FalseAndLogMessage()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                   Path.Combine("DikeProfiles", "InvalidDamType"));
             string filePath = Path.Combine(testFileDirectory, "Voorlanden 12-2.shp");
@@ -354,9 +320,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_TwoPrflWithSameId_FalseAndErrorLog()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                   Path.Combine("DikeProfiles", "TwoPrflWithSameId"));
             string filePath = Path.Combine(testFileDirectory, "profiel001.shp");
@@ -385,9 +349,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithDuplicateId_FalseAndLogErrors()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_same_id_3_times.shp"));
 
@@ -408,9 +370,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_PrflWithProfileNotZero_FalseAndErrorLog()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
 
@@ -435,9 +395,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_PrflIsIncomplete_FalseAndErrorLog()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
 
@@ -467,9 +425,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithUnrelatedInvalidPrflFilesInSameFolder_TrueAndIgnoresUnrelatedFiles()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "OkTestDataWithUnrelatedPrfl", "Voorland 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -488,9 +444,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingProfileLocations_ReturnsFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -514,9 +468,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingDikeProfileLocations_ReturnsFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -542,10 +494,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string addingDataToModel = "Adding Data to Model";
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            messageProvider.Stub(mp => mp.GetAddDataToModelProgressText()).Return(addingDataToModel);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(addingDataToModel);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -574,9 +524,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_True()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -603,14 +551,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             const string typeDescriptor = "A typeDescriptor";
 
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
-                           .Return("");
-            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(typeDescriptor))
-                           .IgnoreArguments()
-                           .Return("error {0}");
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText()
+                           .Returns("");
+            messageProvider.GetUpdateDataFailedLogMessageText(typeDescriptor)
+                           .Returns("error {0}");
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -643,10 +588,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             const string expectedProgressText = "Adding Data to model";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedProgressText);
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            messageProvider.GetAddDataToModelProgressText().Returns(expectedProgressText);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -668,7 +611,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             testProfilesImporter.Import();
 
             // Assert
-            // Assert done in TearDown
+            messageProvider.Received().GetAddDataToModelProgressText();
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()

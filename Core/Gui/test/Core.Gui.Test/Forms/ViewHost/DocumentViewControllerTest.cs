@@ -26,9 +26,9 @@ using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {
@@ -39,14 +39,8 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             // Call
             using (var documentViewController = new DocumentViewController(viewHost,
@@ -57,8 +51,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsInstanceOf<IDocumentViewController>(documentViewController);
                 CollectionAssert.IsEmpty(documentViewController.DefaultViewTypes);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -67,14 +59,8 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void OpenViewForData_DataIsNull_ReturnFalse(bool forceShowDialog)
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             var viewInfos = new ViewInfo[]
             {
@@ -89,8 +75,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.IsFalse(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -99,14 +83,8 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void OpenViewForData_NoViewInfoRegistered_ReturnFalse(bool forceShowDialog)
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             var viewInfos = new ViewInfo[0];
 
@@ -118,8 +96,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.IsFalse(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -127,28 +103,23 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             const string title = "<title>";
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Equal(title),
-                                                     Arg<string>.Is.Equal(symbol),
-                                                     Arg<FontFamily>.Is.Same(fontFamily)))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Is(title),
+                              Arg.Is(symbol),
+                              Arg.Is(fontFamily)))
+                    .Do(callInfo =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = callInfo.Arg<TestView>();
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
             const string viewData = "<I'm a piece of view data>";
             var afterCreateCalled = false;
@@ -191,8 +162,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(viewData, view.Data);
                 Assert.IsTrue(afterCreateCalled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -200,26 +169,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             const string viewName = "<cool view name>";
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Equal(viewName),
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+
+            viewHost.When(x => x.AddDocumentView(Arg.Any<TestView>(),
+                                                 viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = invocation.Args()[0] as TestView;
                     });
-
-            mocks.ReplayAll();
-
             var data = new InheritedFromA();
             var afterCreateCalled = false;
 
@@ -254,8 +216,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsTrue(afterCreateCalled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -263,24 +223,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestViewDerivative view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestViewDerivative;
+                        view = invocation.Args()[0] as TestViewDerivative;
                     });
-
-            mocks.ReplayAll();
-
             var data = new InheritedFromA();
 
             var viewInfos = new ViewInfo[]
@@ -299,8 +254,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -308,24 +261,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = invocation.Args()[0] as TestView;
                     });
-
-            mocks.ReplayAll();
-
             var data = new A();
 
             var viewInfos = new ViewInfo[]
@@ -344,8 +292,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -353,24 +299,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestViewDerivative view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestViewDerivative;
+                        view = invocation.Args()[0] as TestViewDerivative;
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -395,24 +336,16 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void OpenViewForData_ClickCancelInOpenedDialog_ReturnFalseAndNoViewAddedToViewHost()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-
-            mocks.ReplayAll();
-
+            viewHost.DocumentViews.Returns(new IView[0]);
             var data = new object();
             var viewInfos = new ViewInfo[]
             {
@@ -435,8 +368,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.IsFalse(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -444,24 +375,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = invocation.Args()[0] as TestView;
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -487,8 +413,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -496,24 +420,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = invocation.Args()[0] as TestView;
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -546,8 +465,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
                 Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -555,24 +472,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestView view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestView;
+                        view = invocation.Args()[0] as TestView;
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -606,8 +518,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
                 Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -615,24 +525,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             TestViewDerivative view = null;
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.When(x => x.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(invocation =>
                     {
-                        view = invocation.Arguments[0] as TestViewDerivative;
+                        view = invocation.Args()[0] as TestViewDerivative;
                     });
-
-            mocks.ReplayAll();
-
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -653,8 +558,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -663,24 +566,15 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new object();
             var data2 = new object();
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1),
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null));
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2),
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null));
-
-            mocks.ReplayAll();
-
+            viewHost.DocumentViews.Returns(new IView[0]);
+            viewHost.AddDocumentView(
+                Arg.Any<TestView>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<FontFamily>());
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<object, TestView>()
@@ -694,7 +588,16 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.Received().AddDocumentView(
+                Arg.Is<TestView>(c => c.Data == data1),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<FontFamily>());
+            viewHost.Received().AddDocumentView(
+                Arg.Is<TestView>(c => c.Data == data2),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<FontFamily>());
         }
 
         [Test]
@@ -703,21 +606,19 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var viewList = new List<IView>();
             var data = new object();
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => viewList.Add(invocation.Arguments[0] as TestView));
-            viewHost.Expect(vh => vh.BringToFront(Arg<TestView>.Matches(c => c == viewList.First())));
-
-            mocks.ReplayAll();
+            viewHost.DocumentViews.Returns(viewList);
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
+                    {
+                        viewList.Add(callInfo.Args()[0] as TestView);
+                    });
 
             var viewInfos = new ViewInfo[]
             {
@@ -734,21 +635,15 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.Received().BringToFront(Arg.Is<TestView>(c => c == viewList.First()));
         }
 
         [Test]
         public void GetViewInfosFor_NoViewInfosRegistered_ReturnEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             using (var documentViewController = new DocumentViewController(viewHost, Enumerable.Empty<ViewInfo>(), dialogParent))
             {
@@ -760,22 +655,14 @@ namespace Core.Gui.Test.Forms.ViewHost
                 // Assert
                 CollectionAssert.IsEmpty(matchedViewInfos);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfosFor_SingleDirectMatch_ReturnSingleMatchingViewInfo()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             var viewInfos = new ViewInfo[]
             {
@@ -797,22 +684,14 @@ namespace Core.Gui.Test.Forms.ViewHost
                     viewInfos[1]
                 }, matchedViewInfos);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfosFor_ViewInfosWithInheritance_ReturnMatchesBasedOnInheritanceDataType()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             var viewInfos = new ViewInfo[]
             {
@@ -836,22 +715,14 @@ namespace Core.Gui.Test.Forms.ViewHost
                 };
                 CollectionAssert.AreEqual(expected, matchedViewInfos);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfosFor_ViewInfosWithAdditionalDataCheck_ReturnMatchesWithAdditionalDataCheckTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
             var viewInfos = new ViewInfo[]
             {
@@ -881,8 +752,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                 };
                 CollectionAssert.AreEqual(expected, matchedViewInfos);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -891,33 +760,26 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new A();
             var data2 = new InheritedFromA();
-
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
             var documentViews = new List<IView>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(documentViews);
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
                     {
-                        documentViews.Add(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation =>
+                        documentViews.Add(callInfo.Args()[0] as TestView);
+                    });
+
+            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+                    .Do(invocation =>
                     {
-                        documentViews.Remove(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-
-            mocks.ReplayAll();
-
+                        documentViews.Remove(invocation.Args()[0] as TestView);
+                    });
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
@@ -935,7 +797,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             // Assert
             CollectionAssert.IsEmpty(documentViews);
-            mocks.VerifyAll();
+            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            viewHost.Received(2).Remove(Arg.Any<TestView>());
         }
 
         [Test]
@@ -952,21 +815,14 @@ namespace Core.Gui.Test.Forms.ViewHost
             {
                 Data = data2
             };
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
 
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new[]
+            viewHost.DocumentViews.Returns(new[]
             {
                 testView,
                 testViewDerivative
             });
-
-            mocks.ReplayAll();
-
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
@@ -980,7 +836,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.DidNotReceive().Remove(Arg.Any<IView>());
         }
 
         [Test]
@@ -989,25 +845,20 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new A();
             var data2 = new InheritedFromA();
-
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
             var documentViews = new List<IView>();
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
-                    {
-                        documentViews.Add(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-            mocks.ReplayAll();
 
+            viewHost.DocumentViews.Returns(documentViews);
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
+                    {
+                        documentViews.Add(callInfo.Args()[0] as TestView);
+                    });
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
@@ -1024,7 +875,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
         }
 
         [Test]
@@ -1033,30 +884,27 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new A();
             var data2 = new InheritedFromA();
-
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
             var documentViews = new List<IView>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
-                    {
-                        documentViews.Add(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation =>
-            {
-                documentViews.Remove(invocation.Arguments[0] as TestView);
-            });
+            viewHost.DocumentViews.Returns(documentViews);
 
-            mocks.ReplayAll();
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
+                    {
+                        documentViews.Add(callInfo.Args()[0] as TestView);
+                    });
+
+            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+                    .Do(invocation =>
+                    {
+                        documentViews.Remove(invocation.Args()[0] as TestView);
+                    });
 
             var viewInfos = new ViewInfo[]
             {
@@ -1074,7 +922,8 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.Received().AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            viewHost.Received().Remove(Arg.Any<TestView>());
         }
 
         [Test]
@@ -1084,32 +933,26 @@ namespace Core.Gui.Test.Forms.ViewHost
             var data1 = new A();
             var data2 = new InheritedFromA();
             var unusedViewData = new object();
-
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
             var documentViews = new List<IView>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(documentViews);
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
                     {
-                        documentViews.Add(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arguments[0] as TestView);
-                    })
-                    .Repeat.Twice();
-            mocks.ReplayAll();
+                        documentViews.Add(callInfo.Args()[0] as TestView);
+                    });
 
+            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+                    .Do(invocation =>
+                    {
+                        documentViews.Remove(invocation.Args()[0] as TestView);
+                    });
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>
@@ -1144,7 +987,8 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            mocks.VerifyAll();
+            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            viewHost.Received(2).Remove(Arg.Any<TestView>());
         }
 
         [Test]
@@ -1153,30 +997,27 @@ namespace Core.Gui.Test.Forms.ViewHost
             // Setup
             var data = new A();
             var viewData = new object();
-
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
+            var dialogParent = Substitute.For<IWin32Window>();
+            var viewHost = Substitute.For<IViewHost>();
             var documentViews = new List<IView>();
 
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Null,
-                                                     Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation =>
+            viewHost.DocumentViews.Returns(documentViews);
+
+            viewHost.When(vh => vh.AddDocumentView(
+                              Arg.Any<TestView>(),
+                              Arg.Any<string>(),
+                              Arg.Any<string>(),
+                              Arg.Any<FontFamily>()))
+                    .Do(callInfo =>
                     {
-                        documentViews.Add(invocation.Arguments[0] as TestView);
-                    });
-            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arguments[0] as TestView);
+                        documentViews.Add(callInfo.Args()[0] as TestView);
                     });
 
-            mocks.ReplayAll();
+            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+                    .Do(invocation =>
+                    {
+                        documentViews.Remove(invocation.Args()[0] as TestView);
+                    });
 
             var viewClosed = false;
             var viewInfos = new ViewInfo[]
@@ -1214,7 +1055,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.IsTrue(viewClosed);
-            mocks.VerifyAll();
+            viewHost.Received(1).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            viewHost.Received(1).Remove(Arg.Any<TestView>());
         }
 
         private class A {}

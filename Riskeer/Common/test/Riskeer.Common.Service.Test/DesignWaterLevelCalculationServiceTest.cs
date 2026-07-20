@@ -24,8 +24,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -63,10 +63,7 @@ namespace Riskeer.Common.Service.Test
         public void Calculate_HydraulicBoundaryLocationCalculationNull_ThrowArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null,
                                                                                          CreateCalculationSettings(),
@@ -76,17 +73,13 @@ namespace Riskeer.Common.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocationCalculation", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             TestDelegate call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                                                          null,
@@ -96,7 +89,6 @@ namespace Riskeer.Common.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -128,20 +120,18 @@ namespace Riskeer.Common.Service.Test
 
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
                                                                                validHrdFileVersion, usePreprocessorClosure);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        calculationSettings,
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return calculator;
+                });
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
@@ -159,8 +149,6 @@ namespace Riskeer.Common.Service.Test
                 AssertInput(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -174,16 +162,11 @@ namespace Riskeer.Common.Service.Test
                 IllustrationPointsResult = new TestGeneralResult(),
                 Converged = true
             };
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
@@ -218,7 +201,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(readIllustrationPoints, actualOutput.HasGeneralResult);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -235,17 +218,11 @@ namespace Riskeer.Common.Service.Test
                 IllustrationPointsResult = new TestGeneralResult(),
                 Converged = false
             };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(c => c.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
-            mockRepository.ReplayAll();
-
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+            calculationMessageProvider.GetCalculatedNotConvergedMessage(locationName).Returns(failedConvergenceMessage);
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
@@ -275,13 +252,12 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
 
+                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
                 Assert.IsFalse(calculator.IsCanceled);
                 HydraulicBoundaryLocationCalculationOutput actualOutput = hydraulicBoundaryLocationCalculation.Output;
                 Assert.IsNotNull(actualOutput);
                 Assert.AreEqual(readIllustrationPoints, actualOutput.HasGeneralResult);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -293,16 +269,11 @@ namespace Riskeer.Common.Service.Test
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints(),
                 Converged = true
             };
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
@@ -337,9 +308,8 @@ namespace Riskeer.Common.Service.Test
                 });
                 Assert.IsNotNull(hydraulicBoundaryLocationCalculation.Output);
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
+                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -353,16 +323,11 @@ namespace Riskeer.Common.Service.Test
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
                 Converged = true
             };
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
             {
                 InputParameters =
@@ -399,7 +364,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
             }
 
-            mockRepository.VerifyAll();
+            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -409,23 +374,17 @@ namespace Riskeer.Common.Service.Test
             const string locationName = "locationName";
 
             var expectedException = new HydraRingFileParserException();
+            var calculator = Substitute.For<IDesignWaterLevelCalculator>();
+            calculator.When(_ => _.Calculate(Arg.Any<AssessmentLevelCalculationInput>())).Do(_ => throw expectedException);
 
-            var mockRepository = new MockRepository();
-            var calculator = mockRepository.Stub<IDesignWaterLevelCalculator>();
-            calculator.Expect(c => c.Calculate(Arg<AssessmentLevelCalculationInput>.Is.TypeOf))
-                      .Throw(expectedException);
-            calculator.Stub(c => c.LastErrorFileContent).Return(string.Empty);
-            calculator.Stub(c => c.OutputDirectory).Return(string.Empty);
+            calculator.LastErrorFileContent.Returns(string.Empty);
+            calculator.OutputDirectory.Returns(string.Empty);
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+            calculationMessageProvider.GetCalculatedNotConvergedMessage(locationName).Returns(string.Empty);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -440,8 +399,6 @@ namespace Riskeer.Common.Service.Test
                 var thrownException = Assert.Throws<HydraRingFileParserException>(call);
                 Assert.AreSame(expectedException, thrownException);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -449,21 +406,18 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string parserErrorMessage = "Some Error Message";
-            var mockRepository = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsParserErrorMessage = parserErrorMessage,
                 Converged = true
             };
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
@@ -492,30 +446,26 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
+                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_ValidDesignWaterLevelCalculationCalculateIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsParserErrorMessage = "Some Error Message",
                 Converged = true
             };
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
+            ;
 
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -536,9 +486,8 @@ namespace Riskeer.Common.Service.Test
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
+                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -546,16 +495,11 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var calculator = new TestDesignWaterLevelCalculator();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -571,9 +515,8 @@ namespace Riskeer.Common.Service.Test
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
+                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -592,28 +535,23 @@ namespace Riskeer.Common.Service.Test
                 LastErrorFileContent = lastErrorFileContent,
                 EndInFailure = endInFailure
             };
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
-                             .IgnoreArguments()
-                             .Return(calculator);
-
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             if (endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
             {
-                calculationMessageProvider.Expect(mp => mp.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
+                calculationMessageProvider.GetCalculationFailedMessage(locationName).Returns(calculationFailedMessage);
             }
             else
             {
-                calculationMessageProvider.Expect(mp => mp.GetCalculationFailedWithErrorReportMessage(locationName,
-                                                                                                      endInFailure && string.IsNullOrEmpty(lastErrorFileContent)
-                                                                                                          ? calculator.HydraRingCalculationException.Message
-                                                                                                          : lastErrorFileContent
-                                                  )).Return(calculationFailedMessage);
+                calculationMessageProvider.GetCalculationFailedWithErrorReportMessage(locationName,
+                                                                                      endInFailure && string.IsNullOrEmpty(lastErrorFileContent)
+                                                                                          ? calculator.HydraRingCalculationException.Message
+                                                                                          : lastErrorFileContent
+                ).Returns(calculationFailedMessage);
             }
-
-            mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
 
@@ -651,8 +589,6 @@ namespace Riskeer.Common.Service.Test
 
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()

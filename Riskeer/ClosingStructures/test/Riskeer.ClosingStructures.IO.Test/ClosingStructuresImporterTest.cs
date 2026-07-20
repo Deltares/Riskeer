@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -44,27 +44,14 @@ namespace Riskeer.ClosingStructures.IO.Test
         private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "Structures");
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO);
 
-        private MockRepository mocks;
-
-        [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
         [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        public void TearDown() {}
 
         [Test]
         public void Constructor_WithoutUpdateStrategy_ThrowsArgumentNullException()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             TestDelegate test = () => new ClosingStructuresImporter(
                 new StructureCollection<ClosingStructure>(),
@@ -82,10 +69,8 @@ namespace Riskeer.ClosingStructures.IO.Test
         public void Constructor_WithUpdateStrategy_ExpectedValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             // Call
             var importer = new ClosingStructuresImporter(
                 new StructureCollection<ClosingStructure>(),
@@ -102,10 +87,8 @@ namespace Riskeer.ClosingStructures.IO.Test
         public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -137,13 +120,13 @@ namespace Riskeer.ClosingStructures.IO.Test
             string filePath = Path.Combine(testDataPath, "StructuresVarianceValueConversion",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
-                var closingStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
+                var closingStructures = (IEnumerable<ClosingStructure>) i[0];
                 Assert.AreEqual(1, closingStructures.Count());
 
                 ClosingStructure structure = closingStructures.First();
@@ -157,7 +140,6 @@ namespace Riskeer.ClosingStructures.IO.Test
                 Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
                 Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -183,6 +165,8 @@ namespace Riskeer.ClosingStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -190,9 +174,8 @@ namespace Riskeer.ClosingStructures.IO.Test
         public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
-            mocks.ReplayAll();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv",
                                            "Kunstwerken.shp");
 
@@ -228,14 +211,13 @@ namespace Riskeer.ClosingStructures.IO.Test
             var importTarget = new StructureCollection<ClosingStructure>();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
                                            "Kunstwerken.shp");
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
-                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i.Arguments[0]).Count());
+                Assert.AreEqual(filePath, i[1]);
+                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i[0]).Count());
             });
-            mocks.ReplayAll();
 
             var referencePoints = new List<Point2D>
             {
@@ -266,11 +248,11 @@ namespace Riskeer.ClosingStructures.IO.Test
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
                                            "MissingParameters", "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
                 var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                 {
@@ -279,7 +261,7 @@ namespace Riskeer.ClosingStructures.IO.Test
                     Id = "id"
                 });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
+                var readStructures = (IEnumerable<ClosingStructure>) i[0];
                 Assert.AreEqual(1, readStructures.Count());
                 ClosingStructure importedStructure = readStructures.First();
                 DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -287,7 +269,6 @@ namespace Riskeer.ClosingStructures.IO.Test
                 DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
                 Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -313,6 +294,8 @@ namespace Riskeer.ClosingStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
+
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -323,11 +306,11 @@ namespace Riskeer.ClosingStructures.IO.Test
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
                                            "MissingAndDuplicateIrrelevantParameters", "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
-                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(filePath, i[1]);
 
                 var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                 {
@@ -336,7 +319,7 @@ namespace Riskeer.ClosingStructures.IO.Test
                     Id = "id"
                 });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
+                var readStructures = (IEnumerable<ClosingStructure>) i[0];
                 Assert.AreEqual(1, readStructures.Count());
                 ClosingStructure importedStructure = readStructures.First();
                 DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -344,7 +327,6 @@ namespace Riskeer.ClosingStructures.IO.Test
                 DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
                 Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
             });
-            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -370,6 +352,8 @@ namespace Riskeer.ClosingStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
+
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -380,18 +364,16 @@ namespace Riskeer.ClosingStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
-                    .WhenCalled(invocation =>
-                    {
-                        Assert.AreSame(invocation.Arguments[1], filePath);
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
+            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(invocation =>
+            {
+                Assert.AreSame(invocation[1], filePath);
 
-                        var readStructures = (IEnumerable<ClosingStructure>) invocation.Arguments[0];
-                        Assert.AreEqual(1, readStructures.Count());
-                    })
-                    .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
+                var readStructures = (IEnumerable<ClosingStructure>) invocation[0];
+                Assert.AreEqual(1, readStructures.Count());
+            });
 
             var referencePoints = new List<Point2D>
             {
@@ -411,6 +393,8 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
+
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -421,10 +405,8 @@ namespace Riskeer.ClosingStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithOnlyDuplicateIrrelevantParameterInCsv",
                                            "Kunstwerken.shp");
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
-            mocks.ReplayAll();
-
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
+            var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             var referencePoints = new List<Point2D>
             {
                 new Point2D(154493.618, 568995.991),
@@ -459,21 +441,20 @@ namespace Riskeer.ClosingStructures.IO.Test
         [Test]
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var messageProvider = Substitute.For<IImporterMessageProvider>();
 
-            var observableA = mocks.StrictMock<IObservable>();
-            observableA.Expect(o => o.NotifyObservers());
-            var observableB = mocks.StrictMock<IObservable>();
-            observableB.Expect(o => o.NotifyObservers());
+            var observableA = Substitute.For<IObservable>();
+
+            var observableB = Substitute.For<IObservable>();
+
             IObservable[] observables =
             {
                 observableA,
                 observableB
             };
 
-            var strategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
-            mocks.ReplayAll();
+            var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()).Returns(observables);
 
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
                                            "MissingParameters", "Kunstwerken.shp");
@@ -491,6 +472,10 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             // Assertions performed in TearDown
+
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();
+            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

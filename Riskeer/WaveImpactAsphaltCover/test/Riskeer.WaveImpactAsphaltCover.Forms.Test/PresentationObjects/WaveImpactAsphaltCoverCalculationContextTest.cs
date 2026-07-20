@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -39,9 +39,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -57,16 +55,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
         public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -77,7 +72,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [TestFixture]
@@ -85,24 +79,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             : EqualsTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationContext,
                 DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext>
         {
-            private static readonly MockRepository mocks = new MockRepository();
-
-            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             private static readonly WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
-
-            [SetUp]
-            public void SetUp()
-            {
-                mocks.ReplayAll();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                mocks.VerifyAll();
-            }
 
             protected override WaveImpactAsphaltCoverWaveConditionsCalculationContext CreateObject()
             {

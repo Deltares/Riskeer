@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -58,18 +58,14 @@ namespace Riskeer.Common.Forms.Test.Observers
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
                        FailureMechanismSectionResult, TestCalculationWithInput>(failureMechanism))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 
@@ -84,18 +80,14 @@ namespace Riskeer.Common.Forms.Test.Observers
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
                        FailureMechanismSectionResult, TestCalculationWithInput>(failureMechanism))
             {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
+                var observer = Substitute.For<IObserver>();
                 resultObserver.Attach(observer);
 
                 // When
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
-                mocks.VerifyAll();
+                observer.Received().UpdateObserver();
             }
         }
 

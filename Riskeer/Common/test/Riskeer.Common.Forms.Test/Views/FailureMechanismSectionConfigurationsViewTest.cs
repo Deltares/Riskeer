@@ -28,8 +28,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
@@ -67,9 +67,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_SectionConfigurationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
@@ -84,10 +82,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CreateRowFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
 
             // Call
@@ -103,10 +98,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ValidParameters_InitializesViewCorrectly()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             var sectionConfigurations = new ObservableList<FailureMechanismSectionConfiguration>();
 
             // Call
@@ -133,18 +125,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("a [-]", dataGridView.Columns[parameterAColumnIndex].HeaderText);
                 Assert.AreEqual("Nvak* [-]", dataGridView.Columns[lengthEffectNRoundedColumnIndex].HeaderText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithSectionConfigurations_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             FailureMechanismSection[] sections =
             {
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0),
@@ -166,8 +153,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 AssertSectionsDataGridViewControl(sectionConfigurations, b, sectionsDataGridViewControl);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

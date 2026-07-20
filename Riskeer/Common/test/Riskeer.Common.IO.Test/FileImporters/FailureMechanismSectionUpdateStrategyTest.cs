@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -41,9 +41,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
 
             // Call
             void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(null, sectionResultUpdateStrategy);
@@ -51,16 +49,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_SectionResultUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
 
             // Call
             void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, null);
@@ -74,27 +69,21 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             // Call
             var importer = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(importer);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateSectionsWithImportedData_ImportedFailureMechanismSectionsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
 
             // Call
             void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy).UpdateSectionsWithImportedData(null, "");
@@ -102,18 +91,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedFailureMechanismSections", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateSectionsWithImportedData_SourcePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Call
@@ -122,7 +107,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourcePath", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

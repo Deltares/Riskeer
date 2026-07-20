@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -63,11 +63,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void UpdateInternalData_Always_UpdatesDataAndFiresEventsAndNotifiesObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            var observer = Substitute.For<IObserver>();
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             sectionResult.Attach(observer);
 
@@ -88,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsTrue(row.Updated);
             Assert.IsTrue(rowUpdated);
             Assert.IsTrue(rowUpdateDone);
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>

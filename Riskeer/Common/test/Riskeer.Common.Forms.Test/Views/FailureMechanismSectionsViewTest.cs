@@ -26,8 +26,8 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -62,9 +62,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_SectionsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = Substitute.For<IFailureMechanism>();
 
             // Call
             void Call() => new FailureMechanismSectionsView(null, failureMechanism);
@@ -72,18 +70,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("sections", paramName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidParameters_InitializesViewCorrectly()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
@@ -107,18 +100,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("Metrering tot* [m]", dataGridView.Columns[sectionEndColumnIndex].HeaderText);
                 Assert.AreEqual("Lengte* [m]", dataGridView.Columns[lengthColumnIndex].HeaderText);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutSections_CreatesViewWithDataGridViewEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
@@ -127,18 +115,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 CollectionAssert.IsEmpty(GetSectionsDataGridViewControl(view).Rows);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithSections_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = Substitute.For<IFailureMechanism>();
             FailureMechanismSection[] sections =
             {
                 CreateFailureMechanismSection("a"),
@@ -154,8 +137,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 AssertSectionsDataGridViewControl(sections, sectionsDataGridViewControl);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

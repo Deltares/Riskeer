@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
@@ -37,9 +37,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         public void Constructor_CalculatorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
+            var validator = Substitute.For<IValidator>();
 
             // Call
             void Call() => new UpliftVanKernelWrapper(null, validator);
@@ -47,16 +45,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculator", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidatorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            mocks.ReplayAll();
+            var calculator = Substitute.For<ICalculator>();
 
             // Call
             void Call() => new UpliftVanKernelWrapper(calculator, null);
@@ -64,18 +59,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("validator", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
             // Call
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
@@ -87,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.UpliftVanCalculationGridResult);
             Assert.IsNull(kernel.CalculationMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -111,13 +101,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Return(calculatorOutput);
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(calculatorOutput);
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -130,7 +116,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             Assert.AreSame((DualSlidingCircleMinimumSafetyCurve) calculatorOutput.StabilityOutput.MinimumSafetyCurve, kernel.SlidingCurveResult);
             Assert.AreSame(((UpliftVanPreprocessingOutput) calculatorOutput.PreprocessingOutputBase).UpliftVanCalculationGrid, kernel.UpliftVanCalculationGridResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,13 +134,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Return(calculatorOutput);
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(calculatorOutput);
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -166,8 +147,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual($"Exception of type '{typeof(UpliftVanKernelWrapperException)}' was thrown.", exception.Message);
             CollectionAssert.AreEqual(calculatorOutput.StabilityOutput.Messages, exception.Messages);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -185,13 +164,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     ForbiddenZone = new ForbiddenZones()
                 }
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Return(calculatorOutput);
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(calculatorOutput);
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -199,7 +174,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             CollectionAssert.IsEmpty(kernel.CalculationMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -218,13 +192,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     ForbiddenZone = new ForbiddenZones()
                 }
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Return(calculatorOutput);
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(calculatorOutput);
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -232,7 +202,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             Assert.AreSame(calculatorOutput.StabilityOutput.Messages, kernel.CalculationMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -240,13 +209,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var exceptionToThrow = new Exception();
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Throw(exceptionToThrow);
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(_ => throw exceptionToThrow);
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -256,19 +221,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.AreSame(exceptionToThrow, exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Calculate_ExceptionDuringCalculation_OutputPropertiesNotSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            calculator.Stub(c => c.Calculate()).Throw(new Exception());
-            var validator = mocks.Stub<IValidator>();
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Calculate().Returns(_ => throw new Exception());
+            var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -281,7 +242,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.UpliftVanCalculationGridResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -292,13 +252,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 Messages = new Message[0]
             };
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.Validate()).Return(validationOutput);
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
+            validator.Validate().Returns(validationOutput);
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call
@@ -306,7 +262,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             Assert.AreSame(validationOutput.Messages, validationMessages);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -314,13 +269,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var exceptionToThrow = new Exception();
-
-            var mocks = new MockRepository();
-            var calculator = mocks.Stub<ICalculator>();
-            var validator = mocks.Stub<IValidator>();
-            validator.Stub(v => v.Validate()).Throw(exceptionToThrow);
-            mocks.ReplayAll();
-
+            var calculator = Substitute.For<ICalculator>();
+            var validator = Substitute.For<IValidator>();
+            validator.Validate().Returns(_ => throw exceptionToThrow);
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call

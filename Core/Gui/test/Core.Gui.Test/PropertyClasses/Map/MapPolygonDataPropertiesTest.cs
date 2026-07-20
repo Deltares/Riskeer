@@ -35,8 +35,8 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
+using NSubstitute;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.PropertyClasses.Map
 {
@@ -212,10 +212,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             // Given
             var random = new Random(21);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapPolygonData = new MapPolygonData("Test",
                                                     new PolygonStyle(),
@@ -232,7 +229,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             categoryThemeProperties.StrokeThickness = random.Next(1, 48);
 
             // Then
-            mocks.VerifyAll();
+            observer.Received().UpdateObserver();
         }
 
         [Test]
@@ -240,10 +237,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         {
             // Setup
             const int numberOfChangedProperties = 3;
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            var observer = Substitute.For<IObserver>();
 
             var mapPolygonData = new MapPolygonData("Test", new PolygonStyle
             {
@@ -269,7 +263,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(newFillColor, mapPolygonData.Style.FillColor);
             Assert.AreEqual(newStrokeColor, mapPolygonData.Style.StrokeColor);
             Assert.AreEqual(newStrokeThickness, mapPolygonData.Style.StrokeThickness);
-            mocks.VerifyAll();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
 
         [Test]
