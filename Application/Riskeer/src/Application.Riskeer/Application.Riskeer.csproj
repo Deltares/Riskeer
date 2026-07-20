@@ -142,15 +142,6 @@ All rights reserved.
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Resources_Extensions)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Formats_Nrbf)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Reflection_Metadata)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Bcl_HashCode)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ValueTuple)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Memory)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Buffers)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Numerics_Vectors)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Runtime_CompilerServices_Unsafe)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Collections_Immutable)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Resources.Extensions-10.0.5\*&quot;" />
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />

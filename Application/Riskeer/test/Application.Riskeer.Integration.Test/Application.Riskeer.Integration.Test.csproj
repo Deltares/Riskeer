@@ -53,6 +53,7 @@ All rights reserved.
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
+    <ProjectReference Include="..\..\src\Application.Riskeer\Application.Riskeer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro">
@@ -74,6 +75,19 @@ All rights reserved.
       <Version>1.0.117</Version>
     </PackageReference>
   </ItemGroup>
+  <!-- Copy the managed assemblies to the test output directory for AssemblyResolverTest -->
+  <ItemGroup>
+    <None Include="$(SolutionDir)bin\Debug\Application\Built-in\Managed\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Application\Built-in\Managed\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+  <Target Name="CopyManagedAssemblies" AfterTargets="Build">
+    <ItemGroup>
+      <ManagedAssemblies Include="$(SolutionDir)bin\Debug\Application\Built-in\Managed\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ManagedAssemblies)" DestinationFiles="@(ManagedAssemblies->'$(OutDir)Application\Built-in\Managed\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)UnusedResourceSearcher\*&quot; /D /S /Y" />
   </Target>
