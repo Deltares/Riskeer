@@ -219,9 +219,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             Projection = projectionInfo ?? sourceProjection;
         }
 
-        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool clipRegions)
+        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool selected)
         {
-            if (!IsVisible)
+            if (!IsVisible || selected)
             {
                 return;
             }
