@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,9 +27,9 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;

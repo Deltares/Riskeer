@@ -24,8 +24,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -37,14 +37,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class SpecificFailureMechanismViewInfoTest
     {
-        
         private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(SpecificFailureMechanismView));
         }

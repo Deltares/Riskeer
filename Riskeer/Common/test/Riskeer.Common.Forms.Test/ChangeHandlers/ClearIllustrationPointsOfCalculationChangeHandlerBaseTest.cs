@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Gui.Helpers;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 

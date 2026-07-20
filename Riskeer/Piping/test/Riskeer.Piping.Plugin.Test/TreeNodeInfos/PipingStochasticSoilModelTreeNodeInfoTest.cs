@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -132,10 +132,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-			menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-			menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-			menuBuilder.AddSeparator().Returns(menuBuilder);
-			menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {

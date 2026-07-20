@@ -25,9 +25,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data;
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView( new TestAdoptableFailureMechanism(),
+            using (ShowFailureMechanismResultsView(new TestAdoptableFailureMechanism(),
                                                    (fm, ass) => CreateFailureMechanismAssemblyResult()))
             {
                 // Then
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
@@ -258,7 +258,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
@@ -297,7 +297,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             int nrOfAssemblyCalls = 0;
-            using (ShowFailureMechanismResultsView( failureMechanism, (fm, ass) =>
+            using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
                 return CreateFailureMechanismAssemblyResult();
@@ -333,7 +333,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestAdoptableFailureMechanism failureMechanism,
             Func<TestAdoptableFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
-            return ShowFailureMechanismResultsView( failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
+            return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
         }
 
         private TestAdoptableFailureMechanismResultView ShowFailureMechanismResultsView(

@@ -33,9 +33,9 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
@@ -73,7 +73,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -162,12 +161,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -375,9 +374,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-				
+
                 calculatorFactory
-                    .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+                    .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                     .Returns(callInfo =>
                     {
                         HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -386,7 +385,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                             callInfo.Arg<HydraRingCalculationSettings>());
                         return new TestOvertoppingCalculator();
                     });
-              
+
                 plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -421,8 +420,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[13]);
                     });
                 }
-                
-                calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null));
+
+                calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             }
         }
 
@@ -738,6 +737,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                     Assert.IsFalse(output.DikeHeightOutput.HasGeneralResult);
                     Assert.IsFalse(output.OvertoppingRateOutput.HasGeneralResult);
                 }
+
                 affectedCalculationObserver.Received().UpdateObserver();
             }
         }

@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -56,7 +56,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);

@@ -21,8 +21,8 @@
 
 using Assembly.Kernel.Implementations;
 using Assembly.Kernel.Interfaces;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels

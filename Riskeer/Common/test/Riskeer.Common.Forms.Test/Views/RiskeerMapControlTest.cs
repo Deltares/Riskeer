@@ -29,8 +29,8 @@ using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -211,6 +211,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreSame(oldBackgroundMapData, riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreEqual(0.3, riskeerMapControl.MapControl.BackgroundMapData.Transparency.Value);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -276,6 +277,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var newWellKnownMapData = (WellKnownTileSourceMapData) riskeerMapControl.MapControl.BackgroundMapData;
                 Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
             }
+
             observer.Received().UpdateObserver();
         }
 

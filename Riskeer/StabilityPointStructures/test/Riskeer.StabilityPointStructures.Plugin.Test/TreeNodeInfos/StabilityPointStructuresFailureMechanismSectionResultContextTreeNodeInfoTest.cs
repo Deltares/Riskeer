@@ -21,13 +21,12 @@
 
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 
@@ -120,7 +119,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilder.AddOpenItem();
                 menuBuilder.Build();
             });
-            
         }
     }
 }

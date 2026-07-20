@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, null, default, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, null, default, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default);
         }
 
         [Test]

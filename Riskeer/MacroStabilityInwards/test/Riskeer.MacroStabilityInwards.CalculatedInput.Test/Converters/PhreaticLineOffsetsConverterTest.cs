@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;

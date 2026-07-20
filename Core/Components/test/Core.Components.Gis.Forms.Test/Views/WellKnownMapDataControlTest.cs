@@ -157,8 +157,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         [Test]
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
-            // Setup
-
             // Call
             TestDelegate call = () =>
             {

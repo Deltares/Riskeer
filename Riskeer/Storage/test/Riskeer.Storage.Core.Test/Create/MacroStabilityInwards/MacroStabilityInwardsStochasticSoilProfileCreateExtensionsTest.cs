@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -63,7 +63,6 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
-
         }
 
         [Test]

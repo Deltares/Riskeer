@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -74,8 +74,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -114,7 +112,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         [Test]
         public void Image_Always_ReturnsFailureMechanismIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

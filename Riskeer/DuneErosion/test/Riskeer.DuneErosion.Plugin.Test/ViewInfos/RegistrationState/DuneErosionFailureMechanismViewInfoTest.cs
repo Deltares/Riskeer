@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
     [TestFixture]
     public class DuneErosionFailureMechanismViewInfoTest
     {
-        
         private DuneErosionPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new DuneErosionPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DuneErosionFailureMechanismView));
         }

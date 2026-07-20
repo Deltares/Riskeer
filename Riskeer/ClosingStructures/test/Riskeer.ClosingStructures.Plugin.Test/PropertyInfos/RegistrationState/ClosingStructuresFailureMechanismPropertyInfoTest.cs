@@ -22,12 +22,12 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.RegistrationState
 {

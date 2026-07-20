@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -48,7 +48,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class StructuresInputBasePropertiesTest
     {
-        
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
         private IFailureMechanism failureMechanism;
@@ -56,7 +55,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         [SetUp]
         public void SetUp()
         {
-            
             handler = Substitute.For<IObservablePropertyChangeHandler>();
             assessmentSection = Substitute.For<IAssessmentSection>();
             failureMechanism = Substitute.For<IFailureMechanism>();

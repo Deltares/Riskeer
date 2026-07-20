@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Forms.PropertyClasses;
 

@@ -27,9 +27,9 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -412,6 +412,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]

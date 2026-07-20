@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Data.Test.Calculation

@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Test.TypeConverters

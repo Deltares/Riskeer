@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,6 +34,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
@@ -53,7 +54,6 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
@@ -92,8 +92,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -192,7 +190,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);

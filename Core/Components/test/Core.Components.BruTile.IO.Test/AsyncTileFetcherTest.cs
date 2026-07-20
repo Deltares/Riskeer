@@ -353,6 +353,7 @@ namespace Core.Components.BruTile.IO.Test
                             {
                                 throw new Exception("1st attempt fails.");
                             }
+
                             return data;
                         });
 

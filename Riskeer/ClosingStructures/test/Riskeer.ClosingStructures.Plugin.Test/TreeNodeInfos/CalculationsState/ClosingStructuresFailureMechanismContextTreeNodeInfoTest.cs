@@ -32,6 +32,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
@@ -51,7 +52,6 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 {
@@ -74,7 +74,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -114,7 +113,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         [Test]
         public void Image_Always_ReturnsFailureMechanismIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

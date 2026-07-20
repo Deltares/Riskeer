@@ -40,9 +40,9 @@ using Core.Gui.Plugin;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Map
 {
@@ -444,6 +444,7 @@ namespace Core.Gui.Test.Forms.Map
                 int reversedIndex = 2 - position;
                 Assert.AreSame(context.WrappedData, parentMapDataCollection.Collection.ElementAt(reversedIndex));
             }
+
             observer.Received().UpdateObserver();
         }
 

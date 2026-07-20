@@ -37,9 +37,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms.Views;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Components.Gis.Forms.Test.Views
 {
@@ -60,7 +60,6 @@ namespace Core.Components.Gis.Forms.Test.Views
         [Test]
         public void Constructor_WmtsCapabilityFactoryNull_ThrowArgumentNullException()
         {
-            // Setup
             // Call
             TestDelegate test = () => new WmtsLocationControl(null, null);
 
@@ -712,7 +711,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-            
+
             wmtsCapabilityFactory.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl).Returns(new[]
             {
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData))
@@ -778,7 +777,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
-            
+
             wmtsCapabilityFactory.GetWmtsCapabilities(Arg.Any<string>()).Returns(new[]
             {
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
@@ -810,12 +809,12 @@ namespace Core.Components.Gis.Forms.Test.Views
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
-            
+
             wmtsCapabilityFactory.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl).Returns(new[]
             {
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
                 CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
-            }); 
+            });
             using (new UseCustomTileSourceFactoryConfig(selectedBackgroundMapData))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(selectedBackgroundMapData, wmtsCapabilityFactory))

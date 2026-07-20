@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 

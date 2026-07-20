@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;

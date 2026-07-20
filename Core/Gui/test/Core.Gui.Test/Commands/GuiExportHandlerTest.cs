@@ -33,9 +33,9 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Gui.Test.Commands
 {

@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -108,7 +108,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             : EqualsTestFixture<MacroStabilityInwardsCalculationScenarioContext,
                 DerivedMacroStabilityInwardsCalculationScenarioContext>
         {
-
             private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly MacroStabilityInwardsCalculationScenario calculation = new MacroStabilityInwardsCalculationScenario();
             private static readonly IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = new MacroStabilityInwardsSurfaceLine[0];

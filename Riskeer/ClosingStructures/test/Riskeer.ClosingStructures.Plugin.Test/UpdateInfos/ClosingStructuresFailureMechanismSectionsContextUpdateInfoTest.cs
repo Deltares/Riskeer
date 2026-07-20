@@ -25,6 +25,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
@@ -32,7 +33,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 {

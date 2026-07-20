@@ -28,6 +28,7 @@ using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
@@ -43,7 +44,6 @@ using CalculationsStateFailureMechanismProperties = Riskeer.ClosingStructures.Fo
 using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationsState.ClosingStructuresFailureMechanismView;
 using RegistrationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.RegistrationState.ClosingStructuresFailureMechanismView;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test
 {

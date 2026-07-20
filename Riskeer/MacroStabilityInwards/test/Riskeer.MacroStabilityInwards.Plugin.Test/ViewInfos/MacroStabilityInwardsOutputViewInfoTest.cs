@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -42,14 +41,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsOutputViewInfoTest
     {
-        
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsOutputView));
         }

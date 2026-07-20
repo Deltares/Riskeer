@@ -24,8 +24,8 @@ using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Riskeer.Common.Plugin.Test
 {

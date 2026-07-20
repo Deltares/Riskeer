@@ -22,7 +22,6 @@
 using Core.Gui;
 using Core.Gui.Forms.ViewHost;
 using NSubstitute;
-using NSubstitute;
 
 namespace Riskeer.Common.Plugin.TestUtil
 {

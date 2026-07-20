@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Gui.Helpers;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;

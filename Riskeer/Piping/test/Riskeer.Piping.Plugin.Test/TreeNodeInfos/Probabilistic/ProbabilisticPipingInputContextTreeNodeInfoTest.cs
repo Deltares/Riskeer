@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -40,14 +40,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
     [TestFixture]
     public class ProbabilisticPipingInputContextTreeNodeInfoTest
     {
-        
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingInputContext));
         }
@@ -61,8 +59,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

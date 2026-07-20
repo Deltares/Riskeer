@@ -35,8 +35,8 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -81,8 +81,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -139,7 +137,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

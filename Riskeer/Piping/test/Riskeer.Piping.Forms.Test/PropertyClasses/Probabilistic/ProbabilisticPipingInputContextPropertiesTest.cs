@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -1076,6 +1076,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
                 Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
             }
+
             inputObserver.Received(numberOfChangedProperties).UpdateObserver();
         }
 
@@ -1812,7 +1813,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
                 CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-                
+
                 observable.Received(1).NotifyObservers();
             }
         }
@@ -1933,6 +1934,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 // Assert
                 Assert.IsTrue(handler.Called);
             }
+
             observable.Received(1).NotifyObservers();
         }
 

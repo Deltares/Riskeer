@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 

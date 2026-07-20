@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -246,7 +246,7 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

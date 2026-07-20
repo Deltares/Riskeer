@@ -39,8 +39,8 @@ using Core.Gui.Forms.Map;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Map
 {
@@ -221,9 +221,16 @@ namespace Core.Gui.Test.Forms.Map
         public void CanRemove_WithRemovableDataAndCollection_ReturnTrue()
         {
             // Setup
-            var removable = (FeatureBasedMapData)Substitute.For(
-                new[] { typeof(FeatureBasedMapData), typeof(IRemovable) },
-                new object[] { "name" });
+            var removable = (FeatureBasedMapData) Substitute.For(
+                new[]
+                {
+                    typeof(FeatureBasedMapData),
+                    typeof(IRemovable)
+                },
+                new object[]
+                {
+                    "name"
+                });
             FeatureBasedMapDataContext context = GetContext(removable);
 
             // Call
@@ -237,9 +244,16 @@ namespace Core.Gui.Test.Forms.Map
         public void CanRemove_WithoutCollection_ReturnFalse()
         {
             // Setup
-            var removable = (FeatureBasedMapData)Substitute.For(
-                new[] { typeof(FeatureBasedMapData), typeof(IRemovable) },
-                new object[] { "name" });
+            var removable = (FeatureBasedMapData) Substitute.For(
+                new[]
+                {
+                    typeof(FeatureBasedMapData),
+                    typeof(IRemovable)
+                },
+                new object[]
+                {
+                    "name"
+                });
             FeatureBasedMapDataContext context = GetContext(removable);
 
             // Call
@@ -253,9 +267,15 @@ namespace Core.Gui.Test.Forms.Map
         public void CanRemove_WithNotRemovableData_ReturnFalse()
         {
             // Setup
-            var notRemovable = (FeatureBasedMapData)Substitute.For(
-                new[] { typeof(FeatureBasedMapData) },
-                new object[] { "name" });
+            var notRemovable = (FeatureBasedMapData) Substitute.For(
+                new[]
+                {
+                    typeof(FeatureBasedMapData)
+                },
+                new object[]
+                {
+                    "name"
+                });
             FeatureBasedMapDataContext context = GetContext(notRemovable);
 
             // Call
@@ -269,9 +289,16 @@ namespace Core.Gui.Test.Forms.Map
         public void OnNodeRemoved_WithRemovableDataToRemove_DataRemoved()
         {
             // Setup
-            var toRemove = (FeatureBasedMapData)Substitute.For(
-                new[] { typeof(FeatureBasedMapData), typeof(IRemovable) },
-                new object[] { "name" });
+            var toRemove = (FeatureBasedMapData) Substitute.For(
+                new[]
+                {
+                    typeof(FeatureBasedMapData),
+                    typeof(IRemovable)
+                },
+                new object[]
+                {
+                    "name"
+                });
             var otherData = Substitute.For<MapLineData>("name");
             var collection = new MapDataCollection("collection");
             collection.Add(toRemove);

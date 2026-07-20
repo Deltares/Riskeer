@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Common.Data.Test.Probabilistics

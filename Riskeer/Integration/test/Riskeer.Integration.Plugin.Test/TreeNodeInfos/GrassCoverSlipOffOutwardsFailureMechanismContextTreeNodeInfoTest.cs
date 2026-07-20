@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -59,8 +59,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -99,7 +97,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -237,11 +234,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.Get(context, treeView).Returns(menuBuilder);
@@ -261,7 +258,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     menuBuilder.AddPropertiesItem();
                     menuBuilder.Build();
                 });
-
             }
         }
 

@@ -24,8 +24,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -40,13 +40,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int coordinatesPropertyIndex = 0;
         private const int roughnessesPropertyIndex = 1;
-        
 
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void Constructor_ExpectedValues()

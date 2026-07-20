@@ -84,7 +84,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             private static readonly StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-
             protected override StabilityStoneCoverWaveConditionsCalculationContext CreateObject()
             {
                 return new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);

@@ -48,7 +48,6 @@ namespace Application.Riskeer.Migration.Console.Test
         [Test]
         public void Main_NoArguments_WritesHelpToConsole()
         {
-            // Setup
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call

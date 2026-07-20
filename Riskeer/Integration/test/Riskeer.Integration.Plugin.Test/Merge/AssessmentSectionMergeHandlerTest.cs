@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using Core.Gui.Forms.ViewHost;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -1360,7 +1360,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreEqual(0.1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(0).TargetProbability);
             Assert.AreEqual(0.01, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).TargetProbability);
             Assert.IsTrue(duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).DuneLocationCalculations.All(c => c.Output != null));
-        
+
             observer.Received(1).UpdateObserver();
         }
 

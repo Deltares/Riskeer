@@ -28,6 +28,7 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
@@ -38,7 +39,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
 {

@@ -28,8 +28,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -414,7 +414,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(surfaceLine2, surfaceLineChartData);
             }
-            
+
             observer.Received().UpdateObserver();
         }
 
@@ -424,7 +424,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var observer = Substitute.For<IObserver>();
-            
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -468,6 +468,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                         surfaceLineChartData);
                 }
             }
+
             observer.Received().UpdateObserver();
         }
 

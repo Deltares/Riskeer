@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 
@@ -35,14 +35,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class MacroStabilityInwardsInputContextTreeNodeInfoTest
     {
-        
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsInputContext));
         }
@@ -56,8 +54,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -81,7 +77,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
-            // Setup
             // Call
             string text = info.Text(null);
 
@@ -92,7 +87,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

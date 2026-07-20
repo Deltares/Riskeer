@@ -27,8 +27,8 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test.ContextMenu
 {

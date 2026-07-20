@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
@@ -33,7 +34,6 @@ using Riskeer.ClosingStructures.IO.Configurations;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using CoreGuiResources = Core.Gui.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
 {

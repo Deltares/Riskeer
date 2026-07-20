@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -472,12 +472,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 CollectionAssert.IsEmpty(element.HydraulicBoundaryLocationCalculations);
             }
-            
+
             duneLocationsUpdateHandler.Received().RemoveLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations =>
-                locations != null &&
-                locations.Contains(location1) &&
-                locations.Contains(location2)
-            ));
+                                                                                                                     locations != null &&
+                                                                                                                     locations.Contains(location1) &&
+                                                                                                                     locations.Contains(location2)
+                                                                  ));
         }
 
         [Test]

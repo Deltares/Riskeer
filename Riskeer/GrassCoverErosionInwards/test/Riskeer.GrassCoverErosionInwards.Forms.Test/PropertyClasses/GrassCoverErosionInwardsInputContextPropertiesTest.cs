@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -66,14 +66,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int overtoppingRateTargetProbabilityPropertyIndex = 14;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 15;
 
-        
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            
             handler = Substitute.For<IObservablePropertyChangeHandler>();
             assessmentSection = Substitute.For<IAssessmentSection>();
         }
@@ -81,7 +79,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
-            // Setup
             // Call
             void Call() => new GrassCoverErosionInwardsInputContextProperties(null, handler);
 

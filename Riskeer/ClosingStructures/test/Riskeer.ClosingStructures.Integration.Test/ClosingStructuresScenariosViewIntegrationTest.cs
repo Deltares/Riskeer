@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
@@ -38,7 +39,6 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Integration.Test
 {

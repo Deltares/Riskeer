@@ -87,9 +87,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void HasSameConfiguration_LayerNotInitialized_ReturnFalse()
         {
-            // Setup
             using (var layerStatus = new MapControlBackgroundLayerStatus())
             {
+                // Setup
                 var mapData = new TestImageBasedMapData("test", true);
 
                 // Call

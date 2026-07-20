@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
 
@@ -51,8 +51,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var editor = new PipingInputContextSurfaceLineSelectionEditor<IHasSurfaceLineProperty>();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(hasSurfaceLineProperty);
-            
-            
+
             provider.GetService(Arg.Any<Type>()).Returns(service);
             // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);

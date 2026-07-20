@@ -25,8 +25,8 @@ using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.UITypeEditors;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.UITypeEditors;
@@ -36,13 +36,8 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
     [TestFixture]
     public class ForeshoreProfileEditorTest
     {
-        
-
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()

@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints

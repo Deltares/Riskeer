@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
@@ -119,6 +119,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -166,6 +167,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -213,6 +215,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -263,6 +266,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -310,6 +314,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -365,6 +370,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -417,6 +423,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
+
             observer.DidNotReceive().UpdateObserver();
         }
 
@@ -469,6 +476,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
                 Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -523,6 +531,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -575,6 +584,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -642,6 +652,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual(string.Format(waterLevelDisplayNameFormat, expectedSelectedProbabilityString),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -709,6 +720,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual(string.Format(waveHeightDisplayNameFormat, expectedSelectedProbabilityString),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
+
             observer.Received().UpdateObserver();
         }
 

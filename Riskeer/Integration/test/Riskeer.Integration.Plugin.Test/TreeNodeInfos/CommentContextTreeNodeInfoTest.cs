@@ -26,8 +26,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -37,13 +37,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class CommentContextTreeNodeInfoTest
     {
-        
-
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -129,11 +124,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
-                
+
                 // Assert
                 menuBuilder.Received().Build();
             }
-
         }
 
         private TreeNodeInfo GetInfo(PluginBase gui)

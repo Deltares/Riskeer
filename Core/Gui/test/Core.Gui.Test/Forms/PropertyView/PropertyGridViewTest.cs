@@ -115,6 +115,7 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
+
             propertyResolver.Received(1).GetObjectProperties(dataObject);
             propertyResolver.Received(1).GetObjectProperties(null);
         }
@@ -141,6 +142,7 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
+
             propertyResolver.Received(1).GetObjectProperties(dataObject);
         }
 

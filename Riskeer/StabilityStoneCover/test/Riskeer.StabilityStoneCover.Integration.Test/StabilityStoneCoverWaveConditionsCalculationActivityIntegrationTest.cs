@@ -449,7 +449,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                              {
                                  EndInFailure = endInFailure,
                                  LastErrorFileContent = lastErrorFileContent
-                              });
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -486,7 +486,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                              {
                                  EndInFailure = endInFailure,
                                  LastErrorFileContent = lastErrorFileContent
-                              });
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -530,7 +530,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
 
                                  return new TestWaveConditionsCosineCalculator();
                              })
-                             ;
+                ;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

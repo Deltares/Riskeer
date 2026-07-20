@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -102,7 +101,7 @@ namespace Application.Riskeer.Integration.Test
             {
                 // When
                 gui.Run(sourceFilePath);
-                
+
                 // Then
                 Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
                 string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
@@ -110,6 +109,7 @@ namespace Application.Riskeer.Integration.Test
                 Assert.AreEqual("description", gui.Project.Description);
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
+
             inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
             inquiryHelper.Received().GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
         }
@@ -135,6 +135,7 @@ namespace Application.Riskeer.Integration.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
+
             inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
         }
 

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.Calculation;
@@ -89,6 +89,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -128,6 +129,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -167,6 +169,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
 
@@ -211,6 +214,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
+
             observer.Received().UpdateObserver();
         }
     }

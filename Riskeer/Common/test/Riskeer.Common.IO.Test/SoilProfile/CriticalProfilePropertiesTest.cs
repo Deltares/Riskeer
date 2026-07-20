@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 

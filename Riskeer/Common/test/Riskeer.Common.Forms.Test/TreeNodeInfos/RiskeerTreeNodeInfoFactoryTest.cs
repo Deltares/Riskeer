@@ -26,8 +26,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -371,6 +371,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
                                "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
             }
+
             originalOwnerObserver.Received().UpdateObserver();
             newOwnerObserver.Received().UpdateObserver();
         }
@@ -422,6 +423,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(name, draggedItem.Name,
                                 "No renaming should occur when dragging within the same TestCalculationGroup.");
             }
+
             originalOwnerObserver.Received().UpdateObserver();
         }
 
@@ -486,6 +488,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe map", draggedItem.Name);
                     break;
             }
+
             newOwnerObserver.UpdateObserver();
             originalOwnerObserver.UpdateObserver();
         }

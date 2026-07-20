@@ -38,9 +38,9 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
@@ -205,9 +205,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
                     {
-						// Assert
+                        // Assert
                         const string expectedItemText = "&Selecteren...";
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
@@ -271,9 +271,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                              "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
                                              "()", "image/png");
             tileFactory.GetWmtsTileSources(Arg.Any<string>()).Returns(new[]
-                       {
-                           new TestWmtsTileSource(newMapData)
-                       });
+            {
+                new TestWmtsTileSource(newMapData)
+            });
 
             var backgroundDataObserver = Substitute.For<IObserver>();
 
@@ -324,6 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+
                 backgroundDataObserver.Received().UpdateObserver();
                 tileFactory.Received().GetWmtsTileSources(Arg.Any<string>());
             }
@@ -378,6 +379,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
+
             assessmentSectionObserver.DidNotReceive().UpdateObserver();
             backgroundDataObserver.DidNotReceive().UpdateObserver();
         }
@@ -439,6 +441,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+
                 backgroundDataObserver.Received().UpdateObserver();
             }
         }
@@ -500,6 +503,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
+
                 backgroundDataObserver.Received().UpdateObserver();
             }
         }
@@ -558,6 +562,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
                 }
             }
+
             backgroundDataObserver.DidNotReceive().UpdateObserver();
             assessmentSectionObserver.DidNotReceive().UpdateObserver();
         }

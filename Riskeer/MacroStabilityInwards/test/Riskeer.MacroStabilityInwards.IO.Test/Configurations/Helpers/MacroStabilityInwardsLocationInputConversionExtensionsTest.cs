@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Configurations;
 using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;

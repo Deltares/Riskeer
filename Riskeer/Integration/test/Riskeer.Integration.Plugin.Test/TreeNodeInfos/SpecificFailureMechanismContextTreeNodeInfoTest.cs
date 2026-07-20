@@ -26,8 +26,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -60,8 +60,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -100,7 +98,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -126,7 +123,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void CanRename_Always_ReturnTrue()
         {
-            // Setup
             // Call
             bool canRename = info.CanRename(null, null);
 
@@ -137,7 +133,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void CanDrag_Always_ReturnTrue()
         {
-            // Setup
             // Call
             bool canDrag = info.CanDrag(null, null);
 
@@ -169,7 +164,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
-            // Setup
             // Call
             bool canRename = info.CanRemove(null, null);
 

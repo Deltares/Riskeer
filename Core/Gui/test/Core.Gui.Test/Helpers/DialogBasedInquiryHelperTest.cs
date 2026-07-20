@@ -317,8 +317,6 @@ namespace Core.Gui.Test.Helpers
             dialogParent = Substitute.For<IWin32Window>();
         }
 
-        public override void TearDown()
-        {
-        }
+        public override void TearDown() {}
     }
 }

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Exceptions;
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(Arg.Any<string>()).Returns((RiskeerProject)null);
+            storeProject.LoadProject(Arg.Any<string>()).Returns((RiskeerProject) null);
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call

@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -41,14 +41,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsInputViewInfoTest
     {
-        
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsInputView));
         }
@@ -404,7 +402,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -431,7 +429,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -461,7 +459,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -491,7 +489,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution)null);
+            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism

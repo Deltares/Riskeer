@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,14 +37,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class PipingStructureFailureMechanismViewInfoTest
     {
-        
         private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StandAloneFailureMechanismView<PipingStructureFailureMechanism,
                                                           NonAdoptableFailureMechanismSectionResult>));

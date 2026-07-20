@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;

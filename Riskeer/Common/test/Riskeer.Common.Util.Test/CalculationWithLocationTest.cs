@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Util.Test

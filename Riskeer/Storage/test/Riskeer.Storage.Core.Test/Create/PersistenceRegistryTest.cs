@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.DikeProfiles;

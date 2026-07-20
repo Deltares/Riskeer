@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;

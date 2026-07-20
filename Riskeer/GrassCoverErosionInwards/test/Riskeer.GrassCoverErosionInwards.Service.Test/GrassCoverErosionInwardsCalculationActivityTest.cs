@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Service;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;

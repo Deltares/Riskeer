@@ -32,9 +32,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
@@ -81,15 +81,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
-        
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -346,7 +343,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -440,7 +437,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -481,7 +478,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -525,7 +522,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 // Call
@@ -646,6 +643,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
+
                 observer.Received().UpdateObserver();
             }
         }
@@ -704,6 +702,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
+
                 observer.Received().UpdateObserver();
             }
         }
@@ -883,7 +882,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation1Observer = Substitute.For<IObserver>();
                 var calculation2Observer = Substitute.For<IObserver>();
-                
+
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -963,7 +962,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
                 }
-                
+
                 if (confirm)
                 {
                     calculation1Observer.Received().UpdateObserver();
@@ -1008,7 +1007,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(mainWindow);
-                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 plugin.Gui = gui;
 
                 MacroStabilityInwardsSurfaceLineSelectionDialog selectionDialog = null;
@@ -1073,7 +1072,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
         public override void Setup()
         {
-            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext));
         }

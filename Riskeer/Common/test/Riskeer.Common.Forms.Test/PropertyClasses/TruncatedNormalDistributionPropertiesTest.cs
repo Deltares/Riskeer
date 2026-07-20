@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 

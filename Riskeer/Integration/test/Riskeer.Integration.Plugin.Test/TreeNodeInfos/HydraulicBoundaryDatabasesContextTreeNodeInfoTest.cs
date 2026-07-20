@@ -30,9 +30,9 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
@@ -189,7 +189,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
-						// Assert
+                        // Assert
                         Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,

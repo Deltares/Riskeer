@@ -37,9 +37,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
@@ -676,8 +676,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);;
-                
+                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
+                ;
+
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
@@ -715,6 +716,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }
                 }
+
                 calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
@@ -779,6 +781,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             if (continuation)
             {
                 calculationObserver.Received().UpdateObserver();

@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -217,20 +217,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsNull(calculation.Output);
 
                 inputObserver.Received().UpdateObserver();
-                if ( hasOutput)
+                if (hasOutput)
                 {
                     calculationObserver.Received().UpdateObserver();
-                } 
+                }
             }
             else
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
-                
+
                 inputObserver.DidNotReceive().UpdateObserver();
-                if ( hasOutput)
+                if (hasOutput)
                 {
                     calculationObserver.DidNotReceive().UpdateObserver();
-                } 
+                }
             }
         }
 

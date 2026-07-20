@@ -26,11 +26,10 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
-using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.Configurations.Export
@@ -429,7 +428,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
 
         [Test]
         public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationNull_WriterNotCalled()
-        {        
+        {
             // Setup
             var stringBuilder = new StringBuilder();
             using (var xmlWriter = XmlWriter.Create(

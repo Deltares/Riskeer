@@ -37,8 +37,8 @@ using Core.Gui.Forms.Chart;
 using Core.Gui.PresentationObjects.Chart;
 using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Chart
 {
@@ -449,6 +449,7 @@ namespace Core.Gui.Test.Forms.Chart
                 var wrappedCollectionData = (ChartDataCollection) collectionContext.WrappedData;
                 Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
             }
+
             observer.Received().UpdateObserver();
         }
 

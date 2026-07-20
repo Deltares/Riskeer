@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;

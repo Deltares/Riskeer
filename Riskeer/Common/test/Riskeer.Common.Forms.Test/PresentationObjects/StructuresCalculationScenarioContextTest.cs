@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
@@ -75,7 +75,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         [TestFixture]
         private class StructuresCalculationScenarioContextEqualsTest : EqualsTestFixture<TestStructuresCalculationScenarioContext, DerivedTestStructuresCalculationScenarioContext>
         {
-
             private static readonly IAssessmentSection assessmentSection = Substitute.For<IAssessmentSection>();
             private static readonly TestStructuresCalculationScenario calculation = new TestStructuresCalculationScenario();
             private static readonly TestCalculatableFailureMechanism failureMechanism = new TestCalculatableFailureMechanism();

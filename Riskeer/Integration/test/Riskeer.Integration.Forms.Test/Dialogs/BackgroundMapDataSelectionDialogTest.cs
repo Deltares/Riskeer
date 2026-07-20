@@ -34,9 +34,9 @@ using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
 using Core.Components.Gis.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Integration.Forms.Dialogs;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -45,7 +45,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     [TestFixture]
     public class BackgroundMapDataSelectionDialogTest : NUnitFormTest
     {
-        
         private ITileSourceFactory tileFactory;
         private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms);
 
@@ -395,7 +394,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
         public override void Setup()
         {
-            
             tileFactory = Substitute.For<ITileSourceFactory>();
         }
 

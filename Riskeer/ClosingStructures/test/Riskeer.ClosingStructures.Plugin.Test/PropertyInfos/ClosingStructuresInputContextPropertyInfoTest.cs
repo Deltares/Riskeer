@@ -22,13 +22,13 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.Common.Data.AssessmentSection;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {

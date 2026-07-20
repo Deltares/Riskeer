@@ -26,11 +26,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-using Core.Common.Util.Extensions;
 using log4net.Core;
-using NUnit.Framework;
 using NSubstitute;
-using NSubstitute.ReceivedExtensions;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.Exceptions;
@@ -586,7 +584,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             updateStrategy.UpdateModelWithImportedData(
                 Arg.Is<IEnumerable<IMechanismStochasticSoilModel>>(arr =>
-                                                            arr.Contains(transformedModel)),
+                                                                       arr.Contains(transformedModel)),
                 validFilePath);
 
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();

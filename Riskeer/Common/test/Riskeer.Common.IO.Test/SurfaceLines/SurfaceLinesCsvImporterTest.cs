@@ -31,8 +31,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using log4net.Core;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.Exceptions;
@@ -400,9 +400,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             var updateStrategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            
+
             updateStrategy.UpdateSurfaceLinesWithImportedData(
-                Arg.Is<IMechanismSurfaceLine[]>(arr=> surfaceLines.All(arr.Contains)),
+                Arg.Is<IMechanismSurfaceLine[]>(arr => surfaceLines.All(arr.Contains)),
                 validFilePath);
 
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, updateStrategy);
@@ -1439,7 +1439,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
             strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(x => x != null),
                                                         Arg.Is<string>(x => x == filePath)
-            ).Returns(_=> throw new UpdateDataException("Exception message"));
+            ).Returns(_ => throw new UpdateDataException("Exception message"));
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, filePath, messageProvider, configuration);
 

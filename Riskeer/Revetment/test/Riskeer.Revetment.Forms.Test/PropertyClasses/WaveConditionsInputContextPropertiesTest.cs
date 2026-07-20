@@ -30,8 +30,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -352,7 +352,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "Voorlandgeometrie",
                                                                             "Eigenschappen van de voorlandgeometrie.",
                                                                             true);
-
         }
 
         [Test]

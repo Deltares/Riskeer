@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -31,13 +31,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextTest
     {
-        
-
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()

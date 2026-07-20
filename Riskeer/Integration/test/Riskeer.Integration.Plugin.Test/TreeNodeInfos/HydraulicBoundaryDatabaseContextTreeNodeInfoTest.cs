@@ -29,9 +29,9 @@ using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
@@ -124,9 +124,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
-                menuBuilder.AddDeleteItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            menuBuilder.AddDeleteItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -241,6 +241,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(2, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
                 CollectionAssert.DoesNotContain(hydraulicBoundaryData.HydraulicBoundaryDatabases, hydraulicBoundaryDatabase2);
             }
+
             observer.Received().UpdateObserver();
         }
 

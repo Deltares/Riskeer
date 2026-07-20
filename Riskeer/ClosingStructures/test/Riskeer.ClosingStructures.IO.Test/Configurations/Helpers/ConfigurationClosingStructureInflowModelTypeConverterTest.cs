@@ -86,7 +86,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationClosingStructureInflowModelType.LowSill, ClosingStructuresConfigurationSchemaIdentifiers.LowSill)]
         [TestCase(ConfigurationClosingStructureInflowModelType.VerticalWall, ClosingStructuresConfigurationSchemaIdentifiers.VerticalWall)]
         public void ConvertTo_String_ReturnExpectedText(ConfigurationClosingStructureInflowModelType value,
-                                                              string expectedResult)
+                                                        string expectedResult)
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();

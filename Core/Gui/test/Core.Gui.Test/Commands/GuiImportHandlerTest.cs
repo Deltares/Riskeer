@@ -32,9 +32,9 @@ using Core.Gui.Forms;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Gui.Test.Commands
 {

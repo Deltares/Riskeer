@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
@@ -313,7 +313,6 @@ namespace Riskeer.Common.Service.Test
             {
                 calculation
             }, changedObjects);
-            
         }
 
         [Test]

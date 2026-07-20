@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 

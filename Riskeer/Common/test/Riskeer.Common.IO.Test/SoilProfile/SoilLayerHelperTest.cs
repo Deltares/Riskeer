@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.IO.Readers;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -226,9 +226,9 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             var reader = Substitute.For<IRowBasedDatabaseReader>();
-            reader.ReadOrDefault<double?>(null).Returns((double?)null);
-            reader.ReadOrDefault<long?>(null).Returns((long?)null);
-            reader.ReadOrDefault<string>(null).Returns((string)null);
+            reader.ReadOrDefault<double?>(null).Returns((double?) null);
+            reader.ReadOrDefault<long?>(null).Returns((long?) null);
+            reader.ReadOrDefault<string>(null).Returns((string) null);
             var soilLayer = new TestSoilLayerBase();
             var properties = new LayerProperties(reader, string.Empty);
 

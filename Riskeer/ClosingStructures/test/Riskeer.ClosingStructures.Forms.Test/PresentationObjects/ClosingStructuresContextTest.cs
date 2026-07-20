@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,12 +21,12 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {

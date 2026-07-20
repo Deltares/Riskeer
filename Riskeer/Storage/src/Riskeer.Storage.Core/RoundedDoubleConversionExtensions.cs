@@ -31,7 +31,7 @@ namespace Riskeer.Storage.Core
     public static class RoundedDoubleConversionExtensions
     {
         /// <summary>
-        /// Converts a <see cref="RoundedDouble"/> to a <see cref="Nullable{T}"/> <see cref="RoundedDouble"/>. If
+        /// Converts a <see cref="RoundedDouble"/> to a <see cref="T?"/> <see cref="RoundedDouble"/>. If
         /// <paramref name="value"/> is <see cref="RoundedDouble.NaN"/>, the result is <c>null</c>.
         /// </summary>
         /// <param name="value">The value to convert.</param>

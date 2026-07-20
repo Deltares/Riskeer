@@ -29,8 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -404,7 +404,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.RegistrationState
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
         /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
-        private static IObserver[] AttachMapDataObservers(  IEnumerable<MapData> mapData)
+        private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
 

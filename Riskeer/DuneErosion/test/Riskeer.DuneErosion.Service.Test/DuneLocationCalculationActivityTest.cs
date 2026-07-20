@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
@@ -44,17 +44,13 @@ namespace Riskeer.DuneErosion.Service.Test
     [TestFixture]
     public class DuneLocationCalculationActivityTest
     {
-        
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
@@ -140,9 +136,9 @@ namespace Riskeer.DuneErosion.Service.Test
                                                                                validHrdFileVersion, usePreprocessorClosure);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            
+
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

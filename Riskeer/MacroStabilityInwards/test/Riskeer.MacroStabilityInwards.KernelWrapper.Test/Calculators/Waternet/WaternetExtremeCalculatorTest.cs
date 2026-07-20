@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;

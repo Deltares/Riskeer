@@ -71,7 +71,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 
             private static CalculationGroup parent;
 
-
             public StabilityStoneCoverCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;

@@ -22,8 +22,8 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 

@@ -54,7 +54,6 @@ namespace Core.Gui.Test
             string exitingPrefix = savingExistingProject ? "bestaand " : "";
             string expectedName = $"Opslaan van {exitingPrefix}project";
             Assert.AreEqual(expectedName, activity.Description);
-
         }
 
         [Test]

@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -56,8 +56,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -81,7 +79,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
-            // Setup
             // Call
             string text = info.Text(null);
 
@@ -117,7 +114,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

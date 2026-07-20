@@ -25,8 +25,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -493,7 +493,6 @@ namespace Riskeer.Revetment.Service.Test
             }
 
             calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
         }
 
         [Test]
@@ -554,7 +553,6 @@ namespace Riskeer.Revetment.Service.Test
             }
 
             calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
         }
 
         [Test]
@@ -699,7 +697,6 @@ namespace Riskeer.Revetment.Service.Test
             }
 
             calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
         }
 
         [Test]
@@ -778,7 +775,6 @@ namespace Riskeer.Revetment.Service.Test
             }
 
             calculatorFactory.Received(3).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
         }
 
         [Test]
@@ -822,7 +818,6 @@ namespace Riskeer.Revetment.Service.Test
             }
 
             calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
         }
 
         private static WaveConditionsInput GetDefaultValidationInput()

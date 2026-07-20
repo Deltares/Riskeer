@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Common.Util.Enums;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -354,6 +354,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(newValue, assertPropertyFunc(result));
             }
+
             observer.Received().UpdateObserver();
         }
 

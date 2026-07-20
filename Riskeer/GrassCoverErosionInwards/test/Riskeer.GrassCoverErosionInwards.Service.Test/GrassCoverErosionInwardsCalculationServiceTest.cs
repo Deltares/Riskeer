@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net.Core;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -2234,14 +2234,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            
+
             calculatorFactory
                 .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                         calculationSettings,
-                        (HydraRingCalculationSettings) callInfo.Arg<HydraRingCalculationSettings>());
+                        callInfo.Arg<HydraRingCalculationSettings>());
                     return overtoppingCalculator;
                 });
             calculatorFactory
@@ -2250,7 +2250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                         calculationSettings,
-                        (HydraRingCalculationSettings) callInfo.Arg<HydraRingCalculationSettings>());
+                        callInfo.Arg<HydraRingCalculationSettings>());
                     return dikeHeightCalculator;
                 });
             calculatorFactory
@@ -2259,11 +2259,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                         calculationSettings,
-                        (HydraRingCalculationSettings) callInfo.Arg<HydraRingCalculationSettings>());
+                        callInfo.Arg<HydraRingCalculationSettings>());
                     return overtoppingRateCalculator;
                 });
-            
-            
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =

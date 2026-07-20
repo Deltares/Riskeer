@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Gui.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -117,9 +117,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var observable = Substitute.For<IObservable>();
             var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
             assessmentSectionCompositionChangeHandler.ChangeComposition(assessmentSection, newComposition).Returns(new[]
-                                                     {
-                                                         observable
-                                                     });
+            {
+                observable
+            });
             var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // When

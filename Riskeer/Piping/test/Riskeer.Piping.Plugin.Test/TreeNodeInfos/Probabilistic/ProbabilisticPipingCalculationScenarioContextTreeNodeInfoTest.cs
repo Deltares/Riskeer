@@ -35,9 +35,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -74,15 +74,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
-        
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -106,7 +103,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void Image_Always_ReturnsPipingIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -320,14 +316,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                                                                  assessmentSection);
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                    menuBuilder.AddExportItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddRenameItem().Returns(menuBuilder);
-                    menuBuilder.AddDeleteItem().Returns(menuBuilder);
-                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.AddExportItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
@@ -336,8 +332,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
-                
-                
+
                 // Assert
                 Received.InOrder(() =>
                 {
@@ -362,7 +357,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     menuBuilder.Build();
                 });
             }
-
         }
 
         [Test]
@@ -735,6 +729,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+
                 inputObserver.DidNotReceive().UpdateObserver();
                 calculationObserver.DidNotReceive().UpdateObserver();
             }
@@ -1078,7 +1073,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     Assert.AreNotEqual(confirm, calculation.HasOutput);
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
-                        
+
                     if (confirm)
                     {
                         observer.Received().UpdateObserver();
@@ -1093,7 +1088,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
         public override void Setup()
         {
-            
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingCalculationScenarioContext));
         }

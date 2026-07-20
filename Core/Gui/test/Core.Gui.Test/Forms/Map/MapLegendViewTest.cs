@@ -32,8 +32,8 @@ using Core.Components.Gis.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Map;
 using Core.Gui.PresentationObjects.Map;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Map
 {

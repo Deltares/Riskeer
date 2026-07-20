@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 

@@ -128,7 +128,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-
         }
 
         [Test]
@@ -174,7 +173,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
             }
-
         }
 
         [Test]

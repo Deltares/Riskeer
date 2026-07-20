@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;

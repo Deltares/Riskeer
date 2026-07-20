@@ -27,8 +27,8 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
@@ -42,14 +42,12 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
     [TestFixture]
     public class HydraulicBoundaryDataContextImportInfoTest
     {
-        
         private ImportInfo importInfo;
         private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            
             IGui gui = StubFactory.CreateGuiStub();
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin = new RiskeerPlugin
@@ -109,7 +107,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            
+
             var gui = Substitute.For<IGui>();
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             var importTarget = new HydraulicBoundaryDataContext(new HydraulicBoundaryData(), new AssessmentSection(AssessmentSectionComposition.Dike));

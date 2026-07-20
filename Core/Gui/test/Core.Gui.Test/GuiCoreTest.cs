@@ -48,8 +48,8 @@ using Core.Gui.TestUtil;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Xceed.Wpf.AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 

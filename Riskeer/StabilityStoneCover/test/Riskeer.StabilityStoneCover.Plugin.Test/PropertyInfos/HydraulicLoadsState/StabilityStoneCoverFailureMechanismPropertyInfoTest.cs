@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState;
@@ -69,7 +69,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.HydraulicLoadsSt
                 Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
-
         }
 
         private static PropertyInfo GetInfo(StabilityStoneCoverPlugin plugin)

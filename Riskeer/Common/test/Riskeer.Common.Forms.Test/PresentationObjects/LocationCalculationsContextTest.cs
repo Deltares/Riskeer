@@ -23,8 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects

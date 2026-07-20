@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test
 {
@@ -263,7 +263,7 @@ namespace Core.Gui.Test
             const string someFilePath = "<path to some file>";
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns((IProject)null);
+                          .Returns((IProject) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -296,7 +296,10 @@ namespace Core.Gui.Test
             var innerException = new Exception("A");
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns(x => { throw new StorageException(message, innerException); });
+                          .Returns(x =>
+                          {
+                              throw new StorageException(message, innerException);
+                          });
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -330,7 +333,10 @@ namespace Core.Gui.Test
             const string someFilePath = "<path to some file>";
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns(x => { throw new ArgumentException(); });
+                          .Returns(x =>
+                          {
+                              throw new ArgumentException();
+                          });
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -457,7 +463,10 @@ namespace Core.Gui.Test
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.Migrate(someFilePath, someMigrationFilePath)
-                           .Returns(x => { throw new ArgumentException(exceptionMessage); });
+                           .Returns(x =>
+                           {
+                               throw new ArgumentException(exceptionMessage);
+                           });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -622,7 +631,7 @@ namespace Core.Gui.Test
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns((IProject)null);
+                          .Returns((IProject) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -665,7 +674,10 @@ namespace Core.Gui.Test
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns(x => { throw exceptionToThrow; });
+                          .Returns(x =>
+                          {
+                              throw exceptionToThrow;
+                          });
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -715,7 +727,7 @@ namespace Core.Gui.Test
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             projectOwner.DidNotReceive().SetProject(project, someFilePath);
-            
+
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -922,7 +934,10 @@ namespace Core.Gui.Test
             var storeProject = Substitute.For<IStoreProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var migrateProject = Substitute.For<IMigrateProject>();
-            migrateProject.When(x => x.Migrate(Arg.Any<string>(), Arg.Any<string>())).Do(x => { throw new ArgumentException(); });
+            migrateProject.When(x => x.Migrate(Arg.Any<string>(), Arg.Any<string>())).Do(x =>
+            {
+                throw new ArgumentException();
+            });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -983,7 +998,10 @@ namespace Core.Gui.Test
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.When(x=>x.LoadProject(Arg.Any<string>())).Do(x => { throw new StorageException(); });
+            storeProject.When(x => x.LoadProject(Arg.Any<string>())).Do(x =>
+            {
+                throw new StorageException();
+            });
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",

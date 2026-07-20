@@ -54,4 +54,3 @@ namespace Core.Common.Controls.TreeView
         void TryCollapseAllNodesForData(object dataObject);
     }
 }
-

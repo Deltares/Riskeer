@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Test.SoilProfile

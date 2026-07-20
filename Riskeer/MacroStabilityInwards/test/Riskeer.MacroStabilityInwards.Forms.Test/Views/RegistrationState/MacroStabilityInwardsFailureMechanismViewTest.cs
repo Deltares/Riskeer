@@ -29,8 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -237,7 +237,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.RegistrationState
             var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
-            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);;
+            IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+            ;
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -253,7 +254,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.RegistrationState
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            
+
             observers[sectionsObserverIndex].Received().UpdateObserver();
             observers[sectionsStartPointObserverIndex].Received().UpdateObserver();
             observers[sectionsEndPointObserverIndex].Received().UpdateObserver();

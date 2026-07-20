@@ -21,8 +21,8 @@
 
 using System;
 using Core.Gui.Helpers;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Integration.Forms.Merge;
 
 namespace Riskeer.Integration.Forms.Test.Merge

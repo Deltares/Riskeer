@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Primitives;

@@ -30,8 +30,8 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -575,7 +575,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddCustomItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
-            var contextMenuItem = new StrictContextMenuItem("Custom Text","Custom Tooltip", null,null);
+            var contextMenuItem = new StrictContextMenuItem("Custom Text", "Custom Tooltip", null, null);
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 

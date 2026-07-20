@@ -34,9 +34,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -70,8 +70,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -95,7 +93,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Image_Always_ReturnsPipingIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -546,7 +543,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                                                                      assessmentSection);
 
                 var inputObserver = Substitute.For<IObserver>();
-                
+
                 calculation.InputParameters.Attach(inputObserver);
 
                 var calculationObserver = Substitute.For<IObserver>();
@@ -626,7 +623,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
-                
+
                 calculationObserver.DidNotReceive().UpdateObserver();
                 inputObserver.DidNotReceive().UpdateObserver();
             }
@@ -961,6 +958,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
+
                 if (confirm)
                 {
                     observer.Received().UpdateObserver();

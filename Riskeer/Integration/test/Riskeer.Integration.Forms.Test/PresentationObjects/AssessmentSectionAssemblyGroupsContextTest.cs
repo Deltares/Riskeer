@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Controls.PresentationObjects;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Forms.PresentationObjects;
 

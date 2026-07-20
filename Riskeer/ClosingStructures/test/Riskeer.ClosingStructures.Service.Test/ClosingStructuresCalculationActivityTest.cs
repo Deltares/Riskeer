@@ -21,12 +21,12 @@
 
 using System;
 using Core.Common.Base.Service;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Service.Test
 {

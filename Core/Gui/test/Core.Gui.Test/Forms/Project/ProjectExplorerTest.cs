@@ -31,9 +31,9 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Project;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Gui.Test.Forms.Project
 {

@@ -33,9 +33,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -59,15 +59,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateIndex = 7;
         private const int contextMenuClearIndex = 9;
 
-        
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -91,7 +88,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnCalculationIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -104,7 +100,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
@@ -270,22 +265,22 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                    assessmentSection);
 
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                    menuBuilder.AddExportItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddRenameItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                    menuBuilder.AddDeleteItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                    menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                    menuBuilder.AddSeparator().Returns(menuBuilder);
-                    menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                menuBuilder.AddExportItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddRenameItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+                menuBuilder.AddDeleteItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+                menuBuilder.AddSeparator().Returns(menuBuilder);
+                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
                 var gui = Substitute.For<IGui>();
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
@@ -293,7 +288,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
-                
+
                 // Assert
                 Received.InOrder(() =>
                 {
@@ -456,6 +451,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     const int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                     TestHelper.AssertLogMessagesCount(Action, expectedLogMessageCount);
                 }
+
                 observer.DidNotReceive().UpdateObserver();
             }
         }
@@ -531,6 +527,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     });
                     Assert.IsNotNull(calculation.Output);
                 }
+
                 observer.Received().UpdateObserver();
             }
         }
@@ -590,6 +587,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Bevestigen", messageBoxTitle);
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
+
                 if (confirm)
                 {
                     observer.Received().UpdateObserver();
@@ -603,7 +601,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
         public override void Setup()
         {
-            
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationScenarioContext));
         }

@@ -32,8 +32,8 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -177,13 +177,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddExportItem().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
 
             var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                 new ObservableList<DuneLocationCalculationsForTargetProbability>(),
@@ -417,6 +417,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             calculationsObserver.Received().UpdateObserver();
         }
 
@@ -514,9 +515,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 {
                     Converged = false
                 };
-                
+
                 calculatorFactory
-                    .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+                    .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                     .Returns(callInfo =>
                     {
                         HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -554,7 +555,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         });
                     }
                 }
-                calculatorFactory.Received(2).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null));
+
+                calculatorFactory.Received(2).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             }
         }
 

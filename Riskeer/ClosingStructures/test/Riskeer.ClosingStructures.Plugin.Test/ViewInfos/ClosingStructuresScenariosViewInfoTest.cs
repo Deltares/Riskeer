@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
@@ -30,7 +31,6 @@ using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 {

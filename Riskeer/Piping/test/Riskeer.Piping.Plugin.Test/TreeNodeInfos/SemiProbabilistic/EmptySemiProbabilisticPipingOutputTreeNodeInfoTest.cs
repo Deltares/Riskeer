@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -54,8 +54,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -79,7 +77,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
-            // Setup
             // Call
             string text = info.Text(null);
 
@@ -90,7 +87,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -101,7 +97,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         [Test]
         public void ForeColor_Always_ReturnsGrayText()
         {
-            // Setup
             // Call
             Color textColor = info.ForeColor(null);
 

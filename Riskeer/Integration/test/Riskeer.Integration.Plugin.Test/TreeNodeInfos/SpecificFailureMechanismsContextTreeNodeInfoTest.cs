@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Plugin.TestUtil;
@@ -62,8 +62,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -102,7 +100,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -113,7 +110,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void ExpandOnCreate_Always_ReturnsTrue()
         {
-            // Setup
             // Call
             bool expandOnCreate = info.ExpandOnCreate(null);
 

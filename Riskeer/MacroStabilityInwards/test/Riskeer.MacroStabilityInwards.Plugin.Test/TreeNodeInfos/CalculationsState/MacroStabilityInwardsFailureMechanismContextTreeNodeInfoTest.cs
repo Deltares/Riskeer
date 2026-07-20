@@ -31,9 +31,9 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -63,8 +63,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -103,7 +101,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         [Test]
         public void Image_Always_ReturnsMacroStabilityInwardsIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

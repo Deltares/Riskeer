@@ -21,8 +21,8 @@
 
 using System;
 using log4net;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Helpers
@@ -56,7 +56,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculationA";
             var log = Substitute.For<ILog>();
             log.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName);
-            
+
             // Call
             log.LogCalculationConversionError(message, calculationName);
 

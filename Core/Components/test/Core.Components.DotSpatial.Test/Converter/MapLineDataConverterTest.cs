@@ -224,7 +224,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle);
             AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
-
         }
 
         [Test]

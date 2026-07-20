@@ -25,8 +25,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
@@ -43,17 +43,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
     {
         private MacroStabilityInwardsPlugin plugin;
         private ExportInfo info;
-        
 
         [SetUp]
         public void SetUp()
         {
-            
             var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
-            
-            
 
             plugin = new MacroStabilityInwardsPlugin
             {

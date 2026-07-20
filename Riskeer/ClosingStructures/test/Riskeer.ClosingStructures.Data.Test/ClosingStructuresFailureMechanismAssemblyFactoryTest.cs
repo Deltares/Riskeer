@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -31,7 +32,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Data.Test
 {

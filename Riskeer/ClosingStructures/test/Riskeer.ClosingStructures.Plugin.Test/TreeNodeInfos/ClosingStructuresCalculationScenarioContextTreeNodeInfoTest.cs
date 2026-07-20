@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,6 +32,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
@@ -51,7 +52,6 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
@@ -78,7 +78,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -103,7 +102,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsCalculationIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 
@@ -164,11 +162,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-        
+
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 // Call
@@ -476,7 +473,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
-                   
                 }
             }
 

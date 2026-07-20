@@ -27,9 +27,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -606,7 +606,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 };
             }
 
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
             assessmentSection.Attach(Arg.Any<IObserver>());
@@ -637,6 +636,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 calculationObserver.Received(1).UpdateObserver();
             }
+
             calculationInputObserver.Received(1).UpdateObserver();
         }
 

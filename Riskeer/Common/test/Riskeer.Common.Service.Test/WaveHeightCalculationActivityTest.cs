@@ -27,8 +27,8 @@ using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
@@ -148,7 +148,7 @@ namespace Riskeer.Common.Service.Test
                                                                                validHrdFileVersion, usePreprocessorClosure);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -174,7 +174,8 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
-            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null));
+
+            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -191,7 +192,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null))
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
                              .Returns(calculator);
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
@@ -218,7 +219,8 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
                 });
             }
-            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x=>x!=null));
+
+            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -369,6 +371,7 @@ namespace Riskeer.Common.Service.Test
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
+
             calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 

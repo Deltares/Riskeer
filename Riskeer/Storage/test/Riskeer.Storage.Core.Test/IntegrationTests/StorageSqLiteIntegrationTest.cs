@@ -31,8 +31,8 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Settings;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -184,7 +184,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
                 AssertProjectsAreEqual(fullProject, (RiskeerProject) gui.Project);
             }
-
         }
 
         [OneTimeSetUp]

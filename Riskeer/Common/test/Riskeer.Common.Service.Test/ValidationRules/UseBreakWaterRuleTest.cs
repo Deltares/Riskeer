@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Service.ValidationRules;
 

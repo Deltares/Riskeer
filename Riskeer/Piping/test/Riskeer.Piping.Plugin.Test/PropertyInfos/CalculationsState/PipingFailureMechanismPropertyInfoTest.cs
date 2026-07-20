@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;

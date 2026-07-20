@@ -36,9 +36,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -465,6 +465,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Single().Output);
                     }
                 }
+
                 calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
@@ -574,6 +575,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.IsFalse(calculation.Output.HasGeneralResult);
                     }
                 }
+
                 calculationObserver.Received().UpdateObserver();
             }
         }

@@ -81,6 +81,7 @@ namespace Core.Common.Controls.Test.DataGrid
                                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
                             }
                         }
+
                         f.Close();
                     });
             }

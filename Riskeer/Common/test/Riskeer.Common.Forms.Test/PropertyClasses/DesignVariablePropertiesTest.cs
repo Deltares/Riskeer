@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 

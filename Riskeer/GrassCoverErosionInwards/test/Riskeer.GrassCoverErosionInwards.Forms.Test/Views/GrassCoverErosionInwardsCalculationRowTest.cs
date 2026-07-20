@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -483,10 +483,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 inputObserver.Received().UpdateObserver();
             }
+
             if (expectUpdates && hasOutput)
             {
                 calculationObserver.Received().UpdateObserver();
             }
+
             assertions(calculation);
             if (expectUpdates)
             {

@@ -25,8 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -122,8 +122,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             Received.InOrder(() =>
             {
-				menuBuilder.Received().AddPropertiesItem();
-				menuBuilder.Received().Build();
+                menuBuilder.Received().AddPropertiesItem();
+                menuBuilder.Received().Build();
             });
         }
     }

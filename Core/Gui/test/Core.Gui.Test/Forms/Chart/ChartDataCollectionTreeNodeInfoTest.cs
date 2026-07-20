@@ -37,8 +37,8 @@ using Core.Gui.Forms.Chart;
 using Core.Gui.PresentationObjects.Chart;
 using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Chart
 {

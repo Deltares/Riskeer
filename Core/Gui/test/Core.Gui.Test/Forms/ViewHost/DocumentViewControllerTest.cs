@@ -26,9 +26,9 @@ using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

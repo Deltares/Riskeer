@@ -665,8 +665,6 @@ namespace Core.Common.TestUtil
                 if (enabled != itemm.Enabled)
                     Console.WriteLine($"ENABLED MISMATCH: Expected {enabled}, Actual {itemm.Enabled}");
             }
-            
-            
 
             Assert.Less(position, items.Count);
 

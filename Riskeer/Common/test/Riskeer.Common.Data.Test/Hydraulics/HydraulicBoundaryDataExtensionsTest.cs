@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -143,7 +143,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName1), hydraulicBoundaryDatabase1.FilePath);
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName2), hydraulicBoundaryDatabase2.FilePath);
             observer.Received().UpdateObserver();
-            
         }
 
         [Test]

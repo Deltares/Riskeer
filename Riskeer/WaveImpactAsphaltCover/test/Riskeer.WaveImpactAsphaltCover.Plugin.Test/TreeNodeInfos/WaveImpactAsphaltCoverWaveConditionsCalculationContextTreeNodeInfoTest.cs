@@ -35,9 +35,9 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -75,9 +75,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -126,8 +123,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnCalculationIcon()
         {
-            // Setup
-
             // Call
             Image icon = info.Image(null);
 
@@ -138,8 +133,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         [Test]
         public void EnsureVisibleOnCreate_Always_ReturnTrue()
         {
-            // Setup
-
             // Call
             bool shouldBeVisible = info.EnsureVisibleOnCreate(null, null);
 
@@ -266,8 +259,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         [Test]
         public void CanRename_Always_ReturnTrue()
         {
-            // Setup
-
             // Call
             bool canRename = info.CanRename(null, null);
 

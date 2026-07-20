@@ -31,9 +31,9 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -244,10 +244,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
             guiService.When(service => service.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
                       .Do(invocation =>
-            {
-                performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
-                actualNormValue = invocation.Arg<double>();
-            });
+                      {
+                          performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
+                          actualNormValue = invocation.Arg<double>();
+                      });
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);

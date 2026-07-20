@@ -25,11 +25,11 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
@@ -55,8 +55,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -94,7 +92,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnStructuresIcon()
         {
-            // Setup
             // Call
             Image image = info.Image(null);
 

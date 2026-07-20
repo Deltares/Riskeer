@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;

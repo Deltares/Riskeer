@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Gui.Plugin;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -34,14 +34,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.RegistrationSta
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismViewInfoTest
     {
-        
         private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismView));
         }

@@ -36,9 +36,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -110,12 +110,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
         private PipingPlugin plugin;
         private TreeNodeInfo info;
-        
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -1242,6 +1240,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
                 }
+
                 observer.Received().UpdateObserver();
             }
         }
@@ -1642,6 +1641,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
                 }
             }
+
             if (confirm)
             {
                 calculation1Observer.Received().UpdateObserver();
@@ -1662,7 +1662,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation1Observer = Substitute.For<IObserver>();
             var calculation2Observer = Substitute.For<IObserver>();
-       
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
@@ -1746,6 +1745,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
                 }
             }
+
             if (confirm)
             {
                 calculation1Observer.Received().UpdateObserver();
@@ -2218,6 +2218,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
                     Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
                 }
+
                 calculation1InputObserver.Received().UpdateObserver();
                 calculation2InputObserver.Received().UpdateObserver();
             }
@@ -2322,6 +2323,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+
                 calculation1Observer.DidNotReceive().UpdateObserver();
                 calculation1InputObserver.DidNotReceive().UpdateObserver();
                 calculation2Observer.DidNotReceive().UpdateObserver();
@@ -2428,6 +2430,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
+
                 calculation1Observer.Received().UpdateObserver();
                 calculation1InputObserver.Received().UpdateObserver();
                 calculation2Observer.Received().UpdateObserver();

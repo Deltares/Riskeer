@@ -255,6 +255,7 @@ namespace Core.Gui.Test
                 Assert.AreEqual(expectedDialogTitle, messageBoxTitle);
                 Assert.AreEqual(expectedDialogMessage, messageBoxText);
             }
+
             _ = commandsOwner.Received().StorageCommands;
             commands.Received().SaveProjectAs();
         }
@@ -293,6 +294,7 @@ namespace Core.Gui.Test
                 Assert.AreEqual("Project is niet opgeslagen", messageBoxTitle);
                 Assert.AreEqual("Opslaan van project is mislukt.", messageBoxText);
             }
+
             _ = commandsOwner.Received().StorageCommands;
             commands.Received().SaveProjectAs();
         }

@@ -21,13 +21,13 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
+using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
-using NSubstitute;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {

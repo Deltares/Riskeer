@@ -32,9 +32,9 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Selection;
 using Core.Gui.TestUtil;
+using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NSubstitute;
 using Arg = NSubstitute.Arg;
 
 namespace Core.Gui.Test.Commands
@@ -477,7 +477,7 @@ namespace Core.Gui.Test.Commands
             var projectStorage = Substitute.For<IStoreProject>();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-            projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(_ => throw (exception));
+            projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(_ => throw exception);
 
             var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -515,7 +515,7 @@ namespace Core.Gui.Test.Commands
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
-            projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns(_ => throw (new ArgumentException(errorMessage)));
+            projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns(_ => throw new ArgumentException(errorMessage));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -564,7 +564,7 @@ namespace Core.Gui.Test.Commands
             mainWindowController.MainWindow.Returns(mainWindow);
             mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
             mainWindow.Handle.Returns(IntPtr.Zero);
-            projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile).Returns(_ => throw (new ArgumentException(errorMessage)));
+            projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile).Returns(_ => throw new ArgumentException(errorMessage));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -612,7 +612,7 @@ namespace Core.Gui.Test.Commands
             var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToSomeInvalidFile)
-                          .Returns(_ => throw (new StorageException(goodErrorMessageText, new Exception("H@X!"))));
+                          .Returns(_ => throw new StorageException(goodErrorMessageText, new Exception("H@X!")));
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeInvalidFile).Returns(MigrationRequired.No);
@@ -651,7 +651,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
             Assert.IsFalse(result);
-            projectOwner.Received().SetProject(null,null);
+            projectOwner.Received().SetProject(null, null);
         }
 
         [Test]
@@ -662,7 +662,7 @@ namespace Core.Gui.Test.Commands
 
             var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(pathToSomeInvalidFile).Returns((IProject)null);
+            projectStorage.LoadProject(pathToSomeInvalidFile).Returns((IProject) null);
 
             var projectMigrator = Substitute.For<IMigrateProject>();
 
@@ -820,7 +820,7 @@ namespace Core.Gui.Test.Commands
             var projectFactory = Substitute.For<IProjectFactory>();
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns((IProject)null);
+            projectOwner.Project.Returns((IProject) null);
             projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(false);
             projectStorage.OpenProjectFileFilter.Returns(string.Empty);
 
@@ -892,7 +892,7 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns((IProject)null);
+            projectOwner.Project.Returns((IProject) null);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(
@@ -962,7 +962,7 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             inquiryHelper.InquirePerformOptionalStep("Project afsluiten",
-                                                      $"Sla wijzigingen in het project op: {projectName}?")
+                                                     $"Sla wijzigingen in het project op: {projectName}?")
                          .Returns(OptionalStepResult.Cancel);
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(
@@ -982,7 +982,7 @@ namespace Core.Gui.Test.Commands
             projectStorage.Received().HasStagedProjectChanges(Arg.Any<string>());
             projectStorage.Received().UnstageProject();
             inquiryHelper.Received().InquirePerformOptionalStep("Project afsluiten",
-                                                                 $"Sla wijzigingen in het project op: {projectName}?");
+                                                                $"Sla wijzigingen in het project op: {projectName}?");
         }
 
         [Test]
@@ -1008,8 +1008,8 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             inquiryHelper.InquirePerformOptionalStep("Project afsluiten",
-                                                                   $"Sla wijzigingen in het project op: {projectName}?")
-                                       .Returns(OptionalStepResult.SkipOptionalStep);
+                                                     $"Sla wijzigingen in het project op: {projectName}?")
+                         .Returns(OptionalStepResult.SkipOptionalStep);
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
@@ -1045,12 +1045,12 @@ namespace Core.Gui.Test.Commands
 
                 var projectStorage = Substitute.For<IStoreProject>();
                 projectStorage.StageProject(project);
-                
+
                 projectStorage.UnstageProject();
                 projectStorage.StageProject(project);
                 projectStorage.HasStagedProject.Returns(true);
                 projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(true);
-                
+
                 projectStorage.SaveProjectAs(someValidFilePath);
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
@@ -1062,7 +1062,7 @@ namespace Core.Gui.Test.Commands
 
                 var inquiryHelper = Substitute.For<IInquiryHelper>();
                 inquiryHelper.InquirePerformOptionalStep("Project afsluiten",
-                                                                       $"Sla wijzigingen in het project op: {projectName}?")
+                                                         $"Sla wijzigingen in het project op: {projectName}?")
                              .Returns(OptionalStepResult.PerformOptionalStep);
 
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -1126,10 +1126,10 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             inquiryHelper.InquirePerformOptionalStep("Project afsluiten",
-                                                                   $"Sla wijzigingen in het project op: {projectName}?")
-                                       .Returns(OptionalStepResult.PerformOptionalStep);
+                                                     $"Sla wijzigingen in het project op: {projectName}?")
+                         .Returns(OptionalStepResult.PerformOptionalStep);
             inquiryHelper.GetTargetFileLocation(fileFilter, projectName)
-                                       .Returns(someValidFilePath);
+                         .Returns(someValidFilePath);
 
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
             var mainWindowController = Substitute.For<IMainWindowController>();
