@@ -21,7 +21,7 @@
 
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 namespace Core.Common.TestUtil
 {
@@ -40,12 +40,11 @@ namespace Core.Common.TestUtil
         /// deserializing it again.</returns>
         public static T SerializeAndDeserializeException<T>(T original) where T : ISerializable
         {
-            var formatter = new BinaryFormatter();
             using (var stream = new MemoryStream())
             {
-                formatter.Serialize(stream, original);
+                JsonSerializer.Serialize(stream, original);
                 stream.Seek(0, SeekOrigin.Begin);
-                return (T) formatter.Deserialize(stream);
+                return JsonSerializer.Deserialize<T>(stream);
             }
         }
     }
