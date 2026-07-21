@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util.Extensions;
@@ -67,6 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             chartDataCollection.Add(dikeHeightChartData);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get

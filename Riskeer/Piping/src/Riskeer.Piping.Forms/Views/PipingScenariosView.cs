@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -123,6 +124,7 @@ namespace Riskeer.Piping.Forms.Views
             UpdateFailureMechanismSectionConfigurationControl();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get => calculationGroup;
