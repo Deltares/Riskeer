@@ -32,60 +32,35 @@ namespace Application.Riskeer.Test
     [TestFixture]
     public class AppTest
     {
-        private AppDomain appDomain;
-
-        [SetUp]
-        public void SetUp()
-        {
-            appDomain = AppDomain.CreateDomain(nameof(AppTest), AppDomain.CurrentDomain.Evidence,
-                                               AppDomain.CurrentDomain.SetupInformation);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            AppDomain.Unload(appDomain);
-        }
+        private App app;
+        private string[] startupLogMessages;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            appDomain.DoCallBack(() =>
-            {
-                // Call
-                var app = new App();
-
-                // Assert
-                Assert.IsInstanceOf<System.Windows.Application>(app);
-                Assert.IsInstanceOf<RiskeerSettingsHelper>(SettingsHelper.Instance);
-                app.Shutdown();
-            });
+            Assert.IsInstanceOf<System.Windows.Application>(app);
+            Assert.IsInstanceOf<RiskeerSettingsHelper>(SettingsHelper.Instance);
         }
 
         [Test]
         public void Constructor_LogsStartupMessage()
         {
-            // Setup
-            appDomain.DoCallBack(() =>
-            {
-                // Call
-                void Call()
-                {
-                    var app = new App();
-                    app.Shutdown();
-                }
+            Assert.AreEqual(1, startupLogMessages.Length);
+            Assert.AreEqual($"Riskeer versie {SettingsHelper.Instance.ApplicationVersion} wordt gestart door {UserDisplay()}...", startupLogMessages[0]);
+        }
 
-                // Assert
-                string userDisplayInfo = UserDisplay();
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            TestHelper.AssertLogMessages(
+                () => app = new App(),
+                messages => startupLogMessages = messages.ToArray());
+        }
 
-                TestHelper.AssertLogMessages(Call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual($"Riskeer versie {SettingsHelper.Instance.ApplicationVersion} wordt gestart door {userDisplayInfo}...", msgs[0]);
-                });
-            });
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            app.Shutdown();
         }
 
         private static string UserDisplay()
