@@ -40,7 +40,7 @@ For each library the version and used license is shown. For the full license tex
 | Microsoft.Xaml.Behaviors.Wpf              | 1.1.31      | MIT          | https://github.com/Microsoft/XamlBehaviorsWpf                                   |
 | MSBuildConfigurationDefaults              | 1.0.1       | MIT          | https://github.com/pedrolamas/MSBuildConfigurationDefaults                      |
 | NetTopologySuite                          | 1.14.0      | LGPL-2.1     | https://github.com/NetTopologySuite/NetTopologySuite                            |
-| NUnit                                     | 3.8.1       | MIT          | https://github.com/nunit/nunit                                                  |
+| NUnit                                     | 3.14.0      | MIT          | https://github.com/nunit/nunit                                                  |
 | OxyPlot.Core                              | 1.0.0       | MIT          | https://github.com/oxyplot/oxyplot                                              |
 | OxyPlot.WindowsForms                      | 1.0.0       | MIT          | https://github.com/oxyplot/oxyplot                                              |
 | Piping                                    | 16.2.1.4574 | AGPL-3.0     | https://repos.deltares.nl/repos/FailureMechanisms/FailureMechanisms/DikesPiping |
