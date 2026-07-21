@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
@@ -89,6 +90,7 @@ namespace Core.Components.DotSpatial.Forms
             InitializeUpdateTimer();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public MapDataCollection Data
         {
             get
@@ -113,6 +115,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ImageBasedMapData BackgroundMapData
         {
             get

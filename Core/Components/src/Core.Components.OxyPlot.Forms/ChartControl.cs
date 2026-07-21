@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
@@ -67,6 +68,7 @@ namespace Core.Components.OxyPlot.Forms
             chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ChartDataCollection Data
         {
             get
@@ -93,6 +95,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ChartTitle
         {
             get
@@ -105,6 +108,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string BottomAxisTitle
         {
             get
@@ -117,6 +121,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string LeftAxisTitle
         {
             get
