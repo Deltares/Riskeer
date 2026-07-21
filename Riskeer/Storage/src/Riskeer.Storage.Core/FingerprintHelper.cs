@@ -115,8 +115,14 @@ namespace Riskeer.Storage.Core
             using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
             {
                 var serializer = new DataContractSerializer(entity.GetType(),
-                                                            Enumerable.Empty<Type>(),
-                                                            int.MaxValue, false, true, null);
+                                                            new DataContractSerializerSettings
+                                                            {
+                                                                KnownTypes = Enumerable.Empty<Type>(),
+                                                                MaxItemsInObjectGraph = int.MaxValue,
+                                                                IgnoreExtensionDataObject = false,
+                                                                PreserveObjectReferences = true,
+                                                                DataContractResolver = null
+                                                            });
                 serializer.WriteObject(writer, entity);
                 writer.Flush();
                 stream.Seek(0, SeekOrigin.Begin);
