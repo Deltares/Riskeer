@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -201,6 +202,7 @@ namespace Riskeer.Common.Forms.Test.Views
             protected TestCalculationsViewBase(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public bool CanGenerateCalculationState { get; set; }
 
             public bool GenerateButtonClicked { get; private set; }

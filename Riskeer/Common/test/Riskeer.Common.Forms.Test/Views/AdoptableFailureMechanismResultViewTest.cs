@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -370,7 +371,10 @@ namespace Riskeer.Common.Forms.Test.Views
                 Func<AdoptableFailureMechanismSectionResult, TestAdoptableFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc)
                 : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc, performFailureMechanismSectionAssemblyFunc) {}
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider RowErrorProvider { get; set; }
+
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public IFailureMechanismSectionResultCalculateProbabilityStrategy CalculateProbabilityStrategy { get; set; }
 
             protected override IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableFailureMechanismSectionResult sectionResult,
