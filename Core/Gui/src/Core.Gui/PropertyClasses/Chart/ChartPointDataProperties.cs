@@ -51,7 +51,7 @@ namespace Core.Gui.PropertyClasses.Chart
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Color_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(Core.Gui.UITypeEditors.ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color Color
         {
@@ -71,7 +71,7 @@ namespace Core.Gui.PropertyClasses.Chart
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_StrokeColor_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(Core.Gui.UITypeEditors.ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
         {
