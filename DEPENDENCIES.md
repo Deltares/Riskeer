@@ -57,6 +57,7 @@ For each library the version and used license is shown. For the full license tex
 | System.Reflection.Metadata                | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
 | System.Resources.Extensions               | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
 | System.Runtime.CompilerServices.Unsafe    | 6.1.2       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
+| System.ServiceModel.Primitives            | 8.1.2       | MIT          | https://github.com/dotnet/wcf                                                   |
 | System.ValueTuple                         | 4.6.1       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
 | WixToolset.Heat                           | 5.0.2       | MS-RL        | https://github.com/wixtoolset                                                   |
 | WixToolset.NetFx.wixext                   | 5.0.2       | MS-RL        | https://github.com/wixtoolset                                                   |
