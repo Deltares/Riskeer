@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -104,6 +105,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         public IMapControl Map => riskeerMapControl.MapControl;
