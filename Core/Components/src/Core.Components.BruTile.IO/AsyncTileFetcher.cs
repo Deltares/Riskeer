@@ -24,7 +24,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Amib.Threading;
+using System.Threading.Tasks;
 using BruTile;
 using BruTile.Cache;
 using Core.Components.BruTile.Data;
@@ -49,7 +49,8 @@ namespace Core.Components.BruTile.IO
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
-        private SmartThreadPool threadPool;
+        private readonly SemaphoreSlim semaphore;
+        private CancellationTokenSource cancellationTokenSource;
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -94,7 +95,8 @@ namespace Core.Components.BruTile.IO
             this.provider = provider;
             volatileCache = new MemoryCache<byte[]>(minTiles, maxTiles);
             persistentCache = permaCache ?? NoopTileCache.Instance;
-            threadPool = new SmartThreadPool(10000, BruTileSettings.MaximumNumberOfThreads);
+            semaphore = new SemaphoreSlim(BruTileSettings.MaximumNumberOfThreads, BruTileSettings.MaximumNumberOfThreads);
+            cancellationTokenSource = new CancellationTokenSource();
         }
 
         public byte[] GetTile(TileInfo tileInfo)
@@ -129,8 +131,7 @@ namespace Core.Components.BruTile.IO
         {
             ThrowExceptionIfDisposed();
 
-            // Notes: http://dotspatial.codeplex.com/discussions/473428
-            threadPool.Cancel(false);
+            cancellationTokenSource.Cancel();
             foreach (KeyValuePair<TileIndex, int> request in activeTileRequests.ToArray())
             {
                 if (!openTileRequests.ContainsKey(request.Key))
@@ -162,10 +163,10 @@ namespace Core.Components.BruTile.IO
             if (disposing)
             {
                 volatileCache.Clear();
+                cancellationTokenSource?.Cancel();
 
-                threadPool.Dispose();
-                threadPool = null;
-
+                cancellationTokenSource?.Dispose();
+                semaphore?.Dispose();
                 volatileCache = null;
                 provider = null;
                 persistentCache = null;
@@ -213,7 +214,7 @@ namespace Core.Components.BruTile.IO
                 {
                     tileInfo
                 };
-                threadPool.QueueWorkItem(GetTileOnThread, threadArguments);
+                Task.Run(() => GetTileOnThreadAsync(tileInfo, cancellationTokenSource.Token));
             }
         }
 
@@ -225,17 +226,11 @@ namespace Core.Components.BruTile.IO
         /// <summary>
         /// Method to actually get the tile from the <see cref="provider"/>.
         /// </summary>
-        /// <param name="parameters">The thread parameters. The first argument is the <see cref="TileInfo"/>
-        /// for the file to be fetched.</param>
-        private void GetTileOnThread(object[] parameters)
+        private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
-            var tileInfo = (TileInfo) parameters[0];
-            GetTileOnThreadCore(tileInfo);
-        }
+            bool lockTaken = false;
 
-        private void GetTileOnThreadCore(TileInfo tileInfo)
-        {
-            if (!Thread.CurrentThread.IsAlive)
+            if (token.IsCancellationRequested)
             {
                 return;
             }

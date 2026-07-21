@@ -46,7 +46,6 @@ For each library the version and used license is shown. For the full license tex
 | Piping                                    | 16.2.1.4574 | AGPL-3.0     | https://repos.deltares.nl/repos/FailureMechanisms/FailureMechanisms/DikesPiping |
 | QuickGraph                                | 3.6.61119.7 | MS-PL        | https://www.nuget.org/packages/QuickGraph                                       |
 | NSubstitute                               | 4.4.0       | BSD-3-Clause | https://github.com/nsubstitute/NSubstitute                                      |
-| SmartThreadPool.dll                       | 2.2.4       | MS-PL        | https://github.com/amibar/SmartThreadPool                                       |
 | Stub.System.Data.SQLite.Core.NetFramework | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |
 | System.Buffers                            | 4.6.1       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
 | System.Collections.Immutable              | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
