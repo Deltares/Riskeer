@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Application;
 using Migration.Console.Properties;
 using Migration.Scripts.Data.Exceptions;
 using SystemConsole = System.Console;
@@ -34,6 +35,18 @@ namespace Migration.Console
     {
         private const string commandHelp = "--help";
         private const string commandHelpShort = "-h";
+
+        /// <summary>
+        /// Creates a static instance of <see cref="ConsoleBase"/>.
+        /// </summary>
+        /// <remarks>
+        /// This constructor is used to subscribe <see cref="AppDomain.AssemblyResolve"/> before any assemblies are loaded.
+        /// </remarks>
+        static ConsoleBase()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.ResolveAssembly;
+        }
+
         private readonly string applicationName;
         private readonly string applicationDescription;
 
