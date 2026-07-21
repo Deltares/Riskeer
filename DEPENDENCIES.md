@@ -52,6 +52,7 @@ For each library the version and used license is shown. For the full license tex
 | System.Data.SQLite.Core                   | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |
 | System.Data.SQLite.EF6                    | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |
 | System.Formats.Nrbf                       | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
+| System.Management                         | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
 | System.Memory                             | 4.6.3       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
 | System.Numerics.Vectors                   | 4.6.1       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
 | System.Reflection.Metadata                | 10.0.5      | MIT          | https://github.com/dotnet/dotnet                                                |
