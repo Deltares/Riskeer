@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,6 +73,7 @@ namespace Core.Gui.Forms.Map
         /// <summary>
         /// Gets or sets the <see cref="IMapControl"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IMapControl MapControl
         {
             private get
@@ -87,6 +89,7 @@ namespace Core.Gui.Forms.Map
 
         public object Selection => treeViewControl.SelectedData;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get => (MapDataCollectionContext) treeViewControl.Data;
