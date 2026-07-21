@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -127,6 +128,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         /// <summary>

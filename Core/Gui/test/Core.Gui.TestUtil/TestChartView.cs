@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.Forms;
@@ -30,6 +31,7 @@ namespace Core.Gui.TestUtil
     /// </summary>
     public class TestChartView : Control, IChartView
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         public IChartControl Chart => (ChartControl) Data;

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.PointedTree.Data;
@@ -55,6 +56,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="value.Data"/> or any of its children
         /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TopLevelFaultTreeIllustrationPoint Data
         {
             get

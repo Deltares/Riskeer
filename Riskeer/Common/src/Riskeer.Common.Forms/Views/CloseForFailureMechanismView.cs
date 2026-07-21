@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.FailureMechanism;
@@ -52,6 +53,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public IFailureMechanism FailureMechanism { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
     }
 }
