@@ -47,7 +47,7 @@ namespace Core.Components.BruTile.IO
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly SemaphoreSlim semaphore;
         private CancellationTokenSource cancellationTokenSource;
-        
+
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
@@ -95,7 +95,7 @@ namespace Core.Components.BruTile.IO
             this.provider = provider;
             volatileCache = new MemoryCache<byte[]>(minTiles, maxTiles);
             persistentCache = permaCache ?? NoopTileCache.Instance;
-            semaphore = new SemaphoreSlim(BruTileSettings.MaximumNumberOfThreads, BruTileSettings.MaximumNumberOfThreads);
+            semaphore = new SemaphoreSlim(4, BruTileSettings.MaximumNumberOfThreads);
             cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -164,10 +164,10 @@ namespace Core.Components.BruTile.IO
             if (disposing)
             {
                 volatileCache.Clear();
-                cancellationTokenSource?.Cancel();
+                cancellationTokenSource.Cancel();
 
-                cancellationTokenSource?.Dispose();
-                semaphore?.Dispose();
+                cancellationTokenSource.Dispose();
+                semaphore.Dispose();
                 volatileCache = null;
                 provider = null;
                 persistentCache = null;
@@ -228,12 +228,12 @@ namespace Core.Components.BruTile.IO
         private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
             bool semaphoreEntered = false;
-            
+
             try
             {
                 await semaphore.WaitAsync(token);
                 semaphoreEntered = true;
-                
+
                 if (token.IsCancellationRequested)
                 {
                     return;
@@ -257,13 +257,13 @@ namespace Core.Components.BruTile.IO
             finally
             {
                 MarkTileRequestHandled(tileInfo);
-                
+
                 if (semaphoreEntered)
                 {
                     semaphore.Release();
                 }
-                if (!token.IsCancellationRequested &&
-                    IsReady())
+
+                if (!token.IsCancellationRequested && IsReady())
                 {
                     OnQueueEmpty(EventArgs.Empty);
                 }
