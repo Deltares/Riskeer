@@ -227,10 +227,13 @@ namespace Core.Components.BruTile.IO
         /// </summary>
         private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
+            bool semaphoreEntered = false;
+            
             try
             {
                 await semaphore.WaitAsync(token);
-
+                semaphoreEntered = true;
+                
                 if (token.IsCancellationRequested)
                 {
                     return;
@@ -249,7 +252,16 @@ namespace Core.Components.BruTile.IO
             finally
             {
                 MarkTileRequestHandled(tileInfo);
-                semaphore.Release();
+                
+                if (semaphoreEntered)
+                {
+                    semaphore.Release();
+                }
+
+                if (IsReady())
+                {
+                    OnQueueEmpty(EventArgs.Empty);
+                }
             }
         }
 
@@ -304,11 +316,6 @@ namespace Core.Components.BruTile.IO
             lock (syncLock)
             {
                 TileReceived?.Invoke(this, tileReceivedEventArgs);
-
-                if (IsReady())
-                {
-                    OnQueueEmpty(EventArgs.Empty);
-                }
             }
         }
 
