@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Core.Common.IO.Exceptions
 {
@@ -28,7 +27,6 @@ namespace Core.Common.IO.Exceptions
     /// The exception that is thrown when a file reader class encounters an error while
     /// parsing a row/line during the read.
     /// </summary>
-    [Serializable]
     public class LineParseException : Exception
     {
         /// <summary>
@@ -52,18 +50,5 @@ namespace Core.Common.IO.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
         public LineParseException(string message, Exception inner) : base(message, inner) {}
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="LineParseException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected LineParseException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

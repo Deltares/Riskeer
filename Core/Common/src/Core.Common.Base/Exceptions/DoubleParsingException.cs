@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 using Core.Common.Base.Data;
 
 namespace Core.Common.Base.Exceptions
@@ -28,7 +27,6 @@ namespace Core.Common.Base.Exceptions
     /// <summary>
     /// Exception thrown when the <see cref="RoundedDouble"/> could not be parsed successfully.
     /// </summary>
-    [Serializable]
     public class DoubleParsingException : Exception
     {
         /// <summary>
@@ -52,18 +50,5 @@ namespace Core.Common.Base.Exceptions
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
         public DoubleParsingException(string message, Exception innerException) : base(message, innerException) {}
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="DoubleParsingException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected DoubleParsingException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

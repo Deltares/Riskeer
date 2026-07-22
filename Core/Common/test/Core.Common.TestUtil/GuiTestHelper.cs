@@ -139,11 +139,7 @@ namespace Core.Common.TestUtil
             RethrowUnhandledException();
         }
 
-        /// <summary>
-        /// Defines unhandled exception which provides stack trace of inner exception as its stack trace.
-        /// </summary>
-        [Serializable]
-        public class UnhandledException : Exception
+        private class UnhandledException : Exception
         {
             public UnhandledException(string message, Exception innerException, string stackTrace)
                 : base(message, innerException)
