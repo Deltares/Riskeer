@@ -47,7 +47,7 @@ namespace Core.Components.BruTile.IO
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly SemaphoreSlim semaphore;
         private CancellationTokenSource cancellationTokenSource;
-
+        
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
@@ -241,6 +241,11 @@ namespace Core.Components.BruTile.IO
 
                 byte[] result = TryRequestTileData(tileInfo);
 
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 if (result != null)
                 {
                     volatileCache.Add(tileInfo.Index, result);
@@ -257,8 +262,8 @@ namespace Core.Components.BruTile.IO
                 {
                     semaphore.Release();
                 }
-
-                if (IsReady())
+                if (!token.IsCancellationRequested &&
+                    IsReady())
                 {
                     OnQueueEmpty(EventArgs.Empty);
                 }
