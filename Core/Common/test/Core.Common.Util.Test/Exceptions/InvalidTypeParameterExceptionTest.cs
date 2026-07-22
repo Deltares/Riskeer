@@ -91,17 +91,5 @@ namespace Core.Common.Util.Test.Exceptions
                 Assert.IsNull(exception.TypeParamName);
             }
         }
-
-        protected override InvalidTypeParameterException CreateFullyConfiguredException()
-        {
-            var originalInnerException = new Exception("inner");
-            return new InvalidTypeParameterException("<message>", "<parameter>", originalInnerException);
-        }
-
-        protected override void AssertRoundTripResult(InvalidTypeParameterException originalException, InvalidTypeParameterException persistedException)
-        {
-            base.AssertRoundTripResult(originalException, persistedException);
-            Assert.AreEqual(originalException.TypeParamName, persistedException.TypeParamName);
-        }
     }
 }

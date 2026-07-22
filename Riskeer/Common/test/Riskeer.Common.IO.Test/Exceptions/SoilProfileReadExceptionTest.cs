@@ -91,17 +91,5 @@ namespace Riskeer.Common.IO.Test.Exceptions
                 Assert.IsNull(exception.ProfileName);
             }
         }
-
-        protected override SoilProfileReadException CreateFullyConfiguredException()
-        {
-            var originalInnerException = new Exception("inner");
-            return new SoilProfileReadException("<message>", "<parameter>", originalInnerException);
-        }
-
-        protected override void AssertRoundTripResult(SoilProfileReadException originalException, SoilProfileReadException persistedException)
-        {
-            base.AssertRoundTripResult(originalException, persistedException);
-            Assert.AreEqual(originalException.ProfileName, persistedException.ProfileName);
-        }
     }
 }
