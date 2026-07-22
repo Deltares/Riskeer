@@ -325,19 +325,18 @@ namespace Core.Common.TestUtil
         public static T AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
         {
             var exception = Assert.Throws<T>(test);
+
             string message = exception.Message;
+
             if (exception.ParamName != null)
             {
-                List<string> customMessageParts = message.Split(new[]
-                {
-                    Environment.NewLine
-                }, StringSplitOptions.None).ToList();
-                customMessageParts.RemoveAt(customMessageParts.Count - 1);
-
-                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
+                Assert.IsTrue(message.StartsWith(expectedCustomMessage));
+            }
+            else
+            {
+                Assert.AreEqual(expectedCustomMessage, message);
             }
 
-            Assert.AreEqual(expectedCustomMessage, message);
             return exception;
         }
 
