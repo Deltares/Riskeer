@@ -74,12 +74,6 @@ namespace Application.Riskeer
 
         private static string fileToOpen = string.Empty;
 
-        /// <summary>
-        /// Creates a static instance of <see cref="App"/>.
-        /// </summary>
-        /// <remarks>
-        /// This constructor is used to subscribe <see cref="AppDomain.AssemblyResolve"/> before any assemblies are loaded.
-        /// </remarks>
         static App()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);

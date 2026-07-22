@@ -27,11 +27,6 @@ All rights reserved.
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\build\AssemblyResolver.cs">
-      <Link>AssemblyResolver.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
