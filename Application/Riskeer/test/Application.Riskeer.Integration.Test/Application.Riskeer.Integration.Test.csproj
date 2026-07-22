@@ -55,6 +55,11 @@ All rights reserved.
     <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\build\AssemblyResolver.cs">
+      <Link>AssemblyResolver/AssemblyResolver.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MahApps.Metro">
       <Version>2.4.4</Version>
     </PackageReference>

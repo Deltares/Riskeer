@@ -74,6 +74,11 @@ namespace Application.Riskeer
 
         private static string fileToOpen = string.Empty;
 
+        static App()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+        }
+
         private readonly ILog log;
         private GuiCore gui;
 

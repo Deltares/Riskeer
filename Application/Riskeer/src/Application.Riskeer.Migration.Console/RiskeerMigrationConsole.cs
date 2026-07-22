@@ -37,6 +37,11 @@ namespace Application.Riskeer.Migration.Console
     {
         private static readonly string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
+        static RiskeerMigrationConsole()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="RiskeerMigrationConsole"/>. 
         /// </summary>
