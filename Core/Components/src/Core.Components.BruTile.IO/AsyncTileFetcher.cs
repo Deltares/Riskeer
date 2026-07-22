@@ -24,7 +24,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Amib.Threading;
+using System.Threading.Tasks;
 using BruTile;
 using BruTile.Cache;
 using Core.Components.BruTile.Data;
@@ -45,11 +45,12 @@ namespace Core.Components.BruTile.IO
 
         private readonly ConcurrentDictionary<TileIndex, int> activeTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
+        private readonly SemaphoreSlim semaphore;
+        private CancellationTokenSource cancellationTokenSource;
 
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
-        private SmartThreadPool threadPool;
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -94,7 +95,8 @@ namespace Core.Components.BruTile.IO
             this.provider = provider;
             volatileCache = new MemoryCache<byte[]>(minTiles, maxTiles);
             persistentCache = permaCache ?? NoopTileCache.Instance;
-            threadPool = new SmartThreadPool(10000, BruTileSettings.MaximumNumberOfThreads);
+            semaphore = new SemaphoreSlim(4, BruTileSettings.MaximumNumberOfThreads);
+            cancellationTokenSource = new CancellationTokenSource();
         }
 
         public byte[] GetTile(TileInfo tileInfo)
@@ -129,16 +131,16 @@ namespace Core.Components.BruTile.IO
         {
             ThrowExceptionIfDisposed();
 
-            // Notes: http://dotspatial.codeplex.com/discussions/473428
-            threadPool.Cancel(false);
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
+            cancellationTokenSource = new CancellationTokenSource();
             foreach (KeyValuePair<TileIndex, int> request in activeTileRequests.ToArray())
             {
                 if (!openTileRequests.ContainsKey(request.Key))
                 {
-                    int dummy;
-                    if (!activeTileRequests.TryRemove(request.Key, out dummy))
+                    if (!activeTileRequests.TryRemove(request.Key, out _))
                     {
-                        activeTileRequests.TryRemove(request.Key, out dummy);
+                        activeTileRequests.TryRemove(request.Key, out _);
                     }
                 }
             }
@@ -162,10 +164,10 @@ namespace Core.Components.BruTile.IO
             if (disposing)
             {
                 volatileCache.Clear();
+                cancellationTokenSource.Cancel();
 
-                threadPool.Dispose();
-                threadPool = null;
-
+                cancellationTokenSource.Dispose();
+                semaphore.Dispose();
                 volatileCache = null;
                 provider = null;
                 persistentCache = null;
@@ -208,12 +210,10 @@ namespace Core.Components.BruTile.IO
         {
             if (!HasTileAlreadyBeenRequested(tileInfo.Index))
             {
-                activeTileRequests.TryAdd(tileInfo.Index, 1);
-                var threadArguments = new object[]
+                if (activeTileRequests.TryAdd(tileInfo.Index, 1))
                 {
-                    tileInfo
-                };
-                threadPool.QueueWorkItem(GetTileOnThread, threadArguments);
+                    Task.Run(() => GetTileOnThreadAsync(tileInfo, cancellationTokenSource.Token));
+                }
             }
         }
 
@@ -225,31 +225,48 @@ namespace Core.Components.BruTile.IO
         /// <summary>
         /// Method to actually get the tile from the <see cref="provider"/>.
         /// </summary>
-        /// <param name="parameters">The thread parameters. The first argument is the <see cref="TileInfo"/>
-        /// for the file to be fetched.</param>
-        private void GetTileOnThread(object[] parameters)
+        private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
-            var tileInfo = (TileInfo) parameters[0];
-            GetTileOnThreadCore(tileInfo);
-        }
+            bool semaphoreEntered = false;
 
-        private void GetTileOnThreadCore(TileInfo tileInfo)
-        {
-            if (!Thread.CurrentThread.IsAlive)
+            try
             {
-                return;
+                await semaphore.WaitAsync(token);
+                semaphoreEntered = true;
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                byte[] result = TryRequestTileData(tileInfo);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                if (result != null)
+                {
+                    volatileCache.Add(tileInfo.Index, result);
+                    persistentCache.Add(tileInfo.Index, result);
+
+                    OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
+                }
             }
-
-            byte[] result = TryRequestTileData(tileInfo);
-
-            MarkTileRequestHandled(tileInfo);
-
-            if (result != null)
+            finally
             {
-                volatileCache.Add(tileInfo.Index, result);
-                persistentCache.Add(tileInfo.Index, result);
+                MarkTileRequestHandled(tileInfo);
 
-                OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
+                if (semaphoreEntered)
+                {
+                    semaphore.Release();
+                }
+
+                if (!token.IsCancellationRequested && IsReady())
+                {
+                    OnQueueEmpty(EventArgs.Empty);
+                }
             }
         }
 
@@ -286,17 +303,16 @@ namespace Core.Components.BruTile.IO
 
         private void MarkTileRequestHandled(TileInfo tileInfo)
         {
-            int dummy;
-            if (!activeTileRequests.TryRemove(tileInfo.Index, out dummy))
+            if (!activeTileRequests.TryRemove(tileInfo.Index, out _))
             {
                 //try again
-                activeTileRequests.TryRemove(tileInfo.Index, out dummy);
+                activeTileRequests.TryRemove(tileInfo.Index, out _);
             }
 
-            if (!openTileRequests.TryRemove(tileInfo.Index, out dummy))
+            if (!openTileRequests.TryRemove(tileInfo.Index, out _))
             {
                 //try again
-                openTileRequests.TryRemove(tileInfo.Index, out dummy);
+                openTileRequests.TryRemove(tileInfo.Index, out _);
             }
         }
 
@@ -305,11 +321,6 @@ namespace Core.Components.BruTile.IO
             lock (syncLock)
             {
                 TileReceived?.Invoke(this, tileReceivedEventArgs);
-
-                if (IsReady())
-                {
-                    OnQueueEmpty(EventArgs.Empty);
-                }
             }
         }
 
