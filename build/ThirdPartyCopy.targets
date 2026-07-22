@@ -1,18 +1,38 @@
 <Project>
 
   <Target Name="CopyThirdPartyFiles"
-          AfterTargets="Build"
-          Condition="'@(ThirdPartyPackage)' != ''">
+        AfterTargets="Build">
 
-    <Copy
-      SourceFiles="@(ThirdPartyPackage)"
-      DestinationFiles="@(ThirdPartyPackage->'$(OutDir)Application\Built-in\Managed\Third-party\%(TargetFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
+  <ItemGroup>
+	<!--- Get our target properties ---> 
+    <_ThirdPartyPackage
+        Include="@(PackageReference)"
+        Condition="'%(PackageReference.ThirdPartySource)' != ''">
+      <TargetFolder>%(PackageReference.Identity)-%(PackageReference.Version)</TargetFolder>
+    </_ThirdPartyPackage>
+	<!--- Collect files from the folder ---> 
+	<_ThirdPartyFiles Include="%(_ThirdPartyPackage.ThirdPartySource)\**\*">
+		<!--- Add the target folder as a property of thirdparty files to move it along to next step ---> 
+		<TargetFolder>%(_ThirdPartyPackage.TargetFolder)</TargetFolder>
+	</_ThirdPartyFiles>
+  </ItemGroup>
+
+  <!--- List files ---> 
+  <Message Importance="High"
+           Text="FILES=%(_ThirdPartyFiles.Identity)" />
+  <!--- Copy files to our target ---> 
+  <Copy
+      SourceFiles="@(_ThirdPartyFiles)"
+      DestinationFiles="@(_ThirdPartyFiles->'$(OutDir)Application\Built-in\Managed\Third-party\%(TargetFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
       SkipUnchangedFiles="true">
+    <Output TaskParameter="CopiedFiles"
+            ItemName="_CopiedFiles"/>
+  </Copy>
 
-      <Output TaskParameter="CopiedFiles"
-              ItemName="_CopiedFiles"/>
-    </Copy>
-    <Message Importance="High"
-             Text="COPIED: %(_CopiedFiles.Identity)"/>
-  </Target>
+  <!--- Did we do any actual copying ---> 
+  <Message Importance="High"
+           Text="THIRD PARTY COPIED: %(_CopiedFiles.Identity)" />
+
+</Target>
+  
 </Project>

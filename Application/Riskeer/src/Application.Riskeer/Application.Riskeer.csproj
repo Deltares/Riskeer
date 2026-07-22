@@ -27,8 +27,8 @@ All rights reserved.
     <ApplicationIcon>Resources/Riskeer.ico</ApplicationIcon>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)build\Source.targets"/>
   <Import Project="$(SolutionDir)build\ThirdPartyCopy.targets"/>
+  <Import Project="$(SolutionDir)build\Source.targets"/>
   <ItemGroup>
     <None Remove="Resources\MadeBy.png"/>
   </ItemGroup>
@@ -74,7 +74,7 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\build\AssemblyResolver.cs">
-        <Link>AssemblyResolver.cs</Link>
+      <Link>AssemblyResolver.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -92,11 +92,13 @@ All rights reserved.
       <Version>3.3.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(Pkglog4net)\lib\net462\</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.4.4</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMahApps_Metro)\lib\net46</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.31</Version>
@@ -142,19 +144,15 @@ All rights reserved.
     <ThirdPartyPackage Include="$(Pkglog4net)\lib\net462\**\*">
       <TargetFolder>Log4net-3.3.1</TargetFolder>
     </ThirdPartyPackage>
-    <ThirdPartyPackage Include="$(PkgMahApps_Metro)\lib\net46\**\*">
-      <TargetFolder>MahApps.Metro-2.4.4</TargetFolder>
-    </ThirdPartyPackage>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
-	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\*&quot;" />
-	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x64\*&quot;" />
-	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x64\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;"/>
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent"/>
