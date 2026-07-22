@@ -1,0 +1,18 @@
+<Project>
+
+  <Target Name="CopyThirdPartyFiles"
+          AfterTargets="Build"
+          Condition="'@(ThirdPartyPackage)' != ''">
+
+    <Copy
+      SourceFiles="@(ThirdPartyPackage)"
+      DestinationFiles="@(ThirdPartyPackage->'$(OutDir)Application\Built-in\Managed\Third-party\%(TargetFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true">
+
+      <Output TaskParameter="CopiedFiles"
+              ItemName="_CopiedFiles"/>
+    </Copy>
+    <Message Importance="High"
+             Text="COPIED: %(_CopiedFiles.Identity)"/>
+  </Target>
+</Project>
