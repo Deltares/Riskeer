@@ -25,7 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Application
+namespace AssemblyResolver
 {
     internal static class AssemblyResolver
     {
@@ -45,7 +45,6 @@ namespace Application
         /// Loads the matching assembly from disk using its full assembly name
         /// </remarks>
         internal static Assembly ResolveAssembly(
-            object sender,
             ResolveEventArgs args)
         {
             return assemblyPaths.TryGetValue(args.Name, out var assemblyPath) ? Assembly.LoadFrom(assemblyPath) : null;

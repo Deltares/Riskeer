@@ -23,7 +23,7 @@ using System;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Application.Riskeer.Integration.Test.AssemblyResolverTest
+namespace Application.Riskeer.Integration.Test.AssemblyResolver
 {
     [TestFixture]
     public class AssemblyResolverTest
@@ -33,7 +33,7 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolverTest
         {
             var args = new ResolveEventArgs("NonExistingAssembly");
 
-            Assembly result = AssemblyResolver.ResolveAssembly(null, args);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
 
             Assert.That(result, Is.Null);
         }
@@ -41,19 +41,21 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolverTest
         [Test]
         public void ResolveAssembly_WhenAssemblyExists_ReturnsAssembly()
         {
-            var args = new ResolveEventArgs("System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51");
-            Assembly result = AssemblyResolver.ResolveAssembly(null, args);
+            const string assemblyName = "System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51";
+
+            var args = new ResolveEventArgs(assemblyName);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetName().FullName, Is.EqualTo("System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"));
+            Assert.That(result.GetName().FullName, Is.EqualTo(assemblyName));
         }
 
         [Test]
-        public void ResolveAssembly_WhenNativeDll_ReturnsNull()
+        public void ResolveAssembly_WhenAssemblyIsNative_ReturnsNull()
         {
             var args = new ResolveEventArgs("SQLite.Interop");
 
-            Assembly result = AssemblyResolver.ResolveAssembly(null, args);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
 
             Assert.That(result, Is.Null);
         }

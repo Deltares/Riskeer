@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application;
 using Migration.Console.Properties;
 using Migration.Scripts.Data.Exceptions;
 using SystemConsole = System.Console;
@@ -44,7 +43,7 @@ namespace Migration.Console
         /// </remarks>
         static ConsoleBase()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
         }
 
         private readonly string applicationName;
