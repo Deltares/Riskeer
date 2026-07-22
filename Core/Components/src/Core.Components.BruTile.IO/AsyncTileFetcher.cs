@@ -45,12 +45,12 @@ namespace Core.Components.BruTile.IO
 
         private readonly ConcurrentDictionary<TileIndex, int> activeTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
+        private readonly SemaphoreSlim semaphore;
+        private CancellationTokenSource cancellationTokenSource;
 
         private ITileProvider provider;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
-        private readonly SemaphoreSlim semaphore;
-        private CancellationTokenSource cancellationTokenSource;
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -132,14 +132,15 @@ namespace Core.Components.BruTile.IO
             ThrowExceptionIfDisposed();
 
             cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
+            cancellationTokenSource = new CancellationTokenSource();
             foreach (KeyValuePair<TileIndex, int> request in activeTileRequests.ToArray())
             {
                 if (!openTileRequests.ContainsKey(request.Key))
                 {
-                    int dummy;
-                    if (!activeTileRequests.TryRemove(request.Key, out dummy))
+                    if (!activeTileRequests.TryRemove(request.Key, out _))
                     {
-                        activeTileRequests.TryRemove(request.Key, out dummy);
+                        activeTileRequests.TryRemove(request.Key, out _);
                     }
                 }
             }
@@ -209,12 +210,10 @@ namespace Core.Components.BruTile.IO
         {
             if (!HasTileAlreadyBeenRequested(tileInfo.Index))
             {
-                activeTileRequests.TryAdd(tileInfo.Index, 1);
-                var threadArguments = new object[]
+                if (activeTileRequests.TryAdd(tileInfo.Index, 1))
                 {
-                    tileInfo
-                };
-                Task.Run(() => GetTileOnThreadAsync(tileInfo, cancellationTokenSource.Token));
+                    Task.Run(() => GetTileOnThreadAsync(tileInfo, cancellationTokenSource.Token));
+                }
             }
         }
 
@@ -228,23 +227,29 @@ namespace Core.Components.BruTile.IO
         /// </summary>
         private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
-            bool lockTaken = false;
-
-            if (token.IsCancellationRequested)
+            try
             {
-                return;
+                await semaphore.WaitAsync(token);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                byte[] result = TryRequestTileData(tileInfo);
+
+                if (result != null)
+                {
+                    volatileCache.Add(tileInfo.Index, result);
+                    persistentCache.Add(tileInfo.Index, result);
+
+                    OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
+                }
             }
-
-            byte[] result = TryRequestTileData(tileInfo);
-
-            MarkTileRequestHandled(tileInfo);
-
-            if (result != null)
+            finally
             {
-                volatileCache.Add(tileInfo.Index, result);
-                persistentCache.Add(tileInfo.Index, result);
-
-                OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
+                MarkTileRequestHandled(tileInfo);
+                semaphore.Release();
             }
         }
 
@@ -281,17 +286,16 @@ namespace Core.Components.BruTile.IO
 
         private void MarkTileRequestHandled(TileInfo tileInfo)
         {
-            int dummy;
-            if (!activeTileRequests.TryRemove(tileInfo.Index, out dummy))
+            if (!activeTileRequests.TryRemove(tileInfo.Index, out _))
             {
                 //try again
-                activeTileRequests.TryRemove(tileInfo.Index, out dummy);
+                activeTileRequests.TryRemove(tileInfo.Index, out _);
             }
 
-            if (!openTileRequests.TryRemove(tileInfo.Index, out dummy))
+            if (!openTileRequests.TryRemove(tileInfo.Index, out _))
             {
                 //try again
-                openTileRequests.TryRemove(tileInfo.Index, out dummy);
+                openTileRequests.TryRemove(tileInfo.Index, out _);
             }
         }
 
