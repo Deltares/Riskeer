@@ -29,6 +29,7 @@ using DotSpatial.Symbology;
 using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Test.MapFunctions
 {
