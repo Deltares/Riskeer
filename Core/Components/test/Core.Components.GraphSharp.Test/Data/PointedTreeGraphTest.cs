@@ -21,7 +21,7 @@
 
 using Core.Components.GraphSharp.Data;
 using NUnit.Framework;
-using QuickGraph;
+using QuikGraph;
 
 namespace Core.Components.GraphSharp.Test.Data
 {

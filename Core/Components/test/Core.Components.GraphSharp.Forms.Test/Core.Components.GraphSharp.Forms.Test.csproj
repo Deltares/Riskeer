@@ -35,8 +35,11 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphSharp">
-      <Version>1.1.0</Version>
+    <PackageReference Include="GraphShape">
+      <Version>1.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="GraphShape.Controls">
+      <Version>1.2.2</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.14.0</Version>

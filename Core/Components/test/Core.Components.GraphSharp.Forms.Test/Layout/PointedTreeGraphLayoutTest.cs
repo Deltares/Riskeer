@@ -23,9 +23,8 @@ using System;
 using System.Threading;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
-using GraphSharp.Algorithms.Layout;
-using GraphSharp.Algorithms.Layout.Simple.Tree;
-using GraphSharp.Controls;
+using GraphShape.Algorithms.Layout;
+using GraphShape.Controls;
 using NUnit.Framework;
 
 namespace Core.Components.GraphSharp.Forms.Test.Layout

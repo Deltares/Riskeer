@@ -22,7 +22,7 @@
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.TestUtil;
 using NUnit.Framework;
-using QuickGraph;
+using QuikGraph;
 
 namespace Core.Components.GraphSharp.Test.Data
 {

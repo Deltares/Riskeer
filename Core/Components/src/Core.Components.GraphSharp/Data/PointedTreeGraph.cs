@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using QuickGraph;
+using QuikGraph;
 
 namespace Core.Components.GraphSharp.Data
 {

@@ -23,7 +23,7 @@ All rights reserved.
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:graphSharpControls="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+    xmlns:graphSharpControls="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls"
     xmlns:wpfExtensionsAttachedBehaviours="clr-namespace:WPFExtensions.AttachedBehaviours;assembly=WPFExtensions"
     xmlns:extensions="clr-namespace:Core.Components.GraphSharp.Forms.Extensions"
     xmlns:converters="clr-namespace:Core.Components.GraphSharp.Forms.Converters"

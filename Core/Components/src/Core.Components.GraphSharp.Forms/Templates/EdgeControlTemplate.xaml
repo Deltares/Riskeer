@@ -23,8 +23,8 @@ All rights reserved.
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:graphSharpControls="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" 
-    xmlns:graphSharpConverters="clr-namespace:GraphSharp.Converters;assembly=GraphSharp.Controls">
+    xmlns:graphSharpControls="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls" 
+    xmlns:graphSharpConverters="clr-namespace:GraphShape.Controls.Converters;assembly=GraphShape.Controls">
 
     <graphSharpConverters:EdgeRouteToPathConverter x:Key="RouteToPathConverter" />
 

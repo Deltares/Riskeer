@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using GraphSharp.Controls;
-using QuickGraph;
+using GraphShape.Controls;
+using QuikGraph;
 
 namespace Core.Components.GraphSharp.Data
 {

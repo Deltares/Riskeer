@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Media;
 using Core.Components.GraphSharp.Commands;
-using GraphSharp.Controls;
+using GraphShape.Controls;
 
 namespace Core.Components.GraphSharp.Data
 {

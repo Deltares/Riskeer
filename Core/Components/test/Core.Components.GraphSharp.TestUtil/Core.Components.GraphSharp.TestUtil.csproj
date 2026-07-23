@@ -34,8 +34,11 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphSharp">
-      <Version>1.1.0</Version>
+    <PackageReference Include="GraphShape">
+      <Version>1.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="GraphShape.Controls">
+      <Version>1.2.2</Version>
     </PackageReference>
     <PackageReference Include="WPFExtensions">
       <Version>1.0.0</Version>

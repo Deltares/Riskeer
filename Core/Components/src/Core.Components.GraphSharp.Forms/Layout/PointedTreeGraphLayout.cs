@@ -21,10 +21,9 @@
 
 using System;
 using Core.Components.GraphSharp.Data;
-using GraphSharp.Algorithms.Layout;
-using GraphSharp.Algorithms.Layout.Simple.Tree;
-using GraphSharp.Algorithms.OverlapRemoval;
-using GraphSharp.Controls;
+using GraphShape.Algorithms.Layout;
+using GraphShape.Algorithms.OverlapRemoval;
+using GraphShape.Controls;
 
 namespace Core.Components.GraphSharp.Forms.Layout
 {
