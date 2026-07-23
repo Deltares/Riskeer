@@ -134,8 +134,8 @@ namespace Core.Components.DotSpatial.Projections
 
         private Rectangle GetTargetExtentInPixelCoordinates(WorldFile sourceReference, Bitmap sourceTile)
         {
-            IPolygon sourceTileCircumference = sourceReference.BoundingOrdinatesToWorldCoordinates(sourceTile.Width, sourceTile.Height);
-            ILinearRing targetTileCircumference = sourceTileCircumference.Shell.Reproject(source, target);
+            Polygon sourceTileCircumference = sourceReference.BoundingOrdinatesToWorldCoordinates(sourceTile.Width, sourceTile.Height);
+            LinearRing targetTileCircumference = sourceTileCircumference.Shell.Reproject(source, target);
             Extent targetTileExtent = targetTileCircumference.EnvelopeInternal.ToExtent();
             return mapArgs.ProjToPixel(targetTileExtent);
         }

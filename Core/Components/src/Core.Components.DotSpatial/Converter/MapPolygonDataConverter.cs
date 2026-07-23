@@ -42,23 +42,23 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
-            var geometryList = new List<IPolygon>();
+            var geometryList = new List<Polygon>();
 
             foreach (MapGeometry mapGeometry in mapFeature.MapGeometries)
             {
                 IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.Select(CreateClosedRingIfNecessary).ToArray();
 
                 Coordinate[] outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
-                ILinearRing outerRing = new LinearRing(outerRingCoordinates);
+                var outerRing = new LinearRing(outerRingCoordinates);
 
-                var innerRings = new ILinearRing[pointCollections.Length - 1];
+                var innerRings = new LinearRing[pointCollections.Length - 1];
                 for (var i = 1; i < pointCollections.Length; i++)
                 {
                     Coordinate[] innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
                     innerRings[i - 1] = new LinearRing(innerRingCoordinates);
                 }
 
-                IPolygon polygon = new Polygon(outerRing, innerRings);
+                var polygon = new Polygon(outerRing, innerRings);
                 geometryList.Add(polygon);
             }
 
@@ -121,9 +121,9 @@ namespace Core.Components.DotSpatial.Converter
             return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
 
-        private static IGeometry GetGeometry(List<IPolygon> geometryList)
+        private static Geometry GetGeometry(List<Polygon> geometryList)
         {
-            IGeometry geometry;
+            Geometry geometry;
             var factory = new GeometryFactory();
 
             if (geometryList.Count > 1)
@@ -132,12 +132,12 @@ namespace Core.Components.DotSpatial.Converter
             }
             else
             {
-                ILinearRing shell = null;
-                var holes = new ILinearRing[0];
+                LinearRing shell = null;
+                var holes = new LinearRing[0];
 
                 if (geometryList.Count == 1)
                 {
-                    IPolygon polygon = geometryList[0];
+                    Polygon polygon = geometryList[0];
                     shell = polygon.Shell;
                     holes = polygon.Holes;
                 }

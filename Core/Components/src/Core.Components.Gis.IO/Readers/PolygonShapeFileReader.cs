@@ -168,7 +168,7 @@ namespace Core.Components.Gis.IO.Readers
 
             for (var i = 0; i < polygonFeature.Geometry.NumGeometries; i++)
             {
-                var basicPolygon = (IPolygon) polygonFeature.Geometry.GetGeometryN(i);
+                var basicPolygon = (Polygon) polygonFeature.Geometry.GetGeometryN(i);
 
                 var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon).ToArray());
                 geometries.Add(mapGeometry);
@@ -177,10 +177,10 @@ namespace Core.Components.Gis.IO.Readers
             return new MapFeature(geometries);
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IPolygon polygon)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(Polygon polygon)
         {
             yield return polygon.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y));
-            foreach (ILinearRing hole in polygon.Holes)
+            foreach (LinearRing hole in polygon.Holes)
             {
                 yield return hole.Coordinates.Select(c => new Point2D(c.X, c.Y));
             }
