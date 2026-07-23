@@ -147,6 +147,7 @@ All rights reserved.
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x64\*&quot;" />
 	<Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetFramework)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.117\x86\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_AccountManagement)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.AccountManagement-10.0.5\*&quot;" />
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
