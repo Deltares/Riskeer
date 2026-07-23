@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
 
 namespace Core.Components.DotSpatial.Projections

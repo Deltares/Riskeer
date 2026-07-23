@@ -30,7 +30,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeoAPI.Geometries;
 using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
 using NetTopologySuite.Geometries;
@@ -144,7 +143,7 @@ namespace Core.Common.Geometry
 
             var polygon = new Polygon(outerPolygon.Shell, innerPolygons.Select(p => p.Shell).ToArray());
 
-            IPoint interiorPoint = polygon.InteriorPoint;
+            Point interiorPoint = polygon.InteriorPoint;
 
             return new Point2D(interiorPoint.X, interiorPoint.Y);
         }
@@ -208,7 +207,7 @@ namespace Core.Common.Geometry
             return new Polygon(new LinearRing(coordinates));
         }
 
-        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(IGeometry geometry)
+        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(Geometry geometry)
         {
             var geometryCollection = geometry as GeometryCollection;
             if (geometryCollection == null)
