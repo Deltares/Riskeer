@@ -33,6 +33,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace Riskeer.Storage.Core.DbContext
 {
+    [DbConfigurationType(typeof(SqLiteConfiguration))]
     public partial class RiskeerEntities : System.Data.Entity.DbContext
     {
         public virtual DbSet<AdoptableFailureMechanismSectionResultEntity> AdoptableFailureMechanismSectionResultEntities { get; set; }

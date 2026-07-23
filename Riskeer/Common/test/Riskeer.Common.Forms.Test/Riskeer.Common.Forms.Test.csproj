@@ -81,7 +81,7 @@ All rights reserved.
           <Version>3.6.61119.7</Version>
       </PackageReference>
       <PackageReference Include="System.Data.SQLite.Core">
-          <Version>1.0.117</Version>
+          <Version>1.0.119</Version>
       </PackageReference>
   </ItemGroup>
 </Project>
