@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 
 This file is part of Riskeer.
@@ -26,12 +26,6 @@ All rights reserved.
     <Compile Remove="test-data\**" />
     <EmbeddedResource Remove="test-data\**" />
     <None Remove="test-data\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />

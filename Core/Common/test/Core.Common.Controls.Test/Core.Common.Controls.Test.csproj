@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 
 This file is part of Riskeer.
@@ -26,13 +26,6 @@ All rights reserved.
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

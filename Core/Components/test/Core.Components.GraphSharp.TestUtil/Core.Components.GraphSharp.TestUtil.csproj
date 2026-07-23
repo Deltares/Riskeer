@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 
 This file is part of Riskeer.
@@ -32,14 +32,6 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj"/>
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GraphSharp">

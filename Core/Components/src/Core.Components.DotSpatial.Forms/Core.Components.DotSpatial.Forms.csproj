@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 
 This file is part of Riskeer.
@@ -24,12 +24,6 @@ All rights reserved.
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Symbols.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />

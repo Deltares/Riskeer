@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 
 This file is part of Riskeer.
@@ -24,10 +24,6 @@ All rights reserved.
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader" Link="Copying.licenseheader" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj" />
