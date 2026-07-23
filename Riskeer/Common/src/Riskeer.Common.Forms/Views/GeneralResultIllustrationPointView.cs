@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
@@ -77,8 +78,10 @@ namespace Riskeer.Common.Forms.Views
             Name = "GeneralResultIllustrationPointView";
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Selection { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get => calculation;

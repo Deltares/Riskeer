@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.Forms.Properties;
@@ -56,6 +57,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Gets or sets the title of the plot view.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ModelTitle
         {
             get
@@ -72,6 +74,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Gets or sets the title of the bottom axis in the view.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string BottomAxisTitle
         {
             get
@@ -88,6 +91,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Gets or sets the title of the left axis in the view.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string LeftAxisTitle
         {
             get

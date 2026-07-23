@@ -105,6 +105,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
         private class TestView : UserControl, IView
         {
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public object Data { get; set; }
         }
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data;
@@ -43,6 +44,7 @@ namespace Riskeer.Common.Forms.Views
             InitializeRichTextEditor();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get

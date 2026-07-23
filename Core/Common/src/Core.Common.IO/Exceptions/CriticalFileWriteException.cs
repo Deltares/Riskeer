@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Core.Common.IO.Exceptions
 {
@@ -28,7 +27,6 @@ namespace Core.Common.IO.Exceptions
     /// The exception that is thrown when a file writer class encounters a critical error
     /// during the write.
     /// </summary>
-    [Serializable]
     public class CriticalFileWriteException : Exception
     {
         /// <summary>
@@ -52,18 +50,5 @@ namespace Core.Common.IO.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
         public CriticalFileWriteException(string message, Exception inner) : base(message, inner) {}
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="CriticalFileWriteException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected CriticalFileWriteException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -89,6 +90,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)

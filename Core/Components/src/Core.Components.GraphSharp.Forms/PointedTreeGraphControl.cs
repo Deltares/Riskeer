@@ -57,6 +57,7 @@ namespace Core.Components.GraphSharp.Forms
             InitializeZoomControl();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public GraphNode Data
         {
             get

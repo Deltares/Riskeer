@@ -51,7 +51,7 @@ All rights reserved.
       <Version>3.3.1</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
-      <Version>3.8.1</Version>
+      <Version>3.14.0</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

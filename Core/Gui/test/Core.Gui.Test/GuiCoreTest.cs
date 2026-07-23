@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -1394,6 +1395,7 @@ namespace Core.Gui.Test
 
             public object Selection { get; private set; }
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public object Data { get; set; }
 
             public void ChangeSelection()
@@ -1406,6 +1408,7 @@ namespace Core.Gui.Test
 
         private class TestView : Control, IView
         {
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public object Data { get; set; }
         }
     }

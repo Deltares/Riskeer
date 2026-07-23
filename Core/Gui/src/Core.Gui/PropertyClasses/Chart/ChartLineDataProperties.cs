@@ -51,7 +51,7 @@ namespace Core.Gui.PropertyClasses.Chart
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_Color_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(Core.Gui.UITypeEditors.ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color Color
         {

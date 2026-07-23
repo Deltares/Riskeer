@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -58,6 +59,7 @@ namespace Core.Components.OxyPlot.Forms
             stackChartDataObserver = new Observer(HandleStackChartDataChange);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string VerticalAxisTitle
         {
             get
@@ -70,6 +72,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public StackChartData Data
         {
             get
@@ -93,6 +96,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ChartTitle
         {
             get

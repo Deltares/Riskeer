@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -68,6 +69,7 @@ namespace Core.Gui.Forms.Chart
         /// <summary>
         /// Gets or sets the <see cref="IChartControl"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IChartControl ChartControl
         {
             private get
@@ -85,6 +87,7 @@ namespace Core.Gui.Forms.Chart
                                        ? chartDataContext.WrappedData
                                        : treeViewControl.SelectedData;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
             get => (ChartData) treeViewControl.Data;

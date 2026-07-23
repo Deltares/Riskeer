@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,6 +70,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         protected override void Dispose(bool disposing)

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
@@ -78,6 +79,7 @@ namespace Core.Gui.TestUtil.Map
             Controls.Add(mapControl);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         public IMapControl Map => mapControl;

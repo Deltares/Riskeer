@@ -70,23 +70,6 @@ namespace Core.Common.TestUtil
             AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException);
         }
 
-        [Test]
-        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
-        {
-            // Setup
-            TCustomException originalException = CreateFullyConfiguredException();
-
-            // Precondition
-            Assert.IsNotNull(originalException.InnerException);
-            Assert.IsNull(originalException.InnerException.InnerException);
-
-            // Call
-            TCustomException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
-
-            // Assert
-            AssertRoundTripResult(originalException, persistedException);
-        }
-
         protected virtual void AssertDefaultConstructedInstance(TCustomException exception)
         {
             Assert.IsInstanceOf<TBaseException>(exception);
@@ -132,21 +115,6 @@ namespace Core.Common.TestUtil
             {
                 CollectionAssert.IsEmpty(exception.Data);
             }
-        }
-
-        protected virtual void AssertRoundTripResult(TCustomException originalException, TCustomException persistedException)
-        {
-            Assert.AreEqual(originalException.Message, persistedException.Message);
-            Assert.IsNotNull(persistedException.InnerException);
-            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
-            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
-            Assert.IsNull(persistedException.InnerException.InnerException);
-        }
-
-        protected virtual TCustomException CreateFullyConfiguredException()
-        {
-            var originalInnerException = new Exception("inner");
-            return CallMessageAndInnerExceptionConstructor("outer", originalInnerException);
         }
 
         private static TCustomException CallDefaultConstructor()

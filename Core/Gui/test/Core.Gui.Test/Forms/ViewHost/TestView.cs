@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 
@@ -31,6 +32,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
     }
 

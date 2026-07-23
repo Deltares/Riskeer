@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Components.Stack.Data;
 using Riskeer.Common.Forms.Factories;
@@ -48,6 +49,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<IllustrationPointControlItem> Data
         {
             get

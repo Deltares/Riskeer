@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -79,6 +80,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Gets or sets the title of the plot view.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ModelTitle
         {
             get
@@ -95,6 +97,7 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Gets or sets the title of the vertical axis of the plot view.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string VerticalAxisTitle
         {
             get

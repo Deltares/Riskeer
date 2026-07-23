@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Gui.Clipboard;
@@ -64,6 +65,7 @@ namespace Core.Gui
         /// Gets or sets the action that should be performed after clicking the log button.
         /// </summary>
         /// <remarks>The log button is only enabled when this action is set.</remarks>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Action OpenLogClicked
         {
             private get

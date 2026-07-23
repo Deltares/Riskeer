@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing a Waternet calculation.
     /// </summary>
-    [Serializable]
     public class WaternetCalculatorException : Exception
     {
         /// <summary>
@@ -51,18 +49,5 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public WaternetCalculatorException(string message, Exception inner) : base(message, inner) {}
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="WaternetCalculatorException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected WaternetCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

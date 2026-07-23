@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing an Uplift Van calculation.
     /// </summary>
-    [Serializable]
     public class UpliftVanCalculatorException : Exception
     {
         /// <summary>
@@ -68,19 +66,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         {
             KernelMessages = kernelMessages;
         }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="UpliftVanCalculatorException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected UpliftVanCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
 
         /// <summary>
         /// Gets the kernel messages.

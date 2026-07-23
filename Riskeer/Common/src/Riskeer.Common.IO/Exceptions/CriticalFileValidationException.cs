@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Riskeer.Common.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a file read successfully, but did not pass the validation process.
     /// </summary>
-    [Serializable]
     public class CriticalFileValidationException : Exception
     {
         /// <summary>
@@ -51,18 +49,5 @@ namespace Riskeer.Common.IO.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
         public CriticalFileValidationException(string message, Exception inner) : base(message, inner) {}
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="CriticalFileValidationException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected CriticalFileValidationException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

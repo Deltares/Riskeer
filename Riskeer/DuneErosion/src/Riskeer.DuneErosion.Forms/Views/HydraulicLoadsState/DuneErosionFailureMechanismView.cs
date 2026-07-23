@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -78,6 +79,7 @@ namespace Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         public IMapControl Map => riskeerMapControl.MapControl;

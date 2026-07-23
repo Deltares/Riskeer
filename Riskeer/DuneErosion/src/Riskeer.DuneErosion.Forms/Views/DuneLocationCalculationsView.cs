@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -126,6 +127,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
         /// to perform calculations with.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DuneLocationCalculationGuiService CalculationGuiService { get; set; }
 
         /// <summary>
@@ -147,6 +149,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)

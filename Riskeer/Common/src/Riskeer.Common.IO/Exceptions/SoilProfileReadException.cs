@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Runtime.Serialization;
 using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Exceptions
@@ -28,7 +27,6 @@ namespace Riskeer.Common.IO.Exceptions
     /// <summary>
     /// Exception thrown when something went wrong while trying to read a <see cref="ISoilProfile"/>.
     /// </summary>
-    [Serializable]
     public class SoilProfileReadException : Exception
     {
         private const string profileNameKey = nameof(ProfileName);
@@ -82,22 +80,6 @@ namespace Riskeer.Common.IO.Exceptions
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="SoilProfileReadException"/> with
-        /// serialized data.</summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"/> that contains contextual
-        /// information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is
-        /// <c>null</c>.</exception>
-        /// <exception cref="SerializationException">The class name is <c>null</c> or
-        /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected SoilProfileReadException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            ProfileName = info.GetString(profileNameKey);
-        }
-
-        /// <summary>
         /// The name of the profile for which this exception was thrown.
         /// </summary>
         public string ProfileName
@@ -110,12 +92,6 @@ namespace Riskeer.Common.IO.Exceptions
             {
                 Data[profileNameKey] = value;
             }
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue(profileNameKey, ProfileName);
         }
     }
 }

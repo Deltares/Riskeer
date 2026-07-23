@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
@@ -96,10 +97,12 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
         public object Selection { get; private set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
