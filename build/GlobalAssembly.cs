@@ -23,6 +23,7 @@ using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 [assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyDescription("")]
@@ -37,3 +38,5 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("26.1.1.1")]
 [assembly: AssemblyFileVersion("26.1.1.1")]
+
+[assembly: SupportedOSPlatform("windows")]
