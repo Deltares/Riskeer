@@ -66,8 +66,8 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
-using GeoAPI.Geometries;
 using BruTileExtent = BruTile.Extent;
+using Coordinate = NetTopologySuite.Geometries.Coordinate;
 using DotSpatialExtent = DotSpatial.Data.Extent;
 using DotSpatialLayer = DotSpatial.Symbology.Layer;
 using WorldFile = Core.Components.DotSpatial.Projections.WorldFile;
@@ -219,9 +219,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             Projection = projectionInfo ?? sourceProjection;
         }
 
-        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
+        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool selected)
         {
-            if (!IsVisible)
+            if (!IsVisible || selected)
             {
                 return;
             }
@@ -238,6 +238,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             {
                 DrawRegion(args, region, schema);
             }
+        }
+
+        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
+        {
+            DrawRegions(args, regions, false);
         }
 
         protected override void Dispose(bool disposeManagedResources)

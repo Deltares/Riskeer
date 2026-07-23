@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Components.DotSpatial.Projections;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using NUnit.Framework;
 
@@ -39,7 +38,7 @@ namespace Core.Components.DotSpatial.Test.Projections
         {
             // Setup
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
-            ILinearRing linearRing = null;
+            LinearRing linearRing = null;
 
             // Call
             TestDelegate call = () => linearRing.Reproject(projection, projection);
@@ -118,7 +117,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo sourceProjection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            ILinearRing reprojectedRing = ring.Reproject(sourceProjection, sourceProjection);
+            LinearRing reprojectedRing = ring.Reproject(sourceProjection, sourceProjection);
 
             // Assert
             const int numberOfEdges = 3;
@@ -167,7 +166,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo targetProjection = KnownCoordinateSystems.Projected.World.WebMercator;
 
             // Call
-            ILinearRing reprojectedRing = ring.Reproject(sourceProjection, targetProjection);
+            LinearRing reprojectedRing = ring.Reproject(sourceProjection, targetProjection);
 
             // Assert
             const int numberOfEdges = 3;
@@ -211,7 +210,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             targetProjection.Transform = null;
 
             // Call
-            ILinearRing reprojectedRing = ring.Reproject(sourceProjection, sourceProjection);
+            LinearRing reprojectedRing = ring.Reproject(sourceProjection, sourceProjection);
 
             // Assert
             const int numberOfEdges = 3;

@@ -38,7 +38,7 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using log4net;
 using Timer = System.Timers.Timer;
 

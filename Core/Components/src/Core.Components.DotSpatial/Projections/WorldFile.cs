@@ -21,7 +21,6 @@
 
 using System;
 using Core.Components.DotSpatial.Properties;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using Point = System.Drawing.Point;
 
@@ -183,7 +182,7 @@ namespace Core.Components.DotSpatial.Projections
         /// <param name="width">The width pixel.</param>
         /// <param name="height">The height pixel.</param>
         /// <returns>The ground bounding-ordinate.</returns>
-        public IPolygon BoundingOrdinatesToWorldCoordinates(int width, int height)
+        public Polygon BoundingOrdinatesToWorldCoordinates(int width, int height)
         {
             Coordinate leftTop = ToWorldCoordinates(0, 0);
             Coordinate[] ringCoordinates =
@@ -195,7 +194,7 @@ namespace Core.Components.DotSpatial.Projections
                 leftTop
             };
 
-            ILinearRing ring = GeometryFactory.Default.CreateLinearRing(ringCoordinates);
+            LinearRing ring = GeometryFactory.Default.CreateLinearRing(ringCoordinates);
             return GeometryFactory.Default.CreatePolygon(ring, null);
         }
 
