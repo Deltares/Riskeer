@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Components.DotSpatial.Projections;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using NUnit.Framework;
 

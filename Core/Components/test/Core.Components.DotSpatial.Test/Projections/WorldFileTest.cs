@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Projections

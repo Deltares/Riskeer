@@ -26,7 +26,7 @@ using Core.Components.DotSpatial.MapFunctions;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
 
