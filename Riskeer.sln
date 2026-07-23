@@ -718,9 +718,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Common.Plugin.Test"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Common.Plugin.TestUtil", "Riskeer\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj", "{6346BADF-D331-4948-9772-08E8CD1E1FC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp", "Core\Components\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj", "{32358941-77C5-48A7-AD8B-DFB4F23B12A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphShape", "Core\Components\src\Core.Components.GraphShape\Core.Components.GraphShape.csproj", "{32358941-77C5-48A7-AD8B-DFB4F23B12A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.Forms", "Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj", "{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphShape.Forms", "Core\Components\src\Core.Components.GraphShape.Forms\Core.Components.GraphShape.Forms.csproj", "{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.PointedTree", "Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj", "{AD3B1634-C435-4618-9971-2EA0817F5DE2}"
 EndProject
@@ -728,13 +728,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.PointedTree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.PointedTree.Test", "Core\Components\test\Core.Components.PointedTree.Test\Core.Components.PointedTree.Test.csproj", "{0E329EDD-6CEF-4DF1-A7B2-0F2865535AB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.Test", "Core\Components\test\Core.Components.GraphSharp.Test\Core.Components.GraphSharp.Test.csproj", "{2E3214A5-E2A2-44FA-AB0E-28200A2439DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphShape.Test", "Core\Components\test\Core.Components.GraphShape.Test\Core.Components.GraphShape.Test.csproj", "{2E3214A5-E2A2-44FA-AB0E-28200A2439DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.Forms.Test", "Core\Components\test\Core.Components.GraphSharp.Forms.Test\Core.Components.GraphSharp.Forms.Test.csproj", "{20E27FD6-030E-4C5A-B39A-305299D5FD58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphShape.Forms.Test", "Core\Components\test\Core.Components.GraphShape.Forms.Test\Core.Components.GraphShape.Forms.Test.csproj", "{20E27FD6-030E-4C5A-B39A-305299D5FD58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Data.TestUtil", "Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj", "{0B0D2DFF-7E7E-4BB0-A007-61800C85809A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.TestUtil", "Core\Components\test\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj", "{0500CA45-1791-4C91-9243-EF95567068A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphShape.TestUtil", "Core\Components\test\Core.Components.GraphShape.TestUtil\Core.Components.GraphShape.TestUtil.csproj", "{0500CA45-1791-4C91-9243-EF95567068A3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Primitives.TestUtil", "Riskeer\Piping\test\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj", "{6F568E38-592A-4F99-A901-86B74C4F24D2}"
 EndProject

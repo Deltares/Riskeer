@@ -29,7 +29,7 @@ For each library the version and used license is shown. For the full license tex
 | EntityFramework                            | 6.4.4       | Apache-2.0   | https://github.com/dotnet/ef6                                                   |
 | FontAwesome.Sharp                          | 5.15.3      | Apache-2.0   | https://github.com/awesome-inc/FontAwesome.Sharp                                |
 | GeoAPI                                     | 1.7.4       | LGPL-2.1     | https://github.com/NetTopologySuite/GeoAPI                                      |
-| GraphSharp                                 | 1.1.0       | Apache-2.0   | https://www.nuget.org/packages/GraphSharp/                                      |
+| GraphShape                                 | 1.2.1       | MS-PL        | https://www.nuget.org/packages/GraphShape/                                      |
 | Hydra-Ring                                 | 25.2.2      | AGPL-3.0     | https://github.com/Deltares/Hydra-Ring                                          |
 | log4net                                    | 3.3.1       | Apache-2.0   | https://github.com/apache/logging-log4net                                       |
 | MacroStability                             | 22.1.1      | AGPL-3.0     | https://github.com/Deltares/D-GEO-Suite-Stability-Kernel-Wrapper                |
@@ -46,7 +46,7 @@ For each library the version and used license is shown. For the full license tex
 | OxyPlot.Core                               | 1.0.0       | MIT          | https://github.com/oxyplot/oxyplot                                              |
 | OxyPlot.WindowsForms                       | 1.0.0       | MIT          | https://github.com/oxyplot/oxyplot                                              |
 | Piping                                     | 16.2.1.4574 | AGPL-3.0     | https://repos.deltares.nl/repos/FailureMechanisms/FailureMechanisms/DikesPiping |
-| QuickGraph                                 | 3.6.61119.7 | MS-PL        | https://www.nuget.org/packages/QuickGraph                                       |
+| QuikGraph                                  | 2.3.0       | MS-PL        | https://www.nuget.org/packages/QuikGraph                                        |
 | NSubstitute                                | 4.4.0       | BSD-3-Clause | https://github.com/nsubstitute/NSubstitute                                      |
 | Stub.System.Data.SQLite.Core.NetFramework  | 1.0.117     | MS-PL        | https://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki          |
 | System.Buffers                             | 4.6.1       | MIT          | https://github.com/dotnet/maintenance-packages                                  |
