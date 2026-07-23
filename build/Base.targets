@@ -18,6 +18,7 @@
     <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <ConfigurationGroup>Debug</ConfigurationGroup>
@@ -42,7 +43,15 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
+  <Target Name="BasePostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Runtime_Serialization_Formatters)\lib\net8.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Runtime.Serialization.Formatters-10.0.5\*&quot;" />
+  </Target>
   <ItemGroup>
     <Compile Include="$(SolutionDir)build\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
