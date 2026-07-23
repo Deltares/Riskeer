@@ -154,7 +154,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var worldFile = new WorldFile(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
 
             // Call
-            IPolygon polygon = worldFile.BoundingOrdinatesToWorldCoordinates(width, height);
+            Polygon polygon = worldFile.BoundingOrdinatesToWorldCoordinates(width, height);
 
             // Assert
             Coordinate p1 = worldFile.ToWorldCoordinates(0, 0);
