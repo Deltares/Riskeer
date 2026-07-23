@@ -221,7 +221,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool selected)
         {
-            if (!IsVisible)
+            if (!IsVisible || selected)
             {
                 return;
             }
