@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using Core.Common.Base;
@@ -274,52 +273,6 @@ namespace Core.Gui
 
                 RemoveLogging();
             }
-
-            #region Prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
-
-            Assembly systemAssembly = typeof(Component).Assembly;
-            Type reflectTypeDescriptionProviderType =
-                systemAssembly.GetType("System.ComponentModel.ReflectTypeDescriptionProvider");
-            FieldInfo propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
-                                                                                      BindingFlags.Static |
-                                                                                      BindingFlags.NonPublic);
-            var propertyCache = (Hashtable) propertyCacheInfo?.GetValue(null);
-            propertyCache?.Clear();
-
-            FieldInfo extendedPropertyCacheInfo = reflectTypeDescriptionProviderType.GetField(
-                "_extendedPropertyCache", BindingFlags.Static | BindingFlags.NonPublic);
-            var extendedPropertyCache = extendedPropertyCacheInfo?.GetValue(null) as Hashtable;
-            extendedPropertyCache?.Clear();
-
-            FieldInfo eventCacheInfo = reflectTypeDescriptionProviderType.GetField("_eventCache",
-                                                                                   BindingFlags.Static |
-                                                                                   BindingFlags.NonPublic);
-            var eventCache = eventCacheInfo?.GetValue(null) as Hashtable;
-            eventCache?.Clear();
-
-            FieldInfo attributeCacheInfo = reflectTypeDescriptionProviderType.GetField("_attributeCache",
-                                                                                       BindingFlags.Static |
-                                                                                       BindingFlags.NonPublic);
-            var attributeCache = attributeCacheInfo?.GetValue(null) as Hashtable;
-            attributeCache?.Clear();
-
-            Type typeDescriptorType = systemAssembly.GetType("System.ComponentModel.TypeDescriptor");
-            FieldInfo providerTableInfo = typeDescriptorType.GetField("_providerTable",
-                                                                      BindingFlags.Static | BindingFlags.NonPublic);
-            var providerTable = providerTableInfo?.GetValue(null) as Hashtable;
-            providerTable?.Clear();
-
-            FieldInfo providerTypeTableInfo = typeDescriptorType.GetField("_providerTypeTable",
-                                                                          BindingFlags.Static | BindingFlags.NonPublic);
-            var providerTypeTable = providerTypeTableInfo?.GetValue(null) as Hashtable;
-            providerTypeTable?.Clear();
-
-            FieldInfo defaultProvidersInfo = typeDescriptorType.GetField("_defaultProviders",
-                                                                         BindingFlags.Static | BindingFlags.NonPublic);
-            var defaultProviders = defaultProvidersInfo?.GetValue(null) as Hashtable;
-            defaultProviders?.Clear();
-
-            #endregion
 
             GC.Collect();
         }
