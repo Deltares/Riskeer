@@ -27,8 +27,11 @@ using Core.Common.Util.Drawing;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using NetTopologySuite.Geometries;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
+using Coordinate = NetTopologySuite.Geometries.Coordinate;
+using DrawingPoint = System.Drawing.Point;
+using LinearRing = NetTopologySuite.Geometries.LinearRing;
+using Polygon = NetTopologySuite.Geometries.Polygon;
 
 namespace Core.Components.DotSpatial.Projections
 {
@@ -113,7 +116,7 @@ namespace Core.Components.DotSpatial.Projections
             Size sourceTileSize = sourceTile.Size;
             for (var i = 0; i < targetTile.Height; i++)
             {
-                foreach (Tuple<Point, Point> ppair in
+                foreach (Tuple<DrawingPoint, DrawingPoint> ppair in
                          GetValidPoints(offsetY + i, offsetY, offsetX, offsetX + targetTile.Width, sourceReference, sourceTileSize))
                 {
                     Color c = sourceTileColorAccess[ppair.Item1.X, ppair.Item1.Y];
@@ -140,15 +143,15 @@ namespace Core.Components.DotSpatial.Projections
             return mapArgs.ProjToPixel(targetTileExtent);
         }
 
-        private IEnumerable<Tuple<Point, Point>> GetValidPoints(int y, int offsetY, int x1, int x2,
-                                                                WorldFile sourceReference, Size sourceTileSize)
+        private IEnumerable<Tuple<DrawingPoint, DrawingPoint>> GetValidPoints(int y, int offsetY, int x1, int x2,
+                                                                              WorldFile sourceReference, Size sourceTileSize)
         {
             int len = x2 - x1;
             var xy = new double[len * 2];
             var i = 0;
             for (int x = x1; x < x2; x++)
             {
-                Coordinate c = mapArgs.PixelToProj(new Point(x, y));
+                Coordinate c = mapArgs.PixelToProj(new DrawingPoint(x, y));
                 xy[i] = c.X;
                 xy[i + 1] = c.Y;
                 i = i + 2;
@@ -161,16 +164,16 @@ namespace Core.Components.DotSpatial.Projections
             for (var x = 0; x < len; x++)
             {
                 var coord = new Coordinate(xy[i++], xy[i++]);
-                Point sourcePixelLocation = sourceReference.ToScreenCoordinates(coord);
+                DrawingPoint sourcePixelLocation = sourceReference.ToScreenCoordinates(coord);
 
                 if (IsSourcePointInsideArea(sourceTileSize, sourcePixelLocation))
                 {
-                    yield return Tuple.Create(sourcePixelLocation, new Point(x, y));
+                    yield return Tuple.Create(sourcePixelLocation, new DrawingPoint(x, y));
                 }
             }
         }
 
-        private static bool IsSourcePointInsideArea(Size area, Point sourcePixelLocation)
+        private static bool IsSourcePointInsideArea(Size area, DrawingPoint sourcePixelLocation)
         {
             if (sourcePixelLocation.X < 0 || sourcePixelLocation.Y < 0)
             {
