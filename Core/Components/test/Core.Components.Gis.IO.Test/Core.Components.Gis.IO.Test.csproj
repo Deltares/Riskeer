@@ -41,17 +41,39 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotSpatial.Controls" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Data" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Data.Forms" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Extensions" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Modeling.Forms" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.NTSExtension" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Projections" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Projections.Forms" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Serialization" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Symbology" Version="4.0.656" />
-    <PackageReference Include="DotSpatial.Symbology.Forms" Version="4.0.656" />
+    <PackageReference Include="DotSpatial.Controls">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Data">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Data.Forms">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Extensions">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Modeling.Forms">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.NTSExtension">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Projections">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Projections.Forms">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Serialization">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Symbology">
+      <Version>4.0.656</Version>
+    </PackageReference>
+    <PackageReference Include="DotSpatial.Symbology.Forms">
+      <Version>4.0.656</Version>
+    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.14.0</Version>
     </PackageReference>
