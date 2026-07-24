@@ -104,12 +104,12 @@ namespace Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            duneErosionLocationsMapLayer.Dispose();
-
             if (disposing)
             {
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                duneErosionLocationsMapLayer?.Dispose();
+
                 components?.Dispose();
             }
 

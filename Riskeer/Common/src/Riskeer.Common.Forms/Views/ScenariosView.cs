@@ -128,13 +128,13 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            calculationInputObserver.Dispose();
-
             if (disposing)
             {
+                failureMechanismObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+
                 components?.Dispose();
             }
 

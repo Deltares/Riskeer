@@ -86,7 +86,11 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            sectionConfigurationsObserver.Dispose();
+            if (disposing)
+            {
+                sectionConfigurationsObserver?.Dispose();
+            }
+
             base.Dispose(disposing);
         }
 

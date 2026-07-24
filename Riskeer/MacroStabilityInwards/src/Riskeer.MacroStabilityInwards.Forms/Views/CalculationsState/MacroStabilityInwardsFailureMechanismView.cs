@@ -126,19 +126,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState
 
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationsMapLayer.Dispose();
-
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            stochasticSoilModelsObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            surfaceLinesObserver.Dispose();
-            surfaceLineObserver.Dispose();
-
             if (disposing)
             {
+                hydraulicBoundaryLocationsMapLayer?.Dispose();
+
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                stochasticSoilModelsObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                surfaceLinesObserver?.Dispose();
+                surfaceLineObserver?.Dispose();
+
                 components?.Dispose();
             }
 

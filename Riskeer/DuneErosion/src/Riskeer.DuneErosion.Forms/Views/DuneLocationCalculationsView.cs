@@ -164,12 +164,12 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             if (disposing)
             {
+                duneLocationCalculationsObserver?.Dispose();
+                duneLocationCalculationObserver?.Dispose();
+                failureMechanismObserver?.Dispose();
+
                 components?.Dispose();
             }
-
-            duneLocationCalculationsObserver.Dispose();
-            duneLocationCalculationObserver.Dispose();
-            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }

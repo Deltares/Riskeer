@@ -138,6 +138,21 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(),
+                                                                        new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup

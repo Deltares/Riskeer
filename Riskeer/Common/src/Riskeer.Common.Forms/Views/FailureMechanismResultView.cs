@@ -157,16 +157,16 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            failureMechanismSectionResultObserver.Dispose();
-            failureMechanismSectionResultsObserver.Dispose();
-
-            DataGridViewControl.CellFormatting -= HandleCellStyling;
-
-            RemoveSectionResultRowEvents();
-
             if (disposing)
             {
+                failureMechanismObserver?.Dispose();
+                failureMechanismSectionResultObserver?.Dispose();
+                failureMechanismSectionResultsObserver?.Dispose();
+
+                DataGridViewControl.CellFormatting -= HandleCellStyling;
+
+                RemoveSectionResultRowEvents();
+
                 components?.Dispose();
             }
 

@@ -145,13 +145,12 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && components != null)
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
+                calculationsObserver?.Dispose();
+                calculationObserver?.Dispose();
             }
-
-            calculationsObserver.Dispose();
-            calculationObserver.Dispose();
 
             base.Dispose(disposing);
         }

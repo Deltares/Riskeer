@@ -126,6 +126,22 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(),
+                                                          new TestFailureMechanism(),
+                                                          Substitute.For<IAssessmentSection>(),
+                                                          (mechanism, section) => null);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
