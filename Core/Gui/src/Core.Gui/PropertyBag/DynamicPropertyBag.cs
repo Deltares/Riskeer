@@ -92,7 +92,13 @@ namespace Core.Gui.PropertyBag
 
         public AttributeCollection GetAttributes()
         {
-            return TypeDescriptor.GetAttributes(this, true);
+            // Skips compiler injected metadata
+            Attribute[] attributes = TypeDescriptor.GetAttributes(this, true)
+                                                   .Cast<Attribute>()
+                                                   .Where(attribute => attribute.GetType().Namespace != "System.Runtime.CompilerServices")
+                                                   .ToArray();
+
+            return attributes.Length == 0 ? AttributeCollection.Empty : new AttributeCollection(attributes);
         }
 
         public string GetClassName()
