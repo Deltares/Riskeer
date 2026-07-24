@@ -213,7 +213,7 @@ namespace Core.Common.Base.Test.Data
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("N", 1.0, 2, "1,00")]
+        [TestCase("N", 1.0, 2, "1,000")]
         [TestCase("N0", 123456789.0, 3, "123.456.789")]
         [TestCase("N1", 12345678.90, 2, "12.345.678,9")]
         [TestCase("N1", 12345678.90, 3, "12.345.678,9")]
@@ -245,7 +245,7 @@ namespace Core.Common.Base.Test.Data
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("N", 1.0, 2, "1.00")]
+        [TestCase("N", 1.0, 2, "1.000")]
         [TestCase("N0", 123456789.0, 3, "123,456,789")]
         [TestCase("N1", 12345678.90, 2, "12,345,678.9")]
         [TestCase("N1", 12345678.90, 3, "12,345,678.9")]
