@@ -220,7 +220,7 @@ namespace Core.Gui.Test.Helpers
             helper.GetTargetFolderLocation();
 
             // Assert
-            Assert.AreEqual("Browse For Folder", windowName);
+            Assert.AreEqual("Select Folder", windowName);
         }
 
         [Test]

@@ -46,7 +46,7 @@ namespace Core.Gui.Test.ContextMenu
                 // Assert
                 string message = Assert.Throws<ArgumentNullException>(test).Message;
                 StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
-                StringAssert.EndsWith("dataObject", message);
+                StringAssert.EndsWith("(Parameter 'dataObject')", message);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Core.Gui.Test.ContextMenu
             // Assert
             string message = Assert.Throws<ArgumentNullException>(test).Message;
             StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de boom bekend is.", message);
-            StringAssert.EndsWith("treeViewControl", message);
+            StringAssert.EndsWith("(Parameter 'treeViewControl')", message);
         }
 
         [Test]
