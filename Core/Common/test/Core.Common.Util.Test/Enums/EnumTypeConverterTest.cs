@@ -35,7 +35,7 @@ namespace Core.Common.Util.Test.Enums
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Assert
             Assert.IsInstanceOf<EnumConverter>(converter);
@@ -45,7 +45,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertTo_DestinationTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(NotSupportedType));
@@ -58,7 +58,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertTo_DestinationTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(string));
@@ -170,7 +170,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertFrom_SourceTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
@@ -183,7 +183,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertFrom_SourceTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(string));
