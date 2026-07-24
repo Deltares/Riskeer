@@ -102,14 +102,19 @@ namespace AssemblyResolver
 
         private static string GetApplicationDirectory()
         {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
-
-            while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
+            DirectoryInfo currentDirectoryInfo = new DirectoryInfo(AppContext.BaseDirectory);
+            while (currentDirectoryInfo != null)
             {
-                rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
+                string applicationDirectory = Path.Combine(currentDirectoryInfo.FullName, "Application");
+                if (Directory.Exists(applicationDirectory))
+                {
+                    return applicationDirectory;
+                }
+
+                currentDirectoryInfo = currentDirectoryInfo.Parent;
             }
 
-            return Path.Combine(rootDirectoryInfo.FullName, "Application");
+            throw new DirectoryNotFoundException($"Could not find an 'Application' directory by searching parent directories of '{AppContext.BaseDirectory}'.");
         }
 
         private sealed class AssemblyPath
