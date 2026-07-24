@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Text;
 using System.Threading;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -49,12 +48,7 @@ namespace Core.Common.Util.Test
         public void GetFullPath_PathTooLong_ThrowsArgumentException()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            stringBuilder.Append(new string('A', 300));
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
             TestDelegate call = () => IOUtils.GetFullPath(tooLongFolderPath);
@@ -139,15 +133,7 @@ namespace Core.Common.Util.Test
         public void IsValidFolderPath_PathTooLong_ReturnFalse()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
             bool isFolderPathValid = IOUtils.IsValidFolderPath(tooLongFolderPath);
@@ -200,15 +186,7 @@ namespace Core.Common.Util.Test
         public void ValidateFolderPath_PathTooLong_ThrowsArgumentException()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFolderPath(tooLongFolderPath);

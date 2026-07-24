@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.IO;
-using System.Text;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -136,7 +135,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidateFilesForCalculation_PathToHrdFileTooLong_ReturnsMessageWithError()
         {
             // Setup
-            string hrdFilePath = GetFolderPathThatIsTooLong() + validHrdFileName;
+            string hrdFilePath = InvalidPathHelper.TooLongFolderPath + validHrdFileName;
 
             // Call
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
@@ -240,22 +239,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
             // Assert
             Assert.IsFalse(result);
-        }
-
-        private static string GetFolderPathThatIsTooLong()
-        {
-            var stringBuilder = new StringBuilder();
-
-            stringBuilder.Append(@"C:\");
-
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-
-            return stringBuilder.ToString();
         }
     }
 }

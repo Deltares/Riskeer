@@ -92,7 +92,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
-            var filePath = new string('a', 256);
+            string filePath = InvalidPathHelper.TooLongPathPart;
             TWriter writerInstance = CreateWriterInstance(filePath);
 
             // Call

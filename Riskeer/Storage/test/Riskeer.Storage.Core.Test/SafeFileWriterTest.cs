@@ -127,7 +127,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown));
-            string targetFilePath = Path.Combine(writableDirectory, new string('x', 500) + ".txt");
+            string targetFilePath = Path.Combine(writableDirectory, $"{InvalidPathHelper.TooLongPathPart}.txt");
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown)))
             {

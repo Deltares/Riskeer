@@ -91,7 +91,7 @@ namespace Riskeer.AssemblyTool.IO.Test
         {
             // Setup
             ExportableAssembly assembly = CreateExportableAssembly();
-            var filePath = new string('a', 256);
+            string filePath = InvalidPathHelper.TooLongPathPart;
 
             using (var writer = new AssemblyGmlWriter(filePath))
             {

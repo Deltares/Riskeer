@@ -77,7 +77,7 @@ namespace Riskeer.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
-            var filePath = new string('a', 256);
+            string filePath = InvalidPathHelper.TooLongPathPart;
 
             // Call
             void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);

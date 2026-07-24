@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using System.Text;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
@@ -106,14 +105,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Export_PathTooLong_LogErrorAndReturnFalse()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            string filePath = Path.Combine(stringBuilder.ToString(), "test.xml");
+            string filePath = InvalidPathHelper.CreateTooLongFilePath("test.xml");
 
             TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(new[]
             {

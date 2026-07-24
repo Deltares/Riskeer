@@ -76,7 +76,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Constructor_FilePathTooLong_ThrowsCriticalFileReadException()
         {
             // Setup
-            string pathTooLong = Path.Combine(testDataPath, new string('A', 260));
+            string pathTooLong = InvalidPathHelper.CreateTooLongFilePath("reference-line-meta");
 
             // Call
             TestDelegate call = () => new ReferenceLineMetaImporter(pathTooLong);

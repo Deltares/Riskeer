@@ -30,6 +30,31 @@ namespace Core.Common.TestUtil
     public static class InvalidPathHelper
     {
         /// <summary>
+        /// The amount of characters used for a path part that should always be too long.
+        /// </summary>
+        private const int tooLongPathLength = 33000;
+
+        /// <summary>
+        /// Gets a single path part that exceeds the supported length.
+        /// </summary>
+        public static string TooLongPathPart => new string('a', tooLongPathLength);
+
+        /// <summary>
+        /// Gets an absolute folder path that exceeds the supported length.
+        /// </summary>
+        public static string TooLongFolderPath => $@"C:{Path.DirectorySeparatorChar}{TooLongPathPart}{Path.DirectorySeparatorChar}";
+
+        /// <summary>
+        /// Creates an absolute file path that exceeds the supported length.
+        /// </summary>
+        /// <param name="fileName">The file name to append to the too long folder path.</param>
+        /// <returns>A path that should always exceed the supported length.</returns>
+        public static string CreateTooLongFilePath(string fileName)
+        {
+            return Path.Combine(TooLongFolderPath, fileName);
+        }
+
+        /// <summary>
         /// Returns a collection of invalid paths.
         /// </summary>
         /// <example>[TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]</example>
