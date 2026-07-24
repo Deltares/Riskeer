@@ -42,7 +42,14 @@ namespace Core.Common.Base.Helpers
         {
             try
             {
-                return Convert.ToDouble(value, CultureInfo.CurrentCulture);
+                double parsed = Convert.ToDouble(value, CultureInfo.CurrentCulture);
+                // To maintain consistent net framework 481 behaviour, we throw positive infinity and negative infinity values as an exception 
+                if (double.IsPositiveInfinity(parsed) || double.IsNegativeInfinity(parsed))
+                {
+                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, new OverflowException("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden."));
+                }
+
+                return parsed;
             }
             catch (FormatException exception)
             {
