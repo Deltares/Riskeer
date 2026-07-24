@@ -122,20 +122,20 @@ namespace Riskeer.ClosingStructures.Forms.Views.CalculationsState
 
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationsMapLayer.Dispose();
-
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            foreshoreProfilesObserver.Dispose();
-            foreshoreProfileObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            structuresObserver.Dispose();
-            structureObserver.Dispose();
-
             if (disposing)
             {
+                hydraulicBoundaryLocationsMapLayer?.Dispose();
+
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                foreshoreProfilesObserver?.Dispose();
+                foreshoreProfileObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                structuresObserver?.Dispose();
+                structureObserver?.Dispose();
+
                 components?.Dispose();
             }
 

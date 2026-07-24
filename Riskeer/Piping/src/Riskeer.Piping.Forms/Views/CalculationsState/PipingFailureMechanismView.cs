@@ -137,21 +137,21 @@ namespace Riskeer.Piping.Forms.Views.CalculationsState
 
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationsMapLayer.Dispose();
-            failureMechanismObserver.Dispose();
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            stochasticSoilModelsObserver.Dispose();
-            semiProbabilisticCalculationInputObserver.Dispose();
-            probabilisticCalculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            semiProbabilisticCalculationObserver.Dispose();
-            probabilisticCalculationObserver.Dispose();
-            surfaceLinesObserver.Dispose();
-            surfaceLineObserver.Dispose();
-
             if (disposing)
             {
+                hydraulicBoundaryLocationsMapLayer?.Dispose();
+                failureMechanismObserver?.Dispose();
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                stochasticSoilModelsObserver?.Dispose();
+                semiProbabilisticCalculationInputObserver?.Dispose();
+                probabilisticCalculationInputObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                semiProbabilisticCalculationObserver?.Dispose();
+                probabilisticCalculationObserver?.Dispose();
+                surfaceLinesObserver?.Dispose();
+                surfaceLineObserver?.Dispose();
+
                 components?.Dispose();
             }
 

@@ -315,6 +315,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.RegistrationState
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
+            
+            var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
+
+            // Call & Assert
+            Assert.DoesNotThrow(() => view.Dispose());
+        }
+
         private GrassCoverErosionInwardsFailureMechanismView CreateView(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
