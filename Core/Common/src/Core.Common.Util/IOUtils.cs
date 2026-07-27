@@ -34,7 +34,7 @@ namespace Core.Common.Util
     /// </summary>
     public static class IOUtils
     {
-        public const int MAX_PATH = 260; //TODO: set proper number here
+        private const int maxPath = 32_767;
 
         /// <summary>
         /// Validates the folder path.
@@ -111,7 +111,7 @@ namespace Core.Common.Util
                 throw new ArgumentException(message);
             }
 
-            if (path.Length > MAX_PATH)
+            if (path.Length > maxPath)
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_too_long);
                 throw new ArgumentException(message);
@@ -275,7 +275,7 @@ namespace Core.Common.Util
                 throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
             }
 
-            if (path.Length > MAX_PATH)
+            if (path.Length > maxPath)
             {
                 throw new ArgumentException(Resources.IOUtils_Path_too_long);
             }

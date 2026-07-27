@@ -89,17 +89,16 @@ namespace Riskeer.Common.IO.TestUtil
         }
 
         [Test]
-        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
+        public void Constructor_FilePathTooLong_ThrowArgumentException()
         {
             // Setup
             string filePath = InvalidPathHelper.TooLongPathPart;
-            TWriter writerInstance = CreateWriterInstance(filePath);
 
             // Call
-            TestDelegate call = () => writerInstance.Write(Enumerable.Empty<IConfigurationItem>());
+            TestDelegate call = () => CreateWriterInstance(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<ArgumentException>(call);
             AssertTooLongPath(exception, filePath);
         }
 
@@ -107,7 +106,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_ExpectedValues()
         {
             // Call
-            TWriter writer = CreateWriterInstance("//validpath");
+            TWriter writer = CreateWriterInstance("//validpath//filename.txt");
 
             // Assert
             AssertDefaultConstructedInstance(writer);
@@ -117,7 +116,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Setup
-            TWriter writer = CreateWriterInstance("//validpath");
+            TWriter writer = CreateWriterInstance("//validpath//filename.txt");
 
             // Call
             TestDelegate test = () => writer.Write(null);
@@ -185,11 +184,10 @@ namespace Riskeer.Common.IO.TestUtil
             Assert.IsNotNull(exception);
         }
 
-        protected virtual void AssertTooLongPath(CriticalFileWriteException exception, string filePath)
+        protected virtual void AssertTooLongPath(ArgumentException exception, string filePath)
         {
             Assert.IsNotNull(exception);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestandspad is te lang.", exception.Message);
         }
 
         protected virtual void AssertInvalidDirectoryRights(CriticalFileWriteException exception, string filePath)
