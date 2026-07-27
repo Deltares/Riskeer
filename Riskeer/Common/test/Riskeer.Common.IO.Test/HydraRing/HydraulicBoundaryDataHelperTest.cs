@@ -141,7 +141,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
 
             // Assert
-            Assert.AreEqual($"Het opgegeven bestandspad ({hrdFilePath}) is niet geldig.", result);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{hrdFilePath}': het bestandspad is te lang.", result);
         }
 
         [Test]

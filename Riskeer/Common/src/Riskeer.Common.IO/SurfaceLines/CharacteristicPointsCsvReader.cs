@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Exceptions;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -428,9 +430,9 @@ namespace Riskeer.Common.IO.SurfaceLines
                     int zColumnIndex = columnsInFile[zPrefix + typeKey];
 
                     point = new Point3D(
-                        double.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
-                        double.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
-                        double.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
+                        DoubleParsingHelper.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleParsingHelper.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleParsingHelper.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
                     );
 
                     if (point.Equals(undefinedPoint))
@@ -441,11 +443,11 @@ namespace Riskeer.Common.IO.SurfaceLines
 
                 return point;
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_has_not_double, e);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_parsing_causes_overflow, e);
             }

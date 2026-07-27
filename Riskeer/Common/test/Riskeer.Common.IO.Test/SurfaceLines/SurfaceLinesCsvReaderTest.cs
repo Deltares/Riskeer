@@ -564,8 +564,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                          .WithLocation("op regel 2")
                                          .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                                          .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                Assert.IsNotNull(exception);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException.InnerException);
             }
         }
 
@@ -595,8 +597,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                          .WithLocation("op regel 2")
                                          .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                                          .Build("Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                Assert.IsNotNull(exception);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException.InnerException);
             }
         }
 

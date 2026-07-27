@@ -32,7 +32,7 @@ namespace Core.Common.Base.Helpers
     public static class DoubleParsingHelper
     {
         /// <summary>
-        /// Parses a string value to a <see cref="double"/>.
+        /// Parses a string value to a <see cref="double"/> using <see cref="CultureInfo.CurrentCulture"/>. 
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <returns>A <see cref="double"/>.</returns>
@@ -40,13 +40,26 @@ namespace Core.Common.Base.Helpers
         /// parsed as a <see cref="double"/>.</exception>
         public static double Parse(string value)
         {
+            return Parse(value, CultureInfo.CurrentCulture);
+        }
+
+        /// <summary>
+        /// Parses a string value to a <see cref="double"/> using the specified <see cref="CultureInfo"/>.
+        /// </summary>
+        /// <param name="value">The value to be parsed.</param>
+        /// <param name="culture">The culture to use for parsing.</param>
+        /// <returns>A <see cref="double"/>.</returns>
+        /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully
+        /// parsed as a <see cref="double"/>.</exception>
+        public static double Parse(string value, CultureInfo culture)
+        {
             try
             {
-                double parsed = Convert.ToDouble(value, CultureInfo.CurrentCulture);
+                double parsed = Convert.ToDouble(value, culture);
                 // To maintain consistent net framework 481 behaviour, we throw positive infinity and negative infinity values as an exception 
                 if (double.IsPositiveInfinity(parsed) || double.IsNegativeInfinity(parsed))
                 {
-                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double);
+                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, new OverflowException());
                 }
 
                 return parsed;
@@ -55,17 +68,14 @@ namespace Core.Common.Base.Helpers
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_cannot_be_empty,
-                                                     exception);
+                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_cannot_be_empty, exception);
                 }
 
-                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_must_represent_number,
-                                                 exception);
+                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_must_represent_number, exception);
             }
             catch (OverflowException exception)
             {
-                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double,
-                                                 exception);
+                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, exception);
             }
         }
     }

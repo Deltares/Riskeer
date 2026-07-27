@@ -131,13 +131,11 @@ namespace Riskeer.Storage.Core.Test
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown)))
             {
-                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
-
                 // Call
-                var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+                var exception = Assert.Throws<ArgumentException>(() => new SafeFileWriter(targetFilePath, temporaryFileExtension));
 
                 // Assert
-                Assert.AreEqual("Het pad van het doelbestand is te lang.", exception.Message);
+                Assert.AreEqual($"Fout bij het lezen van bestand '{targetFilePath}': het bestandspad is te lang.", exception.Message);
             }
         }
 

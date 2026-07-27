@@ -107,6 +107,13 @@ namespace Riskeer.Common.IO.ReferenceLines
                 throw new ArgumentException(message);
             }
 
+            if (path.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                string message = new FileReaderErrorMessageBuilder(path)
+                    .Build(Resources.Error_Path_cannot_contain_invalid_characters);
+                throw new ArgumentException(message);
+            }
+            
             try
             {
                 return Directory.GetFiles(path, "*.shp");
