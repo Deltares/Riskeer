@@ -34,6 +34,8 @@ namespace Core.Common.Util
     /// </summary>
     public static class IOUtils
     {
+        public const int MAX_PATH = 260; //TODO: set proper number here
+
         /// <summary>
         /// Validates the folder path.
         /// </summary>
@@ -81,8 +83,7 @@ namespace Core.Common.Util
             }
             catch (ArgumentException exception)
             {
-                string message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(exception.Message);
+                string message = new DirectoryWriterErrorMessageBuilder(path).Build(exception.Message);
                 throw new ArgumentException(message, exception.InnerException);
             }
         }
@@ -101,11 +102,18 @@ namespace Core.Common.Util
         /// </list>
         /// </remarks>
         /// <seealso cref="Path.GetInvalidPathChars()"/>
+        /// <seealso cref="Path.GetInvalidFileNameChars()"/>
         public static void ValidateFilePath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
+                throw new ArgumentException(message);
+            }
+
+            if (path.Length > MAX_PATH)
+            {
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_too_long);
                 throw new ArgumentException(message);
             }
 
@@ -116,14 +124,25 @@ namespace Core.Common.Util
             }
             catch (ArgumentException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(path)
-                    .Build(Resources.Error_Path_cannot_contain_invalid_characters);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message, exception);
             }
 
             if (string.IsNullOrEmpty(name))
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
+                throw new ArgumentException(message);
+            }
+
+            if (name.IndexOf(":") >= 0)
+            {
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_contains_invalid_character);
+                throw new ArgumentException(message);
+            }
+
+            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message);
             }
         }
@@ -179,8 +198,7 @@ namespace Core.Common.Util
 
             try
             {
-                foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(
-                             l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
+                foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
                 {
                     File.Delete(logFile);
                 }
@@ -189,9 +207,7 @@ namespace Core.Common.Util
             {
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    string message = string.Format(CultureInfo.CurrentCulture,
-                                                   Resources.IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
-                                                   path);
+                    string message = string.Format(CultureInfo.CurrentCulture, Resources.IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0, path);
                     throw new IOException(message, e);
                 }
 
@@ -253,30 +269,53 @@ namespace Core.Common.Util
                 throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
             }
 
+            if (path.Length > MAX_PATH)
+            {
+                throw new ArgumentException(Resources.IOUtils_Path_too_long);
+            }
+
+            if (ContainsInvalidColonOutsideVolumeIdentifier(path))
+            {
+                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character);
+            }
+
+            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+            {
+                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters);
+            }
+
             try
             {
                 return Path.GetFullPath(path);
             }
             catch (ArgumentException exception)
             {
-                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters,
-                                            exception);
+                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters, exception);
             }
             catch (SecurityException exception)
             {
-                throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path,
-                                            exception);
+                throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path, exception);
             }
             catch (PathTooLongException exception)
             {
-                throw new ArgumentException(Resources.IOUtils_Path_too_long,
-                                            exception);
+                throw new ArgumentException(Resources.IOUtils_Path_too_long, exception);
             }
             catch (NotSupportedException exception)
             {
-                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character,
-                                            exception);
+                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character, exception);
             }
+        }
+
+        private static bool ContainsInvalidColonOutsideVolumeIdentifier(string path)
+        {
+            int colonIndex = path.IndexOf(':');
+            if (colonIndex < 0)
+            {
+                return false;
+            }
+
+            bool hasSingleDriveSeparator = colonIndex == 1 && char.IsLetter(path[0]) && path.IndexOf(':', colonIndex + 1) < 0;
+            return !hasSingleDriveSeparator;
         }
     }
 }
