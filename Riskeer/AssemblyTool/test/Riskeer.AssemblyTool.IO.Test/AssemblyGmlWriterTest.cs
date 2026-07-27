@@ -87,22 +87,18 @@ namespace Riskeer.AssemblyTool.IO.Test
         }
 
         [Test]
-        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
+        public void Write_FilePathTooLong_ThrowsArgumentException()
         {
             // Setup
             ExportableAssembly assembly = CreateExportableAssembly();
             string filePath = InvalidPathHelper.TooLongPathPart;
 
-            using (var writer = new AssemblyGmlWriter(filePath))
-            {
-                // Call
-                void Call() => writer.Write(assembly);
+            // Call
+            void Call() => new AssemblyGmlWriter(filePath);
 
-                // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(Call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-                Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestandspad is te lang.", exception.Message);
         }
 
         [Test]

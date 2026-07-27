@@ -114,7 +114,7 @@ namespace Core.Common.Util
             if (path.Length > maxPath)
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_too_long);
-                throw new ArgumentException(message);
+                throw new ArgumentException(message, new PathTooLongException());
             }
 
             if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
