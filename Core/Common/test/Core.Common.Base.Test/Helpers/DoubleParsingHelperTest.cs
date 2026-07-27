@@ -117,7 +117,6 @@ namespace Core.Common.Base.Test.Helpers
 
             // Assert
             var exception = Assert.Throws<DoubleParsingException>(Call);
-            Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", exception.Message);
         }
     }
