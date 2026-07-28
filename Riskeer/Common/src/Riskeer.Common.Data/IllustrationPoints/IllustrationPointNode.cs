@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
             }
 
             Data = data;
-            Children = new IllustrationPointNode[0];
+            Children = Enumerable.Empty<IllustrationPointNode>();
         }
 
         /// <summary>

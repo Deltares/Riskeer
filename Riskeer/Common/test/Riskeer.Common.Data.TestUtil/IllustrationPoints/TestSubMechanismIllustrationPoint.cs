@@ -43,8 +43,8 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         public TestSubMechanismIllustrationPoint(string name)
             : base(name,
                    3.14,
-                   new SubMechanismIllustrationPointStochast[0], 
-                   new IllustrationPointResult[0]) {}
+                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                   Enumerable.Empty<IllustrationPointResult>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
@@ -54,7 +54,7 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
             : base("Illustration Point",
                    3.14,
                    stochasts,
-                   new IllustrationPointResult[0]) {}
+                   Enumerable.Empty<IllustrationPointResult>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
@@ -62,8 +62,8 @@ namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
         /// <param name="beta">The beta of the illustration point.</param>
         public TestSubMechanismIllustrationPoint(double beta)
             : base("Illustration Point",
-                   beta, 
-                   new SubMechanismIllustrationPointStochast[0], 
-                   new IllustrationPointResult[0])  {}
+                   beta,
+                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                   Enumerable.Empty<IllustrationPointResult>()) {}
     }
 }
