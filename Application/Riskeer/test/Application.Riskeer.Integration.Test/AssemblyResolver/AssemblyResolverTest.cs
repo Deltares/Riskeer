@@ -41,7 +41,7 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         [Test]
         public void ResolveAssembly_WhenAssemblyExists_ReturnsAssembly()
         {
-            const string assemblyName = "System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51";
+            const string assemblyName = "log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a";
 
             var args = new ResolveEventArgs(assemblyName);
             Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
