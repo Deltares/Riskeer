@@ -466,7 +466,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                          .WithSubject("locatie 'InvalidNumber'")
                                          .Build("Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<Core.Common.Base.Exceptions.DoubleParsingException>(exception.InnerException);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
         }
 

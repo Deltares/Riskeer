@@ -129,7 +129,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         [Test]
         [TestCase("", "bestandspad mag niet leeg of ongedefinieerd zijn.")]
         [TestCase("      ", "bestandspad mag niet leeg of ongedefinieerd zijn.")]
-        [TestCase("c>\\Invalid_Characters.shp", "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.")]
+        [TestCase("c|\\Invalid_Characters.shp", "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.")]
         [TestCase("c:\\Directory\\", "bestandspad mag niet verwijzen naar een lege bestandsnaam.")]
         public void Import_FromInvalidPath_FalseAndLogError(string filePath, string errorMessage)
         {
