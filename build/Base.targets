@@ -50,7 +50,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="BasePostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Runtime_Serialization_Formatters)\lib\net8.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Runtime.Serialization.Formatters-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Runtime_Serialization_Formatters)\lib\net8.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Runtime.Serialization.Formatters-10.0.5\*&quot;" />
   </Target>
   <ItemGroup>
     <Compile Include="$(SolutionDir)build\GlobalAssembly.cs">
