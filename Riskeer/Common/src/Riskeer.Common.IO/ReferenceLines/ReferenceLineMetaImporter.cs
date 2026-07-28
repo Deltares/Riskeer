@@ -107,7 +107,8 @@ namespace Riskeer.Common.IO.ReferenceLines
                 throw new ArgumentException(message);
             }
 
-            if (path.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0 
+                || Path.GetFileName(path).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
                 string message = new FileReaderErrorMessageBuilder(path)
                     .Build(Resources.Error_Path_cannot_contain_invalid_characters);

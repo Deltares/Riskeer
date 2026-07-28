@@ -445,11 +445,11 @@ namespace Riskeer.Common.IO.SurfaceLines
             }
             catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_has_not_double, e);
+                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_has_not_double, e.InnerException);
             }
             catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_parsing_causes_overflow, e);
+                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_parsing_causes_overflow, e.InnerException);
             }
         }
 

@@ -117,7 +117,8 @@ namespace Core.Common.Util
                 throw new ArgumentException(message, new PathTooLongException());
             }
 
-            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0
+                || Path.GetFileName(path).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message);

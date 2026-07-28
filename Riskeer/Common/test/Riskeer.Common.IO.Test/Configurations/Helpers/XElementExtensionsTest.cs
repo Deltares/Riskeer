@@ -381,8 +381,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             TestDelegate call = () => element.GetConvertedValueFromDescendantStringElement<DoubleConverter>(descendantElementName);
 
             // Assert
-            var exception = Assert.Throws<Exception>(call);
-            Assert.AreEqual($"{elementValue} is not a valid value for Double.", exception.Message);
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual($"{elementValue} is not a valid value for Double. (Parameter 'value')", exception.Message);
         }
 
         [Test]

@@ -58,7 +58,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            if (filePath.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            if (filePath.IndexOfAny(Path.GetInvalidPathChars()) >= 0
+                || Path.GetFileName(filePath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
                 throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath),
                                                      new ArgumentException(string.Format(CoreCommonUtilResources.Error_Path_cannot_contain_invalid_characters, filePath)));

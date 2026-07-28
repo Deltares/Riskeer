@@ -102,24 +102,19 @@ namespace Riskeer.Common.IO.TestUtil
         }
 
         [Test]
-        public void Export_PathTooLong_LogErrorAndReturnFalse()
+        public void Export_PathTooLong_ThrowArgumentError()
         {
             // Setup
             string filePath = InvalidPathHelper.CreateTooLongFilePath("test.xml");
 
-            TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(new[]
+            // Call
+            void Call() => CallConfigurationFilePathConstructor(new[]
             {
                 CreateCalculation()
             }, filePath);
 
-            // Call
-            var isExported = true;
-            void Call() => isExported = exporter.Export();
-
-            // Assert
-            IEnumerable<Tuple<string, LogLevelConstant>> logMessages = GetExpectedExportFailedLogMessages(filePath);
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, logMessages);
-            Assert.IsFalse(isExported);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestandspad is te lang.", exception.Message);
         }
 
         private static IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)

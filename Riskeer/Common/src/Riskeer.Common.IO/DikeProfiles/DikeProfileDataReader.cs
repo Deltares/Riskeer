@@ -26,7 +26,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Exceptions;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
@@ -367,19 +369,19 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return double.Parse(readOrientationText, CultureInfo.InvariantCulture);
+                return DoubleParsingHelper.Parse(readOrientationText, CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_not_double,
                                                readOrientationText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_overflows,
                                                readOrientationText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
         }
 
@@ -576,19 +578,19 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return double.Parse(readDamHeightText, CultureInfo.InvariantCulture);
+                return DoubleParsingHelper.Parse(readDamHeightText, CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number,
                                                readDamHeightText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows,
                                                readDamHeightText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
         }
 
@@ -633,19 +635,19 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return double.Parse(readDikeHeightText, CultureInfo.InvariantCulture);
+                return DoubleParsingHelper.Parse(readDikeHeightText, CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number,
                                                readDikeHeightText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows,
                                                readDikeHeightText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
         }
 
@@ -815,19 +817,19 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return double.Parse(readParameterText, CultureInfo.InvariantCulture);
+                return DoubleParsingHelper.Parse(readParameterText, CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number,
                                                parameterName, readParameterText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overflows,
                                                parameterName, readParameterText);
-                throw CreateCriticalFileReadException(lineNumber, message, e);
+                throw CreateCriticalFileReadException(lineNumber, message, e.InnerException);
             }
         }
 
