@@ -84,8 +84,5 @@ All rights reserved.
         <PackageReference Include="System.Data.SQLite.EF6">
             <Version>1.0.119</Version>
         </PackageReference>
-        <PackageReference Include="System.ServiceModel.Primitives">
-          <Version>8.1.2</Version>
-        </PackageReference>
     </ItemGroup>
 </Project>
