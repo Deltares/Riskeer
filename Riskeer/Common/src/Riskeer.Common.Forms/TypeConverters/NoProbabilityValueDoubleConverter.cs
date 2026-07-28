@@ -51,6 +51,10 @@ namespace Riskeer.Common.Forms.TypeConverters
             var text = value as string;
             if (text != null)
             {
+                if (text == "NaN")
+                {
+                    return double.NaN;
+                }
                 try
                 {
                     return ProbabilityParsingHelper.Parse(text);

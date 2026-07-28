@@ -56,6 +56,8 @@ namespace Riskeer.Common.Forms.Helpers
                   {
                       throw new OverflowException();
                   }
+
+                  return doubleVal;
                 }
 
                 string returnPeriodValue = trimmedString.Substring(2).ToLower();
