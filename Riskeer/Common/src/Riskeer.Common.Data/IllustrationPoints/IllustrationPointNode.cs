@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.IllustrationPoints
             }
 
             Data = data;
-            Children = Enumerable.Empty<IllustrationPointNode>();
+            Children = new IllustrationPointNode[0];
         }
 
         /// <summary>
@@ -101,7 +101,8 @@ namespace Riskeer.Common.Data.IllustrationPoints
             var clone = (IllustrationPointNode) MemberwiseClone();
 
             clone.Data = (IllustrationPointBase) Data.Clone();
-            clone.Children = Children.Select(c => (IllustrationPointNode) c.Clone()).ToArray();
+            IllustrationPointNode[] clonedChildren = Children.Select(c => (IllustrationPointNode) c.Clone()).ToArray();
+            clone.Children = clonedChildren.Length == 0 ? new IllustrationPointNode[0] : clonedChildren;
 
             return clone;
         }
