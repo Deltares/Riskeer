@@ -59,27 +59,27 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.AreEqual("Veiligheidsoordeel", assemblyGroupDisplayNameLabel.Text);
                 Assert.IsTrue(assemblyGroupDisplayNameLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, assemblyGroupDisplayNameLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), assemblyGroupDisplayNameLabel.Padding);
-                Assert.AreEqual(new Padding(3), assemblyGroupDisplayNameLabel.Margin);
+                Assert.AreEqual(new Padding(6, 0, 6, 0), assemblyGroupDisplayNameLabel.Padding);
+                Assert.AreEqual(new Padding(4, 3, 4, 3), assemblyGroupDisplayNameLabel.Margin);
 
                 var failureProbabilityDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 1);
                 Assert.AreEqual("Faalkans van het traject [1/jaar]", failureProbabilityDisplayNameLabel.Text);
                 Assert.IsTrue(failureProbabilityDisplayNameLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, failureProbabilityDisplayNameLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), failureProbabilityDisplayNameLabel.Padding);
-                Assert.AreEqual(new Padding(3), failureProbabilityDisplayNameLabel.Margin);
+                Assert.AreEqual(new Padding(6, 0, 6, 0), failureProbabilityDisplayNameLabel.Padding);
+                Assert.AreEqual(new Padding(4, 3, 4, 3), failureProbabilityDisplayNameLabel.Margin);
 
                 var groupLabel = (BorderedLabel) panel.GetControlFromPosition(1, 0);
                 Assert.IsTrue(groupLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, groupLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
-                Assert.AreEqual(new Padding(3), groupLabel.Margin);
+                Assert.AreEqual(new Padding(6, 0, 6, 0), groupLabel.Padding);
+                Assert.AreEqual(new Padding(4, 3, 4, 3), groupLabel.Margin);
 
                 var probabilityLabel = (BorderedLabel) panel.GetControlFromPosition(1, 1);
                 Assert.IsTrue(probabilityLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
-                Assert.AreEqual(new Padding(3), probabilityLabel.Margin);
+                Assert.AreEqual(new Padding(6, 0, 6, 0), probabilityLabel.Padding);
+                Assert.AreEqual(new Padding(4, 3, 4, 3), probabilityLabel.Margin);
 
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
