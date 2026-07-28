@@ -47,13 +47,9 @@ namespace Riskeer.Common.IO.Configurations.Helpers
         {
             XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
-            double? value = descendantElement != null ? (double?) XmlConvert.ToDouble(descendantElement.Value) : null;
-            if (value == null)
-            {
-                return null;
-            }
-
-            return double.IsInfinity(value.Value) ? throw new OverflowException() : value;
+            return descendantElement != null
+                       ? (double?) XmlConvert.ToDouble(descendantElement.Value)
+                       : null;
         }
 
         /// <summary>
@@ -158,7 +154,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
                 return null;
             }
 
-            return double.IsInfinity(doubleValue.Value) ? throw new OverflowException() : new TConverter().ConvertFrom(doubleValue);
+            return new TConverter().ConvertFrom(doubleValue);
         }
 
         /// <summary>
