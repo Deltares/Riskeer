@@ -81,6 +81,9 @@ All rights reserved.
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="System.Data.SqlClient">
+          <Version>4.8.6</Version>
+        </PackageReference>
         <PackageReference Include="System.Data.SQLite">
             <Version>1.0.119</Version>
             <GeneratePathProperty>true</GeneratePathProperty>
