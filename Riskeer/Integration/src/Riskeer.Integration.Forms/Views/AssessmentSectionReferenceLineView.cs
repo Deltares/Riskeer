@@ -92,11 +92,11 @@ namespace Riskeer.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-
             if (disposing)
             {
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+
                 components?.Dispose();
             }
 

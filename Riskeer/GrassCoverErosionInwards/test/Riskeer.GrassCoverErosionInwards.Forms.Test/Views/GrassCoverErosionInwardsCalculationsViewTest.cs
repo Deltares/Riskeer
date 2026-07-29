@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -73,6 +74,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

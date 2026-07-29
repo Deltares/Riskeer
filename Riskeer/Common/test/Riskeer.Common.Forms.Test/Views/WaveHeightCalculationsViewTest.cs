@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -97,6 +98,24 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getCalculationIdentifierFunc", exception.ParamName);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
+            var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                      assessmentSection,
+                                                      () => 0.01,
+                                                      () => "1/100");
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

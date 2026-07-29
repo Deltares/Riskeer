@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -89,6 +90,21 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                 new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

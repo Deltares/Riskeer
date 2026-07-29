@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
@@ -171,6 +172,25 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual("getCalculationIdentifierFunc", exception.ParamName);
         }
 
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var view =new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
+                                                       new DuneErosionFailureMechanism(),
+                                                       assessmentSection,
+                                                       () => 0.01,
+                                                       () => "1/100");
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
         [Test]
         public void Constructor_ExpectedValues()
         {
