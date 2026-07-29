@@ -69,6 +69,9 @@ All rights reserved.
         </None>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="EntityFramework">
+          <Version>6.5.2</Version>
+        </PackageReference>
         <PackageReference Include="MahApps.Metro">
             <Version>2.4.4</Version>
         </PackageReference>
