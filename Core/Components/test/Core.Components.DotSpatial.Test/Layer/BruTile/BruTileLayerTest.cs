@@ -82,9 +82,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
-                                                  new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
+                                                  new TileInfoConfig(new Extent(113713.80, 509445.88, 115434.08, 511164.36),
                                                                      232, 228, Resources.blue_256x256),
-                                                  new TileInfoConfig(new Extent(111992, 511169.04, 113712.32, 512889.36),
+                                                  new TileInfoConfig(new Extent(111993.49, 511164.42, 113713.75, 512883.90),
                                                                      231, 227, Resources.green_256x256)
                                               }, 9),
                                               Resources.BackgroundLayerCanvas_smaller,
@@ -97,9 +97,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
-                                                  new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
+                                                  new TileInfoConfig(new Extent(113713.80, 509445.88, 115434.08, 511164.36),
                                                                      232, 228, Resources.blue_256x256),
-                                                  new TileInfoConfig(new Extent(111992, 511169.04, 113712.32, 512889.36),
+                                                  new TileInfoConfig(new Extent(111993.49, 511164.42, 113713.75, 512883.90),
                                                                      231, 227, Resources.green_256x256)
                                               }, 9),
                                               Resources.BackgroundLayerCanvas_smaller,
