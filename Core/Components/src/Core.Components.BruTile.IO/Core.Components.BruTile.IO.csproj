@@ -51,6 +51,6 @@ All rights reserved.
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\BruTile-6.0.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net9.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\BruTile-6.0.0\*&quot;" />
   </Target>
 </Project>
