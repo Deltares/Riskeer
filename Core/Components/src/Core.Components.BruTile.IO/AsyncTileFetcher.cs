@@ -23,6 +23,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using BruTile;
@@ -33,7 +34,7 @@ using Core.Components.BruTile.IO.Properties;
 namespace Core.Components.BruTile.IO
 {
     /// <summary>
-    /// Class responsible for fetching map tiles asynchronously from a <see cref="ITileProvider"/>.
+    /// Class responsible for fetching map tiles asynchronously from a <see cref="ITileSource"/>.
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/TileFetcher.cs
@@ -48,7 +49,8 @@ namespace Core.Components.BruTile.IO
         private readonly SemaphoreSlim semaphore;
         private CancellationTokenSource cancellationTokenSource;
 
-        private ITileProvider provider;
+        private Func<TileInfo, CancellationToken, Task<byte[]>> fetchTileData;
+        private HttpClient httpClient;
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
 
@@ -59,22 +61,24 @@ namespace Core.Components.BruTile.IO
         /// <summary>
         /// Creates an instance of <see cref="AsyncTileFetcher"/>.
         /// </summary>
-        /// <param name="provider">The tile provider.</param>
+        /// <param name="tileSource">The tile source.</param>
         /// <param name="minTiles">Minimum number of tiles in memory cache.</param>
         /// <param name="maxTiles">Maximum number of tiles in memory cache.</param>
         /// <param name="permaCache">Optional: the persistent cache. When null, no tiles
         /// will be cached outside of the volatile memory cache.</param>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="provider"/>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="tileSource"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="tileSource"/>
+        /// cannot provide tile data.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either <paramref name="minTiles"/>
         /// or <paramref name="maxTiles"/> is negative.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minTiles"/>
         /// is not smaller than <paramref name="maxTiles"/>.</exception>
-        public AsyncTileFetcher(ITileProvider provider, int minTiles, int maxTiles, ITileCache<byte[]> permaCache = null)
+        public AsyncTileFetcher(ITileSource tileSource, int minTiles, int maxTiles, ITileCache<byte[]> permaCache = null)
         {
-            if (provider == null)
+            if (tileSource == null)
             {
-                throw new ArgumentNullException(nameof(provider));
+                throw new ArgumentNullException(nameof(tileSource));
             }
 
             if (minTiles < 0)
@@ -92,7 +96,7 @@ namespace Core.Components.BruTile.IO
                 throw new ArgumentException(Resources.AsyncTileFetcher_Minimum_number_of_tiles_in_memory_cache_must_be_less_than_maximum);
             }
 
-            this.provider = provider;
+            SetTileRequestFunction(tileSource);
             volatileCache = new MemoryCache<byte[]>(minTiles, maxTiles);
             persistentCache = permaCache ?? NoopTileCache.Instance;
             semaphore = new SemaphoreSlim(4, BruTileSettings.MaximumNumberOfThreads);
@@ -168,8 +172,10 @@ namespace Core.Components.BruTile.IO
 
                 cancellationTokenSource.Dispose();
                 semaphore.Dispose();
+                httpClient?.Dispose();
                 volatileCache = null;
-                provider = null;
+                fetchTileData = null;
+                httpClient = null;
                 persistentCache = null;
             }
 
@@ -223,7 +229,7 @@ namespace Core.Components.BruTile.IO
         }
 
         /// <summary>
-        /// Method to actually get the tile from the <see cref="provider"/>.
+        /// Method to actually get the tile from the configured tile source.
         /// </summary>
         private async Task GetTileOnThreadAsync(TileInfo tileInfo, CancellationToken token)
         {
@@ -239,7 +245,7 @@ namespace Core.Components.BruTile.IO
                     return;
                 }
 
-                byte[] result = TryRequestTileData(tileInfo);
+                byte[] result = await TryRequestTileDataAsync(tileInfo, token);
 
                 if (token.IsCancellationRequested)
                 {
@@ -270,13 +276,13 @@ namespace Core.Components.BruTile.IO
             }
         }
 
-        private byte[] TryRequestTileData(TileInfo tileInfo)
+        private async Task<byte[]> TryRequestTileDataAsync(TileInfo tileInfo, CancellationToken token)
         {
             byte[] result = null;
             try
             {
                 openTileRequests.TryAdd(tileInfo.Index, 1);
-                result = provider.GetTile(tileInfo);
+                result = await fetchTileData(tileInfo, token);
             }
             catch
             {
@@ -289,7 +295,7 @@ namespace Core.Components.BruTile.IO
             {
                 try
                 {
-                    result = provider.GetTile(tileInfo);
+                    result = await fetchTileData(tileInfo, token);
                 }
                 catch
                 {
@@ -299,6 +305,24 @@ namespace Core.Components.BruTile.IO
             }
 
             return result;
+        }
+
+        private void SetTileRequestFunction(ITileSource tileSource)
+        {
+            if (tileSource is ILocalTileSource localTileSource)
+            {
+                fetchTileData = (tileInfo, token) => localTileSource.GetTileAsync(tileInfo);
+                return;
+            }
+
+            if (tileSource is IHttpTileSource httpTileSource)
+            {
+                httpClient = new HttpClient();
+                fetchTileData = (tileInfo, token) => httpTileSource.GetTileAsync(httpClient, tileInfo, token);
+                return;
+            }
+
+            throw new ArgumentException(nameof(tileSource));
         }
 
         private void MarkTileRequestHandled(TileInfo tileInfo)

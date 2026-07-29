@@ -22,6 +22,9 @@
 using System;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using BruTile;
 using BruTile.Web;
 using BruTile.Wmts;
@@ -46,7 +49,9 @@ namespace Core.Components.BruTile.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> isn't
         /// a configured.</exception>
         public TestWmtsTileSource(WmtsMapData mapData)
-            : base(CreateWmtsTileSchema(mapData), new RequestStub(), "Stub schema", null, GetStubTile)
+            : base(CreateWmtsTileSchema(mapData),
+                   new BasicUrlBuilder("https://www.stub.org/{z}/{x}/{y}.png"),
+                   "Stub schema")
         {
             string imageFormatExtension = mapData.PreferredFormat.Split('/')[1];
             if (imageFormatExtension != "png")
@@ -60,7 +65,12 @@ namespace Core.Components.BruTile.TestUtil
             return TileSchemaFactory.CreateWmtsTileSchema(mapData);
         }
 
-        private static byte[] GetStubTile(Uri url)
+        public override Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellationToken = null)
+        {
+            return Task.FromResult(GetStubTileData());
+        }
+
+        private static byte[] GetStubTileData()
         {
             if (pngTileData == null)
             {
@@ -72,14 +82,6 @@ namespace Core.Components.BruTile.TestUtil
             }
 
             return pngTileData;
-        }
-
-        private class RequestStub : IRequest
-        {
-            public Uri GetUri(TileInfo info)
-            {
-                return new Uri(@"https:\\www.stub.org");
-            }
         }
     }
 }
