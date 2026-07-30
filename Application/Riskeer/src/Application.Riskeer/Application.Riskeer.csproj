@@ -76,6 +76,8 @@ All rights reserved.
     </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.5.2</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>3.3.1</Version>
@@ -92,8 +94,35 @@ All rights reserved.
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="runtime.native.System.Data.SqlClient.sni">
+      <Version>4.7.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni">
+      <Version>4.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="runtime.win-x86.runtime.native.System.Data.SqlClient.sni">
+      <Version>4.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+      <Version>1.0.119</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations">
+      <Version>5.0.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="System.Data.SqlClient">
       <Version>4.8.6</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.119</Version>
@@ -107,6 +136,11 @@ All rights reserved.
     </PackageReference>
     <PackageReference Include="System.DirectoryServices.AccountManagement">
       <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.DirectoryServices.Protocols">
+      <Version>10.0.10</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -129,11 +163,20 @@ All rights reserved.
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.ComponentModel.Annotations-5.0.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x64\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x86_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x86\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_AccountManagement)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.AccountManagement-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_Protocols)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.Protocols-10.0.10\*&quot;" />
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />

@@ -114,6 +114,16 @@ All rights reserved.
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.ComponentModel.Composition">
+      <Version>10.0.10</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.OleDb">
+      <Version>10.0.10</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net9.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\BruTile-6.0.0\*&quot;" />
@@ -129,5 +139,7 @@ All rights reserved.
     <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology-4.0.656\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology.Forms-4.0.656\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-2.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Composition)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.ComponentModel.Composition-10.0.10\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_OleDb)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.OleDb-10.0.10\*&quot;" />
   </Target>
 </Project>

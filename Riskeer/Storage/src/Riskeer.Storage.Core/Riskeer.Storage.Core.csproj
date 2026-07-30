@@ -81,8 +81,40 @@ All rights reserved.
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.ObjectPool">
+          <Version>10.0.10</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="runtime.native.System.Data.SqlClient.sni">
+          <Version>4.7.0</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni">
+          <Version>4.4.0</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="runtime.win-x86.runtime.native.System.Data.SqlClient.sni">
+          <Version>4.4.0</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+          <Version>1.0.119</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="System.ComponentModel.Annotations">
+          <Version>5.0.0</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="System.Data.SqlClient">
           <Version>4.8.6</Version>
+          <GeneratePathProperty>true</GeneratePathProperty>
+          <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="System.Data.SQLite">
             <Version>1.0.119</Version>
@@ -106,8 +138,16 @@ All rights reserved.
         </PackageReference>
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x64\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x86_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x86\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x86\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;"/>
         <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ServiceModel_Primitives)\lib\net8.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.ServiceModel.Primitives-8.1.2\*&quot;"/>
-		<Exec Command="xcopy /d/s/y &quot;$(PkgEntityFrameWork)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;" />
+        <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Extensions_ObjectPool)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Microsoft.Extensions.ObjectPool-10.0.10\*&quot;"/>
+        <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.ComponentModel.Annotations-5.0.0\*&quot;"/>
+		<Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;" />
     </Target>
 </Project>

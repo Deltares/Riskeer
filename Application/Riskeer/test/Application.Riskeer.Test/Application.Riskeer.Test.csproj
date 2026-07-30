@@ -41,5 +41,8 @@ All rights reserved.
     <PackageReference Include="System.DirectoryServices.AccountManagement">
       <Version>10.0.5</Version>
     </PackageReference>
+    <PackageReference Include="System.DirectoryServices.Protocols">
+      <Version>10.0.10</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

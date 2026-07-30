@@ -54,7 +54,7 @@ All rights reserved.
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgGraphShape)\lib\net5.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphShape-1.2.1\*&quot;"/>
-    <!--    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphShapeControls)\lib\net5.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphShape.Controls-1.2.2\*&quot;" />-->
+    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphShape_Controls)\lib\net5.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphShape.Controls-1.2.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgWPFExtensions)\lib\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\WPFExtensions-1.0.0\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgQuikGraph)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\QuikGraph-2.3.0\*&quot;"/>
   </Target>
