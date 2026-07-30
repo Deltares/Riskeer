@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace AssemblyResolver
 {
@@ -45,17 +44,17 @@ namespace AssemblyResolver
         /// </summary>
         /// <param name="args">The arguments containing the assembly name to resolve.</param>
         /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-        internal static Assembly ResolveAssembly(ResolveEventArgs args)
+        internal static System.Reflection.Assembly ResolveAssembly(System.ResolveEventArgs args)
         {
             if (assemblyPaths.TryGetValue(args.Name, out string assemblyPath))
             {
-                return Assembly.LoadFrom(assemblyPath);
+                return System.Reflection.Assembly.LoadFrom(assemblyPath);
             }
 
-            AssemblyName requestedAssemblyName;
+            System.Reflection.AssemblyName requestedAssemblyName;
             try
             {
-                requestedAssemblyName = new AssemblyName(args.Name);
+                requestedAssemblyName = new System.Reflection.AssemblyName(args.Name);
             }
             catch (ArgumentException)
             {
@@ -67,7 +66,7 @@ namespace AssemblyResolver
                 AssemblyPath candidate = candidates.Where(ap => PublicKeyTokensMatch(ap.AssemblyName.GetPublicKeyToken(), requestedAssemblyName.GetPublicKeyToken())).OrderByDescending(ap => ap.AssemblyName.Version).FirstOrDefault();
                 if (candidate != null)
                 {
-                    return Assembly.LoadFrom(candidate.Path);
+                    return System.Reflection.Assembly.LoadFrom(candidate.Path);
                 }
             }
 
@@ -104,7 +103,7 @@ namespace AssemblyResolver
             var result = new Dictionary<string, List<AssemblyPath>>(StringComparer.OrdinalIgnoreCase);
             foreach (KeyValuePair<string, string> kvp in assemblyPaths)
             {
-                var assemblyName = new AssemblyName(kvp.Key);
+                var assemblyName = new System.Reflection.AssemblyName(kvp.Key);
                 if (!result.TryGetValue(assemblyName.Name, out List<AssemblyPath> items))
                 {
                     items = new List<AssemblyPath>();
@@ -144,7 +143,7 @@ namespace AssemblyResolver
         {
             try
             {
-                return new AssemblyPath(AssemblyName.GetAssemblyName(file), file);
+                return new AssemblyPath(System.Reflection.AssemblyName.GetAssemblyName(file), file);
             }
             catch (BadImageFormatException)
             {
@@ -163,7 +162,7 @@ namespace AssemblyResolver
 
         private static string GetApplicationDirectory()
         {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+            DirectoryInfo rootDirectoryInfo = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
             {
@@ -175,13 +174,13 @@ namespace AssemblyResolver
 
         private sealed class AssemblyPath
         {
-            public AssemblyPath(AssemblyName assemblyName, string path)
+            public AssemblyPath(System.Reflection.AssemblyName assemblyName, string path)
             {
                 AssemblyName = assemblyName;
                 Path = path;
             }
 
-            public AssemblyName AssemblyName { get; }
+            public System.Reflection.AssemblyName AssemblyName { get; }
 
             public string Path { get; }
         }

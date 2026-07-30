@@ -13,6 +13,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
     <DebugType>none</DebugType>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)build\AssemblyResolver.cs">
+      <Link>AssemblyResolver\AssemblyResolver.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)build\AssemblyResolverSetup.cs">
+      <Link>AssemblyResolver\AssemblyResolverSetup.cs</Link>
+    </Compile>
+  </ItemGroup>
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>
       <MySourceFiles Include="$(ProjectDir)test-data\**\*.*"/>
