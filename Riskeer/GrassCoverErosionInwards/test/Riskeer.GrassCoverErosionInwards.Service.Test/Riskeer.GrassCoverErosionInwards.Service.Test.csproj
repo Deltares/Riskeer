@@ -48,6 +48,9 @@ All rights reserved.
     <PackageReference Include="log4net">
       <Version>3.3.1</Version>
     </PackageReference>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+      <Version>1.0.119</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.119</Version>
     </PackageReference>

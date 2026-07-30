@@ -26,7 +26,8 @@ All rights reserved.
     <Compile Remove="test-data\**" />
     <EmbeddedResource Remove="test-data\**" />
     <None Remove="test-data\**" />
-      <PackageReference Include="NSubstitute" Version="4.4.0" />
+      <PackageReference Include="NSubstitute" Version="4.4.0">
+      </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

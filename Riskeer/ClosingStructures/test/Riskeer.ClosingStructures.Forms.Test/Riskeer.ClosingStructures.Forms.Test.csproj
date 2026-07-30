@@ -26,7 +26,8 @@ All rights reserved.
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-      <PackageReference Include="NSubstitute" Version="4.4.0" />
+      <PackageReference Include="NSubstitute" Version="4.4.0">
+      </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

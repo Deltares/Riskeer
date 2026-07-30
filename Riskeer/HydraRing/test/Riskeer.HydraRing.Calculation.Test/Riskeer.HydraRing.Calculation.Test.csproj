@@ -40,6 +40,9 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+      <Version>1.0.119</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.119</Version>
     </PackageReference>

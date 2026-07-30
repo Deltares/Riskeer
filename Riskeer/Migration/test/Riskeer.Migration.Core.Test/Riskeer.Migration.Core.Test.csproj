@@ -43,6 +43,9 @@ All rights reserved.
         <ProjectReference Include="..\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+          <Version>1.0.119</Version>
+        </PackageReference>
         <PackageReference Include="System.Data.SQLite.Core">
             <Version>1.0.119</Version>
         </PackageReference>

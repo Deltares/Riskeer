@@ -35,6 +35,9 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+      <Version>1.0.119</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.119</Version>
     </PackageReference>
