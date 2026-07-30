@@ -20,22 +20,16 @@
 // All rights reserved.
 
 using System;
-using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
 namespace AssemblyResolver
 {
-    [SetUpFixture]
-    internal sealed class AssemblyResolverSetup
+    internal static class AssemblyResolverSetup
     {
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        [ModuleInitializer]
+        internal static void Initialize()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-        }
-
-        private static System.Reflection.Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-        {
-            return AssemblyResolver.ResolveAssembly(args);
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.ResolveAssembly(args);
         }
     }
 }
