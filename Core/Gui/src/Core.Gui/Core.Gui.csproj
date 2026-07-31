@@ -89,13 +89,13 @@ All rights reserved.
     <None Include="Resources\textfield_rename.png"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Management">
-      <Version>10.0.5</Version>
+    <PackageReference Include="Dirkster.AvalonDock">
+      <Version>4.74.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="AvalonDock">
-      <Version>2.0.2000</Version>
+    <PackageReference Include="System.Management">
+      <Version>10.0.5</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -167,9 +167,9 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgAvalonDock)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDirkster_AvalonDock)\lib\net10.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-4.74.1\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-4.74.1\nl\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\nl\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgFontAwesome_Sharp)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\FontAwesome.Sharp-5.15.3\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;"/>

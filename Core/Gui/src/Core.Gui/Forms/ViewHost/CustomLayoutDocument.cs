@@ -21,7 +21,7 @@
 
 using System.Windows;
 using System.Windows.Media;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
 
 namespace Core.Gui.Forms.ViewHost
 {

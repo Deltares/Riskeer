@@ -54,8 +54,8 @@ using Core.Gui.TestUtil.Map;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Xceed.Wpf.AvalonDock;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock;
+using AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Forms.Main

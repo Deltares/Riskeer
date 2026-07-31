@@ -27,7 +27,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
 using Core.Common.Controls.Views;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
 
 namespace Core.Gui.Forms.ViewHost
 {

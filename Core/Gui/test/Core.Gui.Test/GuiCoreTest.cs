@@ -51,7 +51,7 @@ using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using NSubstitute;
 using NUnit.Framework;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test
