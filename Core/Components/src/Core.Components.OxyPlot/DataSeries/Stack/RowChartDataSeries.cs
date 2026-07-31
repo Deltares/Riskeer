@@ -27,9 +27,9 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.DataSeries.Stack
 {
     /// <summary>
-    /// A <see cref="ColumnSeries"/> based on and updated according to the wrapped <see cref="StackChartData"/>.
+    /// A <see cref="BarSeries"/> based on and updated according to the wrapped <see cref="StackChartData"/>.
     /// </summary>
-    public class RowChartDataSeries : ColumnSeries
+    public class RowChartDataSeries : BarSeries
     {
         /// <summary>
         /// Creates a new instance of <see cref="RowChartDataSeries"/>.

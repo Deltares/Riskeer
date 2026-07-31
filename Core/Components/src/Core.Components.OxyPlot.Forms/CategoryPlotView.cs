@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Legends;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms
@@ -70,10 +71,16 @@ namespace Core.Components.OxyPlot.Forms
                     categoryAxis,
                     linearAxis
                 },
-                LegendBorderThickness = 0,
-                LegendOrientation = LegendOrientation.Horizontal,
-                LegendPlacement = LegendPlacement.Outside,
-                LegendPosition = LegendPosition.TopCenter
+                Legends =
+                {
+                    new Legend
+                    {
+                        LegendBorderThickness = 0,
+                        LegendOrientation = LegendOrientation.Horizontal,
+                        LegendPlacement = LegendPlacement.Outside,
+                        LegendPosition = LegendPosition.TopCenter
+                    }
+                }
             };
         }
 

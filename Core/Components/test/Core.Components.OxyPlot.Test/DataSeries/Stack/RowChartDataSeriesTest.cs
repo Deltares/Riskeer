@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
             var series = new RowChartDataSeries(new RowChartData(name, values, color));
 
             // Assert
-            Assert.IsInstanceOf<ColumnSeries>(series);
+            Assert.IsInstanceOf<BarSeries>(series);
             Assert.AreEqual(name, series.Title);
             Assert.IsTrue(series.IsStacked);
             Assert.AreEqual(1, series.StrokeThickness);

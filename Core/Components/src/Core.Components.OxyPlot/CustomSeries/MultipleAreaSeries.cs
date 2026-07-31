@@ -101,19 +101,24 @@ namespace Core.Components.OxyPlot.CustomSeries
             VerifyAxes();
 
             OxyRect clippingRect = GetClippingRect();
-            rc.SetClip(clippingRect);
+            rc.PushClip(clippingRect);
 
-            // Transform all points to screen coordinates
-            foreach (IEnumerable<DataPoint> area in Areas)
+            try
             {
-                int n0 = area.Count();
-                var pts0 = new ScreenPoint[n0];
-                TransformToScreenCoordinates(n0, pts0, area);
+                // Transform all points to screen coordinates
+                foreach (IEnumerable<DataPoint> area in Areas)
+                {
+                    int n0 = area.Count();
+                    var pts0 = new ScreenPoint[n0];
+                    TransformToScreenCoordinates(n0, pts0, area);
 
-                rc.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(Fill), Color, StrokeThickness);
+                    rc.DrawPolygon(pts0, GetSelectableFillColor(Fill), Color, StrokeThickness, EdgeRenderingMode.PreferSpeed, null, LineJoin.Miter);
+                }
             }
-
-            rc.ResetClip();
+            finally
+            {
+                rc.PopClip();
+            }
         }
 
         protected override void UpdateMaxMin()

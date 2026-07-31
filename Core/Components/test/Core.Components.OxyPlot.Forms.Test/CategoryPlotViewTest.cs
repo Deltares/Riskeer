@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Legends;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -64,10 +65,12 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsFalse(linearAxis.IsZoomEnabled);
             Assert.IsNull(linearAxis.Title);
 
-            Assert.AreEqual(0, plotModel.LegendBorderThickness);
-            Assert.AreEqual(LegendOrientation.Horizontal, plotModel.LegendOrientation);
-            Assert.AreEqual(LegendPlacement.Outside, plotModel.LegendPlacement);
-            Assert.AreEqual(LegendPosition.TopCenter, plotModel.LegendPosition);
+            Assert.AreEqual(1, plotModel.Legends.Count);
+            LegendBase legend = plotModel.Legends.Single();
+            Assert.AreEqual(0, legend.LegendBorderThickness);
+            Assert.AreEqual(LegendOrientation.Horizontal, legend.LegendOrientation);
+            Assert.AreEqual(LegendPlacement.Outside, legend.LegendPlacement);
+            Assert.AreEqual(LegendPosition.TopCenter, legend.LegendPosition);
         }
 
         [Test]
