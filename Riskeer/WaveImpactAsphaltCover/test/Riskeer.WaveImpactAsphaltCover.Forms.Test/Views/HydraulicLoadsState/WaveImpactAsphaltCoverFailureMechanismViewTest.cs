@@ -588,6 +588,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.HydraulicLoadsState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            Application.DoEvents();
 
             return view;
         }

@@ -322,6 +322,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views.RegistrationState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            Application.DoEvents();
 
             return view;
         }

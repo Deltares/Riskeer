@@ -617,6 +617,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            Application.DoEvents();
 
             return view;
         }

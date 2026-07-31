@@ -331,6 +331,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+            Application.DoEvents();
 
             return view;
         }
