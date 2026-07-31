@@ -27,9 +27,9 @@ All rights reserved.
     <ApplicationIcon>Resources/Riskeer.ico</ApplicationIcon>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets"/>
   <ItemGroup>
-    <None Remove="Resources\MadeBy.png" />
+    <None Remove="Resources\MadeBy.png"/>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -38,29 +38,29 @@ All rights reserved.
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj" />
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\build\AssemblyResolver.cs">
-        <Link>AssemblyResolver.cs</Link>
+      <Link>AssemblyResolver.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,11 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.DirectoryServices.Protocols">
+      <Version>10.0.10</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="ControlzEx">
       <Version>4.4.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
@@ -139,14 +144,9 @@ All rights reserved.
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.DirectoryServices.Protocols">
-      <Version>10.0.10</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MadeBy.png" />
+    <Resource Include="Resources\MadeBy.png"/>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
@@ -162,28 +162,28 @@ All rights reserved.
     </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.ComponentModel.Annotations-5.0.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x64\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x86_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x86\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_AccountManagement)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.AccountManagement-10.0.5\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_Protocols)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.Protocols-10.0.10\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.ComponentModel.Annotations-5.0.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x64\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkgruntime_win-x86_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SqlClient-4.8.6\x86\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.119\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_AccountManagement)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.AccountManagement-10.0.5\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_DirectoryServices_Protocols)\lib\net10.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.DirectoryServices.Protocols-10.0.10\*&quot;"/>
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
-  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent"/>
   <!-- Make all references non-private, so they won't be copied to the output folder. -->
   <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
     <ItemGroup>
-      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"/>
     </ItemGroup>
   </Target>
 </Project>

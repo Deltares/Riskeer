@@ -21,7 +21,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\TestUtil.targets" />
+  <Import Project="$(SolutionDir)build\TestUtil.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>

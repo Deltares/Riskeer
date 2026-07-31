@@ -21,7 +21,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\TestUtil.targets" />
+  <Import Project="$(SolutionDir)build\TestUtil.targets"/>
   <ItemGroup>
     <Reference Include="Components.Persistence.Stability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Components.Persistence.Stability.dll</HintPath>
@@ -33,14 +33,16 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.14.0">
-    </PackageReference>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.IO\Riskeer.MacroStabilityInwards.IO.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.IO\Riskeer.MacroStabilityInwards.IO.csproj" />
+    <PackageReference Include="NUnit" Version="3.14.0">
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

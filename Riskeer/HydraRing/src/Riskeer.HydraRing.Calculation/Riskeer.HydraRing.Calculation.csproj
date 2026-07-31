@@ -21,10 +21,10 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets"/>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -45,21 +45,21 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
+    <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.119</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Data.SQLite.Core">
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
       <Version>1.0.119</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\HydraRing\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\HydraRing-25.2.2\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\HydraRing\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\HydraRing-25.2.2\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;"/>
   </Target>
 </Project>

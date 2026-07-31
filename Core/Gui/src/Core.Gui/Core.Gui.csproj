@@ -21,20 +21,20 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow-000-medium.png" />
-    <None Include="Resources\Busy indicator.gif" />
-    <None Include="Resources\arrow.png" />
-    <None Include="Resources\arrow-stop-090.png" />
-    <None Include="Resources\arrow-stop-270.png" />
-    <None Include="Resources\table-import.png" />
-    <None Include="Resources\table-export.png" />
+    <None Include="Resources\arrow-000-medium.png"/>
+    <None Include="Resources\Busy indicator.gif"/>
+    <None Include="Resources\arrow.png"/>
+    <None Include="Resources\arrow-stop-090.png"/>
+    <None Include="Resources\arrow-stop-270.png"/>
+    <None Include="Resources\table-import.png"/>
+    <None Include="Resources\table-export.png"/>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\Backstage\AboutBackstagePage.xaml">
@@ -61,34 +61,39 @@ All rights reserved.
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Style\DeltaresBackstageStyle.xaml" />
-    <Page Include="Style\DeltaresButtonStyle.xaml" />
-    <Page Include="Style\DeltaresGeneralStyle.xaml" />
-    <Page Include="Style\DeltaresStyle.xaml" />
-    <Page Include="Style\Symbols\Symbols.xaml" />
+    <Page Include="Style\DeltaresBackstageStyle.xaml"/>
+    <Page Include="Style\DeltaresButtonStyle.xaml"/>
+    <Page Include="Style\DeltaresGeneralStyle.xaml"/>
+    <Page Include="Style\DeltaresStyle.xaml"/>
+    <Page Include="Style\Symbols\Symbols.xaml"/>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\brick.png" />
-    <Resource Include="Resources\Copy.png" />
-    <Resource Include="Resources\DeleteHS.png" />
-    <Resource Include="Resources\error.png" />
-    <Resource Include="Resources\folder.png" />
-    <Resource Include="Resources\information.png" />
-    <Resource Include="Resources\Paste.png" />
-    <Resource Include="Resources\PasteLarge.png" />
-    <Resource Include="Resources\PropertiesHS.png" />
-    <Resource Include="Style\Symbols\Symbols.ttf" />
+    <Resource Include="Resources\brick.png"/>
+    <Resource Include="Resources\Copy.png"/>
+    <Resource Include="Resources\DeleteHS.png"/>
+    <Resource Include="Resources\error.png"/>
+    <Resource Include="Resources\folder.png"/>
+    <Resource Include="Resources\information.png"/>
+    <Resource Include="Resources\Paste.png"/>
+    <Resource Include="Resources\PasteLarge.png"/>
+    <Resource Include="Resources\PropertiesHS.png"/>
+    <Resource Include="Style\Symbols\Symbols.ttf"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow-000-medium-question-mark.ico" />
+    <None Include="Resources\arrow-000-medium-question-mark.ico"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\broom.png" />
-    <None Include="Resources\table_refresh.png" />
-    <None Include="Resources\bug-exclamation.ico" />
-    <None Include="Resources\textfield_rename.png" />
+    <None Include="Resources\broom.png"/>
+    <None Include="Resources\table_refresh.png"/>
+    <None Include="Resources\bug-exclamation.ico"/>
+    <None Include="Resources\textfield_rename.png"/>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Management">
+      <Version>10.0.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="AvalonDock">
       <Version>2.0.2000</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
@@ -117,11 +122,6 @@ All rights reserved.
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.31</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Management">
-      <Version>10.0.5</Version>
-        <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
@@ -157,23 +157,23 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgAvalonDock)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\nl\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgFontAwesome_Sharp)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\FontAwesome.Sharp-5.15.3\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Management)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Management-10.0.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgAvalonDock)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\nl\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgFontAwesome_Sharp)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\FontAwesome.Sharp-5.15.3\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Management)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Management-10.0.5\*&quot;"/>
   </Target>
 </Project>

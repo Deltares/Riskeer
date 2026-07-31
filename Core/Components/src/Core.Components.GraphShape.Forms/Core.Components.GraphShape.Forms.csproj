@@ -52,6 +52,11 @@ All rights reserved.
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="WPFExtensions">
+      <Version>1.0.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="GraphShape">
       <Version>1.2.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
@@ -59,11 +64,6 @@ All rights reserved.
     </PackageReference>
     <PackageReference Include="GraphShape.Controls">
       <Version>1.2.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="WPFExtensions">
-      <Version>1.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
