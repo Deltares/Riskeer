@@ -158,7 +158,7 @@ namespace Core.Gui.Test.Forms.Backstage
             bool userManualPresent)
         {
             // Given
-            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path);
+            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path);
 
             var settings = new GuiCoreSettings
             {

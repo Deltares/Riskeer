@@ -117,7 +117,7 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                (IRequest) null);
+                                                (IUrlBuilder) null);
 
             var factory = Substitute.For<ITileSourceFactory>();
             factory.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)
@@ -157,9 +157,9 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             var tileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapDataTestHelper.CreateDefaultPdokMapData()),
-                                                 (IRequest) null);
+                                                 (IUrlBuilder) null);
             var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                 (IRequest) null);
+                                                 (IUrlBuilder) null);
             var tileSources = new ITileSource[]
             {
                 tileSource1,
@@ -192,7 +192,7 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                (IRequest) null);
+                                                (IUrlBuilder) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -227,7 +227,7 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                (IRequest) null);
+                                                (IUrlBuilder) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -260,7 +260,7 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                (IRequest) null);
+                                                (IUrlBuilder) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -293,7 +293,7 @@ namespace Core.Components.BruTile.Test.Configurations
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                (IRequest) null);
+                                                (IUrlBuilder) null);
             var tileSources = new ITileSource[]
             {
                 tileSource

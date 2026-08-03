@@ -360,7 +360,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             const string name = "someName";
-            const bool value = true;
             var stringBuilder = new StringBuilder();
 
             using (var xmlWriter = XmlWriter.Create(

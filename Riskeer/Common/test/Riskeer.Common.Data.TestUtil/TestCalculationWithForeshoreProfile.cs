@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 
@@ -120,7 +121,8 @@ namespace Riskeer.Common.Data.TestUtil
             {
                 get
                 {
-                    throw new NotImplementedException();
+                    Assert.IsFalse(true, "Not implemented, test stub");
+                    return null;
                 }
             }
 
