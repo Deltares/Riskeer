@@ -4,6 +4,8 @@
     <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <PropertyGroup>
     <NoWarn>$(NoWarn);CA1001</NoWarn> <!-- "Types that own disposable fields should be disposable" -->
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />

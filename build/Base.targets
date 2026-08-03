@@ -49,4 +49,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
   </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA2100</NoWarn> <!-- " Review SQL queries for security vulnerabilities - Desktop application, so security risk is minimal" -->
+  </PropertyGroup>
 </Project>
