@@ -272,11 +272,13 @@ namespace Core.Gui.Forms.Main
             }
 
             IsWindowDisposed = true;
-
             Close();
+
+            propertyGrid.Dispose();
 
             gui = null;
             viewController = null;
+            propertyGrid = null;
             settings = null;
             commands = null;
             applicationSelection = null;

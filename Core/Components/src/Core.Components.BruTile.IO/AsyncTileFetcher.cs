@@ -172,6 +172,7 @@ namespace Core.Components.BruTile.IO
 
                 cancellationTokenSource.Dispose();
                 semaphore.Dispose();
+                volatileCache.Dispose();
                 httpClient?.Dispose();
                 volatileCache = null;
                 fetchTileData = null;

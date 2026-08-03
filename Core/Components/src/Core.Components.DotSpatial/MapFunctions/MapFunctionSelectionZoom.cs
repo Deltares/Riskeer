@@ -41,7 +41,7 @@ namespace Core.Components.DotSpatial.MapFunctions
     /// <see cref="OnMouseDown"/>.</item>
     /// </list>
     /// </remarks>
-    public class MapFunctionSelectionZoom : MapFunctionZoom
+    public class MapFunctionSelectionZoom : MapFunctionZoom, IDisposable
     {
         private readonly Pen selectionPen;
         private Point currentPoint;
@@ -158,6 +158,20 @@ namespace Core.Components.DotSpatial.MapFunctions
 
             base.OnMouseUp(e);
             Map.IsBusy = false;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                selectionPen.Dispose();
+            }
         }
     }
 }

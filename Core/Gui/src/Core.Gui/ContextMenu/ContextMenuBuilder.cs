@@ -34,11 +34,12 @@ namespace Core.Gui.ContextMenu
     /// This class represents a builder which can be used to create a context menu, which's items require information
     /// on the <see cref="IGui"/> in order to render or perform actions.
     /// </summary>
-    public class ContextMenuBuilder : IContextMenuBuilder
+    public class ContextMenuBuilder : IContextMenuBuilder, IDisposable
     {
         private readonly GuiContextMenuItemFactory guiItemsFactory;
         private readonly TreeViewContextMenuItemFactory treeViewItemsFactory;
         private readonly ContextMenuStrip contextMenu;
+        private bool isDisposed;
 
         /// <summary>
         /// Creates a new instance of <see cref="ContextMenuBuilder"/>.
@@ -150,6 +151,8 @@ namespace Core.Gui.ContextMenu
 
         public IContextMenuBuilder AddSeparator()
         {
+            ThrowExceptionIfDisposed();
+
             if (MayAddSeparator())
             {
                 AddItem(new ToolStripSeparator());
@@ -166,6 +169,8 @@ namespace Core.Gui.ContextMenu
 
         public ContextMenuStrip Build()
         {
+            ThrowExceptionIfDisposed();
+
             if (contextMenu.Items.Count > 0)
             {
                 int lastIndex = contextMenu.Items.Count - 1;
@@ -176,6 +181,27 @@ namespace Core.Gui.ContextMenu
             }
 
             return contextMenu;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                contextMenu.Dispose();
+            }
+
+            isDisposed = true;
         }
 
         private bool MayAddSeparator()
@@ -190,9 +216,19 @@ namespace Core.Gui.ContextMenu
 
         private void AddItem(ToolStripItem item)
         {
+            ThrowExceptionIfDisposed();
+
             if (item != null)
             {
                 contextMenu.Items.Add(item);
+            }
+        }
+
+        private void ThrowExceptionIfDisposed()
+        {
+            if (isDisposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
             }
         }
     }
