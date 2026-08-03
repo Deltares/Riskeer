@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms;
@@ -41,7 +42,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(null, Enumerable.Empty<DikeProfile>());
+            Action test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(null, Enumerable.Empty<DikeProfile>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,7 +56,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, null);
+                Action test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, null);
 
                 // Assert
                 string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

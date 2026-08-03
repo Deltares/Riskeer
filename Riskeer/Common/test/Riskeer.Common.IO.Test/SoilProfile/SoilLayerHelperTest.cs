@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var properties = new LayerProperties(reader, "");
 
             // Call
-            TestDelegate call = () => SoilLayerHelper.SetSoilLayerBaseProperties(null, properties);
+            Action call = () => SoilLayerHelper.SetSoilLayerBaseProperties(null, properties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,7 +53,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var soilLayer = new TestSoilLayerBase();
 
             // Call
-            TestDelegate call = () => SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, null);
+            Action call = () => SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

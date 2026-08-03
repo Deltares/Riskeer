@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
@@ -123,7 +124,7 @@ namespace Riskeer.Common.Service.Test
             var expectedBreakWater = new BreakWater((BreakWaterType) 99, random.NextDouble());
             breakWater.BreakWater.Returns(expectedBreakWater);
             // Call
-            TestDelegate test = () => HydraRingInputParser.ParseBreakWater(breakWater);
+            Action test = () => HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert
             string message = $"The value of argument 'type' ({99}) is invalid for Enum type '{typeof(BreakWaterType).Name}'.";

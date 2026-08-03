@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -272,7 +273,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test
         public void GenerateCalculationItemsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+            Action test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 null,
                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>());
 
@@ -285,7 +286,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test
         public void GenerateCalculationItemsStructure_WithoutSoilModels_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+            Action test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                 null);
 

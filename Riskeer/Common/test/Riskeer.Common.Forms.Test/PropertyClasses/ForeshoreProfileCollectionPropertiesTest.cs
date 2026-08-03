@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ForeshoreProfileCollectionProperties(null);
+            Action test = () => new ForeshoreProfileCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

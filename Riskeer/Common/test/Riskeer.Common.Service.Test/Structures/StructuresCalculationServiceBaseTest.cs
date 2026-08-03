@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;

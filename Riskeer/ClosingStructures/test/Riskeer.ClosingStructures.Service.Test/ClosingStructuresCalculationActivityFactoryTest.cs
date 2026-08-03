@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -55,7 +56,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(null,
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                             new ClosingStructuresFailureMechanism(),
                                                                                                             assessmentSection);
 
@@ -70,7 +71,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<ClosingStructuresInput>(),
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<ClosingStructuresInput>(),
                                                                                                             null,
                                                                                                             assessmentSection);
 
@@ -87,7 +88,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -119,7 +120,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null,
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                               new ClosingStructuresFailureMechanism(),
                                                                                                               assessmentSection);
 
@@ -134,7 +135,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                               null,
                                                                                                               assessmentSection);
 
@@ -147,7 +148,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                               new ClosingStructuresFailureMechanism(),
                                                                                                               null);
 
@@ -196,7 +197,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -207,7 +208,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new ClosingStructuresFailureMechanism(), null);
+            Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new ClosingStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Base.Test
 {
@@ -38,7 +39,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_getUniqueFeatureNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<object>(
+            Action call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<object>(
                 null, string.Empty, string.Empty);
 
             // Assert
@@ -50,7 +51,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_TypeDescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
+            Action call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, null, string.Empty);
 
             // Assert
@@ -62,7 +63,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_FeatureDescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
+            Action call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, string.Empty, null);
 
             // Assert
@@ -92,7 +93,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () => collection.AddRange(null, "path");
+            Action call = () => collection.AddRange(null, "path");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -113,7 +114,7 @@ namespace Core.Common.Base.Test
             };
 
             // Call
-            TestDelegate call = () => collection.AddRange(items, "path");
+            Action call = () => collection.AddRange(items, "path");
 
             // Assert
             const string message = "Collection cannot contain null.";
@@ -129,7 +130,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<TestItem>(), null);
+            Action call = () => collection.AddRange(Enumerable.Empty<TestItem>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -146,7 +147,7 @@ namespace Core.Common.Base.Test
             const string invalidFilePath = @"            ";
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<TestItem>(), invalidFilePath);
+            Action call = () => collection.AddRange(Enumerable.Empty<TestItem>(), invalidFilePath);
 
             // Assert
             string message = $"'{invalidFilePath}' is not a valid file path.";
@@ -234,7 +235,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () => collection.AddRange(itemsToAdd, "some/path");
+            Action call = () => collection.AddRange(itemsToAdd, "some/path");
 
             // Assert
             string message = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateNameOne}.";
@@ -260,7 +261,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () => collection.AddRange(itemsToAdd, "some/path");
+            Action call = () => collection.AddRange(itemsToAdd, "some/path");
 
             // Assert
             string message = $"TestItems moeten een unieke Feature hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
@@ -287,7 +288,7 @@ namespace Core.Common.Base.Test
             collection.AddRange(expectedCollection, filePath);
 
             // When
-            TestDelegate call = () => collection.AddRange(new[]
+            Action call = () => collection.AddRange(new[]
             {
                 new TestItem(duplicateNameOne),
                 new TestItem(duplicateNameTwo)
@@ -331,7 +332,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 object item = collection[invalidIndex];
             };

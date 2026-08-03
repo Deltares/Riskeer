@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
+            Action call = () => new UpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
+            Action call = () => new UpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanGrid rightGrid = UpliftVanGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculationGridResult(leftGrid, rightGrid, null);
+            Action call = () => new UpliftVanCalculationGridResult(leftGrid, rightGrid, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

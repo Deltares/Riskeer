@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
+            Action test = () => MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
+            Action test = () => MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

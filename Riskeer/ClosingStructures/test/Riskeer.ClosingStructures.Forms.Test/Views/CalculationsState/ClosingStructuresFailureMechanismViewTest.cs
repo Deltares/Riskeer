@@ -32,6 +32,7 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views.CalculationsState;

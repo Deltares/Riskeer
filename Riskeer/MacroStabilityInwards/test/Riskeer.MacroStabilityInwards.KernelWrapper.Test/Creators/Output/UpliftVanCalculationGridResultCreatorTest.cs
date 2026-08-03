@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;

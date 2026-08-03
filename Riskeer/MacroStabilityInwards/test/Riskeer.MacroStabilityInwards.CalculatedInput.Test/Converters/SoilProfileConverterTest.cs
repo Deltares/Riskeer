@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         public void Convert_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileConverter.Convert(null);
+            Action call = () => SoilProfileConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
-            TestDelegate test = () => SoilProfileConverter.Convert(profile);
+            Action test = () => SoilProfileConverter.Convert(profile);
 
             // Assert
             const string message = "The value of argument 'shearStrengthModel' (99) is invalid for Enum type 'MacroStabilityInwardsShearStrengthModel'.";

@@ -79,7 +79,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
+            Action test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -93,7 +93,7 @@ namespace Core.Common.Util.Test.Enums
 
             // Call
             var result = new object();
-            TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
+            Action test = () => result = converter.ConvertTo(null, typeof(string));
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -108,7 +108,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(enumValue, null);
+            Action test = () => converter.ConvertTo(enumValue, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -122,7 +122,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
+            Action test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -176,7 +176,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(typeof(NotSupportedType));
+            Action test = () => converter.ConvertFrom(typeof(NotSupportedType));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -189,7 +189,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(null);
+            Action test = () => converter.ConvertFrom(null);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);

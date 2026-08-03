@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void GetMacroStabilityInwardsLocationInputConfiguration_XElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetMacroStabilityInwardsLocationInputConfiguration();
+            Action test = () => ((XElement) null).GetMacroStabilityInwardsLocationInputConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -93,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement("dagelijks", new XElement("polderpeil", doubleValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsLocationInputConfiguration();
+            Action test = () => element.GetMacroStabilityInwardsLocationInputConfiguration();
 
             // Assert
             Assert.Throws(exceptionType, test);
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement("dagelijks", new XElement("gebruikdefaults", boolValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsLocationInputConfiguration();
+            Action test = () => element.GetMacroStabilityInwardsLocationInputConfiguration();
 
             // Assert
             Assert.Throws(exceptionType, test);
@@ -303,7 +303,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void GetMacroStabilityInwardsLocationInputExtremeConfiguration_XElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetMacroStabilityInwardsLocationInputExtremeConfiguration();
+            Action test = () => ((XElement) null).GetMacroStabilityInwardsLocationInputExtremeConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -332,7 +332,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement("extreem", new XElement("polderpeil", doubleValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsLocationInputExtremeConfiguration();
+            Action test = () => element.GetMacroStabilityInwardsLocationInputExtremeConfiguration();
 
             // Assert
             Assert.Throws(exceptionType, test);
@@ -345,7 +345,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement("extreem", new XElement("gebruikdefaults", boolValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsLocationInputExtremeConfiguration();
+            Action test = () => element.GetMacroStabilityInwardsLocationInputExtremeConfiguration();
 
             // Assert
             Assert.Throws(exceptionType, test);
@@ -575,7 +575,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void GetMacroStabilityInwardsGridConfiguration_XElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetMacroStabilityInwardsGridConfiguration("element");
+            Action test = () => ((XElement) null).GetMacroStabilityInwardsGridConfiguration("element");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -589,7 +589,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsGridConfiguration(null);
+            Action test = () => element.GetMacroStabilityInwardsGridConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -621,7 +621,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, new XElement("xlinks", doubleValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
+            Action test = () => element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
 
             // Assert
             Assert.Throws(exceptionType, test);
@@ -637,7 +637,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, new XElement("aantalpuntenhorizontaal", integerValue)));
 
             // Call
-            TestDelegate test = () => element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
+            Action test = () => element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
 
             // Assert
             Assert.Throws(exceptionType, test);

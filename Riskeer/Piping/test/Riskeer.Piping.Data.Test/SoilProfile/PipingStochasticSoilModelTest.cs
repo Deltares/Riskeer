@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
@@ -40,7 +41,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModel(null, new[]
+            Action test = () => new PipingStochasticSoilModel(null, new[]
                                                                     {
                                                                         new Point2D(1, 1)
                                                                     },
@@ -85,7 +86,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         public void Constructor_WithGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(string.Empty, null, new[]
+            Action call = () => new PipingStochasticSoilModel(string.Empty, null, new[]
             {
                 CreateStochasticSoilProfile()
             });
@@ -102,7 +103,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             const string name = "modelName";
 
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
+            Action call = () => new PipingStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
             {
                 CreateStochasticSoilProfile()
             });
@@ -123,7 +124,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(name, geometry, null);
+            Action call = () => new PipingStochasticSoilModel(name, geometry, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -142,7 +143,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(name,
+            Action call = () => new PipingStochasticSoilModel(name,
                                                                     geometry,
                                                                     Enumerable.Empty<PipingStochasticSoilProfile>());
 
@@ -448,7 +449,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             });
 
             // Call 
-            TestDelegate call = () => model.Update(otherModel);
+            Action call = () => model.Update(otherModel);
 
             // Assert 
             Assert.Throws<InvalidOperationException>(call);

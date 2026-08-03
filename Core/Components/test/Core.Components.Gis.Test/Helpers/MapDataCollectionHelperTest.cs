@@ -25,6 +25,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Helpers;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test.Helpers
 {
@@ -35,7 +36,7 @@ namespace Core.Components.Gis.Test.Helpers
         public void GetNestedCollectionVisibilityStates_MapDataCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MapDataCollectionHelper.GetNestedCollectionVisibilityStates(null);
+            Action call = () => MapDataCollectionHelper.GetNestedCollectionVisibilityStates(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
         public void Convert_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSlidingCurveConverter.Convert(null);
+            Action call = () => MacroStabilityInwardsSlidingCurveConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

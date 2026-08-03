@@ -34,7 +34,7 @@ namespace Core.Gui.Test.Forms
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SelectViewDialog(null);
+            Action test = () => new SelectViewDialog(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -60,7 +60,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
+            Action test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,7 +75,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
+            Action test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

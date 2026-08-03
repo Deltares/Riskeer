@@ -35,7 +35,7 @@ namespace Riskeer.Common.Service.Test
         public void LogMessagesAsErrorWithFormat_FormatNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null, new string[0]);
+            Action call = () => CalculationServiceHelper.LogMessagesAsError(null, new string[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Service.Test
         public void LogMessagesAsErrorWithFormat_ErrorMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError("", null);
+            Action call = () => CalculationServiceHelper.LogMessagesAsError("", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Service.Test
         public void LogMessagesAsErrorWithoutFormat_ErrorMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null);
+            Action call = () => CalculationServiceHelper.LogMessagesAsError(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Service.Test
         public void LogMessagesAsWarning_WarningMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsWarning(null);
+            Action call = () => CalculationServiceHelper.LogMessagesAsWarning(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -241,7 +241,7 @@ namespace Riskeer.Common.Service.Test
         public void LogExceptionAsError_MessageNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogExceptionAsError(null, new Exception());
+            Action call = () => CalculationServiceHelper.LogExceptionAsError(null, new Exception());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -252,7 +252,7 @@ namespace Riskeer.Common.Service.Test
         public void LogExceptionAsError_ExceptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogExceptionAsError("message", null);
+            Action call = () => CalculationServiceHelper.LogExceptionAsError("message", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

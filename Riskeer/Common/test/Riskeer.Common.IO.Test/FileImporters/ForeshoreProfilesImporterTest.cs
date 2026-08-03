@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -72,7 +73,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "", strategy, messageProvider);
+            Action call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "", strategy, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -86,7 +87,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "", strategy, messageProvider);
+            Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "", strategy, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,7 +101,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, strategy, messageProvider);
+            Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, strategy, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -112,7 +113,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Call
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", null, messageProvider);
+            Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,7 +126,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", strategy, null);
+            Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", strategy, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

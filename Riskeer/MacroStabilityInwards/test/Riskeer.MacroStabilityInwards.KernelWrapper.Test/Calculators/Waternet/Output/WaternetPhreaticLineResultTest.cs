@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaternetPhreaticLineResult(null, new Point2D[0]);
+            Action call = () => new WaternetPhreaticLineResult(null, new Point2D[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaternetPhreaticLineResult("test", null);
+            Action call = () => new WaternetPhreaticLineResult("test", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

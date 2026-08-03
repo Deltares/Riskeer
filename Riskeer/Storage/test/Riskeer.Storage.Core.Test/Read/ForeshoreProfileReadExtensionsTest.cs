@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
@@ -38,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ForeshoreProfileEntity().Read(null);
+            Action test = () => new ForeshoreProfileEntity().Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -79,7 +80,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate test = () => entity.Read(new ReadConversionCollector());
+            Action test = () => entity.Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;

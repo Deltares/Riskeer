@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Data.TestUtil
 {

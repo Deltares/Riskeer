@@ -29,6 +29,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Import;
 

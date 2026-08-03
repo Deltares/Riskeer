@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_StochasticSoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilProfileProperties(null);
+            Action test = () => new PipingStochasticSoilProfileProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

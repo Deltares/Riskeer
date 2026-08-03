@@ -109,7 +109,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(object));
+            Action call = () => converter.ConvertTo(invalidValue, typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -125,7 +125,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
             const ConfigurationStabilityPointStructuresLoadSchematizationType invalidValue = (ConfigurationStabilityPointStructuresLoadSchematizationType) 99999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+            Action call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type " +
@@ -216,7 +216,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(new object());
+            Action call = () => converter.ConvertFrom(new object());
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -230,7 +230,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
             const string invalidValue = "some text";
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
@@ -245,7 +245,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
             const LoadSchematizationType invalidValue = (LoadSchematizationType) 983;
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(LoadSchematizationType)}'.";

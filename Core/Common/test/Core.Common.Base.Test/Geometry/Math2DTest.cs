@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Base.Test.Geometry
 {
@@ -52,7 +53,7 @@ namespace Core.Common.Base.Test.Geometry
             points[nullIndex] = null;
 
             // Call
-            TestDelegate test = () => Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
+            Action test = () => Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -97,8 +98,8 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_WithEqualPoints_ThrowsArgumentException()
         {
             // Call
-            TestDelegate testA = () => Math2D.LineIntersectionWithLine(new Point2D(0, 0), new Point2D(0, 0), new Point2D(1, 0), new Point2D(0, 1));
-            TestDelegate testB = () => Math2D.LineIntersectionWithLine(new Point2D(0, 1), new Point2D(0, 0), new Point2D(1, 1), new Point2D(1, 1));
+            Action testA = () => Math2D.LineIntersectionWithLine(new Point2D(0, 0), new Point2D(0, 0), new Point2D(1, 0), new Point2D(0, 1));
+            Action testB = () => Math2D.LineIntersectionWithLine(new Point2D(0, 1), new Point2D(0, 0), new Point2D(1, 1), new Point2D(1, 1));
 
             // Assert
             var exceptionA = Assert.Throws<ArgumentException>(testA);
@@ -126,7 +127,7 @@ namespace Core.Common.Base.Test.Geometry
         public void SegmentsIntersectionWithVerticalLine_SegmentsIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.SegmentsIntersectionWithVerticalLine(null, 0.0);
+            Action test = () => Math2D.SegmentsIntersectionWithVerticalLine(null, 0.0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -252,7 +253,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+            Action call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
             const string expectedMessage = "Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.";
@@ -277,7 +278,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+            Action call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
             const string expectedMessage = "Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.";
@@ -306,7 +307,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+            Action call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
             const string expectedMessage = "De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.";
@@ -400,7 +401,7 @@ namespace Core.Common.Base.Test.Geometry
             segments[nullIndex] = null;
 
             // Call
-            TestDelegate test = () => Math2D.GetIntersectionBetweenSegments(segments[0], segments[1]);
+            Action test = () => Math2D.GetIntersectionBetweenSegments(segments[0], segments[1]);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1041,7 +1042,7 @@ namespace Core.Common.Base.Test.Geometry
             points[nullIndex] = null;
 
             // Call
-            TestDelegate test = () => Math2D.AreEqualPoints(points[0], points[1]);
+            Action test = () => Math2D.AreEqualPoints(points[0], points[1]);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1072,7 +1073,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Length_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.Length(null);
+            Action test = () => Math2D.Length(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1166,7 +1167,7 @@ namespace Core.Common.Base.Test.Geometry
         public void GetInterpolatedPointAtFraction_LineSegmentIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.GetInterpolatedPointAtFraction(null, 0.0);
+            Action test = () => Math2D.GetInterpolatedPointAtFraction(null, 0.0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1235,7 +1236,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(pointA, pointB);
 
             // Call
-            TestDelegate test = () => Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+            Action test = () => Math2D.GetInterpolatedPointAtFraction(segment, fraction);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
@@ -1247,7 +1248,7 @@ namespace Core.Common.Base.Test.Geometry
         public void GetAngleBetween_PointANull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.GetAngleBetween(null, new Point2D(0.0, 0.0));
+            Action test = () => Math2D.GetAngleBetween(null, new Point2D(0.0, 0.0));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1258,7 +1259,7 @@ namespace Core.Common.Base.Test.Geometry
         public void GetAngleBetween_PointBNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.GetAngleBetween(new Point2D(0.0, 0.0), null);
+            Action test = () => Math2D.GetAngleBetween(new Point2D(0.0, 0.0), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

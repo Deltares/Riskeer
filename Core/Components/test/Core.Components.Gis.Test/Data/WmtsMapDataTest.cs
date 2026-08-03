@@ -65,7 +65,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new WmtsMapData(invalidName, url, capabilityIdentifier, imageFormat);
+            Action call = () => new WmtsMapData(invalidName, url, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_UrlNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsMapData("A", null, capabilityIdentifier, imageFormat);
+            Action call = () => new WmtsMapData("A", null, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -87,7 +87,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_CapabilityNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsMapData("A", url, null, imageFormat);
+            Action call = () => new WmtsMapData("A", url, null, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,7 +98,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_PreferredImageFormatNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsMapData("A", url, capabilityIdentifier, null);
+            Action call = () => new WmtsMapData("A", url, capabilityIdentifier, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -109,7 +109,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_PreferredImageFormatNotInMime_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsMapData("A", url, capabilityIdentifier, "png");
+            Action call = () => new WmtsMapData("A", url, capabilityIdentifier, "png");
 
             // Assert
             const string message = "Specified image format is not a MIME type.";
@@ -124,7 +124,7 @@ namespace Core.Components.Gis.Test.Data
         public void SingleParameteredConstructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new WmtsMapData(invalidName);
+            Action call = () => new WmtsMapData(invalidName);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -162,7 +162,7 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(null, capabilityIdentifier, imageFormat);
+            Action call = () => mapData.Configure(null, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -176,7 +176,7 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(url, null, imageFormat);
+            Action call = () => mapData.Configure(url, null, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -190,7 +190,7 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, null);
+            Action call = () => mapData.Configure(url, capabilityIdentifier, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -204,7 +204,7 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, "png");
+            Action call = () => mapData.Configure(url, capabilityIdentifier, "png");
 
             // Assert
             const string message = "Specified image format is not a MIME type.";

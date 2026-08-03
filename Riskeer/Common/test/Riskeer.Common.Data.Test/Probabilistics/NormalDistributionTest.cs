@@ -110,7 +110,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new NormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+            Action call = () => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
 
             // Assert
             const string expectedMessage = "Standaardafwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";

@@ -61,7 +61,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, null, assessmentSection);
+            Action call = () => new HeightStructuresCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, failureMechanism, null);
+            Action call = () => new HeightStructuresCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

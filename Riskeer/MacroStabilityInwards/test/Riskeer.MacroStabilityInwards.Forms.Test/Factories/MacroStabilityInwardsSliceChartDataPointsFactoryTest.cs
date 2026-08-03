@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Factories;

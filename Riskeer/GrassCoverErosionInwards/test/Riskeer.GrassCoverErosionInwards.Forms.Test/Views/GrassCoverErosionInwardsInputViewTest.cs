@@ -29,6 +29,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;

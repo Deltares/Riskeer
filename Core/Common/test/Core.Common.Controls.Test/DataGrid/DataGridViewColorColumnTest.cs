@@ -65,7 +65,7 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var dataGridViewCell = new DataGridViewTextBoxCell())
             {
                 // Call
-                TestDelegate test = () => column.CellTemplate = dataGridViewCell;
+                Action test = () => column.CellTemplate = dataGridViewCell;
 
                 // Assert
                 var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(

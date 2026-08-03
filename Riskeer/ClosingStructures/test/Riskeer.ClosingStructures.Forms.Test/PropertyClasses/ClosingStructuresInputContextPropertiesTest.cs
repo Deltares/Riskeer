@@ -60,7 +60,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new ClosingStructuresInputContextProperties(null, handler);
+            Action test = () => new ClosingStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -85,7 +85,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSection);
 
             // Call
-            TestDelegate test = () => new ClosingStructuresInputContextProperties(inputContext, null);
+            Action test = () => new ClosingStructuresInputContextProperties(inputContext, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

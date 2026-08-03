@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -42,7 +43,7 @@ namespace Riskeer.Storage.Core.Test
             string storageFile = GetPathToStorageFile();
             if (File.Exists(storageFile))
             {
-                TestDelegate precondition = () => File.Delete(storageFile);
+                Action precondition = () => File.Delete(storageFile);
                 Assert.DoesNotThrow(precondition, "Precondition failed: file could not be deleted: '{0}'", storageFile);
             }
 

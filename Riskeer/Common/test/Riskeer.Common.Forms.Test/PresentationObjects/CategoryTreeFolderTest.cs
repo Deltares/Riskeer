@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects

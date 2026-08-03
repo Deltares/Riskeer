@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -63,7 +64,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                  shapeFileName);
 
             // Call
-            TestDelegate call = () => new PolylineShapeFileReader(nonLineShapeFile);
+            Action call = () => new PolylineShapeFileReader(nonLineShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonLineShapeFile}': kon geen lijnen vinden in dit bestand.";
@@ -82,7 +83,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new PolylineShapeFileReader(path);
+                Action call = () => new PolylineShapeFileReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";

@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             ClosingStructure structure = new TestClosingStructure();
 
             // Call
-            TestDelegate call = () => structure.Create(null, 0);
+            Action call = () => structure.Create(null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

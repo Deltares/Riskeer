@@ -41,7 +41,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             LinearRing linearRing = null;
 
             // Call
-            TestDelegate call = () => linearRing.Reproject(projection, projection);
+            Action call = () => linearRing.Reproject(projection, projection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -66,7 +66,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => linearRing.Reproject(null, projection);
+            Action call = () => linearRing.Reproject(null, projection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -91,7 +91,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => linearRing.Reproject(projection, null);
+            Action call = () => linearRing.Reproject(projection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -248,7 +248,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => extent.Reproject(projection, projection);
+            Action call = () => extent.Reproject(projection, projection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -264,7 +264,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => extent.Reproject(null, projection);
+            Action call = () => extent.Reproject(null, projection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -280,7 +280,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => extent.Reproject(projection, null);
+            Action call = () => extent.Reproject(projection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

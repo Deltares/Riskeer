@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var random = new Random(21);
 
             // Call
-            TestDelegate test = () => new StochasticSoilProfile(random.NextDouble(), null);
+            Action test = () => new StochasticSoilProfile(random.NextDouble(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

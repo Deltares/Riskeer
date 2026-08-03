@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_GoverningWindNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(0,
+            Action call = () => new GeneralResult(0,
                                                         null,
                                                         Enumerable.Empty<Stochast>(),
                                                         new Dictionary<
@@ -50,7 +50,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_StochastsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(0,
+            Action call = () => new GeneralResult(0,
                                                         WindDirectionTestFactory.CreateWindDirection(),
                                                         null,
                                                         new Dictionary<
@@ -66,7 +66,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_IllustrationPointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(0,
+            Action call = () => new GeneralResult(0,
                                                         WindDirectionTestFactory.CreateWindDirection(),
                                                         Enumerable.Empty<Stochast>(),
                                                         null);

@@ -28,6 +28,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -75,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_DikeHeightOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DikeHeightOutputProperties(null);
+            Action test = () => new DikeHeightOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

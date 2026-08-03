@@ -28,6 +28,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test
 {
@@ -63,7 +64,7 @@ namespace Core.Gui.Test
         public void Constructor_OpenProjectConstructionPropertiesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new OpenProjectActivity(null);
+            Action call = () => new OpenProjectActivity(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -86,7 +87,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties);
 
             // Assert
             const string expectedMessage = "File path should be set.";
@@ -109,7 +110,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties);
 
             // Assert
             const string expectedMessage = "Project owner should be set.";
@@ -132,7 +133,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties);
 
             // Assert
             const string expectedMessage = "Project factory should be set.";
@@ -155,7 +156,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties);
 
             // Assert
             const string expectedMessage = "Project storage should be set.";
@@ -186,7 +187,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties, migrateProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties, migrateProjectProperties);
 
             // Assert
             const string expectedMessage = "Migration target file path should be set.";
@@ -216,7 +217,7 @@ namespace Core.Gui.Test
             };
 
             // Call
-            TestDelegate call = () => new OpenProjectActivity(openProjectProperties, migrateProjectProperties);
+            Action call = () => new OpenProjectActivity(openProjectProperties, migrateProjectProperties);
 
             // Assert
             const string expectedMessage = "Project migrator should be set.";

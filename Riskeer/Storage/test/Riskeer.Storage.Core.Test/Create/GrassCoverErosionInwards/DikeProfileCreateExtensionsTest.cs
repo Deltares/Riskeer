@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
-            TestDelegate call = () => dikeProfile.Create(null, 0);
+            Action call = () => dikeProfile.Create(null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

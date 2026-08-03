@@ -40,7 +40,7 @@ namespace Core.Components.GraphShape.Test.Converters
         public void Convert_GraphNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GraphNodeConverter.Convert(null);
+            Action call = () => GraphNodeConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +57,7 @@ namespace Core.Components.GraphShape.Test.Converters
                                                              Color.AntiqueWhite, 2));
 
             // Call
-            TestDelegate test = () => GraphNodeConverter.Convert(graphNode);
+            Action test = () => GraphNodeConverter.Convert(graphNode);
 
             // Assert
             string message = $"The value of argument 'shape' ({shapeAsInteger}) is invalid for Enum type '{typeof(GraphNodeShape).Name}'.";

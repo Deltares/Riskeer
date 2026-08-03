@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.TestUtil;
@@ -314,7 +315,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             FieldInfo fieldInfo = commandHandlerType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (fieldInfo == null)
             {
-                Assert.Fail("Unable to find private field '{0}'", privateShapeFileDirectoryName);
+                Assert.Fail($"Unable to find private field '{privateShapeFileDirectoryName}'");
             }
             else
             {

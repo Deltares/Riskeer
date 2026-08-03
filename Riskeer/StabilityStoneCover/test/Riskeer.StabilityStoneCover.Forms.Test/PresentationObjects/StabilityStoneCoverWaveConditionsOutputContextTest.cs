@@ -38,7 +38,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputContext(output, null);
+            Action call = () => new StabilityStoneCoverWaveConditionsOutputContext(output, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

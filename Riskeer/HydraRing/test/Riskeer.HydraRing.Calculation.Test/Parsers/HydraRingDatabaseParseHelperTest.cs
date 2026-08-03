@@ -46,7 +46,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
         public void Parse_WorkingDirectoryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(null, "", 1, "");
+            Action test = () => HydraRingDatabaseParseHelper.ReadSingleLine(null, "", 1, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -57,7 +57,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
         public void Parse_QueryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", null, 1, "");
+            Action test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", null, 1, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -68,7 +68,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
         public void Parse_ExceptionMessageNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", "", 1, null);
+            Action test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", "", 1, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -82,7 +82,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             string directory = Path.Combine(testDirectory, emptyWorkingDirectory);
 
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 1, "");
+            Action test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 1, "");
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -97,7 +97,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             string directory = Path.Combine(testDirectory, emptyDatabase);
 
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 1, customMessage);
+            Action test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 1, customMessage);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);

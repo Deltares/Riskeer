@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -27,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Settings;
@@ -63,7 +65,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadDesignTableSetting(123, calculationType);
+                Action test = () => reader.ReadDesignTableSetting(123, calculationType);
 
                 // Assert
                 Assert.Throws<InvalidEnumArgumentException>(test);
@@ -129,7 +131,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadDesignTableSetting(locationId, type);
+                Action test = () => reader.ReadDesignTableSetting(locationId, type);
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(test);
@@ -146,7 +148,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(completeDatabase)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadTimeIntegrationSetting(123, calculationType);
+                Action test = () => reader.ReadTimeIntegrationSetting(123, calculationType);
 
                 // Assert
                 Assert.Throws<InvalidEnumArgumentException>(test);
@@ -163,7 +165,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(databaseName)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadTimeIntegrationSetting(locationId, HydraRingFailureMechanismType.AssessmentLevel);
+                Action test = () => reader.ReadTimeIntegrationSetting(locationId, HydraRingFailureMechanismType.AssessmentLevel);
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(test);
@@ -313,7 +315,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
+                Action test = () => reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(test);
@@ -361,7 +363,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(GetDatabasePath(invalidDatabase)))
             {
                 // Call
-                TestDelegate test = () => reader.ReadExcludedLocations().ToArray();
+                Action test = () => reader.ReadExcludedLocations().ToArray();
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(test);

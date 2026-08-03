@@ -22,6 +22,7 @@
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 

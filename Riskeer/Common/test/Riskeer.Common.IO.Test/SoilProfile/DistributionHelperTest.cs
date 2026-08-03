@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             double shift = random.NextDouble();
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
+            Action call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
                                                                                        shift);
 
             // Assert
@@ -57,7 +57,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             double shift = random.NextDouble();
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
+            Action call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
                                                                                        shift);
 
             // Assert
@@ -73,7 +73,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const double shift = 0;
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType, shift);
+            Action call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType, shift);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -87,7 +87,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             double shift = random.NextDouble();
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(null, shift);
+            Action call = () => DistributionHelper.ValidateLogNormalDistribution(null, shift);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -100,7 +100,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const long invalidDistributionType = -1;
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(invalidDistributionType);
+            Action call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(invalidDistributionType);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
@@ -114,7 +114,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const long distributionType = SoilLayerConstants.LogNormalDistributionValue;
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(distributionType);
+            Action call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(distributionType);
 
             // Assert
             Assert.DoesNotThrow(call);

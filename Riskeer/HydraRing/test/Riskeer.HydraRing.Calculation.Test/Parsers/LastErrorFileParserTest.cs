@@ -56,7 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             const string nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
-            TestDelegate call = () => lastErrorFileParser.Parse(nonExistentDirectory, 1);
+            Action call = () => lastErrorFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -69,7 +69,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var lastErrorFileParser = new LastErrorFileParser();
 
             // Call
-            TestDelegate call = () => lastErrorFileParser.Parse(noErrorTestDataDirectory, 1);
+            Action call = () => lastErrorFileParser.Parse(noErrorTestDataDirectory, 1);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -101,7 +101,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             using (new DirectoryPermissionsRevoker(lastErrorTestDataDirectory, FileSystemRights.ReadData))
             {
                 // Call
-                TestDelegate call = () => lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
+                Action call = () => lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);

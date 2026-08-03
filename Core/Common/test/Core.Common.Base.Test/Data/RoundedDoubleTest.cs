@@ -109,7 +109,7 @@ namespace Core.Common.Base.Test.Data
         public void Constructor_InvalidNumberOfPlaces_ThrowArgumentOutOfRangeException(int invalidNumberOfPlaces)
         {
             // Call
-            TestDelegate call = () => new RoundedDouble(invalidNumberOfPlaces);
+            Action call = () => new RoundedDouble(invalidNumberOfPlaces);
 
             // Assert
             const string expectedMessage = "Value must be in range [0, 15].";
@@ -783,7 +783,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(1, 10);
 
             // Call
-            TestDelegate call = () => roundedDouble.CompareTo(new object());
+            Action call = () => roundedDouble.CompareTo(new object());
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Arg must be double or RoundedDouble");

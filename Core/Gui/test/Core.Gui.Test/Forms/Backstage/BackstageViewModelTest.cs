@@ -26,6 +26,7 @@ using System.Reflection;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Settings;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Backstage
 {

@@ -26,6 +26,7 @@ using System.Reflection;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.PropertyBag
 {
@@ -36,7 +37,7 @@ namespace Core.Gui.Test.PropertyBag
         public void Constructor_InfoNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PropertySpec(null);
+            Action call = () => new PropertySpec(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -143,7 +144,7 @@ namespace Core.Gui.Test.PropertyBag
             PropertyInfo propertyInfo = new ClassWithProperties().GetType().GetProperty("Item");
 
             // Call
-            TestDelegate call = () => new PropertySpec(propertyInfo);
+            Action call = () => new PropertySpec(propertyInfo);
 
             // Assert
             const string expectedMessage = "Index properties are not allowed.";
@@ -174,7 +175,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            TestDelegate call = () => propertySpec.SetValue(new object(), 2);
+            Action call = () => propertySpec.SetValue(new object(), 2);
 
             // Assert
             Assert.Throws<TargetException>(call);
@@ -189,7 +190,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            TestDelegate call = () => propertySpec.SetValue(null, 2);
+            Action call = () => propertySpec.SetValue(null, 2);
 
             // Assert
             Assert.Throws<TargetException>(call);
@@ -204,7 +205,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("ThrowsException"));
 
             // Call
-            TestDelegate call = () => propertySpec.SetValue(target, "");
+            Action call = () => propertySpec.SetValue(target, "");
 
             // Assert
             Exception innerException = Assert.Throws<TargetInvocationException>(call).InnerException;
@@ -220,7 +221,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("DoublePropertyWithOnlyGetter"));
 
             // Call
-            TestDelegate call = () => propertySpec.SetValue(target, 2);
+            Action call = () => propertySpec.SetValue(target, 2);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
@@ -236,7 +237,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            TestDelegate call = () => propertySpec.SetValue(target, new object());
+            Action call = () => propertySpec.SetValue(target, new object());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -270,7 +271,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("DoublePropertyWithOnlyPublicSet"));
 
             // Call
-            TestDelegate call = () => propertySpec.GetValue(target);
+            Action call = () => propertySpec.GetValue(target);
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -286,7 +287,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            TestDelegate call = () => propertySpec.GetValue(new object());
+            Action call = () => propertySpec.GetValue(new object());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -302,7 +303,7 @@ namespace Core.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            TestDelegate call = () => propertySpec.GetValue(null);
+            Action call = () => propertySpec.GetValue(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

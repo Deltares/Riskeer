@@ -53,7 +53,7 @@ namespace Core.Common.Util.Test.Extensions
             const string second = "one";
 
             // Call
-            TestDelegate call = () => first.IsBigger(second);
+            Action call = () => first.IsBigger(second);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -84,7 +84,7 @@ namespace Core.Common.Util.Test.Extensions
             const string second = "one";
 
             // Call
-            TestDelegate call = () => first.IsSmaller(second);
+            Action call = () => first.IsSmaller(second);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -124,7 +124,7 @@ namespace Core.Common.Util.Test.Extensions
             const int secondLimit = 2;
 
             // Call
-            TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);
+            Action call = () => sample.IsInRange(firstLimit, secondLimit);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -139,7 +139,7 @@ namespace Core.Common.Util.Test.Extensions
             const string secondLimit = "one";
 
             // Call
-            TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);
+            Action call = () => sample.IsInRange(firstLimit, secondLimit);
 
             // Assert
             Assert.Throws<ArgumentException>(call);

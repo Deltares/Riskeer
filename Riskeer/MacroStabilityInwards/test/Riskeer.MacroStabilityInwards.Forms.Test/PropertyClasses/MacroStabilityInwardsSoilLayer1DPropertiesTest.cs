@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_MacroStabilityInwardsSoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer1DProperties(null);
+            Action test = () => new MacroStabilityInwardsSoilLayer1DProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

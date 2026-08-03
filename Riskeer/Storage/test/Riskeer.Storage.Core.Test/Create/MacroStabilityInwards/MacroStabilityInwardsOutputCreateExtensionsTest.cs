@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsOutput) null).Create();
+            Action call = () => ((MacroStabilityInwardsOutput) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

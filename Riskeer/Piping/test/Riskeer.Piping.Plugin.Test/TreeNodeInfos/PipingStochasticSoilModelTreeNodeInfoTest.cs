@@ -27,6 +27,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives.TestUtil;

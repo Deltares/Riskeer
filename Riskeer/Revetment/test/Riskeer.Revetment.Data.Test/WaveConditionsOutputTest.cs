@@ -86,7 +86,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
             // Call 
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+            Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
                                                                double.NaN, targetProbability, double.NaN, double.NaN, double.NaN,
                                                                CalculationConvergence.NotCalculated);
 
@@ -106,7 +106,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
         {
             // Call 
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+            Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
                                                                double.NaN, double.NaN, double.NaN, calculatedProbability,
                                                                double.NaN, CalculationConvergence.NotCalculated);
 
@@ -122,7 +122,7 @@ namespace Riskeer.Revetment.Data.Test
             const CalculationConvergence invalidEnumValue = (CalculationConvergence) 9001;
 
             // Call
-            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+            Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
                                                                double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
                                                                invalidEnumValue);
 

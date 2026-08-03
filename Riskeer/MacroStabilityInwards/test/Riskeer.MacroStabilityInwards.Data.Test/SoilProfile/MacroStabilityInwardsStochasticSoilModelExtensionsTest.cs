@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsStochasticSoilModelExtensions.IntersectsWithSurfaceLineGeometry(null, surfaceLine);
+            Action test = () => MacroStabilityInwardsStochasticSoilModelExtensions.IntersectsWithSurfaceLineGeometry(null, surfaceLine);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                 });
 
             // Call
-            TestDelegate test = () => soilModel.IntersectsWithSurfaceLineGeometry(null);
+            Action test = () => soilModel.IntersectsWithSurfaceLineGeometry(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

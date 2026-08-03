@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.Piping.Primitives.Test
 {

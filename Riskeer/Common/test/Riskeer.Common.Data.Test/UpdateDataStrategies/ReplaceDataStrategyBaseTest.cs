@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.UpdateDataStrategies;
@@ -114,7 +115,7 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
+            Action call = () => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
 
             // Assert
             CollectionAssert.IsEmpty(collection);

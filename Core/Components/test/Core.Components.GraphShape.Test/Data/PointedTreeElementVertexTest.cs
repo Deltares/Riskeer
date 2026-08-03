@@ -36,7 +36,7 @@ namespace Core.Components.GraphShape.Test.Data
         public void Constructor_ContentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointedTreeElementVertex(null, Colors.Gray, Colors.Gray, 3, PointedTreeVertexType.None, false);
+            Action call = () => new PointedTreeElementVertex(null, Colors.Gray, Colors.Gray, 3, PointedTreeVertexType.None, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

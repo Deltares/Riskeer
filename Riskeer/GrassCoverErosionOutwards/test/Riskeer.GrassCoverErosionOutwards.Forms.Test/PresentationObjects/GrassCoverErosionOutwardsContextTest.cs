@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -44,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(null, failureMechanism, assessmentSection);
+            Action call = () => new SimpleGrassCoverErosionOutwardsContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -59,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, null, assessmentSection);
+            Action call = () => new SimpleGrassCoverErosionOutwardsContext(observable, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -75,7 +76,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, failureMechanism, null);
+            Action call = () => new SimpleGrassCoverErosionOutwardsContext(observable, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

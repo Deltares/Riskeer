@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test.Features
 {
@@ -57,7 +58,7 @@ namespace Core.Components.Gis.Test.Features
         public void ParameteredConstructor_WithoutMapGeometries_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapFeature(null);
+            Action call = () => new MapFeature(null);
 
             // Assert
             const string expectedMessage = "MapFeature cannot be created without map geometries.";

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using Core.Common.TestUtil;
@@ -57,7 +58,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             const int invalidValue = 100;
 
             // Call
-            TestDelegate call = () => MapDataHelper.Convert((PointSymbol) invalidValue);
+            Action call = () => MapDataHelper.Convert((PointSymbol) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'symbol' ({invalidValue}) is invalid for Enum type '{nameof(PointSymbol)}'.";
@@ -88,7 +89,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             const int invalidValue = 100;
 
             // Call
-            TestDelegate call = () => MapDataHelper.Convert((LineDashStyle) invalidValue);
+            Action call = () => MapDataHelper.Convert((LineDashStyle) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'dashStyle' ({invalidValue}) is invalid for Enum type '{nameof(LineDashStyle)}'.";

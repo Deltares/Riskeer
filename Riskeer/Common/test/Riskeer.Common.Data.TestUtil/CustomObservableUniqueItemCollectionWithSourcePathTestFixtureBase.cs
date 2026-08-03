@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -68,7 +69,7 @@ namespace Riskeer.Common.Data.TestUtil
             IEnumerable<TElement> itemsToAdd = SingleNonUniqueElements();
 
             // Call
-            TestDelegate call = () => collection.AddRange(itemsToAdd, "valid/file/path");
+            Action call = () => collection.AddRange(itemsToAdd, "valid/file/path");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -83,7 +84,7 @@ namespace Riskeer.Common.Data.TestUtil
             IEnumerable<TElement> itemsToAdd = MultipleNonUniqueElements();
 
             // Call
-            TestDelegate call = () => collection.AddRange(itemsToAdd, "valid/file/path");
+            Action call = () => collection.AddRange(itemsToAdd, "valid/file/path");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

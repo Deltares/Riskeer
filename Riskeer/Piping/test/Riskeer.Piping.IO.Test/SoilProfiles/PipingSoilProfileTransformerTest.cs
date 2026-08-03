@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
@@ -41,7 +42,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void Transform_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(null);
+            Action test = () => PipingSoilProfileTransformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -55,7 +56,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var invalidType = new TestSoilProfile();
 
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(invalidType);
+            Action test = () => PipingSoilProfileTransformer.Transform(invalidType);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -75,7 +76,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+            Action test = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -150,7 +151,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             };
 
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+            Action test = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -171,7 +172,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+            Action test = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -190,7 +191,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             };
 
             // Call
-            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+            Action test = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -389,7 +390,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
                                             Enumerable.Empty<SoilLayer1D>());
 
             // Call
-            TestDelegate call = () => PipingSoilProfileTransformer.Transform(profile);
+            Action call = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

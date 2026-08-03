@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;

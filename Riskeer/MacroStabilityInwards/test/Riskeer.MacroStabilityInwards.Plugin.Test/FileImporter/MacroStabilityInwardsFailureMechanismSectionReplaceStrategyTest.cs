@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;

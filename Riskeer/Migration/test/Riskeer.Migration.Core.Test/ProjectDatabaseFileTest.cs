@@ -37,7 +37,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 using (new ProjectDatabaseFile(filePath)) {}
             };
@@ -58,7 +58,7 @@ namespace Riskeer.Migration.Core.Test
                 helper.LockFiles();
 
                 // Call
-                TestDelegate call = () =>
+                Action call = () =>
                 {
                     using (new ProjectDatabaseFile(filePath)) {}
                 };
@@ -85,7 +85,7 @@ namespace Riskeer.Migration.Core.Test
                 databaseFile.OpenDatabaseConnection();
 
                 // Call
-                TestDelegate call = () => databaseFile.ExecuteQuery(query);
+                Action call = () => databaseFile.ExecuteQuery(query);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter must be a valid database script.");
@@ -105,7 +105,7 @@ namespace Riskeer.Migration.Core.Test
                 databaseFile.OpenDatabaseConnection();
 
                 // Call
-                TestDelegate call = () => databaseFile.ExecuteQuery("THIS WILL FAIL");
+                Action call = () => databaseFile.ExecuteQuery("THIS WILL FAIL");
 
                 // Assert
                 Assert.Throws<SQLiteException>(call);
@@ -141,7 +141,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetScratchPadPath(filename);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 using (var databaseFile = new ProjectDatabaseFile(filePath))
                 {

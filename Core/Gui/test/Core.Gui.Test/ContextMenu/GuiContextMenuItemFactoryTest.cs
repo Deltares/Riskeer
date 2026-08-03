@@ -30,6 +30,7 @@ using Core.Gui.Plugin;
 using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.ContextMenu
 {

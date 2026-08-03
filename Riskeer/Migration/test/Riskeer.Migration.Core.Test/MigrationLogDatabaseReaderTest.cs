@@ -61,7 +61,7 @@ namespace Riskeer.Migration.Core.Test
             using (var reader = new MigrationLogDatabaseReader(fileName))
             {
                 // Call
-                TestDelegate test = () => reader.GetMigrationLogMessages();
+                Action test = () => reader.GetMigrationLogMessages();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -100,7 +100,7 @@ namespace Riskeer.Migration.Core.Test
             using (var reader = new MigrationLogDatabaseReader(fileName))
             {
                 // Call
-                TestDelegate test = () => reader.GetMigrationLogMessages();
+                Action test = () => reader.GetMigrationLogMessages();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);

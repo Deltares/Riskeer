@@ -44,7 +44,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             // Call
-            TestDelegate call = () => new ReferenceLineImporter(null, handler, "");
+            Action call = () => new ReferenceLineImporter(null, handler, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -55,7 +55,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ReferenceLineImporter(new ReferenceLine(), null, "");
+            Action call = () => new ReferenceLineImporter(new ReferenceLine(), null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

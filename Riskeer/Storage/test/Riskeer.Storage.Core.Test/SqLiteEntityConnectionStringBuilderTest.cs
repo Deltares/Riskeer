@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.Storage.Core.Test
 {
@@ -36,7 +37,7 @@ namespace Riskeer.Storage.Core.Test
         public void BuildSqLiteEntityConnectionString_InvalidPathToSqLiteFile_ThrowsArgumentNullException(string invalidPathToSqLiteFile)
         {
             // Call
-            TestDelegate test = () => SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
+            Action test = () => SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
                 invalidPathToSqLiteFile);
 
             // Assert

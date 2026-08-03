@@ -38,7 +38,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsOutputContext(output, null);
+            Action call = () => new GrassCoverErosionOutwardsWaveConditionsOutputContext(output, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -37,7 +37,7 @@ namespace Core.Common.IO.Test.Readers
         public void Read_NullDataReader_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IDataReader) null).Read<int>("column");
+            Action test = () => ((IDataReader) null).Read<int>("column");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Core.Common.IO.Test.Readers
             var dataReader = Substitute.For<IDataReader>();
 
             // Call
-            TestDelegate test = () => dataReader.Read<int>(null);
+            Action test = () => dataReader.Read<int>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -67,7 +67,7 @@ namespace Core.Common.IO.Test.Readers
             dataReader[columnName].Returns(_ => throw new IndexOutOfRangeException());
 
             // Call
-            TestDelegate test = () => dataReader.Read<int>(columnName);
+            Action test = () => dataReader.Read<int>(columnName);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -85,7 +85,7 @@ namespace Core.Common.IO.Test.Readers
             dataReader[columnName].Returns("3..2");
 
             // Call
-            TestDelegate test = () => dataReader.Read<int>(columnName);
+            Action test = () => dataReader.Read<int>(columnName);
 
             // Assert
             string message = Assert.Throws<ConversionException>(test).Message;
@@ -102,7 +102,7 @@ namespace Core.Common.IO.Test.Readers
             dataReader[columnName].Returns(value);
 
             // Call
-            TestDelegate test = () => dataReader.Read<IDataReader>(columnName);
+            Action test = () => dataReader.Read<IDataReader>(columnName);
 
             // Assert
             string message = Assert.Throws<ConversionException>(test).Message;
@@ -121,7 +121,7 @@ namespace Core.Common.IO.Test.Readers
             dataReader[columnName].Returns(3e139);
 
             // Call
-            TestDelegate test = () => dataReader.Read<int>(columnName);
+            Action test = () => dataReader.Read<int>(columnName);
 
             // Assert
             string message = Assert.Throws<ConversionException>(test).Message;

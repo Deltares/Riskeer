@@ -131,7 +131,7 @@ namespace Riskeer.Storage.Core.TestUtil
             }
             catch (Exception exception)
             {
-                Assert.Fail("Precondition failed: creating database file failed due to {0}", exception);
+                Assert.Fail($"Precondition failed: creating database file failed due to {exception}");
             }
             finally
             {

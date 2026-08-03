@@ -51,7 +51,7 @@ namespace Core.Common.Base.Test.Geometry
         public void CopyConstructor_PointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new Point3D(null);
+            Action test = () => new Point3D(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

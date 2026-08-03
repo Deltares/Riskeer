@@ -26,6 +26,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Core.Components.GraphShape.Forms.Extensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.GraphShape.Forms.Test.Extensions
 {

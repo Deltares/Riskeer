@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;

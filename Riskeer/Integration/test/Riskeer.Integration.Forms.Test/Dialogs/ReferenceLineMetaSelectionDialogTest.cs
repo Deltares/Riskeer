@@ -27,6 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
@@ -45,7 +46,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReferenceLineMetaSelectionDialog(null, Enumerable.Empty<ReferenceLineMeta>());
+            Action test = () => new ReferenceLineMetaSelectionDialog(null, Enumerable.Empty<ReferenceLineMeta>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -59,7 +60,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             using (var viewParent = new Form())
             {
                 // Call
-                TestDelegate test = () => new ReferenceLineMetaSelectionDialog(viewParent, null);
+                Action test = () => new ReferenceLineMetaSelectionDialog(viewParent, null);
 
                 // Assert
                 string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

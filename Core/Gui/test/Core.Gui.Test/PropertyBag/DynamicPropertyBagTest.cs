@@ -27,6 +27,7 @@ using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CategoryAttribute = System.ComponentModel.CategoryAttribute;
 
 namespace Core.Gui.Test.PropertyBag
@@ -38,7 +39,7 @@ namespace Core.Gui.Test.PropertyBag
         public void Constructor_PropertyObjectNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DynamicPropertyBag(null);
+            Action call = () => new DynamicPropertyBag(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

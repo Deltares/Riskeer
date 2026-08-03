@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Base.Test.Geometry
 {
@@ -35,7 +36,7 @@ namespace Core.Common.Base.Test.Geometry
         public void IsReclining_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>) null).IsReclining();
+            Action test = () => ((IEnumerable<Point3D>) null).IsReclining();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -76,7 +77,7 @@ namespace Core.Common.Base.Test.Geometry
         public void IsZeroLength_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>) null).IsZeroLength();
+            Action test = () => ((IEnumerable<Point3D>) null).IsZeroLength();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -175,7 +176,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectToLZ_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>) null).ProjectToLZ();
+            Action test = () => ((IEnumerable<Point3D>) null).ProjectToLZ();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

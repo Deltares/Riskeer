@@ -96,7 +96,7 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_ContentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GraphNode(null, new GraphNode[0], false);
+            Action call = () => new GraphNode(null, new GraphNode[0], false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -107,7 +107,7 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_ChildNodesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GraphNode("<text>test</text>", null, false);
+            Action call = () => new GraphNode("<text>test</text>", null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,7 +118,7 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_StyleNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GraphNode("<text>test</text>", new GraphNode[0], false, null);
+            Action call = () => new GraphNode("<text>test</text>", new GraphNode[0], false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -132,7 +132,7 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_InvalidContent_ThrowsArgumentException(string content)
         {
             // Call
-            TestDelegate call = () => new GraphNode(content, new GraphNode[0], false);
+            Action call = () => new GraphNode(content, new GraphNode[0], false);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Content is of invalid format.");

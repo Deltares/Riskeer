@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.ClosingStructures.IO;

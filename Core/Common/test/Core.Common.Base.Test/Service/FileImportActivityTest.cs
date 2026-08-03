@@ -34,7 +34,7 @@ namespace Core.Common.Base.Test.Service
         public void Constructor_ImporterEqualsNull_ArgumentExceptionIsThrown()
         {
             // Call
-            TestDelegate test = () => new FileImportActivity(null, "");
+            Action test = () => new FileImportActivity(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Core.Common.Base.Test.Service
             var importer = Substitute.For<IFileImporter>();
 
             // Call
-            TestDelegate call = () => new FileImportActivity(importer, null);
+            Action call = () => new FileImportActivity(importer, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

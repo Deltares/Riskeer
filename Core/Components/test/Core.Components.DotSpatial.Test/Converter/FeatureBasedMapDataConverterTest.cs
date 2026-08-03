@@ -39,6 +39,7 @@ using DotSpatial.Symbology;
 using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -53,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(null, mapLayer);
+            Action test = () => testConverter.ConvertLayerFeatures(null, mapLayer);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into feature layer data.";
@@ -68,7 +69,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(mapData, null);
+            Action test = () => testConverter.ConvertLayerFeatures(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -83,7 +84,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(null, mapLayer);
+            Action test = () => testConverter.ConvertLayerProperties(null, mapLayer);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into feature layer data.";
@@ -98,7 +99,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(mapData, null);
+            Action test = () => testConverter.ConvertLayerProperties(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";

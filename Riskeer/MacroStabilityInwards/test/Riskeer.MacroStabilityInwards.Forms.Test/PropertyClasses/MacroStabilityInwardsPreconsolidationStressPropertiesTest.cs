@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_PreconsolidationStressNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStressProperties(null);
+            Action call = () => new MacroStabilityInwardsPreconsolidationStressProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

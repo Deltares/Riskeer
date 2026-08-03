@@ -38,7 +38,7 @@ namespace Riskeer.Migration.Core.Test
             const string message = "message";
 
             // Call
-            TestDelegate test = () => new MigrationLogMessage(fromVersion, toVersion, message);
+            Action test = () => new MigrationLogMessage(fromVersion, toVersion, message);
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -58,7 +58,7 @@ namespace Riskeer.Migration.Core.Test
             const string message = "message";
 
             // Call
-            TestDelegate test = () => new MigrationLogMessage(fromVersion, toVersion, message);
+            Action test = () => new MigrationLogMessage(fromVersion, toVersion, message);
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -78,7 +78,7 @@ namespace Riskeer.Migration.Core.Test
             const string toVersion = "toVersion";
 
             // Call
-            TestDelegate test = () => new MigrationLogMessage(fromVersion, toVersion, null);
+            Action test = () => new MigrationLogMessage(fromVersion, toVersion, null);
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(

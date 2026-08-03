@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateHydraulicLocationOutputEntity_HydraulicBoundaryLocationCalculationOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryLocationCalculationOutput) null).CreateHydraulicLocationOutputEntity();
+            Action call = () => ((HydraulicBoundaryLocationCalculationOutput) null).CreateHydraulicLocationOutputEntity();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,11 +60,11 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
-            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
-            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
 
             Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);

@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             VariationCoefficientDistributionReadOnlyProperties flags)
         {
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
+            Action call = () => new SimpleDistributionProperties(flags, null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null);
+            Action call = () => new SimpleDistributionProperties(flags, distribution, null);
 
             // Assert
             const string message = "Change handler required if changes are possible.";
@@ -169,7 +169,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 handler);
 
             // Call
-            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
+            Action test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
             const string expectedMessage = "Mean is set to be read-only.";
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Call
-            TestDelegate test = () => properties.CoefficientOfVariation = new RoundedDouble(2, 20);
+            Action test = () => properties.CoefficientOfVariation = new RoundedDouble(2, 20);
 
             // Assert
             const string expectedMessage = "CoefficientOfVariation is set to be read-only.";

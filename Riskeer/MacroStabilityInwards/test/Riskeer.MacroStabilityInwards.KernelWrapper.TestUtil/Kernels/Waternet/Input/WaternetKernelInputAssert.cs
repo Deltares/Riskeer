@@ -22,6 +22,7 @@
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.Input

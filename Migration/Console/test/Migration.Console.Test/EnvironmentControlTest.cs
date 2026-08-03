@@ -43,7 +43,7 @@ namespace Migration.Console.Test
         public void Instance_InstanceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => EnvironmentControl.Instance = null;
+            Action call = () => EnvironmentControl.Instance = null;
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

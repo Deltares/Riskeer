@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
@@ -51,7 +52,7 @@ namespace Core.Components.BruTile.Forms.Test
             var factory = new BruTileWmtsCapabilityFactory();
 
             // Call
-            TestDelegate call = () => factory.GetWmtsCapabilities(url).ToArray();
+            Action call = () => factory.GetWmtsCapabilities(url).ToArray();
 
             // Assert
             var exception = Assert.Throws<CannotFindTileSourceException>(call);

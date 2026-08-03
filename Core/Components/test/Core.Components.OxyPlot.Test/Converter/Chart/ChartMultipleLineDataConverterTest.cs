@@ -30,6 +30,7 @@ using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.Converter.Chart;
 using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 
 namespace Core.Components.OxyPlot.Test.Converter.Chart

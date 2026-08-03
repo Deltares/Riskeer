@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -35,7 +36,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => CombinationTypeConverter.Convert((HydraRingCombinationType) 99);
+            Action test = () => CombinationTypeConverter.Convert((HydraRingCombinationType) 99);
 
             // Assert
             const string message = "The value of argument 'hydraRingCombinationType' (99) is invalid for Enum type 'CombinationType'.";

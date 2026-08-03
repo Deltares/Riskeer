@@ -31,6 +31,7 @@ using Core.Common.Util.TestUtil.Settings;
 using Core.Gui.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;

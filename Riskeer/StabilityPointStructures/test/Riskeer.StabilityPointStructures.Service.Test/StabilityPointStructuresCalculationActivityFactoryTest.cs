@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -56,7 +57,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(null,
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                                    new StabilityPointStructuresFailureMechanism(),
                                                                                                                    assessmentSection);
 
@@ -72,7 +73,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<StabilityPointStructuresInput>(),
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<StabilityPointStructuresInput>(),
                                                                                                                    null,
                                                                                                                    assessmentSection);
 
@@ -89,7 +90,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -122,7 +123,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(null,
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                                      new StabilityPointStructuresFailureMechanism(),
                                                                                                                      assessmentSection);
 
@@ -138,7 +139,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                                      null,
                                                                                                                      assessmentSection);
 
@@ -151,7 +152,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                                      new StabilityPointStructuresFailureMechanism(),
                                                                                                                      null);
 
@@ -202,7 +203,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -213,7 +214,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new StabilityPointStructuresFailureMechanism(), null);
+            Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

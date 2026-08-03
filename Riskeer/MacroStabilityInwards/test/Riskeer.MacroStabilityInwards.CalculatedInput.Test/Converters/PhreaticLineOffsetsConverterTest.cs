@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         public void Convert_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PhreaticLineOffsetsConverter.Convert(null);
+            Action call = () => PhreaticLineOffsetsConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -93,7 +93,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new ProbabilisticPipingCalculationScenarioContext(calculation,
+            Action call = () => new ProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                         null,
                                                                                         surfaceLines,
                                                                                         soilModels,

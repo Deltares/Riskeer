@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Controls.Test.PresentationObjects
 {

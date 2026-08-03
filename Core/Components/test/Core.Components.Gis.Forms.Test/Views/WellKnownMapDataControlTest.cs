@@ -158,7 +158,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 using (var control = new WellKnownMapDataControl(null))
                 {

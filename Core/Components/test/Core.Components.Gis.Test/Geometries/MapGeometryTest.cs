@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test.Geometries
 {
@@ -74,7 +75,7 @@ namespace Core.Components.Gis.Test.Geometries
         public void ParameteredConstructor_WithoutPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapGeometry(null);
+            Action call = () => new MapGeometry(null);
 
             // Assert
             const string expectedMessage = "MapGeometry cannot be created without points.";

@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;

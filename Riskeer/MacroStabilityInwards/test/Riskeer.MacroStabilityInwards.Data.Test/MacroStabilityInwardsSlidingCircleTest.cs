@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_CenterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCircle(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            Action call = () => new MacroStabilityInwardsSlidingCircle(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

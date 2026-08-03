@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCircleResult rightCircle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanSlidingCurveResult(null, rightCircle, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
+            Action call = () => new UpliftVanSlidingCurveResult(null, rightCircle, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCircleResult leftCircle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanSlidingCurveResult(leftCircle, null, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
+            Action call = () => new UpliftVanSlidingCurveResult(leftCircle, null, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCircleResult circle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanSlidingCurveResult(circle, circle, null, 0, 0);
+            Action call = () => new UpliftVanSlidingCurveResult(circle, circle, null, 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

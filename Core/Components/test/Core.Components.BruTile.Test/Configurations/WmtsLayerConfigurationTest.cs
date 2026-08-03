@@ -47,7 +47,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_CapabilitiesUrlNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(null, "A", validPreferredFormat);
+            Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(null, "A", validPreferredFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -58,7 +58,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_CapabilityIdNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", null, validPreferredFormat);
+            Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", null, validPreferredFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -69,7 +69,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_PreferredFormatNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", "B", null);
+            Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", "B", null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -80,7 +80,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_PreferredFormatNotMime_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", "B", "png");
+            Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", "B", "png");
 
             // Assert
             const string message = "Afbeelding formaat moet opgegeven worden als MIME-type.";
@@ -101,7 +101,7 @@ namespace Core.Components.BruTile.Test.Configurations
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
-                TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(url, id, validPreferredFormat);
+                Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(url, id, validPreferredFormat);
 
                 // Assert
                 string message = Assert.Throws<CannotFindTileSourceException>(call).Message;
@@ -132,7 +132,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 directoryDisposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
                                                                                                 targetMapData.SelectedCapabilityIdentifier,
                                                                                                 targetMapData.PreferredFormat);
 
@@ -245,7 +245,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 configuration.Dispose();
 
                 // Call
-                TestDelegate call = () => configuration.Clone();
+                Action call = () => configuration.Clone();
 
                 // Assert
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
@@ -311,7 +311,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 configuration.Dispose();
 
                 // Call
-                TestDelegate call = () => configuration.Initialize();
+                Action call = () => configuration.Initialize();
 
                 // Assert
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;

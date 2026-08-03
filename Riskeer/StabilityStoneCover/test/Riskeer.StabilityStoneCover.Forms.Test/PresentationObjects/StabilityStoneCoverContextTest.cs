@@ -42,7 +42,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(null, failureMechanism, assessmentSection);
+            Action call = () => new SimpleStabilityStoneCoverContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,7 +57,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var observable = Substitute.For<IObservable>();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, null, assessmentSection);
+            Action call = () => new SimpleStabilityStoneCoverContext(observable, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -73,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, failureMechanism, null);
+            Action call = () => new SimpleStabilityStoneCoverContext(observable, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

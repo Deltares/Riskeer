@@ -58,7 +58,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "doesNotExist.sqlite");
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile)) {}
             };
@@ -75,7 +75,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hrdFilePath)
         {
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new HydraulicBoundaryDatabaseReader(hrdFilePath)) {}
             };
@@ -95,7 +95,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.Read();
+                Action test = () => reader.Read();
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
@@ -114,7 +114,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.Read();
+                Action test = () => reader.Read();
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
@@ -132,7 +132,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.Read();
+                Action test = () => reader.Read();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(test);
@@ -151,7 +151,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.Read();
+                Action test = () => reader.Read();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(test);
@@ -191,7 +191,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.ReadVersion();
+                Action test = () => reader.ReadVersion();
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
@@ -209,7 +209,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                TestDelegate test = () => reader.ReadVersion();
+                Action test = () => reader.ReadVersion();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);

@@ -40,7 +40,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FaultTreeIllustrationPointConverter.Convert(null);
+            Action call = () => FaultTreeIllustrationPointConverter.Convert(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                 (HydraRingCombinationType) 999999);
 
             // Call
-            TestDelegate call = () => FaultTreeIllustrationPointConverter.Convert(hydraRingFaultTreeIllustrationPoint);
+            Action call = () => FaultTreeIllustrationPointConverter.Convert(hydraRingFaultTreeIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);

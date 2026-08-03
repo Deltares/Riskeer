@@ -67,7 +67,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
+            Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

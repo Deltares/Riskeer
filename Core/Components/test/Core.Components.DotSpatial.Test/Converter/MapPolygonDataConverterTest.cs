@@ -37,6 +37,7 @@ using DotSpatial.Symbology;
 using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {

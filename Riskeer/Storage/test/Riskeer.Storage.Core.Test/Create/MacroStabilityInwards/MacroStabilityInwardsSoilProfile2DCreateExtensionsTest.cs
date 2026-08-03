@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D();
 
             // Call
-            TestDelegate test = () => soilProfile.Create(null);
+            Action test = () => soilProfile.Create(null);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsSoilProfile2D) null).Create(registry);
+            Action test = () => ((MacroStabilityInwardsSoilProfile2D) null).Create(registry);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -130,10 +130,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(preconsolidationStress.Location.Y, entity.CoordinateZ);
 
             VariationCoefficientLogNormalDistribution preconsolidationDistribution = preconsolidationStress.Stress;
-            Assert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
-                            preconsolidationDistribution.GetAccuracy());
-            Assert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
-                            preconsolidationDistribution.GetAccuracy());
+            NullableDoubleAssert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
+                                          preconsolidationDistribution.GetAccuracy());
+            NullableDoubleAssert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
+                                          preconsolidationDistribution.GetAccuracy());
         }
 
         private static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()

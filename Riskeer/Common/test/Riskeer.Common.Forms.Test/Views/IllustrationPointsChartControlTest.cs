@@ -31,6 +31,7 @@ using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Views;

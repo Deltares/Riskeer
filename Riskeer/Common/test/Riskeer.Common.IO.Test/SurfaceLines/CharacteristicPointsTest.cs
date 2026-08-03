@@ -32,7 +32,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_WithNullName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CharacteristicPoints(null);
+            Action test = () => new CharacteristicPoints(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

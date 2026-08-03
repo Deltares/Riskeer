@@ -73,7 +73,7 @@ namespace Core.Components.GraphShape.Forms.Test.Converters
             var converter = new SelectedVertexLineWidthConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertBack(string.Empty, typeof(int), null, CultureInfo.InvariantCulture);
+            Action call = () => converter.ConvertBack(string.Empty, typeof(int), null, CultureInfo.InvariantCulture);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

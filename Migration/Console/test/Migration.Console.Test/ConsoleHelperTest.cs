@@ -43,7 +43,7 @@ namespace Migration.Console.Test
             const string args = "an argument";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteErrorLine(null, args);
+            Action call = () => ConsoleHelper.WriteErrorLine(null, args);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -59,7 +59,7 @@ namespace Migration.Console.Test
             const string writeLine = "this is an error line with {0}";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteErrorLine(writeLine, null);
+            Action call = () => ConsoleHelper.WriteErrorLine(writeLine, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -115,7 +115,7 @@ namespace Migration.Console.Test
             const string invalidFormat = "{d}";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteErrorLine(invalidFormat, "ABC");
+            Action call = () => ConsoleHelper.WriteErrorLine(invalidFormat, "ABC");
 
             // Assert
             Assert.Throws<FormatException>(call);
@@ -128,7 +128,7 @@ namespace Migration.Console.Test
             const string args = "an argument";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(null, args);
+            Action call = () => ConsoleHelper.WriteCommandDescriptionLine(null, args);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -142,7 +142,7 @@ namespace Migration.Console.Test
             const string writeLine = "this is an error line with {0}";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(writeLine, null);
+            Action call = () => ConsoleHelper.WriteCommandDescriptionLine(writeLine, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -196,7 +196,7 @@ namespace Migration.Console.Test
             const string invalidFormat = "{d}";
 
             // Call
-            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(invalidFormat, "ABC");
+            Action call = () => ConsoleHelper.WriteCommandDescriptionLine(invalidFormat, "ABC");
 
             // Assert
             Assert.Throws<FormatException>(call);

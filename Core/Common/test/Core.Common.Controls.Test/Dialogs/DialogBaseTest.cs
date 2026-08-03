@@ -40,7 +40,7 @@ namespace Core.Common.Controls.Test.Dialogs
             Icon icon = SystemIcons.Application;
 
             // Call
-            TestDelegate test = () => new TestDialog(null, icon, 1, 2);
+            Action test = () => new TestDialog(null, icon, 1, 2);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +54,7 @@ namespace Core.Common.Controls.Test.Dialogs
             var window = Substitute.For<IWin32Window>();
 
             // Call
-            TestDelegate test = () => new TestDialog(window, (Icon) null, 1, 2);
+            Action test = () => new TestDialog(window, (Icon) null, 1, 2);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -68,7 +68,7 @@ namespace Core.Common.Controls.Test.Dialogs
             var window = Substitute.For<IWin32Window>();
 
             // Call
-            TestDelegate test = () => new TestDialog(window, (Bitmap) null, 1, 2);
+            Action test = () => new TestDialog(window, (Bitmap) null, 1, 2);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -84,7 +84,7 @@ namespace Core.Common.Controls.Test.Dialogs
             Icon icon = SystemIcons.Application;
             var window = Substitute.For<IWin32Window>();
 
-            TestDelegate test = () => new TestDialog(window, icon, minWidth, 1);
+            Action test = () => new TestDialog(window, icon, minWidth, 1);
 
             // Call & Assert
             const string expectedMessage = "The minimum width of the dialog should be greater than 0";
@@ -100,7 +100,7 @@ namespace Core.Common.Controls.Test.Dialogs
             Icon icon = SystemIcons.Application;
             var window = Substitute.For<IWin32Window>();
 
-            TestDelegate test = () => new TestDialog(window, icon, 1, minHeight);
+            Action test = () => new TestDialog(window, icon, 1, minHeight);
 
             // Call & Assert
             const string expectedMessage = "The minimum height of the dialog should be greater than 0";

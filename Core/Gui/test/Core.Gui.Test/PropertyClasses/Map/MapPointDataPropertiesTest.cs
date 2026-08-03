@@ -38,6 +38,7 @@ using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.PropertyClasses.Map
 {

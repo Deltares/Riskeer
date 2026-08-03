@@ -56,7 +56,7 @@ namespace Core.Common.Base.Test.Geometry
         public void CopyConstructor_PointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new Point2D(null);
+            Action test = () => new Point2D(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -102,7 +102,7 @@ namespace Core.Common.Base.Test.Geometry
             var second = new Point2D(0, 0);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Vector<double> result = first - second;
             };
@@ -120,7 +120,7 @@ namespace Core.Common.Base.Test.Geometry
             Point2D second = null;
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Vector<double> result = first - second;
             };
@@ -154,7 +154,7 @@ namespace Core.Common.Base.Test.Geometry
             Vector<double> vector = new DenseVector(2);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Point2D result = point + vector;
             };
@@ -172,7 +172,7 @@ namespace Core.Common.Base.Test.Geometry
             Vector<double> vector = null;
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Point2D result = point + vector;
             };
@@ -246,7 +246,7 @@ namespace Core.Common.Base.Test.Geometry
             });
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Point2D result = originalPoint + vector3D;
             };
@@ -276,7 +276,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(1.1, 2.2);
 
             // Call
-            TestDelegate call = () => point.GetEuclideanDistanceTo(null);
+            Action call = () => point.GetEuclideanDistanceTo(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

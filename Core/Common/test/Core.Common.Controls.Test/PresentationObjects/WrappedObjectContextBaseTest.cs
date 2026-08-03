@@ -48,7 +48,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Constructor_InputArgumentIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleWrappedObjectContext<object>(null);
+            Action call = () => new SimpleWrappedObjectContext<object>(null);
 
             // Assert
             const string expectedMessage = "Wrapped data of context cannot be null.";

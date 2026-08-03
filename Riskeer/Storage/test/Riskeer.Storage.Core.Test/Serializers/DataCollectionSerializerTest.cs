@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Storage.Core.Serializers;
 
 namespace Riskeer.Storage.Core.Test.Serializers
@@ -42,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
             var serializer = new TestDataCollectionSerializer();
 
             // Call
-            TestDelegate call = () => serializer.ToXml(null);
+            Action call = () => serializer.ToXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -60,7 +61,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
             };
 
             // Call
-            TestDelegate call = () => serializer.ToXml(collection);
+            Action call = () => serializer.ToXml(collection);
 
             // Assert
             Assert.Throws<InvalidDataContractException>(call);
@@ -106,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
             var serializer = new TestDataCollectionSerializer();
 
             // Call
-            TestDelegate call = () => serializer.FromXml(invalidXml);
+            Action call = () => serializer.FromXml(invalidXml);
 
             // Assert
             Assert.Throws<SerializationException>(call);
@@ -121,7 +122,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
             var serializer = new TestDataCollectionSerializer();
 
             // Call
-            TestDelegate call = () => serializer.FromXml(null);
+            Action call = () => serializer.FromXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;

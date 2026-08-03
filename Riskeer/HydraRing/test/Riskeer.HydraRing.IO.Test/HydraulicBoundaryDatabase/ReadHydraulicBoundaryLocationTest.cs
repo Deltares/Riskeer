@@ -32,7 +32,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ReadHydraulicBoundaryLocation(1, null, 2, 3);
+            Action call = () => new ReadHydraulicBoundaryLocation(1, null, 2, 3);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

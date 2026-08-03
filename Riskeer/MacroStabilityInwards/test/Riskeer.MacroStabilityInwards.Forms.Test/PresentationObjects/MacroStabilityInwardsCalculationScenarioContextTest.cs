@@ -91,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationScenarioContext(calculation,
+            Action call = () => new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                           null,
                                                                                           surfaceLines,
                                                                                           soilModels,

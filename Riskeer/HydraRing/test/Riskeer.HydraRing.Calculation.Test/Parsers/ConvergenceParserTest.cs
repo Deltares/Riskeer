@@ -54,7 +54,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(null, 1);
+            Action test = () => parser.Parse(null, 1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,7 +69,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -84,7 +84,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -100,7 +100,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -115,7 +115,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -130,7 +130,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -185,7 +185,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
             {
                 // Call
-                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+                Action call = () => parser.Parse(workingDirectory, 1);
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);

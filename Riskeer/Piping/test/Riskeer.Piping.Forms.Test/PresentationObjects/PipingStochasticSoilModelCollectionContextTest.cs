@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var stochasticSoilModels = new PipingStochasticSoilModelCollection();
 
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
+            Action test = () => new PipingStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
+            Action test = () => new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

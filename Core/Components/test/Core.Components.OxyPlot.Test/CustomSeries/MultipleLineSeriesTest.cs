@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Components.OxyPlot.CustomSeries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
@@ -50,7 +51,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var series = new MultipleLineSeries();
 
             // Call
-            TestDelegate test = () => series.Render(null);
+            Action test = () => series.Render(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

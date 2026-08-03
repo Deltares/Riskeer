@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
@@ -33,7 +34,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void GetStochastNames_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => TopLevelSubMechanismIllustrationPointExtensions.GetStochastNames(null);
+            Action test = () => TopLevelSubMechanismIllustrationPointExtensions.GetStochastNames(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

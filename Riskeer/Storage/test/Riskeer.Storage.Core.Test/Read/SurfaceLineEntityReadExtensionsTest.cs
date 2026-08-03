@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
@@ -43,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(null);
+            Action call = () => entity.ReadAsPipingSurfaceLine(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => ((SurfaceLineEntity) null).ReadAsPipingSurfaceLine(collector);
+            Action call = () => ((SurfaceLineEntity) null).ReadAsPipingSurfaceLine(collector);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
+            Action call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -323,7 +324,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
+            Action call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
 
             // Assert
             string exoectedMessage = $"The value of argument 'type' ({invalidCharacteristicPointType}) is invalid for Enum type '{nameof(PipingCharacteristicPointType)}'.";
@@ -358,7 +359,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity();
 
             // Call
-            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(null);
+            Action call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -372,7 +373,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => ((SurfaceLineEntity) null).ReadAsMacroStabilityInwardsSurfaceLine(collector);
+            Action call = () => ((SurfaceLineEntity) null).ReadAsMacroStabilityInwardsSurfaceLine(collector);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -389,7 +390,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(new ReadConversionCollector());
+            Action call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -677,7 +678,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(new ReadConversionCollector());
+            Action call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(new ReadConversionCollector());
 
             // Assert
             string exoectedMessage = $"The value of argument 'type' ({invalidCharacteristicPointType}) is invalid for Enum type '{nameof(MacroStabilityInwardsCharacteristicPointType)}'.";

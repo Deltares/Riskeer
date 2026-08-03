@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;

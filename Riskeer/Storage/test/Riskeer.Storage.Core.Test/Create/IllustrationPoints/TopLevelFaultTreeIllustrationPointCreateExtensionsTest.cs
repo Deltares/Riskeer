@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -38,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_TopLevelFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((TopLevelFaultTreeIllustrationPoint) null).Create(0);
+            Action call = () => ((TopLevelFaultTreeIllustrationPoint) null).Create(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -55,7 +55,7 @@ namespace Core.Components.Gis.Test.Theme
             var valueOperator = random.NextEnumValue<ValueCriterionOperator>();
 
             // Call
-            TestDelegate call = () => new ValueCriterion(valueOperator, null);
+            Action call = () => new ValueCriterion(valueOperator, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Core.Components.Gis.Test.Theme
             const ValueCriterionOperator invalidOperator = (ValueCriterionOperator) 9999;
 
             // Call
-            TestDelegate call = () => new ValueCriterion(invalidOperator, "test");
+            Action call = () => new ValueCriterion(invalidOperator, "test");
 
             // Assert
             string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriterionOperator)}'.";

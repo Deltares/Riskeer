@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
@@ -65,7 +66,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
-            TestDelegate test = () => new DuneLocationCalculationService().Calculate(null,
+            Action test = () => new DuneLocationCalculationService().Calculate(null,
                                                                                      1,
                                                                                      CreateCalculationSettings(),
                                                                                      calculationMessageProvider);
@@ -79,7 +80,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_MessageProviderNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
+            Action test = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
                                                                                      1,
                                                                                      CreateCalculationSettings(),
                                                                                      null);
@@ -95,7 +96,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
-            TestDelegate call = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
+            Action call = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
                                                                                      1,
                                                                                      null,
                                                                                      calculationMessageProvider);

@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void SingleParameterConstructor_DesignVariableNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(null);
+            Action test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
+            Action test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                                                             null,
                                                                                                             handler);
 

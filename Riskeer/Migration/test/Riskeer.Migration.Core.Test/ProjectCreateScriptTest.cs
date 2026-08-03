@@ -42,7 +42,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new ProjectCreateScript(version, query);
+            Action call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -57,7 +57,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new ProjectCreateScript(version, query);
+            Action call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string expectedMessage = $@"'{version}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
@@ -74,7 +74,7 @@ namespace Riskeer.Migration.Core.Test
             string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new ProjectCreateScript(version, query);
+            Action call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -130,7 +130,7 @@ namespace Riskeer.Migration.Core.Test
                 File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
 
                 // Call
-                TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
+                Action call = () => createScript.CreateEmptyVersionedFile(filePath);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentException>(call);
@@ -150,7 +150,7 @@ namespace Riskeer.Migration.Core.Test
             var createScript = new ProjectCreateScript(version, query);
 
             // Call
-            TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
+            Action call = () => createScript.CreateEmptyVersionedFile(filePath);
 
             // Assert
             using (new FileDisposeHelper(filePath))

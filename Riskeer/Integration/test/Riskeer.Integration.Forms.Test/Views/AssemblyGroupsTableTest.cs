@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.Views;
 

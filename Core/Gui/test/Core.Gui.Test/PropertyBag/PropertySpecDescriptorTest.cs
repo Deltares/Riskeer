@@ -35,7 +35,7 @@ namespace Core.Gui.Test.PropertyBag
         public void Constructor_PropertySpecNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PropertySpecDescriptor(null, new object());
+            Action call = () => new PropertySpecDescriptor(null, new object());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -202,7 +202,7 @@ namespace Core.Gui.Test.PropertyBag
             Assert.IsFalse(propertyDescriptor.CanResetValue(instance));
 
             // Call
-            TestDelegate call = () => propertyDescriptor.ResetValue(instance);
+            Action call = () => propertyDescriptor.ResetValue(instance);
 
             // Assert
             Assert.Throws<InvalidOperationException>(call);

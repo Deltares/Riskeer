@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 // Call
-                TestDelegate test = () => resultControl.SetError(null);
+                Action test = () => resultControl.SetError(null);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);

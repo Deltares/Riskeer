@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_TopLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+            Action call = () => new MacroStabilityInwardsSlice(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
                                                                      new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
@@ -47,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_TopRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
+            Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
                                                                      new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_BottomLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
+            Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
                                                                      new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_BottomRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
+            Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
                                                                      new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
+            Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -28,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 
@@ -45,7 +46,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new SegmentPointReader(testFile)) {}
             };
@@ -61,7 +62,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new SegmentPointReader(fileName);
+            Action test = () => new SegmentPointReader(fileName);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -93,7 +94,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new SegmentPointReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                Action test = () => reader.Initialize();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -157,7 +158,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadStochasticSoilModelId();
+                Action test = () => reader.ReadStochasticSoilModelId();
 
                 // Assert
                 var exception = Assert.Throws<InvalidOperationException>(test);
@@ -228,7 +229,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSegmentPoints().ToArray();
+                Action test = () => reader.ReadSegmentPoints().ToArray();
 
                 // Assert
                 var exception = Assert.Throws<StochasticSoilModelException>(test);

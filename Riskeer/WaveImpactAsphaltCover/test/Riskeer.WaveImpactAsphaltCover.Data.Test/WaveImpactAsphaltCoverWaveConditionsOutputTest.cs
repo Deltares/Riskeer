@@ -36,7 +36,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void Constructor_OutputItemsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsOutput(null);
+            Action test = () => new WaveImpactAsphaltCoverWaveConditionsOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     new IllustrationPointNode(new TestIllustrationPoint()));
 
                 // When
-                TestDelegate test = () => control.Data = notSupported;
+                Action test = () => control.Data = notSupported;
 
                 // Then
                 var exception = Assert.Throws<NotSupportedException>(test);
@@ -134,7 +134,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     rootNode);
 
                 // When
-                TestDelegate test = () => control.Data = topLevelFaultTreeIllustrationPoint;
+                Action test = () => control.Data = topLevelFaultTreeIllustrationPoint;
 
                 // Then
                 var exception = Assert.Throws<NotSupportedException>(test);

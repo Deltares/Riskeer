@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
@@ -38,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_BackgroundDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((BackgroundData) null).Create();
+            Action test = () => ((BackgroundData) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

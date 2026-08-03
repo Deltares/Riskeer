@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.DuneErosion.Data.Test
 {

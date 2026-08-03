@@ -31,6 +31,7 @@ using Core.Common.Util.Reflection;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Data;

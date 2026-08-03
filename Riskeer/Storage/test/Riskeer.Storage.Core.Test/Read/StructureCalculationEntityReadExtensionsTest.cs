@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
@@ -44,7 +45,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => entity.Read<StructureBase>(null, collector);
+            Action call = () => entity.Read<StructureBase>(null, collector);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -60,7 +61,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var inputToUpdate = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => entity.Read(inputToUpdate, null);
+            Action call = () => entity.Read(inputToUpdate, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

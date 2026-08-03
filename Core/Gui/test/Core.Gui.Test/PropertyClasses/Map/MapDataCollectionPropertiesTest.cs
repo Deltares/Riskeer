@@ -42,7 +42,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         public void Constructor_MapDataCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapDataCollectionProperties(null);
+            Action call = () => new MapDataCollectionProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 
 namespace Riskeer.Common.Data.Test.DikeProfiles
@@ -77,7 +78,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_InvalidId_ThrowNullException(string id)
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            Action call = () => new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
             {
                 Id = id
             });
@@ -91,7 +92,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_WorldCoordinateNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(null, new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            Action call = () => new ForeshoreProfile(null, new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
             {
                 Id = "id"
             });
@@ -105,7 +106,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_ForeshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), null, null, new ForeshoreProfile.ConstructionProperties
+            Action call = () => new ForeshoreProfile(new Point2D(0, 0), null, null, new ForeshoreProfile.ConstructionProperties
             {
                 Id = "id"
             });
@@ -119,7 +120,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, null);
+            Action call = () => new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -130,7 +131,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_ForeshoreGeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(new Point2D(0.0, 0.0),
+            Action call = () => new ForeshoreProfile(new Point2D(0.0, 0.0),
                                                            new Point2D[]
                                                            {
                                                                null
@@ -290,7 +291,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
             ForeshoreProfile foreshoreProfile = CreateFullyDefinedForeshoreProfile();
 
             // Call
-            TestDelegate call = () => foreshoreProfile.CopyProperties(null);
+            Action call = () => foreshoreProfile.CopyProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

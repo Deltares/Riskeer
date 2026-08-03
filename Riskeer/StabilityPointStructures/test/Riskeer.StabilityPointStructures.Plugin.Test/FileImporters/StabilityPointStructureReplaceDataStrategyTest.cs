@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.TestUtil;
@@ -155,7 +156,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureReplaceDataStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
+            Action call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
                                                                                 sourcePath);
 
             // Assert

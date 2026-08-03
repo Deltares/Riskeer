@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
             // Call
-            TestDelegate test = () => new SimpleStructuresCalculationStochastAssigner(
+            Action test = () => new SimpleStructuresCalculationStochastAssigner(
                 null,
                 calculation);
 
@@ -58,7 +58,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             // Setup
             var configuration = Substitute.For<StructuresCalculationConfiguration>("name");
             // Call
-            TestDelegate test = () => new SimpleStructuresCalculationStochastAssigner(
+            Action test = () => new SimpleStructuresCalculationStochastAssigner(
                 configuration,
                 null);
 
@@ -345,7 +345,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => {});
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(null,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(null,
                                                                                                                                                                                       null,
                                                                                                                                                                                       getter,
                                                                                                                                                                                       setter);
@@ -364,7 +364,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => {});
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
                                                                                                                                                                                       configuration,
                                                                                                                                                                                       null,
                                                                                                                                                                                       setter);
@@ -382,7 +382,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var getter = new Func<SimpleStructuresInput, IDistribution>(i => null);
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
                                                                                                                                                                                       null,
                                                                                                                                                                                       getter,
                                                                                                                                                                                       null);
@@ -434,7 +434,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => {});
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(null,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(null,
                                                                                                                                                                                          null,
                                                                                                                                                                                          getter,
                                                                                                                                                                                          setter);
@@ -452,7 +452,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => {});
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
                                                                                                                                                                                          null,
                                                                                                                                                                                          null,
                                                                                                                                                                                          setter);
@@ -470,7 +470,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             var getter = new Func<SimpleStructuresInput, IVariationCoefficientDistribution>(i => null);
 
             // Call
-            TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
+            Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
                                                                                                                                                                                          null,
                                                                                                                                                                                          getter,
                                                                                                                                                                                          null);

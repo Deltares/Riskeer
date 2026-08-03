@@ -75,7 +75,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
             // Call
-            TestDelegate test = () => new CriticalProfileProperties(reader);
+            Action test = () => new CriticalProfileProperties(reader);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -97,7 +97,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
             // Call
-            TestDelegate test = () => new CriticalProfileProperties(reader);
+            Action test = () => new CriticalProfileProperties(reader);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -120,7 +120,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
             // Call
-            TestDelegate test = () => new CriticalProfileProperties(reader);
+            Action test = () => new CriticalProfileProperties(reader);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);

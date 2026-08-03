@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.TestUtil;
@@ -71,7 +72,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
+            Action test = () => strategy.UpdateStructuresWithImportedData(null,
                                                                                 string.Empty);
 
             // Assert
@@ -302,7 +303,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedHeightStructures,
+            Action call = () => strategy.UpdateStructuresWithImportedData(importedHeightStructures,
                                                                                 sourceFilePath);
 
             // Assert

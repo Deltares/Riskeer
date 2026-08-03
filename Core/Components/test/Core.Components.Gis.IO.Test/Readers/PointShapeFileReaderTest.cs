@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                   shapeFileName);
 
             // Call
-            TestDelegate call = () => new PointShapeFileReader(nonPointShapeFile);
+            Action call = () => new PointShapeFileReader(nonPointShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonPointShapeFile}': kon geen punten vinden in dit bestand.";
@@ -80,7 +81,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                           "NonExistingFile");
 
             // Call 
-            TestDelegate call = () => new PointShapeFileReader(nonExistingPointShapeFile);
+            Action call = () => new PointShapeFileReader(nonExistingPointShapeFile);
 
             // Assert 
             string expectedMessage = $"Fout bij het lezen van bestand '{nonExistingPointShapeFile}': het bestand bestaat niet.";
@@ -96,7 +97,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                     "EmptyFile.shp");
 
             // Call
-            TestDelegate call = () => new PointShapeFileReader(emptyPointShapeFile);
+            Action call = () => new PointShapeFileReader(emptyPointShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{emptyPointShapeFile}': kon geen punten vinden in dit bestand.";
@@ -112,7 +113,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                       "CorruptFile.shp");
 
             // Call
-            TestDelegate call = () => new PointShapeFileReader(corruptPointShapeFile);
+            Action call = () => new PointShapeFileReader(corruptPointShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{corruptPointShapeFile}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -131,7 +132,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new PointShapeFileReader(path);
+                Action call = () => new PointShapeFileReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";

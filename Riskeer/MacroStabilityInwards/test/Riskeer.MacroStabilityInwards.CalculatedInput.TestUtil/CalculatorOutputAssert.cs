@@ -21,6 +21,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 

@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;

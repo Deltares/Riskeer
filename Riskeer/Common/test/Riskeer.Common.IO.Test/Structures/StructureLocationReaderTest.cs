@@ -56,7 +56,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_FilePathIsNullOrWhiteSpace_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -74,7 +74,7 @@ namespace Riskeer.Common.IO.Test.Structures
             string invalidFilePath = validFilePath.Replace("e", invalidPathChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -90,7 +90,7 @@ namespace Riskeer.Common.IO.Test.Structures
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -104,7 +104,7 @@ namespace Riskeer.Common.IO.Test.Structures
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
@@ -125,7 +125,7 @@ namespace Riskeer.Common.IO.Test.Structures
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen punten vinden in dit bestand.";
@@ -141,7 +141,7 @@ namespace Riskeer.Common.IO.Test.Structures
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
             // Call
-            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
+            Action call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand heeft geen attribuut 'KWKIDENT'. Dit attribuut is vereist.";
@@ -160,7 +160,7 @@ namespace Riskeer.Common.IO.Test.Structures
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new StructureLocationReader(path);
+                Action call = () => new StructureLocationReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -253,7 +253,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextStructureLocation();
+                Action call = () => reader.GetNextStructureLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);

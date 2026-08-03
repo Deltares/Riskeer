@@ -41,6 +41,7 @@ using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Map
 {
@@ -465,7 +466,7 @@ namespace Core.Gui.Test.Forms.Map
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                TestDelegate call = () => contextMenu.Items[mapDataContextMenuZoomToAllIndex].PerformClick();
+                Action call = () => contextMenu.Items[mapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 Assert.DoesNotThrow(call);

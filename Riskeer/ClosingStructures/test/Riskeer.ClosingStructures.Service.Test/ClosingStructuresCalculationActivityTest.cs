@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, assessmentSection);
+            Action call = () => new ClosingStructuresCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +74,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, failureMechanism, null);
+            Action call = () => new ClosingStructuresCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new PipingSurfaceLinesContext(surfaceLines, failureMechanism, null);
+            Action test = () => new PipingSurfaceLinesContext(surfaceLines, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

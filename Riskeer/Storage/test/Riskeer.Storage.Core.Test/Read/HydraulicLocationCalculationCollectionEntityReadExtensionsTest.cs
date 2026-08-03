@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 ((HydraulicLocationCalculationCollectionEntity) null).Read(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                            new ReadConversionCollector());
 
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicLocationCalculationCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            Action call = () => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicLocationCalculationCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+            Action call = () => entity.Read(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                   null);
 
             // Assert

@@ -28,6 +28,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.Converter.Chart;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Series;
 

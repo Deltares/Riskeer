@@ -53,7 +53,7 @@ namespace Core.Gui.Test.PresentationObjects.Map
         public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FeatureBasedMapDataContext(new TestFeatureBasedMapData(), null);
+            Action call = () => new FeatureBasedMapDataContext(new TestFeatureBasedMapData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

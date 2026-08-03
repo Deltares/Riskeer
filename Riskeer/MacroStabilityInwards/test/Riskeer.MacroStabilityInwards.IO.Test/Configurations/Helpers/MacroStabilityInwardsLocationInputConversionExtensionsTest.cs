@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void ToMacroStabilityInwardsLocationInputConfiguration_MacroStabilityInwardsLocationInputDailyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IMacroStabilityInwardsLocationInputDaily) null).ToMacroStabilityInwardsLocationInputConfiguration();
+            Action test = () => ((IMacroStabilityInwardsLocationInputDaily) null).ToMacroStabilityInwardsLocationInputConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,25 +69,28 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.AreEqual(useDefaultOffsets, configuration.UseDefaultOffsets);
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver,
-                            configuration.PhreaticLineOffsetBelowDikeTopAtRiver,
-                            phreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder,
-                            configuration.PhreaticLineOffsetBelowDikeTopAtPolder,
-                            phreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside,
-                            configuration.PhreaticLineOffsetBelowShoulderBaseInside,
-                            phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
-                            configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
-                            phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            NullableDoubleAssert.AreEqual(waterLevelPolder,
+                                          configuration.WaterLevelPolder,
+                                          waterLevelPolder.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver,
+                                          configuration.PhreaticLineOffsetBelowDikeTopAtRiver,
+                                          phreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder,
+                                          configuration.PhreaticLineOffsetBelowDikeTopAtPolder,
+                                          phreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside,
+                                          configuration.PhreaticLineOffsetBelowShoulderBaseInside,
+                                          phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
+                                          configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
+                                          phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
         }
 
         [Test]
         public void ToMacroStabilityInwardsLocationInputExtremeConfiguration_MacroStabilityInwardsLocationInputExtremeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IMacroStabilityInwardsLocationInputExtreme) null).ToMacroStabilityInwardsLocationInputExtremeConfiguration();
+            Action test = () => ((IMacroStabilityInwardsLocationInputExtreme) null).ToMacroStabilityInwardsLocationInputExtremeConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -117,22 +120,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
             // Call
             MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
-
+            
             // Assert
-            Assert.AreEqual(penetrationLength,
-                            configuration.PenetrationLength,
-                            penetrationLength.GetAccuracy());
             Assert.AreEqual(useDefaultOffsets, configuration.UseDefaultOffsets);
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver,
-                            configuration.PhreaticLineOffsetBelowDikeTopAtRiver,
-                            phreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder,
-                            configuration.PhreaticLineOffsetBelowDikeTopAtPolder,
-                            phreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside,
-                            configuration.PhreaticLineOffsetBelowShoulderBaseInside,
-                            phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
-            Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
+            NullableDoubleAssert.AreEqual(penetrationLength,
+                                          configuration.PenetrationLength,
+                                          penetrationLength.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver,
+                                          configuration.PhreaticLineOffsetBelowDikeTopAtRiver,
+                                          phreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder,
+                                          configuration.PhreaticLineOffsetBelowDikeTopAtPolder,
+                                          phreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside,
+                                          configuration.PhreaticLineOffsetBelowShoulderBaseInside,
+                                          phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
                             configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
                             phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
         }

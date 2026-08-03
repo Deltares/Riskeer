@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHlcdFilePath, "D:\\hrdFilePath", string.Empty, false);
+            Action call = () => new HydraulicBoundaryCalculationSettings(invalidHlcdFilePath, "D:\\hrdFilePath", string.Empty, false);
 
             // Assert
             const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespaces.";

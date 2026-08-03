@@ -59,7 +59,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var input = Substitute.For<ICalculationInput>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
             // Call
-            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
+            Action call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

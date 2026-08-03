@@ -65,7 +65,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
-            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null,
+            Action test = () => new WaveHeightCalculationService().Calculate(null,
                                                                                    CreateCalculationSettings(),
                                                                                    1,
                                                                                    calculationMessageProvider);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
-            TestDelegate call = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+            Action call = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                                                    null,
                                                                                    1,
                                                                                    calculationMessageProvider);
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Service.Test
         public void Calculate_MessageProviderNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+            Action test = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                                                    CreateCalculationSettings(),
                                                                                    1,
                                                                                    null);
@@ -390,7 +390,7 @@ namespace Riskeer.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
+                Action call = () => new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
                                                                                        CreateCalculationSettings(),
                                                                                        1.0 / 30,
                                                                                        calculationMessageProvider);

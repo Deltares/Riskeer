@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectedTopLevelSubMechanismIllustrationPoint(null,
+            Action call = () => new SelectedTopLevelSubMechanismIllustrationPoint(null,
                                                                                         Enumerable.Empty<string>());
 
             // Assert
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectedTopLevelSubMechanismIllustrationPoint(CreateTopLevelSubMechanismIllustrationPoint(),
+            Action call = () => new SelectedTopLevelSubMechanismIllustrationPoint(CreateTopLevelSubMechanismIllustrationPoint(),
                                                                                         null);
 
             // Assert

@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Base.Test.Data
 {
@@ -57,7 +58,7 @@ namespace Core.Common.Base.Test.Data
         public void ParameteredConstructor_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new RoundedPoint2DCollection(2, null);
+            Action call = () => new RoundedPoint2DCollection(2, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,7 +73,7 @@ namespace Core.Common.Base.Test.Data
         public void ParameteredConstructor_InvalidNumberOfPlaces_ThrowArgumentOutOfRangeException(int invalidNumberOfPlaces)
         {
             // Call
-            TestDelegate call = () => new RoundedPoint2DCollection(invalidNumberOfPlaces, CreatePointData());
+            Action call = () => new RoundedPoint2DCollection(invalidNumberOfPlaces, CreatePointData());
 
             // Assert
             const string expectedMessage = "Value must be in range [0, 15].";

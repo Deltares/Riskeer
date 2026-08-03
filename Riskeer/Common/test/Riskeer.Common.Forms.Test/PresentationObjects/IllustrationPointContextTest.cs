@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointContext<IllustrationPointBase>(null, node, "", "");
+            Action test = () => new IllustrationPointContext<IllustrationPointBase>(null, node, "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), null, "", "");
+            Action test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), null, "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), node, null, "");
+            Action test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), node, null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), node, "", null);
+            Action test = () => new IllustrationPointContext<IllustrationPointBase>(new TestFaultTreeIllustrationPoint(), node, "", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new SimpleBackgroundLayerStatus())
             {
                 // Call
-                TestDelegate call = () => layerStatus.HasSameConfiguration(null);
+                Action call = () => layerStatus.HasSameConfiguration(null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var dataSource = new TestImageBasedMapData("Test", false);
 
                 // Call
-                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(null, dataSource);
+                Action call = () => layerStatus.LayerInitializationSuccessful(null, dataSource);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -90,7 +90,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new SimpleBackgroundLayerStatus())
             {
                 // Call
-                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(layer, null);
+                Action call = () => layerStatus.LayerInitializationSuccessful(layer, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

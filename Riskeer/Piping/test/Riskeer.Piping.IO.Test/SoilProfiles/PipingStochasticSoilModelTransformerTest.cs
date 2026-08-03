@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
@@ -55,7 +56,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate test = () => transformer.Transform(null);
+            Action test = () => transformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -71,7 +72,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var soilModel = new StochasticSoilModel("some name", failureMechanismType);
 
             // Call
-            TestDelegate test = () => transformer.Transform(soilModel);
+            Action test = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -90,7 +91,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(soilModel);
+            Action test = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -114,7 +115,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(soilModel);
+            Action test = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -131,7 +132,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate test = () => transformer.Transform(stochasticSoilModel);
+            Action test = () => transformer.Transform(stochasticSoilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -286,7 +287,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate call = () => transformer.Transform(soilModel);
+            Action call = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -310,7 +311,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate call = () => transformer.Transform(soilModel);
+            Action call = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

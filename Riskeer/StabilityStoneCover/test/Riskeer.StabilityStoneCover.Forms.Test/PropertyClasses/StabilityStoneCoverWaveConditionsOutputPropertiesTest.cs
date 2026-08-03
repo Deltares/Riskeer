@@ -25,6 +25,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
@@ -43,7 +44,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputProperties(null, new StabilityStoneCoverWaveConditionsInput());
+            Action call = () => new StabilityStoneCoverWaveConditionsOutputProperties(null, new StabilityStoneCoverWaveConditionsInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +58,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputProperties(output, null);
+            Action call = () => new StabilityStoneCoverWaveConditionsOutputProperties(output, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

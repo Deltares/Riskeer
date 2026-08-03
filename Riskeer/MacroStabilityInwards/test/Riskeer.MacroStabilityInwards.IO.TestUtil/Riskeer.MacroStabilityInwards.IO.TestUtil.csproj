@@ -40,7 +40,7 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.IO\Riskeer.MacroStabilityInwards.IO.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.14.0">
+    <PackageReference Include="NUnit" Version="4.6.1">
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

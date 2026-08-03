@@ -50,7 +50,7 @@ namespace Riskeer.Common.IO.TestUtil
                 TWriter writer = CreateWriterInstance(filePath);
 
                 // Call
-                TestDelegate test = () => writer.Write(new[]
+                Action test = () => writer.Write(new[]
                 {
                     calculation
                 });
@@ -71,7 +71,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_WithoutFilePath_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => CreateWriterInstance(null);
+            Action call = () => CreateWriterInstance(null);
 
             // Assert
             AssertNullFilePath(Assert.Throws<ArgumentException>(call));
@@ -82,7 +82,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_WithoutValidFilePath_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => CreateWriterInstance(filePath);
+            Action call = () => CreateWriterInstance(filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -95,7 +95,7 @@ namespace Riskeer.Common.IO.TestUtil
             string filePath = InvalidPathHelper.TooLongPathPart;
 
             // Call
-            TestDelegate call = () => CreateWriterInstance(filePath);
+            Action call = () => CreateWriterInstance(filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.TestUtil
             TWriter writer = CreateWriterInstance("//validpath//filename.txt");
 
             // Call
-            TestDelegate test = () => writer.Write(null);
+            Action test = () => writer.Write(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -138,7 +138,7 @@ namespace Riskeer.Common.IO.TestUtil
                 TWriter writer = CreateWriterInstance(filePath);
 
                 // Call
-                TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
+                Action call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -158,7 +158,7 @@ namespace Riskeer.Common.IO.TestUtil
                 TWriter writer = CreateWriterInstance(path);
 
                 // Call
-                TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
+                Action call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);

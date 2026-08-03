@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void Constructor_IsConfiguredTrueAndSourceCapabilitiesUrlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+            Action call = () => new WmtsBackgroundDataConfiguration(true,
                                                                           null,
                                                                           string.Empty,
                                                                           string.Empty);
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void Constructor_IsConfiguredTrueAndSelectedCapabilityIdentifierNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+            Action call = () => new WmtsBackgroundDataConfiguration(true,
                                                                           string.Empty,
                                                                           null,
                                                                           string.Empty);
@@ -117,7 +117,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void Constructor_IsConfiguredTrueAndPreferredFormatNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+            Action call = () => new WmtsBackgroundDataConfiguration(true,
                                                                           string.Empty,
                                                                           string.Empty,
                                                                           null);
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void ParameteredConstructor_IsConfiguredFalseAndSourceCapabilitiesUrlHasValue_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+            Action call = () => new WmtsBackgroundDataConfiguration(false,
                                                                           string.Empty,
                                                                           null,
                                                                           null);
@@ -146,7 +146,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void ParameteredConstructor_IsConfiguredFalseAndSelectedCapabilityIdentifierHasValue_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+            Action call = () => new WmtsBackgroundDataConfiguration(false,
                                                                           null,
                                                                           string.Empty,
                                                                           null);
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void ParameteredConstructor_IsConfiguredFalseAndPreferredFormatHasValue_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+            Action call = () => new WmtsBackgroundDataConfiguration(false,
                                                                           null,
                                                                           null,
                                                                           string.Empty);

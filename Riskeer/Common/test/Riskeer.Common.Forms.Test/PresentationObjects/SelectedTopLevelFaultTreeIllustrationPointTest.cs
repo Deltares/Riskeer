@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_TopLevelFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectedTopLevelFaultTreeIllustrationPoint(null,
+            Action call = () => new SelectedTopLevelFaultTreeIllustrationPoint(null,
                                                                                      Enumerable.Empty<string>());
 
             // Assert
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectedTopLevelFaultTreeIllustrationPoint(CreateTopLevelFaultTreeIllustrationPoint(),
+            Action call = () => new SelectedTopLevelFaultTreeIllustrationPoint(CreateTopLevelFaultTreeIllustrationPoint(),
                                                                                      null);
 
             // Assert

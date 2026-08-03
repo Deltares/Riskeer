@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Forms.Test
@@ -39,7 +40,7 @@ namespace Riskeer.Common.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<HydraulicBoundaryLocation>());
+            Action test = () => new HydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -53,7 +54,7 @@ namespace Riskeer.Common.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                TestDelegate test = () => new HydraulicBoundaryLocationSelectionDialog(viewParent, null);
+                Action test = () => new HydraulicBoundaryLocationSelectionDialog(viewParent, null);
 
                 // Assert
                 string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

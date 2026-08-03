@@ -55,7 +55,7 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
 
             // Call
-            TestDelegate call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
+            Action call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
                                                                    testFilePath, messageProvider,
                                                                    null);
 

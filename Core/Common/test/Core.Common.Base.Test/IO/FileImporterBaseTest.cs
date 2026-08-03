@@ -37,7 +37,7 @@ namespace Core.Common.Base.Test.IO
             var importTarget = new object();
 
             // Call
-            TestDelegate call = () => new SimpleFileImporter<object>(null, importTarget);
+            Action call = () => new SimpleFileImporter<object>(null, importTarget);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +48,7 @@ namespace Core.Common.Base.Test.IO
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleFileImporter<object>(null);
+            Action call = () => new SimpleFileImporter<object>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -110,7 +110,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.SetProgressChanged(null);
 
             // Call
-            TestDelegate call = () => simpleImporter.TestNotifyProgress("A", 1, 2);
+            Action call = () => simpleImporter.TestNotifyProgress("A", 1, 2);
 
             // Assert
             Assert.DoesNotThrow(call);

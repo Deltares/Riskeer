@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;

@@ -28,6 +28,7 @@ using System.Xml;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.TestUtil;
@@ -73,7 +74,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationWriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
                 new StochastConfiguration());
@@ -89,7 +90,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
                 new StochastConfiguration());
@@ -103,7 +104,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteDistributionWhenAvailable_StochastConfigurationWriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
                 new StochastConfiguration());
@@ -119,7 +120,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
                 new StochastConfiguration());
@@ -177,7 +178,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_StringWriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
                 "some value");
@@ -193,7 +194,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
                 "some value");
@@ -255,7 +256,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_DoubleWriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
                 0.1);
@@ -271,7 +272,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
                 0.2);
@@ -329,7 +330,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteElementWhenContentAvailable_BoolWriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
                 false);
@@ -345,7 +346,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
                 false);
@@ -416,7 +417,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteWaveReductionWhenAvailable_WriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
                 null,
                 new WaveReductionConfiguration());
 
@@ -454,7 +455,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         public void WriteScenarioWhenAvailable_WriterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+            Action test = () => ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
                 null,
                 new ScenarioConfiguration());
 

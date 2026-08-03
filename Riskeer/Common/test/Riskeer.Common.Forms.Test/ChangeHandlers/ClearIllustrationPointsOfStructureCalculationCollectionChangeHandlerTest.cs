@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -42,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
+            Action call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, null);
 
             // Assert

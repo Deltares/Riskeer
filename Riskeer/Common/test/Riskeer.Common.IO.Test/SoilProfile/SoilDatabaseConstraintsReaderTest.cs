@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -41,7 +42,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new SoilDatabaseConstraintsReader(testFile)) {}
             };
@@ -57,7 +58,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new SoilDatabaseConstraintsReader(fileName)) {}
             };
@@ -92,7 +93,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyConstraints();
+                Action test = () => versionReader.VerifyConstraints();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -114,7 +115,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyConstraints();
+                Action test = () => versionReader.VerifyConstraints();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -136,7 +137,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyConstraints();
+                Action test = () => versionReader.VerifyConstraints();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -159,7 +160,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyConstraints();
+                Action test = () => versionReader.VerifyConstraints();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);

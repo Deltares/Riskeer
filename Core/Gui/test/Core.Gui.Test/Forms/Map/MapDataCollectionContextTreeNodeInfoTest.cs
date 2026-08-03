@@ -43,6 +43,7 @@ using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Map
 {
@@ -476,7 +477,7 @@ namespace Core.Gui.Test.Forms.Map
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => info.OnDrop(context, parentContext, parentContext, position, treeViewControl);
+                Action test = () => info.OnDrop(context, parentContext, parentContext, position, treeViewControl);
 
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -687,7 +688,7 @@ namespace Core.Gui.Test.Forms.Map
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+                Action call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 Assert.DoesNotThrow(call);

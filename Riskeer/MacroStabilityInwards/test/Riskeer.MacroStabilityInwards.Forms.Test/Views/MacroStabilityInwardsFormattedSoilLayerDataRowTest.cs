@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_SoilLayerDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null);
+            Action test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

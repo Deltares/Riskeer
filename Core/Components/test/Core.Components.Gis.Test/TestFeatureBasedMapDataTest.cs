@@ -22,6 +22,7 @@
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test
 {

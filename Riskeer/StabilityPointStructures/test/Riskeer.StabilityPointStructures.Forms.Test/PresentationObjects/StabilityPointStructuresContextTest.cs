@@ -60,7 +60,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var structures = new StructureCollection<StabilityPointStructure>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresContext(structures, null, assessmentSection);
+            Action call = () => new StabilityPointStructuresContext(structures, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -74,7 +74,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, null);
+            Action test = () => new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -29,6 +29,7 @@ using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

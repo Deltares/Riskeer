@@ -68,10 +68,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void WriteStartFolder_WithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteStartFolder("name");
+            Action Action = () => ((XmlWriter) null).WriteStartFolder("name");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            var exception = Assert.Throws<ArgumentNullException>(Action);
             Assert.AreEqual("writer", exception.ParamName);
         }
 
@@ -86,10 +86,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteStartFolder(null);
+                    Action Action = () => xmlWriter.WriteStartFolder(null);
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("name", exception.ParamName);
                 }
             }
@@ -112,10 +112,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                     xmlWriter.Close();
 
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteStartFolder("name");
+                    Action Action = () => xmlWriter.WriteStartFolder("name");
 
                     // Assert
-                    Assert.Throws<InvalidOperationException>(testDelegate);
+                    Assert.Throws<InvalidOperationException>(Action);
                 }
             }
             finally
@@ -128,10 +128,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_StandardDeviationDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
+            Action Action = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            var exception = Assert.Throws<ArgumentNullException>(Action);
             Assert.AreEqual("writer", exception.ParamName);
         }
 
@@ -146,10 +146,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
+                    Action Action = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("name", exception.ParamName);
                 }
             }
@@ -170,10 +170,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", null);
+                    Action Action = () => xmlWriter.WriteDistribution("name", null);
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("distribution", exception.ParamName);
                 }
             }
@@ -214,10 +214,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_VariationCoefficientDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
+            Action Action = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            var exception = Assert.Throws<ArgumentNullException>(Action);
             Assert.AreEqual("writer", exception.ParamName);
         }
 
@@ -232,10 +232,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
+                    Action Action = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("name", exception.ParamName);
                 }
             }
@@ -256,10 +256,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", null);
+                    Action Action = () => xmlWriter.WriteDistribution("name", null);
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("distribution", exception.ParamName);
                 }
             }
@@ -282,10 +282,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                     xmlWriter.Close();
 
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", new StochastConfiguration());
+                    Action Action = () => xmlWriter.WriteDistribution("name", new StochastConfiguration());
 
                     // Assert
-                    Assert.Throws<InvalidOperationException>(testDelegate);
+                    Assert.Throws<InvalidOperationException>(Action);
                 }
             }
             finally
@@ -325,10 +325,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void WriteWaveReduction_WithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteWaveReduction(new WaveReductionConfiguration());
+            Action Action = () => ((XmlWriter) null).WriteWaveReduction(new WaveReductionConfiguration());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            var exception = Assert.Throws<ArgumentNullException>(Action);
             Assert.AreEqual("writer", exception.ParamName);
         }
 
@@ -343,10 +343,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(null);
+                    Action Action = () => xmlWriter.WriteWaveReduction(null);
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("waveReduction", exception.ParamName);
                 }
             }
@@ -371,10 +371,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(configuration);
+                    Action Action = () => xmlWriter.WriteWaveReduction(configuration);
 
                     // Assert
-                    Assert.Throws<InvalidEnumArgumentException>(testDelegate);
+                    Assert.Throws<InvalidEnumArgumentException>(Action);
                 }
             }
             finally
@@ -396,10 +396,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                     xmlWriter.Close();
 
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(new WaveReductionConfiguration());
+                    Action Action = () => xmlWriter.WriteWaveReduction(new WaveReductionConfiguration());
 
                     // Assert
-                    Assert.Throws<InvalidOperationException>(testDelegate);
+                    Assert.Throws<InvalidOperationException>(Action);
                 }
             }
             finally
@@ -439,10 +439,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void WriteScenario_WithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteScenario(new ScenarioConfiguration());
+            Action Action = () => ((XmlWriter) null).WriteScenario(new ScenarioConfiguration());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            var exception = Assert.Throws<ArgumentNullException>(Action);
             Assert.AreEqual("writer", exception.ParamName);
         }
 
@@ -457,10 +457,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteScenario(null);
+                    Action Action = () => xmlWriter.WriteScenario(null);
 
                     // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    var exception = Assert.Throws<ArgumentNullException>(Action);
                     Assert.AreEqual("scenarioConfiguration", exception.ParamName);
                 }
             }
@@ -483,10 +483,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
                     xmlWriter.Close();
 
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteScenario(new ScenarioConfiguration());
+                    Action Action = () => xmlWriter.WriteScenario(new ScenarioConfiguration());
 
                     // Assert
-                    Assert.Throws<InvalidOperationException>(testDelegate);
+                    Assert.Throws<InvalidOperationException>(Action);
                 }
             }
             finally

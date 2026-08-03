@@ -24,6 +24,7 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 
@@ -60,7 +61,7 @@ namespace Riskeer.Piping.Forms.Test.Factories
         public void CreateSoilLayerChartData_LayerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingChartDataFactory.CreateSoilLayerChartData(null);
+            Action call = () => PipingChartDataFactory.CreateSoilLayerChartData(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

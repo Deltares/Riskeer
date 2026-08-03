@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
@@ -41,7 +42,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetTestDataPath(testPath, fileName);
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new ProjectDatabaseSourceFile(filePath)) {}
             };
@@ -58,7 +59,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string filePath)
         {
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new ProjectDatabaseSourceFile(filePath)) {}
             };
@@ -96,7 +97,7 @@ namespace Riskeer.Migration.Core.Test
             using (var file = new ProjectDatabaseSourceFile(filePath))
             {
                 // Call
-                TestDelegate call = () => file.GetVersion();
+                Action call = () => file.GetVersion();
 
                 // Assert
                 string message = Assert.Throws<StorageValidationException>(call).Message;

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Model.Categories;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil

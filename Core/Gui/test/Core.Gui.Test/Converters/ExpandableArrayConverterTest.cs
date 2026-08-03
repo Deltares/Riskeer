@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Converters
 {
@@ -78,7 +79,7 @@ namespace Core.Gui.Test.Converters
             var converter = new ExpandableArrayConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(sourceArray, typeof(int));
+            Action call = () => converter.ConvertTo(sourceArray, typeof(int));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -92,7 +93,7 @@ namespace Core.Gui.Test.Converters
             var converter = new ExpandableArrayConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(sourceArray, null);
+            Action call = () => converter.ConvertTo(sourceArray, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -56,7 +57,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(null,
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                            new HeightStructuresFailureMechanism(),
                                                                                                            assessmentSection);
 
@@ -72,7 +73,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<HeightStructuresInput>(),
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<HeightStructuresInput>(),
                                                                                                            null,
                                                                                                            assessmentSection);
 
@@ -89,7 +90,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -123,7 +124,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(null,
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                              new HeightStructuresFailureMechanism(),
                                                                                                              assessmentSection);
 
@@ -139,7 +140,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                              null,
                                                                                                              assessmentSection);
 
@@ -152,7 +153,7 @@ namespace Riskeer.HeightStructures.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                              new HeightStructuresFailureMechanism(),
                                                                                                              null);
 
@@ -203,7 +204,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -214,7 +215,7 @@ namespace Riskeer.HeightStructures.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new HeightStructuresFailureMechanism(), null);
+            Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new HeightStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

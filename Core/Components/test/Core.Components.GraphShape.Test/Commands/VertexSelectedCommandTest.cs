@@ -45,7 +45,7 @@ namespace Core.Components.GraphShape.Test.Commands
         public void Constructor_VertexNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new VertexSelectedCommand(null);
+            Action call = () => new VertexSelectedCommand(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

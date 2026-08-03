@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((DikeHeightOutput) null).Create();
+            Action test = () => ((DikeHeightOutput) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -60,11 +60,11 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
-            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
-            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }

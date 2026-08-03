@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Chart.Test.Data
 {
@@ -39,7 +40,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new ChartDataCollection(invalidName);
+            Action test = () => new ChartDataCollection(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
@@ -84,7 +85,7 @@ namespace Core.Components.Chart.Test.Data
             var chartDataCollection = new ChartDataCollection("test");
 
             // Call
-            TestDelegate call = () => chartDataCollection.Add(null);
+            Action call = () => chartDataCollection.Add(null);
 
             // Assert
             const string expectedMessage = "An item cannot be null when adding it to the collection.";
@@ -121,7 +122,7 @@ namespace Core.Components.Chart.Test.Data
             var chartDataCollection = new ChartDataCollection("test");
 
             // Call
-            TestDelegate call = () => chartDataCollection.Insert(0, null);
+            Action call = () => chartDataCollection.Insert(0, null);
 
             // Assert
             const string expectedMessage = "An item cannot be null when adding it to the collection.";
@@ -224,7 +225,7 @@ namespace Core.Components.Chart.Test.Data
             chartDataCollection.Add(existingItem);
 
             // Call
-            TestDelegate call = () => chartDataCollection.Insert(invalidIndex, itemToInsert);
+            Action call = () => chartDataCollection.Insert(invalidIndex, itemToInsert);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(call, "index");

@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         public void UpdateHydraulicLocationConfigurationDatabase_HydraulicLocationConfigurationDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 null, ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), "");
 
             // Assert
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         public void UpdateHydraulicLocationConfigurationDatabase_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), null);
 
             // Assert

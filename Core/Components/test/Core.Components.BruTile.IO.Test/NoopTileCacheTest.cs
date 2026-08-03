@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using BruTile;
 using NUnit.Framework;
 
@@ -31,7 +32,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Add_DoesNothing()
         {
             // Call
-            TestDelegate call = () => NoopTileCache.Instance.Add(new TileIndex(), null);
+            Action call = () => NoopTileCache.Instance.Add(new TileIndex(), null);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -41,7 +42,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Remove_DoesNothing()
         {
             // Call
-            TestDelegate call = () => NoopTileCache.Instance.Remove(new TileIndex());
+            Action call = () => NoopTileCache.Instance.Remove(new TileIndex());
 
             // Assert
             Assert.DoesNotThrow(call);

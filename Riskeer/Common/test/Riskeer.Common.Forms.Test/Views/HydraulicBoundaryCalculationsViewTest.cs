@@ -34,6 +34,7 @@ using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
@@ -72,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(null,
+            Action call = () => new TestHydraulicBoundaryCalculationsView(null,
                                                                                 new AssessmentSectionStub());
 
             // Assert
@@ -84,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            Action call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                 null);
 
             // Assert
@@ -429,7 +430,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
-            TestDelegate test = () => button.Click();
+            Action test = () => button.Click();
 
             // Assert
             Assert.DoesNotThrow(test);

@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -48,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Validate_InputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsInputValidator.Validate(null, RoundedDouble.NaN);
+            Action test = () => MacroStabilityInwardsInputValidator.Validate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

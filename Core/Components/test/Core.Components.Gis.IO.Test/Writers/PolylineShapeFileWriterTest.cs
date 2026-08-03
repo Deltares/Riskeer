@@ -63,7 +63,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new PolylineShapeFileWriter())
             {
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapData);
+                Action call = () => writer.CopyToFeature(mapData);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
@@ -97,7 +97,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new PolylineShapeFileWriter())
             {
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapData);
+                Action call = () => writer.CopyToFeature(mapData);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
@@ -129,7 +129,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 writer.CopyToFeature(mapLineData1);
 
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapLineData2);
+                Action call = () => writer.CopyToFeature(mapLineData2);
 
                 // Assert
                 const string message = "Column 'anotherKey' does not belong to table .";

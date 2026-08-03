@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         public void HasIllustrationPoints_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((GrassCoverErosionInwardsCalculation) null);
+            Action call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((GrassCoverErosionInwardsCalculation) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

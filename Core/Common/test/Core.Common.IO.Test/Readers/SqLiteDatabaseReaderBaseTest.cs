@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -81,7 +82,7 @@ namespace Core.Common.IO.Test.Readers
             string corruptPath = testFile.Replace('e', invalidCharacters[0]);
 
             // Call
-            TestDelegate test = () => new TestReader(corruptPath).Dispose();
+            Action test = () => new TestReader(corruptPath).Dispose();
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -97,7 +98,7 @@ namespace Core.Common.IO.Test.Readers
             string testFile = Path.Combine(testDataPath, "none.sqlite");
 
             // Call
-            TestDelegate test = () => new TestReader(testFile).Dispose();
+            Action test = () => new TestReader(testFile).Dispose();
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
@@ -114,7 +115,7 @@ namespace Core.Common.IO.Test.Readers
             string expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
 
             // Call
-            TestDelegate test = () => new TestReader(fileName).Dispose();
+            Action test = () => new TestReader(fileName).Dispose();
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);

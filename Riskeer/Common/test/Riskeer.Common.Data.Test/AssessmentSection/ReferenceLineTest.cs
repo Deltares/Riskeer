@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.Data.Test.AssessmentSection
@@ -71,7 +72,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => referenceLine.SetGeometry(null);
+            Action call = () => referenceLine.SetGeometry(null);
 
             // Assert
             const string expectedMessage = "De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.";
@@ -92,7 +93,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             };
 
             // Call
-            TestDelegate call = () => referenceLine.SetGeometry(pointWithNullElement);
+            Action call = () => referenceLine.SetGeometry(pointWithNullElement);
 
             // Assert
             const string expectedMessage = "Een punt in de geometrie voor de referentielijn heeft geen waarde.";

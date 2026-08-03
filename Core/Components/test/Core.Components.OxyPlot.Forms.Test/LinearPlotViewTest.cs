@@ -23,6 +23,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.WindowsForms;

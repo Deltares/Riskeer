@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GrassCoverErosionInwardsOutputEntity) null).Read();
+            Action call = () => ((GrassCoverErosionInwardsOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

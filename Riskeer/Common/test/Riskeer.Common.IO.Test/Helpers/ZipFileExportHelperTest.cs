@@ -28,6 +28,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Helpers;
 
 namespace Riskeer.Common.IO.Test.Helpers

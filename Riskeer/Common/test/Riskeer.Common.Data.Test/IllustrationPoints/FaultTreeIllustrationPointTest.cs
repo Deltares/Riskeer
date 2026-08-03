@@ -37,7 +37,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint(null,
+            Action call = () => new FaultTreeIllustrationPoint(null,
                                                                      12.3,
                                                                      Enumerable.Empty<Stochast>(),
                                                                      CombinationType.And);
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_StochastsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint("Test",
+            Action call = () => new FaultTreeIllustrationPoint("Test",
                                                                      12.3,
                                                                      null,
                                                                      CombinationType.And);
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPoint("Point A",
+            Action test = () => new FaultTreeIllustrationPoint("Point A",
                                                                      random.NextDouble(),
                                                                      stochasts,
                                                                      CombinationType.And);

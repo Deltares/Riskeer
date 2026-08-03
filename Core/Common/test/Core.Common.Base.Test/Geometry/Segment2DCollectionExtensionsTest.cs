@@ -33,7 +33,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Interpolate_SegmentsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Segment2D>) null).Interpolate(0);
+            Action test = () => ((IEnumerable<Segment2D>) null).Interpolate(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

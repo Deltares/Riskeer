@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -38,7 +39,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new IllustrationPointNode(null);
+            Action call = () => new IllustrationPointNode(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +68,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var illustrationPointNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            TestDelegate call = () => illustrationPointNode.SetChildren(null);
+            Action call = () => illustrationPointNode.SetChildren(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -84,7 +85,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var childrenToBeAttached = new IllustrationPointNode[nrOfChildren];
 
             // Call
-            TestDelegate call = () => illustrationPointNode.SetChildren(childrenToBeAttached);
+            Action call = () => illustrationPointNode.SetChildren(childrenToBeAttached);
 
             // Assert
             const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.";
@@ -123,7 +124,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
+            Action test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
 
             // Assert
             const string expectedMessage = "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam.";
@@ -151,7 +152,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
+            Action test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
 
             // Assert
             const string expectedMessage = "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.";

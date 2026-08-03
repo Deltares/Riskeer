@@ -25,6 +25,7 @@ using Core.Components.Gis.Data;
 using Core.Gui.Helpers;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Helpers
 {
@@ -35,7 +36,7 @@ namespace Core.Gui.Test.Helpers
         public void GetParentsFromContext_ContextNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MapDataContextHelper.GetParentsFromContext(null);
+            Action call = () => MapDataContextHelper.GetParentsFromContext(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

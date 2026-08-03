@@ -93,7 +93,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SemiProbabilisticPipingCalculationScenarioContext(calculation,
+            Action call = () => new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                             null,
                                                                                             surfaceLines,
                                                                                             soilModels,

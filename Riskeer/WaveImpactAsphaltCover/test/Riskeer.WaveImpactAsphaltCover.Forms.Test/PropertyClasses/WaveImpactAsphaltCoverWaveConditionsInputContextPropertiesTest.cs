@@ -81,7 +81,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Call
-            TestDelegate test = () => properties.RevetmentType = string.Empty;
+            Action test = () => properties.RevetmentType = string.Empty;
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);

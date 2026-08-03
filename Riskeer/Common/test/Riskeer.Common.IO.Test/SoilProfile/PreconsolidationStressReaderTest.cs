@@ -28,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 
@@ -46,7 +47,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new PreconsolidationStressReader(testFile)) {}
             };
@@ -62,7 +63,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new PreconsolidationStressReader(fileName);
+            Action test = () => new PreconsolidationStressReader(fileName);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -95,7 +96,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new PreconsolidationStressReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                Action test = () => reader.Initialize();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -159,7 +160,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfileId();
+                Action test = () => reader.ReadSoilProfileId();
 
                 // Assert
                 var exception = Assert.Throws<InvalidOperationException>(test);

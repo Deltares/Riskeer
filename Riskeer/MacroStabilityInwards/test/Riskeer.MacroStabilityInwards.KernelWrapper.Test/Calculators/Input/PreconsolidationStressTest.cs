@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_CoordinateNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PreconsolidationStress(null, 0);
+            Action call = () => new PreconsolidationStress(null, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

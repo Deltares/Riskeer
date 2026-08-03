@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var designVariable = new SimpleDesignVariable(distribution);
 
             // Call
-            TestDelegate call = () => designVariable.Percentile = invalidPercentile;
+            Action call = () => designVariable.Percentile = invalidPercentile;
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);

@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Migration.Core.Storage;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Migration.Core.TestUtil;
 
 namespace Riskeer.Migration.Core.Test
@@ -191,7 +192,7 @@ namespace Riskeer.Migration.Core.Test
             using (new FileDisposeHelper(targetFilePath))
             {
                 // Call
-                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+                Action call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -215,7 +216,7 @@ namespace Riskeer.Migration.Core.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+                Action call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -236,7 +237,7 @@ namespace Riskeer.Migration.Core.Test
             var migrator = new ProjectFileMigrator();
 
             // Call
-            TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
+            Action call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -263,7 +264,7 @@ namespace Riskeer.Migration.Core.Test
                 try
                 {
                     // Call
-                    TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+                    Action call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                     // Assert
                     var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -292,7 +293,7 @@ namespace Riskeer.Migration.Core.Test
             var migrator = new ProjectFileMigrator();
 
             // Call
-            TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+            Action call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
@@ -310,7 +311,7 @@ namespace Riskeer.Migration.Core.Test
             var migrator = new ProjectFileMigrator();
 
             // Call
-            TestDelegate call = () => migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
+            Action call = () => migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;

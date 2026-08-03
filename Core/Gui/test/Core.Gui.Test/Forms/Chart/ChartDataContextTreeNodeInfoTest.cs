@@ -39,6 +39,7 @@ using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Chart
 {

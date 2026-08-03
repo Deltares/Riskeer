@@ -113,7 +113,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 var collector = new ReadConversionCollector();
 
                 // Call
-                TestDelegate test = () => containsInCollector(collector, null);
+                Action test = () => containsInCollector(collector, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -170,7 +170,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 var collector = new ReadConversionCollector();
 
                 // Call
-                TestDelegate test = () => getFromCollector(collector, null);
+                Action test = () => getFromCollector(collector, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -201,7 +201,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 var entity = new TEntity();
 
                 // Call
-                TestDelegate test = () => getFromCollector(collector, entity);
+                Action test = () => getFromCollector(collector, entity);
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
@@ -215,7 +215,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 registerToCollector(collector, new TEntity(), CreateDataModel());
 
                 // Call
-                TestDelegate test = () => getFromCollector(collector, new TEntity());
+                Action test = () => getFromCollector(collector, new TEntity());
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
@@ -228,7 +228,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 var collector = new ReadConversionCollector();
 
                 // Call
-                TestDelegate test = () => registerToCollector(collector, null, CreateDataModel());
+                Action test = () => registerToCollector(collector, null, CreateDataModel());
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -242,7 +242,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 var collector = new ReadConversionCollector();
 
                 // Call
-                TestDelegate test = () => registerToCollector(collector, new TEntity(), null);
+                Action test = () => registerToCollector(collector, new TEntity(), null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

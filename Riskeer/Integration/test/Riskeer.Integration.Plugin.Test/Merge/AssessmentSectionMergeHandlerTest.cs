@@ -28,6 +28,7 @@ using Core.Common.Util.Extensions;
 using Core.Gui.Forms.ViewHost;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;

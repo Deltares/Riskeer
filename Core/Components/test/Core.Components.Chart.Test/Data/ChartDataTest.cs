@@ -37,7 +37,7 @@ namespace Core.Components.Chart.Test.Data
         public void ParameteredConstructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new TestChartData(invalidName);
+            Action call = () => new TestChartData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
@@ -89,7 +89,7 @@ namespace Core.Components.Chart.Test.Data
             var data = new TestChartData(name);
 
             // Call
-            TestDelegate call = () => data.Name = invalidName;
+            Action call = () => data.Name = invalidName;
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";

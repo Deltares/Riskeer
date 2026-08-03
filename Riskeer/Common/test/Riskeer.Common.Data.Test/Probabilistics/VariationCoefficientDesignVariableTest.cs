@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleVariationCoefficientDesignVariable(null);
+            Action call = () => new SimpleVariationCoefficientDesignVariable(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var designVariable = new SimpleVariationCoefficientDesignVariable(distribution);
 
             // Call
-            TestDelegate call = () => designVariable.Distribution = null;
+            Action call = () => designVariable.Distribution = null;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -37,7 +37,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new MapDataChild(invalidName);
+            Action call = () => new MapDataChild(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the map data.";

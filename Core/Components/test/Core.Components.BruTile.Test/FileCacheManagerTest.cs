@@ -46,7 +46,7 @@ namespace Core.Components.BruTile.Test
         public void GetFileCache_PathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FileCacheManager.Instance.GetFileCache(null);
+            Action test = () => FileCacheManager.Instance.GetFileCache(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -91,7 +91,7 @@ namespace Core.Components.BruTile.Test
         public void UnsubscribeFileCache_FileCacheNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FileCacheManager.Instance.UnsubscribeFileCache(null);
+            Action test = () => FileCacheManager.Instance.UnsubscribeFileCache(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

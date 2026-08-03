@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
-            TestDelegate test = () => new CalculationChangeHandler(null, string.Empty, inquiryHandler);
+            Action test = () => new CalculationChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
+            Action test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                                    string.Empty,
                                                                    null);
 
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
-            TestDelegate test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
+            Action test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                                    null,
                                                                    inquiryHandler);
 

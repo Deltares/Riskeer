@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 {
@@ -35,7 +36,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         public void Create_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RowChartDataSeriesFactory.Create(null).ToList();
+            Action test = () => RowChartDataSeriesFactory.Create(null).ToList();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

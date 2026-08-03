@@ -66,7 +66,7 @@ namespace Core.Common.Base.Test.Data
         public void Constructor_MinimumGreaterThenMaximum_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new Range<int>(1, 0);
+            Action call = () => new Range<int>(1, 0);
 
             // Assert
             const string message = "Minimum must be smaller or equal to Maximum.";

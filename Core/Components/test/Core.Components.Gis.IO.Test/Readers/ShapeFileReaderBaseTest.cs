@@ -31,6 +31,7 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Readers
 {
@@ -60,7 +61,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
+            Action call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -73,7 +74,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Call
             string pathToNotExistingShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                            "I_do_not_exist.shp");
-            TestDelegate call = () => new TestShapeFileReaderBase(pathToNotExistingShapeFile);
+            Action call = () => new TestShapeFileReaderBase(pathToNotExistingShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{pathToNotExistingShapeFile}': het bestand bestaat niet.";
@@ -92,7 +93,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             string invalidFilePath = validFilePath.Replace("_", invalidPathChars[0].ToString());
 
             // Call
-            TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
+            Action call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -108,7 +109,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
+            Action call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";

@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate test = () => ((PipingStochasticSoilModel) null).IntersectsWithSurfaceLineGeometry(surfaceLine);
+            Action test = () => ((PipingStochasticSoilModel) null).IntersectsWithSurfaceLineGeometry(surfaceLine);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             });
 
             // Call
-            TestDelegate test = () => soilModel.IntersectsWithSurfaceLineGeometry(null);
+            Action test = () => soilModel.IntersectsWithSurfaceLineGeometry(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

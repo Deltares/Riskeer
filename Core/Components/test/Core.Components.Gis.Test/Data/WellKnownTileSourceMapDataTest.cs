@@ -69,7 +69,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_UnknownTileSource_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => new WellKnownTileSourceMapData((WellKnownTileSource) 99);
+            Action test = () => new WellKnownTileSourceMapData((WellKnownTileSource) 99);
 
             // Assert
             const string message = "The value of argument 'enumValue' (99) is invalid for Enum type 'WellKnownTileSource'.";
@@ -83,7 +83,7 @@ namespace Core.Components.Gis.Test.Data
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
             // Call
-            TestDelegate test = () => mapData.SetTileSource((WellKnownTileSource) 99);
+            Action test = () => mapData.SetTileSource((WellKnownTileSource) 99);
 
             // Assert
             const string message = "The value of argument 'enumValue' (99) is invalid for Enum type 'WellKnownTileSource'.";

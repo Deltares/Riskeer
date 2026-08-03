@@ -37,7 +37,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_InvalidPath_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => new ProjectVersionedFile(filePath);
+            Action call = () => new ProjectVersionedFile(filePath);
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
@@ -69,7 +69,7 @@ namespace Riskeer.Migration.Core.Test
             Assert.IsFalse(File.Exists(filePath), $"File should not exist at location '{filePath}'");
 
             // Call
-            TestDelegate call = () => sourceFile.GetVersion();
+            Action call = () => sourceFile.GetVersion();
 
             // Assert
             Assert.Throws<CriticalFileReadException>(call);
@@ -89,7 +89,7 @@ namespace Riskeer.Migration.Core.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => sourceFile.GetVersion();
+                Action call = () => sourceFile.GetVersion();
 
                 // Assert
                 Assert.Throws<CriticalFileReadException>(call);

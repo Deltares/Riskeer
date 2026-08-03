@@ -31,6 +31,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -60,7 +61,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
+            Action test = () => new WaveConditionsInputView(CreateTestCalculation(),
                                                                   GetHydraulicBoundaryLocationCalculation,
                                                                   null);
 
@@ -73,7 +74,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
         public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
+            Action test = () => new WaveConditionsInputView(CreateTestCalculation(),
                                                                   null,
                                                                   new TestWaveConditionsInputViewStyle());
 
@@ -86,7 +87,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(null,
+            Action test = () => new WaveConditionsInputView(null,
                                                                   GetHydraulicBoundaryLocationCalculation,
                                                                   new TestWaveConditionsInputViewStyle());
 

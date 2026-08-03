@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_SliceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSliceRow(null, new Random(22).Next());
+            Action test = () => new MacroStabilityInwardsSliceRow(null, new Random(22).Next());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
@@ -92,7 +93,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             layer.IsAquifer = isAquifer;
 
             // Call
-            TestDelegate call = () => PipingSoilLayerTransformer.Transform(layer);
+            Action call = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -121,7 +122,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(null);
+            Action test = () => PipingSoilLayerTransformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -214,7 +215,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             };
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -229,7 +230,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -247,7 +248,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -262,7 +263,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -279,7 +280,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(null, 0.0, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(null, 0.0, out bottom);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -433,7 +434,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             PipingSoilLayer[] pipingSoilLayers = null;
 
             // Call
-            TestDelegate call = () => pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, x2, out bottom).ToArray();
+            Action call = () => pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, x2, out bottom).ToArray();
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -980,7 +981,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -1015,7 +1016,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -1035,7 +1036,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -1053,7 +1054,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -1069,7 +1070,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -1088,7 +1089,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             double bottom;
 
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 1, out bottom);
+            Action test = () => PipingSoilLayerTransformer.Transform(layer, 1, out bottom);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);

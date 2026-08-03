@@ -23,6 +23,7 @@ using System;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -48,7 +49,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
+            Action call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,
@@ -75,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
+            Action call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,

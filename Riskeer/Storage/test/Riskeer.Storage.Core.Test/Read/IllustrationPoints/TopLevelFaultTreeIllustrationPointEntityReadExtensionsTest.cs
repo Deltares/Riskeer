@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
@@ -36,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.IllustrationPoints
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((TopLevelFaultTreeIllustrationPointEntity) null).Read();
+            Action call = () => ((TopLevelFaultTreeIllustrationPointEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

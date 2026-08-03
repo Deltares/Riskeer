@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoValueRoundedDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            Action call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
             var converter = new NoValueRoundedDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            Action call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -39,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IllustrationPointNode) null).Create(0);
+            Action call = () => ((IllustrationPointNode) null).Create(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -124,7 +125,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
             var node = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
 
             // Call
-            TestDelegate call = () => node.Create(0);
+            Action call = () => node.Create(0);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;

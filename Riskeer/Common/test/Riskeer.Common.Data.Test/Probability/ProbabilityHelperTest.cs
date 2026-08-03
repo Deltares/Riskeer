@@ -77,7 +77,7 @@ namespace Riskeer.Common.Data.Test.Probability
         public void ValidateProbability_InvalidProbability_ThrowsArgumentOutOfRangeException(double invalidProbabilityValue, string expectedParamName)
         {
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName);
+            Action call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName);
 
             // Assert
             const string message = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Data.Test.Probability
         public void ValidateProbability_ValidProbability_DoesNotThrow(double probability)
         {
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(probability, "A");
+            Action call = () => ProbabilityHelper.ValidateProbability(probability, "A");
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Data.Test.Probability
         public void ValidateProbability_AllowNaN_DoesNotThrow()
         {
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", true);
+            Action call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", true);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.Test.Probability
             const string customMessage = "Test";
 
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(1.0, "value", customMessage);
+            Action call = () => ProbabilityHelper.ValidateProbability(1.0, "value", customMessage);
 
             // Assert
             const string expectedMessage = "The custom message should have a insert location (\"{0}\") where the validity range is to be inserted.";
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Data.Test.Probability
             const string customMessage = "Test {0}";
 
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName, customMessage);
+            Action call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName, customMessage);
 
             // Assert
             const string message = "Test [0,0, 1,0]";
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Data.Test.Probability
             const string customMessage = "Test {0}";
 
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(probability, "A", customMessage);
+            Action call = () => ProbabilityHelper.ValidateProbability(probability, "A", customMessage);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -167,7 +167,7 @@ namespace Riskeer.Common.Data.Test.Probability
             const string customMessage = "Test {0}";
 
             // Call
-            TestDelegate call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", customMessage, true);
+            Action call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", customMessage, true);
 
             // Assert
             Assert.DoesNotThrow(call);

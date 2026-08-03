@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_PipingSoilLayerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilLayerProperties(null);
+            Action test = () => new PipingSoilLayerProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -34,7 +34,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_DuneLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationCalculation(null);
+            Action call = () => new DuneLocationCalculation(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

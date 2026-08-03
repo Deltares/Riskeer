@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Test
         public void Constructor_WithoutMap_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new RdNewMouseCoordinatesMapExtension(null);
+            Action call = () => new RdNewMouseCoordinatesMapExtension(null);
 
             // Assert
             const string expectedMessage = "An extension cannot be initialized without map.";

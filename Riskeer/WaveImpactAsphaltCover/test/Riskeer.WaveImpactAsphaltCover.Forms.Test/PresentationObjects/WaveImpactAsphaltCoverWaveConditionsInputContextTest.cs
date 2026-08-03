@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
+            Action test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                                            calculation,
                                                                                            assessmentSection,
                                                                                            null);

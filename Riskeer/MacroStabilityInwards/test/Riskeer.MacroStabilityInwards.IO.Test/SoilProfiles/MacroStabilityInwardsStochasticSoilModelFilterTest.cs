@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var filter = new MacroStabilityInwardsStochasticSoilModelFilter();
 
             // Call
-            TestDelegate test = () => filter.IsValidForFailureMechanism(null);
+            Action test = () => filter.IsValidForFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

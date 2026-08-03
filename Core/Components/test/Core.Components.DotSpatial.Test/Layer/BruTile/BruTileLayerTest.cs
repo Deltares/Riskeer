@@ -176,7 +176,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new BruTileLayer(null);
+            Action call = () => new BruTileLayer(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -342,7 +342,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             using (var layer = new BruTileLayer(configuration))
             {
                 // Call
-                TestDelegate call = () => layer.Transparency = invalidValue;
+                Action call = () => layer.Transparency = invalidValue;
 
                 // Assert
                 const string message = "Transparantie moet in het bereik [0,0, 1,0] liggen.";
@@ -559,7 +559,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 };
 
                 // Call
-                TestDelegate call = () => layer.DrawRegions(mapArgs, regions);
+                Action call = () => layer.DrawRegions(mapArgs, regions);
 
                 // Assert
                 Assert.DoesNotThrow(call,

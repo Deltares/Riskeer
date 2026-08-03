@@ -55,7 +55,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => new ReferenceLineExporter(referenceLine, "anId", null);
+            Action call = () => new ReferenceLineExporter(referenceLine, "anId", null);
 
             // Assert
             Assert.Throws<ArgumentException>(call);

@@ -22,6 +22,7 @@
 using System.Collections;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Serializers;

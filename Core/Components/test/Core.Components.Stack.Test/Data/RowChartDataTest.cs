@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Stack.Test.Data
 {
@@ -33,7 +34,7 @@ namespace Core.Components.Stack.Test.Data
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RowChartData(null, new double[0], Color.White);
+            Action test = () => new RowChartData(null, new double[0], Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -44,7 +45,7 @@ namespace Core.Components.Stack.Test.Data
         public void Constructor_ValuesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RowChartData("test", null, Color.White);
+            Action test = () => new RowChartData("test", null, Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

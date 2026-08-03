@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Util;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 

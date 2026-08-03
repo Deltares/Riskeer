@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_GoverningWindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new GeneralResult<TopLevelIllustrationPointBase>(null,
                                                                  Enumerable.Empty<Stochast>(),
                                                                  Enumerable.Empty<TopLevelIllustrationPointBase>());
@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                  null,
                                                                  Enumerable.Empty<TopLevelIllustrationPointBase>());
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                  Enumerable.Empty<Stochast>(),
                                                                  null);
@@ -121,7 +121,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
                 Enumerable.Empty<TopLevelIllustrationPointBase>();
 
             // Call
-            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
+            Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                                        stochasts,
                                                                                        topLevelIllustrationPoints);
 
@@ -144,7 +144,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
+            Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                                        stochasts,
                                                                                        topLevelIllustrationPoints);
 
@@ -175,7 +175,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
+            Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                                        stochasts,
                                                                                        topLevelIllustrationPoints);
 

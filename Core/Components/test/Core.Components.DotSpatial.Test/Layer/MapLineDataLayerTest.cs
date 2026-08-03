@@ -34,6 +34,7 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.DotSpatial.Test.Layer
 {
@@ -44,7 +45,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_WithoutMapLineData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapLineDataLayer(null);
+            Action test = () => new MapLineDataLayer(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

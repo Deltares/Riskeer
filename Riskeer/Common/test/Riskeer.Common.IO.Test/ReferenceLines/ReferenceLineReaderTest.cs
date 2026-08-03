@@ -64,7 +64,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -84,7 +84,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -102,7 +102,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
@@ -162,7 +162,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand moet exact één gehele polylijn bevatten.";
@@ -180,7 +180,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var reader = new ReferenceLineReader();
 
             // Call
-            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+            Action call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bevat een multi-polylijn. " +
@@ -201,7 +201,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => reader.ReadReferenceLine(path);
+                Action call = () => reader.ReadReferenceLine(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";

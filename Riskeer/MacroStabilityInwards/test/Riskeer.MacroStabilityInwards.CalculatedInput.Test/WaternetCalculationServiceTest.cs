@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;

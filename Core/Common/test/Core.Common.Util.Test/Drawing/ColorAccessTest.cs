@@ -36,7 +36,7 @@ namespace Core.Common.Util.Test.Drawing
         public void Create_BitmapNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ColorAccess.Create(null);
+            Action call = () => ColorAccess.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -54,7 +54,7 @@ namespace Core.Common.Util.Test.Drawing
             Rectangle rect = Rectangle.FromLTRB(leftX, topY, rightX, bottomY);
 
             // Call
-            TestDelegate call = () => ColorAccess.Create(Resources.Black2x2, rect);
+            Action call = () => ColorAccess.Create(Resources.Black2x2, rect);
 
             // Assert
             const string message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
@@ -94,7 +94,7 @@ namespace Core.Common.Util.Test.Drawing
             ColorAccess colorAccess = ColorAccess.Create(Resources.Black2x2);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 Color c = colorAccess[x, y];
             };
@@ -138,7 +138,7 @@ namespace Core.Common.Util.Test.Drawing
             ColorAccess colorAccess = ColorAccess.Create(Resources.acorn);
 
             // Call
-            TestDelegate call = () => colorAccess[x, y] = Color.AliceBlue;
+            Action call = () => colorAccess[x, y] = Color.AliceBlue;
 
             // Assert
             const string message = "Index must be in range x:[0,15], y:[0,15].";
@@ -174,7 +174,7 @@ namespace Core.Common.Util.Test.Drawing
             ColorAccess colorAccess = ColorAccess.Create(Resources.acorn);
 
             // Call
-            TestDelegate call = () => colorAccess.SetBufferToImageAtOriginalLocation(null);
+            Action call = () => colorAccess.SetBufferToImageAtOriginalLocation(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

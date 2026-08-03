@@ -72,7 +72,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             DistributionReadOnlyProperties flags)
         {
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
+            Action call = () => new SimpleDistributionProperties(flags, null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var distribution = Substitute.For<IDistribution>();
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null);
+            Action call = () => new SimpleDistributionProperties(flags, distribution, null);
 
             // Assert
             const string message = "Change handler required if changes are possible.";
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 handler);
 
             // Call
-            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
+            Action test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
             const string expectedMessage = "Mean is set to be read-only.";
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 handler);
 
             // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
+            Action test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
 
             // Assert
             const string expectedMessage = "StandardDeviation is set to be read-only.";

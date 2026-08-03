@@ -28,6 +28,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;

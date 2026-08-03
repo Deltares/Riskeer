@@ -31,6 +31,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -334,7 +335,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
             // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+            Action call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
             Assert.DoesNotThrow(call);

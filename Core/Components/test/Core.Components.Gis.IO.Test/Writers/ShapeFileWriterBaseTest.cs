@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Writers;
 using DotSpatial.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Writers
 {
@@ -53,7 +54,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new TestShapeFileWriterBase())
             {
                 // Call
-                TestDelegate test = () => writer.CopyToFeature(null);
+                Action test = () => writer.CopyToFeature(null);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
@@ -68,7 +69,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new TestShapeFileWriterBase())
             {
                 // Call
-                TestDelegate test = () => writer.CopyToFeature(new MapLineData("test"));
+                Action test = () => writer.CopyToFeature(new MapLineData("test"));
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Mapdata mag maar één feature bevatten.");
@@ -85,7 +86,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new TestShapeFileWriterBase())
             {
                 // Call
-                TestDelegate call = () => writer.SaveAs(filePath);
+                Action call = () => writer.SaveAs(filePath);
 
                 // Assert
                 const string expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -101,7 +102,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new TestShapeFileWriterBase())
             {
                 // Call
-                TestDelegate call = () => writer.SaveAs("c:/");
+                Action call = () => writer.SaveAs("c:/");
 
                 // Assert
                 const string expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -120,7 +121,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new TestShapeFileWriterBase())
             {
                 // Call
-                TestDelegate call = () => writer.SaveAs(filePath);
+                Action call = () => writer.SaveAs(filePath);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand 'c:/{invalidPathChars[0]}.shp': " 
@@ -141,7 +142,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => writer.SaveAs(filePath);
+                Action call = () => writer.SaveAs(filePath);
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";

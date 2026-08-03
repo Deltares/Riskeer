@@ -50,7 +50,7 @@ namespace Riskeer.Common.Service.Test
             var removedObjectsArray = new object[0];
 
             // Call
-            TestDelegate call = () => new ClearResults(null, removedObjectsArray);
+            Action call = () => new ClearResults(null, removedObjectsArray);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Service.Test
             var changedObjectsArray = new IObservable[0];
 
             // Call
-            TestDelegate call = () => new ClearResults(changedObjectsArray, null);
+            Action call = () => new ClearResults(changedObjectsArray, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

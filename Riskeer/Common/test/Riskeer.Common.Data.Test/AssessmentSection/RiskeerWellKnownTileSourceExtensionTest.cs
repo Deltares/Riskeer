@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.TestUtil;
@@ -50,7 +51,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             const RiskeerWellKnownTileSource wellKnownTileSource = (RiskeerWellKnownTileSource) invalidValue;
 
             // Call
-            TestDelegate call = () => wellKnownTileSource.GetDisplayName();
+            Action call = () => wellKnownTileSource.GetDisplayName();
 
             // Assert
             string expectedMessage = $"The value of argument 'riskeerWellKnownTileSource' ({invalidValue}) is invalid for Enum type '{nameof(RiskeerWellKnownTileSource)}'.";

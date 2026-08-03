@@ -41,7 +41,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new SoilProfile2D(1, null, soilLayer2Ds, Enumerable.Empty<PreconsolidationStress>());
+            Action test = () => new SoilProfile2D(1, null, soilLayer2Ds, Enumerable.Empty<PreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -52,7 +52,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilProfile2D(1, "name", null, Enumerable.Empty<PreconsolidationStress>());
+            Action test = () => new SoilProfile2D(1, "name", null, Enumerable.Empty<PreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new SoilProfile2D(1, string.Empty, soilLayer2Ds, null);
+            Action call = () => new SoilProfile2D(1, string.Empty, soilLayer2Ds, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

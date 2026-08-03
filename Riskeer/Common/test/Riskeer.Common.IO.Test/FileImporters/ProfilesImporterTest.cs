@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath, messageProvider);
+            Action call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,7 +82,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, null, testFilePath, messageProvider);
+            Action call = () => new TestProfilesImporter(testImportTarget, null, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,7 +95,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null, messageProvider);
+            Action call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void ParameteredConstructor_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, null);
+            Action call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider, null);
+            Action call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

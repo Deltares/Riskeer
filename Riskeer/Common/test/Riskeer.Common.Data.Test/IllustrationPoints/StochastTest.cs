@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             double alpha = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new Stochast(null, duration, alpha);
+            Action call = () => new Stochast(null, duration, alpha);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -52,7 +52,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call 
-            TestDelegate test = () => new BackgroundData(null);
+            Action test = () => new BackgroundData(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate call = () => backgroundData.Transparency = (RoundedDouble) invalidTransparency;
+            Action call = () => backgroundData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             const string message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";

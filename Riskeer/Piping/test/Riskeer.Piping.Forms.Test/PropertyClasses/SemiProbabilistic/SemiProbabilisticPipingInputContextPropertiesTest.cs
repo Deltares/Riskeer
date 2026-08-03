@@ -31,6 +31,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
@@ -81,7 +82,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(null,
+            Action test = () => new SemiProbabilisticPipingInputContextProperties(null,
                                                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                         handler);
 
@@ -107,7 +108,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                   assessmentSection);
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(context, null, handler);
+            Action test = () => new SemiProbabilisticPipingInputContextProperties(context, null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -130,7 +131,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                   assessmentSection);
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(context,
+            Action test = () => new SemiProbabilisticPipingInputContextProperties(context,
                                                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                         null);
 
@@ -953,7 +954,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                handler);
 
             // Call
-            TestDelegate call = () => properties.ExitPointL = newExitPointL;
+            Action call = () => properties.ExitPointL = newExitPointL;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
@@ -999,7 +1000,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                handler);
 
             // Call
-            TestDelegate call = () => properties.EntryPointL = entryPoint;
+            Action call = () => properties.EntryPointL = entryPoint;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
@@ -1045,7 +1046,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                handler);
 
             // Call
-            TestDelegate call = () => properties.EntryPointL = entryPointL;
+            Action call = () => properties.EntryPointL = entryPointL;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
@@ -1089,7 +1090,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                handler);
 
             // Call
-            TestDelegate call = () => properties.ExitPointL = exitPointL;
+            Action call = () => properties.ExitPointL = exitPointL;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
@@ -1430,7 +1431,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
             // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+            Action call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
             Assert.DoesNotThrow(call);

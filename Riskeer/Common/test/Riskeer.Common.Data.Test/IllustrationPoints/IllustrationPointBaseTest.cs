@@ -34,7 +34,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestIllustrationPointBase(null, 12.3);
+            Action call = () => new TestIllustrationPointBase(null, 12.3);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

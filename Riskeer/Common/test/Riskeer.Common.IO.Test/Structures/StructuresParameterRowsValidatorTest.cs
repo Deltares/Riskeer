@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.Common.IO.Test.Structures
@@ -34,7 +35,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ValidateHeightStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.ValidateHeightStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.ValidateHeightStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -291,7 +292,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetRelevantHeightStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -315,7 +316,7 @@ namespace Riskeer.Common.IO.Test.Structures
             };
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(structureParameterRows);
 
             // Assert
@@ -458,7 +459,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ValidateClosingStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.ValidateClosingStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.ValidateClosingStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -821,7 +822,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetRelevantClosingStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -845,7 +846,7 @@ namespace Riskeer.Common.IO.Test.Structures
             };
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(structureParameterRows);
 
             // Assert
@@ -989,7 +990,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ValidateStabilityPointStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1527,7 +1528,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetRelevantStabilityPointStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(null);
+            Action call = () => StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1551,7 +1552,7 @@ namespace Riskeer.Common.IO.Test.Structures
             };
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert

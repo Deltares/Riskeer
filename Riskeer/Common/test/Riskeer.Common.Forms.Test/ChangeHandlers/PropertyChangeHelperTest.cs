@@ -38,7 +38,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => PropertyChangeHelper.ChangePropertyAndNotify(null, handler);
+            Action test = () => PropertyChangeHelper.ChangePropertyAndNotify(null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void ChangePropertyAndNotify_WithoutChangeHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PropertyChangeHelper.ChangePropertyAndNotify(() => {}, null);
+            Action test = () => PropertyChangeHelper.ChangePropertyAndNotify(() => {}, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

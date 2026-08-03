@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -44,7 +45,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                                                                                : null;
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
                                                                targetProbability,
@@ -74,7 +75,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                                                                                : null;
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
+            Action call = () => new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
                                                                                      random.NextDouble(),
                                                                                      random.NextDouble(),
                                                                                      calculatedProbability,

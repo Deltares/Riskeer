@@ -34,7 +34,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void CreateOutputWithWaveRunUp_WaveRunUpOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(null);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void CreateOutputWithWaveImpact_WaveImpactOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(null);
 
             // Assert
@@ -93,7 +93,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(null,
                                                                                                             waveImpactOutput);
 
@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput,
                                                                                                             null);
 
@@ -140,7 +140,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void CreateOutputWithWaveImpactWithWaveDirection_WaveImpactWithWaveDirectionOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpactWithWaveDirection(null);
 
             // Assert
@@ -171,7 +171,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirection = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection(null,
                                                                                                                              waveImpactWithWaveDirection);
 
@@ -187,7 +187,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection(waveRunUpOutput,
                                                                                                                              null);
 
@@ -222,7 +222,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(null,
                                                                                                                                        waveImpactOutput, waveImpactWithWaveDirectionOutput);
 
@@ -239,7 +239,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(waveRunUpOutput,
                                                                                                                                        null,
                                                                                                                                        waveImpactWithWaveDirectionOutput);
@@ -257,7 +257,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(waveRunUpOutput,
                                                                                                                                        waveImpactOutput,
                                                                                                                                        null);

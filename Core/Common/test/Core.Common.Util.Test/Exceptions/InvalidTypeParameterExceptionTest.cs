@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using Core.Common.Util.Exceptions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Util.Test.Exceptions
 {

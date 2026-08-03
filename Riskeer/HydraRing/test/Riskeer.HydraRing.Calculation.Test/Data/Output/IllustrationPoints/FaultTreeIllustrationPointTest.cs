@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
@@ -38,7 +39,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var random = new Random(123);
 
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint(null,
+            Action call = () => new FaultTreeIllustrationPoint(null,
                                                                      random.NextDouble(),
                                                                      Enumerable.Empty<Stochast>(),
                                                                      random.NextEnumValue<CombinationType>());
@@ -55,7 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var random = new Random(123);
 
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint("name",
+            Action call = () => new FaultTreeIllustrationPoint("name",
                                                                      random.NextDouble(),
                                                                      null,
                                                                      random.NextEnumValue<CombinationType>());

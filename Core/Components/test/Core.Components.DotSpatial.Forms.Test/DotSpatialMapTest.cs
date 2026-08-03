@@ -56,7 +56,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var map = (DotSpatialMap) new ControlTester("Map").TheObject;
 
                 // Call
-                TestDelegate test = () => map.ViewExtents = new Extent(1 + minExt, 2 + minExt, 1 + minExt, 2 + minExt);
+                Action test = () => map.ViewExtents = new Extent(1 + minExt, 2 + minExt, 1 + minExt, 2 + minExt);
 
                 // Assert
                 Assert.DoesNotThrow(test);

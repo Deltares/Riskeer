@@ -49,7 +49,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         {
             // Call
             var transformer = Substitute.For<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
-            TestDelegate test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, null);
+            Action test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,7 +61,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         {
             // Call
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            TestDelegate test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(null, strategy);
+            Action test = () => new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(null, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

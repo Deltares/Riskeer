@@ -36,7 +36,7 @@ namespace Riskeer.Common.Util.Test
         public void HasIllustrationPoints_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<HydraulicBoundaryLocationCalculation>) null);
+            Action call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<HydraulicBoundaryLocationCalculation>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Riskeer.Common.Util.Test
         public void HasIllustrationPoints_StructureCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<TestStructuresCalculation>) null);
+            Action call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<TestStructuresCalculation>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Util.Test
         public void HasIllustrationPoints_StructureCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((TestStructuresCalculation) null);
+            Action call = () => IllustrationPointsHelper.HasIllustrationPoints((TestStructuresCalculation) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

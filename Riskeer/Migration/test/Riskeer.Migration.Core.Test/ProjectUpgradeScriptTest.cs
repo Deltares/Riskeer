@@ -43,7 +43,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            Action call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            Action call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            Action call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string expectedMessage = $@"'{fromVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
@@ -92,7 +92,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            Action call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string expectedMessage = $@"'{toVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
@@ -110,7 +110,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            Action call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -147,7 +147,7 @@ namespace Riskeer.Migration.Core.Test
             using (new FileDisposeHelper(fileLocation))
             {
                 // Call
-                TestDelegate call = () => upgradeScript.Upgrade(fileLocation, fileLocation);
+                Action call = () => upgradeScript.Upgrade(fileLocation, fileLocation);
 
                 // Assert
                 var exception = Assert.Throws<CriticalMigrationException>(call);

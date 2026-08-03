@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -136,7 +137,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var plotView = new CategoryPlotView();
 
             // Call
-            TestDelegate test = () => plotView.AddLabels(null);
+            Action test = () => plotView.AddLabels(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

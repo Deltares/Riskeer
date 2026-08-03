@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
+            Action test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
+            Action test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

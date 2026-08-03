@@ -58,7 +58,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_TileProviderNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AsyncTileFetcher(null, 100, 200);
+            Action call = () => new AsyncTileFetcher(null, 100, 200);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -74,7 +74,7 @@ namespace Core.Components.BruTile.IO.Test
             var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
 
             // Call
-            TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
+            Action call = () => new AsyncTileFetcher(tileProvider, min, max);
 
             // Assert
             const string message = "Het aantal kaart tegels voor de geheugen cache moeten positief zijn.";
@@ -91,7 +91,7 @@ namespace Core.Components.BruTile.IO.Test
             var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
 
             // Call
-            TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
+            Action call = () => new AsyncTileFetcher(tileProvider, min, max);
 
             // Assert
             const string message = "Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.";
@@ -268,7 +268,7 @@ namespace Core.Components.BruTile.IO.Test
             var tileInfo = new TileInfo();
 
             // Call
-            TestDelegate call = () => tileFetcher.GetTile(tileInfo);
+            Action call = () => tileFetcher.GetTile(tileInfo);
 
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
@@ -447,7 +447,7 @@ namespace Core.Components.BruTile.IO.Test
             tileFetcher.Dispose();
 
             // Call
-            TestDelegate call = () => tileFetcher.DropAllPendingTileRequests();
+            Action call = () => tileFetcher.DropAllPendingTileRequests();
 
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
@@ -510,7 +510,7 @@ namespace Core.Components.BruTile.IO.Test
             tileFetcher.Dispose();
 
             // Call
-            TestDelegate call = () => tileFetcher.IsReady();
+            Action call = () => tileFetcher.IsReady();
 
             // Assert
             string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
@@ -526,7 +526,7 @@ namespace Core.Components.BruTile.IO.Test
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 tileFetcher.Dispose();
                 tileFetcher.Dispose();

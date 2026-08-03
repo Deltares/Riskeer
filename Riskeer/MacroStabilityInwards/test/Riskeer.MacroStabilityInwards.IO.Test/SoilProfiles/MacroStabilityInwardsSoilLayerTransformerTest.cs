@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
@@ -42,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer1D) null);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer1D) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -177,7 +178,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.UsePop = 1;
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -212,7 +213,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.ShearStrengthModel = 1;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -229,7 +230,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.ShearStrengthModel = 2;
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -265,7 +266,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.IsAquifer = isAquifer;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -295,7 +296,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -308,7 +309,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -321,7 +322,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -334,7 +335,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -349,7 +350,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_SoilLayer2DNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer2D) null);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer2D) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -423,7 +424,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.UsePop = 1;
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -459,7 +460,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.ShearStrengthModel = 1;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -476,7 +477,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.ShearStrengthModel = 2;
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -512,7 +513,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.IsAquifer = isAquifer;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -543,7 +544,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             SoilLayer2D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -556,7 +557,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -569,7 +570,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -582,7 +583,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_SoilLayer2DWithInvalidLoops_ThrowsImportedDataException(SoilLayer2D soilLayer)
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(soilLayer);
+            Action call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(soilLayer);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -597,7 +598,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            Action test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);

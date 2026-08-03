@@ -162,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
         public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+            Action test = () => ((MacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -186,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(null);
+            Action test = () => surfaceLine.SetCharacteristicPoints(null);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -228,7 +228,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+            Action test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -251,7 +251,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             setPoint(points, changedPoint);
 
             // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+            Action test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);

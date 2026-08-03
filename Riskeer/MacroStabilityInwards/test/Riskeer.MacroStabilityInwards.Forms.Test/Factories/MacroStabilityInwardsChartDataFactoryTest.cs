@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Factories;
@@ -61,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         public void CreateWaternetZoneChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(null, new Random(21).NextBoolean());
+            Action call = () => MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(null, new Random(21).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         public void CreatePhreaticLineChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(null, new Random(21).NextBoolean());
+            Action call = () => MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(null, new Random(21).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -215,7 +216,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerChartData_LayerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(null);
+            Action call = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

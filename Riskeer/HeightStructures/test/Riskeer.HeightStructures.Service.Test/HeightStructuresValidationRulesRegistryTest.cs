@@ -48,7 +48,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var registry = new HeightStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(null);
+            Action test = () => registry.GetValidationRules(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

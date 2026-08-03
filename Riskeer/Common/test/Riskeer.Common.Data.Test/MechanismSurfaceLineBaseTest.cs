@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 
 namespace Riskeer.Common.Data.Test
@@ -38,7 +39,7 @@ namespace Riskeer.Common.Data.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestMechanismSurfaceLine(null);
+            Action test = () => new TestMechanismSurfaceLine(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -144,7 +145,7 @@ namespace Riskeer.Common.Data.Test
             var surfaceLine = new TestMechanismSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(null);
+            Action test = () => surfaceLine.SetGeometry(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -158,7 +159,7 @@ namespace Riskeer.Common.Data.Test
             var surfaceLine = new TestMechanismSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
+            Action test = () => surfaceLine.SetGeometry(new Point3D[]
             {
                 null
             });
@@ -176,7 +177,7 @@ namespace Riskeer.Common.Data.Test
             var l = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
-            TestDelegate test = () => surfaceLine.GetZAtL(l);
+            Action test = () => surfaceLine.GetZAtL(l);
 
             // Assert
             string exceptionMessage = Assert.Throws<InvalidOperationException>(test).Message;
@@ -225,7 +226,7 @@ namespace Riskeer.Common.Data.Test
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetZAtL((RoundedDouble) l);
+            Action test = () => surfaceLine.GetZAtL((RoundedDouble) l);
 
             // Assert
             const string expectedMessage = "Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0,0, 3,1] liggen.";
@@ -249,7 +250,7 @@ namespace Riskeer.Common.Data.Test
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetZAtL(l);
+            Action test = () => surfaceLine.GetZAtL(l);
 
             // Assert
             var exception = Assert.Throws<MechanismSurfaceLineException>(test);

@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test
         public void CreateDatabaseStructure_InvalidFilePath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(invalidPath);
+            Action call = () => StorageSqliteCreator.CreateDatabaseStructure(invalidPath);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test
             try
             {
                 // Call
-                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(fullPath);
+                Action call = () => StorageSqliteCreator.CreateDatabaseStructure(fullPath);
 
                 // Assert
                 Assert.DoesNotThrow(call);
@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test
             try
             {
                 // Call
-                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
+                Action call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
 
                 // Assert
                 Assert.DoesNotThrow(call);
@@ -111,7 +111,7 @@ namespace Riskeer.Storage.Core.Test
                 disposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempProjectFile);
+                Action call = () => StorageSqliteCreator.CreateDatabaseStructure(tempProjectFile);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentException>(call);

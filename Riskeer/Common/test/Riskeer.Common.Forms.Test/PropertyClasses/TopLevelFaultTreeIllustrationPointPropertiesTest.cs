@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var random = new Random(31);
 
             // Call
-            TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(null, random.NextBoolean());
+            Action test = () => new TopLevelFaultTreeIllustrationPointProperties(null, random.NextBoolean());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

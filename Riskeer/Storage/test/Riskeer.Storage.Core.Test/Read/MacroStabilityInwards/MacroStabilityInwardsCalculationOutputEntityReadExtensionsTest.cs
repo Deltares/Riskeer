@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsCalculationOutputEntity) null).Read();
+            Action call = () => ((MacroStabilityInwardsCalculationOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -128,7 +128,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             entity.SlipPlaneTangentLinesXml = string.Empty;
 
             // Call
-            TestDelegate call = () => entity.Read();
+            Action call = () => entity.Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             entity.SlidingCurveSliceXML = string.Empty;
 
             // Call
-            TestDelegate call = () => entity.Read();
+            Action call = () => entity.Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

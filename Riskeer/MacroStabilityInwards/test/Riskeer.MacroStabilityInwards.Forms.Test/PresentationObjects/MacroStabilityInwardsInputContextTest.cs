@@ -22,6 +22,7 @@
 using System;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -81,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            Action call = () => new MacroStabilityInwardsInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

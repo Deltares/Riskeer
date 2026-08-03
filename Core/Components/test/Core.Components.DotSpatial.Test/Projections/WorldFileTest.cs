@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
 using NetTopologySuite.Geometries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Test.Projections
@@ -51,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Projections
         public void Constructor_NonInvertableTransformationSpecified_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new WorldFile(0.0, 0.0, 0.0, 0.0, 1.1, 2.2);
+            Action call = () => new WorldFile(0.0, 0.0, 0.0, 0.0, 1.1, 2.2);
 
             // Assert
             const string message = "Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.";
@@ -113,7 +114,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var worldFile = new WorldFile(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
 
             // Call
-            TestDelegate call = () => worldFile.ToScreenCoordinates(null);
+            Action call = () => worldFile.ToScreenCoordinates(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

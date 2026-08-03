@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingStochasticSoilProfileEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((PipingStochasticSoilProfileEntity) null).Read(collector);
+            Action test = () => ((PipingStochasticSoilProfileEntity) null).Read(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

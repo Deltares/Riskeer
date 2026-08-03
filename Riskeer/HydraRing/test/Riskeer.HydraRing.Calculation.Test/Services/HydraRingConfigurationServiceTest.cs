@@ -62,7 +62,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput1);
 
             // Call
-            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
+            Action test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
 
             // Assert
             const string expectedMessage = "Section id is not unique";
@@ -80,7 +80,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput1);
 
             // Call
-            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
+            Action test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
 
             // Assert
             const string expectedMessage = "Running calculations for multiple failure mechanism types is not supported.";

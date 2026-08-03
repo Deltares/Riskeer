@@ -60,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
+            Action call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,7 +75,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
+            Action call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

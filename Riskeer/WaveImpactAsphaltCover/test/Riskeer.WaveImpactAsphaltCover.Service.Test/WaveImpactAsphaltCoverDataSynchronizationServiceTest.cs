@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -119,7 +120,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void ClearAllWaveConditionsCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null);
+            Action call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -150,7 +151,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(null);
+            Action call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

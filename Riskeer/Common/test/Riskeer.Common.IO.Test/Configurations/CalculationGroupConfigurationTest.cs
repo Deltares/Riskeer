@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CalculationGroupConfiguration(null, Enumerable.Empty<IConfigurationItem>());
+            Action test = () => new CalculationGroupConfiguration(null, Enumerable.Empty<IConfigurationItem>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -45,7 +45,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         public void Constructor_ItemsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CalculationGroupConfiguration("name", null);
+            Action test = () => new CalculationGroupConfiguration("name", null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

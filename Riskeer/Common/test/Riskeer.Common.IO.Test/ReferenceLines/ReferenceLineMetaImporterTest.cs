@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.ReferenceLines;
@@ -46,7 +47,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Constructor_NoFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
+            Action call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -64,7 +65,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             string invalidFilePath = validFilePath.Replace('F', invalidPathChars.Last());
 
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
+            Action call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -79,7 +80,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             string pathTooLong = InvalidPathHelper.CreateTooLongFilePath("reference-line-meta");
 
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(pathTooLong);
+            Action call = () => new ReferenceLineMetaImporter(pathTooLong);
 
             // Assert
             string expectedExceptionMessage = $"De map met specificaties voor trajecten '{pathTooLong}' is niet gevonden.";
@@ -97,7 +98,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Assert.IsFalse(Directory.Exists(pathToNonExistingFolder));
 
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(pathToNonExistingFolder);
+            Action call = () => new ReferenceLineMetaImporter(pathToNonExistingFolder);
 
             // Assert
             string expectedExceptionMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
@@ -114,7 +115,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Call
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), pathToEmptyFolder))
             {
-                TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
+                Action call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
 
                 // Assert
                 string expectedExceptionMessage = $@"Geen shapebestand om trajecten te specificeren gevonden in de map '{pathToEmptyFolder}'.";
@@ -145,7 +146,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineMetaImporter(pathToInvalid);
 
             // Call
-            TestDelegate call = () => importer.GetReferenceLineMetas();
+            Action call = () => importer.GetReferenceLineMetas();
 
             // Assert
             string expectedExceptionMessage = $"Het shapebestand '{Path.Combine(pathToInvalid, "InvalidShapeFile.shp")}' " +
@@ -163,7 +164,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineMetaImporter(pathToFolder);
 
             // Call
-            TestDelegate call = () => importer.GetReferenceLineMetas();
+            Action call = () => importer.GetReferenceLineMetas();
 
             // Assert
             string shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
@@ -181,7 +182,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineMetaImporter(pathToFolder);
 
             // Call
-            TestDelegate call = () => importer.GetReferenceLineMetas();
+            Action call = () => importer.GetReferenceLineMetas();
 
             // Assert
             string shapeFile = Path.Combine(pathToFolder, "EmptyTrackId.shp");

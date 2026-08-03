@@ -38,7 +38,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new SoilProfile1D(1, null, 1, soilLayer1Ds);
+            Action test = () => new SoilProfile1D(1, null, 1, soilLayer1Ds);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilProfile1D(1, "name", 1, null);
+            Action test = () => new SoilProfile1D(1, "name", 1, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

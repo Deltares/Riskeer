@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
@@ -41,7 +42,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var foreshoreProfile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate test = () => foreshoreProfile.Create(null, 0);
+            Action test = () => foreshoreProfile.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,7 +77,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(id, entity.Id);
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual(orientation, entity.Orientation, foreshoreProfile.Orientation.GetAccuracy());
+            NullableDoubleAssert.AreEqual(orientation, entity.Orientation, foreshoreProfile.Orientation.GetAccuracy());
             Assert.AreEqual(x0, entity.X0);
             Assert.IsNull(entity.BreakWaterType);
             Assert.IsNull(entity.BreakWaterHeight);
@@ -145,7 +146,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((int) breakWaterType, entity.BreakWaterType);
-            Assert.AreEqual(height, entity.BreakWaterHeight, foreshoreProfile.BreakWater.Height.GetAccuracy());
+            NullableDoubleAssert.AreEqual(height, entity.BreakWaterHeight, foreshoreProfile.BreakWater.Height.GetAccuracy());
         }
 
         [Test]

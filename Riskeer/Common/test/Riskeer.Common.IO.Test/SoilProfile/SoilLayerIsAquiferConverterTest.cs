@@ -58,7 +58,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Convert_InvalidValues_ThrowsImportedDataTransformException(double? isAquifer)
         {
             // Call
-            TestDelegate call = () => SoilLayerIsAquiferConverter.Convert(isAquifer);
+            Action call = () => SoilLayerIsAquiferConverter.Convert(isAquifer);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(call);

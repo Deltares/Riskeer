@@ -41,7 +41,7 @@ namespace Core.Gui.Test.Helpers
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DialogBasedInquiryHelper(null);
+            Action test = () => new DialogBasedInquiryHelper(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

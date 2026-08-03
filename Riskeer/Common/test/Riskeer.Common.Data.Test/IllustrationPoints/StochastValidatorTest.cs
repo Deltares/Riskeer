@@ -34,7 +34,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void ValidateStochasts_StochastsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StochastValidator.ValidateStochasts(null);
+            Action test = () => StochastValidator.ValidateStochasts(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => StochastValidator.ValidateStochasts(stochasts);
+            Action test = () => StochastValidator.ValidateStochasts(stochasts);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => StochastValidator.ValidateStochasts(stochasts);
+            Action test = () => StochastValidator.ValidateStochasts(stochasts);
 
             // Assert
             const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";

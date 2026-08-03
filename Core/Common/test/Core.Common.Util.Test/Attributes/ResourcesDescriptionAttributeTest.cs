@@ -23,6 +23,7 @@ using System;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Test.Properties;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Util.Test.Attributes
 {
@@ -33,7 +34,7 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_ResourcePropertyDoesNotExist_ThrowInvalidOperationException()
         {
             // Call
-            TestDelegate call = () => new ResourcesDescriptionAttribute(typeof(Resources), "DoesNotExist");
+            Action call = () => new ResourcesDescriptionAttribute(typeof(Resources), "DoesNotExist");
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -44,7 +45,7 @@ namespace Core.Common.Util.Test.Attributes
         public void ParameteredConstructor_ResourcePropertyIsNotString_ThrowInvalidOperationException()
         {
             // Call
-            TestDelegate call = () => new ResourcesDescriptionAttribute(typeof(Resources), nameof(Resources.abacus));
+            Action call = () => new ResourcesDescriptionAttribute(typeof(Resources), nameof(Resources.abacus));
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
