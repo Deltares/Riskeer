@@ -65,7 +65,18 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views.HydraulicLoadsState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -588,7 +599,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views.HydraulicLoadsState
 
             testForm.Controls.Add(view);
             testForm.Show();
-            Application.DoEvents();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }
