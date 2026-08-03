@@ -274,7 +274,7 @@ namespace Core.Gui.Forms.Main
             IsWindowDisposed = true;
             Close();
 
-            propertyGrid.Dispose();
+            propertyGrid?.Dispose();
 
             gui = null;
             viewController = null;
