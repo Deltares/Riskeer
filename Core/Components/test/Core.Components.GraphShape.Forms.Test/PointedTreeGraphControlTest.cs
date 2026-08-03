@@ -24,6 +24,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Core.Components.GraphShape.Data;
 using Core.Components.GraphShape.Forms.Layout;
 using Core.Components.GraphShape.TestUtil;
@@ -72,6 +73,9 @@ namespace Core.Components.GraphShape.Forms.Test
         [Test]
         public void GivenGraphControlWithoutData_WhenDataSet_ThenGraphControlUpdated()
         {
+            var originalSynchronizationContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+
             // Given
             using (var graphControl = new PointedTreeGraphControl())
             {
@@ -100,6 +104,8 @@ namespace Core.Components.GraphShape.Forms.Test
                 Assert.AreEqual(5, newGraph.VertexCount);
                 Assert.AreEqual(4, newGraph.EdgeCount);
             }
+
+            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
         }
 
         [Test]

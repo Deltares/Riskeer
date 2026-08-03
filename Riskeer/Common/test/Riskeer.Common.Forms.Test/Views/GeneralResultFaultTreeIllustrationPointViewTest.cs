@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Windows.Threading;
 using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using Core.Components.GraphShape.Data;
@@ -47,10 +48,13 @@ namespace Riskeer.Common.Forms.Test.Views
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
         private Form testForm;
+        private SynchronizationContext originalSynchronizationContext;
 
         [SetUp]
         public void Setup()
         {
+            originalSynchronizationContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
             testForm = new Form();
         }
 
@@ -58,6 +62,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void TearDown()
         {
             testForm.Dispose();
+            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
         }
 
         [Test]
