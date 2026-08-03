@@ -57,6 +57,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (backgroundLayerStatus == null || !backgroundLayerStatus.HasSameConfiguration(dataSource))
             {
+                backgroundLayerStatus?.Dispose();
                 backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(dataSource);
             }
 
@@ -66,6 +67,17 @@ namespace Core.Components.DotSpatial.Forms
         protected override bool OnHasSameConfiguration(ImageBasedMapData mapData)
         {
             return backgroundLayerStatus?.HasSameConfiguration(mapData) ?? false;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                backgroundLayerStatus?.Dispose();
+                backgroundLayerStatus = null;
+            }
+
+            base.Dispose(disposing);
         }
     }
 }
