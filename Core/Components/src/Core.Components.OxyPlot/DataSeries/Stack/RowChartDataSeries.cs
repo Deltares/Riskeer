@@ -45,6 +45,8 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
 
             IsStacked = true;
             StrokeThickness = 1;
+            XAxisKey = StackChartAxisKeys.ValueAxisKey;
+            YAxisKey = StackChartAxisKeys.CategoryAxisKey;
 
             RowChartDataConverter.ConvertSeriesData(rowChartData, this);
             RowChartDataConverter.ConvertSeriesProperties(rowChartData, this);

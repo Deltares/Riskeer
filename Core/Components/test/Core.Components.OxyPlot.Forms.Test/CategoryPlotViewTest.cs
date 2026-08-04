@@ -28,6 +28,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.WindowsForms;
+using Core.Components.OxyPlot.DataSeries.Stack;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {
@@ -53,6 +54,8 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(2, axes.Count);
 
             Axis categoryAxis = axes.First(ax => ax.GetType() == typeof(CategoryAxis));
+            Assert.AreEqual(AxisPosition.Bottom, categoryAxis.Position);
+            Assert.AreEqual(StackChartAxisKeys.CategoryAxisKey, categoryAxis.Key);
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(90, categoryAxis.Angle);
 
@@ -61,6 +64,8 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsFalse(categoryAxis.IsZoomEnabled);
 
             Axis linearAxis = axes.First(ax => ax.GetType() == typeof(LinearAxis));
+            Assert.AreEqual(AxisPosition.Left, linearAxis.Position);
+            Assert.AreEqual(StackChartAxisKeys.ValueAxisKey, linearAxis.Key);
             Assert.AreEqual(0, linearAxis.MinimumPadding);
             Assert.IsFalse(linearAxis.IsPanEnabled);
             Assert.IsFalse(linearAxis.IsZoomEnabled);

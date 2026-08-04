@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Core.Components.OxyPlot.DataSeries.Stack;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -47,6 +48,8 @@ namespace Core.Components.OxyPlot.Forms
 
             categoryAxis = new CategoryAxis
             {
+                Position = AxisPosition.Bottom,
+                Key = StackChartAxisKeys.CategoryAxisKey,
                 MinorStep = 1,
                 Angle = 90,
                 AbsoluteMinimum = -0.5,
@@ -56,6 +59,8 @@ namespace Core.Components.OxyPlot.Forms
 
             linearAxis = new LinearAxis
             {
+                Position = AxisPosition.Left,
+                Key = StackChartAxisKeys.ValueAxisKey,
                 AbsoluteMinimum = 0,
                 AbsoluteMaximum = 1,
                 MaximumPadding = 0.06,

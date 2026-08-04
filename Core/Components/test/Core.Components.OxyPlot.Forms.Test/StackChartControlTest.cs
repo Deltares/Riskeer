@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -80,6 +81,32 @@ namespace Core.Components.OxyPlot.Forms.Test
                 CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
                 AssertColumns(data.Columns.ToList(), plotView);
                 AssertSeries(data.Rows.Select(r => r.Name).ToList(), plotView);
+            }
+        }
+
+        [Test]
+        public void GivenChartControlWithData_WhenPlotModelUpdated_ThenNoBarSeriesCategoryAxisExceptionThrown()
+        {
+            // Given
+            using (var chart = new StackChartControl())
+            {
+                var data = new StackChartData();
+                data.AddColumn("Column 1");
+                data.AddColumn("Column 2");
+                data.AddRow("Row 1", new[]
+                {
+                    0.4,
+                    0.2
+                });
+                chart.Data = data;
+
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
+
+                // When
+                Action update = () => plotView.InvalidatePlot(true);
+
+                // Then
+                Assert.DoesNotThrow(update);
             }
         }
 

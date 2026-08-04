@@ -66,6 +66,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
             Assert.AreEqual(name, series.Title);
             Assert.IsTrue(series.IsStacked);
             Assert.AreEqual(1, series.StrokeThickness);
+            Assert.AreEqual(StackChartAxisKeys.ValueAxisKey, series.XAxisKey);
+            Assert.AreEqual(StackChartAxisKeys.CategoryAxisKey, series.YAxisKey);
             Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);
             CollectionAssert.AreEqual(values, series.Items.Select(i => i.Value));
         }
