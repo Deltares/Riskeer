@@ -52,7 +52,7 @@ All rights reserved.
     <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NSubstitute" Version="4.4.0">
+    <PackageReference Include="NSubstitute" Version="6.0.0">
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
