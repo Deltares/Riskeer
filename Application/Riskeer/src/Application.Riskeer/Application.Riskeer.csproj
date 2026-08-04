@@ -90,12 +90,12 @@ All rights reserved.
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
-      <Version>2.4.4</Version>
+      <Version>2.4.11</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
-      <Version>1.1.31</Version>
+      <Version>1.1.142</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -162,11 +162,11 @@ All rights reserved.
     </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.1\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net47\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.11\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net8.0-windows7.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.142\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x64\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x86\native\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite-1.0.119\x86\*&quot;"/>
