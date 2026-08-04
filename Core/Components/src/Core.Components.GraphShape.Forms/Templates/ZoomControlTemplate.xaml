@@ -43,7 +43,7 @@ All rights reserved.
                                 ClipToBounds="{TemplateBinding ClipToBounds}">
                             <controls:ZoomContentPresenter x:Name="PART_Presenter" ClipToBounds="False" Content="{TemplateBinding Content}" />
                         </Border>
-                        <Grid>
+                        <Grid IsHitTestVisible="False">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition MaxHeight="50" />
@@ -53,6 +53,7 @@ All rights reserved.
                                     BorderThickness="{TemplateBinding ZoomBoxBorderThickness}"
                                     Opacity="{TemplateBinding ZoomBoxOpacity}"
                                     Background="{TemplateBinding ZoomBoxBackground}"
+                                    IsHitTestVisible="False"
                                     Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Width}"
                                     Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ZoomBox.Height}" />
                             <Grid Grid.Row="1">
