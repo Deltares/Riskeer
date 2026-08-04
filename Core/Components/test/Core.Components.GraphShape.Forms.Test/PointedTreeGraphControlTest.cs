@@ -31,7 +31,6 @@ using Core.Components.GraphShape.TestUtil;
 using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
 using NUnit.Framework;
-using WPFExtensions.Controls;
 
 namespace Core.Components.GraphShape.Forms.Test
 {

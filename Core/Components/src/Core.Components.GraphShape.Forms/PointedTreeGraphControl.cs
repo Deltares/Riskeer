@@ -22,17 +22,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Text;
 using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Core.Common.Util.Drawing;
 using Core.Common.Util.Extensions;
 using Core.Components.GraphShape.Converters;
 using Core.Components.GraphShape.Data;
 using Core.Components.GraphShape.Forms.Layout;
+using Core.Components.GraphShape.Forms.Properties;
 using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
-using WPFExtensions.Controls;
+using DrawingFont = System.Drawing.Font;
 
 namespace Core.Components.GraphShape.Forms
 {
@@ -41,6 +44,9 @@ namespace Core.Components.GraphShape.Forms
     /// </summary>
     public partial class PointedTreeGraphControl : UserControl, IPointedTreeGraphControl
     {
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static readonly DrawingFont symbolsFont = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
+
         private readonly List<DrawnGraphNode> drawnGraphNodeList = new List<DrawnGraphNode>();
         private ZoomControl zoomControl;
         private GraphNode data;
@@ -54,6 +60,7 @@ namespace Core.Components.GraphShape.Forms
         public PointedTreeGraphControl()
         {
             InitializeComponent();
+            SetFonts();
             InitializeZoomControl();
         }
 
@@ -111,6 +118,11 @@ namespace Core.Components.GraphShape.Forms
             wpfElementHost.Child = zoomControl;
 
             CreateNewGraph();
+        }
+
+        private void SetFonts()
+        {
+            zoomToGraphExtentsToolStripButton.Font = symbolsFont;
         }
 
         private void ClearData()
@@ -204,16 +216,22 @@ namespace Core.Components.GraphShape.Forms
         private void ZoomControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             double deltaZoom = GetZoomDelta(e.Delta);
-            double width = zoomControl.ActualWidth * deltaZoom;
-            double height = zoomControl.ActualHeight * deltaZoom;
+            Rect currentViewport = zoomControl.ZoomBox.IsEmpty
+                                       ? new Rect(0, 0, zoomControl.ActualWidth, zoomControl.ActualHeight)
+                                       : zoomControl.ZoomBox;
+
+            double width = currentViewport.Width * deltaZoom;
+            double height = currentViewport.Height * deltaZoom;
 
             Point cursorPosition = e.GetPosition(zoomControl);
             double currentRelativeLeft = cursorPosition.X / zoomControl.ActualWidth;
             double currentRelativeTop = cursorPosition.Y / zoomControl.ActualHeight;
+            var contentPosition = new Point(currentViewport.X + currentViewport.Width * currentRelativeLeft,
+                                            currentViewport.Y + currentViewport.Height * currentRelativeTop);
 
             var topLeftCorner = new Point(
-                cursorPosition.X - width * currentRelativeLeft,
-                cursorPosition.Y - height * currentRelativeTop);
+                contentPosition.X - width * currentRelativeLeft,
+                contentPosition.Y - height * currentRelativeTop);
 
             var newSize = new Size(width, height);
             var zoomTo = new Rect(topLeftCorner, newSize);
@@ -226,6 +244,11 @@ namespace Core.Components.GraphShape.Forms
         {
             return Math.Max(1.0 / zoomControl.MaxZoomDelta,
                             Math.Min(zoomControl.MaxZoomDelta, delta / -zoomControl.ZoomDeltaMultiplier + 1.0));
+        }
+
+        private void ZoomToGraphExtentsToolStripButtonClick(object sender, EventArgs e)
+        {
+            zoomControl.ZoomToFill();
         }
 
         #endregion

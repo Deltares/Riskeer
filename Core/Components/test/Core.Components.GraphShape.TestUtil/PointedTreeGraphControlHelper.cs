@@ -25,7 +25,6 @@ using Core.Common.Util.Reflection;
 using Core.Components.GraphShape.Data;
 using Core.Components.GraphShape.Forms;
 using Core.Components.GraphShape.Forms.Layout;
-using WPFExtensions.Controls;
 
 namespace Core.Components.GraphShape.TestUtil
 {

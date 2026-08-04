@@ -89,6 +89,25 @@ namespace Core.Components.GraphShape.Forms.Properties {
                 return ResourceManager.GetString("Value_In_Scientific_Notation", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string PointedTreeGraphControl_ZoomToGraphExtents {
+            get {
+                return ResourceManager.GetString("PointedTreeGraphControl_ZoomToGraphExtents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Symbols {
+            get {
+                object obj = ResourceManager.GetObject("Symbols", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
