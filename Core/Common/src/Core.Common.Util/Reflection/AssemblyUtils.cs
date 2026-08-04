@@ -99,40 +99,7 @@ namespace Core.Common.Util.Reflection
         {
             return GetAssemblyInfo(Assembly.GetExecutingAssembly());
         }
-
-        /// <summary>
-        /// Returns the type based on the full type name.
-        /// </summary>
-        /// <param name="typeName">Full type name.</param>
-        /// <returns>The <see cref="Type"/> matching the string name, <c>null</c> otherwise.</returns>
-        /// <exception cref="AmbiguousMatchException">Thrown when the specified type string is 
-        /// found in multiple assemblies.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeName"/>
-        /// is <c>null</c>.</exception>
-        public static Type GetTypeByName(string typeName)
-        {
-            Type result = null;
-            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                Type foundType = a.GetType(typeName);
-                if (foundType != null)
-                {
-                    if (result == null)
-                    {
-                        result = foundType;
-                    }
-                    else
-                    {
-                        throw new AmbiguousMatchException(string.Format(CultureInfo.CurrentCulture,
-                                                                        "Type '{0}' found in multiple assemblies",
-                                                                        typeName));
-                    }
-                }
-            }
-
-            return result;
-        }
-
+        
         /// <summary>
         /// Gets a <see cref="Stream"/> to an embedded resource of an assembly.
         /// </summary>
