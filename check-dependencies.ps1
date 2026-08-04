@@ -284,76 +284,6 @@ function Test-ShouldSkipPossibleUnusedPackageCheck {
     return $normalized -match '(test\.sdk|testadapter|analyzers?|stylecop|coverlet|microsoft\.source(link|link)|fody|msbuild|build|targets)'
 }
 
-function ConvertTo-AssetSet {
-    param([string]$AssetList)
-
-    $assets = @{}
-
-    if ([string]::IsNullOrWhiteSpace($AssetList)) {
-        return $assets
-    }
-
-    foreach ($asset in ($AssetList -split '[;,\s]+')) {
-        if ([string]::IsNullOrWhiteSpace($asset)) {
-            continue
-        }
-
-        $assets[$asset.Trim().ToLowerInvariant()] = $true
-    }
-
-    return $assets
-}
-
-function Test-HasImplicitPackageReferenceUsage {
-    param([System.Xml.XmlNode]$PackageReference)
-
-    if (-not $PackageReference) {
-        return $false
-    }
-
-    $includeAssetsNode = $PackageReference.SelectSingleNode("*[local-name()='IncludeAssets']")
-    $excludeAssetsNode = $PackageReference.SelectSingleNode("*[local-name()='ExcludeAssets']")
-    $generatePathPropertyNode = $PackageReference.SelectSingleNode("*[local-name()='GeneratePathProperty']")
-
-    if ($generatePathPropertyNode -and $generatePathPropertyNode.InnerText.Trim().ToLowerInvariant() -eq "true") {
-        return $true
-    }
-
-    $includeAssetsValue = ""
-    if ($includeAssetsNode) {
-        $includeAssetsValue = $includeAssetsNode.InnerText
-    }
-
-    $excludeAssetsValue = ""
-    if ($excludeAssetsNode) {
-        $excludeAssetsValue = $excludeAssetsNode.InnerText
-    }
-
-    $includeAssets = ConvertTo-AssetSet $includeAssetsValue
-    $excludeAssets = ConvertTo-AssetSet $excludeAssetsValue
-
-    if ($includeAssets.Count -gt 0) {
-        $includesCompileOrRuntime =
-            $includeAssets.ContainsKey("all") -or
-            $includeAssets.ContainsKey("compile") -or
-            $includeAssets.ContainsKey("runtime")
-
-        if (-not $includesCompileOrRuntime) {
-            return $true
-        }
-    }
-
-    if ($excludeAssets.ContainsKey("all")) {
-        return $true
-    }
-
-    if ($excludeAssets.ContainsKey("compile") -and $excludeAssets.ContainsKey("runtime")) {
-        return $true
-    }
-
-    return $false
-}
-
 function Get-ProjectUsageTokens {
     param([string]$ProjectDirectory)
 
@@ -400,10 +330,6 @@ function Get-PossiblyUnusedPackageReferences {
             $packageName = $reference.Include
 
             if (Test-ShouldSkipPossibleUnusedPackageCheck -PackageName $packageName) {
-                continue
-            }
-
-            if (Test-HasImplicitPackageReferenceUsage -PackageReference $reference) {
                 continue
             }
 
@@ -500,34 +426,6 @@ function Get-UnusedDependencies {
             foreach ($token in $usageTokens.Keys) {
                 if ($token.Contains($normalizedDependency)) {
                     $isUsed = $true
-                    break
-                }
-            }
-        }
-
-        if (-not $isUsed) {
-            $dependencyParts = @()
-
-            foreach ($part in ($dependencyName -split '[^A-Za-z0-9]+')) {
-                $normalizedPart = ConvertTo-NormalizedIdentifier $part
-                if ($normalizedPart.Length -lt 4) {
-                    continue
-                }
-
-                $dependencyParts += $normalizedPart
-            }
-
-            $dependencyParts = @($dependencyParts | Select-Object -Unique)
-
-            foreach ($dependencyPart in $dependencyParts) {
-                foreach ($token in $usageTokens.Keys) {
-                    if ($token.Contains($dependencyPart)) {
-                        $isUsed = $true
-                        break
-                    }
-                }
-
-                if ($isUsed) {
                     break
                 }
             }
