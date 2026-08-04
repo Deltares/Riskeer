@@ -148,6 +148,17 @@ namespace Application.Riskeer
             RunRiskeer();
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            System.Windows.Forms.Application.ThreadException -= Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
+
+            gui?.Dispose();
+            gui = null;
+
+            base.OnExit(e);
+        }
+
         private void RunRiskeer()
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
