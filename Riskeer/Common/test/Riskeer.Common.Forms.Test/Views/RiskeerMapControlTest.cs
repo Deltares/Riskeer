@@ -181,7 +181,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNotNull(riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreNotSame(oldMapData, riskeerMapControl.MapControl.BackgroundMapData);
                 Assert.AreNotEqual(oldMapData.GetType(), riskeerMapControl.MapControl.BackgroundMapData.GetType());
-                // Expect no observers notified
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 

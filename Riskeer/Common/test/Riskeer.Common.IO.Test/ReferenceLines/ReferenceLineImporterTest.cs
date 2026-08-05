@@ -344,7 +344,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            // Expect no NotifyObserver calls
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
