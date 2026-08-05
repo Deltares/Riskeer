@@ -284,10 +284,14 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var allRequestsDoneEvent = new ManualResetEvent(false))
             {
-                var tileProvider = new TileProviderStub(allRequestsDoneEvent)
+                var callCount = 0;
+                var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+                ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(_ =>
                 {
-                    TileDataToReturn = data
-                };
+                    allRequestsDoneEvent.WaitOne();
+                    callCount++;
+                    return Task.FromResult(data);
+                });
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
@@ -317,7 +321,7 @@ namespace Core.Components.BruTile.IO.Test
                     // Assert
                     if (fetcherIsDoneEvent.WaitOne(allowedTileFetchTime))
                     {
-                        Assert.AreEqual(1, tileProvider.GetTileCallCount);
+                        Assert.AreEqual(1, callCount);
 
                         Assert.AreEqual(1, tileReceivedCounter);
                         Assert.AreSame(data, receivedArguments.Tile);
@@ -412,10 +416,12 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var blockingEvent = new ManualResetEvent(false))
             {
-                var blockingTileProvider = new TileProviderStub(blockingEvent)
+                var blockingTileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+                ((ILocalTileSource) blockingTileProvider).GetTileAsync(info).Returns(_ =>
                 {
-                    TileDataToReturn = data
-                };
+                    blockingEvent.WaitOne();
+                    return Task.FromResult(data);
+                });
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(blockingTileProvider, 100, 200))
@@ -536,36 +542,5 @@ namespace Core.Components.BruTile.IO.Test
             Assert.DoesNotThrow(call);
         }
 
-        /// <summary>
-        /// A stub implementation of <see cref="ILocalTileSource"/> that can wait to return
-        /// on its methods until an signal is given from another thread.
-        /// </summary>
-        /// <remarks>Mocking this behavior in Rhinomocks leads to deadlocks.</remarks>
-        private class TileProviderStub : ITileSource, ILocalTileSource
-        {
-            private readonly EventWaitHandle getTileShouldReturnEvent;
-
-            public TileProviderStub(EventWaitHandle getTileShouldReturnEvent)
-            {
-                this.getTileShouldReturnEvent = getTileShouldReturnEvent;
-            }
-
-            public byte[] TileDataToReturn { get; set; }
-
-            public int GetTileCallCount { get; private set; }
-
-            public ITileSchema Schema => null;
-
-            public string Name => string.Empty;
-
-            public Attribution Attribution => default(Attribution);
-
-            public Task<byte[]> GetTileAsync(TileInfo tileInfo)
-            {
-                getTileShouldReturnEvent.WaitOne();
-                GetTileCallCount++;
-                return Task.FromResult(TileDataToReturn);
-            }
-        }
     }
 }
